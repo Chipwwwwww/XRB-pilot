@@ -5,18 +5,29 @@
   HI_colours_intensity   3 features
   H_plus_B               47 features
   HI_plus_A              48 features
-re-using v3a_oof_predictions.csv
+  A_intensity              LogReg       done
+  A_intensity              RandomForest done
+  B_shape                  LogReg       done
+  B_shape                  RandomForest done
+  H_colours                LogReg       done
+  H_colours                RandomForest done
+  HI_colours_intensity     LogReg       done
+  HI_colours_intensity     RandomForest done
+  H_plus_B                 LogReg       done
+  H_plus_B                 RandomForest done
+  HI_plus_A                LogReg       done
+  HI_plus_A                RandomForest done
 
 Reproduction of v2 OOF predictions:
       representation        model  max_abs_score_diff  n_label_changes
-         A_intensity       LogReg        4.371770e-11                0
+         A_intensity       LogReg        1.110223e-16                0
          A_intensity RandomForest        1.110223e-16                0
-             B_shape       LogReg        7.783074e-10                0
+             B_shape       LogReg        1.110223e-16                0
              B_shape RandomForest        1.110223e-16                0
-HI_colours_intensity       LogReg        3.330669e-16                0
-HI_colours_intensity RandomForest        2.220446e-16                0
-           H_colours       LogReg        3.330669e-16                0
-           H_colours RandomForest        3.330669e-16                0
+HI_colours_intensity       LogReg        1.110223e-16                0
+HI_colours_intensity RandomForest        1.110223e-16                0
+           H_colours       LogReg        1.110223e-16                0
+           H_colours RandomForest        2.220446e-16                0
 
 Point metrics:
       representation        model  n_obs  n_sources  BH_recall  NS_recall  obs_balanced_accuracy  obs_AUC  source_balanced_accuracy  source_AUC BH_sources_correct NS_sources_correct

@@ -1,5 +1,6 @@
 data/raw/
 data/cache/
+results/v3/_sandbox_copy/
 .venv/
 venv/
 __pycache__/

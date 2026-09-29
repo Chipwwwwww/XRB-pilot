@@ -1,0 +1,18 @@
+file,item,max_abs_diff,n_text_or_label_changes,tolerance,within_tolerance
+v3a_oof_predictions,A_intensity/LogReg,4.371769612987464e-11,0,1e-08,True
+v3a_oof_predictions,A_intensity/RandomForest,1.1102230246251565e-16,0,0.01,True
+v3a_oof_predictions,B_shape/LogReg,7.783074185141459e-10,0,1e-08,True
+v3a_oof_predictions,B_shape/RandomForest,1.1102230246251565e-16,0,0.01,True
+v3a_oof_predictions,H_colours/LogReg,3.3306690738754696e-16,0,1e-08,True
+v3a_oof_predictions,H_colours/RandomForest,3.3306690738754696e-16,0,0.01,True
+v3a_oof_predictions,HI_colours_intensity/LogReg,3.3306690738754696e-16,0,1e-08,True
+v3a_oof_predictions,HI_colours_intensity/RandomForest,1.1102230246251565e-16,0,0.01,True
+v3a_oof_predictions,H_plus_B/LogReg,9.093170660889882e-12,0,1e-08,True
+v3a_oof_predictions,H_plus_B/RandomForest,2.220446049250313e-16,0,0.01,True
+v3a_oof_predictions,HI_plus_A/LogReg,5.139124681363683e-10,0,1e-08,True
+v3a_oof_predictions,HI_plus_A/RandomForest,2.220446049250313e-16,0,0.01,True
+v3a_bootstrap,all rows,0.0,0,,True
+v3a_metrics,all rows,0.0,0,,True
+v3a_per_source,all rows,1.4396869807420387e-10,0,,True
+v3a_agreement,all rows,0.0,0,,True
+v3a_reproduction_check,all rows,7.783073074918434e-10,0,,True

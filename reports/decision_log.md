@@ -40,3 +40,11 @@
 | v3a 程式 | bootstrap 改為向量化（純效能；結果與 `09_bootstrap_sources.py` 逐位一致）；OOF 已存在時預設重用（`--retrain` 可重跑）；抑制 sklearn 1.8 `penalty` FutureWarning | 否（純效能／log） |
 | v3b/v3c | 無法在雲端執行（HEASARC 對沙盒回應 403、原始 FITS 不在 git）。程式以合成 FITS 做過端到端 smoke test（合成資料，不是結果，未保存） | 否 |
 | v3c 名單 | 候選名單由記憶整理，**未逐一查證**；執行前須由使用者對照 BlackCAT 確認並凍結 | 否 |
+
+## v3 本機執行（Windows，2026-09-30，分支 `v3-analysis`）
+
+| 時間 | 決定 / 變更 | 是否在看到 v3b/v3c 分類結果之後 |
+|---|---|---|
+| 套用 patch | `Downloads\xrb-pilot-v3.patch` 原本不在；使用者在對話中貼上全文，從對話紀錄取出未被改寫格式的版本（另一份貼上版本的 email 標頭被轉成 Markdown 連結），`git am` 無衝突（commit 7b1ccd8；PNG 129984 bytes 與 patch 一致） | 否 |
+| 環境 | venv 套件與 `requirements-lock.txt` 一致（numpy 2.4.4、pandas 2.3.3、scipy 1.17.1、scikit-learn 1.8.0、astropy 7.2.0、matplotlib 3.10.9）；沙盒用 pandas 3.0.2 | 與結果無關 |
+| v3a 本機重現 | `11_v3a_increment.py --retrain`：12 組 OOF 與沙盒相比 LR 最大差 7.8e-10、RF 2.2e-16，0 個標籤改變；`v3a_bootstrap/metrics/agreement` 完全相同 → `results/v3/v3a_local_vs_sandbox.csv`。提交本機重跑的輸出；沙盒副本已刪除 | 與結果無關（重現檢查） |

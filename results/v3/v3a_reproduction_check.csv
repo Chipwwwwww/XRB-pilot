@@ -1,9 +1,9 @@
 representation,model,max_abs_score_diff,n_label_changes
-A_intensity,LogReg,4.371769612987464e-11,0
+A_intensity,LogReg,1.1102230246251565e-16,0
 A_intensity,RandomForest,1.1102230246251565e-16,0
-B_shape,LogReg,7.783074185141459e-10,0
+B_shape,LogReg,1.1102230246251565e-16,0
 B_shape,RandomForest,1.1102230246251565e-16,0
-HI_colours_intensity,LogReg,3.3306690738754696e-16,0
-HI_colours_intensity,RandomForest,2.220446049250313e-16,0
-H_colours,LogReg,3.3306690738754696e-16,0
-H_colours,RandomForest,3.3306690738754696e-16,0
+HI_colours_intensity,LogReg,1.1102230246251565e-16,0
+HI_colours_intensity,RandomForest,1.1102230246251565e-16,0
+H_colours,LogReg,1.1102230246251565e-16,0
+H_colours,RandomForest,2.220446049250313e-16,0
