@@ -1,5 +1,19 @@
 {
-  "utc": "2026-09-29T19:45:05.710507+00:00",
-  "stage": "v3a_increment",
-  "details": "results/v3/v3a_* written; reproduction {\"A_intensity/LogReg\": 0.0, \"A_intensity/RandomForest\": 0.0, \"B_shape/LogReg\": 0.0, \"B_shape/RandomForest\": 0.0, \"HI_colours_intensity/LogReg\": 0.0, \"HI_colours_intensity/RandomForest\": 0.0, \"H_colours/LogReg\": 0.0, \"H_colours/RandomForest\": 0.0}"
+  "utc": "2026-09-29T19:59:44+00:00",
+  "stage": "v3_complete",
+  "branch": "v3-analysis",
+  "done": [
+    "v3 patch applied (git am, commit 7b1ccd8)",
+    "v3a local --retrain reproduces sandbox (results/v3/v3a_local_vs_sandbox.csv)",
+    "v3c candidate list verified against BlackCAT and frozen (reports/v3c_candidate_verification.md)",
+    "v3b 3-25 keV (456/456 observations; results/v3/v3b_*)",
+    "v3c 14 candidates / 210 observations downloaded and processed; analyses 1-2 (results/v3/v3c_*)",
+    "report_v3_zh-TW.md, README, decision_log updated"
+  ],
+  "not_done": [
+    "merge v3-analysis into master (left to the user)",
+    "any analysis beyond preregistration_v3.md (spectral-state split, per-source N_H) - needs a new preregistration"
+  ],
+  "next_command": "git checkout v3-analysis; .\\run_v3.ps1 -a -b -c   # full rerun; downloads are resumable via logs/downloads.jsonl"
 }
+

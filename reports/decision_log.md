@@ -53,3 +53,5 @@
 | v3c 目錄檔 | `13_v3c_resolve_catalogs.py`：13/16 找到。依 HEASARC MissionLongData listing 修正 `catalog_name`：Swift J1753.5-0127 → `SWIFTJ1753.5-01`（唯一修改，允許的檔名修正）。XTE J1748-288、GRS 1739-278 在 listing 中沒有任何對應檔（搜尋 1739/1748/GRS 變體）→ 無 RXTE 目錄，依程式規則跳過並記錄 | 否（v3b 仍在執行、尚未看其結果；v3c 尚未下載） |
 | v3c 選樣／處理 | `XRB_VERSION=v3c` 執行 03/04/06：14 源皆 ≥16 筆合格，各取 15 筆，210/210 接受；格點與 v2 相同；XTE J1908+094 hdr_sep ≤1.2e-5°，全部源 ≤0.035°；06 在單一類別下正常完成（未改程式）。1E 1740.7-2942、GRS 1758-258 的 OBJECT 為 `NEAR_...`，但指向差 ≤5e-4°。15 筆有高能端非正值 bin（照 v2 規則保留） | 否 |
 | v3c 分析 | `14_v3c_candidates.py` 依預先設定執行；未改任何設定 | 執行後未更改 |
+| 報告 | `report_v3_zh-TW.md` §3–§7 改寫為 v3b、v3c 結果、解讀（分三層）、限制與「與預先設定的差異」；README、progress.json 更新。與預先設定的差異僅：Swift J1753.5-0127 檔名修正、2 個候選無 RXTE 目錄 | 是（只寫文件，未改分析） |
+| 目前進度 | v3a/v3b/v3c 全部完成並 commit 在分支 `v3-analysis`（未合併 master）。下一步（需另行預先設定）：依能態分組比較、逐源 N_H、更多確認 BH | — |
