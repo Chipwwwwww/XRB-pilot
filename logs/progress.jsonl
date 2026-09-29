@@ -21,3 +21,4 @@
 {"utc": "2026-09-29T15:33:18.872224+00:00", "stage": "3c_dataset_checks_v2", "details": "results/data_checks.md + step3 figures"}
 {"utc": "2026-09-29T15:33:22.695502+00:00", "stage": "5_error_analysis_v2", "details": "results/error_analysis.md + step5 figures"}
 {"utc": "2026-09-29T15:36:53.919146+00:00", "stage": "v2_done_except_xspec", "details": "v2 complete: 31 sources/456 obs, Std1 deadtime, bootstrap, hardness baselines, reports/report_v2_zh-TW.md. Pending: HEASoft conda install in WSL (scripts/install_heasoft_wsl.sh), then: set XRB_VERSION=v2 and run scripts/10_xspec_crosscheck.py"}
+{"utc": "2026-09-29T16:24:28.908652+00:00", "stage": "xspec_crosscheck_v2", "details": "max |ratio-1| = 3.15e-10"}

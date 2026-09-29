@@ -1,5 +1,5 @@
 {
-  "utc": "2026-09-29T15:36:53.919146+00:00",
-  "stage": "v2_done_except_xspec",
-  "details": "v2 complete: 31 sources/456 obs, Std1 deadtime, bootstrap, hardness baselines, reports/report_v2_zh-TW.md. Pending: HEASoft conda install in WSL (scripts/install_heasoft_wsl.sh), then: set XRB_VERSION=v2 and run scripts/10_xspec_crosscheck.py"
+  "utc": "2026-09-29T16:24:28.908652+00:00",
+  "stage": "xspec_crosscheck_v2",
+  "details": "max |ratio-1| = 3.15e-10"
 }

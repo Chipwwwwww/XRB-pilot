@@ -34,8 +34,11 @@ tclout noticed 1
 puts "NOTICED $xspec_tclout"
 exit
 EOF'''
-    out = subprocess.run(['wsl.exe', '-d', 'Ubuntu-22.04', '-u', 'root', '--', 'bash', '-lc', cmd],
-                         capture_output=True, text=True, timeout=300).stdout
+    # pass the commands as a script file: inline 'bash -lc' through wsl.exe expanded $xspec_tclout to ''
+    sh = work/f'xspec_{o}.sh'
+    sh.write_bytes((cmd + '\n').encode())                                  # LF line endings
+    out = subprocess.run(['wsl.exe', '-d', 'Ubuntu-22.04', '-u', 'root', '--', 'bash', f'{wsl_root}/data/raw/xspec_check/{sh.name}'],
+                         capture_output=True, timeout=300).stdout.decode(errors='ignore').replace('\0', '')
     rate = [l for l in out.splitlines() if l.startswith('RATE')]; ntc = [l for l in out.splitlines() if l.startswith('NOTICED')]
     if not rate or not ntc:
         rows.append(dict(obs_id=r.obs_id, source_id=r.source_id, error=out[-300:])); continue

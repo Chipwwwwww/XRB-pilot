@@ -126,8 +126,14 @@ Observation-wise 5-fold（同一天體同時在訓練與測試）：balanced acc
   但依原則它們不能當作確定標籤；可作為「預測對象」而非訓練標籤。
 - 若加入 HEXTE（>25 keV）或狀態分組，是否能超過兩個顏色的表現。
 
-## 6. HEASoft / XSPEC 交叉檢查
-見 §6 的附加結果（`results/v2/xspec_crosscheck.csv`，若已完成）。
+## 6. HEASoft / XSPEC 交叉檢查（`scripts/10_xspec_crosscheck.py`, `results/v2/xspec_crosscheck.csv`）
+- 環境：WSL Ubuntu 22.04 + HEASARC 官方 conda 套件 **HEASoft 6.37.1**（含 XSPEC、pcabackest、saextrct）。
+- 以固定亂數（seed 42）從 v2 樣本抽 12 筆觀測（10 個天體，淨計數率 5–950 c/s）。
+  XSPEC：`data` 載入 s2.pha、`backgrnd` 載入 b2.pha、`response` 載入 rsp、`ignore **-5.0 25.0-**`，讀取 `tclout rate`；
+  Python：同一組 XSPEC 保留的通道（10–52 或 10–53），用 `spectra.net_spectrum`（不含 deadtime）加總。
+- 結果：12 筆的淨計數率與誤差 **完全一致**，最大相對差 3×10⁻¹⁰（淨率）與 4×10⁻¹⁰（誤差），即數值捨入等級。
+- 這驗證了背景扣除公式（曝光、BACKSCAL、AREASCAL）與誤差傳遞和標準工具相同。
+  它不驗證 deadtime（XSPEC 不會自動做）、重分箱到共同能量格點，或背景模型本身的正確性。
 
 ## 7. 限制
 1. BH 天體太少（7），類別嚴重不平衡（天體 7:24）；來源層級指標的區間仍寬。
