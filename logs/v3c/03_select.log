@@ -1,0 +1,14 @@
+H1743-322 {'source_id': 'H1743-322', 'catalog_rows': 545, 'after_dedup': 545, 'after_epoch5_window': 545, 'after_exposure': 460, 'after_std1rate': 460, 'after_pointing': 434}
+4U1630-47 {'source_id': '4U1630-47', 'catalog_rows': 1092, 'after_dedup': 1092, 'after_epoch5_window': 883, 'after_exposure': 694, 'after_std1rate': 684, 'after_pointing': 607}
+XTEJ1752-223 {'source_id': 'XTEJ1752-223', 'catalog_rows': 212, 'after_dedup': 212, 'after_epoch5_window': 212, 'after_exposure': 162, 'after_std1rate': 160, 'after_pointing': 160}
+XTEJ1817-330 {'source_id': 'XTEJ1817-330', 'catalog_rows': 157, 'after_dedup': 157, 'after_epoch5_window': 157, 'after_exposure': 133, 'after_std1rate': 132, 'after_pointing': 131}
+XTEJ1720-318 {'source_id': 'XTEJ1720-318', 'catalog_rows': 101, 'after_dedup': 101, 'after_epoch5_window': 101, 'after_exposure': 88, 'after_std1rate': 88, 'after_pointing': 88}
+MAXIJ1659-152 {'source_id': 'MAXIJ1659-152', 'catalog_rows': 66, 'after_dedup': 66, 'after_epoch5_window': 66, 'after_exposure': 55, 'after_std1rate': 55, 'after_pointing': 55}
+SWIFTJ1753.5-0127 {'source_id': 'SWIFTJ1753.5-0127', 'catalog_rows': 351, 'after_dedup': 351, 'after_epoch5_window': 351, 'after_exposure': 332, 'after_std1rate': 332, 'after_pointing': 332}
+XTEJ1908+094 {'source_id': 'XTEJ1908+094', 'catalog_rows': 32, 'after_dedup': 32, 'after_epoch5_window': 32, 'after_exposure': 16, 'after_std1rate': 16, 'after_pointing': 16}
+IGRJ17091-3624 {'source_id': 'IGRJ17091-3624', 'catalog_rows': 232, 'after_dedup': 232, 'after_epoch5_window': 232, 'after_exposure': 196, 'after_std1rate': 196, 'after_pointing': 185}
+SLX1746-331 {'source_id': 'SLX1746-331', 'catalog_rows': 65, 'after_dedup': 65, 'after_epoch5_window': 65, 'after_exposure': 57, 'after_std1rate': 57, 'after_pointing': 57}
+XTEJ1652-453 {'source_id': 'XTEJ1652-453', 'catalog_rows': 57, 'after_dedup': 57, 'after_epoch5_window': 57, 'after_exposure': 44, 'after_std1rate': 42, 'after_pointing': 41}
+GRS1758-258 {'source_id': 'GRS1758-258', 'catalog_rows': 832, 'after_dedup': 832, 'after_epoch5_window': 624, 'after_exposure': 590, 'after_std1rate': 590, 'after_pointing': 590}
+1E1740.7-2942 {'source_id': '1E1740.7-2942', 'catalog_rows': 810, 'after_dedup': 810, 'after_epoch5_window': 597, 'after_exposure': 572, 'after_std1rate': 572, 'after_pointing': 572}
+4U1957+11 {'source_id': '4U1957+11', 'catalog_rows': 118, 'after_dedup': 118, 'after_epoch5_window': 103, 'after_exposure': 89, 'after_std1rate': 89, 'after_pointing': 89}

@@ -50,3 +50,6 @@
 | v3a 本機重現 | `11_v3a_increment.py --retrain`：12 組 OOF 與沙盒相比 LR 最大差 7.8e-10、RF 2.2e-16，0 個標籤改變；`v3a_bootstrap/metrics/agreement` 完全相同 → `results/v3/v3a_local_vs_sandbox.csv`。提交本機重跑的輸出；沙盒副本已刪除 | 與結果無關（重現檢查） |
 | 2026-09-30 03:47 +08:00 v3c 名單凍結 | 對照 BlackCAT 網頁版各天體頁與 Corral-Santana+2016：16 個全部保留、0 刪除（無動力學確認、無 NS 證據）。MAXI J1659-152、Swift J1753.5-0127 屬 BlackCAT「嚴格說非動力學、但質量證據強」類，依規則保留並標註；GRS 1758-258、1E 1740.7-2942、4U 1957+11 為論文 §2 persistent 類。詳見 `reports/v3c_candidate_verification.md`；`config.py` 未修改（SHA256 06503f11…013d）。此時尚未執行 v3b、未下載任何 v3c 資料 | 否（v3b、v3c 皆尚未執行） |
 | v3b 執行 | `12_v3b_extended_band.py`：格點 50 bins、2.883–25.008 keV（新增 5 個 <4.91 keV bins）；456/456 筆接受，5–25 keV 部分與 v2 最大相對差 6.9e-16，0 筆 v2_mismatch、0 筆 3–5 keV 非正值 bin。未改任何規則 | 執行本身與結果無關；之後未更改任何設定 |
+| v3c 目錄檔 | `13_v3c_resolve_catalogs.py`：13/16 找到。依 HEASARC MissionLongData listing 修正 `catalog_name`：Swift J1753.5-0127 → `SWIFTJ1753.5-01`（唯一修改，允許的檔名修正）。XTE J1748-288、GRS 1739-278 在 listing 中沒有任何對應檔（搜尋 1739/1748/GRS 變體）→ 無 RXTE 目錄，依程式規則跳過並記錄 | 否（v3b 仍在執行、尚未看其結果；v3c 尚未下載） |
+| v3c 選樣／處理 | `XRB_VERSION=v3c` 執行 03/04/06：14 源皆 ≥16 筆合格，各取 15 筆，210/210 接受；格點與 v2 相同；XTE J1908+094 hdr_sep ≤1.2e-5°，全部源 ≤0.035°；06 在單一類別下正常完成（未改程式）。1E 1740.7-2942、GRS 1758-258 的 OBJECT 為 `NEAR_...`，但指向差 ≤5e-4°。15 筆有高能端非正值 bin（照 v2 規則保留） | 否 |
+| v3c 分析 | `14_v3c_candidates.py` 依預先設定執行；未改任何設定 | 執行後未更改 |

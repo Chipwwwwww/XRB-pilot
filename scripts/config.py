@@ -133,7 +133,7 @@ if _os.environ.get('XRB_VERSION', 'v1') == 'v3c':
         _c('XTEJ1720-318', 'XTEJ1720-318', 'XTE J1720-318', ''),
         _c('XTEJ1748-288', 'XTEJ1748-288', 'XTE J1748-288', '', '(Galactic-centre field) '),
         _c('MAXIJ1659-152', 'MAXIJ1659-152', 'MAXI J1659-152', ''),
-        _c('SWIFTJ1753.5-0127', 'SWIFTJ1753.5-0127', 'Swift J1753.5-0127', ''),
+        _c('SWIFTJ1753.5-0127', 'SWIFTJ1753.5-01', 'Swift J1753.5-0127', ''),   # catalog_name fixed from HEASARC listing
         _c('XTEJ1908+094', 'XTEJ1908+094', 'XTE J1908+094', '',
            '(4U 1907+097 is ~0.4 deg away: keep the 0.1 deg pointing check; Garg+2026 pairing error) '),
         _c('IGRJ17091-3624', 'IGRJ17091-3624', 'IGR J17091-3624', ''),
