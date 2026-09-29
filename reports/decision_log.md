@@ -48,3 +48,4 @@
 | 套用 patch | `Downloads\xrb-pilot-v3.patch` 原本不在；使用者在對話中貼上全文，從對話紀錄取出未被改寫格式的版本（另一份貼上版本的 email 標頭被轉成 Markdown 連結），`git am` 無衝突（commit 7b1ccd8；PNG 129984 bytes 與 patch 一致） | 否 |
 | 環境 | venv 套件與 `requirements-lock.txt` 一致（numpy 2.4.4、pandas 2.3.3、scipy 1.17.1、scikit-learn 1.8.0、astropy 7.2.0、matplotlib 3.10.9）；沙盒用 pandas 3.0.2 | 與結果無關 |
 | v3a 本機重現 | `11_v3a_increment.py --retrain`：12 組 OOF 與沙盒相比 LR 最大差 7.8e-10、RF 2.2e-16，0 個標籤改變；`v3a_bootstrap/metrics/agreement` 完全相同 → `results/v3/v3a_local_vs_sandbox.csv`。提交本機重跑的輸出；沙盒副本已刪除 | 與結果無關（重現檢查） |
+| 2026-09-30 03:47 +08:00 v3c 名單凍結 | 對照 BlackCAT 網頁版各天體頁與 Corral-Santana+2016：16 個全部保留、0 刪除（無動力學確認、無 NS 證據）。MAXI J1659-152、Swift J1753.5-0127 屬 BlackCAT「嚴格說非動力學、但質量證據強」類，依規則保留並標註；GRS 1758-258、1E 1740.7-2942、4U 1957+11 為論文 §2 persistent 類。詳見 `reports/v3c_candidate_verification.md`；`config.py` 未修改（SHA256 06503f11…013d）。此時尚未執行 v3b、未下載任何 v3c 資料 | 否（v3b、v3c 皆尚未執行） |
