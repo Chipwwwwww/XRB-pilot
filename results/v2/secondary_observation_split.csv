@@ -1,0 +1,9 @@
+representation,model,split,balanced_accuracy
+A_intensity,LogReg,observation-wise 5-fold (sources shared),0.7678876678876678
+A_intensity,RandomForest,observation-wise 5-fold (sources shared),0.77008547008547
+B_shape,LogReg,observation-wise 5-fold (sources shared),0.8402116402116402
+B_shape,RandomForest,observation-wise 5-fold (sources shared),0.8286121286121286
+H_colours,LogReg,observation-wise 5-fold (sources shared),0.8150590150590151
+H_colours,RandomForest,observation-wise 5-fold (sources shared),0.842002442002442
+HI_colours_intensity,LogReg,observation-wise 5-fold (sources shared),0.8212047212047212
+HI_colours_intensity,RandomForest,observation-wise 5-fold (sources shared),0.8781440781440781

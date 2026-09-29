@@ -1,0 +1,33 @@
+GROJ1655-40 {'source_id': 'GROJ1655-40', 'catalog_rows': 593, 'after_dedup': 593, 'after_epoch5_window': 512, 'after_exposure': 477, 'after_std1rate': 440, 'after_pointing': 440}
+GRS1915+105 {'source_id': 'GRS1915+105', 'catalog_rows': 1809, 'after_dedup': 1809, 'after_epoch5_window': 1296, 'after_exposure': 1033, 'after_std1rate': 1033, 'after_pointing': 1033}
+XTEJ1550-564 {'source_id': 'XTEJ1550-564', 'catalog_rows': 414, 'after_dedup': 414, 'after_epoch5_window': 138, 'after_exposure': 99, 'after_std1rate': 79, 'after_pointing': 63}
+4U1543-47 {'source_id': '4U1543-47', 'catalog_rows': 108, 'after_dedup': 108, 'after_epoch5_window': 108, 'after_exposure': 97, 'after_std1rate': 58, 'after_pointing': 58}
+GX339-4 {'source_id': 'GX339-4', 'catalog_rows': 1405, 'after_dedup': 1405, 'after_epoch5_window': 1315, 'after_exposure': 692, 'after_std1rate': 652, 'after_pointing': 652}
+XTEJ1650-500 {'source_id': 'XTEJ1650-500', 'catalog_rows': 184, 'after_dedup': 184, 'after_epoch5_window': 184, 'after_exposure': 128, 'after_std1rate': 95, 'after_pointing': 95}
+XTEJ1118+480 {'source_id': 'XTEJ1118+480', 'catalog_rows': 99, 'after_dedup': 99, 'after_epoch5_window': 71, 'after_exposure': 51, 'after_std1rate': 41, 'after_pointing': 41}
+XTEJ1859+226 {'source_id': 'XTEJ1859+226', 'catalog_rows': 136, 'after_dedup': 136, 'after_epoch5_window': 2, 'after_exposure': 2, 'after_std1rate': 0, 'after_pointing': 0} DROPPED: fewer than MIN_ELIGIBLE
+V4641SGR {'source_id': 'V4641SGR', 'catalog_rows': 75, 'after_dedup': 75, 'after_epoch5_window': 63, 'after_exposure': 44, 'after_std1rate': 9, 'after_pointing': 9} DROPPED: fewer than MIN_ELIGIBLE
+4U1636-53 {'source_id': '4U1636-53', 'catalog_rows': 1580, 'after_dedup': 1580, 'after_epoch5_window': 1482, 'after_exposure': 1332, 'after_std1rate': 1332, 'after_pointing': 1332}
+4U1608-52 {'source_id': '4U1608-52', 'catalog_rows': 1128, 'after_dedup': 1128, 'after_epoch5_window': 1002, 'after_exposure': 567, 'after_std1rate': 540, 'after_pointing': 540}
+4U1728-34 {'source_id': '4U1728-34', 'catalog_rows': 440, 'after_dedup': 440, 'after_epoch5_window': 296, 'after_exposure': 282, 'after_std1rate': 282, 'after_pointing': 276}
+AQLX1 {'source_id': 'AQLX1', 'catalog_rows': 602, 'after_dedup': 602, 'after_epoch5_window': 462, 'after_exposure': 432, 'after_std1rate': 400, 'after_pointing': 400}
+EXO0748-676 {'source_id': 'EXO0748-676', 'catalog_rows': 751, 'after_dedup': 751, 'after_epoch5_window': 616, 'after_exposure': 526, 'after_std1rate': 510, 'after_pointing': 510}
+4U1254-690 {'source_id': '4U1254-690', 'catalog_rows': 37, 'after_dedup': 37, 'after_epoch5_window': 27, 'after_exposure': 24, 'after_std1rate': 24, 'after_pointing': 24}
+4U1323-619 {'source_id': '4U1323-619', 'catalog_rows': 32, 'after_dedup': 32, 'after_epoch5_window': 20, 'after_exposure': 19, 'after_std1rate': 19, 'after_pointing': 19}
+MXB1658-298 {'source_id': 'MXB1658-298', 'catalog_rows': 81, 'after_dedup': 81, 'after_epoch5_window': 36, 'after_exposure': 33, 'after_std1rate': 30, 'after_pointing': 30}
+4U1702-429 {'source_id': '4U1702-429', 'catalog_rows': 228, 'after_dedup': 228, 'after_epoch5_window': 211, 'after_exposure': 201, 'after_std1rate': 201, 'after_pointing': 201}
+4U1705-44 {'source_id': '4U1705-44', 'catalog_rows': 508, 'after_dedup': 508, 'after_epoch5_window': 429, 'after_exposure': 402, 'after_std1rate': 402, 'after_pointing': 402}
+4U1724-307 {'source_id': '4U1724-307', 'catalog_rows': 127, 'after_dedup': 127, 'after_epoch5_window': 79, 'after_exposure': 77, 'after_std1rate': 77, 'after_pointing': 77}
+KS1731-260 {'source_id': 'KS1731-260', 'catalog_rows': 86, 'after_dedup': 86, 'after_epoch5_window': 45, 'after_exposure': 42, 'after_std1rate': 33, 'after_pointing': 33}
+SLX1735-269 {'source_id': 'SLX1735-269', 'catalog_rows': 82, 'after_dedup': 82, 'after_epoch5_window': 66, 'after_exposure': 65, 'after_std1rate': 65, 'after_pointing': 64}
+4U1735-44 {'source_id': '4U1735-44', 'catalog_rows': 224, 'after_dedup': 224, 'after_epoch5_window': 172, 'after_exposure': 161, 'after_std1rate': 161, 'after_pointing': 161}
+GX3+1 {'source_id': 'GX3+1', 'catalog_rows': 108, 'after_dedup': 108, 'after_epoch5_window': 77, 'after_exposure': 75, 'after_std1rate': 75, 'after_pointing': 75}
+4U1746-371 {'source_id': '4U1746-371', 'catalog_rows': 62, 'after_dedup': 62, 'after_epoch5_window': 45, 'after_exposure': 43, 'after_std1rate': 43, 'after_pointing': 43}
+SAXJ1808.4-3658 {'source_id': 'SAXJ1808.4-3658', 'catalog_rows': 497, 'after_dedup': 497, 'after_epoch5_window': 438, 'after_exposure': 294, 'after_std1rate': 234, 'after_pointing': 234}
+XTEJ1814-338 {'source_id': 'XTEJ1814-338', 'catalog_rows': 93, 'after_dedup': 93, 'after_epoch5_window': 93, 'after_exposure': 80, 'after_std1rate': 73, 'after_pointing': 73}
+GX17+2 {'source_id': 'GX17+2', 'catalog_rows': 212, 'after_dedup': 212, 'after_epoch5_window': 101, 'after_exposure': 90, 'after_std1rate': 90, 'after_pointing': 90}
+4U1820-30 {'source_id': '4U1820-30', 'catalog_rows': 266, 'after_dedup': 266, 'after_epoch5_window': 140, 'after_exposure': 133, 'after_std1rate': 133, 'after_pointing': 133}
+GS1826-238 {'source_id': 'GS1826-238', 'catalog_rows': 160, 'after_dedup': 160, 'after_epoch5_window': 142, 'after_exposure': 140, 'after_std1rate': 140, 'after_pointing': 118}
+HETEJ1900.1-245 {'source_id': 'HETEJ1900.1-245', 'catalog_rows': 358, 'after_dedup': 358, 'after_epoch5_window': 358, 'after_exposure': 349, 'after_std1rate': 344, 'after_pointing': 344}
+4U1915-05 {'source_id': '4U1915-05', 'catalog_rows': 54, 'after_dedup': 54, 'after_epoch5_window': 12, 'after_exposure': 11, 'after_std1rate': 11, 'after_pointing': 11}
+CYGX2 {'source_id': 'CYGX2', 'catalog_rows': 591, 'after_dedup': 591, 'after_epoch5_window': 449, 'after_exposure': 403, 'after_std1rate': 403, 'after_pointing': 403}

@@ -1,5 +1,5 @@
 {
-  "utc": "2026-09-29T14:42:11.827053+00:00",
-  "stage": "complete_steps_1_to_5",
-  "details": "All 5 steps done. Report: reports/report_zh-TW.md. Re-run: .\run_all.ps1 (downloads cached). Not done by design: MLP, tuning, full Garg reproduction, error-aware/fit-parameter classifiers."
+  "utc": "2026-09-29T15:36:53.919146+00:00",
+  "stage": "v2_done_except_xspec",
+  "details": "v2 complete: 31 sources/456 obs, Std1 deadtime, bootstrap, hardness baselines, reports/report_v2_zh-TW.md. Pending: HEASoft conda install in WSL (scripts/install_heasoft_wsl.sh), then: set XRB_VERSION=v2 and run scripts/10_xspec_crosscheck.py"
 }

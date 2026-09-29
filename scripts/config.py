@@ -56,3 +56,59 @@ LR_PARAMS = dict(C=1.0, penalty='l2', class_weight='balanced', max_iter=5000, so
 RF_PARAMS = dict(n_estimators=500, max_features='sqrt', min_samples_leaf=2,
                  class_weight='balanced', n_jobs=2, random_state=SEED)
 SOURCE_THRESHOLD = 0.5
+
+# =====================================================================================
+# v2 (expansion; written 2026-09-29 after v1 results, BEFORE any v2 data were downloaded)
+# Activated with environment variable XRB_VERSION=v2. v1 settings above are unchanged.
+# =====================================================================================
+import os as _os
+if _os.environ.get('XRB_VERSION', 'v1') == 'v2':
+    _BH = 'https://arxiv.org/abs/1510.08869'
+    _NS = 'https://arxiv.org/abs/astro-ph/0608259'
+    _bh = lambda sid, cat, name, alias: (sid, cat, name, alias, 'BH',
+            'Dynamical mass function listed in BlackCAT Table 4 (dynamically confirmed BH)', _BH, 'confirmed')
+    _ns = lambda sid, cat, name, alias, sec: (sid, cat, name, alias, 'NS',
+            f'Type-I X-ray bursts (Galloway+2008 catalogue, sec. {sec})', _NS, 'confirmed')
+    # Rule: every source satisfying the v1 label rule AND having an RXTE MissionLongData catalogue file.
+    # BH: all BlackCAT Table-4 systems with a catalogue file. NS: all Galloway+2008 appendix-A sources with one.
+    SOURCES = [
+        _bh('GROJ1655-40', 'GROJ1655-40', 'GRO J1655-40', 'V1033 Sco'),
+        _bh('GRS1915+105', 'GRS1915+105', 'GRS 1915+105', 'V1487 Aql'),
+        _bh('XTEJ1550-564', 'XTEJ1550-564', 'XTE J1550-564', 'V381 Nor'),
+        _bh('4U1543-47', '4U1543-47', '4U 1543-47', 'IL Lup'),
+        _bh('GX339-4', 'GX339-4', 'GX 339-4', '1H J1659-487; V821 Ara'),
+        _bh('XTEJ1650-500', 'XTEJ1650-500', 'XTE J1650-500', ''),
+        _bh('XTEJ1118+480', 'XTEJ1118+480', 'XTE J1118+480', 'KV UMa'),
+        _bh('XTEJ1859+226', 'XTEJ1859+226', 'XTE J1859+226', 'V406 Vul'),
+        _bh('V4641SGR', 'V4641SGR', 'V4641 Sgr', 'SAX J1819.3-2525 (B9III donor: IMXB)'),
+        _ns('4U1636-53', '4U1636-53', '4U 1636-53', 'V801 Ara', 'A.8'),
+        _ns('4U1608-52', '4U1608-52', '4U 1608-52', 'QX Nor', 'A.7'),
+        _ns('4U1728-34', '4U1728-34', '4U 1728-34', 'GX 354-0', 'A.16'),
+        _ns('AQLX1', 'AQLX1', 'Aql X-1', 'V1333 Aql', 'A.44'),
+        _ns('EXO0748-676', 'EXO0748-676', 'EXO 0748-676', 'UY Vol', 'A.2'),
+        _ns('4U1254-690', '4U1254-690', '4U 1254-69', 'XB 1254-690', 'A.5'),
+        _ns('4U1323-619', '4U1323-619', '4U 1323-62', '', 'A.6'),
+        _ns('MXB1658-298', 'MXB1658-298', 'MXB 1659-298', '', 'A.9'),
+        _ns('4U1702-429', '4U1702-429', '4U 1702-429', 'Ara X-1', 'A.10'),
+        _ns('4U1705-44', '4U1705-44', '4U 1705-44', '', 'A.11'),
+        _ns('4U1724-307', '4U1724-307', '4U 1724-307', 'Terzan 2', 'A.15'),
+        _ns('KS1731-260', 'KS1731-260', 'KS 1731-260', '', 'A.18'),
+        _ns('SLX1735-269', 'SLX1735-269', 'SLX 1735-269', '', 'A.19'),
+        _ns('4U1735-44', '4U1735-44', '4U 1735-44', 'V926 Sco', 'A.20'),
+        _ns('GX3+1', 'GX3+1', 'GX 3+1', '', 'A.28'),
+        _ns('4U1746-371', '4U1746-371', '4U 1746-37', 'NGC 6441', 'A.32'),
+        _ns('SAXJ1808.4-3658', 'SAXJ1808.4-3658', 'SAX J1808.4-3658', 'V4580 Sgr', 'A.36'),
+        _ns('XTEJ1814-338', 'XTEJ1814-338', 'XTE J1814-338', '', 'A.37'),
+        _ns('GX17+2', 'GX17+2', 'GX 17+2', '', 'A.38'),
+        _ns('4U1820-30', '4U1820-30', '4U 1820-30', '3A 1820-303; NGC 6624', 'A.39'),
+        _ns('GS1826-238', 'GS1826-238', 'GS 1826-238', 'V4634 Sgr', 'A.40'),
+        _ns('HETEJ1900.1-245', 'HETEJ1900.1-245', 'HETE J1900.1-2455', '', 'A.43'),
+        _ns('4U1915-05', '4U1915-05', '4U 1916-053', '', 'A.45'),
+        _ns('CYGX2', 'CYGX2', 'Cyg X-2', 'V1341 Cyg', 'A.48'),
+    ]
+    MJD_MAX = 55931.0            # whole gain epoch 5 (to end of mission); PCU0/PCU1 are dropped by StdProds
+    MIN_ELIGIBLE = 10            # sources with fewer eligible pointings are dropped (recorded)
+    # N_PER_SOURCE = 15 as v1 (if 10-14 eligible: take all of them)
+    DEADTIME = 'std1'            # full GOF recipe from Standard-1 (FS46_*): Xe+Vp+Remaining x1e-5, VLE x6e-5, per PCU
+    VLE_DT_ALT = 1.5e-4          # sensitivity check only (the GOF page quotes 150 us per VLE in another section)
+    N_BOOT = 2000

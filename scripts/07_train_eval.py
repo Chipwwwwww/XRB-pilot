@@ -12,12 +12,23 @@ from sklearn.pipeline import make_pipeline
 from sklearn.model_selection import LeaveOneGroupOut, StratifiedKFold
 from sklearn.metrics import confusion_matrix, recall_score, balanced_accuracy_score
 
-z = np.load(ROOT/'data/processed/features.npz')
+z = np.load(D/'processed/features.npz')
 rate, F, y, g, oid = z['rate'], z['F'], z['y'], z['source_id'], z['obs_id']
 W = np.diff(z['edges'])
 REPS = {'A_intensity': np.arcsinh(rate / ASINH_SCALE),        # per-spectrum: none; keeps count-rate level
         'B_shape': rate / F[:, None]}                            # per-spectrum: divide by own 5-25 keV net rate
 assert np.all(F > 0)
+if VERSION != 'v1':
+    # Pre-declared (v2) baselines: does the full spectrum add anything beyond two count-space colours?
+    ec = np.sqrt(z['edges'][:-1] * z['edges'][1:])
+    band = lambda lo, hi: np.sum((rate * W)[:, (ec >= lo) & (ec < hi)], 1)
+    b1, b2, b3, b4 = band(5, 7), band(7, 10), band(10, 16), band(16, 25.1)
+    # Linear ratios (not log): 2 v2 spectra have a slightly negative 16-25 keV net sum (soft state, consistent
+    # with zero); denominators are always > 0, so ratios are defined for every observation (decision_log).
+    assert (np.r_[b1, b3] > 0).all(), 'non-positive denominator band'
+    colours = np.c_[b2 / b1, b4 / b3]
+    REPS['H_colours'] = colours                                   # shape only (2 features)
+    REPS['HI_colours_intensity'] = np.c_[colours, np.log10(F)]   # + 5-25 keV count rate
 MODELS = {'Dummy': lambda: DummyClassifier(strategy='prior'),
           'LogReg': lambda: make_pipeline(StandardScaler(), LogisticRegression(**LR_PARAMS)),  # scaler fit on train only
           'RandomForest': lambda: RandomForestClassifier(**RF_PARAMS)}
@@ -31,8 +42,8 @@ for k, (tr, te) in enumerate(folds):
                        train_NS=int((1-y[tr]).sum()), train_sources=len(trs), disjoint_and_both_classes=ok))
     assert ok
     fold_tab += [dict(obs_id=oid[i], source_id=g[i], fold=k) for i in te]
-pd.DataFrame(fold_tab).to_csv(ROOT/'results/folds_loso.csv', index=False)
-pd.DataFrame(checks).to_csv(ROOT/'results/fold_checks.csv', index=False)
+pd.DataFrame(fold_tab).to_csv(R/'folds_loso.csv', index=False)
+pd.DataFrame(checks).to_csv(R/'fold_checks.csv', index=False)
 
 oof = []
 for rep, X in REPS.items():
@@ -47,7 +58,7 @@ for rep, X in REPS.items():
                                 predicted_label='BH' if s >= 0.5 else 'NS'))
         print(rep, mname, 'done', flush=True)
 oof = pd.DataFrame(oof)
-oof.to_csv(ROOT/'results/oof_predictions_loso.csv', index=False)
+oof.to_csv(R/'oof_predictions_loso.csv', index=False)
 
 # ---- metrics ----
 obs_rows, src_rows, per_src = [], [], []
@@ -71,9 +82,9 @@ for (rep, mname), d in oof.groupby(['representation', 'model'], sort=False):
                          source_balanced_accuracy=balanced_accuracy_score(st, sp),
                          misclassified_sources=';'.join(ps.index[~ps.source_correct])))
 mo, ms, psdf = pd.DataFrame(obs_rows), pd.DataFrame(src_rows), pd.concat(per_src)
-mo.to_csv(ROOT/'results/metrics_observation_level.csv', index=False)
-ms.to_csv(ROOT/'results/metrics_source_level.csv', index=False)
-psdf.to_csv(ROOT/'results/per_source_results.csv', index=False)
+mo.to_csv(R/'metrics_observation_level.csv', index=False)
+ms.to_csv(R/'metrics_source_level.csv', index=False)
+psdf.to_csv(R/'per_source_results.csv', index=False)
 pd.set_option('display.width', 200)
 print(mo.round(3).to_string(index=False)); print(ms.round(3).to_string(index=False))
 
@@ -87,12 +98,12 @@ for rep, X in REPS.items():
             m = MODELS[mname]().fit(X[tr], y[tr]); pred[te] = m.predict_proba(X[te])[:, 1]
         leak.append(dict(representation=rep, model=mname, split='observation-wise 5-fold (sources shared)',
                          balanced_accuracy=balanced_accuracy_score(y, pred >= .5)))
-pd.DataFrame(leak).to_csv(ROOT/'results/secondary_observation_split.csv', index=False)
+pd.DataFrame(leak).to_csv(R/'secondary_observation_split.csv', index=False)
 print(pd.DataFrame(leak).round(3).to_string(index=False))
 
 # ---- figures ----
-src = pd.read_csv(ROOT/'data/sources.csv'); order = list(src.source_id); lab = dict(zip(src.source_id, src.label))
-fig, axes = plt.subplots(1, 2, figsize=(12, 4.2), sharey=True)
+src = pd.read_csv(D/'sources.csv'); src = src[src.included.astype(bool)] if 'included' in src else src; order = list(src.source_id); lab = dict(zip(src.source_id, src.label))
+fig, axes = plt.subplots(1, 2, figsize=(12, max(4.2, 0.5 * len(order))), sharey=True)
 for a, rep in zip(axes, REPS):
     d = oof[(oof.representation == rep)]
     for j, mname in enumerate(MODELS):
@@ -105,7 +116,7 @@ for a, rep in zip(axes, REPS):
     a.axvline(0.5, color=INK2, ls='--', lw=.8)
     a.set_yticks(range(len(order))); a.set_yticklabels([f'{s} ({lab[s]})' for s in order]); a.invert_yaxis()
     a.set_xlabel('out-of-fold BH score (not a calibrated probability)'); a.set_title(rep, loc='left'); a.set_xlim(-.02, 1.02)
-axes[0].legend(loc='lower center', bbox_to_anchor=(1.0, -0.32), ncol=3)
+axes[0].legend(loc='upper center', bbox_to_anchor=(1.0, -0.06 if len(order) > 10 else -0.18), ncol=3)
 fig.suptitle('Leave-one-source-out BH scores per held-out source (black tick = source mean; dashed = 0.5 threshold)', x=0.01, ha='left')
-fig.savefig(ROOT/'figures/step4_loso_scores.png'); plt.close(fig)
-progress('4_train_eval', 'LOSO predictions/metrics written to results/')
+fig.savefig(FG/'step4_loso_scores.png'); plt.close(fig)
+progress(f'4_train_eval_{VERSION}', 'LOSO predictions/metrics written to results/')

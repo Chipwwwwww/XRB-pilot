@@ -35,7 +35,8 @@ def read_pha(path):
                    date_obs=hd.get('DATE-OBS'), tstart=hd.get('TSTART'), tstop=hd.get('TSTOP'),
                    mjdref=hd.get('MJDREFI', 0) + hd.get('MJDREFF', 0.0), pcus=''.join(pcus), npcu=len(pcus),
                    backfile=hd.get('BACKFILE'), respfile=hd.get('RESPFILE'), cpix=hd.get('CPIX1'),
-                   ngti=0 if gti is None else len(gti), creator=hd.get('CREATOR'))
+                   ngti=0 if gti is None else len(gti), creator=hd.get('CREATOR'),
+                   gti=None if gti is None else np.c_[np.asarray(gti['START'], float), np.asarray(gti['STOP'], float)])
     return out
 
 
@@ -88,3 +89,33 @@ def powerlaw_folded(rsp, gamma=2.0):
     if gamma == 1: flux = np.log(hi/lo)
     else: flux = (hi**(1-gamma) - lo**(1-gamma)) / (1-gamma)
     return flux @ rsp['R']
+
+
+def std1_rates(paths, gti):
+    """Mean Standard-1 count rates inside the spectrum GTIs.
+    Returns dict with per-PCU good-xenon rates xe[0..4], array totals vp, rem, vle [count/s], and covered time [s]."""
+    tot = dict(xe=np.zeros(5), vp=0.0, rem=0.0, vle=0.0); covered = 0.0
+    for p in paths:
+        with fits.open(p, memmap=False) as h:
+            d = h[1].data; hd = h[1].header
+            assert str(hd.get('DATAMODE', '')).startswith('Standard1'), hd.get('DATAMODE')
+            tz = float(hd.get('TIMEZERO', 0.0))
+            t0 = np.asarray(d['Time'], float) + tz
+            nb = d['XeCntPcu0'].shape[1]; dt = 128.0 / nb
+            tb = t0[:, None] + dt * np.arange(nb)[None, :] + dt / 2          # bin centres
+            m = np.zeros(tb.shape, bool)
+            for a, b in gti: m |= (tb >= a) & (tb < b)
+            covered += m.sum() * dt
+            for i in range(5): tot['xe'][i] += np.asarray(d[f'XeCntPcu{i}'], float)[m].sum()
+            tot['vp'] += np.asarray(d['VpCnt'], float)[m].sum()
+            tot['rem'] += np.asarray(d['RemainingCnt'], float)[m].sum()
+            tot['vle'] += np.asarray(d['VLECnt'], float)[m].sum()
+    if covered <= 0: raise ValueError('Standard-1 data do not overlap spectrum GTIs')
+    return dict(xe=tot['xe']/covered, vp=tot['vp']/covered, rem=tot['rem']/covered, vle=tot['vle']/covered, covered=covered)
+
+
+def std1_dtf(r, pcus, vle_dt=6e-5, other_dt=1e-5, on_thresh=1.0):
+    """GOF recipe, per PCU: DTF_i = 1e-5*(Xe_i + (Vp+Rem)/Non) + vle_dt*VLE/Non; averaged over the spectrum PCUs."""
+    on = r['xe'] > on_thresh; non = int(on.sum())
+    per = other_dt * (r['xe'] + (r['vp'] + r['rem']) / non) + vle_dt * r['vle'] / non
+    return float(np.mean([per[int(c)] for c in pcus])), non

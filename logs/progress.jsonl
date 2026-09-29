@@ -9,3 +9,15 @@
 {"utc": "2026-09-29T14:40:01.542520+00:00", "stage": "4_train_eval", "details": "LOSO predictions/metrics written to results/"}
 {"utc": "2026-09-29T14:40:13.942719+00:00", "stage": "5_error_analysis", "details": "results/error_analysis.md + step5 figures"}
 {"utc": "2026-09-29T14:42:11.827053+00:00", "stage": "complete_steps_1_to_5", "details": "All 5 steps done. Report: reports/report_zh-TW.md. Re-run: .\run_all.ps1 (downloads cached). Not done by design: MLP, tuning, full Garg reproduction, error-aware/fit-parameter classifiers."}
+{"utc": "2026-09-29T15:09:31.560571+00:00", "stage": "3a_selection_v2", "details": "sources.csv (33) and 7975 ranked candidates written"}
+{"utc": "2026-09-29T15:12:41.920489+00:00", "stage": "bootstrap_v1", "details": "results bootstrap_source_level.csv written"}
+{"utc": "2026-09-29T15:28:16.978542+00:00", "stage": "3b_fetch_process_v2", "details": "456 accepted observations; 6 excluded candidates logged"}
+{"utc": "2026-09-29T15:29:03.760849+00:00", "stage": "3c_dataset_checks_v2", "details": "results/data_checks.md + step3 figures"}
+{"utc": "2026-09-29T15:30:44.608551+00:00", "stage": "4_train_eval_v2", "details": "LOSO predictions/metrics written to results/"}
+{"utc": "2026-09-29T15:30:56.338910+00:00", "stage": "5_error_analysis_v2", "details": "results/error_analysis.md + step5 figures"}
+{"utc": "2026-09-29T15:31:29.098510+00:00", "stage": "bootstrap_v2", "details": "results bootstrap_source_level.csv written"}
+{"utc": "2026-09-29T15:32:12.992898+00:00", "stage": "bootstrap_v2", "details": "results bootstrap_source_level.csv written"}
+{"utc": "2026-09-29T15:32:26.403457+00:00", "stage": "bootstrap_v1", "details": "results bootstrap_source_level.csv written"}
+{"utc": "2026-09-29T15:33:18.872224+00:00", "stage": "3c_dataset_checks_v2", "details": "results/data_checks.md + step3 figures"}
+{"utc": "2026-09-29T15:33:22.695502+00:00", "stage": "5_error_analysis_v2", "details": "results/error_analysis.md + step5 figures"}
+{"utc": "2026-09-29T15:36:53.919146+00:00", "stage": "v2_done_except_xspec", "details": "v2 complete: 31 sources/456 obs, Std1 deadtime, bootstrap, hardness baselines, reports/report_v2_zh-TW.md. Pending: HEASoft conda install in WSL (scripts/install_heasoft_wsl.sh), then: set XRB_VERSION=v2 and run scripts/10_xspec_crosscheck.py"}

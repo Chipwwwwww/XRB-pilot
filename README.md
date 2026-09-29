@@ -5,6 +5,11 @@
 
 完整報告：[reports/report_zh-TW.md](reports/report_zh-TW.md)　預先固定的設定：[reports/preregistration.md](reports/preregistration.md)
 
+**v2（擴充）**：31 個天體（7 BH + 24 NS）、Standard-1 完整 deadtime、以天體為單位的 bootstrap、硬度基線、XSPEC 交叉檢查。
+報告：[reports/report_v2_zh-TW.md](reports/report_v2_zh-TW.md)　設定：[reports/preregistration_v2.md](reports/preregistration_v2.md)
+輸出在 `data/v2/`、`results/v2/`、`figures/v2/`、`logs/v2/`；執行 `.\run_all.ps1 -v2`（腳本以環境變數 `XRB_VERSION=v2` 切換）。
+XSPEC 交叉檢查需要 WSL Ubuntu-22.04 與 conda 環境 `henv`（安裝：`wsl -d Ubuntu-22.04 -u root -- bash scripts/install_heasoft_wsl.sh`）。
+
 ## 環境
 - Python venv：`C:\Users\User\venvs\xrb-pilot`（Python 3.12.10；放在 OneDrive 之外）
 - 版本鎖定：`requirements-lock.txt`；摘要：`logs/environment.txt`

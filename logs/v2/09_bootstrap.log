@@ -1,0 +1,44 @@
+2000 source-level bootstrap replicates; 7 BH + 24 NS objects
+                        representation        model                             metric  point  ci2_5  ci97_5  frac_first_better
+                           A_intensity       LogReg           source_balanced_accuracy  0.866  0.702   0.979                NaN
+                           A_intensity       LogReg per_source_accuracy_class_balanced  0.726  0.608   0.818                NaN
+                           A_intensity       LogReg      observation_balanced_accuracy  0.724  0.606   0.817                NaN
+                           A_intensity RandomForest           source_balanced_accuracy  0.622  0.458   0.786                NaN
+                           A_intensity RandomForest per_source_accuracy_class_balanced  0.608  0.548   0.662                NaN
+                           A_intensity RandomForest      observation_balanced_accuracy  0.606  0.546   0.661                NaN
+                               B_shape       LogReg           source_balanced_accuracy  0.774  0.568   0.938                NaN
+                               B_shape       LogReg per_source_accuracy_class_balanced  0.763  0.593   0.905                NaN
+                               B_shape       LogReg      observation_balanced_accuracy  0.761  0.592   0.903                NaN
+                               B_shape RandomForest           source_balanced_accuracy  0.857  0.643   1.000                NaN
+                               B_shape RandomForest per_source_accuracy_class_balanced  0.761  0.621   0.879                NaN
+                               B_shape RandomForest      observation_balanced_accuracy  0.761  0.621   0.877                NaN
+                  HI_colours_intensity       LogReg           source_balanced_accuracy  0.795  0.589   0.958                NaN
+                  HI_colours_intensity       LogReg per_source_accuracy_class_balanced  0.785  0.674   0.883                NaN
+                  HI_colours_intensity       LogReg      observation_balanced_accuracy  0.782  0.673   0.881                NaN
+                  HI_colours_intensity RandomForest           source_balanced_accuracy  0.836  0.643   1.000                NaN
+                  HI_colours_intensity RandomForest per_source_accuracy_class_balanced  0.756  0.609   0.875                NaN
+                  HI_colours_intensity RandomForest      observation_balanced_accuracy  0.754  0.609   0.874                NaN
+                             H_colours       LogReg           source_balanced_accuracy  0.795  0.589   0.958                NaN
+                             H_colours       LogReg per_source_accuracy_class_balanced  0.776  0.635   0.893                NaN
+                             H_colours       LogReg      observation_balanced_accuracy  0.776  0.633   0.893                NaN
+                             H_colours RandomForest           source_balanced_accuracy  0.857  0.643   1.000                NaN
+                             H_colours RandomForest per_source_accuracy_class_balanced  0.756  0.607   0.882                NaN
+                             H_colours RandomForest      observation_balanced_accuracy  0.755  0.606   0.882                NaN
+             B_shape_minus_A_intensity       LogReg           source_balanced_accuracy -0.092 -0.268   0.021              0.068
+             B_shape_minus_A_intensity       LogReg per_source_accuracy_class_balanced  0.037 -0.092   0.135              0.740
+             B_shape_minus_A_intensity       LogReg      observation_balanced_accuracy  0.037 -0.092   0.137              0.744
+               B_shape_minus_H_colours       LogReg           source_balanced_accuracy -0.021 -0.062   0.000              0.000
+               B_shape_minus_H_colours       LogReg per_source_accuracy_class_balanced -0.013 -0.075   0.036              0.338
+               B_shape_minus_H_colours       LogReg      observation_balanced_accuracy -0.015 -0.076   0.035              0.320
+A_intensity_minus_HI_colours_intensity       LogReg           source_balanced_accuracy  0.071 -0.042   0.235              0.780
+A_intensity_minus_HI_colours_intensity       LogReg per_source_accuracy_class_balanced -0.058 -0.136   0.017              0.064
+A_intensity_minus_HI_colours_intensity       LogReg      observation_balanced_accuracy -0.059 -0.137   0.018              0.064
+             B_shape_minus_A_intensity RandomForest           source_balanced_accuracy  0.235  0.042   0.429              0.986
+             B_shape_minus_A_intensity RandomForest per_source_accuracy_class_balanced  0.154  0.030   0.270              0.994
+             B_shape_minus_A_intensity RandomForest      observation_balanced_accuracy  0.154  0.030   0.270              0.994
+               B_shape_minus_H_colours RandomForest           source_balanced_accuracy  0.000  0.000   0.000              0.000
+               B_shape_minus_H_colours RandomForest per_source_accuracy_class_balanced  0.005 -0.015   0.025              0.702
+               B_shape_minus_H_colours RandomForest      observation_balanced_accuracy  0.006 -0.015   0.026              0.712
+A_intensity_minus_HI_colours_intensity RandomForest           source_balanced_accuracy -0.214 -0.408  -0.021              0.014
+A_intensity_minus_HI_colours_intensity RandomForest per_source_accuracy_class_balanced -0.148 -0.254  -0.025              0.009
+A_intensity_minus_HI_colours_intensity RandomForest      observation_balanced_accuracy -0.148 -0.254  -0.024              0.009

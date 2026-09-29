@@ -1,0 +1,45 @@
+30066-01-05-00
+Traceback (most recent call last):
+  File "C:\Users\User\OneDrive\Documents\ChatGPT\XRB-pilot\scripts\04_fetch_process.py", line 81, in process_bin
+    base, P = fetch(c.obs_id)
+              ^^^^^^^^^^^^^^^
+  File "C:\Users\User\OneDrive\Documents\ChatGPT\XRB-pilot\scripts\04_fetch_process.py", line 38, in fetch
+    raise FileNotFoundError(f'StdProd Std2 files not found ({last})')
+FileNotFoundError: StdProd Std2 files not found (HTTP Error 404: Not Found)
+
+30066-01-06-00
+Traceback (most recent call last):
+  File "C:\Users\User\OneDrive\Documents\ChatGPT\XRB-pilot\scripts\04_fetch_process.py", line 81, in process_bin
+    base, P = fetch(c.obs_id)
+              ^^^^^^^^^^^^^^^
+  File "C:\Users\User\OneDrive\Documents\ChatGPT\XRB-pilot\scripts\04_fetch_process.py", line 38, in fetch
+    raise FileNotFoundError(f'StdProd Std2 files not found ({last})')
+FileNotFoundError: StdProd Std2 files not found (HTTP Error 404: Not Found)
+
+30066-01-06-01
+Traceback (most recent call last):
+  File "C:\Users\User\OneDrive\Documents\ChatGPT\XRB-pilot\scripts\04_fetch_process.py", line 81, in process_bin
+    base, P = fetch(c.obs_id)
+              ^^^^^^^^^^^^^^^
+  File "C:\Users\User\OneDrive\Documents\ChatGPT\XRB-pilot\scripts\04_fetch_process.py", line 38, in fetch
+    raise FileNotFoundError(f'StdProd Std2 files not found ({last})')
+FileNotFoundError: StdProd Std2 files not found (HTTP Error 404: Not Found)
+
+30066-01-07-00
+Traceback (most recent call last):
+  File "C:\Users\User\OneDrive\Documents\ChatGPT\XRB-pilot\scripts\04_fetch_process.py", line 81, in process_bin
+    base, P = fetch(c.obs_id)
+              ^^^^^^^^^^^^^^^
+  File "C:\Users\User\OneDrive\Documents\ChatGPT\XRB-pilot\scripts\04_fetch_process.py", line 38, in fetch
+    raise FileNotFoundError(f'StdProd Std2 files not found ({last})')
+FileNotFoundError: StdProd Std2 files not found (HTTP Error 404: Not Found)
+
+30066-01-07-01
+Traceback (most recent call last):
+  File "C:\Users\User\OneDrive\Documents\ChatGPT\XRB-pilot\scripts\04_fetch_process.py", line 81, in process_bin
+    base, P = fetch(c.obs_id)
+              ^^^^^^^^^^^^^^^
+  File "C:\Users\User\OneDrive\Documents\ChatGPT\XRB-pilot\scripts\04_fetch_process.py", line 38, in fetch
+    raise FileNotFoundError(f'StdProd Std2 files not found ({last})')
+FileNotFoundError: StdProd Std2 files not found (HTTP Error 404: Not Found)
+

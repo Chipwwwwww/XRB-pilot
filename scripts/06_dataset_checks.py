@@ -4,9 +4,10 @@ from config import *
 from plotstyle import *
 import numpy as np, pandas as pd
 
-src = pd.read_csv(ROOT/'data/sources.csv')
-obs = pd.read_csv(ROOT/'data/observations.csv', dtype={'obs_id': str})
-z = np.load(ROOT/'data/processed/features.npz', allow_pickle=False)
+src = pd.read_csv(D/'sources.csv')
+src = src[src.included.astype(bool)] if 'included' in src else src
+obs = pd.read_csv(D/'observations.csv', dtype={'obs_id': str})
+z = np.load(D/'processed/features.npz', allow_pickle=False)
 rate, err, E = z['rate'], z['err'], z['edges']
 acc = obs[obs.in_dataset].reset_index(drop=True)
 assert list(acc.obs_id) == list(z['obs_id']), 'feature/obs table misaligned'
@@ -45,11 +46,11 @@ L += ['', '## Sample counts per source', '', obs.groupby('source_id').agg(tried=
       .reindex(order).to_string(), '']
 excl = obs[~obs.in_dataset]
 L += ['## Excluded candidates', ''] + [f'- {r.obs_id} ({r.source_id}, bin {r.time_bin}): {r.reason}' for r in excl.itertuples()]
-(ROOT/'results/data_checks.md').write_text('\n'.join(L), encoding='utf-8')
+(R/'data_checks.md').write_text('\n'.join(L), encoding='utf-8')
 print('\n'.join(L[:24]))
 
 # ---- figure: per-source diagnostics ----
-fig, ax = plt.subplots(2, 3, figsize=(13, 7))
+fig, ax = plt.subplots(2, 3, figsize=(13, max(7, 0.45 * len(order))))
 ax = ax.ravel()
 cnt = obs.groupby(['source_id', 'in_dataset']).size().unstack(fill_value=0).reindex(order)
 ax[0].barh(order, cnt.get(True, 0), color=[CLASS_COLOR[lab[s]] for s in order], label='accepted')
@@ -67,36 +68,40 @@ for k, (c, t, lg) in enumerate([('exposure_s', 'exposure (s)', False), ('net_rat
     ax[k].set_title(t)
 ax[3].set_yticklabels(order)
 fig.suptitle('Step 3: dataset diagnostics (blue = BH, orange = NS); counts are instrument count rates, not flux', x=0.01, ha='left')
-fig.tight_layout(); fig.savefig(ROOT/'figures/step3_dataset_diagnostics.png'); plt.close(fig)
+fig.tight_layout(); fig.savefig(FG/'step3_dataset_diagnostics.png'); plt.close(fig)
 
 # ---- figure: spectra per source (A: count rate; B: shape) ----
 ec = np.sqrt(E[:-1]*E[1:])
-fig, ax = plt.subplots(2, 8, figsize=(18, 5.5), sharex=True, sharey='row')
+nrow = int(np.ceil(len(order) / 8))
+fig, ax = plt.subplots(2 * nrow, 8, figsize=(18, 5.5 * nrow), sharex=True, squeeze=False)
 for i, s in enumerate(order):
     m = (acc.source_id == s).values
+    a0, a1 = ax[2 * (i // 8), i % 8], ax[2 * (i // 8) + 1, i % 8]
     for r in rate[m]:
-        ax[0, i].plot(ec, np.where(r > 0, r, np.nan), color=CLASS_COLOR[lab[s]], lw=.7, alpha=.6)
-        ax[1, i].plot(ec, r/np.sum(r*np.diff(E)), color=CLASS_COLOR[lab[s]], lw=.7, alpha=.6)
-    ax[0, i].set_title(f'{s} ({lab[s]}, n={m.sum()})', fontsize=8)
-    ax[0, i].set_xscale('log'); ax[0, i].set_yscale('log'); ax[1, i].set_yscale('log')
-    ax[1, i].set_xlabel('keV'); ax[1, i].set_xticks([5, 10, 20]); ax[1, i].set_xticklabels(['5', '10', '20']); ax[1, i].xaxis.set_minor_formatter(plt.NullFormatter())
-ax[0, 0].set_ylabel('net count/s/keV/PCU'); ax[1, 0].set_ylabel('shape: rate / F(5-25)  [1/keV]')
+        a0.plot(ec, np.where(r > 0, r, np.nan), color=CLASS_COLOR[lab[s]], lw=.7, alpha=.6)
+        a1.plot(ec, r/np.sum(r*np.diff(E)), color=CLASS_COLOR[lab[s]], lw=.7, alpha=.6)
+    a0.set_title(f'{s} ({lab[s]}, n={m.sum()})', fontsize=8)
+    a0.set_xscale('log'); a0.set_yscale('log'); a1.set_yscale('log'); a1.set_ylim(1e-6, 1)
+    a1.set_xlabel('keV'); a1.set_xticks([5, 10, 20]); a1.set_xticklabels(['5', '10', '20']); a1.xaxis.set_minor_formatter(plt.NullFormatter())
+    if i % 8 == 0: a0.set_ylabel('net count/s/keV/PCU'); a1.set_ylabel('rate / F(5-25) [1/keV]')
+for j in range(len(order), 8 * nrow):
+    ax[2 * (j // 8), j % 8].axis('off'); ax[2 * (j // 8) + 1, j % 8].axis('off')
 fig.suptitle('Net count-rate spectra per observation (top: intensity kept; bottom: per-spectrum shape normalised)', x=0.01, ha='left')
-fig.tight_layout(); fig.savefig(ROOT/'figures/step3_spectra_by_source.png'); plt.close(fig)
+fig.tight_layout(rect=[0, 0, 1, 1 - 0.3 / (5.5 * nrow)]); fig.savefig(FG/'step3_spectra_by_source.png'); plt.close(fig)
 
 fig, a = plt.subplots(figsize=(7, 3.6))
 combos = sorted(acc.pcus.astype(str).unique(), key=lambda c: -(acc.pcus.astype(str) == c).sum())
 for i, pc in enumerate(combos):
     m = (acc.pcus.astype(str) == pc).values
-    for j, r in enumerate(ratio[m]): a.plot(ec, 100*(r-1), color=SERIES[i], lw=.8, alpha=.7, label=f'PCUs {pc} (n={m.sum()})' if j == 0 else None)
+    for j, r in enumerate(ratio[m]): a.plot(ec, 100*(r-1), color=SERIES[i] if i < 7 else '#9e9d98', lw=.8, alpha=.7, label=f'PCUs {pc} (n={m.sum()})' if j == 0 else None)
 a.set_xscale('log'); a.set_xlabel('keV'); a.set_ylabel('% deviation from median'); a.legend(fontsize=7, ncol=2)
 a.set_xticks([5, 10, 20]); a.set_xticklabels(['5', '10', '20']); a.minorticks_off()
 a.set_title('Response check: Gamma=2 power law folded through each obs response (per PCU)', loc='left')
 tilt = pd.Series(100*(ratio[:, -3]-ratio[:, 2]), index=acc.index)
 tt = pd.DataFrame(dict(tilt=tilt, pcus=acc.pcus.astype(str), label=acc.label))
-with (ROOT/'results/data_checks.md').open('a', encoding='utf-8') as f:
+with (R/'data_checks.md').open('a', encoding='utf-8') as f:
     f.write('\n\n## Response tilt (% deviation at 22-25 keV minus at 5.5 keV) by PCU combination\n\n')
     f.write(tt.groupby('pcus').tilt.agg(['size', 'mean', 'std']).round(2).to_string())
     f.write('\n\nMean tilt by class: ' + '; '.join(f'{k} {v:.2f}%' for k, v in tt.groupby('label').tilt.mean().items()) + '\n')
-fig.savefig(ROOT/'figures/step3_response_variation.png'); plt.close(fig)
-progress('3c_dataset_checks', 'results/data_checks.md + step3 figures')
+fig.savefig(FG/'step3_response_variation.png'); plt.close(fig)
+progress(f'3c_dataset_checks_{VERSION}', 'results/data_checks.md + step3 figures')

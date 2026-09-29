@@ -202,3 +202,19 @@ A-LR 0.80、A-RF 0.89、B-LR 0.83、B-RF 0.89（`results/secondary_observation_s
 - 預測：`results/oof_predictions_loso.csv`（每筆：representation, model, fold, source_id, obs_id, true_label, BH_score, predicted_label）
 - 圖：`figures/step2_two_sources.png`、`figures/step3_*.png`、`figures/step4_loso_scores.png`、`figures/step5_*.png`
 - 紀錄：`logs/*.log`、`reports/decision_log.md`、`reports/progress.json`
+
+---
+
+## 附錄（事後補做，2026-09-29）：v1 來源層級 bootstrap
+依 v1 建議的下一步，對 v1 的固定 out-of-fold 預測做以天體為單位的 bootstrap（BH、NS 各 4 個內有放回抽樣，2000 次；
+`scripts/09_bootstrap_sources.py`，結果 `results/bootstrap_source_level.csv`）。區間只反映「抽到哪些天體」，不含模型重新訓練。
+
+| 表示 | 模型 | 觀測層級 balanced acc.（95% 區間） | 來源層級 balanced acc.（95% 區間） |
+|---|---|---|---|
+| A | LogReg | 0.70（0.56–0.83） | 0.75（0.50–1.00） |
+| A | RandomForest | 0.69（0.54–0.85） | 0.88（0.63–1.00） |
+| B | LogReg | 0.76（0.54–0.93） | 0.75（0.38–1.00） |
+| B | RandomForest | 0.74（0.52–0.93） | 0.75（0.38–1.00） |
+
+B−A 的配對差（觀測層級）：LogReg +0.06（−0.16 ~ +0.22），RF +0.05（−0.25 ~ +0.28），都跨過 0。
+這證實正文的保留：8 個天體無法分辨 A 與 B 的差異。擴充到 31 個天體的結果見 [report_v2_zh-TW.md](report_v2_zh-TW.md)。

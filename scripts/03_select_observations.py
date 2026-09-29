@@ -34,6 +34,10 @@ for sid, cat, name, alias, label, ev, url, status in SOURCES:
     m = m & m_pos; a['after_pointing'] = int(m.sum())
     attrition.append(a)
     el = df[m].sort_values('mjd').reset_index(drop=True)
+    rows[-1]['n_eligible'] = len(el)
+    rows[-1]['included'] = len(el) >= getattr(__import__('config'), 'MIN_ELIGIBLE', 0)
+    if not rows[-1]['included']:
+        print(sid, a, 'DROPPED: fewer than MIN_ELIGIBLE', flush=True); continue
     rng = np.random.default_rng(SEED + len(rows))
     bins = np.array_split(np.arange(len(el)), N_PER_SOURCE)
     for b, idx in enumerate(bins):
@@ -44,8 +48,8 @@ for sid, cat, name, alias, label, ev, url, status in SOURCES:
                               cat_std1rate=float(r.STD1RATE), pointing_sep_deg=round(float(r.sep_deg), 4)))
     print(sid, a, flush=True)
 
-pd.DataFrame(rows).to_csv(ROOT/'data/sources.csv', index=False)
+pd.DataFrame(rows).to_csv(D/'sources.csv', index=False)
 c = pd.DataFrame(cands)
-c.to_csv(ROOT/'data/observation_candidates.csv', index=False)
-pd.DataFrame(attrition).to_csv(ROOT/'results/attrition_catalog.csv', index=False)
-progress('3a_selection', f'sources.csv ({len(rows)}) and {len(c)} ranked candidates written')
+c.to_csv(D/'observation_candidates.csv', index=False)
+pd.DataFrame(attrition).to_csv(R/'attrition_catalog.csv', index=False)
+progress(f'3a_selection_{VERSION}', f'sources.csv ({len(rows)}) and {len(c)} ranked candidates written')
