@@ -1,0 +1,9 @@
+fold,test_source,n_train,n_test,train_BH,train_NS,train_sources,disjoint_and_both_classes
+0,4U1543-47,105,15,45,60,7,True
+1,4U1608-52,105,15,60,45,7,True
+2,4U1636-53,105,15,60,45,7,True
+3,4U1728-34,105,15,60,45,7,True
+4,AQLX1,105,15,60,45,7,True
+5,GROJ1655-40,105,15,45,60,7,True
+6,GRS1915+105,105,15,45,60,7,True
+7,XTEJ1550-564,105,15,45,60,7,True

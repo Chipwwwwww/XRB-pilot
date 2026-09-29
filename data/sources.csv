@@ -1,0 +1,9 @@
+source_id,name,aliases,ra_deg,dec_deg,label,evidence,reference_url,status,coord_origin
+GROJ1655-40,GRO J1655-40,V1033 Sco; Nova Sco 1994,253.501,-39.846,BH,Dynamical mass function; listed in BlackCAT (dynamically confirmed BH),https://arxiv.org/abs/1510.08869,confirmed,median pointing of RXTE MissionLongData catalogue
+GRS1915+105,GRS 1915+105,V1487 Aql,288.798,10.946,BH,Dynamical mass function (IR spectroscopy of K-giant donor); listed in BlackCAT,https://arxiv.org/abs/1510.08869,confirmed,median pointing of RXTE MissionLongData catalogue
+XTEJ1550-564,XTE J1550-564,V381 Nor,237.67,-56.46,BH,Dynamical mass function; listed in BlackCAT,https://arxiv.org/abs/1510.08869,confirmed,median pointing of RXTE MissionLongData catalogue
+4U1543-47,4U 1543-47,4U 1543-475; IL Lup,236.785,-47.669,BH,Dynamical mass function; listed in BlackCAT,https://arxiv.org/abs/1510.08869,confirmed,median pointing of RXTE MissionLongData catalogue
+4U1636-53,4U 1636-53,4U 1636-536; V801 Ara,250.2292,-53.7514,NS,"Type-I X-ray bursts (Galloway+2008 catalogue, sec. A.8)",https://arxiv.org/abs/astro-ph/0608259,confirmed,median pointing of RXTE MissionLongData catalogue
+4U1608-52,4U 1608-52,4U 1608-522; QX Nor,243.179,-52.423,NS,"Type-I X-ray bursts (Galloway+2008 catalogue, sec. A.7)",https://arxiv.org/abs/astro-ph/0608259,confirmed,median pointing of RXTE MissionLongData catalogue
+4U1728-34,4U 1728-34,GX 354-0; Slow Burster,262.9892,-33.8347,NS,"Type-I X-ray bursts (Galloway+2008 catalogue, sec. A.16)",https://arxiv.org/abs/astro-ph/0608259,confirmed,median pointing of RXTE MissionLongData catalogue
+AQLX1,Aql X-1,V1333 Aql; 4U 1908+005,287.8163,0.585,NS,"Type-I X-ray bursts (Galloway+2008 catalogue, sec. A.44)",https://arxiv.org/abs/astro-ph/0608259,confirmed,median pointing of RXTE MissionLongData catalogue

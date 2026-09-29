@@ -1,0 +1,8 @@
+GROJ1655-40 {'source_id': 'GROJ1655-40', 'catalog_rows': 593, 'after_dedup': 593, 'after_epoch5_window': 512, 'after_exposure': 477, 'after_std1rate': 440, 'after_pointing': 440}
+GRS1915+105 {'source_id': 'GRS1915+105', 'catalog_rows': 1809, 'after_dedup': 1809, 'after_epoch5_window': 887, 'after_exposure': 699, 'after_std1rate': 699, 'after_pointing': 699}
+XTEJ1550-564 {'source_id': 'XTEJ1550-564', 'catalog_rows': 414, 'after_dedup': 414, 'after_epoch5_window': 138, 'after_exposure': 99, 'after_std1rate': 79, 'after_pointing': 63}
+4U1543-47 {'source_id': '4U1543-47', 'catalog_rows': 108, 'after_dedup': 108, 'after_epoch5_window': 108, 'after_exposure': 97, 'after_std1rate': 58, 'after_pointing': 58}
+4U1636-53 {'source_id': '4U1636-53', 'catalog_rows': 1580, 'after_dedup': 1580, 'after_epoch5_window': 558, 'after_exposure': 490, 'after_std1rate': 490, 'after_pointing': 490}
+4U1608-52 {'source_id': '4U1608-52', 'catalog_rows': 1128, 'after_dedup': 1128, 'after_epoch5_window': 423, 'after_exposure': 236, 'after_std1rate': 213, 'after_pointing': 213}
+4U1728-34 {'source_id': '4U1728-34', 'catalog_rows': 440, 'after_dedup': 440, 'after_epoch5_window': 188, 'after_exposure': 180, 'after_std1rate': 180, 'after_pointing': 174}
+AQLX1 {'source_id': 'AQLX1', 'catalog_rows': 602, 'after_dedup': 602, 'after_epoch5_window': 270, 'after_exposure': 248, 'after_std1rate': 226, 'after_pointing': 226}

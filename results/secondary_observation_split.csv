@@ -1,0 +1,5 @@
+representation,model,split,balanced_accuracy
+A_intensity,LogReg,observation-wise 5-fold (sources shared),0.8
+A_intensity,RandomForest,observation-wise 5-fold (sources shared),0.8916666666666666
+B_shape,LogReg,observation-wise 5-fold (sources shared),0.825
+B_shape,RandomForest,observation-wise 5-fold (sources shared),0.8916666666666666

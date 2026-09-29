@@ -1,0 +1,8 @@
+venv: C:\Users\User\venvs\xrb-pilot
+home = C:\Users\User\AppData\Local\Programs\Python\Python312
+include-system-site-packages = false
+version = 3.12.10
+executable = C:\Users\User\AppData\Local\Programs\Python\Python312\python.exe
+command = C:\Users\User\AppData\Local\Programs\Python\Python312\python.exe -m venv C:\Users\User\venvs\xrb-pilot
+3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]
+{'numpy': '2.4.4', 'pandas': '2.3.3', 'scipy': '1.17.1', 'matplotlib': '3.10.9', 'sklearn': '1.8.0', 'astropy': '7.2.0'}

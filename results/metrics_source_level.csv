@@ -1,0 +1,7 @@
+representation,model,n_sources,sources_correct,BH_sources_correct,NS_sources_correct,source_balanced_accuracy,misclassified_sources
+A_intensity,Dummy,8,0,0/4,0/4,0.0,4U1543-47;4U1608-52;4U1636-53;4U1728-34;AQLX1;GROJ1655-40;GRS1915+105;XTEJ1550-564
+A_intensity,LogReg,8,6,2/4,4/4,0.75,GRS1915+105;XTEJ1550-564
+A_intensity,RandomForest,8,7,3/4,4/4,0.875,4U1543-47
+B_shape,Dummy,8,0,0/4,0/4,0.0,4U1543-47;4U1608-52;4U1636-53;4U1728-34;AQLX1;GROJ1655-40;GRS1915+105;XTEJ1550-564
+B_shape,LogReg,8,6,3/4,3/4,0.75,AQLX1;GRS1915+105
+B_shape,RandomForest,8,6,3/4,3/4,0.75,AQLX1;GRS1915+105

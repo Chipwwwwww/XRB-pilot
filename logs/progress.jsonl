@@ -1,0 +1,11 @@
+{"utc": "2026-09-29T14:04:19.947727+00:00", "stage": "1_environment_and_archive", "details": "Existing folders and incomplete venv reused; official archive reachable; inspecting catalog structure."}
+{"utc": "2026-09-29T14:27:40.887390+00:00", "stage": "3a_selection", "details": "sources.csv (8) and 58 ranked candidates written"}
+{"utc": "2026-09-29T14:27:56.404233+00:00", "stage": "3a_selection", "details": "sources.csv (8) and 2363 ranked candidates written"}
+{"utc": "2026-09-29T14:30:04.442450+00:00", "stage": "2_two_source_check", "details": "figures/step2_two_sources.png and reports/step2_fits_check.md written"}
+{"utc": "2026-09-29T14:30:27.521724+00:00", "stage": "2_two_source_check", "details": "figures/step2_two_sources.png and reports/step2_fits_check.md written"}
+{"utc": "2026-09-29T14:38:23.252468+00:00", "stage": "3b_fetch_process", "details": "120 accepted observations; 0 excluded candidates logged"}
+{"utc": "2026-09-29T14:38:43.006288+00:00", "stage": "3c_dataset_checks", "details": "results/data_checks.md + step3 figures"}
+{"utc": "2026-09-29T14:39:41.455268+00:00", "stage": "3c_dataset_checks", "details": "results/data_checks.md + step3 figures"}
+{"utc": "2026-09-29T14:40:01.542520+00:00", "stage": "4_train_eval", "details": "LOSO predictions/metrics written to results/"}
+{"utc": "2026-09-29T14:40:13.942719+00:00", "stage": "5_error_analysis", "details": "results/error_analysis.md + step5 figures"}
+{"utc": "2026-09-29T14:42:11.827053+00:00", "stage": "complete_steps_1_to_5", "details": "All 5 steps done. Report: reports/report_zh-TW.md. Re-run: .\run_all.ps1 (downloads cached). Not done by design: MLP, tuning, full Garg reproduction, error-aware/fit-parameter classifiers."}
