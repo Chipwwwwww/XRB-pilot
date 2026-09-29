@@ -10,6 +10,10 @@
 輸出在 `data/v2/`、`results/v2/`、`figures/v2/`、`logs/v2/`；執行 `.\run_all.ps1 -v2`（腳本以環境變數 `XRB_VERSION=v2` 切換）。
 XSPEC 交叉檢查需要 WSL Ubuntu-22.04 與 conda 環境 `henv`（安裝：`wsl -d Ubuntu-22.04 -u root -- bash scripts/install_heasoft_wsl.sh`）。
 
+**v3（預先登記：[reports/preregistration_v3.md](reports/preregistration_v3.md)，報告：[reports/report_v3_zh-TW.md](reports/report_v3_zh-TW.md)）**：
+v3a 巢狀比較（完整能譜在兩個顏色之外有無增量）與來源層級 AUC——已完成；v3b 3–25 keV（需本機原始 FITS）；v3c BH candidates（需下載，先查證名單）。
+執行：`.\run_v3.ps1 -a`、`-b`、`-c`（或 `./run_v3.sh a b c`）。共用模組 `scripts/v3lib.py`。輸出在 `results/v3/`、`figures/v3/`。
+
 ## 環境
 - Python venv：`C:\Users\User\venvs\xrb-pilot`（Python 3.12.10；放在 OneDrive 之外）
 - 版本鎖定：`requirements-lock.txt`；摘要：`logs/environment.txt`
