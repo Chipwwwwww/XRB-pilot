@@ -18,6 +18,12 @@ XSPEC 交叉檢查需要 WSL Ubuntu-22.04 與 conda 環境 `henv`（安裝：`ws
   C:\Users\User\AppData\Local\Programs\Python\Python312\python.exe -m venv C:\Users\User\venvs\xrb-pilot
   C:\Users\User\venvs\xrb-pilot\Scripts\python.exe -m pip install -r requirements-lock.txt
   ```
+- macOS／Linux：
+  ```bash
+  uv venv --python 3.12 ~/venvs/xrb-pilot
+  uv pip install --python ~/venvs/xrb-pilot/bin/python -r requirements-lock.txt
+  ./run_all.sh          # v1；./run_all.sh --v2 為 v2（XSPEC 交叉檢查需 WSL，Mac 上預設跳過）
+  ```
 - 不需要 HEASoft／XSPEC（使用 HEASARC 已處理好的 Standard Products；限制見報告）。僅用 CPU。
 
 ## 依序執行

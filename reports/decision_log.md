@@ -21,3 +21,12 @@
 | 訓練後 | bootstrap 增加 B−H、A−HI 配對差（原只宣告 B−A）；屬於同一事先宣告問題「是否只學到硬度」的直接檢驗，不影響任何模型或資料 | 是（新增的是比較方式，已註明） |
 | XSPEC 檢查 | HEASoft 6.37.1 安裝完成；交叉檢查腳本改為把 XSPEC 指令寫成檔案再由 WSL bash 執行（inline 傳遞時 `$xspec_tclout` 被展開為空）；12 筆與 Python 一致至 1e-9 | 與分類結果無關 |
 | 軟體 | 使用者允許安裝軟體 → 安裝 WSL Ubuntu 22.04（使用者核准 UAC；未重開機）與 HEASARC 官方 conda HEASoft（`scripts/install_heasoft_wsl.sh`） | — |
+
+## 第二台電腦（macOS）
+
+| 時間 (2026-09-30) | 決定 / 變更 | 是否在看到分類結果之後 |
+|---|---|---|
+| Mac 環境 | venv 放 `~/venvs/xrb-pilot`（uv 安裝 Python 3.12.14，`requirements-lock.txt` 全部可安裝、未修改） | 與結果無關 |
+| 原始數據 | 不從 Windows 複製；依 `logs/downloads.jsonl` 重新下載 2689 個檔案，SHA256 全部一致 | 與結果無關 |
+| 執行腳本 | 新增 `run_all.sh`（對應 `run_all.ps1`）；XSPEC 交叉檢查依賴 WSL，Mac 上預設跳過，只在 Windows 執行（`--xspec` 保留給日後移植） | 與結果無關 |
+| Mac 重現檢查 | 在 repo 副本上執行 `./run_all.sh`（v1，約 34 秒）：`features.npz` 與 Windows 差 ≤1e-16；LogReg 完全相同；RandomForest 單筆 BH_score 差 ≤0.006、天體平均差 ≤0.001，所有預測標籤與準確率相同。`observations.csv` 只差路徑分隔符（`\` vs `/`）；`sources.csv` 多 `n_eligible`/`included` 欄位（v2 改版後的程式本來就會寫，repo 裡的 v1 檔是舊版產生）。未提交重跑的輸出 | 與結果無關（重現性檢查） |
