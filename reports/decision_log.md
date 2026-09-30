@@ -64,3 +64,9 @@
 | 收尾 | `report_v3_zh-TW.md` §4.3 表格說明原寫「16–84% 觀測分位數」，與欄位（平均、≥0.5 比例）不符，改為正確描述；數字未改 | 是（文字更正） |
 | 收尾 | 新增 `reports/final_report_zh-TW.md`（v1–v3 整合報告）；README 加上連結。洩漏高估量依 `results/v2/secondary_observation_split.csv` 與 v3a LOSO 同表示、同模型逐一相減：+0.04 ~ +0.16 | 是（只寫文件） |
 | 收尾 | 停止擴充。後續若要做能態分組、時間特徵或物理空間特徵，需另寫預先設定 | — |
+
+## v4（2026-09-30，分支 `v4-analysis`；預先設定寫於看過 v1–v3 全部結果之後）
+
+| 時間 | 決定 / 變更 | 是否在看到 v4 結果之後 |
+|---|---|---|
+| 階段 0 | 撰寫 `preregistration_v4.md` 與 `config.py` v4 區塊（只在 `XRB_VERSION` 為 v4／v4b1／v4b2／v4b3 時生效；已確認 v1、v2、v3c 載入值不變）。查證：PCA gain epoch 邊界（HEASARC Energy-Channel Conversion Table）；HEXTE Standard Products 檔案結構與 cluster A／B rocking 狀態（Standard Products 說明、2010 news archive；抽查 3 筆 v2 觀測的 stdprod 目錄）；Galloway+2008 的 burst 搜尋判準（arXiv:astro-ph/0608259 §2）。計算時間以合成資料（非研究資料）量測。本機無 torch → 1D-CNN 預先宣告跳過。顏色重疊區矩形（c1≥0.70、c2≥0.20）是看過 v2 顏色圖後選的，已在預先設定中註明為事後定義 | 否（尚未訓練任何 v4 模型、未下載任何 v4 資料） |

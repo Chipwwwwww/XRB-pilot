@@ -153,3 +153,63 @@ if _os.environ.get('XRB_VERSION', 'v1') == 'v3c':
     else:
         SOURCES = V3C_CANDIDATES
     MJD_MAX = 55931.0; MIN_ELIGIBLE = 10; DEADTIME = 'std1'; VLE_DT_ALT = 1.5e-4; N_BOOT = 2000
+
+# =====================================================================================
+# v4 (written 2026-09-30 AFTER all v1-v3 results, BEFORE any v4 training or download;
+# see reports/preregistration_v4.md). Active only for XRB_VERSION in {v4, v4b1, v4b2, v4b3}.
+# v1-v3 settings above are untouched.
+# =====================================================================================
+if _os.environ.get('XRB_VERSION', 'v1').startswith('v4'):
+    N_BOOT = 2000; DEADTIME = 'std1'; VLE_DT_ALT = 1.5e-4
+    V4_REPRESENTATIONS = ['H_colours', 'HI_colours_intensity', 'B_shape', 'A_intensity']   # via v3lib.v2_representations
+    V4_BASELINE = ('H_colours', 'LogReg')      # v2 OOF in results/v2/oof_predictions_loso.csv, threshold 0.5
+    V4_MLP_SEEDS_OUTER = [0, 1, 2, 3, 4]; V4_MLP_SEEDS_INNER = [0, 1, 2]
+    # 1b fixed-hyperparameter models (class imbalance handling per preregistration table)
+    V4_FIXED = {
+        'ExtraTrees': dict(n_estimators=500, max_features='sqrt', min_samples_leaf=2, class_weight='balanced', random_state=SEED),
+        'HistGB': dict(learning_rate=0.1, max_iter=200, max_leaf_nodes=15, min_samples_leaf=20, l2_regularization=0.0,
+                       early_stopping=False, class_weight='balanced', random_state=SEED),
+        'SVM_RBF': dict(C=1.0, gamma='scale', kernel='rbf', class_weight='balanced'),     # score = sigmoid(decision_function)
+        'kNN': dict(n_neighbors=15, weights='uniform'),                                   # prior-corrected to equal classes
+        'QDA': dict(reg_param=0.1, priors=[0.5, 0.5]),
+        'MLP': dict(hidden_layer_sizes=(32,), alpha=1e-3, early_stopping=True, validation_fraction=0.2, max_iter=500),
+    }
+    V4_SOURCE_WEIGHTED_MODELS = ['LogReg', 'RandomForest', 'HistGB']                     # 1c
+    # 1d/1e nested grids (inner LOSO on the 30 training sources)
+    V4_GRID = {
+        'LogReg': [dict(C=c) for c in (0.01, 0.1, 1.0, 10.0)],
+        'RandomForest': [dict(min_samples_leaf=m) for m in (1, 2, 5, 10)],               # inner 200 trees, outer 500
+        'ExtraTrees': [dict(min_samples_leaf=m) for m in (1, 2, 5, 10)],                 # inner 200 trees, outer 500
+        'HistGB': [dict(learning_rate=lr, max_leaf_nodes=n) for lr in (0.05, 0.1) for n in (7, 15)],
+        'SVM_RBF': [dict(C=c, gamma_factor=g) for c in (0.1, 1.0, 10.0) for g in (0.3, 1.0, 3.0)],   # gamma = factor * 'scale'
+        'kNN': [dict(n_neighbors=k) for k in (5, 15, 31)],
+        'QDA': [dict(reg_param=r) for r in (0.01, 0.1, 0.5)],
+        'MLP': [dict(hidden_layer_sizes=h, alpha=a) for h in ((16,), (32, 16)) for a in (1e-4, 1e-2)],
+    }
+    V4_INNER_TREES, V4_OUTER_TREES = 200, 500
+    # burst detection (Galloway+2008 sec. 2: 1-s bins > mean + 4 sigma, then shape rules)
+    V4_BURST = dict(bin_s=1.0, nsigma=4.0, merge_gap_s=30.0, pre_window_s=60.0, min_peak_ratio=1.5,
+                    max_rise_s=10.0, decay_half_min_s=3.0, decay_half_max_s=300.0, min_bins_above_25pct=3)
+    # v4b3 HEXTE (cluster B only; no HEXTE features on/after cluster B stopped rocking)
+    V4_HEXTE_CLUSTER = 1
+    V4_HEXTE_LAST_MJD = 55179.6736          # 2009-12-14 16:10 UT, HEASARC RXTE news archive 2010
+    V4_HEXTE_BANDS = dict(X_25_40=(25.0, 40.0), X_40_60=(40.0, 60.0))
+    V4_HEXTE_MIN_DEN_SNR = 3.0              # colour set to missing (train-fold median + indicator) below this
+    V4_OVERLAP_BOX = dict(c1_min=0.70, c2_min=0.20)   # post-hoc box on the v2 H plane (declared as such)
+    # v4b2 gain epochs (HEASARC Energy-Channel Conversion Table; stop times, converted with astropy)
+    V4_EPOCH_STOP_MJD = {1: 50163.7729, 2: 50188.9618, 3: 51259.7340, 4: 51677.0000}
+    V4_R_GAMMA, V4_R_NH = 2.0, 0.0
+    V4_BRIDGE_MIN_SPEARMAN = 0.90
+    _v = _os.environ.get('XRB_VERSION')
+    if _v in ('v4b1', 'v4b2'):
+        # same source list as v2 (realised table data/v2/sources.csv); v4b2 re-checks Galloway+2008 NS before download
+        import csv as _csv
+        _src = __import__('pathlib').Path(__file__).resolve().parents[1] / 'data/v2/sources.csv'
+        SOURCES = [(r['source_id'], r['source_id'], r['name'], r['aliases'], r['label'], r['evidence'],
+                    r['reference_url'], r['status']) for r in _csv.DictReader(open(_src, encoding='utf-8'))]
+        MIN_ELIGIBLE = 10
+        MJD_MAX = 55931.0
+        if _v == 'v4b1':
+            N_PER_SOURCE = 'all'          # every eligible epoch-5 pointing (new selection script, not 03)
+        else:
+            MJD_MIN = 0.0                 # all gain epochs
