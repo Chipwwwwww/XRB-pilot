@@ -1,16 +1,5 @@
 {
-  "utc": "2026-09-30",
-  "stage": "wrap-up complete (final report, colour-colour figure); no further expansion",
-  "details": {
-    "done": [
-      "v1",
-      "v2",
-      "v3a",
-      "v3b",
-      "v3c",
-      "final_report_zh-TW.md",
-      "figures/final/colour_colour_decision_boundary.png"
-    ],
-    "next": "merge v3-analysis into master; any new analysis needs a new preregistration"
-  }
+  "utc": "2026-09-30T18:17:01.949525+00:00",
+  "stage": "v4b1_analysis",
+  "details": "7949 obs; H-LR[srcw] - v2 H-LR: source BA +0.000 [+0.000,+0.000]"
 }
