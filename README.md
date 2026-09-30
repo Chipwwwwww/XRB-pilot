@@ -1,5 +1,8 @@
 # XRB-pilot：RXTE/PCA 能譜的 BH／NS 分類小型驗證
 
+**整合報告（先讀這份）：[reports/final_report_zh-TW.md](reports/final_report_zh-TW.md)**——v1 到 v3 的問題、方法、結果與限制；收尾圖 `figures/final/colour_colour_decision_boundary.png`（`scripts/15_colour_colour.py`）。
+
+
 研究問題：單次 RXTE/PCA 觀測的 5–25 keV 能譜，能否分類「訓練時沒見過的天體」是黑洞（BH）還是中子星（NS）？
 這是 **8 個來源（4 BH + 4 NS）、每來源 15 次觀測** 的流程驗證，不是族群層級的結論。
 

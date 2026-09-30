@@ -55,3 +55,12 @@
 | v3c 分析 | `14_v3c_candidates.py` 依預先設定執行；未改任何設定 | 執行後未更改 |
 | 報告 | `report_v3_zh-TW.md` §3–§7 改寫為 v3b、v3c 結果、解讀（分三層）、限制與「與預先設定的差異」；README、progress.json 更新。與預先設定的差異僅：Swift J1753.5-0127 檔名修正、2 個候選無 RXTE 目錄 | 是（只寫文件，未改分析） |
 | 目前進度 | v3a/v3b/v3c 全部完成並 commit 在分支 `v3-analysis`（未合併 master）。下一步（需另行預先設定）：依能態分組比較、逐源 N_H、更多確認 BH | — |
+
+## 收尾（2026-09-30，雲端沙盒，以 `v3-analysis` 2f11821 為基底）
+
+| 時間 | 決定 / 變更 | 是否在看到結果之後 |
+|---|---|---|
+| 收尾 | 新增 `scripts/15_colour_colour.py` 與 `figures/final/colour_colour_decision_boundary.png`：兩個顏色的散佈圖，疊上 LR／RF 以全部 31 個確認天體擬合的 0.5 邊界與 14 個候選的中位數。純描述，**不是新的評估**，不影響任何已報告數字 | 是（只做視覺化，未改分析） |
+| 收尾 | `report_v3_zh-TW.md` §4.3 表格說明原寫「16–84% 觀測分位數」，與欄位（平均、≥0.5 比例）不符，改為正確描述；數字未改 | 是（文字更正） |
+| 收尾 | 新增 `reports/final_report_zh-TW.md`（v1–v3 整合報告）；README 加上連結。洩漏高估量依 `results/v2/secondary_observation_split.csv` 與 v3a LOSO 同表示、同模型逐一相減：+0.04 ~ +0.16 | 是（只寫文件） |
+| 收尾 | 停止擴充。後續若要做能態分組、時間特徵或物理空間特徵，需另寫預先設定 | — |
