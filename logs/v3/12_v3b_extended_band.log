@@ -1,0 +1,52 @@
+Extended grid: 50 bins, 2.883-25.008 keV (5 new bins below 4.91 keV)
+status
+accepted    456
+Series([], )
+456 of 456 observations kept; non-positive 3-5 keV bins in 0 spectra (kept, values unchanged)
+  B_shape            45 features
+  H_colours          2 features
+  B3_shape_3_25      50 features
+  H3_colours_3_25    3 features
+  H3_plus_B3         53 features
+  B_shape                  LogReg       done
+  B_shape                  RandomForest done
+  H_colours                LogReg       done
+  H_colours                RandomForest done
+  B3_shape_3_25            LogReg       done
+  B3_shape_3_25            RandomForest done
+  H3_colours_3_25          LogReg       done
+  H3_colours_3_25          RandomForest done
+  H3_plus_B3               LogReg       done
+  H3_plus_B3               RandomForest done
+
+ representation        model  n_obs  n_sources  BH_recall  NS_recall  obs_balanced_accuracy  obs_AUC  source_balanced_accuracy  source_AUC BH_sources_correct NS_sources_correct
+        B_shape       LogReg    456         31      0.695      0.826                  0.761    0.838                     0.774       0.875                5/7              20/24
+        B_shape RandomForest    456         31      0.581      0.940                  0.761    0.824                     0.857       0.893                5/7              24/24
+      H_colours       LogReg    456         31      0.762      0.789                  0.776    0.852                     0.795       0.923                5/7              21/24
+      H_colours RandomForest    456         31      0.610      0.900                  0.755    0.839                     0.857       0.905                5/7              24/24
+  B3_shape_3_25       LogReg    456         31      0.705      0.843                  0.774    0.804                     0.795       0.845                5/7              21/24
+  B3_shape_3_25 RandomForest    456         31      0.581      0.937                  0.759    0.792                     0.836       0.833                5/7              23/24
+H3_colours_3_25       LogReg    456         31      0.705      0.792                  0.748    0.830                     0.795       0.905                5/7              21/24
+H3_colours_3_25 RandomForest    456         31      0.562      0.909                  0.735    0.803                     0.765       0.851                4/7              23/24
+     H3_plus_B3       LogReg    456         31      0.695      0.832                  0.764    0.805                     0.815       0.839                5/7              22/24
+     H3_plus_B3 RandomForest    456         31      0.581      0.943                  0.762    0.797                     0.836       0.821                5/7              23/24
+
+                  comparison        model                   metric  point  ci2_5  ci97_5  frac_first_better
+     B3_shape_3_25 - B_shape       LogReg    obs_balanced_accuracy  0.013 -0.011   0.037              0.866
+     B3_shape_3_25 - B_shape       LogReg source_balanced_accuracy  0.021  0.000   0.062              0.648
+     B3_shape_3_25 - B_shape       LogReg               source_AUC -0.030 -0.119   0.018              0.102
+     B3_shape_3_25 - B_shape RandomForest    obs_balanced_accuracy -0.001 -0.027   0.021              0.452
+     B3_shape_3_25 - B_shape RandomForest source_balanced_accuracy -0.021 -0.062   0.000              0.000
+     B3_shape_3_25 - B_shape RandomForest               source_AUC -0.060 -0.202   0.024              0.090
+ H3_colours_3_25 - H_colours       LogReg    obs_balanced_accuracy -0.027 -0.048  -0.008              0.004
+ H3_colours_3_25 - H_colours       LogReg source_balanced_accuracy  0.000  0.000   0.000              0.000
+ H3_colours_3_25 - H_colours       LogReg               source_AUC -0.018 -0.071   0.000              0.000
+ H3_colours_3_25 - H_colours RandomForest    obs_balanced_accuracy -0.020 -0.066   0.020              0.192
+ H3_colours_3_25 - H_colours RandomForest source_balanced_accuracy -0.092 -0.235   0.000              0.000
+ H3_colours_3_25 - H_colours RandomForest               source_AUC -0.054 -0.161   0.006              0.028
+H3_plus_B3 - H3_colours_3_25       LogReg    obs_balanced_accuracy  0.015 -0.042   0.071              0.688
+H3_plus_B3 - H3_colours_3_25       LogReg source_balanced_accuracy  0.021  0.000   0.062              0.648
+H3_plus_B3 - H3_colours_3_25       LogReg               source_AUC -0.065 -0.214   0.048              0.152
+H3_plus_B3 - H3_colours_3_25 RandomForest    obs_balanced_accuracy  0.027 -0.012   0.076              0.878
+H3_plus_B3 - H3_colours_3_25 RandomForest source_balanced_accuracy  0.071  0.000   0.214              0.640
+H3_plus_B3 - H3_colours_3_25 RandomForest               source_AUC -0.030 -0.089   0.000              0.000

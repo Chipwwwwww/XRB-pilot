@@ -30,3 +30,28 @@
 | 原始數據 | 不從 Windows 複製；依 `logs/downloads.jsonl` 重新下載 2689 個檔案，SHA256 全部一致 | 與結果無關 |
 | 執行腳本 | 新增 `run_all.sh`（對應 `run_all.ps1`）；XSPEC 交叉檢查依賴 WSL，Mac 上預設跳過，只在 Windows 執行（`--xspec` 保留給日後移植） | 與結果無關 |
 | Mac 重現檢查 | 在 repo 副本上執行 `./run_all.sh`（v1，約 34 秒）：`features.npz` 與 Windows 差 ≤1e-16；LogReg 完全相同；RandomForest 單筆 BH_score 差 ≤0.006、天體平均差 ≤0.001，所有預測標籤與準確率相同。`observations.csv` 只差路徑分隔符（`\` vs `/`）；`sources.csv` 多 `n_eligible`/`included` 欄位（v2 改版後的程式本來就會寫，repo 裡的 v1 檔是舊版產生）。未提交重跑的輸出 | 與結果無關（重現性檢查） |
+
+## v3（2026-09-30，在雲端沙盒執行 v3a；v3b/v3c 待本機執行）
+
+| 時間 | 決定 / 變更 | 是否在看到 v3 分類結果之後 |
+|---|---|---|
+| v3 開始 | 寫 `preregistration_v3.md`（v3a 巢狀比較、v3b 3–25 keV、v3c candidates）與 `config.py` v3c 區塊；已看過 v1/v2 結果與 v2 B-vs-H 逐筆一致性（事後描述，已在預先設定中註明） | 否 |
+| v3a 執行 | 雲端沙盒（1 CPU，scikit-learn 1.8.0、numpy 2.4.4、pandas 3.0.2）。A/B/H/HI 重現 v2 OOF：LR 差 ≤8e-10、RF ≤2e-16，0 個標籤改變；bootstrap 區間與 v2 檔案完全一致 | 與結果無關（重現檢查） |
+| v3a 程式 | bootstrap 改為向量化（純效能；結果與 `09_bootstrap_sources.py` 逐位一致）；OOF 已存在時預設重用（`--retrain` 可重跑）；抑制 sklearn 1.8 `penalty` FutureWarning | 否（純效能／log） |
+| v3b/v3c | 無法在雲端執行（HEASARC 對沙盒回應 403、原始 FITS 不在 git）。程式以合成 FITS 做過端到端 smoke test（合成資料，不是結果，未保存） | 否 |
+| v3c 名單 | 候選名單由記憶整理，**未逐一查證**；執行前須由使用者對照 BlackCAT 確認並凍結 | 否 |
+
+## v3 本機執行（Windows，2026-09-30，分支 `v3-analysis`）
+
+| 時間 | 決定 / 變更 | 是否在看到 v3b/v3c 分類結果之後 |
+|---|---|---|
+| 套用 patch | `Downloads\xrb-pilot-v3.patch` 原本不在；使用者在對話中貼上全文，從對話紀錄取出未被改寫格式的版本（另一份貼上版本的 email 標頭被轉成 Markdown 連結），`git am` 無衝突（commit 7b1ccd8；PNG 129984 bytes 與 patch 一致） | 否 |
+| 環境 | venv 套件與 `requirements-lock.txt` 一致（numpy 2.4.4、pandas 2.3.3、scipy 1.17.1、scikit-learn 1.8.0、astropy 7.2.0、matplotlib 3.10.9）；沙盒用 pandas 3.0.2 | 與結果無關 |
+| v3a 本機重現 | `11_v3a_increment.py --retrain`：12 組 OOF 與沙盒相比 LR 最大差 7.8e-10、RF 2.2e-16，0 個標籤改變；`v3a_bootstrap/metrics/agreement` 完全相同 → `results/v3/v3a_local_vs_sandbox.csv`。提交本機重跑的輸出；沙盒副本已刪除 | 與結果無關（重現檢查） |
+| 2026-09-30 03:47 +08:00 v3c 名單凍結 | 對照 BlackCAT 網頁版各天體頁與 Corral-Santana+2016：16 個全部保留、0 刪除（無動力學確認、無 NS 證據）。MAXI J1659-152、Swift J1753.5-0127 屬 BlackCAT「嚴格說非動力學、但質量證據強」類，依規則保留並標註；GRS 1758-258、1E 1740.7-2942、4U 1957+11 為論文 §2 persistent 類。詳見 `reports/v3c_candidate_verification.md`；`config.py` 未修改（SHA256 06503f11…013d）。此時尚未執行 v3b、未下載任何 v3c 資料 | 否（v3b、v3c 皆尚未執行） |
+| v3b 執行 | `12_v3b_extended_band.py`：格點 50 bins、2.883–25.008 keV（新增 5 個 <4.91 keV bins）；456/456 筆接受，5–25 keV 部分與 v2 最大相對差 6.9e-16，0 筆 v2_mismatch、0 筆 3–5 keV 非正值 bin。未改任何規則 | 執行本身與結果無關；之後未更改任何設定 |
+| v3c 目錄檔 | `13_v3c_resolve_catalogs.py`：13/16 找到。依 HEASARC MissionLongData listing 修正 `catalog_name`：Swift J1753.5-0127 → `SWIFTJ1753.5-01`（唯一修改，允許的檔名修正）。XTE J1748-288、GRS 1739-278 在 listing 中沒有任何對應檔（搜尋 1739/1748/GRS 變體）→ 無 RXTE 目錄，依程式規則跳過並記錄 | 否（v3b 仍在執行、尚未看其結果；v3c 尚未下載） |
+| v3c 選樣／處理 | `XRB_VERSION=v3c` 執行 03/04/06：14 源皆 ≥16 筆合格，各取 15 筆，210/210 接受；格點與 v2 相同；XTE J1908+094 hdr_sep ≤1.2e-5°，全部源 ≤0.035°；06 在單一類別下正常完成（未改程式）。1E 1740.7-2942、GRS 1758-258 的 OBJECT 為 `NEAR_...`，但指向差 ≤5e-4°。15 筆有高能端非正值 bin（照 v2 規則保留） | 否 |
+| v3c 分析 | `14_v3c_candidates.py` 依預先設定執行；未改任何設定 | 執行後未更改 |
+| 報告 | `report_v3_zh-TW.md` §3–§7 改寫為 v3b、v3c 結果、解讀（分三層）、限制與「與預先設定的差異」；README、progress.json 更新。與預先設定的差異僅：Swift J1753.5-0127 檔名修正、2 個候選無 RXTE 目錄 | 是（只寫文件，未改分析） |
+| 目前進度 | v3a/v3b/v3c 全部完成並 commit 在分支 `v3-analysis`（未合併 master）。下一步（需另行預先設定）：依能態分組比較、逐源 N_H、更多確認 BH | — |

@@ -1,0 +1,5 @@
+pair,model,spearman_obs_scores,label_agreement
+B_shape vs H_colours,LogReg,0.9110244471640303,0.8771929824561403
+B_shape vs H_colours,RandomForest,0.8348916410408005,0.9276315789473685
+H_plus_B vs H_colours,LogReg,0.9157323961308761,0.881578947368421
+H_plus_B vs H_colours,RandomForest,0.8517475665980263,0.9298245614035088

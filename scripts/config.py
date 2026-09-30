@@ -112,3 +112,44 @@ if _os.environ.get('XRB_VERSION', 'v1') == 'v2':
     DEADTIME = 'std1'            # full GOF recipe from Standard-1 (FS46_*): Xe+Vp+Remaining x1e-5, VLE x6e-5, per PCU
     VLE_DT_ALT = 1.5e-4          # sensitivity check only (the GOF page quotes 150 us per VLE in another section)
     N_BOOT = 2000
+
+# =====================================================================================
+# v3c (BH candidates; written 2026-09-30 BEFORE any v3c download; see reports/preregistration_v3.md §3)
+# Activated with XRB_VERSION=v3c. Same selection/quality/processing rules as v2.
+# The candidate list below was drafted from memory of BlackCAT (Corral-Santana+2016) and is NOT yet verified:
+# the user must check every entry against https://research.iac.es/proyecto/compactos/BlackCAT/ (BH candidate,
+# i.e. no dynamical confirmation) and delete wrong ones BEFORE running 13_v3c_resolve_catalogs.py.
+# catalog_name guesses follow the MissionLongData naming seen in v2; names that 404 are logged and skipped.
+# =====================================================================================
+if _os.environ.get('XRB_VERSION', 'v1') == 'v3c':
+    _CAND = 'https://arxiv.org/abs/1510.08869'
+    _c = lambda sid, cat, name, alias, note='': (sid, cat, name, alias, 'BH',
+            'BlackCAT BH candidate (X-ray properties only, no dynamical mass) ' + note + '[VERIFY]', _CAND, 'candidate')
+    V3C_CANDIDATES = [
+        _c('H1743-322', 'H1743-322', 'H1743-322', 'IGR J17464-3213'),
+        _c('4U1630-47', '4U1630-47', '4U 1630-47', '4U 1630-472'),
+        _c('XTEJ1752-223', 'XTEJ1752-223', 'XTE J1752-223', ''),
+        _c('XTEJ1817-330', 'XTEJ1817-330', 'XTE J1817-330', ''),
+        _c('XTEJ1720-318', 'XTEJ1720-318', 'XTE J1720-318', ''),
+        _c('XTEJ1748-288', 'XTEJ1748-288', 'XTE J1748-288', '', '(Galactic-centre field) '),
+        _c('MAXIJ1659-152', 'MAXIJ1659-152', 'MAXI J1659-152', ''),
+        _c('SWIFTJ1753.5-0127', 'SWIFTJ1753.5-01', 'Swift J1753.5-0127', ''),   # catalog_name fixed from HEASARC listing
+        _c('XTEJ1908+094', 'XTEJ1908+094', 'XTE J1908+094', '',
+           '(4U 1907+097 is ~0.4 deg away: keep the 0.1 deg pointing check; Garg+2026 pairing error) '),
+        _c('IGRJ17091-3624', 'IGRJ17091-3624', 'IGR J17091-3624', ''),
+        _c('SLX1746-331', 'SLX1746-331', 'SLX 1746-331', '', '(Galactic-centre field) '),
+        _c('GRS1739-278', 'GRS1739-278', 'GRS 1739-278', '', '(Galactic-centre field) '),
+        _c('XTEJ1652-453', 'XTEJ1652-453', 'XTE J1652-453', ''),
+        _c('GRS1758-258', 'GRS1758-258', 'GRS 1758-258', '', '(persistent; Galactic-centre field) '),
+        _c('1E1740.7-2942', '1E1740.7-2942', '1E 1740.7-2942', '', '(persistent; Galactic-centre field) '),
+        _c('4U1957+11', '4U1957+11', '4U 1957+11', 'V1408 Aql', '(persistent) '),
+    ]
+    # only catalogues confirmed to exist by 13_v3c_resolve_catalogs.py are used by 03/04
+    _res = __import__('pathlib').Path(__file__).resolve().parents[1] / 'data/v3c/candidate_catalogs.csv'
+    if _res.exists():
+        import csv as _csv
+        _ok = {r['catalog_name'] for r in _csv.DictReader(open(_res, encoding='utf-8')) if r['found'] == 'True'}
+        SOURCES = [s for s in V3C_CANDIDATES if s[1] in _ok]
+    else:
+        SOURCES = V3C_CANDIDATES
+    MJD_MAX = 55931.0; MIN_ELIGIBLE = 10; DEADTIME = 'std1'; VLE_DT_ALT = 1.5e-4; N_BOOT = 2000
