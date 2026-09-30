@@ -27,6 +27,11 @@ v4a 換演算法（8 種 × 4 表示、巢狀 LOSO 自動選擇）、burst 汙�
 結論：**沒有任何主要比較勝過 H-LR**（v4a 巢狀自動選擇 −0.06、v4b3 HEXTE ±0、v4b1 全部 7,949 筆觀測 ±0.000）；v4b2 擴充到 46 個天體後 RF 只在來源 balanced accuracy（門檻）上較好，AUC 無差異。
 執行：`.\run_v4.ps1 -test -a -burst -b3 -b2 -b1`（或 `./run_v4.sh test a burst b3 b2 b1`）；共用模組 `scripts/v4lib.py`，腳本 `scripts/16_*`–`25_*`。
 輸出在 `results/v4*/`、`figures/v4*/`、`data/v4*/`，log 在 `logs/v4*/`。v4b1 的原始檔（約 2 GB）下載到 `XRB_EXTERNAL_RAW`（預設 `~/xrb-pilot-data/raw`），不在 repo 內。
+**v5（預先登記：[reports/preregistration_v5.md](reports/preregistration_v5.md)，報告：[reports/report_v5_zh-TW.md](reports/report_v5_zh-TW.md)；分支 `v5-analysis`）**：
+問 Standard-1（0.125 s）的低頻時間變異（0.016–4 Hz，兩組 PCU 的 cospectrum）能否在兩個顏色之外提供資訊。**預先設定寫於看過 v1–v4 之後，依使用者指示自行核准。**
+結果：H+T-LR 在 v2 樣本上點估計明顯較好（來源 BA 0.908 vs 0.795、AUC 0.988 vs 0.923），但依嚴格規則 primary **未偵測到**（AUC 差區間下限 0.000）；
+描述性比較方向一致（45 個配對差中 15 個區間 > 0），改善集中在顏色重疊的硬態區。屬探索性結果，需要在新天體上確認。
+執行：`.\run_v5.ps1`（或 `./run_v5.sh`）；模組 `scripts/v5lib.py`，腳本 `26_*`、`27_*`；輸出 `data/v5/`、`results/v5/`、`figures/v5/`。
 
 ## 環境
 - Python venv：`C:\Users\User\venvs\xrb-pilot`（Python 3.12.10；放在 OneDrive 之外）
