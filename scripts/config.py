@@ -159,7 +159,7 @@ if _os.environ.get('XRB_VERSION', 'v1') == 'v3c':
 # see reports/preregistration_v4.md). Active only for XRB_VERSION in {v4, v4b1, v4b2, v4b3}.
 # v1-v3 settings above are untouched.
 # =====================================================================================
-if _os.environ.get('XRB_VERSION', 'v1').startswith(('v4', 'v5')):     # v5 re-uses the v4 settings (v4lib)
+if _os.environ.get('XRB_VERSION', 'v1').startswith(('v4', 'v5', 'v6')):     # v5/v6 re-use the v4 settings (v4lib)
     N_BOOT = 2000; DEADTIME = 'std1'; VLE_DT_ALT = 1.5e-4
     V4_REPRESENTATIONS = ['H_colours', 'HI_colours_intensity', 'B_shape', 'A_intensity']   # via v3lib.v2_representations
     V4_BASELINE = ('H_colours', 'LogReg')      # v2 OOF in results/v2/oof_predictions_loso.csv, threshold 0.5
@@ -218,7 +218,7 @@ if _os.environ.get('XRB_VERSION', 'v1').startswith(('v4', 'v5')):     # v5 re-us
 # v5 (written 2026-10-01 AFTER all v1-v4 results, BEFORE any v5 feature or model; see reports/preregistration_v5.md).
 # Active only for XRB_VERSION starting with v5 (the v4 block above is also active). v1-v4 behaviour is unchanged.
 # =====================================================================================
-if _os.environ.get('XRB_VERSION', 'v1').startswith('v5'):
+if _os.environ.get('XRB_VERSION', 'v1').startswith(('v5', 'v6')):     # v6 re-uses the v5 timing settings (v5lib)
     V5_N_BINS, V5_DT = 1024, 0.125                  # Standard-1 row: 1024 x 0.125 s = 128 s
     V5_BANDS_J = {'T1': (2, 12), 'T2': (13, 128), 'T3': (129, 511)}   # Fourier index ranges (inclusive), nu = j / 128 s
     V5_MIN_PCUS = 2                                  # PCUs on for the whole row; A = on[0::2], B = on[1::2]
@@ -226,3 +226,20 @@ if _os.environ.get('XRB_VERSION', 'v1').startswith('v5'):
     V5_MIN_ROWS = 3                                  # valid rows per observation, else timing features missing
     V5_CHECK_RATE = (20.0, 500.0)                    # source counts/s/PCU range for the auto-power cross-check
     V5_CHECK_MIN_SPEARMAN = 0.90
+
+# =====================================================================================
+# v6 (written 2026-10-01 AFTER all v1-v5 results, BEFORE any v6 download/feature/model; see reports/preregistration_v6.md).
+# Active only for XRB_VERSION starting with v6 (the v4 and v5 blocks above are also active). v1-v5 behaviour unchanged.
+# =====================================================================================
+if _os.environ.get('XRB_VERSION', 'v1').startswith('v6'):
+    MIN_ELIGIBLE = 10; MJD_MAX = 55931.0; MJD_MIN = 0.0          # selection as v4b2: all gain epochs, >= 10 eligible
+    V6_AUTO_MAX_RATE = 500.0            # counts/s/PCU: single-PCU rows use the auto-power estimator only below this
+    V6_NLOGBINS = 9                     # log-spaced bins 1/128 .. 4 Hz for the nuPnu centroid
+    V6_NUC_MIN_RMS = 0.05               # nu_c missing if T*_total < this
+    V6_T_DOF = 4                        # CCTLR Student-t degrees of freedom
+    V6_SIGMA_FLOOR = 0.01
+    V6_KNN = 25                         # colour-conditional permutation test: kNN residualisation
+    V6_N_PERM = 20000
+    V6_CONFORMAL_EPS = (0.1, 0.2)
+    V6_BUDGET_K = (1, 2, 3, 5, 8, 13, 21); V6_BUDGET_DRAWS = 500
+    V6_PROB_CLIP = (0.01, 0.99)
