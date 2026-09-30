@@ -1,0 +1,24 @@
+C:\Users\User\OneDrive\Documents\ChatGPT\XRB-pilot\scripts\28_v6_select.py:43: FutureWarning: The behavior of DataFrame concatenation with empty or all-NA entries is deprecated. In a future version, this will no longer exclude empty or all-NA columns when determining the result dtypes. To retain the old behavior, exclude the relevant entries before the concat operation.
+  pos = pd.concat([pos, pd.DataFrame([dict(name=n, ra=ra, dec=dec, simbad_main_id=i0[0][5:].strip() if i0 else '', resolver_url=u)])])
+                  name label                role    catalog_name  eligible_all         nearest_known_source                                                    decision
+0              Cyg X-1    BH               E_new           CYGX1        1540.0    XTEJ1859+226 (18.063 deg)                                                    included
+1              LMC X-1    BH               E_new             NaN           NaN     EXO0748-676 (11.707 deg)  excluded: no RXTE MissionLongData catalogue within 0.1 deg
+2              LMC X-3    BH               E_new           LMCX3         943.0     EXO0748-676 (13.544 deg)                                                    included
+3              M33 X-7    BH               E_new             NaN           NaN           CYGX2 (47.087 deg)  excluded: no RXTE MissionLongData catalogue within 0.1 deg
+4        XTE J1751-305    NS               E_new    XTEJ1751-305          51.0      GRS1747-312 (0.662 deg)                                                    included
+5        XTE J0929-314    NS               E_new    XTEJ0929-314          23.0      2S0918-549 (23.875 deg)                                                    included
+6        XTE J1807-294    NS               E_new    XTEJ1807-294         104.0  SAXJ1750.8-2900 (3.674 deg)                                                    included
+7      IGR J00291+5934    NS               E_new  IGRJ00291+5934          89.0           CYGX2 (33.475 deg)                                                    included
+8   Swift J1756.9-2508    NS               E_new             NaN           NaN      EXO1745-248 (2.037 deg)  excluded: no RXTE MissionLongData catalogue within 0.1 deg
+9         NGC 6440 X-2    NS               E_new             NaN           NaN                          NaN                       excluded: name not resolved by Sesame
+10     IGR J17511-3057    NS               E_new  IGRJ17511-3057          74.0      GRS1747-312 (0.327 deg)                                                    included
+11  Swift J1749.4-2807    NS               E_new             NaN           NaN  SAXJ1747.0-2853 (0.914 deg)  excluded: no RXTE MissionLongData catalogue within 0.1 deg
+12     IGR J17498-2921    NS               E_new  IGRJ17498-2921          34.0  SAXJ1750.8-2900 (0.290 deg)                                                    included
+13     IGR J18245-2452    NS               E_new     PSRB1821-24           0.0         V4641SGR (1.300 deg)                       excluded: 0 eligible pointings (< 10)
+14         2A 1822-371    NS  stress_slow_pulsar      4U1822-371          94.0  SAXJ1808.4-3658 (3.458 deg)                                                    included
+15          4U 1626-67    NS  stress_slow_pulsar       4U1626-67          55.0    XTEJ1550-564 (12.001 deg)                                                    included
+16        GRO J1744-28    NS  stress_slow_pulsar     GROJ1744-28         306.0  SAXJ1747.0-2853 (0.587 deg)                                                    included
+17             Her X-1    NS  stress_slow_pulsar           HERX1         388.0    XTEJ1859+226 (29.153 deg)                                                    included
+
+included: [('CYGX1', 'BH', 'E_new', 1540), ('LMCX3', 'BH', 'E_new', 943), ('IGRJ00291+5934', 'NS', 'E_new', 89), ('IGRJ17498-2921', 'NS', 'E_new', 34), ('IGRJ17511-3057', 'NS', 'E_new', 74), ('XTEJ0929-314', 'NS', 'E_new', 23), ('XTEJ1751-305', 'NS', 'E_new', 51), ('XTEJ1807-294', 'NS', 'E_new', 104), ('4U1626-67', 'NS', 'stress_slow_pulsar', 55), ('4U1822-371', 'NS', 'stress_slow_pulsar', 94), ('GROJ1744-28', 'NS', 'stress_slow_pulsar', 306), ('HERX1', 'NS', 'stress_slow_pulsar', 388)]
+candidates: 3701 ; first-choice observations: 180

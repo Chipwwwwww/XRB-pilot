@@ -1,0 +1,25 @@
+PASS all-pairs variance reduction >= 25% with 3 PCUs 0.31
+PASS all-pairs unbiased under pure Poisson (3 PCUs, |mean| < 3 SE) -1.00e-04
+PASS all-pairs variance reduction >= 25% with 4 PCUs 0.33
+PASS all-pairs unbiased under pure Poisson (4 PCUs, |mean| < 3 SE) -6.32e-05
+PASS all-pairs variance reduction >= 25% with 5 PCUs 0.41
+PASS all-pairs unbiased under pure Poisson (5 PCUs, |mean| < 3 SE) 7.39e-05
+PASS rms 0.2 at 0.05 Hz recovered in T1 (4 PCUs, <10%) 0.198
+PASS rms 0.2 at 0.05 Hz recovered in T1 (1 PCU, <10%) 0.197
+PASS rms 0.2 at 0.5 Hz recovered in T2 (4 PCUs, <10%) 0.199
+PASS rms 0.2 at 0.5 Hz recovered in T2 (1 PCU, <10%) 0.197
+PASS rms 0.2 at 3.0 Hz recovered in T3 (4 PCUs, <10%) 0.198
+PASS rms 0.2 at 3.0 Hz recovered in T3 (1 PCU, <10%) 0.188
+PASS nu_c for a 0.05 Hz sinusoid within one log bin 0.045 Hz
+PASS nu_c for a 0.5 Hz sinusoid within one log bin 0.705 Hz
+PASS nu_c for a 3.0 Hz sinusoid within one log bin 2.810 Hz
+PASS nu_c missing for low total rms 
+PASS CCTLR separates classes that differ only in timing at high c2 (source AUC > 0.9) 1.000
+PASS missing timing -> score equals the H-LR probability 
+PASS permutation test under H0: fraction p < 0.05 <= 0.12 0.033
+PASS permutation test under H1: p < 0.01 
+PASS holm adjustment [0.03 0.06 0.06]
+PASS conformal LOSO coverage >= 0.8 - 0.02 at eps = 0.2 0.816
+PASS proper scores: perfect model better than 0.5 everywhere (CI < 0) 
+
+ALL PASS
