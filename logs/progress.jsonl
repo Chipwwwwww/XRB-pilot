@@ -31,3 +31,4 @@
 {"utc": "2026-09-29T19:55:17.566046+00:00", "stage": "3b_fetch_process_v3c", "details": "210 accepted observations; 0 excluded candidates logged"}
 {"utc": "2026-09-29T19:55:25.306979+00:00", "stage": "3c_dataset_checks_v3c", "details": "results/data_checks.md + step3 figures"}
 {"utc": "2026-09-29T19:57:10.373397+00:00", "stage": "v3c_candidates", "details": "results/v3/v3c_* written"}
+{"utc": "2026-09-30T10:22:01.720091+00:00", "stage": "final_colour_colour", "details": "figures/final/colour_colour_decision_boundary.png"}
