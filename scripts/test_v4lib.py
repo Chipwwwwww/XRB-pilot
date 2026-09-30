@@ -19,7 +19,9 @@ check('choose_threshold tie -> closest to 0.5', abs(t - 0.2) < 1e-12, (t, ba))
 
 # 2. source-equal weights
 w = L.source_equal_weights(np.array([1, 1, 1, 0, 0]), np.array(['a', 'a', 'b', 'c', 'd']))
-check('source_equal_weights class sums', np.isclose(w[:3].sum(), 1) and np.isclose(w[3:].sum(), 1) and np.isclose(w[0], .25), w)
+check('source_equal_weights class sums = n/2', np.isclose(w[:3].sum(), 2.5) and np.isclose(w[3:].sum(), 2.5) and np.isclose(w[0], .625), w)
+yy, gg = np.repeat([1, 1, 0, 0, 0], 4), np.repeat(list('abcde'), 4)          # equal obs per source -> identical to balanced
+check('source_equal_weights == balanced_weights when every source has the same n', np.allclose(L.source_equal_weights(yy, gg), L.balanced_weights(yy)))
 
 # 3. paired bootstrap reproduces v3a numbers exactly (same draws as v3lib/09)
 v2 = pd.read_csv(ROOT/'results/v2/oof_predictions_loso.csv', dtype={'obs_id': str})

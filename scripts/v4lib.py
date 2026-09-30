@@ -34,12 +34,15 @@ def balanced_weights(y):
 
 
 def source_equal_weights(y, g):
-    """w_i = 1 / (n training sources in class(i) * n training obs of source(i)); each class sums to 1."""
+    """w_i proportional to 1 / (n training sources in class(i) * n training obs of source(i)): every source of a class has
+    the same total weight and each class sums to n/2, i.e. the same overall scale as class_weight='balanced' (sum = n), so
+    that LR's C and HistGB's min_hessian_to_split mean the same as in the balanced fits. (First version summed to 2 per
+    fit, which acted as ~n/2 times stronger LR regularisation; fixed 2026-10-01, see decision_log.)"""
     y, g = np.asarray(y), np.asarray(g); w = np.empty(len(y))
     for c in (0, 1):
         srcs = np.unique(g[y == c])
         for s in srcs:
-            m = g == s; w[m] = 1.0 / (len(srcs) * m.sum())
+            m = g == s; w[m] = len(y) / (2.0 * len(srcs) * m.sum())
     return w
 
 

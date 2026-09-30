@@ -1,6 +1,7 @@
 PASS choose_threshold separable -> 0.4, BA 1 (0.4, 1.0)
 PASS choose_threshold tie -> closest to 0.5 (0.2, 1.0)
-PASS source_equal_weights class sums [0.25 0.25 0.5  0.5  0.5 ]
+PASS source_equal_weights class sums = n/2 [0.625 0.625 1.25  1.25  1.25 ]
+PASS source_equal_weights == balanced_weights when every source has the same n 
 PASS bootstrap diff source_balanced_accuracy == v3a (np.float64(-0.02083333333333337), np.float64(-0.0625), np.float64(0.0))
 PASS bootstrap H-LR source_balanced_accuracy == v3a 
 PASS bootstrap diff source_AUC == v3a (np.float64(-0.04761904761904767), np.float64(-0.1785714285714285), np.float64(0.04761904761904767))
@@ -54,5 +55,5 @@ PASS MLP/A_intensity scores finite
 PASS LogReg[srcw]/A_intensity scores finite 
 PASS RandomForest[srcw]/A_intensity scores finite 
 PASS HistGB[srcw]/A_intensity scores finite 
-PASS nested_fold returns 140 inner rows and 32 selections 283 s for one outer fold
+PASS nested_fold returns 140 inner rows and 32 selections 304 s for one outer fold
 ALL PASS
