@@ -1,0 +1,309 @@
+456 obs, 31 sources; 16 workers
+[Parallel(n_jobs=16)]: Using backend LokyBackend with 16 concurrent workers.
+[Parallel(n_jobs=16)]: Done  22 out of  44 | elapsed:   10.2s remaining:   10.2s
+[Parallel(n_jobs=16)]: Done  31 out of  44 | elapsed:   18.3s remaining:    7.6s
+[Parallel(n_jobs=16)]: Done  40 out of  44 | elapsed:   28.2s remaining:    2.7s
+[Parallel(n_jobs=16)]: Done  44 out of  44 | elapsed:   37.4s finished
+fixed models done (38 s)
+
+1a reproduction:
+      representation        model  max_abs_score_diff    tolerance  n_label_changes  passed
+           H_colours       LogReg        1.110223e-16 1.000000e-08                0    True
+           H_colours RandomForest        2.220446e-16 1.000000e-02                0    True
+HI_colours_intensity       LogReg        1.110223e-16 1.000000e-08                0    True
+HI_colours_intensity RandomForest        1.110223e-16 1.000000e-02                0    True
+             B_shape       LogReg        1.110223e-16 1.000000e-08                0    True
+             B_shape RandomForest        1.110223e-16 1.000000e-02                0    True
+         A_intensity       LogReg        1.110223e-16 1.000000e-08                0    True
+         A_intensity RandomForest        1.110223e-16 1.000000e-02                0    True
+[Parallel(n_jobs=16)]: Using backend LokyBackend with 16 concurrent workers.
+[Parallel(n_jobs=16)]: Done   1 tasks      | elapsed:  8.6min
+[Parallel(n_jobs=16)]: Done   4 out of  31 | elapsed:  8.7min remaining: 58.7min
+[Parallel(n_jobs=16)]: Done   8 out of  31 | elapsed:  8.7min remaining: 25.1min
+[Parallel(n_jobs=16)]: Done  12 out of  31 | elapsed:  8.8min remaining: 13.9min
+[Parallel(n_jobs=16)]: Done  16 out of  31 | elapsed:  8.8min remaining:  8.3min
+[Parallel(n_jobs=16)]: Done  20 out of  31 | elapsed: 17.3min remaining:  9.5min
+[Parallel(n_jobs=16)]: Done  24 out of  31 | elapsed: 17.3min remaining:  5.1min
+[Parallel(n_jobs=16)]: Done  28 out of  31 | elapsed: 17.4min remaining:  1.9min
+[Parallel(n_jobs=16)]: Done  31 out of  31 | elapsed: 17.4min finished
+nested done (1083 s)
+
+1e selections per outer fold:
+ fold     test_source test_label  algorithm       representation                                            config  threshold  inner_source_AUC  inner_source_BA  test_source_mean_raw test_source_pred
+    0      4U1254-690         NS    SVM_RBF          A_intensity                  {'C': 10.0, 'gamma_factor': 1.0}   0.405913          0.968944         0.913043              0.104026               NS
+    1      4U1323-619         NS    SVM_RBF          A_intensity                  {'C': 10.0, 'gamma_factor': 1.0}   0.429848          0.975155         0.934783              0.346894               NS
+    2       4U1543-47         BH    SVM_RBF          A_intensity                  {'C': 10.0, 'gamma_factor': 0.3}   0.588058          0.972222         0.916667              0.701590               BH
+    3       4U1608-52         NS    SVM_RBF          A_intensity                  {'C': 10.0, 'gamma_factor': 1.0}   0.440013          0.975155         0.934783              0.224126               NS
+    4       4U1636-53         NS    SVM_RBF          A_intensity                  {'C': 10.0, 'gamma_factor': 1.0}   0.416919          0.968944         0.913043              0.149713               NS
+    5      4U1702-429         NS    SVM_RBF          A_intensity                  {'C': 10.0, 'gamma_factor': 1.0}   0.440341          0.975155         0.934783              0.220752               NS
+    6       4U1705-44         NS    SVM_RBF          A_intensity                  {'C': 10.0, 'gamma_factor': 1.0}   0.409529          0.968944         0.913043              0.129687               NS
+    7      4U1724-307         NS    SVM_RBF          A_intensity                  {'C': 10.0, 'gamma_factor': 1.0}   0.407800          0.968944         0.913043              0.307511               NS
+    8       4U1728-34         NS     LogReg          A_intensity                                        {'C': 0.1}   0.384646          0.968944         0.913043              0.423953               BH
+    9       4U1735-44         NS     HistGB HI_colours_intensity      {'learning_rate': 0.1, 'max_leaf_nodes': 15}   0.176978          0.968944         0.934783              0.000001               NS
+   10      4U1746-371         NS    SVM_RBF          A_intensity                  {'C': 10.0, 'gamma_factor': 1.0}   0.405931          0.968944         0.913043              0.088845               NS
+   11       4U1820-30         NS    SVM_RBF          A_intensity                  {'C': 10.0, 'gamma_factor': 1.0}   0.405668          0.968944         0.913043              0.038062               NS
+   12       4U1915-05         NS    SVM_RBF          A_intensity                  {'C': 10.0, 'gamma_factor': 1.0}   0.406807          0.968944         0.913043              0.163884               NS
+   13           AQLX1         NS    SVM_RBF          A_intensity                  {'C': 10.0, 'gamma_factor': 1.0}   0.437119          0.975155         0.934783              0.366473               NS
+   14           CYGX2         NS    SVM_RBF          A_intensity                  {'C': 10.0, 'gamma_factor': 1.0}   0.408238          0.968944         0.913043              0.280249               NS
+   15     EXO0748-676         NS    SVM_RBF          A_intensity                  {'C': 10.0, 'gamma_factor': 1.0}   0.429872          0.968944         0.913043              0.282880               NS
+   16     GROJ1655-40         BH    SVM_RBF          A_intensity                  {'C': 10.0, 'gamma_factor': 1.0}   0.401290          0.958333         0.916667              0.867881               BH
+   17     GRS1915+105         BH     HistGB            H_colours     {'learning_rate': 0.05, 'max_leaf_nodes': 15}   0.355318          0.993056         0.979167              0.081040               NS
+   18      GS1826-238         NS    SVM_RBF          A_intensity                  {'C': 10.0, 'gamma_factor': 0.3}   0.407174          0.981366         0.934783              0.502487               BH
+   19          GX17+2         NS    SVM_RBF          A_intensity                  {'C': 10.0, 'gamma_factor': 1.0}   0.408583          0.981366         0.934783              0.494526               BH
+   20           GX3+1         NS    SVM_RBF          A_intensity                  {'C': 10.0, 'gamma_factor': 1.0}   0.405830          0.968944         0.913043              0.062500               NS
+   21         GX339-4         BH    SVM_RBF          A_intensity                  {'C': 10.0, 'gamma_factor': 1.0}   0.398924          0.958333         0.916667              0.718543               BH
+   22 HETEJ1900.1-245         NS    SVM_RBF          A_intensity                  {'C': 10.0, 'gamma_factor': 1.0}   0.433864          0.975155         0.934783              0.443458               BH
+   23      KS1731-260         NS     LogReg          A_intensity                                        {'C': 0.1}   0.590216          0.975155         0.928571              0.589795               NS
+   24     MXB1658-298         NS    SVM_RBF          A_intensity                  {'C': 10.0, 'gamma_factor': 0.3}   0.397659          0.968944         0.913043              0.215009               NS
+   25 SAXJ1808.4-3658         NS    SVM_RBF          A_intensity                  {'C': 10.0, 'gamma_factor': 1.0}   0.455371          0.993789         0.978261              0.569632               BH
+   26     SLX1735-269         NS    SVM_RBF          A_intensity                  {'C': 10.0, 'gamma_factor': 1.0}   0.410438          0.968944         0.913043              0.216555               NS
+   27    XTEJ1118+480         BH ExtraTrees HI_colours_intensity                           {'min_samples_leaf': 1}   0.419333          1.000000         1.000000              0.175706               NS
+   28    XTEJ1550-564         BH     HistGB HI_colours_intensity     {'learning_rate': 0.05, 'max_leaf_nodes': 15}   0.255112          0.958333         0.937500              0.632112               BH
+   29    XTEJ1650-500         BH        MLP          A_intensity {'hidden_layer_sizes': (32, 16), 'alpha': 0.0001}   0.445648          0.979167         0.979167              0.674601               BH
+   30    XTEJ1814-338         NS     HistGB HI_colours_intensity      {'learning_rate': 0.1, 'max_leaf_nodes': 15}   0.275430          0.993789         0.978261              0.704371               BH
+
+Point metrics:
+      representation               model  n_obs  n_sources  BH_recall  NS_recall  obs_balanced_accuracy  obs_AUC  source_balanced_accuracy  source_AUC BH_sources_correct NS_sources_correct                                     name                    part
+           H_colours              LogReg    456         31      0.762      0.789                  0.776    0.852                     0.795       0.923                5/7              21/24                         H_colours|LogReg            reference_v2
+           H_colours        RandomForest    456         31      0.610      0.900                  0.755    0.839                     0.857       0.905                5/7              24/24                   H_colours|RandomForest                1b_fixed
+           H_colours          ExtraTrees    456         31      0.629      0.846                  0.737    0.842                     0.815       0.899                5/7              22/24                     H_colours|ExtraTrees                1b_fixed
+           H_colours              HistGB    456         31      0.638      0.869                  0.754    0.798                     0.857       0.899                5/7              24/24                         H_colours|HistGB                1b_fixed
+           H_colours             SVM_RBF    456         31      0.657      0.849                  0.753    0.815                     0.815       0.857                5/7              22/24                        H_colours|SVM_RBF                1b_fixed
+           H_colours                 kNN    456         31      0.648      0.826                  0.737    0.815                     0.815       0.875                5/7              22/24                            H_colours|kNN                1b_fixed
+           H_colours                 QDA    456         31      0.486      0.949                  0.717    0.848                     0.786       0.905                4/7              24/24                            H_colours|QDA                1b_fixed
+           H_colours                 MLP    456         31      0.857      0.624                  0.741    0.856                     0.812       0.917                7/7              15/24                            H_colours|MLP                1b_fixed
+HI_colours_intensity              LogReg    456         31      0.752      0.812                  0.782    0.854                     0.795       0.929                5/7              21/24              HI_colours_intensity|LogReg                1b_fixed
+HI_colours_intensity        RandomForest    456         31      0.600      0.909                  0.754    0.889                     0.836       0.946                5/7              23/24        HI_colours_intensity|RandomForest                1b_fixed
+HI_colours_intensity          ExtraTrees    456         31      0.724      0.903                  0.813    0.907                     0.836       0.958                5/7              23/24          HI_colours_intensity|ExtraTrees                1b_fixed
+HI_colours_intensity              HistGB    456         31      0.571      0.903                  0.737    0.862                     0.765       0.929                4/7              23/24              HI_colours_intensity|HistGB                1b_fixed
+HI_colours_intensity             SVM_RBF    456         31      0.752      0.866                  0.809    0.907                     0.866       0.946                6/7              21/24             HI_colours_intensity|SVM_RBF                1b_fixed
+HI_colours_intensity                 kNN    456         31      0.714      0.863                  0.789    0.866                     0.836       0.952                5/7              23/24                 HI_colours_intensity|kNN                1b_fixed
+HI_colours_intensity                 QDA    456         31      0.610      0.974                  0.792    0.870                     0.857       0.952                5/7              24/24                 HI_colours_intensity|QDA                1b_fixed
+HI_colours_intensity                 MLP    456         31      0.676      0.712                  0.694    0.826                     0.661       0.869                4/7              18/24                 HI_colours_intensity|MLP                1b_fixed
+             B_shape              LogReg    456         31      0.695      0.826                  0.761    0.838                     0.774       0.875                5/7              20/24                           B_shape|LogReg                1b_fixed
+             B_shape        RandomForest    456         31      0.581      0.940                  0.761    0.824                     0.857       0.893                5/7              24/24                     B_shape|RandomForest                1b_fixed
+             B_shape          ExtraTrees    456         31      0.581      0.920                  0.751    0.834                     0.857       0.881                5/7              24/24                       B_shape|ExtraTrees                1b_fixed
+             B_shape              HistGB    456         31      0.600      0.903                  0.752    0.810                     0.857       0.893                5/7              24/24                           B_shape|HistGB                1b_fixed
+             B_shape             SVM_RBF    456         31      0.648      0.883                  0.765    0.835                     0.836       0.881                5/7              23/24                          B_shape|SVM_RBF                1b_fixed
+             B_shape                 kNN    456         31      0.629      0.849                  0.739    0.781                     0.836       0.798                5/7              23/24                              B_shape|kNN                1b_fixed
+             B_shape                 QDA    456         31      0.429      0.966                  0.697    0.836                     0.786       0.923                4/7              24/24                              B_shape|QDA                1b_fixed
+             B_shape                 MLP    456         31      0.810      0.613                  0.711    0.828                     0.783       0.881                6/7              17/24                              B_shape|MLP                1b_fixed
+         A_intensity              LogReg    456         31      0.667      0.781                  0.724    0.837                     0.866       0.946                6/7              21/24                       A_intensity|LogReg                1b_fixed
+         A_intensity        RandomForest    456         31      0.324      0.889                  0.606    0.782                     0.622       0.881                2/7              23/24                 A_intensity|RandomForest                1b_fixed
+         A_intensity          ExtraTrees    456         31      0.486      0.858                  0.672    0.797                     0.765       0.899                4/7              23/24                   A_intensity|ExtraTrees                1b_fixed
+         A_intensity              HistGB    456         31      0.533      0.886                  0.710    0.776                     0.908       0.940                6/7              23/24                       A_intensity|HistGB                1b_fixed
+         A_intensity             SVM_RBF    456         31      0.648      0.764                  0.706    0.836                     0.795       0.917                5/7              21/24                      A_intensity|SVM_RBF                1b_fixed
+         A_intensity                 kNN    456         31      0.533      0.778                  0.656    0.782                     0.815       0.893                5/7              22/24                          A_intensity|kNN                1b_fixed
+         A_intensity                 QDA    456         31      0.562      0.952                  0.757    0.849                     0.929       0.946                6/7              24/24                          A_intensity|QDA                1b_fixed
+         A_intensity                 MLP    456         31      0.838      0.496                  0.667    0.747                     0.792       0.839                7/7              14/24                          A_intensity|MLP                1b_fixed
+           H_colours        LogReg[srcw]    456         31      0.543      0.858                  0.700    0.798                     0.744       0.857                4/7              22/24                   H_colours|LogReg[srcw]      1c_source_weighted
+           H_colours  RandomForest[srcw]    456         31      0.610      0.897                  0.753    0.838                     0.857       0.899                5/7              24/24             H_colours|RandomForest[srcw]      1c_source_weighted
+           H_colours        HistGB[srcw]    456         31      0.667      0.863                  0.765    0.833                     0.857       0.911                5/7              24/24                   H_colours|HistGB[srcw]      1c_source_weighted
+HI_colours_intensity        LogReg[srcw]    456         31      0.514      0.897                  0.706    0.760                     0.744       0.786                4/7              22/24        HI_colours_intensity|LogReg[srcw]      1c_source_weighted
+HI_colours_intensity  RandomForest[srcw]    456         31      0.600      0.903                  0.752    0.890                     0.836       0.940                5/7              23/24  HI_colours_intensity|RandomForest[srcw]      1c_source_weighted
+HI_colours_intensity        HistGB[srcw]    456         31      0.638      0.872                  0.755    0.875                     0.815       0.917                5/7              22/24        HI_colours_intensity|HistGB[srcw]      1c_source_weighted
+             B_shape        LogReg[srcw]    456         31      0.714      0.778                  0.746    0.853                     0.774       0.887                5/7              20/24                     B_shape|LogReg[srcw]      1c_source_weighted
+             B_shape  RandomForest[srcw]    456         31      0.590      0.943                  0.767    0.825                     0.857       0.893                5/7              24/24               B_shape|RandomForest[srcw]      1c_source_weighted
+             B_shape        HistGB[srcw]    456         31      0.629      0.889                  0.759    0.822                     0.857       0.911                5/7              24/24                     B_shape|HistGB[srcw]      1c_source_weighted
+         A_intensity        LogReg[srcw]    456         31      0.667      0.755                  0.711    0.751                     0.774       0.857                5/7              20/24                 A_intensity|LogReg[srcw]      1c_source_weighted
+         A_intensity  RandomForest[srcw]    456         31      0.324      0.886                  0.605    0.780                     0.622       0.887                2/7              23/24           A_intensity|RandomForest[srcw]      1c_source_weighted
+         A_intensity        HistGB[srcw]    456         31      0.533      0.877                  0.705    0.782                     0.836       0.940                5/7              23/24                 A_intensity|HistGB[srcw]      1c_source_weighted
+           H_colours       nested:LogReg    456         31      0.886      0.650                  0.768    0.860                     0.824       0.923                6/7              19/24                  H_colours|nested:LogReg 1d_nested_per_algorithm
+           H_colours nested:RandomForest    456         31      0.648      0.900                  0.774    0.899                     0.836       0.952                5/7              23/24            H_colours|nested:RandomForest 1d_nested_per_algorithm
+           H_colours   nested:ExtraTrees    456         31      0.610      0.889                  0.749    0.862                     0.836       0.940                5/7              23/24              H_colours|nested:ExtraTrees 1d_nested_per_algorithm
+           H_colours       nested:HistGB    456         31      0.686      0.846                  0.766    0.821                     0.723       0.905                4/7              21/24                  H_colours|nested:HistGB 1d_nested_per_algorithm
+           H_colours      nested:SVM_RBF    456         31      0.552      0.849                  0.701    0.745                     0.836       0.774                5/7              23/24                 H_colours|nested:SVM_RBF 1d_nested_per_algorithm
+           H_colours          nested:kNN    456         31      0.629      0.880                  0.754    0.824                     0.815       0.911                5/7              22/24                     H_colours|nested:kNN 1d_nested_per_algorithm
+           H_colours          nested:QDA    456         31      0.667      0.632                  0.650    0.783                     0.640       0.821                4/7              17/24                     H_colours|nested:QDA 1d_nested_per_algorithm
+           H_colours          nested:MLP    456         31      0.562      0.892                  0.727    0.819                     0.765       0.887                4/7              23/24                     H_colours|nested:MLP 1d_nested_per_algorithm
+HI_colours_intensity       nested:LogReg    456         31      0.810      0.698                  0.754    0.840                     0.783       0.905                6/7              17/24       HI_colours_intensity|nested:LogReg 1d_nested_per_algorithm
+HI_colours_intensity nested:RandomForest    456         31      0.667      0.829                  0.748    0.835                     0.774       0.875                5/7              20/24 HI_colours_intensity|nested:RandomForest 1d_nested_per_algorithm
+HI_colours_intensity   nested:ExtraTrees    456         31      0.686      0.826                  0.756    0.793                     0.774       0.810                5/7              20/24   HI_colours_intensity|nested:ExtraTrees 1d_nested_per_algorithm
+HI_colours_intensity       nested:HistGB    456         31      0.667      0.832                  0.749    0.791                     0.824       0.893                6/7              19/24       HI_colours_intensity|nested:HistGB 1d_nested_per_algorithm
+HI_colours_intensity      nested:SVM_RBF    456         31      0.714      0.838                  0.776    0.858                     0.774       0.887                5/7              20/24      HI_colours_intensity|nested:SVM_RBF 1d_nested_per_algorithm
+HI_colours_intensity          nested:kNN    456         31      0.733      0.783                  0.758    0.840                     0.795       0.893                5/7              21/24          HI_colours_intensity|nested:kNN 1d_nested_per_algorithm
+HI_colours_intensity          nested:QDA    456         31      0.648      0.966                  0.807    0.868                     0.929       0.958                6/7              24/24          HI_colours_intensity|nested:QDA 1d_nested_per_algorithm
+HI_colours_intensity          nested:MLP    456         31      0.562      0.507                  0.535    0.587                     0.494       0.607                4/7              10/24          HI_colours_intensity|nested:MLP 1d_nested_per_algorithm
+             B_shape       nested:LogReg    456         31      0.581      0.926                  0.753    0.861                     0.857       0.905                5/7              24/24                    B_shape|nested:LogReg 1d_nested_per_algorithm
+             B_shape nested:RandomForest    456         31      0.571      0.943                  0.757    0.846                     0.857       0.911                5/7              24/24              B_shape|nested:RandomForest 1d_nested_per_algorithm
+             B_shape   nested:ExtraTrees    456         31      0.581      0.940                  0.761    0.856                     0.857       0.911                5/7              24/24                B_shape|nested:ExtraTrees 1d_nested_per_algorithm
+             B_shape       nested:HistGB    456         31      0.610      0.840                  0.725    0.791                     0.753       0.845                5/7              19/24                    B_shape|nested:HistGB 1d_nested_per_algorithm
+             B_shape      nested:SVM_RBF    456         31      0.610      0.915                  0.762    0.837                     0.857       0.881                5/7              24/24                   B_shape|nested:SVM_RBF 1d_nested_per_algorithm
+             B_shape          nested:kNN    456         31      0.600      0.829                  0.715    0.817                     0.857       0.869                5/7              24/24                       B_shape|nested:kNN 1d_nested_per_algorithm
+             B_shape          nested:QDA    456         31      0.495      0.932                  0.713    0.775                     0.804       0.875                6/7              18/24                       B_shape|nested:QDA 1d_nested_per_algorithm
+             B_shape          nested:MLP    456         31      0.600      0.792                  0.696    0.801                     0.702       0.833                4/7              20/24                       B_shape|nested:MLP 1d_nested_per_algorithm
+         A_intensity       nested:LogReg    456         31      0.638      0.801                  0.719    0.822                     0.866       0.923                6/7              21/24                A_intensity|nested:LogReg 1d_nested_per_algorithm
+         A_intensity nested:RandomForest    456         31      0.629      0.738                  0.683    0.767                     0.732       0.839                5/7              18/24          A_intensity|nested:RandomForest 1d_nested_per_algorithm
+         A_intensity   nested:ExtraTrees    456         31      0.581      0.840                  0.711    0.824                     0.744       0.935                4/7              22/24            A_intensity|nested:ExtraTrees 1d_nested_per_algorithm
+         A_intensity       nested:HistGB    456         31      0.610      0.846                  0.728    0.814                     0.866       0.911                6/7              21/24                A_intensity|nested:HistGB 1d_nested_per_algorithm
+         A_intensity      nested:SVM_RBF    456         31      0.667      0.775                  0.721    0.836                     0.732       0.911                5/7              18/24               A_intensity|nested:SVM_RBF 1d_nested_per_algorithm
+         A_intensity          nested:kNN    456         31      0.733      0.764                  0.748    0.773                     0.732       0.899                5/7              18/24                   A_intensity|nested:kNN 1d_nested_per_algorithm
+         A_intensity          nested:QDA    456         31      0.581      0.952                  0.766    0.880                     0.929       0.982                6/7              24/24                   A_intensity|nested:QDA 1d_nested_per_algorithm
+         A_intensity          nested:MLP    456         31      0.838      0.652                  0.745    0.799                     0.670       0.810                5/7              15/24                   A_intensity|nested:MLP 1d_nested_per_algorithm
+                auto         nested:auto    456         31      0.648      0.735                  0.691    0.705                     0.732       0.750                5/7              18/24                         auto|nested:auto              1e_primary
+
+Paired differences vs H-LR (v2 OOF):
+metric                                                             obs_balanced_accuracy              source_AUC  source_balanced_accuracy
+part                    name                                                                                                              
+1b_fixed                A_intensity|ExtraTrees                    -0.104 [-0.238,+0.038]  -0.024 [-0.155,+0.101]    -0.030 [-0.286,+0.226]
+                        A_intensity|HistGB                        -0.066 [-0.156,+0.038]  +0.018 [-0.107,+0.143]    +0.113 [-0.021,+0.289]
+                        A_intensity|LogReg                        -0.052 [-0.130,+0.032]  +0.024 [-0.048,+0.113]    +0.071 [-0.042,+0.235]
+                        A_intensity|MLP                           -0.109 [-0.224,+0.009]  -0.083 [-0.232,+0.042]    -0.003 [-0.187,+0.202]
+                        A_intensity|QDA                           -0.019 [-0.125,+0.114]  +0.024 [-0.071,+0.131]  +0.134 [+0.021,+0.298] *
+                        A_intensity|RandomForest                  -0.169 [-0.290,-0.042]  -0.042 [-0.179,+0.077]    -0.173 [-0.387,+0.033]
+                        A_intensity|SVM_RBF                       -0.070 [-0.202,+0.061]  -0.006 [-0.089,+0.083]    +0.000 [-0.223,+0.226]
+                        A_intensity|kNN                           -0.120 [-0.272,+0.047]  -0.030 [-0.167,+0.095]    +0.021 [-0.193,+0.235]
+                        B_shape|ExtraTrees                        -0.025 [-0.094,+0.048]  -0.042 [-0.161,+0.048]    +0.062 [+0.000,+0.125]
+                        B_shape|HistGB                            -0.024 [-0.091,+0.040]  -0.030 [-0.143,+0.054]    +0.062 [+0.000,+0.125]
+                        B_shape|LogReg                            -0.015 [-0.076,+0.035]  -0.048 [-0.179,+0.048]    -0.021 [-0.062,+0.000]
+                        B_shape|MLP                               -0.065 [-0.162,+0.039]  -0.042 [-0.137,+0.024]    -0.012 [-0.146,+0.152]
+                        B_shape|QDA                               -0.078 [-0.184,+0.019]  +0.000 [-0.083,+0.077]    -0.009 [-0.173,+0.104]
+                        B_shape|RandomForest                      -0.015 [-0.090,+0.057]  -0.030 [-0.131,+0.054]    +0.062 [+0.000,+0.125]
+                        B_shape|SVM_RBF                           -0.010 [-0.092,+0.071]  -0.042 [-0.161,+0.048]    +0.042 [-0.042,+0.125]
+                        B_shape|kNN                               -0.037 [-0.114,+0.039]  -0.125 [-0.339,+0.036]    +0.042 [-0.042,+0.125]
+                        HI_colours_intensity|ExtraTrees           +0.038 [-0.025,+0.100]  +0.036 [-0.036,+0.137]    +0.042 [-0.042,+0.125]
+                        HI_colours_intensity|HistGB               -0.038 [-0.140,+0.062]  +0.006 [-0.077,+0.101]    -0.030 [-0.193,+0.104]
+                        HI_colours_intensity|LogReg               +0.007 [-0.040,+0.057]  +0.006 [-0.048,+0.060]    +0.000 [+0.000,+0.000]
+                        HI_colours_intensity|MLP                  -0.081 [-0.172,-0.002]  -0.054 [-0.161,+0.012]    -0.134 [-0.310,+0.000]
+                        HI_colours_intensity|QDA                  +0.016 [-0.070,+0.118]  +0.030 [-0.060,+0.137]    +0.062 [-0.152,+0.277]
+                        HI_colours_intensity|RandomForest         -0.021 [-0.097,+0.053]  +0.024 [-0.060,+0.119]    +0.042 [-0.042,+0.125]
+                        HI_colours_intensity|SVM_RBF              +0.034 [-0.048,+0.113]  +0.024 [-0.065,+0.125]    +0.071 [-0.083,+0.256]
+                        HI_colours_intensity|kNN                  +0.013 [-0.053,+0.077]  +0.030 [-0.048,+0.131]    +0.042 [-0.042,+0.125]
+                        H_colours|ExtraTrees                      -0.038 [-0.112,+0.033]  -0.024 [-0.143,+0.060]    +0.021 [-0.042,+0.083]
+                        H_colours|HistGB                          -0.022 [-0.089,+0.045]  -0.024 [-0.131,+0.060]    +0.062 [+0.000,+0.125]
+                        H_colours|MLP                             -0.035 [-0.135,+0.074]  -0.006 [-0.107,+0.089]    +0.018 [-0.158,+0.223]
+                        H_colours|QDA                             -0.058 [-0.187,+0.047]  -0.018 [-0.089,+0.036]    -0.009 [-0.173,+0.104]
+                        H_colours|RandomForest                    -0.021 [-0.091,+0.048]  -0.018 [-0.113,+0.060]    +0.062 [+0.000,+0.125]
+                        H_colours|SVM_RBF                         -0.022 [-0.077,+0.029]  -0.065 [-0.214,+0.048]    +0.021 [+0.000,+0.062]
+                        H_colours|kNN                             -0.039 [-0.116,+0.036]  -0.048 [-0.214,+0.060]    +0.021 [-0.042,+0.083]
+1c_source_weighted      A_intensity|HistGB[srcw]                  -0.070 [-0.170,+0.047]  +0.018 [-0.095,+0.131]    +0.042 [-0.185,+0.256]
+                        A_intensity|LogReg[srcw]                  -0.065 [-0.180,+0.053]  -0.065 [-0.208,+0.054]    -0.021 [-0.235,+0.205]
+                        A_intensity|RandomForest[srcw]            -0.171 [-0.289,-0.045]  -0.036 [-0.185,+0.095]    -0.173 [-0.387,+0.033]
+                        B_shape|HistGB[srcw]                      -0.017 [-0.080,+0.046]  -0.012 [-0.095,+0.060]    +0.062 [+0.000,+0.125]
+                        B_shape|LogReg[srcw]                      -0.030 [-0.105,+0.038]  -0.036 [-0.161,+0.054]    -0.021 [-0.083,+0.042]
+                        B_shape|RandomForest[srcw]                -0.009 [-0.085,+0.069]  -0.030 [-0.131,+0.054]    +0.062 [+0.000,+0.125]
+                        HI_colours_intensity|HistGB[srcw]         -0.021 [-0.110,+0.070]  -0.006 [-0.101,+0.095]    +0.021 [-0.062,+0.104]
+                        HI_colours_intensity|LogReg[srcw]         -0.070 [-0.181,+0.019]  -0.137 [-0.321,-0.012]    -0.051 [-0.214,+0.042]
+                        HI_colours_intensity|RandomForest[srcw]   -0.024 [-0.101,+0.051]  +0.018 [-0.071,+0.119]    +0.042 [-0.042,+0.125]
+                        H_colours|HistGB[srcw]                    -0.011 [-0.083,+0.061]  -0.012 [-0.113,+0.071]    +0.062 [+0.000,+0.125]
+                        H_colours|LogReg[srcw]                    -0.075 [-0.202,+0.012]  -0.065 [-0.190,+0.012]    -0.051 [-0.214,+0.042]
+                        H_colours|RandomForest[srcw]              -0.022 [-0.092,+0.047]  -0.024 [-0.125,+0.054]    +0.062 [+0.000,+0.125]
+1d_nested_per_algorithm A_intensity|nested:ExtraTrees             -0.065 [-0.198,+0.067]  +0.012 [-0.089,+0.125]    -0.051 [-0.307,+0.205]
+                        A_intensity|nested:HistGB                 -0.048 [-0.135,+0.052]  -0.012 [-0.143,+0.113]    +0.071 [-0.062,+0.244]
+                        A_intensity|nested:LogReg                 -0.056 [-0.154,+0.044]  +0.000 [-0.083,+0.095]    +0.071 [-0.062,+0.247]
+                        A_intensity|nested:MLP                    -0.030 [-0.158,+0.089]  -0.113 [-0.315,+0.042]    -0.125 [-0.351,+0.089]
+                        A_intensity|nested:QDA                    -0.009 [-0.111,+0.120]  +0.060 [-0.006,+0.173]  +0.134 [+0.021,+0.298] *
+                        A_intensity|nested:RandomForest           -0.092 [-0.223,+0.031]  -0.083 [-0.244,+0.054]    -0.062 [-0.280,+0.152]
+                        A_intensity|nested:SVM_RBF                -0.055 [-0.209,+0.088]  -0.012 [-0.113,+0.083]    -0.062 [-0.280,+0.164]
+                        A_intensity|nested:kNN                    -0.027 [-0.140,+0.094]  -0.024 [-0.143,+0.089]    -0.062 [-0.277,+0.164]
+                        B_shape|nested:ExtraTrees                 -0.015 [-0.092,+0.062]  -0.012 [-0.107,+0.078]    +0.062 [+0.000,+0.125]
+                        B_shape|nested:HistGB                     -0.051 [-0.107,+0.008]  -0.077 [-0.232,+0.030]    -0.042 [-0.104,+0.000]
+                        B_shape|nested:LogReg                     -0.022 [-0.084,+0.037]  -0.018 [-0.113,+0.060]    +0.062 [+0.000,+0.125]
+                        B_shape|nested:MLP                        -0.080 [-0.244,+0.057]  -0.089 [-0.226,+0.000]    -0.092 [-0.277,+0.042]
+                        B_shape|nested:QDA                        -0.062 [-0.177,+0.037]  -0.048 [-0.214,+0.071]    +0.009 [-0.146,+0.193]
+                        B_shape|nested:RandomForest               -0.018 [-0.101,+0.063]  -0.012 [-0.089,+0.060]    +0.062 [+0.000,+0.125]
+                        B_shape|nested:SVM_RBF                    -0.014 [-0.084,+0.059]  -0.042 [-0.161,+0.048]    +0.062 [+0.000,+0.125]
+                        B_shape|nested:kNN                        -0.061 [-0.127,+0.002]  -0.054 [-0.196,+0.048]    +0.062 [+0.000,+0.125]
+                        HI_colours_intensity|nested:ExtraTrees    -0.020 [-0.109,+0.065]  -0.113 [-0.327,+0.036]    -0.021 [-0.104,+0.062]
+                        HI_colours_intensity|nested:HistGB        -0.026 [-0.110,+0.054]  -0.030 [-0.179,+0.089]    +0.030 [-0.104,+0.206]
+                        HI_colours_intensity|nested:LogReg        -0.022 [-0.103,+0.060]  -0.018 [-0.083,+0.042]    -0.012 [-0.146,+0.152]
+                        HI_colours_intensity|nested:MLP           -0.241 [-0.410,-0.082]  -0.315 [-0.583,-0.089]    -0.301 [-0.557,-0.024]
+                        HI_colours_intensity|nested:QDA           +0.031 [-0.054,+0.132]  +0.036 [-0.054,+0.143]  +0.134 [+0.021,+0.298] *
+                        HI_colours_intensity|nested:RandomForest  -0.028 [-0.118,+0.059]  -0.048 [-0.190,+0.054]    -0.021 [-0.125,+0.083]
+                        HI_colours_intensity|nested:SVM_RBF       +0.000 [-0.090,+0.082]  -0.036 [-0.143,+0.065]    -0.021 [-0.125,+0.083]
+                        HI_colours_intensity|nested:kNN           -0.017 [-0.100,+0.063]  -0.030 [-0.119,+0.060]    +0.000 [-0.104,+0.104]
+                        H_colours|nested:ExtraTrees               -0.026 [-0.107,+0.050]  +0.018 [-0.060,+0.119]    +0.042 [-0.042,+0.125]
+                        H_colours|nested:HistGB                   -0.010 [-0.086,+0.067]  -0.018 [-0.095,+0.048]    -0.071 [-0.235,+0.062]
+                        H_colours|nested:LogReg                   -0.008 [-0.078,+0.081]  +0.000 [-0.036,+0.030]    +0.030 [-0.083,+0.193]
+                        H_colours|nested:MLP                      -0.049 [-0.210,+0.113]  -0.036 [-0.137,+0.054]    -0.030 [-0.193,+0.083]
+                        H_colours|nested:QDA                      -0.126 [-0.243,-0.033]  -0.101 [-0.238,-0.012]    -0.155 [-0.318,-0.021]
+                        H_colours|nested:RandomForest             -0.002 [-0.074,+0.070]  +0.030 [-0.030,+0.125]    +0.042 [-0.042,+0.125]
+                        H_colours|nested:SVM_RBF                  -0.075 [-0.144,-0.005]  -0.149 [-0.393,+0.024]    +0.042 [-0.042,+0.125]
+                        H_colours|nested:kNN                      -0.021 [-0.099,+0.052]  -0.012 [-0.083,+0.060]    +0.021 [-0.042,+0.083]
+1e_primary              auto|nested:auto                          -0.084 [-0.175,+0.004]  -0.173 [-0.399,+0.012]    -0.062 [-0.146,+0.021]
+
+PRIMARY (1e nested automatic selection - H-LR):
+                  metric  point  ci2_5  ci97_5      verdict
+source_balanced_accuracy -0.062 -0.146   0.021 not detected
+              source_AUC -0.173 -0.399   0.012 not detected
+   obs_balanced_accuracy -0.084 -0.175   0.004 not detected
+
+Agreement with H-LR:
+                                    name  n_obs  spearman_obs_scores  label_agreement                    part
+                  H_colours|RandomForest    456                0.753            0.814                1b_fixed
+                    H_colours|ExtraTrees    456                0.865            0.794                1b_fixed
+                        H_colours|HistGB    456                0.690            0.809                1b_fixed
+                       H_colours|SVM_RBF    456                0.882            0.882                1b_fixed
+                           H_colours|kNN    456                0.783            0.796                1b_fixed
+                           H_colours|QDA    456                0.918            0.783                1b_fixed
+                           H_colours|MLP    456                0.801            0.737                1b_fixed
+             HI_colours_intensity|LogReg    456                0.965            0.932                1b_fixed
+       HI_colours_intensity|RandomForest    456                0.692            0.787                1b_fixed
+         HI_colours_intensity|ExtraTrees    456                0.792            0.816                1b_fixed
+             HI_colours_intensity|HistGB    456                0.723            0.759                1b_fixed
+            HI_colours_intensity|SVM_RBF    456                0.757            0.794                1b_fixed
+                HI_colours_intensity|kNN    456                0.722            0.792                1b_fixed
+                HI_colours_intensity|QDA    456                0.870            0.783                1b_fixed
+                HI_colours_intensity|MLP    456                0.887            0.820                1b_fixed
+                          B_shape|LogReg    456                0.911            0.877                1b_fixed
+                    B_shape|RandomForest    456                0.841            0.794                1b_fixed
+                      B_shape|ExtraTrees    456                0.842            0.787                1b_fixed
+                          B_shape|HistGB    456                0.767            0.805                1b_fixed
+                         B_shape|SVM_RBF    456                0.857            0.783                1b_fixed
+                             B_shape|kNN    456                0.726            0.770                1b_fixed
+                             B_shape|QDA    456                0.881            0.757                1b_fixed
+                             B_shape|MLP    456                0.885            0.805                1b_fixed
+                      A_intensity|LogReg    456                0.841            0.814                1b_fixed
+                A_intensity|RandomForest    456                0.637            0.708                1b_fixed
+                  A_intensity|ExtraTrees    456                0.647            0.713                1b_fixed
+                      A_intensity|HistGB    456                0.543            0.741                1b_fixed
+                     A_intensity|SVM_RBF    456                0.742            0.757                1b_fixed
+                         A_intensity|kNN    456                0.623            0.719                1b_fixed
+                         A_intensity|QDA    456                0.724            0.737                1b_fixed
+                         A_intensity|MLP    456                0.640            0.704                1b_fixed
+                  H_colours|LogReg[srcw]    456                0.983            0.897      1c_source_weighted
+            H_colours|RandomForest[srcw]    456                0.756            0.816      1c_source_weighted
+                  H_colours|HistGB[srcw]    456                0.672            0.811      1c_source_weighted
+       HI_colours_intensity|LogReg[srcw]    456                0.914            0.851      1c_source_weighted
+ HI_colours_intensity|RandomForest[srcw]    456                0.692            0.783      1c_source_weighted
+       HI_colours_intensity|HistGB[srcw]    456                0.718            0.763      1c_source_weighted
+                    B_shape|LogReg[srcw]    456                0.927            0.840      1c_source_weighted
+              B_shape|RandomForest[srcw]    456                0.839            0.794      1c_source_weighted
+                    B_shape|HistGB[srcw]    456                0.770            0.800      1c_source_weighted
+                A_intensity|LogReg[srcw]    456                0.663            0.741      1c_source_weighted
+          A_intensity|RandomForest[srcw]    456                0.635            0.706      1c_source_weighted
+                A_intensity|HistGB[srcw]    456                0.570            0.735      1c_source_weighted
+                 H_colours|nested:LogReg    456                0.998            0.864 1d_nested_per_algorithm
+           H_colours|nested:RandomForest    456                0.710            0.800 1d_nested_per_algorithm
+             H_colours|nested:ExtraTrees    456                0.717            0.774 1d_nested_per_algorithm
+                 H_colours|nested:HistGB    456                0.644            0.807 1d_nested_per_algorithm
+                H_colours|nested:SVM_RBF    456                0.761            0.805 1d_nested_per_algorithm
+                    H_colours|nested:kNN    456                0.709            0.794 1d_nested_per_algorithm
+                    H_colours|nested:QDA    456                0.901            0.836 1d_nested_per_algorithm
+                    H_colours|nested:MLP    456                0.902            0.779 1d_nested_per_algorithm
+      HI_colours_intensity|nested:LogReg    456                0.953            0.871 1d_nested_per_algorithm
+HI_colours_intensity|nested:RandomForest    456                0.606            0.754 1d_nested_per_algorithm
+  HI_colours_intensity|nested:ExtraTrees    456                0.756            0.765 1d_nested_per_algorithm
+      HI_colours_intensity|nested:HistGB    456                0.477            0.770 1d_nested_per_algorithm
+     HI_colours_intensity|nested:SVM_RBF    456                0.732            0.776 1d_nested_per_algorithm
+         HI_colours_intensity|nested:kNN    456                0.521            0.770 1d_nested_per_algorithm
+         HI_colours_intensity|nested:QDA    456                0.832            0.785 1d_nested_per_algorithm
+         HI_colours_intensity|nested:MLP    456                0.699            0.711 1d_nested_per_algorithm
+                   B_shape|nested:LogReg    456                0.853            0.818 1d_nested_per_algorithm
+             B_shape|nested:RandomForest    456                0.835            0.789 1d_nested_per_algorithm
+               B_shape|nested:ExtraTrees    456                0.795            0.781 1d_nested_per_algorithm
+                   B_shape|nested:HistGB    456                0.465            0.825 1d_nested_per_algorithm
+                  B_shape|nested:SVM_RBF    456                0.783            0.785 1d_nested_per_algorithm
+                      B_shape|nested:kNN    456                0.497            0.783 1d_nested_per_algorithm
+                      B_shape|nested:QDA    456                0.688            0.781 1d_nested_per_algorithm
+                      B_shape|nested:MLP    456                0.839            0.754 1d_nested_per_algorithm
+               A_intensity|nested:LogReg    456                0.793            0.752 1d_nested_per_algorithm
+         A_intensity|nested:RandomForest    456                0.631            0.719 1d_nested_per_algorithm
+           A_intensity|nested:ExtraTrees    456                0.638            0.726 1d_nested_per_algorithm
+               A_intensity|nested:HistGB    456                0.572            0.746 1d_nested_per_algorithm
+              A_intensity|nested:SVM_RBF    456                0.731            0.748 1d_nested_per_algorithm
+                  A_intensity|nested:kNN    456                0.576            0.746 1d_nested_per_algorithm
+                  A_intensity|nested:QDA    456                0.637            0.754 1d_nested_per_algorithm
+                  A_intensity|nested:MLP    456                0.639            0.732 1d_nested_per_algorithm
+                        auto|nested:auto    456                0.673            0.757              1e_primary
+total 1088 s

@@ -1,0 +1,58 @@
+PASS choose_threshold separable -> 0.4, BA 1 (0.4, 1.0)
+PASS choose_threshold tie -> closest to 0.5 (0.2, 1.0)
+PASS source_equal_weights class sums [0.25 0.25 0.5  0.5  0.5 ]
+PASS bootstrap diff source_balanced_accuracy == v3a (np.float64(-0.02083333333333337), np.float64(-0.0625), np.float64(0.0))
+PASS bootstrap H-LR source_balanced_accuracy == v3a 
+PASS bootstrap diff source_AUC == v3a (np.float64(-0.04761904761904767), np.float64(-0.1785714285714285), np.float64(0.04761904761904767))
+PASS bootstrap H-LR source_AUC == v3a 
+PASS bootstrap diff obs_balanced_accuracy == v3a (np.float64(-0.014814814814814836), np.float64(-0.0761988304093568), np.float64(0.034732270044769975))
+PASS bootstrap H-LR obs_balanced_accuracy == v3a 
+PASS reproduce v2 H_colours/LogReg 1.1102230246251565e-16
+PASS reproduce v2 B_shape/LogReg 1.1102230246251565e-16
+PASS reproduce v2 H_colours/RandomForest 2.220446049250313e-16
+PASS LogReg/H_colours scores finite 
+PASS RandomForest/H_colours scores finite 
+PASS ExtraTrees/H_colours scores finite 
+PASS HistGB/H_colours scores finite 
+PASS SVM_RBF/H_colours scores finite 
+PASS kNN/H_colours scores finite 
+PASS QDA/H_colours scores finite 
+PASS MLP/H_colours scores finite 
+PASS LogReg[srcw]/H_colours scores finite 
+PASS RandomForest[srcw]/H_colours scores finite 
+PASS HistGB[srcw]/H_colours scores finite 
+PASS LogReg/HI_colours_intensity scores finite 
+PASS RandomForest/HI_colours_intensity scores finite 
+PASS ExtraTrees/HI_colours_intensity scores finite 
+PASS HistGB/HI_colours_intensity scores finite 
+PASS SVM_RBF/HI_colours_intensity scores finite 
+PASS kNN/HI_colours_intensity scores finite 
+PASS QDA/HI_colours_intensity scores finite 
+PASS MLP/HI_colours_intensity scores finite 
+PASS LogReg[srcw]/HI_colours_intensity scores finite 
+PASS RandomForest[srcw]/HI_colours_intensity scores finite 
+PASS HistGB[srcw]/HI_colours_intensity scores finite 
+PASS LogReg/B_shape scores finite 
+PASS RandomForest/B_shape scores finite 
+PASS ExtraTrees/B_shape scores finite 
+PASS HistGB/B_shape scores finite 
+PASS SVM_RBF/B_shape scores finite 
+PASS kNN/B_shape scores finite 
+PASS QDA/B_shape scores finite 
+PASS MLP/B_shape scores finite 
+PASS LogReg[srcw]/B_shape scores finite 
+PASS RandomForest[srcw]/B_shape scores finite 
+PASS HistGB[srcw]/B_shape scores finite 
+PASS LogReg/A_intensity scores finite 
+PASS RandomForest/A_intensity scores finite 
+PASS ExtraTrees/A_intensity scores finite 
+PASS HistGB/A_intensity scores finite 
+PASS SVM_RBF/A_intensity scores finite 
+PASS kNN/A_intensity scores finite 
+PASS QDA/A_intensity scores finite 
+PASS MLP/A_intensity scores finite 
+PASS LogReg[srcw]/A_intensity scores finite 
+PASS RandomForest[srcw]/A_intensity scores finite 
+PASS HistGB[srcw]/A_intensity scores finite 
+PASS nested_fold returns 140 inner rows and 32 selections 283 s for one outer fold
+ALL PASS

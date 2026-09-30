@@ -1,0 +1,9 @@
+representation,model,max_abs_score_diff,tolerance,n_label_changes,passed
+H_colours,LogReg,1.1102230246251565e-16,1e-08,0,True
+H_colours,RandomForest,2.220446049250313e-16,0.01,0,True
+HI_colours_intensity,LogReg,1.1102230246251565e-16,1e-08,0,True
+HI_colours_intensity,RandomForest,1.1102230246251565e-16,0.01,0,True
+B_shape,LogReg,1.1102230246251565e-16,1e-08,0,True
+B_shape,RandomForest,1.1102230246251565e-16,0.01,0,True
+A_intensity,LogReg,1.1102230246251565e-16,1e-08,0,True
+A_intensity,RandomForest,1.1102230246251565e-16,0.01,0,True
