@@ -44,3 +44,4 @@
 {"utc": "2026-09-30T16:19:20.276949+00:00", "stage": "v4a_algorithms", "details": "primary nested auto - H-LR: source BA -0.062 [-0.146,+0.021], source AUC -0.173 [-0.399,+0.012]"}
 {"utc": "2026-09-30T18:10:45.358854+00:00", "stage": "3b_fetch_process_v4b1", "details": "7949 accepted observations; 26 excluded candidates logged"}
 {"utc": "2026-09-30T18:17:01.949525+00:00", "stage": "v4b1_analysis", "details": "7949 obs; H-LR[srcw] - v2 H-LR: source BA +0.000 [+0.000,+0.000]"}
+{"utc": "2026-09-30T18:19:31.357346+00:00", "stage": "v4_complete", "details": "v4a/burst/v4b3/v4b2/v4b1 done; reports/report_v4_zh-TW.md; next: v5 (user-authorized, see preregistration_v5.md when written)"}
