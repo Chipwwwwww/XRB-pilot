@@ -1,0 +1,51 @@
+auto excluded 61 obs; kept 395
+visual excluded 58 obs; kept 398
+
+sources with <5 kept observations:
+exclusion_set source_id label  n_kept  n_removed  below_5
+         auto 4U1915-05    NS       4          2     True
+       visual 4U1915-05    NS       4          2     True
+
+paired differences:
+metric                                                                                                                     obs_balanced_accuracy              source_AUC source_balanced_accuracy
+exclusion_set       representation                              model        comparison                                                                                                          
+auto                B_shape                                     LogReg       burst-excluded - original(v2/v3a, same obs)  +0.015 [-0.006,+0.036]  +0.006 [+0.000,+0.036]   +0.000 [+0.000,+0.000]
+                                                                RandomForest burst-excluded - original(v2/v3a, same obs)  +0.000 [-0.017,+0.017]  +0.000 [-0.024,+0.024]   -0.071 [-0.214,+0.000]
+                    B_shape vs H_colours (both burst-excluded)  LogReg       B_shape - H_colours                          +0.028 [-0.032,+0.088]  -0.048 [-0.179,+0.048]   -0.042 [-0.104,+0.000]
+                                                                RandomForest B_shape - H_colours                          +0.014 [-0.011,+0.041]  -0.036 [-0.131,+0.024]   -0.071 [-0.214,+0.000]
+                    H_colours                                   LogReg       burst-excluded - original(v2/v3a, same obs)  -0.012 [-0.062,+0.017]  +0.000 [+0.000,+0.000]   +0.000 [+0.000,+0.000]
+                                                                RandomForest burst-excluded - original(v2/v3a, same obs)  -0.010 [-0.024,+0.002]  +0.006 [+0.000,+0.036]   +0.000 [+0.000,+0.000]
+                    H_plus_B                                    LogReg       burst-excluded - original(v2/v3a, same obs)  +0.010 [-0.002,+0.024]  +0.006 [+0.000,+0.036]   +0.000 [+0.000,+0.000]
+                                                                RandomForest burst-excluded - original(v2/v3a, same obs)  -0.018 [-0.040,+0.000]  -0.012 [-0.060,+0.024]   -0.071 [-0.214,+0.000]
+                    H_plus_B vs H_colours (both burst-excluded) LogReg       H_plus_B - H_colours                         +0.022 [-0.045,+0.093]  -0.048 [-0.179,+0.048]   -0.042 [-0.104,+0.000]
+                                                                RandomForest H_plus_B - H_colours                         +0.005 [-0.018,+0.028]  -0.030 [-0.113,+0.024]   -0.071 [-0.214,+0.000]
+none (original 456) B_shape vs H_colours (original)             LogReg       B_shape - H_colours                          -0.015 [-0.076,+0.035]  -0.048 [-0.179,+0.048]   -0.021 [-0.062,+0.000]
+                                                                RandomForest B_shape - H_colours                          +0.006 [-0.015,+0.026]  -0.012 [-0.077,+0.048]   +0.000 [+0.000,+0.000]
+                    H_plus_B vs H_colours (original)            LogReg       H_plus_B - H_colours                         -0.018 [-0.078,+0.031]  -0.048 [-0.179,+0.048]   -0.021 [-0.062,+0.000]
+                                                                RandomForest H_plus_B - H_colours                         +0.013 [-0.009,+0.038]  -0.012 [-0.077,+0.048]   +0.000 [+0.000,+0.000]
+visual              B_shape                                     LogReg       burst-excluded - original(v2/v3a, same obs)  +0.008 [-0.007,+0.023]  -0.006 [-0.036,+0.000]   +0.000 [+0.000,+0.000]
+                                                                RandomForest burst-excluded - original(v2/v3a, same obs)  +0.012 [-0.007,+0.034]  -0.012 [-0.054,+0.000]   +0.000 [+0.000,+0.000]
+                    B_shape vs H_colours (both burst-excluded)  LogReg       B_shape - H_colours                          +0.000 [-0.062,+0.053]  -0.060 [-0.208,+0.048]   -0.042 [-0.104,+0.000]
+                                                                RandomForest B_shape - H_colours                          +0.027 [+0.004,+0.049]  -0.018 [-0.095,+0.048]   +0.000 [+0.000,+0.000]
+                    H_colours                                   LogReg       burst-excluded - original(v2/v3a, same obs)  -0.002 [-0.010,+0.005]  +0.000 [+0.000,+0.000]   +0.000 [+0.000,+0.000]
+                                                                RandomForest burst-excluded - original(v2/v3a, same obs)  -0.009 [-0.017,-0.002]  -0.012 [-0.048,+0.000]   +0.000 [+0.000,+0.000]
+                    H_plus_B                                    LogReg       burst-excluded - original(v2/v3a, same obs)  +0.011 [-0.004,+0.026]  +0.000 [+0.000,+0.000]   +0.000 [+0.000,+0.000]
+                                                                RandomForest burst-excluded - original(v2/v3a, same obs)  +0.006 [-0.010,+0.026]  +0.000 [-0.036,+0.036]   +0.000 [+0.000,+0.000]
+                    H_plus_B vs H_colours (both burst-excluded) LogReg       H_plus_B - H_colours                         +0.002 [-0.060,+0.054]  -0.060 [-0.208,+0.048]   -0.042 [-0.104,+0.000]
+                                                                RandomForest H_plus_B - H_colours                         +0.029 [+0.005,+0.051]  -0.006 [-0.071,+0.060]   +0.000 [+0.000,+0.000]
+
+burst-excluded point metrics:
+metric                                    obs_balanced_accuracy           source_AUC source_balanced_accuracy
+exclusion_set representation model                                                                           
+auto          B_shape        LogReg         0.779 [0.616,0.905]  0.869 [0.667,1.000]      0.753 [0.548,0.917]
+                             RandomForest   0.763 [0.622,0.878]  0.863 [0.667,1.000]      0.786 [0.571,0.929]
+              H_colours      LogReg         0.751 [0.599,0.873]  0.917 [0.792,0.994]      0.795 [0.589,0.958]
+                             RandomForest   0.749 [0.603,0.867]  0.899 [0.720,1.000]      0.857 [0.643,1.000]
+              H_plus_B       LogReg         0.773 [0.609,0.901]  0.869 [0.667,1.000]      0.753 [0.548,0.917]
+                             RandomForest   0.753 [0.619,0.859]  0.869 [0.679,1.000]      0.786 [0.571,0.929]
+visual        B_shape        LogReg         0.758 [0.580,0.907]  0.863 [0.655,1.000]      0.753 [0.548,0.917]
+                             RandomForest   0.770 [0.621,0.897]  0.869 [0.667,1.000]      0.857 [0.643,1.000]
+              H_colours      LogReg         0.758 [0.615,0.880]  0.923 [0.804,0.994]      0.795 [0.589,0.958]
+                             RandomForest   0.743 [0.594,0.872]  0.887 [0.702,1.000]      0.857 [0.643,1.000]
+              H_plus_B       LogReg         0.760 [0.582,0.908]  0.863 [0.655,1.000]      0.753 [0.548,0.917]
+                             RandomForest   0.772 [0.621,0.897]  0.881 [0.690,1.000]      0.857 [0.643,1.000]

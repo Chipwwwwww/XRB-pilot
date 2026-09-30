@@ -1,0 +1,217 @@
+name,comparison,metric,point,ci2_5,ci97_5,frac_first_better,verdict,exclusion_set,representation,model
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,auto,H_colours,LogReg
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",source_AUC,0.9166666666666666,0.7916666666666666,0.9940476190476191,,,auto,H_colours,LogReg
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",obs_balanced_accuracy,0.7625151320942818,0.6075772440693468,0.882230400797176,,,auto,H_colours,LogReg
+burst-excluded,burst-excluded,source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,auto,H_colours,LogReg
+burst-excluded,burst-excluded,source_AUC,0.9166666666666666,0.7916666666666666,0.9940476190476191,,,auto,H_colours,LogReg
+burst-excluded,burst-excluded,obs_balanced_accuracy,0.7509435305846329,0.5986640832057935,0.8726814314379605,,,auto,H_colours,LogReg
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,auto,H_colours,LogReg
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",source_AUC,0.0,0.0,0.0,0.0,not detected,auto,H_colours,LogReg
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",obs_balanced_accuracy,-0.011571601509648866,-0.06205741476910912,0.017011185917666143,0.3625,not detected,auto,H_colours,LogReg
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,auto,H_colours,RandomForest
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",source_AUC,0.8928571428571429,0.7142857142857143,1.0,,,auto,H_colours,RandomForest
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",obs_balanced_accuracy,0.7588478245389162,0.6121473977417523,0.8767827444042817,,,auto,H_colours,RandomForest
+burst-excluded,burst-excluded,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,auto,H_colours,RandomForest
+burst-excluded,burst-excluded,source_AUC,0.8988095238095238,0.7200892857142858,1.0,,,auto,H_colours,RandomForest
+burst-excluded,burst-excluded,obs_balanced_accuracy,0.7485045930356762,0.6026739557820214,0.8670920672894357,,,auto,H_colours,RandomForest
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,auto,H_colours,RandomForest
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",source_AUC,0.005952380952380931,0.0,0.0357142857142857,0.425,not detected,auto,H_colours,RandomForest
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",obs_balanced_accuracy,-0.010343231503240014,-0.02376372263125537,0.0015576323987538387,0.0285,not detected,auto,H_colours,RandomForest
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,auto,B_shape,LogReg
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",source_AUC,0.8630952380952381,0.6547619047619048,1.0,,,auto,B_shape,LogReg
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",obs_balanced_accuracy,0.7641885636972157,0.6018536205876678,0.8918606008479925,,,auto,B_shape,LogReg
+burst-excluded,burst-excluded,source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,auto,B_shape,LogReg
+burst-excluded,burst-excluded,source_AUC,0.8690476190476191,0.6666666666666666,1.0,,,auto,B_shape,LogReg
+burst-excluded,burst-excluded,obs_balanced_accuracy,0.7790892259488713,0.6164602520194085,0.9046255219240036,,,auto,B_shape,LogReg
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,auto,B_shape,LogReg
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",source_AUC,0.005952380952380931,0.0,0.0357142857142857,0.4305,not detected,auto,B_shape,LogReg
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",obs_balanced_accuracy,0.01490066225165565,-0.006322542142719251,0.03585565371113842,0.918,not detected,auto,B_shape,LogReg
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,auto,B_shape,RandomForest
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",source_AUC,0.8630952380952381,0.6666666666666666,1.0,,,auto,B_shape,RandomForest
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",obs_balanced_accuracy,0.7625863419497259,0.626427607932505,0.8723109743739949,,,auto,B_shape,RandomForest
+burst-excluded,burst-excluded,source_balanced_accuracy,0.7857142857142857,0.5714285714285714,0.9285714285714286,,,auto,B_shape,RandomForest
+burst-excluded,burst-excluded,source_AUC,0.8630952380952381,0.6666666666666666,1.0,,,auto,B_shape,RandomForest
+burst-excluded,burst-excluded,obs_balanced_accuracy,0.7625863419497259,0.6224103539720973,0.8778426067142271,,,auto,B_shape,RandomForest
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",source_balanced_accuracy,-0.07142857142857151,-0.2142857142857143,0.0,0.0,not detected,auto,B_shape,RandomForest
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",source_AUC,0.0,-0.023809523809523836,0.023809523809523836,0.237,not detected,auto,B_shape,RandomForest
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",obs_balanced_accuracy,0.0,-0.0170935002913985,0.017392296264855837,0.504,not detected,auto,B_shape,RandomForest
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,auto,H_plus_B,LogReg
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",source_AUC,0.8630952380952381,0.6547619047619048,1.0,,,auto,H_plus_B,LogReg
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",obs_balanced_accuracy,0.7625329345581429,0.6000525207530372,0.8904116375567493,,,auto,H_plus_B,LogReg
+burst-excluded,burst-excluded,source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,auto,H_plus_B,LogReg
+burst-excluded,burst-excluded,source_AUC,0.8690476190476191,0.6666666666666666,1.0,,,auto,H_plus_B,LogReg
+burst-excluded,burst-excluded,obs_balanced_accuracy,0.772876166061383,0.6089794894055726,0.9012945983600532,,,auto,H_plus_B,LogReg
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,auto,H_plus_B,LogReg
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",source_AUC,0.005952380952380931,0.0,0.0357142857142857,0.4305,not detected,auto,H_plus_B,LogReg
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",obs_balanced_accuracy,0.010343231503240125,-0.0015386996904024285,0.023634032609334558,0.9455,not detected,auto,H_plus_B,LogReg
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,auto,H_plus_B,RandomForest
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",source_AUC,0.8809523809523809,0.6904761904761905,1.0,,,auto,H_plus_B,RandomForest
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",obs_balanced_accuracy,0.7712739443138931,0.6275613340260981,0.8920416664402284,,,auto,H_plus_B,RandomForest
+burst-excluded,burst-excluded,source_balanced_accuracy,0.7857142857142857,0.5714285714285714,0.9285714285714286,,,auto,H_plus_B,RandomForest
+burst-excluded,burst-excluded,source_AUC,0.8690476190476191,0.6785714285714286,1.0,,,auto,H_plus_B,RandomForest
+burst-excluded,burst-excluded,obs_balanced_accuracy,0.7534892829167557,0.6192516762487427,0.8590470456540958,,,auto,H_plus_B,RandomForest
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",source_balanced_accuracy,-0.07142857142857151,-0.2142857142857143,0.0,0.0,not detected,auto,H_plus_B,RandomForest
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",source_AUC,-0.011904761904761862,-0.059523809523809534,0.023809523809523836,0.1715,not detected,auto,H_plus_B,RandomForest
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",obs_balanced_accuracy,-0.017784661397137413,-0.039763680364459736,0.0,0.0175,not detected,auto,H_plus_B,RandomForest
+H_colours,H_colours,source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,auto,B_shape vs H_colours (both burst-excluded),LogReg
+H_colours,H_colours,source_AUC,0.9166666666666666,0.7916666666666666,0.9940476190476191,,,auto,B_shape vs H_colours (both burst-excluded),LogReg
+H_colours,H_colours,obs_balanced_accuracy,0.7509435305846329,0.5986640832057935,0.8726814314379605,,,auto,B_shape vs H_colours (both burst-excluded),LogReg
+B_shape,B_shape,source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,auto,B_shape vs H_colours (both burst-excluded),LogReg
+B_shape,B_shape,source_AUC,0.8690476190476191,0.6666666666666666,1.0,,,auto,B_shape vs H_colours (both burst-excluded),LogReg
+B_shape,B_shape,obs_balanced_accuracy,0.7790892259488713,0.6164602520194085,0.9046255219240036,,,auto,B_shape vs H_colours (both burst-excluded),LogReg
+B_shape,B_shape - H_colours,source_balanced_accuracy,-0.04166666666666674,-0.10416666666666663,0.0,0.0,not detected,auto,B_shape vs H_colours (both burst-excluded),LogReg
+B_shape,B_shape - H_colours,source_AUC,-0.04761904761904756,-0.17872023809523813,0.04761904761904767,0.1885,not detected,auto,B_shape vs H_colours (both burst-excluded),LogReg
+B_shape,B_shape - H_colours,obs_balanced_accuracy,0.028145695364238388,-0.03245006172269357,0.08823373127010953,0.8015,not detected,auto,B_shape vs H_colours (both burst-excluded),LogReg
+H_colours,H_colours,source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,none (original 456),B_shape vs H_colours (original),LogReg
+H_colours,H_colours,source_AUC,0.9226190476190477,0.8035714285714286,0.9940476190476191,,,none (original 456),B_shape vs H_colours (original),LogReg
+H_colours,H_colours,obs_balanced_accuracy,0.7755392755392756,0.6332905982905983,0.8926455026455027,,,none (original 456),B_shape vs H_colours (original),LogReg
+B_shape,B_shape,source_balanced_accuracy,0.7738095238095238,0.5684523809523809,0.9375,,,none (original 456),B_shape vs H_colours (original),LogReg
+B_shape,B_shape,source_AUC,0.875,0.690327380952381,1.0,,,none (original 456),B_shape vs H_colours (original),LogReg
+B_shape,B_shape,obs_balanced_accuracy,0.7607244607244608,0.5916045991045991,0.9026075605680869,,,none (original 456),B_shape vs H_colours (original),LogReg
+B_shape,B_shape - H_colours,source_balanced_accuracy,-0.02083333333333337,-0.0625,0.0,0.0,not detected,none (original 456),B_shape vs H_colours (original),LogReg
+B_shape,B_shape - H_colours,source_AUC,-0.04761904761904767,-0.1785714285714285,0.04761904761904767,0.172,not detected,none (original 456),B_shape vs H_colours (original),LogReg
+B_shape,B_shape - H_colours,obs_balanced_accuracy,-0.014814814814814836,-0.0761988304093568,0.034732270044769975,0.3195,not detected,none (original 456),B_shape vs H_colours (original),LogReg
+H_colours,H_colours,source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,auto,H_plus_B vs H_colours (both burst-excluded),LogReg
+H_colours,H_colours,source_AUC,0.9166666666666666,0.7916666666666666,0.9940476190476191,,,auto,H_plus_B vs H_colours (both burst-excluded),LogReg
+H_colours,H_colours,obs_balanced_accuracy,0.7509435305846329,0.5986640832057935,0.8726814314379605,,,auto,H_plus_B vs H_colours (both burst-excluded),LogReg
+H_plus_B,H_plus_B,source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,auto,H_plus_B vs H_colours (both burst-excluded),LogReg
+H_plus_B,H_plus_B,source_AUC,0.8690476190476191,0.6666666666666666,1.0,,,auto,H_plus_B vs H_colours (both burst-excluded),LogReg
+H_plus_B,H_plus_B,obs_balanced_accuracy,0.772876166061383,0.6089794894055726,0.9012945983600532,,,auto,H_plus_B vs H_colours (both burst-excluded),LogReg
+H_plus_B,H_plus_B - H_colours,source_balanced_accuracy,-0.04166666666666674,-0.10416666666666663,0.0,0.0,not detected,auto,H_plus_B vs H_colours (both burst-excluded),LogReg
+H_plus_B,H_plus_B - H_colours,source_AUC,-0.04761904761904756,-0.17872023809523813,0.04761904761904767,0.1885,not detected,auto,H_plus_B vs H_colours (both burst-excluded),LogReg
+H_plus_B,H_plus_B - H_colours,obs_balanced_accuracy,0.021932635476750062,-0.04462848918565683,0.09305605192572376,0.723,not detected,auto,H_plus_B vs H_colours (both burst-excluded),LogReg
+H_colours,H_colours,source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,none (original 456),H_plus_B vs H_colours (original),LogReg
+H_colours,H_colours,source_AUC,0.9226190476190477,0.8035714285714286,0.9940476190476191,,,none (original 456),H_plus_B vs H_colours (original),LogReg
+H_colours,H_colours,obs_balanced_accuracy,0.7755392755392756,0.6332905982905983,0.8926455026455027,,,none (original 456),H_plus_B vs H_colours (original),LogReg
+H_plus_B,H_plus_B,source_balanced_accuracy,0.7738095238095238,0.5684523809523809,0.9375,,,none (original 456),H_plus_B vs H_colours (original),LogReg
+H_plus_B,H_plus_B,source_AUC,0.875,0.690327380952381,1.0,,,none (original 456),H_plus_B vs H_colours (original),LogReg
+H_plus_B,H_plus_B,obs_balanced_accuracy,0.7578754578754578,0.5886977861319966,0.8988024013024011,,,none (original 456),H_plus_B vs H_colours (original),LogReg
+H_plus_B,H_plus_B - H_colours,source_balanced_accuracy,-0.02083333333333337,-0.0625,0.0,0.0,not detected,none (original 456),H_plus_B vs H_colours (original),LogReg
+H_plus_B,H_plus_B - H_colours,source_AUC,-0.04761904761904767,-0.1785714285714285,0.04761904761904767,0.172,not detected,none (original 456),H_plus_B vs H_colours (original),LogReg
+H_plus_B,H_plus_B - H_colours,obs_balanced_accuracy,-0.01766381766381775,-0.07806471306471309,0.030863095238094995,0.283,not detected,none (original 456),H_plus_B vs H_colours (original),LogReg
+H_colours,H_colours,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,auto,B_shape vs H_colours (both burst-excluded),RandomForest
+H_colours,H_colours,source_AUC,0.8988095238095238,0.7200892857142858,1.0,,,auto,B_shape vs H_colours (both burst-excluded),RandomForest
+H_colours,H_colours,obs_balanced_accuracy,0.7485045930356762,0.6026739557820214,0.8670920672894357,,,auto,B_shape vs H_colours (both burst-excluded),RandomForest
+B_shape,B_shape,source_balanced_accuracy,0.7857142857142857,0.5714285714285714,0.9285714285714286,,,auto,B_shape vs H_colours (both burst-excluded),RandomForest
+B_shape,B_shape,source_AUC,0.8630952380952381,0.6666666666666666,1.0,,,auto,B_shape vs H_colours (both burst-excluded),RandomForest
+B_shape,B_shape,obs_balanced_accuracy,0.7625863419497259,0.6224103539720973,0.8778426067142271,,,auto,B_shape vs H_colours (both burst-excluded),RandomForest
+B_shape,B_shape - H_colours,source_balanced_accuracy,-0.07142857142857151,-0.2142857142857143,0.0,0.0,not detected,auto,B_shape vs H_colours (both burst-excluded),RandomForest
+B_shape,B_shape - H_colours,source_AUC,-0.0357142857142857,-0.13095238095238093,0.023809523809523836,0.125,not detected,auto,B_shape vs H_colours (both burst-excluded),RandomForest
+B_shape,B_shape - H_colours,obs_balanced_accuracy,0.014081748914049674,-0.011060584374855192,0.04146525445757928,0.859,not detected,auto,B_shape vs H_colours (both burst-excluded),RandomForest
+H_colours,H_colours,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,none (original 456),B_shape vs H_colours (original),RandomForest
+H_colours,H_colours,source_AUC,0.9047619047619048,0.7498511904761905,1.0,,,none (original 456),B_shape vs H_colours (original),RandomForest
+H_colours,H_colours,obs_balanced_accuracy,0.7549043549043549,0.605590686117002,0.8815750915750915,,,none (original 456),B_shape vs H_colours (original),RandomForest
+B_shape,B_shape,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,none (original 456),B_shape vs H_colours (original),RandomForest
+B_shape,B_shape,source_AUC,0.8928571428571429,0.7321428571428571,1.0,,,none (original 456),B_shape vs H_colours (original),RandomForest
+B_shape,B_shape,obs_balanced_accuracy,0.7605616605616605,0.6209851953601954,0.877205774853801,,,none (original 456),B_shape vs H_colours (original),RandomForest
+B_shape,B_shape - H_colours,source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,none (original 456),B_shape vs H_colours (original),RandomForest
+B_shape,B_shape - H_colours,source_AUC,-0.011904761904761862,-0.07738095238095244,0.04761904761904756,0.262,not detected,none (original 456),B_shape vs H_colours (original),RandomForest
+B_shape,B_shape - H_colours,obs_balanced_accuracy,0.0056573056573056,-0.014880952380952332,0.02594115497076023,0.7115,not detected,none (original 456),B_shape vs H_colours (original),RandomForest
+H_colours,H_colours,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,auto,H_plus_B vs H_colours (both burst-excluded),RandomForest
+H_colours,H_colours,source_AUC,0.8988095238095238,0.7200892857142858,1.0,,,auto,H_plus_B vs H_colours (both burst-excluded),RandomForest
+H_colours,H_colours,obs_balanced_accuracy,0.7485045930356762,0.6026739557820214,0.8670920672894357,,,auto,H_plus_B vs H_colours (both burst-excluded),RandomForest
+H_plus_B,H_plus_B,source_balanced_accuracy,0.7857142857142857,0.5714285714285714,0.9285714285714286,,,auto,H_plus_B vs H_colours (both burst-excluded),RandomForest
+H_plus_B,H_plus_B,source_AUC,0.8690476190476191,0.6785714285714286,1.0,,,auto,H_plus_B vs H_colours (both burst-excluded),RandomForest
+H_plus_B,H_plus_B,obs_balanced_accuracy,0.7534892829167557,0.6192516762487427,0.8590470456540958,,,auto,H_plus_B vs H_colours (both burst-excluded),RandomForest
+H_plus_B,H_plus_B - H_colours,source_balanced_accuracy,-0.07142857142857151,-0.2142857142857143,0.0,0.0,not detected,auto,H_plus_B vs H_colours (both burst-excluded),RandomForest
+H_plus_B,H_plus_B - H_colours,source_AUC,-0.029761904761904767,-0.11309523809523814,0.023958333333332547,0.128,not detected,auto,H_plus_B vs H_colours (both burst-excluded),RandomForest
+H_plus_B,H_plus_B - H_colours,obs_balanced_accuracy,0.004984689881079474,-0.01825634166240253,0.028329143586631536,0.671,not detected,auto,H_plus_B vs H_colours (both burst-excluded),RandomForest
+H_colours,H_colours,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,none (original 456),H_plus_B vs H_colours (original),RandomForest
+H_colours,H_colours,source_AUC,0.9047619047619048,0.7498511904761905,1.0,,,none (original 456),H_plus_B vs H_colours (original),RandomForest
+H_colours,H_colours,obs_balanced_accuracy,0.7549043549043549,0.605590686117002,0.8815750915750915,,,none (original 456),H_plus_B vs H_colours (original),RandomForest
+H_plus_B,H_plus_B,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,none (original 456),H_plus_B vs H_colours (original),RandomForest
+H_plus_B,H_plus_B,source_AUC,0.8928571428571429,0.7321428571428571,1.0,,,none (original 456),H_plus_B vs H_colours (original),RandomForest
+H_plus_B,H_plus_B,obs_balanced_accuracy,0.7681725681725682,0.6247767857142856,0.8948809523809523,,,none (original 456),H_plus_B vs H_colours (original),RandomForest
+H_plus_B,H_plus_B - H_colours,source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,none (original 456),H_plus_B vs H_colours (original),RandomForest
+H_plus_B,H_plus_B - H_colours,source_AUC,-0.011904761904761862,-0.07738095238095244,0.04761904761904756,0.262,not detected,none (original 456),H_plus_B vs H_colours (original),RandomForest
+H_plus_B,H_plus_B - H_colours,obs_balanced_accuracy,0.013268213268213258,-0.009189640768588195,0.037899697159565544,0.8705,not detected,none (original 456),H_plus_B vs H_colours (original),RandomForest
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,visual,H_colours,LogReg
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",source_AUC,0.9226190476190477,0.8035714285714286,0.9940476190476191,,,visual,H_colours,LogReg
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",obs_balanced_accuracy,0.7597919713960669,0.6161380421683417,0.8813065253195203,,,visual,H_colours,LogReg
+burst-excluded,burst-excluded,source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,visual,H_colours,LogReg
+burst-excluded,burst-excluded,source_AUC,0.9226190476190477,0.8035714285714286,0.9940476190476191,,,visual,H_colours,LogReg
+burst-excluded,burst-excluded,obs_balanced_accuracy,0.7580854867544287,0.6152659421393869,0.879989478114478,,,visual,H_colours,LogReg
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,visual,H_colours,LogReg
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",source_AUC,0.0,0.0,0.0,0.0,not detected,visual,H_colours,LogReg
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",obs_balanced_accuracy,-0.0017064846416382506,-0.010345722467486,0.004823931570567909,0.2625,not detected,visual,H_colours,LogReg
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,visual,H_colours,RandomForest
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",source_AUC,0.8988095238095238,0.7321428571428571,1.0,,,visual,H_colours,RandomForest
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",obs_balanced_accuracy,0.7518608808711198,0.6041880526343326,0.8785900060661206,,,visual,H_colours,RandomForest
+burst-excluded,burst-excluded,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,visual,H_colours,RandomForest
+burst-excluded,burst-excluded,source_AUC,0.8869047619047619,0.7022321428571429,1.0,,,visual,H_colours,RandomForest
+burst-excluded,burst-excluded,obs_balanced_accuracy,0.7433284576629287,0.5937280926368499,0.8720116901479571,,,visual,H_colours,RandomForest
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,visual,H_colours,RandomForest
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",source_AUC,-0.011904761904761973,-0.04761904761904756,0.0,0.0,not detected,visual,H_colours,RandomForest
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",obs_balanced_accuracy,-0.008532423208191142,-0.017241379310344754,-0.001677852348993311,0.0,not detected,visual,H_colours,RandomForest
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,visual,B_shape,LogReg
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",source_AUC,0.8690476190476191,0.6666666666666666,1.0,,,visual,B_shape,LogReg
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",obs_balanced_accuracy,0.7503494230456688,0.5819256854256853,0.8938649425287355,,,visual,B_shape,LogReg
+burst-excluded,burst-excluded,source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,visual,B_shape,LogReg
+burst-excluded,burst-excluded,source_AUC,0.8630952380952381,0.6547619047619048,1.0,,,visual,B_shape,LogReg
+burst-excluded,burst-excluded,obs_balanced_accuracy,0.7581667479278401,0.5803313063834646,0.9066155604547799,,,visual,B_shape,LogReg
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,visual,B_shape,LogReg
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",source_AUC,-0.005952380952380931,-0.0357142857142857,0.0,0.0,not detected,visual,B_shape,LogReg
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",obs_balanced_accuracy,0.00781732488217135,-0.0071025020177563096,0.022523018195572446,0.831,not detected,visual,B_shape,LogReg
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,visual,B_shape,RandomForest
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",source_AUC,0.8809523809523809,0.6904761904761905,1.0,,,visual,B_shape,RandomForest
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",obs_balanced_accuracy,0.7580529822850642,0.6175523935913683,0.876575952533317,,,visual,B_shape,RandomForest
+burst-excluded,burst-excluded,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,visual,B_shape,RandomForest
+burst-excluded,burst-excluded,source_AUC,0.8690476190476191,0.6666666666666666,1.0,,,visual,B_shape,RandomForest
+burst-excluded,burst-excluded,obs_balanced_accuracy,0.7702746627661303,0.6214026915113872,0.8970998338343136,,,visual,B_shape,RandomForest
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,visual,B_shape,RandomForest
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",source_AUC,-0.011904761904761862,-0.05357142857142849,0.0,0.0,not detected,visual,B_shape,RandomForest
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",obs_balanced_accuracy,0.012221680481066088,-0.007226566875539378,0.03419091533198327,0.8715,not detected,visual,B_shape,RandomForest
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,visual,H_plus_B,LogReg
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",source_AUC,0.8630952380952381,0.6547619047619048,1.0,,,visual,H_plus_B,LogReg
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",obs_balanced_accuracy,0.7486429384040305,0.5795518609742748,0.8921363000187346,,,visual,H_plus_B,LogReg
+burst-excluded,burst-excluded,source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,visual,H_plus_B,LogReg
+burst-excluded,burst-excluded,source_AUC,0.8630952380952381,0.6547619047619048,1.0,,,visual,H_plus_B,LogReg
+burst-excluded,burst-excluded,obs_balanced_accuracy,0.7598732325694784,0.5819045138888889,0.907512368583797,,,visual,H_plus_B,LogReg
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,visual,H_plus_B,LogReg
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",source_AUC,0.0,0.0,0.0,0.0,not detected,visual,H_plus_B,LogReg
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",obs_balanced_accuracy,0.011230294165447852,-0.003703927898843104,0.02627322392219646,0.919,not detected,visual,H_plus_B,LogReg
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,visual,H_plus_B,RandomForest
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",source_AUC,0.8809523809523809,0.6904761904761905,1.0,,,visual,H_plus_B,RandomForest
+"original(v2/v3a, same obs)","original(v2/v3a, same obs)",obs_balanced_accuracy,0.7662278563302454,0.6230236120861121,0.8921048146688664,,,visual,H_plus_B,RandomForest
+burst-excluded,burst-excluded,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,visual,H_plus_B,RandomForest
+burst-excluded,burst-excluded,source_AUC,0.8809523809523809,0.6904761904761905,1.0,,,visual,H_plus_B,RandomForest
+burst-excluded,burst-excluded,obs_balanced_accuracy,0.7719811474077686,0.6213106329488317,0.8970309265010351,,,visual,H_plus_B,RandomForest
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,visual,H_plus_B,RandomForest
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",source_AUC,0.0,-0.036011904761904835,0.03571428571428581,0.333,not detected,visual,H_plus_B,RandomForest
+burst-excluded,"burst-excluded - original(v2/v3a, same obs)",obs_balanced_accuracy,0.005753291077523204,-0.010416666666666633,0.02623577481840196,0.6805,not detected,visual,H_plus_B,RandomForest
+H_colours,H_colours,source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,visual,B_shape vs H_colours (both burst-excluded),LogReg
+H_colours,H_colours,source_AUC,0.9226190476190477,0.8035714285714286,0.9940476190476191,,,visual,B_shape vs H_colours (both burst-excluded),LogReg
+H_colours,H_colours,obs_balanced_accuracy,0.7580854867544287,0.6152659421393869,0.879989478114478,,,visual,B_shape vs H_colours (both burst-excluded),LogReg
+B_shape,B_shape,source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,visual,B_shape vs H_colours (both burst-excluded),LogReg
+B_shape,B_shape,source_AUC,0.8630952380952381,0.6547619047619048,1.0,,,visual,B_shape vs H_colours (both burst-excluded),LogReg
+B_shape,B_shape,obs_balanced_accuracy,0.7581667479278401,0.5803313063834646,0.9066155604547799,,,visual,B_shape vs H_colours (both burst-excluded),LogReg
+B_shape,B_shape - H_colours,source_balanced_accuracy,-0.04166666666666674,-0.10416666666666663,0.0,0.0,not detected,visual,B_shape vs H_colours (both burst-excluded),LogReg
+B_shape,B_shape - H_colours,source_AUC,-0.059523809523809534,-0.20833333333333337,0.04761904761904767,0.1555,not detected,visual,B_shape vs H_colours (both burst-excluded),LogReg
+B_shape,B_shape - H_colours,obs_balanced_accuracy,8.1261173411451e-05,-0.062177422184791394,0.053337221312059306,0.5295,not detected,visual,B_shape vs H_colours (both burst-excluded),LogReg
+H_colours,H_colours,source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,visual,H_plus_B vs H_colours (both burst-excluded),LogReg
+H_colours,H_colours,source_AUC,0.9226190476190477,0.8035714285714286,0.9940476190476191,,,visual,H_plus_B vs H_colours (both burst-excluded),LogReg
+H_colours,H_colours,obs_balanced_accuracy,0.7580854867544287,0.6152659421393869,0.879989478114478,,,visual,H_plus_B vs H_colours (both burst-excluded),LogReg
+H_plus_B,H_plus_B,source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,visual,H_plus_B vs H_colours (both burst-excluded),LogReg
+H_plus_B,H_plus_B,source_AUC,0.8630952380952381,0.6547619047619048,1.0,,,visual,H_plus_B vs H_colours (both burst-excluded),LogReg
+H_plus_B,H_plus_B,obs_balanced_accuracy,0.7598732325694784,0.5819045138888889,0.907512368583797,,,visual,H_plus_B vs H_colours (both burst-excluded),LogReg
+H_plus_B,H_plus_B - H_colours,source_balanced_accuracy,-0.04166666666666674,-0.10416666666666663,0.0,0.0,not detected,visual,H_plus_B vs H_colours (both burst-excluded),LogReg
+H_plus_B,H_plus_B - H_colours,source_AUC,-0.059523809523809534,-0.20833333333333337,0.04761904761904767,0.1555,not detected,visual,H_plus_B vs H_colours (both burst-excluded),LogReg
+H_plus_B,H_plus_B - H_colours,obs_balanced_accuracy,0.0017877458150497016,-0.05984773197816683,0.05408219208736124,0.5515,not detected,visual,H_plus_B vs H_colours (both burst-excluded),LogReg
+H_colours,H_colours,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,visual,B_shape vs H_colours (both burst-excluded),RandomForest
+H_colours,H_colours,source_AUC,0.8869047619047619,0.7022321428571429,1.0,,,visual,B_shape vs H_colours (both burst-excluded),RandomForest
+H_colours,H_colours,obs_balanced_accuracy,0.7433284576629287,0.5937280926368499,0.8720116901479571,,,visual,B_shape vs H_colours (both burst-excluded),RandomForest
+B_shape,B_shape,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,visual,B_shape vs H_colours (both burst-excluded),RandomForest
+B_shape,B_shape,source_AUC,0.8690476190476191,0.6666666666666666,1.0,,,visual,B_shape vs H_colours (both burst-excluded),RandomForest
+B_shape,B_shape,obs_balanced_accuracy,0.7702746627661303,0.6214026915113872,0.8970998338343136,,,visual,B_shape vs H_colours (both burst-excluded),RandomForest
+B_shape,B_shape - H_colours,source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,visual,B_shape vs H_colours (both burst-excluded),RandomForest
+B_shape,B_shape - H_colours,source_AUC,-0.017857142857142794,-0.09523809523809523,0.04761904761904767,0.224,not detected,visual,B_shape vs H_colours (both burst-excluded),RandomForest
+B_shape,B_shape - H_colours,obs_balanced_accuracy,0.02694620510320167,0.004482603337125518,0.049213104285338226,0.9875,improvement,visual,B_shape vs H_colours (both burst-excluded),RandomForest
+H_colours,H_colours,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,visual,H_plus_B vs H_colours (both burst-excluded),RandomForest
+H_colours,H_colours,source_AUC,0.8869047619047619,0.7022321428571429,1.0,,,visual,H_plus_B vs H_colours (both burst-excluded),RandomForest
+H_colours,H_colours,obs_balanced_accuracy,0.7433284576629287,0.5937280926368499,0.8720116901479571,,,visual,H_plus_B vs H_colours (both burst-excluded),RandomForest
+H_plus_B,H_plus_B,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,visual,H_plus_B vs H_colours (both burst-excluded),RandomForest
+H_plus_B,H_plus_B,source_AUC,0.8809523809523809,0.6904761904761905,1.0,,,visual,H_plus_B vs H_colours (both burst-excluded),RandomForest
+H_plus_B,H_plus_B,obs_balanced_accuracy,0.7719811474077686,0.6213106329488317,0.8970309265010351,,,visual,H_plus_B vs H_colours (both burst-excluded),RandomForest
+H_plus_B,H_plus_B - H_colours,source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,visual,H_plus_B vs H_colours (both burst-excluded),RandomForest
+H_plus_B,H_plus_B - H_colours,source_AUC,-0.005952380952380931,-0.0714285714285714,0.059523809523809534,0.334,not detected,visual,H_plus_B vs H_colours (both burst-excluded),RandomForest
+H_plus_B,H_plus_B - H_colours,obs_balanced_accuracy,0.02865268974483992,0.005072479046966319,0.05102981047569708,0.99,improvement,visual,H_plus_B vs H_colours (both burst-excluded),RandomForest
