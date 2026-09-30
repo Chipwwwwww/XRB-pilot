@@ -32,6 +32,12 @@ v4a 換演算法（8 種 × 4 表示、巢狀 LOSO 自動選擇）、burst 汙�
 結果：H+T-LR 在 v2 樣本上點估計明顯較好（來源 BA 0.908 vs 0.795、AUC 0.988 vs 0.923），但依嚴格規則 primary **未偵測到**（AUC 差區間下限 0.000）；
 描述性比較方向一致（45 個配對差中 15 個區間 > 0），改善集中在顏色重疊的硬態區。屬探索性結果，需要在新天體上確認。
 執行：`.\run_v5.ps1`（或 `./run_v5.sh`）；模組 `scripts/v5lib.py`，腳本 `26_*`、`27_*`；輸出 `data/v5/`、`results/v5/`、`figures/v5/`。
+**v6（預先登記：[reports/preregistration_v6.md](reports/preregistration_v6.md)，報告：[reports/report_v6_zh-TW.md](reports/report_v6_zh-TW.md)；分支 `v6-analysis`）**：
+凍結模型在 23 個訓練從未用過的確認天體（Cyg X-1、LMC X-3、6 個 AMXP 與 v4b2 的 15 個天體；4 BH、19 NS）上驗證 v5 的時間訊號，並測試新方法：
+全配對 cospectrum 估計量、νPν 質心頻率、顏色條件時間概似比分類器（CCTLR）、天體層級置換檢定、conformal 預測集、觀測預算曲線、proper scoring rule。
+結果：外部天體上來源 BA 0.868 → 0.974，但 AUC 兩者皆 1.000，primary 依嚴格規則**未偵測到**；Brier、log loss、觀測 BA 一致改善；
+CCTLR 沒有勝過簡單的 H+T-LR；「同顏色下 BH 低頻變異較強」在 v2 天體上顯著、在外部天體上未複製。
+執行：`.\run_v6.ps1`（或 `./run_v6.sh`）；模組 `scripts/v6lib.py`，腳本 `28_*`–`30_*`；輸出 `data/v6/`、`results/v6/`、`figures/v6/`。
 
 ## 環境
 - Python venv：`C:\Users\User\venvs\xrb-pilot`（Python 3.12.10；放在 OneDrive 之外）
