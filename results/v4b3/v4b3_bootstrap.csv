@@ -1,0 +1,37 @@
+name,comparison,metric,point,ci2_5,ci97_5,frac_first_better,verdict,subset
+H|LogReg,H|LogReg,source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,HEXTE subset
+H|LogReg,H|LogReg,source_AUC,0.9226190476190477,0.8035714285714286,0.9940476190476191,,,HEXTE subset
+H|LogReg,H|LogReg,obs_balanced_accuracy,0.7760942760942762,0.6262675709455273,0.8930112699969388,,,HEXTE subset
+H+X|LogReg,H+X|LogReg,source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,HEXTE subset
+H+X|LogReg,H+X|LogReg,source_AUC,0.875,0.690327380952381,0.9940476190476191,,,HEXTE subset
+H+X|LogReg,H+X|LogReg,obs_balanced_accuracy,0.7794612794612794,0.638677490364168,0.8886098962769363,,,HEXTE subset
+H+X|LogReg,H+X|LogReg - H|LogReg,source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,HEXTE subset
+H+X|LogReg,H+X|LogReg - H|LogReg,source_AUC,-0.04761904761904767,-0.17872023809523813,0.023809523809523836,0.1665,not detected,HEXTE subset
+H+X|LogReg,H+X|LogReg - H|LogReg,obs_balanced_accuracy,0.0033670033670032407,-0.07788683185328837,0.09691284054888541,0.518,not detected,HEXTE subset
+H|RandomForest,H|RandomForest,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,HEXTE subset
+H|RandomForest,H|RandomForest,source_AUC,0.9107142857142857,0.7619047619047619,1.0,,,HEXTE subset
+H|RandomForest,H|RandomForest,obs_balanced_accuracy,0.7441077441077442,0.6108975191944281,0.8617328418611276,,,HEXTE subset
+H+X|RandomForest,H+X|RandomForest,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,HEXTE subset
+H+X|RandomForest,H+X|RandomForest,source_AUC,0.9107142857142857,0.7619047619047619,1.0,,,HEXTE subset
+H+X|RandomForest,H+X|RandomForest,obs_balanced_accuracy,0.7508417508417509,0.6144519822394388,0.8689164284639685,,,HEXTE subset
+H+X|RandomForest,H+X|RandomForest - H|RandomForest,source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,HEXTE subset
+H+X|RandomForest,H+X|RandomForest - H|RandomForest,source_AUC,0.0,-0.03571428571428581,0.03571428571428581,0.3715,not detected,HEXTE subset
+H+X|RandomForest,H+X|RandomForest - H|RandomForest,obs_balanced_accuracy,0.006734006734006703,-0.027357357622838214,0.040633343446601806,0.645,not detected,HEXTE subset
+H|LogReg,H|LogReg,source_balanced_accuracy,0.6512605042016807,0.4327731092436975,0.8529411764705883,,,overlap box (sources with >=3 box obs)
+H|LogReg,H|LogReg,source_AUC,0.7478991596638656,0.5126050420168067,0.9327731092436975,,,overlap box (sources with >=3 box obs)
+H|LogReg,H|LogReg,obs_balanced_accuracy,0.6288685946220193,0.4413645248969965,0.8103767491832838,,,overlap box (sources with >=3 box obs)
+H+X|LogReg,H+X|LogReg,source_balanced_accuracy,0.680672268907563,0.4789915966386554,0.8823529411764706,,,overlap box (sources with >=3 box obs)
+H+X|LogReg,H+X|LogReg,source_AUC,0.7394957983193278,0.4619747899159664,0.9663865546218487,,,overlap box (sources with >=3 box obs)
+H+X|LogReg,H+X|LogReg,obs_balanced_accuracy,0.6590563165905632,0.5353261496240949,0.7856515840841706,,,overlap box (sources with >=3 box obs)
+H+X|LogReg,H+X|LogReg - H|LogReg,source_balanced_accuracy,0.02941176470588236,0.0,0.08823529411764708,0.644,not detected,overlap box (sources with >=3 box obs)
+H+X|LogReg,H+X|LogReg - H|LogReg,source_AUC,-0.008403361344537785,-0.2100840336134454,0.15966386554621848,0.4765,not detected,overlap box (sources with >=3 box obs)
+H+X|LogReg,H+X|LogReg - H|LogReg,obs_balanced_accuracy,0.030187721968543912,-0.09916666666666676,0.1465395759174496,0.645,not detected,overlap box (sources with >=3 box obs)
+H|RandomForest,H|RandomForest,source_balanced_accuracy,0.7563025210084033,0.5714285714285714,0.9285714285714286,,,overlap box (sources with >=3 box obs)
+H|RandomForest,H|RandomForest,source_AUC,0.8151260504201681,0.5714285714285714,1.0,,,overlap box (sources with >=3 box obs)
+H|RandomForest,H|RandomForest,obs_balanced_accuracy,0.6253170979198377,0.5129301619433199,0.7530525111025823,,,overlap box (sources with >=3 box obs)
+H+X|RandomForest,H+X|RandomForest,source_balanced_accuracy,0.6848739495798319,0.5,0.8697478991596639,,,overlap box (sources with >=3 box obs)
+H+X|RandomForest,H+X|RandomForest,source_AUC,0.7983193277310925,0.5546218487394958,0.9831932773109243,,,overlap box (sources with >=3 box obs)
+H+X|RandomForest,H+X|RandomForest,obs_balanced_accuracy,0.6352105530187722,0.4994542053877641,0.778821405044231,,,overlap box (sources with >=3 box obs)
+H+X|RandomForest,H+X|RandomForest - H|RandomForest,source_balanced_accuracy,-0.0714285714285714,-0.2142857142857143,0.0,0.0,not detected,overlap box (sources with >=3 box obs)
+H+X|RandomForest,H+X|RandomForest - H|RandomForest,source_AUC,-0.01680672268907557,-0.09243697478991597,0.05882352941176472,0.2405,not detected,overlap box (sources with >=3 box obs)
+H+X|RandomForest,H+X|RandomForest - H|RandomForest,obs_balanced_accuracy,0.009893455098934467,-0.057231829541409644,0.07671223354958291,0.5975,not detected,overlap box (sources with >=3 box obs)

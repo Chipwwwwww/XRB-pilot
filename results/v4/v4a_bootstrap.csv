@@ -1,0 +1,460 @@
+name,comparison,metric,point,ci2_5,ci97_5,frac_first_better,verdict,part
+H_colours|LogReg,H_colours|LogReg,source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,reference_v2
+H_colours|LogReg,H_colours|LogReg,source_AUC,0.9226190476190477,0.8035714285714286,0.9940476190476191,,,reference_v2
+H_colours|LogReg,H_colours|LogReg,obs_balanced_accuracy,0.7755392755392756,0.6332905982905983,0.8926455026455027,,,reference_v2
+H_colours|RandomForest,H_colours|RandomForest,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,1b_fixed
+H_colours|RandomForest,H_colours|RandomForest,source_AUC,0.9047619047619048,0.7498511904761905,1.0,,,1b_fixed
+H_colours|RandomForest,H_colours|RandomForest,obs_balanced_accuracy,0.7549043549043549,0.605590686117002,0.8815750915750915,,,1b_fixed
+H_colours|ExtraTrees,H_colours|ExtraTrees,source_balanced_accuracy,0.8154761904761905,0.6220238095238095,0.9791666666666667,,,1b_fixed
+H_colours|ExtraTrees,H_colours|ExtraTrees,source_AUC,0.8988095238095238,0.7261904761904762,1.0,,,1b_fixed
+H_colours|ExtraTrees,H_colours|ExtraTrees,obs_balanced_accuracy,0.7373626373626374,0.5854662698412699,0.8726294903926481,,,1b_fixed
+H_colours|HistGB,H_colours|HistGB,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,1b_fixed
+H_colours|HistGB,H_colours|HistGB,source_AUC,0.8988095238095238,0.7321428571428571,1.0,,,1b_fixed
+H_colours|HistGB,H_colours|HistGB,obs_balanced_accuracy,0.7535205535205535,0.617827380952381,0.8682657657657658,,,1b_fixed
+H_colours|SVM_RBF,H_colours|SVM_RBF,source_balanced_accuracy,0.8154761904761905,0.6220238095238095,0.9791666666666667,,,1b_fixed
+H_colours|SVM_RBF,H_colours|SVM_RBF,source_AUC,0.8571428571428571,0.6602678571428572,1.0,,,1b_fixed
+H_colours|SVM_RBF,H_colours|SVM_RBF,obs_balanced_accuracy,0.7530728530728531,0.6011656746031746,0.8876989348370927,,,1b_fixed
+H_colours|kNN,H_colours|kNN,source_balanced_accuracy,0.8154761904761905,0.6220238095238095,0.9791666666666667,,,1b_fixed
+H_colours|kNN,H_colours|kNN,source_AUC,0.875,0.6607142857142857,1.0,,,1b_fixed
+H_colours|kNN,H_colours|kNN,obs_balanced_accuracy,0.7369149369149369,0.5904354904354905,0.8640674603174603,,,1b_fixed
+H_colours|QDA,H_colours|QDA,source_balanced_accuracy,0.7857142857142857,0.5714285714285714,0.9285714285714286,,,1b_fixed
+H_colours|QDA,H_colours|QDA,source_AUC,0.9047619047619048,0.7678571428571429,0.9880952380952381,,,1b_fixed
+H_colours|QDA,H_colours|QDA,obs_balanced_accuracy,0.7172161172161172,0.5957852965747703,0.8362775573192238,,,1b_fixed
+H_colours|MLP,H_colours|MLP,source_balanced_accuracy,0.8125,0.7083333333333334,0.9166666666666667,,,1b_fixed
+H_colours|MLP,H_colours|MLP,source_AUC,0.9166666666666666,0.7857142857142857,1.0,,,1b_fixed
+H_colours|MLP,H_colours|MLP,obs_balanced_accuracy,0.7405372405372406,0.6446165293040292,0.8314017589017587,,,1b_fixed
+HI_colours_intensity|LogReg,HI_colours_intensity|LogReg,source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,1b_fixed
+HI_colours_intensity|LogReg,HI_colours_intensity|LogReg,source_AUC,0.9285714285714286,0.8095238095238095,1.0,,,1b_fixed
+HI_colours_intensity|LogReg,HI_colours_intensity|LogReg,obs_balanced_accuracy,0.7821733821733822,0.6726116707366708,0.8807131075552128,,,1b_fixed
+HI_colours_intensity|RandomForest,HI_colours_intensity|RandomForest,source_balanced_accuracy,0.8363095238095238,0.6428571428571428,1.0,,,1b_fixed
+HI_colours_intensity|RandomForest,HI_colours_intensity|RandomForest,source_AUC,0.9464285714285714,0.8392857142857143,1.0,,,1b_fixed
+HI_colours_intensity|RandomForest,HI_colours_intensity|RandomForest,obs_balanced_accuracy,0.7544159544159543,0.609092261904762,0.8736186151811152,,,1b_fixed
+HI_colours_intensity|ExtraTrees,HI_colours_intensity|ExtraTrees,source_balanced_accuracy,0.8363095238095238,0.6428571428571428,1.0,,,1b_fixed
+HI_colours_intensity|ExtraTrees,HI_colours_intensity|ExtraTrees,source_AUC,0.9583333333333334,0.8630952380952381,1.0,,,1b_fixed
+HI_colours_intensity|ExtraTrees,HI_colours_intensity|ExtraTrees,obs_balanced_accuracy,0.8134717134717135,0.6814431377589272,0.9147489717884455,,,1b_fixed
+HI_colours_intensity|HistGB,HI_colours_intensity|HistGB,source_balanced_accuracy,0.7648809523809523,0.5714285714285714,0.9285714285714286,,,1b_fixed
+HI_colours_intensity|HistGB,HI_colours_intensity|HistGB,source_AUC,0.9285714285714286,0.8154761904761905,0.9940476190476191,,,1b_fixed
+HI_colours_intensity|HistGB,HI_colours_intensity|HistGB,obs_balanced_accuracy,0.7372812372812373,0.6167906746031746,0.8472639397639398,,,1b_fixed
+HI_colours_intensity|SVM_RBF,HI_colours_intensity|SVM_RBF,source_balanced_accuracy,0.8660714285714286,0.7023809523809523,0.9791666666666667,,,1b_fixed
+HI_colours_intensity|SVM_RBF,HI_colours_intensity|SVM_RBF,source_AUC,0.9464285714285714,0.8392857142857143,1.0,,,1b_fixed
+HI_colours_intensity|SVM_RBF,HI_colours_intensity|SVM_RBF,obs_balanced_accuracy,0.8092389092389092,0.6737301587301587,0.9125141178266178,,,1b_fixed
+HI_colours_intensity|kNN,HI_colours_intensity|kNN,source_balanced_accuracy,0.8363095238095238,0.6428571428571428,1.0,,,1b_fixed
+HI_colours_intensity|kNN,HI_colours_intensity|kNN,source_AUC,0.9523809523809523,0.8571428571428571,1.0,,,1b_fixed
+HI_colours_intensity|kNN,HI_colours_intensity|kNN,obs_balanced_accuracy,0.7887667887667889,0.6601438492063493,0.888064431913116,,,1b_fixed
+HI_colours_intensity|QDA,HI_colours_intensity|QDA,source_balanced_accuracy,0.8571428571428572,0.7142857142857143,1.0,,,1b_fixed
+HI_colours_intensity|QDA,HI_colours_intensity|QDA,source_AUC,0.9523809523809523,0.8392857142857143,1.0,,,1b_fixed
+HI_colours_intensity|QDA,HI_colours_intensity|QDA,obs_balanced_accuracy,0.791941391941392,0.6888695563695564,0.8707250230276545,,,1b_fixed
+HI_colours_intensity|MLP,HI_colours_intensity|MLP,source_balanced_accuracy,0.6607142857142857,0.45535714285714285,0.8452380952380952,,,1b_fixed
+HI_colours_intensity|MLP,HI_colours_intensity|MLP,source_AUC,0.8690476190476191,0.7142857142857143,0.9761904761904762,,,1b_fixed
+HI_colours_intensity|MLP,HI_colours_intensity|MLP,obs_balanced_accuracy,0.6942205942205942,0.5391096866096866,0.8325033068783069,,,1b_fixed
+B_shape|LogReg,B_shape|LogReg,source_balanced_accuracy,0.7738095238095238,0.5684523809523809,0.9375,,,1b_fixed
+B_shape|LogReg,B_shape|LogReg,source_AUC,0.875,0.690327380952381,1.0,,,1b_fixed
+B_shape|LogReg,B_shape|LogReg,obs_balanced_accuracy,0.7607244607244608,0.5916045991045991,0.9026075605680869,,,1b_fixed
+B_shape|RandomForest,B_shape|RandomForest,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,1b_fixed
+B_shape|RandomForest,B_shape|RandomForest,source_AUC,0.8928571428571429,0.7321428571428571,1.0,,,1b_fixed
+B_shape|RandomForest,B_shape|RandomForest,obs_balanced_accuracy,0.7605616605616605,0.6209851953601954,0.877205774853801,,,1b_fixed
+B_shape|ExtraTrees,B_shape|ExtraTrees,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,1b_fixed
+B_shape|ExtraTrees,B_shape|ExtraTrees,source_AUC,0.8809523809523809,0.6904761904761905,1.0,,,1b_fixed
+B_shape|ExtraTrees,B_shape|ExtraTrees,obs_balanced_accuracy,0.7505901505901507,0.621812343358396,0.8617098692098691,,,1b_fixed
+B_shape|HistGB,B_shape|HistGB,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,1b_fixed
+B_shape|HistGB,B_shape|HistGB,source_AUC,0.8928571428571429,0.7321428571428571,1.0,,,1b_fixed
+B_shape|HistGB,B_shape|HistGB,obs_balanced_accuracy,0.7515669515669516,0.6099931988089883,0.8742131370091896,,,1b_fixed
+B_shape|SVM_RBF,B_shape|SVM_RBF,source_balanced_accuracy,0.8363095238095238,0.6428571428571428,1.0,,,1b_fixed
+B_shape|SVM_RBF,B_shape|SVM_RBF,source_AUC,0.8809523809523809,0.6904761904761905,1.0,,,1b_fixed
+B_shape|SVM_RBF,B_shape|SVM_RBF,obs_balanced_accuracy,0.7654049654049655,0.6106691207184627,0.8965893125268124,,,1b_fixed
+B_shape|kNN,B_shape|kNN,source_balanced_accuracy,0.8363095238095238,0.6428571428571428,1.0,,,1b_fixed
+B_shape|kNN,B_shape|kNN,source_AUC,0.7976190476190477,0.5238095238095238,1.0,,,1b_fixed
+B_shape|kNN,B_shape|kNN,obs_balanced_accuracy,0.7387871387871388,0.5862907268170426,0.8678323412698411,,,1b_fixed
+B_shape|QDA,B_shape|QDA,source_balanced_accuracy,0.7857142857142857,0.5714285714285714,0.9285714285714286,,,1b_fixed
+B_shape|QDA,B_shape|QDA,source_AUC,0.9226190476190477,0.7976190476190477,1.0,,,1b_fixed
+B_shape|QDA,B_shape|QDA,obs_balanced_accuracy,0.6971916971916972,0.5819328703703704,0.8157518796992481,,,1b_fixed
+B_shape|MLP,B_shape|MLP,source_balanced_accuracy,0.7827380952380952,0.6100446428571428,0.9166666666666667,,,1b_fixed
+B_shape|MLP,B_shape|MLP,source_AUC,0.8809523809523809,0.7260416666666667,0.9880952380952381,,,1b_fixed
+B_shape|MLP,B_shape|MLP,obs_balanced_accuracy,0.711029711029711,0.5678131703131704,0.8327678571428571,,,1b_fixed
+A_intensity|LogReg,A_intensity|LogReg,source_balanced_accuracy,0.8660714285714286,0.7023809523809523,0.9791666666666667,,,1b_fixed
+A_intensity|LogReg,A_intensity|LogReg,source_AUC,0.9464285714285714,0.8333333333333334,1.0,,,1b_fixed
+A_intensity|LogReg,A_intensity|LogReg,obs_balanced_accuracy,0.7236467236467237,0.6055505952380953,0.8168996743996744,,,1b_fixed
+A_intensity|RandomForest,A_intensity|RandomForest,source_balanced_accuracy,0.6220238095238095,0.4583333333333333,0.7857142857142857,,,1b_fixed
+A_intensity|RandomForest,A_intensity|RandomForest,source_AUC,0.8809523809523809,0.7380952380952381,0.9880952380952381,,,1b_fixed
+A_intensity|RandomForest,A_intensity|RandomForest,obs_balanced_accuracy,0.6063492063492063,0.5463980463980463,0.6611116198616199,,,1b_fixed
+A_intensity|ExtraTrees,A_intensity|ExtraTrees,source_balanced_accuracy,0.7648809523809523,0.5714285714285714,0.9285714285714286,,,1b_fixed
+A_intensity|ExtraTrees,A_intensity|ExtraTrees,source_AUC,0.8988095238095238,0.7559523809523809,1.0,,,1b_fixed
+A_intensity|ExtraTrees,A_intensity|ExtraTrees,obs_balanced_accuracy,0.6716320716320716,0.5940426587301587,0.7481362594520489,,,1b_fixed
+A_intensity|HistGB,A_intensity|HistGB,source_balanced_accuracy,0.9077380952380952,0.7440476190476191,1.0,,,1b_fixed
+A_intensity|HistGB,A_intensity|HistGB,source_AUC,0.9404761904761905,0.8273809523809523,1.0,,,1b_fixed
+A_intensity|HistGB,A_intensity|HistGB,obs_balanced_accuracy,0.7096866096866097,0.6393880534670008,0.7667956349206348,,,1b_fixed
+A_intensity|SVM_RBF,A_intensity|SVM_RBF,source_balanced_accuracy,0.7946428571428572,0.6101190476190476,0.9583333333333333,,,1b_fixed
+A_intensity|SVM_RBF,A_intensity|SVM_RBF,source_AUC,0.9166666666666666,0.7976190476190477,0.9940476190476191,,,1b_fixed
+A_intensity|SVM_RBF,A_intensity|SVM_RBF,obs_balanced_accuracy,0.7055759055759057,0.5863045634920634,0.8211250536250536,,,1b_fixed
+A_intensity|kNN,A_intensity|kNN,source_balanced_accuracy,0.8154761904761905,0.6307291666666667,0.9791666666666667,,,1b_fixed
+A_intensity|kNN,A_intensity|kNN,source_AUC,0.8928571428571429,0.7558035714285715,0.9880952380952381,,,1b_fixed
+A_intensity|kNN,A_intensity|kNN,obs_balanced_accuracy,0.6555555555555556,0.554797671261487,0.7550744047619047,,,1b_fixed
+A_intensity|QDA,A_intensity|QDA,source_balanced_accuracy,0.9285714285714286,0.7857142857142857,1.0,,,1b_fixed
+A_intensity|QDA,A_intensity|QDA,source_AUC,0.9464285714285714,0.8214285714285714,1.0,,,1b_fixed
+A_intensity|QDA,A_intensity|QDA,obs_balanced_accuracy,0.7567358567358567,0.6467160017160016,0.8424107142857142,,,1b_fixed
+A_intensity|MLP,A_intensity|MLP,source_balanced_accuracy,0.7916666666666667,0.6875,0.8958333333333333,,,1b_fixed
+A_intensity|MLP,A_intensity|MLP,source_AUC,0.8392857142857143,0.6784226190476191,0.9583333333333334,,,1b_fixed
+A_intensity|MLP,A_intensity|MLP,obs_balanced_accuracy,0.666910866910867,0.5771791056166056,0.7563492063492063,,,1b_fixed
+H_colours|LogReg[srcw],H_colours|LogReg[srcw],source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,1c_source_weighted
+H_colours|LogReg[srcw],H_colours|LogReg[srcw],source_AUC,0.9226190476190477,0.8035714285714286,0.9940476190476191,,,1c_source_weighted
+H_colours|LogReg[srcw],H_colours|LogReg[srcw],obs_balanced_accuracy,0.7755392755392756,0.6332905982905983,0.8926455026455027,,,1c_source_weighted
+H_colours|RandomForest[srcw],H_colours|RandomForest[srcw],source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,1c_source_weighted
+H_colours|RandomForest[srcw],H_colours|RandomForest[srcw],source_AUC,0.9047619047619048,0.7498511904761905,1.0,,,1c_source_weighted
+H_colours|RandomForest[srcw],H_colours|RandomForest[srcw],obs_balanced_accuracy,0.7534798534798535,0.6047569444444445,0.8805601136851137,,,1c_source_weighted
+H_colours|HistGB[srcw],H_colours|HistGB[srcw],source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,1c_source_weighted
+H_colours|HistGB[srcw],H_colours|HistGB[srcw],source_AUC,0.8988095238095238,0.7261904761904762,1.0,,,1c_source_weighted
+H_colours|HistGB[srcw],H_colours|HistGB[srcw],obs_balanced_accuracy,0.7506715506715507,0.6069576719576719,0.8724501424501424,,,1c_source_weighted
+HI_colours_intensity|LogReg[srcw],HI_colours_intensity|LogReg[srcw],source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,1c_source_weighted
+HI_colours_intensity|LogReg[srcw],HI_colours_intensity|LogReg[srcw],source_AUC,0.9285714285714286,0.8095238095238095,1.0,,,1c_source_weighted
+HI_colours_intensity|LogReg[srcw],HI_colours_intensity|LogReg[srcw],obs_balanced_accuracy,0.7821733821733822,0.6721560846560847,0.8797446072446071,,,1c_source_weighted
+HI_colours_intensity|RandomForest[srcw],HI_colours_intensity|RandomForest[srcw],source_balanced_accuracy,0.8363095238095238,0.6428571428571428,1.0,,,1c_source_weighted
+HI_colours_intensity|RandomForest[srcw],HI_colours_intensity|RandomForest[srcw],source_AUC,0.9404761904761905,0.8214285714285714,1.0,,,1c_source_weighted
+HI_colours_intensity|RandomForest[srcw],HI_colours_intensity|RandomForest[srcw],obs_balanced_accuracy,0.7549043549043549,0.6062896825396825,0.8755460371085368,,,1c_source_weighted
+HI_colours_intensity|HistGB[srcw],HI_colours_intensity|HistGB[srcw],source_balanced_accuracy,0.7440476190476191,0.5505952380952381,0.9077380952380952,,,1c_source_weighted
+HI_colours_intensity|HistGB[srcw],HI_colours_intensity|HistGB[srcw],source_AUC,0.9166666666666666,0.7857142857142857,0.9940476190476191,,,1c_source_weighted
+HI_colours_intensity|HistGB[srcw],HI_colours_intensity|HistGB[srcw],obs_balanced_accuracy,0.7334961334961335,0.6068105158730158,0.8478978696741855,,,1c_source_weighted
+B_shape|LogReg[srcw],B_shape|LogReg[srcw],source_balanced_accuracy,0.7738095238095238,0.5684523809523809,0.9375,,,1c_source_weighted
+B_shape|LogReg[srcw],B_shape|LogReg[srcw],source_AUC,0.875,0.690327380952381,1.0,,,1c_source_weighted
+B_shape|LogReg[srcw],B_shape|LogReg[srcw],obs_balanced_accuracy,0.7592999592999593,0.5894026733500417,0.901214896214896,,,1c_source_weighted
+B_shape|RandomForest[srcw],B_shape|RandomForest[srcw],source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,1c_source_weighted
+B_shape|RandomForest[srcw],B_shape|RandomForest[srcw],source_AUC,0.8928571428571429,0.7321428571428571,1.0,,,1c_source_weighted
+B_shape|RandomForest[srcw],B_shape|RandomForest[srcw],obs_balanced_accuracy,0.7681725681725682,0.6249592731829574,0.8877083333333332,,,1c_source_weighted
+B_shape|HistGB[srcw],B_shape|HistGB[srcw],source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,1c_source_weighted
+B_shape|HistGB[srcw],B_shape|HistGB[srcw],source_AUC,0.9107142857142857,0.7619047619047619,1.0,,,1c_source_weighted
+B_shape|HistGB[srcw],B_shape|HistGB[srcw],obs_balanced_accuracy,0.7544159544159543,0.6124746762740184,0.8777492877492877,,,1c_source_weighted
+A_intensity|LogReg[srcw],A_intensity|LogReg[srcw],source_balanced_accuracy,0.8660714285714286,0.7023809523809523,0.9791666666666667,,,1c_source_weighted
+A_intensity|LogReg[srcw],A_intensity|LogReg[srcw],source_AUC,0.9523809523809523,0.8450892857142858,1.0,,,1c_source_weighted
+A_intensity|LogReg[srcw],A_intensity|LogReg[srcw],obs_balanced_accuracy,0.7207977207977208,0.6101876486087012,0.8089298767752715,,,1c_source_weighted
+A_intensity|RandomForest[srcw],A_intensity|RandomForest[srcw],source_balanced_accuracy,0.6220238095238095,0.4583333333333333,0.7857142857142857,,,1c_source_weighted
+A_intensity|RandomForest[srcw],A_intensity|RandomForest[srcw],source_AUC,0.8809523809523809,0.7321428571428571,0.9880952380952381,,,1c_source_weighted
+A_intensity|RandomForest[srcw],A_intensity|RandomForest[srcw],obs_balanced_accuracy,0.6035002035002035,0.5440262515262515,0.6591391093474426,,,1c_source_weighted
+A_intensity|HistGB[srcw],A_intensity|HistGB[srcw],source_balanced_accuracy,0.7648809523809523,0.5801339285714285,0.9285714285714286,,,1c_source_weighted
+A_intensity|HistGB[srcw],A_intensity|HistGB[srcw],source_AUC,0.9404761904761905,0.8273809523809523,1.0,,,1c_source_weighted
+A_intensity|HistGB[srcw],A_intensity|HistGB[srcw],obs_balanced_accuracy,0.7096866096866097,0.6393880534670008,0.7667956349206348,,,1c_source_weighted
+H_colours|nested:LogReg,H_colours|nested:LogReg,source_balanced_accuracy,0.8244047619047619,0.6488095238095238,0.9583333333333333,,,1d_nested_per_algorithm
+H_colours|nested:LogReg,H_colours|nested:LogReg,source_AUC,0.9226190476190477,0.8035714285714286,0.9940476190476191,,,1d_nested_per_algorithm
+H_colours|nested:LogReg,H_colours|nested:LogReg,obs_balanced_accuracy,0.7676434676434676,0.6778083295846454,0.8478353078353078,,,1d_nested_per_algorithm
+H_colours|nested:RandomForest,H_colours|nested:RandomForest,source_balanced_accuracy,0.8363095238095238,0.6428571428571428,1.0,,,1d_nested_per_algorithm
+H_colours|nested:RandomForest,H_colours|nested:RandomForest,source_AUC,0.9523809523809523,0.8571428571428571,1.0,,,1d_nested_per_algorithm
+H_colours|nested:RandomForest,H_colours|nested:RandomForest,obs_balanced_accuracy,0.773951973951974,0.6328918650793651,0.8956582334213914,,,1d_nested_per_algorithm
+H_colours|nested:ExtraTrees,H_colours|nested:ExtraTrees,source_balanced_accuracy,0.8363095238095238,0.6428571428571428,1.0,,,1d_nested_per_algorithm
+H_colours|nested:ExtraTrees,H_colours|nested:ExtraTrees,source_AUC,0.9404761904761905,0.8333333333333334,1.0,,,1d_nested_per_algorithm
+H_colours|nested:ExtraTrees,H_colours|nested:ExtraTrees,obs_balanced_accuracy,0.7492063492063492,0.6148454469507101,0.8704694696142065,,,1d_nested_per_algorithm
+H_colours|nested:HistGB,H_colours|nested:HistGB,source_balanced_accuracy,0.7232142857142857,0.5297619047619048,0.9077380952380952,,,1d_nested_per_algorithm
+H_colours|nested:HistGB,H_colours|nested:HistGB,source_AUC,0.9047619047619048,0.7619047619047619,0.9880952380952381,,,1d_nested_per_algorithm
+H_colours|nested:HistGB,H_colours|nested:HistGB,obs_balanced_accuracy,0.7659340659340659,0.6297123015873016,0.8847791988416988,,,1d_nested_per_algorithm
+H_colours|nested:SVM_RBF,H_colours|nested:SVM_RBF,source_balanced_accuracy,0.8363095238095238,0.6428571428571428,1.0,,,1d_nested_per_algorithm
+H_colours|nested:SVM_RBF,H_colours|nested:SVM_RBF,source_AUC,0.7738095238095238,0.4880952380952381,1.0,,,1d_nested_per_algorithm
+H_colours|nested:SVM_RBF,H_colours|nested:SVM_RBF,obs_balanced_accuracy,0.7006919006919008,0.5635189536340852,0.8230085630743526,,,1d_nested_per_algorithm
+H_colours|nested:kNN,H_colours|nested:kNN,source_balanced_accuracy,0.8154761904761905,0.6220238095238095,0.9791666666666667,,,1d_nested_per_algorithm
+H_colours|nested:kNN,H_colours|nested:kNN,source_AUC,0.9107142857142857,0.7857142857142857,0.9880952380952381,,,1d_nested_per_algorithm
+H_colours|nested:kNN,H_colours|nested:kNN,obs_balanced_accuracy,0.7544566544566544,0.6107738095238096,0.878983262108262,,,1d_nested_per_algorithm
+H_colours|nested:QDA,H_colours|nested:QDA,source_balanced_accuracy,0.6398809523809523,0.4343005952380953,0.8244047619047619,,,1d_nested_per_algorithm
+H_colours|nested:QDA,H_colours|nested:QDA,source_AUC,0.8214285714285714,0.625,0.9702380952380952,,,1d_nested_per_algorithm
+H_colours|nested:QDA,H_colours|nested:QDA,obs_balanced_accuracy,0.6495726495726495,0.4977899877899878,0.7961557539682538,,,1d_nested_per_algorithm
+H_colours|nested:MLP,H_colours|nested:MLP,source_balanced_accuracy,0.7648809523809523,0.5714285714285714,0.9285714285714286,,,1d_nested_per_algorithm
+H_colours|nested:MLP,H_colours|nested:MLP,source_AUC,0.8869047619047619,0.7498511904761905,0.9880952380952381,,,1d_nested_per_algorithm
+H_colours|nested:MLP,H_colours|nested:MLP,obs_balanced_accuracy,0.7268213268213268,0.5887077737077737,0.8562552213868003,,,1d_nested_per_algorithm
+HI_colours_intensity|nested:LogReg,HI_colours_intensity|nested:LogReg,source_balanced_accuracy,0.7827380952380952,0.6071428571428572,0.9166666666666667,,,1d_nested_per_algorithm
+HI_colours_intensity|nested:LogReg,HI_colours_intensity|nested:LogReg,source_AUC,0.9047619047619048,0.7619047619047619,1.0,,,1d_nested_per_algorithm
+HI_colours_intensity|nested:LogReg,HI_colours_intensity|nested:LogReg,obs_balanced_accuracy,0.7537647537647538,0.6559147334147334,0.8398046398046398,,,1d_nested_per_algorithm
+HI_colours_intensity|nested:RandomForest,HI_colours_intensity|nested:RandomForest,source_balanced_accuracy,0.7738095238095238,0.5803571428571428,0.9375,,,1d_nested_per_algorithm
+HI_colours_intensity|nested:RandomForest,HI_colours_intensity|nested:RandomForest,source_AUC,0.875,0.6845238095238095,1.0,,,1d_nested_per_algorithm
+HI_colours_intensity|nested:RandomForest,HI_colours_intensity|nested:RandomForest,obs_balanced_accuracy,0.7478632478632479,0.5844494047619049,0.8816951566951566,,,1d_nested_per_algorithm
+HI_colours_intensity|nested:ExtraTrees,HI_colours_intensity|nested:ExtraTrees,source_balanced_accuracy,0.7738095238095238,0.5803571428571428,0.9375,,,1d_nested_per_algorithm
+HI_colours_intensity|nested:ExtraTrees,HI_colours_intensity|nested:ExtraTrees,source_AUC,0.8095238095238095,0.5476190476190477,1.0,,,1d_nested_per_algorithm
+HI_colours_intensity|nested:ExtraTrees,HI_colours_intensity|nested:ExtraTrees,obs_balanced_accuracy,0.755962555962556,0.5977733262108262,0.8882804232804232,,,1d_nested_per_algorithm
+HI_colours_intensity|nested:HistGB,HI_colours_intensity|nested:HistGB,source_balanced_accuracy,0.8244047619047619,0.6607142857142857,0.9583333333333333,,,1d_nested_per_algorithm
+HI_colours_intensity|nested:HistGB,HI_colours_intensity|nested:HistGB,source_AUC,0.8928571428571429,0.7083333333333334,1.0,,,1d_nested_per_algorithm
+HI_colours_intensity|nested:HistGB,HI_colours_intensity|nested:HistGB,obs_balanced_accuracy,0.7492877492877492,0.6131585156585158,0.8577415293040292,,,1d_nested_per_algorithm
+HI_colours_intensity|nested:SVM_RBF,HI_colours_intensity|nested:SVM_RBF,source_balanced_accuracy,0.7738095238095238,0.5684523809523809,0.9375,,,1d_nested_per_algorithm
+HI_colours_intensity|nested:SVM_RBF,HI_colours_intensity|nested:SVM_RBF,source_AUC,0.8869047619047619,0.7559523809523809,0.9821428571428571,,,1d_nested_per_algorithm
+HI_colours_intensity|nested:SVM_RBF,HI_colours_intensity|nested:SVM_RBF,obs_balanced_accuracy,0.775946275946276,0.6283604845446952,0.89983765015015,,,1d_nested_per_algorithm
+HI_colours_intensity|nested:kNN,HI_colours_intensity|nested:kNN,source_balanced_accuracy,0.7946428571428572,0.6011904761904762,0.9583333333333333,,,1d_nested_per_algorithm
+HI_colours_intensity|nested:kNN,HI_colours_intensity|nested:kNN,source_AUC,0.8928571428571429,0.75,1.0,,,1d_nested_per_algorithm
+HI_colours_intensity|nested:kNN,HI_colours_intensity|nested:kNN,obs_balanced_accuracy,0.7584045584045584,0.6207787698412698,0.8688274882024881,,,1d_nested_per_algorithm
+HI_colours_intensity|nested:QDA,HI_colours_intensity|nested:QDA,source_balanced_accuracy,0.9285714285714286,0.7857142857142857,1.0,,,1d_nested_per_algorithm
+HI_colours_intensity|nested:QDA,HI_colours_intensity|nested:QDA,source_AUC,0.9583333333333334,0.8571428571428571,1.0,,,1d_nested_per_algorithm
+HI_colours_intensity|nested:QDA,HI_colours_intensity|nested:QDA,obs_balanced_accuracy,0.8067155067155067,0.698998143060643,0.8866964285714285,,,1d_nested_per_algorithm
+HI_colours_intensity|nested:MLP,HI_colours_intensity|nested:MLP,source_balanced_accuracy,0.49404761904761907,0.28869047619047616,0.6994047619047619,,,1d_nested_per_algorithm
+HI_colours_intensity|nested:MLP,HI_colours_intensity|nested:MLP,source_AUC,0.6071428571428571,0.32142857142857145,0.875,,,1d_nested_per_algorithm
+HI_colours_intensity|nested:MLP,HI_colours_intensity|nested:MLP,obs_balanced_accuracy,0.5345136345136345,0.36942179165863376,0.6985530619905619,,,1d_nested_per_algorithm
+B_shape|nested:LogReg,B_shape|nested:LogReg,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,1d_nested_per_algorithm
+B_shape|nested:LogReg,B_shape|nested:LogReg,source_AUC,0.9047619047619048,0.7617559523809524,1.0,,,1d_nested_per_algorithm
+B_shape|nested:LogReg,B_shape|nested:LogReg,obs_balanced_accuracy,0.7534391534391535,0.6139651211361737,0.867875417710944,,,1d_nested_per_algorithm
+B_shape|nested:RandomForest,B_shape|nested:RandomForest,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,1d_nested_per_algorithm
+B_shape|nested:RandomForest,B_shape|nested:RandomForest,source_AUC,0.9107142857142857,0.7619047619047619,1.0,,,1d_nested_per_algorithm
+B_shape|nested:RandomForest,B_shape|nested:RandomForest,obs_balanced_accuracy,0.7572242572242572,0.6148120300751879,0.8787327059202059,,,1d_nested_per_algorithm
+B_shape|nested:ExtraTrees,B_shape|nested:ExtraTrees,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,1d_nested_per_algorithm
+B_shape|nested:ExtraTrees,B_shape|nested:ExtraTrees,source_AUC,0.9107142857142857,0.7619047619047619,1.0,,,1d_nested_per_algorithm
+B_shape|nested:ExtraTrees,B_shape|nested:ExtraTrees,obs_balanced_accuracy,0.7605616605616605,0.6206338763575606,0.8800694444444443,,,1d_nested_per_algorithm
+B_shape|nested:HistGB,B_shape|nested:HistGB,source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,1d_nested_per_algorithm
+B_shape|nested:HistGB,B_shape|nested:HistGB,source_AUC,0.8452380952380952,0.6428571428571429,0.9821428571428571,,,1d_nested_per_algorithm
+B_shape|nested:HistGB,B_shape|nested:HistGB,obs_balanced_accuracy,0.724989824989825,0.590858918128655,0.8406206756206757,,,1d_nested_per_algorithm
+B_shape|nested:SVM_RBF,B_shape|nested:SVM_RBF,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,1d_nested_per_algorithm
+B_shape|nested:SVM_RBF,B_shape|nested:SVM_RBF,source_AUC,0.8809523809523809,0.6904761904761905,1.0,,,1d_nested_per_algorithm
+B_shape|nested:SVM_RBF,B_shape|nested:SVM_RBF,obs_balanced_accuracy,0.762026862026862,0.6190812233575392,0.8831424247049247,,,1d_nested_per_algorithm
+B_shape|nested:kNN,B_shape|nested:kNN,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,1d_nested_per_algorithm
+B_shape|nested:kNN,B_shape|nested:kNN,source_AUC,0.8690476190476191,0.6726190476190477,1.0,,,1d_nested_per_algorithm
+B_shape|nested:kNN,B_shape|nested:kNN,obs_balanced_accuracy,0.7145299145299145,0.5751929302422724,0.8354898304898305,,,1d_nested_per_algorithm
+B_shape|nested:QDA,B_shape|nested:QDA,source_balanced_accuracy,0.8035714285714286,0.6398809523809523,0.9375,,,1d_nested_per_algorithm
+B_shape|nested:QDA,B_shape|nested:QDA,source_AUC,0.875,0.6607142857142857,1.0,,,1d_nested_per_algorithm
+B_shape|nested:QDA,B_shape|nested:QDA,obs_balanced_accuracy,0.7134310134310134,0.578329939431913,0.8484661172161169,,,1d_nested_per_algorithm
+B_shape|nested:MLP,B_shape|nested:MLP,source_balanced_accuracy,0.7023809523809523,0.49702380952380953,0.8869047619047619,,,1d_nested_per_algorithm
+B_shape|nested:MLP,B_shape|nested:MLP,source_AUC,0.8333333333333334,0.6427083333333334,0.9702380952380952,,,1d_nested_per_algorithm
+B_shape|nested:MLP,B_shape|nested:MLP,obs_balanced_accuracy,0.696011396011396,0.5131513680033417,0.8605406746031745,,,1d_nested_per_algorithm
+A_intensity|nested:LogReg,A_intensity|nested:LogReg,source_balanced_accuracy,0.8660714285714286,0.7023809523809523,0.9791666666666667,,,1d_nested_per_algorithm
+A_intensity|nested:LogReg,A_intensity|nested:LogReg,source_AUC,0.9226190476190477,0.8093750000000001,0.9940476190476191,,,1d_nested_per_algorithm
+A_intensity|nested:LogReg,A_intensity|nested:LogReg,obs_balanced_accuracy,0.7193325193325193,0.5985103785103785,0.8134722222222223,,,1d_nested_per_algorithm
+A_intensity|nested:RandomForest,A_intensity|nested:RandomForest,source_balanced_accuracy,0.7321428571428572,0.5267857142857143,0.8958333333333333,,,1d_nested_per_algorithm
+A_intensity|nested:RandomForest,A_intensity|nested:RandomForest,source_AUC,0.8392857142857143,0.6488095238095238,0.9703869047619039,,,1d_nested_per_algorithm
+A_intensity|nested:RandomForest,A_intensity|nested:RandomForest,obs_balanced_accuracy,0.6832315832315832,0.5803486212861213,0.7839325142450142,,,1d_nested_per_algorithm
+A_intensity|nested:ExtraTrees,A_intensity|nested:ExtraTrees,source_balanced_accuracy,0.7440476190476191,0.5386904761904762,0.9285714285714286,,,1d_nested_per_algorithm
+A_intensity|nested:ExtraTrees,A_intensity|nested:ExtraTrees,source_AUC,0.9345238095238095,0.8214285714285714,1.0,,,1d_nested_per_algorithm
+A_intensity|nested:ExtraTrees,A_intensity|nested:ExtraTrees,obs_balanced_accuracy,0.7107041107041108,0.6170805485937065,0.8001648351648352,,,1d_nested_per_algorithm
+A_intensity|nested:HistGB,A_intensity|nested:HistGB,source_balanced_accuracy,0.8660714285714286,0.7023809523809523,0.9791666666666667,,,1d_nested_per_algorithm
+A_intensity|nested:HistGB,A_intensity|nested:HistGB,source_AUC,0.9107142857142857,0.7797619047619048,1.0,,,1d_nested_per_algorithm
+A_intensity|nested:HistGB,A_intensity|nested:HistGB,obs_balanced_accuracy,0.7278388278388279,0.654526862026862,0.7852860896610896,,,1d_nested_per_algorithm
+A_intensity|nested:SVM_RBF,A_intensity|nested:SVM_RBF,source_balanced_accuracy,0.7321428571428572,0.5386160714285714,0.8958333333333333,,,1d_nested_per_algorithm
+A_intensity|nested:SVM_RBF,A_intensity|nested:SVM_RBF,source_AUC,0.9107142857142857,0.7797619047619048,1.0,,,1d_nested_per_algorithm
+A_intensity|nested:SVM_RBF,A_intensity|nested:SVM_RBF,obs_balanced_accuracy,0.7207977207977208,0.5816365025740026,0.8459573412698412,,,1d_nested_per_algorithm
+A_intensity|nested:kNN,A_intensity|nested:kNN,source_balanced_accuracy,0.7321428571428572,0.5383928571428571,0.8958333333333333,,,1d_nested_per_algorithm
+A_intensity|nested:kNN,A_intensity|nested:kNN,source_AUC,0.8988095238095238,0.75,1.0,,,1d_nested_per_algorithm
+A_intensity|nested:kNN,A_intensity|nested:kNN,obs_balanced_accuracy,0.7484330484330484,0.6690262515262515,0.8214362026862027,,,1d_nested_per_algorithm
+A_intensity|nested:QDA,A_intensity|nested:QDA,source_balanced_accuracy,0.9285714285714286,0.7857142857142857,1.0,,,1d_nested_per_algorithm
+A_intensity|nested:QDA,A_intensity|nested:QDA,source_AUC,0.9821428571428571,0.9285714285714286,1.0,,,1d_nested_per_algorithm
+A_intensity|nested:QDA,A_intensity|nested:QDA,obs_balanced_accuracy,0.7662596662596663,0.6559267820452032,0.8492155067155067,,,1d_nested_per_algorithm
+A_intensity|nested:MLP,A_intensity|nested:MLP,source_balanced_accuracy,0.6696428571428572,0.4642857142857143,0.8452380952380952,,,1d_nested_per_algorithm
+A_intensity|nested:MLP,A_intensity|nested:MLP,source_AUC,0.8095238095238095,0.5892857142857143,0.9584821428571421,,,1d_nested_per_algorithm
+A_intensity|nested:MLP,A_intensity|nested:MLP,obs_balanced_accuracy,0.7452584452584452,0.6400997284878864,0.8410321035321036,,,1d_nested_per_algorithm
+auto|nested:auto,auto|nested:auto,source_balanced_accuracy,0.7321428571428572,0.5267857142857143,0.8958333333333333,,,1e_primary
+auto|nested:auto,auto|nested:auto,source_AUC,0.75,0.4642857142857143,0.9761904761904762,,,1e_primary
+auto|nested:auto,auto|nested:auto,obs_balanced_accuracy,0.6913308913308913,0.528968253968254,0.8224801587301583,,,1e_primary
+H_colours|RandomForest,H_colours|RandomForest - H_colours|LogReg,source_balanced_accuracy,0.0625,0.0,0.125,0.9585,not detected,1b_fixed
+H_colours|RandomForest,H_colours|RandomForest - H_colours|LogReg,source_AUC,-0.017857142857142905,-0.11309523809523814,0.059523809523809534,0.297,not detected,1b_fixed
+H_colours|RandomForest,H_colours|RandomForest - H_colours|LogReg,obs_balanced_accuracy,-0.020634920634920673,-0.09074352548036763,0.048278769841269914,0.283,not detected,1b_fixed
+H_colours|ExtraTrees,H_colours|ExtraTrees - H_colours|LogReg,source_balanced_accuracy,0.02083333333333326,-0.04166666666666674,0.08333333333333337,0.5905,not detected,1b_fixed
+H_colours|ExtraTrees,H_colours|ExtraTrees - H_colours|LogReg,source_AUC,-0.023809523809523836,-0.1428571428571428,0.059523809523809534,0.32,not detected,1b_fixed
+H_colours|ExtraTrees,H_colours|ExtraTrees - H_colours|LogReg,obs_balanced_accuracy,-0.03817663817663819,-0.11170553699062469,0.032739400584795415,0.1465,not detected,1b_fixed
+H_colours|HistGB,H_colours|HistGB - H_colours|LogReg,source_balanced_accuracy,0.0625,0.0,0.125,0.9585,not detected,1b_fixed
+H_colours|HistGB,H_colours|HistGB - H_colours|LogReg,source_AUC,-0.023809523809523836,-0.13095238095238093,0.059523809523809534,0.274,not detected,1b_fixed
+H_colours|HistGB,H_colours|HistGB - H_colours|LogReg,obs_balanced_accuracy,-0.022018722018722126,-0.08934837092731818,0.04543917887667892,0.2675,not detected,1b_fixed
+H_colours|SVM_RBF,H_colours|SVM_RBF - H_colours|LogReg,source_balanced_accuracy,0.02083333333333326,0.0,0.0625,0.6345,not detected,1b_fixed
+H_colours|SVM_RBF,H_colours|SVM_RBF - H_colours|LogReg,source_AUC,-0.06547619047619058,-0.2142857142857143,0.04761904761904767,0.131,not detected,1b_fixed
+H_colours|SVM_RBF,H_colours|SVM_RBF - H_colours|LogReg,obs_balanced_accuracy,-0.022466422466422498,-0.07679067460317456,0.029390142021720984,0.2055,not detected,1b_fixed
+H_colours|kNN,H_colours|kNN - H_colours|LogReg,source_balanced_accuracy,0.02083333333333326,-0.04166666666666674,0.08333333333333337,0.5905,not detected,1b_fixed
+H_colours|kNN,H_colours|kNN - H_colours|LogReg,source_AUC,-0.04761904761904767,-0.2142857142857143,0.059523809523809534,0.2625,not detected,1b_fixed
+H_colours|kNN,H_colours|kNN - H_colours|LogReg,obs_balanced_accuracy,-0.03862433862433867,-0.11571950710108611,0.03558302808302819,0.1595,not detected,1b_fixed
+H_colours|QDA,H_colours|QDA - H_colours|LogReg,source_balanced_accuracy,-0.008928571428571508,-0.17261904761904756,0.10416666666666674,0.473,not detected,1b_fixed
+H_colours|QDA,H_colours|QDA - H_colours|LogReg,source_AUC,-0.017857142857142905,-0.0892857142857143,0.0357142857142857,0.2245,not detected,1b_fixed
+H_colours|QDA,H_colours|QDA - H_colours|LogReg,obs_balanced_accuracy,-0.058323158323158375,-0.18726190476190482,0.04737773921984436,0.1755,not detected,1b_fixed
+H_colours|MLP,H_colours|MLP - H_colours|LogReg,source_balanced_accuracy,0.017857142857142794,-0.15773809523809523,0.2232142857142857,0.5445,not detected,1b_fixed
+H_colours|MLP,H_colours|MLP - H_colours|LogReg,source_AUC,-0.005952380952381042,-0.1071428571428571,0.0892857142857143,0.4155,not detected,1b_fixed
+H_colours|MLP,H_colours|MLP - H_colours|LogReg,obs_balanced_accuracy,-0.035002035002035026,-0.13472613826232244,0.07402892246642231,0.263,not detected,1b_fixed
+HI_colours_intensity|LogReg,HI_colours_intensity|LogReg - H_colours|LogReg,source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,1b_fixed
+HI_colours_intensity|LogReg,HI_colours_intensity|LogReg - H_colours|LogReg,source_AUC,0.005952380952380931,-0.04761904761904756,0.059523809523809534,0.5425,not detected,1b_fixed
+HI_colours_intensity|LogReg,HI_colours_intensity|LogReg - H_colours|LogReg,obs_balanced_accuracy,0.0066341066341065735,-0.039558214229266773,0.05661375661375656,0.6055,not detected,1b_fixed
+HI_colours_intensity|RandomForest,HI_colours_intensity|RandomForest - H_colours|LogReg,source_balanced_accuracy,0.04166666666666663,-0.04166666666666663,0.125,0.771,not detected,1b_fixed
+HI_colours_intensity|RandomForest,HI_colours_intensity|RandomForest - H_colours|LogReg,source_AUC,0.023809523809523725,-0.059523809523809534,0.11904761904761907,0.6875,not detected,1b_fixed
+HI_colours_intensity|RandomForest,HI_colours_intensity|RandomForest - H_colours|LogReg,obs_balanced_accuracy,-0.02112332112332127,-0.09742141812865496,0.05278617216117204,0.2875,not detected,1b_fixed
+HI_colours_intensity|ExtraTrees,HI_colours_intensity|ExtraTrees - H_colours|LogReg,source_balanced_accuracy,0.04166666666666663,-0.04166666666666663,0.125,0.771,not detected,1b_fixed
+HI_colours_intensity|ExtraTrees,HI_colours_intensity|ExtraTrees - H_colours|LogReg,source_AUC,0.0357142857142857,-0.0357142857142857,0.13690476190476186,0.797,not detected,1b_fixed
+HI_colours_intensity|ExtraTrees,HI_colours_intensity|ExtraTrees - H_colours|LogReg,obs_balanced_accuracy,0.037932437932437946,-0.025004960317460335,0.10017126148705097,0.8695,not detected,1b_fixed
+HI_colours_intensity|HistGB,HI_colours_intensity|HistGB - H_colours|LogReg,source_balanced_accuracy,-0.029761904761904878,-0.19345238095238104,0.10416666666666663,0.3515,not detected,1b_fixed
+HI_colours_intensity|HistGB,HI_colours_intensity|HistGB - H_colours|LogReg,source_AUC,0.005952380952380931,-0.07738095238095244,0.10133928571428498,0.4845,not detected,1b_fixed
+HI_colours_intensity|HistGB,HI_colours_intensity|HistGB - H_colours|LogReg,obs_balanced_accuracy,-0.03825803825803831,-0.13957155174260447,0.06191964285714278,0.233,not detected,1b_fixed
+HI_colours_intensity|SVM_RBF,HI_colours_intensity|SVM_RBF - H_colours|LogReg,source_balanced_accuracy,0.0714285714285714,-0.08333333333333326,0.25595238095238093,0.779,not detected,1b_fixed
+HI_colours_intensity|SVM_RBF,HI_colours_intensity|SVM_RBF - H_colours|LogReg,source_AUC,0.023809523809523725,-0.06547619047619047,0.12514880952380872,0.69,not detected,1b_fixed
+HI_colours_intensity|SVM_RBF,HI_colours_intensity|SVM_RBF - H_colours|LogReg,obs_balanced_accuracy,0.03369963369963358,-0.04829306171411444,0.11315476190476183,0.796,not detected,1b_fixed
+HI_colours_intensity|kNN,HI_colours_intensity|kNN - H_colours|LogReg,source_balanced_accuracy,0.04166666666666663,-0.04166666666666663,0.125,0.771,not detected,1b_fixed
+HI_colours_intensity|kNN,HI_colours_intensity|kNN - H_colours|LogReg,source_AUC,0.029761904761904656,-0.04761904761904756,0.13095238095238093,0.753,not detected,1b_fixed
+HI_colours_intensity|kNN,HI_colours_intensity|kNN - H_colours|LogReg,obs_balanced_accuracy,0.013227513227513255,-0.05343270034059513,0.07684269434269436,0.651,not detected,1b_fixed
+HI_colours_intensity|QDA,HI_colours_intensity|QDA - H_colours|LogReg,source_balanced_accuracy,0.0625,-0.1517857142857143,0.2767857142857143,0.7095,not detected,1b_fixed
+HI_colours_intensity|QDA,HI_colours_intensity|QDA - H_colours|LogReg,source_AUC,0.029761904761904656,-0.059523809523809534,0.13690476190476186,0.726,not detected,1b_fixed
+HI_colours_intensity|QDA,HI_colours_intensity|QDA - H_colours|LogReg,obs_balanced_accuracy,0.016402116402116418,-0.07003968253968251,0.11839090246984986,0.639,not detected,1b_fixed
+HI_colours_intensity|MLP,HI_colours_intensity|MLP - H_colours|LogReg,source_balanced_accuracy,-0.1339285714285715,-0.3095238095238095,0.0,0.017,not detected,1b_fixed
+HI_colours_intensity|MLP,HI_colours_intensity|MLP - H_colours|LogReg,source_AUC,-0.0535714285714286,-0.16086309523809522,0.011904761904761973,0.052,not detected,1b_fixed
+HI_colours_intensity|MLP,HI_colours_intensity|MLP - H_colours|LogReg,obs_balanced_accuracy,-0.08131868131868136,-0.17193086883876355,-0.0023087098087099687,0.0195,not detected,1b_fixed
+B_shape|LogReg,B_shape|LogReg - H_colours|LogReg,source_balanced_accuracy,-0.02083333333333337,-0.0625,0.0,0.0,not detected,1b_fixed
+B_shape|LogReg,B_shape|LogReg - H_colours|LogReg,source_AUC,-0.04761904761904767,-0.1785714285714285,0.04761904761904767,0.172,not detected,1b_fixed
+B_shape|LogReg,B_shape|LogReg - H_colours|LogReg,obs_balanced_accuracy,-0.014814814814814836,-0.0761988304093568,0.034732270044769975,0.3195,not detected,1b_fixed
+B_shape|RandomForest,B_shape|RandomForest - H_colours|LogReg,source_balanced_accuracy,0.0625,0.0,0.125,0.9585,not detected,1b_fixed
+B_shape|RandomForest,B_shape|RandomForest - H_colours|LogReg,source_AUC,-0.029761904761904767,-0.13095238095238093,0.0535714285714286,0.21,not detected,1b_fixed
+B_shape|RandomForest,B_shape|RandomForest - H_colours|LogReg,obs_balanced_accuracy,-0.014977614977615072,-0.09000773329720686,0.05726597476597478,0.3465,not detected,1b_fixed
+B_shape|ExtraTrees,B_shape|ExtraTrees - H_colours|LogReg,source_balanced_accuracy,0.0625,0.0,0.125,0.9585,not detected,1b_fixed
+B_shape|ExtraTrees,B_shape|ExtraTrees - H_colours|LogReg,source_AUC,-0.04166666666666674,-0.1607142857142857,0.04761904761904767,0.1755,not detected,1b_fixed
+B_shape|ExtraTrees,B_shape|ExtraTrees - H_colours|LogReg,obs_balanced_accuracy,-0.024949124949124935,-0.09382727652464495,0.047842261904761714,0.253,not detected,1b_fixed
+B_shape|HistGB,B_shape|HistGB - H_colours|LogReg,source_balanced_accuracy,0.0625,0.0,0.125,0.9585,not detected,1b_fixed
+B_shape|HistGB,B_shape|HistGB - H_colours|LogReg,source_AUC,-0.029761904761904767,-0.1428571428571429,0.0535714285714286,0.2405,not detected,1b_fixed
+B_shape|HistGB,B_shape|HistGB - H_colours|LogReg,obs_balanced_accuracy,-0.02397232397232396,-0.09108198514448515,0.040421888053466803,0.259,not detected,1b_fixed
+B_shape|SVM_RBF,B_shape|SVM_RBF - H_colours|LogReg,source_balanced_accuracy,0.04166666666666663,-0.04166666666666663,0.125,0.771,not detected,1b_fixed
+B_shape|SVM_RBF,B_shape|SVM_RBF - H_colours|LogReg,source_AUC,-0.04166666666666674,-0.1607142857142857,0.04761904761904767,0.1755,not detected,1b_fixed
+B_shape|SVM_RBF,B_shape|SVM_RBF - H_colours|LogReg,obs_balanced_accuracy,-0.010134310134310098,-0.09159957184628234,0.07071254290004275,0.4095,not detected,1b_fixed
+B_shape|kNN,B_shape|kNN - H_colours|LogReg,source_balanced_accuracy,0.04166666666666663,-0.04166666666666663,0.125,0.771,not detected,1b_fixed
+B_shape|kNN,B_shape|kNN - H_colours|LogReg,source_AUC,-0.125,-0.3394345238095238,0.0357142857142857,0.0835,not detected,1b_fixed
+B_shape|kNN,B_shape|kNN - H_colours|LogReg,obs_balanced_accuracy,-0.036752136752136844,-0.11398796117546114,0.03883432539682534,0.1835,not detected,1b_fixed
+B_shape|QDA,B_shape|QDA - H_colours|LogReg,source_balanced_accuracy,-0.008928571428571508,-0.17261904761904756,0.10416666666666674,0.473,not detected,1b_fixed
+B_shape|QDA,B_shape|QDA - H_colours|LogReg,source_AUC,0.0,-0.08333333333333337,0.07738095238095244,0.4535,not detected,1b_fixed
+B_shape|QDA,B_shape|QDA - H_colours|LogReg,obs_balanced_accuracy,-0.07834757834757844,-0.18359962406015032,0.0194841269841267,0.064,not detected,1b_fixed
+B_shape|MLP,B_shape|MLP - H_colours|LogReg,source_balanced_accuracy,-0.011904761904761973,-0.14583333333333326,0.1517857142857143,0.417,not detected,1b_fixed
+B_shape|MLP,B_shape|MLP - H_colours|LogReg,source_AUC,-0.04166666666666674,-0.13690476190476186,0.023809523809523836,0.109,not detected,1b_fixed
+B_shape|MLP,B_shape|MLP - H_colours|LogReg,obs_balanced_accuracy,-0.06450956450956458,-0.16241991991991997,0.03928519214703409,0.1225,not detected,1b_fixed
+A_intensity|LogReg,A_intensity|LogReg - H_colours|LogReg,source_balanced_accuracy,0.0714285714285714,-0.04166666666666674,0.23511904761904767,0.7805,not detected,1b_fixed
+A_intensity|LogReg,A_intensity|LogReg - H_colours|LogReg,source_AUC,0.023809523809523725,-0.04761904761904767,0.11309523809523814,0.6965,not detected,1b_fixed
+A_intensity|LogReg,A_intensity|LogReg - H_colours|LogReg,obs_balanced_accuracy,-0.05189255189255193,-0.1299247049247049,0.03228279030910613,0.1065,not detected,1b_fixed
+A_intensity|RandomForest,A_intensity|RandomForest - H_colours|LogReg,source_balanced_accuracy,-0.17261904761904767,-0.38690476190476186,0.03273809523809523,0.05,not detected,1b_fixed
+A_intensity|RandomForest,A_intensity|RandomForest - H_colours|LogReg,source_AUC,-0.04166666666666674,-0.1785714285714286,0.07738095238095233,0.2275,not detected,1b_fixed
+A_intensity|RandomForest,A_intensity|RandomForest - H_colours|LogReg,obs_balanced_accuracy,-0.1691900691900693,-0.29010252661568453,-0.04246031746031742,0.0035,not detected,1b_fixed
+A_intensity|ExtraTrees,A_intensity|ExtraTrees - H_colours|LogReg,source_balanced_accuracy,-0.029761904761904878,-0.2857142857142857,0.22619047619047628,0.3935,not detected,1b_fixed
+A_intensity|ExtraTrees,A_intensity|ExtraTrees - H_colours|LogReg,source_AUC,-0.023809523809523836,-0.15476190476190477,0.10133928571428498,0.319,not detected,1b_fixed
+A_intensity|ExtraTrees,A_intensity|ExtraTrees - H_colours|LogReg,obs_balanced_accuracy,-0.10390720390720398,-0.23764880952380954,0.03756364447153914,0.0815,not detected,1b_fixed
+A_intensity|HistGB,A_intensity|HistGB - H_colours|LogReg,source_balanced_accuracy,0.11309523809523803,-0.02083333333333326,0.28869047619047616,0.9265,not detected,1b_fixed
+A_intensity|HistGB,A_intensity|HistGB - H_colours|LogReg,source_AUC,0.017857142857142794,-0.1071428571428571,0.1428571428571428,0.609,not detected,1b_fixed
+A_intensity|HistGB,A_intensity|HistGB - H_colours|LogReg,obs_balanced_accuracy,-0.06585266585266591,-0.155639880952381,0.03832863408521305,0.108,not detected,1b_fixed
+A_intensity|SVM_RBF,A_intensity|SVM_RBF - H_colours|LogReg,source_balanced_accuracy,0.0,-0.22328869047619057,0.22619047619047628,0.4845,not detected,1b_fixed
+A_intensity|SVM_RBF,A_intensity|SVM_RBF - H_colours|LogReg,source_AUC,-0.005952380952381042,-0.0892857142857143,0.08333333333333337,0.3925,not detected,1b_fixed
+A_intensity|SVM_RBF,A_intensity|SVM_RBF - H_colours|LogReg,obs_balanced_accuracy,-0.06996336996336994,-0.20160358160358155,0.060853174603174645,0.1535,not detected,1b_fixed
+A_intensity|kNN,A_intensity|kNN - H_colours|LogReg,source_balanced_accuracy,0.02083333333333326,-0.19345238095238093,0.23511904761904767,0.551,not detected,1b_fixed
+A_intensity|kNN,A_intensity|kNN - H_colours|LogReg,source_AUC,-0.029761904761904767,-0.16666666666666663,0.09523809523809523,0.304,not detected,1b_fixed
+A_intensity|kNN,A_intensity|kNN - H_colours|LogReg,obs_balanced_accuracy,-0.11998371998372004,-0.27224728487886385,0.04705229955229955,0.0785,not detected,1b_fixed
+A_intensity|QDA,A_intensity|QDA - H_colours|LogReg,source_balanced_accuracy,0.1339285714285714,0.020833333333333367,0.29761904761904767,0.988,improvement,1b_fixed
+A_intensity|QDA,A_intensity|QDA - H_colours|LogReg,source_AUC,0.023809523809523725,-0.0714285714285714,0.13095238095238093,0.6555,not detected,1b_fixed
+A_intensity|QDA,A_intensity|QDA - H_colours|LogReg,obs_balanced_accuracy,-0.018803418803418848,-0.12495929995929993,0.11373552123552125,0.3575,not detected,1b_fixed
+A_intensity|MLP,A_intensity|MLP - H_colours|LogReg,source_balanced_accuracy,-0.0029761904761904656,-0.1874999999999999,0.20238095238095244,0.463,not detected,1b_fixed
+A_intensity|MLP,A_intensity|MLP - H_colours|LogReg,source_AUC,-0.08333333333333337,-0.2321428571428572,0.04166666666666663,0.089,not detected,1b_fixed
+A_intensity|MLP,A_intensity|MLP - H_colours|LogReg,obs_balanced_accuracy,-0.10862840862840861,-0.2241369047619049,0.00895946975281333,0.0315,not detected,1b_fixed
+H_colours|LogReg[srcw],H_colours|LogReg[srcw] - H_colours|LogReg,source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,1c_source_weighted
+H_colours|LogReg[srcw],H_colours|LogReg[srcw] - H_colours|LogReg,source_AUC,0.0,0.0,0.0,0.0,not detected,1c_source_weighted
+H_colours|LogReg[srcw],H_colours|LogReg[srcw] - H_colours|LogReg,obs_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,1c_source_weighted
+H_colours|RandomForest[srcw],H_colours|RandomForest[srcw] - H_colours|LogReg,source_balanced_accuracy,0.0625,0.0,0.125,0.9585,not detected,1c_source_weighted
+H_colours|RandomForest[srcw],H_colours|RandomForest[srcw] - H_colours|LogReg,source_AUC,-0.017857142857142905,-0.11309523809523814,0.059523809523809534,0.297,not detected,1c_source_weighted
+H_colours|RandomForest[srcw],H_colours|RandomForest[srcw] - H_colours|LogReg,obs_balanced_accuracy,-0.02205942205942213,-0.09198412698412696,0.047782865282865294,0.271,not detected,1c_source_weighted
+H_colours|HistGB[srcw],H_colours|HistGB[srcw] - H_colours|LogReg,source_balanced_accuracy,0.0625,0.0,0.125,0.9585,not detected,1c_source_weighted
+H_colours|HistGB[srcw],H_colours|HistGB[srcw] - H_colours|LogReg,source_AUC,-0.023809523809523836,-0.13690476190476186,0.059523809523809534,0.28,not detected,1c_source_weighted
+H_colours|HistGB[srcw],H_colours|HistGB[srcw] - H_colours|LogReg,obs_balanced_accuracy,-0.024867724867724927,-0.09028375559625561,0.03834325396825403,0.223,not detected,1c_source_weighted
+HI_colours_intensity|LogReg[srcw],HI_colours_intensity|LogReg[srcw] - H_colours|LogReg,source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,1c_source_weighted
+HI_colours_intensity|LogReg[srcw],HI_colours_intensity|LogReg[srcw] - H_colours|LogReg,source_AUC,0.005952380952380931,-0.04761904761904756,0.059523809523809534,0.5425,not detected,1c_source_weighted
+HI_colours_intensity|LogReg[srcw],HI_colours_intensity|LogReg[srcw] - H_colours|LogReg,obs_balanced_accuracy,0.0066341066341065735,-0.03955827067669175,0.0556786731786732,0.6065,not detected,1c_source_weighted
+HI_colours_intensity|RandomForest[srcw],HI_colours_intensity|RandomForest[srcw] - H_colours|LogReg,source_balanced_accuracy,0.04166666666666663,-0.04166666666666663,0.125,0.771,not detected,1c_source_weighted
+HI_colours_intensity|RandomForest[srcw],HI_colours_intensity|RandomForest[srcw] - H_colours|LogReg,source_AUC,0.017857142857142794,-0.0714285714285714,0.11904761904761907,0.6305,not detected,1c_source_weighted
+HI_colours_intensity|RandomForest[srcw],HI_colours_intensity|RandomForest[srcw] - H_colours|LogReg,obs_balanced_accuracy,-0.020634920634920673,-0.09623250835421887,0.051633089133088964,0.295,not detected,1c_source_weighted
+HI_colours_intensity|HistGB[srcw],HI_colours_intensity|HistGB[srcw] - H_colours|LogReg,source_balanced_accuracy,-0.05059523809523814,-0.2232142857142858,0.08333333333333337,0.248,not detected,1c_source_weighted
+HI_colours_intensity|HistGB[srcw],HI_colours_intensity|HistGB[srcw] - H_colours|LogReg,source_AUC,-0.005952380952381042,-0.09523809523809523,0.09523809523809523,0.3785,not detected,1c_source_weighted
+HI_colours_intensity|HistGB[srcw],HI_colours_intensity|HistGB[srcw] - H_colours|LogReg,obs_balanced_accuracy,-0.04204314204314208,-0.1520071010860485,0.06587797619047626,0.2175,not detected,1c_source_weighted
+B_shape|LogReg[srcw],B_shape|LogReg[srcw] - H_colours|LogReg,source_balanced_accuracy,-0.02083333333333337,-0.0625,0.0,0.0,not detected,1c_source_weighted
+B_shape|LogReg[srcw],B_shape|LogReg[srcw] - H_colours|LogReg,source_AUC,-0.04761904761904767,-0.1785714285714285,0.04761904761904767,0.172,not detected,1c_source_weighted
+B_shape|LogReg[srcw],B_shape|LogReg[srcw] - H_colours|LogReg,obs_balanced_accuracy,-0.016239316239316293,-0.07777777777777772,0.034344193817877934,0.3055,not detected,1c_source_weighted
+B_shape|RandomForest[srcw],B_shape|RandomForest[srcw] - H_colours|LogReg,source_balanced_accuracy,0.0625,0.0,0.125,0.9585,not detected,1c_source_weighted
+B_shape|RandomForest[srcw],B_shape|RandomForest[srcw] - H_colours|LogReg,source_AUC,-0.029761904761904767,-0.13095238095238093,0.0535714285714286,0.21,not detected,1c_source_weighted
+B_shape|RandomForest[srcw],B_shape|RandomForest[srcw] - H_colours|LogReg,obs_balanced_accuracy,-0.0073667073667074146,-0.08215074277574282,0.07043128654970758,0.4235,not detected,1c_source_weighted
+B_shape|HistGB[srcw],B_shape|HistGB[srcw] - H_colours|LogReg,source_balanced_accuracy,0.0625,0.0,0.125,0.9585,not detected,1c_source_weighted
+B_shape|HistGB[srcw],B_shape|HistGB[srcw] - H_colours|LogReg,source_AUC,-0.011904761904761973,-0.09523809523809523,0.059523809523809534,0.316,not detected,1c_source_weighted
+B_shape|HistGB[srcw],B_shape|HistGB[srcw] - H_colours|LogReg,obs_balanced_accuracy,-0.02112332112332127,-0.08860615079365074,0.04221484877734877,0.275,not detected,1c_source_weighted
+A_intensity|LogReg[srcw],A_intensity|LogReg[srcw] - H_colours|LogReg,source_balanced_accuracy,0.0714285714285714,-0.04166666666666674,0.23511904761904767,0.7805,not detected,1c_source_weighted
+A_intensity|LogReg[srcw],A_intensity|LogReg[srcw] - H_colours|LogReg,source_AUC,0.029761904761904656,-0.04761904761904767,0.13095238095238093,0.727,not detected,1c_source_weighted
+A_intensity|LogReg[srcw],A_intensity|LogReg[srcw] - H_colours|LogReg,obs_balanced_accuracy,-0.05474155474155484,-0.13611607142857138,0.03155766687016681,0.103,not detected,1c_source_weighted
+A_intensity|RandomForest[srcw],A_intensity|RandomForest[srcw] - H_colours|LogReg,source_balanced_accuracy,-0.17261904761904767,-0.38690476190476186,0.03273809523809523,0.05,not detected,1c_source_weighted
+A_intensity|RandomForest[srcw],A_intensity|RandomForest[srcw] - H_colours|LogReg,source_AUC,-0.04166666666666674,-0.18452380952380953,0.08333333333333337,0.247,not detected,1c_source_weighted
+A_intensity|RandomForest[srcw],A_intensity|RandomForest[srcw] - H_colours|LogReg,obs_balanced_accuracy,-0.1720390720390721,-0.2910609857978279,-0.04541666666666675,0.0035,not detected,1c_source_weighted
+A_intensity|HistGB[srcw],A_intensity|HistGB[srcw] - H_colours|LogReg,source_balanced_accuracy,-0.029761904761904878,-0.2857142857142857,0.22619047619047628,0.3805,not detected,1c_source_weighted
+A_intensity|HistGB[srcw],A_intensity|HistGB[srcw] - H_colours|LogReg,source_AUC,0.017857142857142794,-0.1071428571428571,0.1428571428571428,0.609,not detected,1c_source_weighted
+A_intensity|HistGB[srcw],A_intensity|HistGB[srcw] - H_colours|LogReg,obs_balanced_accuracy,-0.06585266585266591,-0.155639880952381,0.03832863408521305,0.108,not detected,1c_source_weighted
+H_colours|nested:LogReg,H_colours|nested:LogReg - H_colours|LogReg,source_balanced_accuracy,0.029761904761904656,-0.08333333333333337,0.19345238095238093,0.609,not detected,1d_nested_per_algorithm
+H_colours|nested:LogReg,H_colours|nested:LogReg - H_colours|LogReg,source_AUC,0.0,-0.0357142857142857,0.029761904761904767,0.3255,not detected,1d_nested_per_algorithm
+H_colours|nested:LogReg,H_colours|nested:LogReg - H_colours|LogReg,obs_balanced_accuracy,-0.007895807895808016,-0.07815476190476182,0.08107873851294914,0.4205,not detected,1d_nested_per_algorithm
+H_colours|nested:RandomForest,H_colours|nested:RandomForest - H_colours|LogReg,source_balanced_accuracy,0.04166666666666663,-0.04166666666666663,0.125,0.771,not detected,1d_nested_per_algorithm
+H_colours|nested:RandomForest,H_colours|nested:RandomForest - H_colours|LogReg,source_AUC,0.029761904761904656,-0.029761904761904767,0.125,0.766,not detected,1d_nested_per_algorithm
+H_colours|nested:RandomForest,H_colours|nested:RandomForest - H_colours|LogReg,obs_balanced_accuracy,-0.0015873015873015817,-0.07362777269027265,0.07013449756870814,0.4835,not detected,1d_nested_per_algorithm
+H_colours|nested:ExtraTrees,H_colours|nested:ExtraTrees - H_colours|LogReg,source_balanced_accuracy,0.04166666666666663,-0.04166666666666663,0.125,0.771,not detected,1d_nested_per_algorithm
+H_colours|nested:ExtraTrees,H_colours|nested:ExtraTrees - H_colours|LogReg,source_AUC,0.017857142857142794,-0.059523809523809534,0.11904761904761907,0.6235,not detected,1d_nested_per_algorithm
+H_colours|nested:ExtraTrees,H_colours|nested:ExtraTrees - H_colours|LogReg,obs_balanced_accuracy,-0.026332926332926387,-0.10660068975858447,0.05020820614570613,0.2585,not detected,1d_nested_per_algorithm
+H_colours|nested:HistGB,H_colours|nested:HistGB - H_colours|LogReg,source_balanced_accuracy,-0.07142857142857151,-0.23511904761904767,0.0625,0.163,not detected,1d_nested_per_algorithm
+H_colours|nested:HistGB,H_colours|nested:HistGB - H_colours|LogReg,source_AUC,-0.017857142857142905,-0.09523809523809523,0.04761904761904756,0.226,not detected,1d_nested_per_algorithm
+H_colours|nested:HistGB,H_colours|nested:HistGB - H_colours|LogReg,obs_balanced_accuracy,-0.009605209605209719,-0.08611607142857146,0.06745217745217744,0.418,not detected,1d_nested_per_algorithm
+H_colours|nested:SVM_RBF,H_colours|nested:SVM_RBF - H_colours|LogReg,source_balanced_accuracy,0.04166666666666663,-0.04166666666666663,0.125,0.781,not detected,1d_nested_per_algorithm
+H_colours|nested:SVM_RBF,H_colours|nested:SVM_RBF - H_colours|LogReg,source_AUC,-0.14880952380952384,-0.3928571428571429,0.023809523809523836,0.062,not detected,1d_nested_per_algorithm
+H_colours|nested:SVM_RBF,H_colours|nested:SVM_RBF - H_colours|LogReg,obs_balanced_accuracy,-0.0748473748473748,-0.1438356307435255,-0.005347349409849442,0.015,not detected,1d_nested_per_algorithm
+H_colours|nested:kNN,H_colours|nested:kNN - H_colours|LogReg,source_balanced_accuracy,0.02083333333333326,-0.04166666666666674,0.08333333333333337,0.5905,not detected,1d_nested_per_algorithm
+H_colours|nested:kNN,H_colours|nested:kNN - H_colours|LogReg,source_AUC,-0.011904761904761973,-0.08333333333333326,0.05952380952380942,0.2785,not detected,1d_nested_per_algorithm
+H_colours|nested:kNN,H_colours|nested:kNN - H_colours|LogReg,obs_balanced_accuracy,-0.021082621082621156,-0.09902986633249779,0.05219219924812016,0.2905,not detected,1d_nested_per_algorithm
+H_colours|nested:QDA,H_colours|nested:QDA - H_colours|LogReg,source_balanced_accuracy,-0.15476190476190488,-0.31845238095238093,-0.02083333333333337,0.0,not detected,1d_nested_per_algorithm
+H_colours|nested:QDA,H_colours|nested:QDA - H_colours|LogReg,source_AUC,-0.10119047619047628,-0.23809523809523814,-0.011904761904761862,0.0,not detected,1d_nested_per_algorithm
+H_colours|nested:QDA,H_colours|nested:QDA - H_colours|LogReg,obs_balanced_accuracy,-0.1259666259666261,-0.24345734126984117,-0.03303061990561984,0.001,not detected,1d_nested_per_algorithm
+H_colours|nested:MLP,H_colours|nested:MLP - H_colours|LogReg,source_balanced_accuracy,-0.029761904761904878,-0.19345238095238093,0.08333333333333337,0.3575,not detected,1d_nested_per_algorithm
+H_colours|nested:MLP,H_colours|nested:MLP - H_colours|LogReg,source_AUC,-0.03571428571428581,-0.13690476190476186,0.05357142857142849,0.203,not detected,1d_nested_per_algorithm
+H_colours|nested:MLP,H_colours|nested:MLP - H_colours|LogReg,obs_balanced_accuracy,-0.04871794871794877,-0.20990137380488258,0.11349765974765975,0.281,not detected,1d_nested_per_algorithm
+HI_colours_intensity|nested:LogReg,HI_colours_intensity|nested:LogReg - H_colours|LogReg,source_balanced_accuracy,-0.011904761904761973,-0.14583333333333337,0.1517857142857143,0.418,not detected,1d_nested_per_algorithm
+HI_colours_intensity|nested:LogReg,HI_colours_intensity|nested:LogReg - H_colours|LogReg,source_AUC,-0.017857142857142905,-0.08333333333333337,0.04166666666666663,0.2155,not detected,1d_nested_per_algorithm
+HI_colours_intensity|nested:LogReg,HI_colours_intensity|nested:LogReg - H_colours|LogReg,obs_balanced_accuracy,-0.02177452177452177,-0.10264880952380953,0.060407220407220366,0.3075,not detected,1d_nested_per_algorithm
+HI_colours_intensity|nested:RandomForest,HI_colours_intensity|nested:RandomForest - H_colours|LogReg,source_balanced_accuracy,-0.02083333333333337,-0.125,0.08333333333333337,0.2825,not detected,1d_nested_per_algorithm
+HI_colours_intensity|nested:RandomForest,HI_colours_intensity|nested:RandomForest - H_colours|LogReg,source_AUC,-0.04761904761904767,-0.19047619047619047,0.0535714285714286,0.198,not detected,1d_nested_per_algorithm
+HI_colours_intensity|nested:RandomForest,HI_colours_intensity|nested:RandomForest - H_colours|LogReg,obs_balanced_accuracy,-0.027676027676027726,-0.11751221001221011,0.059329312865497065,0.28,not detected,1d_nested_per_algorithm
+HI_colours_intensity|nested:ExtraTrees,HI_colours_intensity|nested:ExtraTrees - H_colours|LogReg,source_balanced_accuracy,-0.02083333333333337,-0.10416666666666674,0.0625,0.2495,not detected,1d_nested_per_algorithm
+HI_colours_intensity|nested:ExtraTrees,HI_colours_intensity|nested:ExtraTrees - H_colours|LogReg,source_AUC,-0.11309523809523814,-0.32738095238095244,0.0357142857142857,0.087,not detected,1d_nested_per_algorithm
+HI_colours_intensity|nested:ExtraTrees,HI_colours_intensity|nested:ExtraTrees - H_colours|LogReg,obs_balanced_accuracy,-0.01957671957671958,-0.10915827228327234,0.06499683894420724,0.343,not detected,1d_nested_per_algorithm
+HI_colours_intensity|nested:HistGB,HI_colours_intensity|nested:HistGB - H_colours|LogReg,source_balanced_accuracy,0.029761904761904656,-0.10416666666666663,0.20558035714285597,0.5935,not detected,1d_nested_per_algorithm
+HI_colours_intensity|nested:HistGB,HI_colours_intensity|nested:HistGB - H_colours|LogReg,source_AUC,-0.029761904761904767,-0.1785714285714286,0.0892857142857143,0.296,not detected,1d_nested_per_algorithm
+HI_colours_intensity|nested:HistGB,HI_colours_intensity|nested:HistGB - H_colours|LogReg,obs_balanced_accuracy,-0.02625152625152638,-0.10984940984940983,0.05368316624895564,0.2505,not detected,1d_nested_per_algorithm
+HI_colours_intensity|nested:SVM_RBF,HI_colours_intensity|nested:SVM_RBF - H_colours|LogReg,source_balanced_accuracy,-0.02083333333333337,-0.125,0.08333333333333337,0.2755,not detected,1d_nested_per_algorithm
+HI_colours_intensity|nested:SVM_RBF,HI_colours_intensity|nested:SVM_RBF - H_colours|LogReg,source_AUC,-0.03571428571428581,-0.1428571428571429,0.06547619047619047,0.211,not detected,1d_nested_per_algorithm
+HI_colours_intensity|nested:SVM_RBF,HI_colours_intensity|nested:SVM_RBF - H_colours|LogReg,obs_balanced_accuracy,0.00040700040700036855,-0.09003315580618215,0.08235615079365065,0.509,not detected,1d_nested_per_algorithm
+HI_colours_intensity|nested:kNN,HI_colours_intensity|nested:kNN - H_colours|LogReg,source_balanced_accuracy,0.0,-0.10416666666666663,0.10416666666666663,0.412,not detected,1d_nested_per_algorithm
+HI_colours_intensity|nested:kNN,HI_colours_intensity|nested:kNN - H_colours|LogReg,source_AUC,-0.029761904761904767,-0.11904761904761907,0.05952380952380942,0.216,not detected,1d_nested_per_algorithm
+HI_colours_intensity|nested:kNN,HI_colours_intensity|nested:kNN - H_colours|LogReg,obs_balanced_accuracy,-0.017134717134717148,-0.10025297619047617,0.06316748066748074,0.3515,not detected,1d_nested_per_algorithm
+HI_colours_intensity|nested:QDA,HI_colours_intensity|nested:QDA - H_colours|LogReg,source_balanced_accuracy,0.1339285714285714,0.020833333333333367,0.29761904761904767,0.988,improvement,1d_nested_per_algorithm
+HI_colours_intensity|nested:QDA,HI_colours_intensity|nested:QDA - H_colours|LogReg,source_AUC,0.0357142857142857,-0.05357142857142849,0.1428571428571429,0.78,not detected,1d_nested_per_algorithm
+HI_colours_intensity|nested:QDA,HI_colours_intensity|nested:QDA - H_colours|LogReg,obs_balanced_accuracy,0.03117623117623114,-0.05377480158730151,0.13196924603174603,0.7515,not detected,1d_nested_per_algorithm
+HI_colours_intensity|nested:MLP,HI_colours_intensity|nested:MLP - H_colours|LogReg,source_balanced_accuracy,-0.30059523809523814,-0.5565476190476191,-0.023809523809523944,0.013,not detected,1d_nested_per_algorithm
+HI_colours_intensity|nested:MLP,HI_colours_intensity|nested:MLP - H_colours|LogReg,source_AUC,-0.3154761904761906,-0.5833333333333333,-0.0892857142857143,0.0,not detected,1d_nested_per_algorithm
+HI_colours_intensity|nested:MLP,HI_colours_intensity|nested:MLP - H_colours|LogReg,obs_balanced_accuracy,-0.24102564102564106,-0.4102728174603174,-0.08239243943191318,0.0,not detected,1d_nested_per_algorithm
+B_shape|nested:LogReg,B_shape|nested:LogReg - H_colours|LogReg,source_balanced_accuracy,0.0625,0.0,0.125,0.9585,not detected,1d_nested_per_algorithm
+B_shape|nested:LogReg,B_shape|nested:LogReg - H_colours|LogReg,source_AUC,-0.017857142857142905,-0.11309523809523814,0.059523809523809534,0.328,not detected,1d_nested_per_algorithm
+B_shape|nested:LogReg,B_shape|nested:LogReg - H_colours|LogReg,obs_balanced_accuracy,-0.022100122100122133,-0.08413011695906436,0.037291666666666556,0.235,not detected,1d_nested_per_algorithm
+B_shape|nested:RandomForest,B_shape|nested:RandomForest - H_colours|LogReg,source_balanced_accuracy,0.0625,0.0,0.125,0.9585,not detected,1d_nested_per_algorithm
+B_shape|nested:RandomForest,B_shape|nested:RandomForest - H_colours|LogReg,source_AUC,-0.011904761904761973,-0.0892857142857143,0.059523809523809534,0.312,not detected,1d_nested_per_algorithm
+B_shape|nested:RandomForest,B_shape|nested:RandomForest - H_colours|LogReg,obs_balanced_accuracy,-0.01831501831501836,-0.10061011904761903,0.06341060985797815,0.332,not detected,1d_nested_per_algorithm
+B_shape|nested:ExtraTrees,B_shape|nested:ExtraTrees - H_colours|LogReg,source_balanced_accuracy,0.0625,0.0,0.125,0.9585,not detected,1d_nested_per_algorithm
+B_shape|nested:ExtraTrees,B_shape|nested:ExtraTrees - H_colours|LogReg,source_AUC,-0.011904761904761973,-0.10729166666666672,0.07752976190476103,0.376,not detected,1d_nested_per_algorithm
+B_shape|nested:ExtraTrees,B_shape|nested:ExtraTrees - H_colours|LogReg,obs_balanced_accuracy,-0.014977614977615072,-0.09166718880534681,0.06207393483709277,0.3655,not detected,1d_nested_per_algorithm
+B_shape|nested:HistGB,B_shape|nested:HistGB - H_colours|LogReg,source_balanced_accuracy,-0.04166666666666674,-0.10416666666666674,0.0,0.0,not detected,1d_nested_per_algorithm
+B_shape|nested:HistGB,B_shape|nested:HistGB - H_colours|LogReg,source_AUC,-0.07738095238095244,-0.2321428571428572,0.029761904761904767,0.097,not detected,1d_nested_per_algorithm
+B_shape|nested:HistGB,B_shape|nested:HistGB - H_colours|LogReg,obs_balanced_accuracy,-0.05054945054945059,-0.10675219862719869,0.008287124060150279,0.0485,not detected,1d_nested_per_algorithm
+B_shape|nested:SVM_RBF,B_shape|nested:SVM_RBF - H_colours|LogReg,source_balanced_accuracy,0.0625,0.0,0.125,0.9585,not detected,1d_nested_per_algorithm
+B_shape|nested:SVM_RBF,B_shape|nested:SVM_RBF - H_colours|LogReg,source_AUC,-0.04166666666666674,-0.1607142857142857,0.04761904761904767,0.1865,not detected,1d_nested_per_algorithm
+B_shape|nested:SVM_RBF,B_shape|nested:SVM_RBF - H_colours|LogReg,obs_balanced_accuracy,-0.013512413512413612,-0.08380325814536341,0.05906716577769211,0.3605,not detected,1d_nested_per_algorithm
+B_shape|nested:kNN,B_shape|nested:kNN - H_colours|LogReg,source_balanced_accuracy,0.0625,0.0,0.125,0.9585,not detected,1d_nested_per_algorithm
+B_shape|nested:kNN,B_shape|nested:kNN - H_colours|LogReg,source_AUC,-0.0535714285714286,-0.1964285714285714,0.04761904761904767,0.1655,not detected,1d_nested_per_algorithm
+B_shape|nested:kNN,B_shape|nested:kNN - H_colours|LogReg,obs_balanced_accuracy,-0.06100936100936105,-0.126578144078144,0.0017949989824989237,0.029,not detected,1d_nested_per_algorithm
+B_shape|nested:QDA,B_shape|nested:QDA - H_colours|LogReg,source_balanced_accuracy,0.008928571428571397,-0.14583333333333326,0.19345238095238104,0.5145,not detected,1d_nested_per_algorithm
+B_shape|nested:QDA,B_shape|nested:QDA - H_colours|LogReg,source_AUC,-0.04761904761904767,-0.21443452380952382,0.07142857142857151,0.2805,not detected,1d_nested_per_algorithm
+B_shape|nested:QDA,B_shape|nested:QDA - H_colours|LogReg,obs_balanced_accuracy,-0.06210826210826215,-0.17689051689051674,0.03718932748538018,0.129,not detected,1d_nested_per_algorithm
+B_shape|nested:MLP,B_shape|nested:MLP - H_colours|LogReg,source_balanced_accuracy,-0.09226190476190488,-0.2767857142857142,0.04166666666666674,0.095,not detected,1d_nested_per_algorithm
+B_shape|nested:MLP,B_shape|nested:MLP - H_colours|LogReg,source_AUC,-0.0892857142857143,-0.22619047619047616,0.0,0.0125,not detected,1d_nested_per_algorithm
+B_shape|nested:MLP,B_shape|nested:MLP - H_colours|LogReg,obs_balanced_accuracy,-0.07952787952787954,-0.24384310134310147,0.057436084870295376,0.1465,not detected,1d_nested_per_algorithm
+A_intensity|nested:LogReg,A_intensity|nested:LogReg - H_colours|LogReg,source_balanced_accuracy,0.0714285714285714,-0.0625,0.2472470238095226,0.779,not detected,1d_nested_per_algorithm
+A_intensity|nested:LogReg,A_intensity|nested:LogReg - H_colours|LogReg,source_AUC,0.0,-0.08333333333333337,0.09523809523809523,0.4625,not detected,1d_nested_per_algorithm
+A_intensity|nested:LogReg,A_intensity|nested:LogReg - H_colours|LogReg,obs_balanced_accuracy,-0.0562067562067563,-0.15423903642653633,0.043853362290862334,0.13,not detected,1d_nested_per_algorithm
+A_intensity|nested:RandomForest,A_intensity|nested:RandomForest - H_colours|LogReg,source_balanced_accuracy,-0.0625,-0.2799107142857143,0.1517857142857143,0.2875,not detected,1d_nested_per_algorithm
+A_intensity|nested:RandomForest,A_intensity|nested:RandomForest - H_colours|LogReg,source_AUC,-0.08333333333333337,-0.24404761904761907,0.0535714285714286,0.118,not detected,1d_nested_per_algorithm
+A_intensity|nested:RandomForest,A_intensity|nested:RandomForest - H_colours|LogReg,obs_balanced_accuracy,-0.09230769230769242,-0.22274305555555543,0.03056129908103589,0.084,not detected,1d_nested_per_algorithm
+A_intensity|nested:ExtraTrees,A_intensity|nested:ExtraTrees - H_colours|LogReg,source_balanced_accuracy,-0.05059523809523814,-0.30654761904761907,0.2053571428571429,0.335,not detected,1d_nested_per_algorithm
+A_intensity|nested:ExtraTrees,A_intensity|nested:ExtraTrees - H_colours|LogReg,source_AUC,0.011904761904761862,-0.0892857142857143,0.125,0.547,not detected,1d_nested_per_algorithm
+A_intensity|nested:ExtraTrees,A_intensity|nested:ExtraTrees - H_colours|LogReg,obs_balanced_accuracy,-0.06483516483516483,-0.19816137566137554,0.06727061883311877,0.185,not detected,1d_nested_per_algorithm
+A_intensity|nested:HistGB,A_intensity|nested:HistGB - H_colours|LogReg,source_balanced_accuracy,0.0714285714285714,-0.0625,0.24412202380952341,0.777,not detected,1d_nested_per_algorithm
+A_intensity|nested:HistGB,A_intensity|nested:HistGB - H_colours|LogReg,source_AUC,-0.011904761904761973,-0.1428571428571428,0.11309523809523814,0.392,not detected,1d_nested_per_algorithm
+A_intensity|nested:HistGB,A_intensity|nested:HistGB - H_colours|LogReg,obs_balanced_accuracy,-0.04770044770044768,-0.13475355054302418,0.05201237602553394,0.1685,not detected,1d_nested_per_algorithm
+A_intensity|nested:SVM_RBF,A_intensity|nested:SVM_RBF - H_colours|LogReg,source_balanced_accuracy,-0.0625,-0.27976190476190477,0.16369047619047605,0.2865,not detected,1d_nested_per_algorithm
+A_intensity|nested:SVM_RBF,A_intensity|nested:SVM_RBF - H_colours|LogReg,source_AUC,-0.011904761904761973,-0.11309523809523803,0.08348214285714207,0.365,not detected,1d_nested_per_algorithm
+A_intensity|nested:SVM_RBF,A_intensity|nested:SVM_RBF - H_colours|LogReg,obs_balanced_accuracy,-0.05474155474155484,-0.20949404761904747,0.08820476726726716,0.249,not detected,1d_nested_per_algorithm
+A_intensity|nested:kNN,A_intensity|nested:kNN - H_colours|LogReg,source_balanced_accuracy,-0.0625,-0.2767857142857143,0.16369047619047616,0.2815,not detected,1d_nested_per_algorithm
+A_intensity|nested:kNN,A_intensity|nested:kNN - H_colours|LogReg,source_AUC,-0.023809523809523836,-0.1428571428571429,0.0892857142857143,0.3165,not detected,1d_nested_per_algorithm
+A_intensity|nested:kNN,A_intensity|nested:kNN - H_colours|LogReg,obs_balanced_accuracy,-0.027106227106227232,-0.13988721804511275,0.09404761904761894,0.325,not detected,1d_nested_per_algorithm
+A_intensity|nested:QDA,A_intensity|nested:QDA - H_colours|LogReg,source_balanced_accuracy,0.1339285714285714,0.020833333333333367,0.29761904761904767,0.988,improvement,1d_nested_per_algorithm
+A_intensity|nested:QDA,A_intensity|nested:QDA - H_colours|LogReg,source_AUC,0.05952380952380942,-0.005952380952380931,0.17261904761904767,0.93,not detected,1d_nested_per_algorithm
+A_intensity|nested:QDA,A_intensity|nested:QDA - H_colours|LogReg,obs_balanced_accuracy,-0.009279609279609247,-0.11091664122914129,0.1196696937321936,0.405,not detected,1d_nested_per_algorithm
+A_intensity|nested:MLP,A_intensity|nested:MLP - H_colours|LogReg,source_balanced_accuracy,-0.125,-0.35141369047619053,0.08936011904761876,0.1365,not detected,1d_nested_per_algorithm
+A_intensity|nested:MLP,A_intensity|nested:MLP - H_colours|LogReg,source_AUC,-0.11309523809523814,-0.31547619047619047,0.04166666666666663,0.081,not detected,1d_nested_per_algorithm
+A_intensity|nested:MLP,A_intensity|nested:MLP - H_colours|LogReg,obs_balanced_accuracy,-0.030280830280830395,-0.15754464285714284,0.08943817878028401,0.327,not detected,1d_nested_per_algorithm
+auto|nested:auto,auto|nested:auto - H_colours|LogReg,source_balanced_accuracy,-0.0625,-0.14583333333333337,0.02083333333333337,0.04,not detected,1e_primary
+auto|nested:auto,auto|nested:auto - H_colours|LogReg,source_AUC,-0.17261904761904767,-0.39880952380952384,0.011904761904761862,0.0305,not detected,1e_primary
+auto|nested:auto,auto|nested:auto - H_colours|LogReg,obs_balanced_accuracy,-0.08420838420838428,-0.17542188805346698,0.0037586487586488138,0.032,not detected,1e_primary

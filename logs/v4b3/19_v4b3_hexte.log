@@ -1,0 +1,23 @@
+C:\Users\User\OneDrive\Documents\ChatGPT\XRB-pilot\scripts\19_v4b3_hexte.py:51: RuntimeWarning: invalid value encountered in divide
+  net = s['counts'] / ts - (s['backscal'] / b['backscal']) * b['counts'] / tb
+C:\Users\User\OneDrive\Documents\ChatGPT\XRB-pilot\scripts\19_v4b3_hexte.py:52: RuntimeWarning: invalid value encountered in divide
+  err = np.sqrt((s['stat_err'] / ts) ** 2 + ((s['backscal'] / b['backscal']) * b['stat_err'] / tb) ** 2)
+{'ok': 396, 'no_hexte': 60} {'on/after 2009-12-14 16:10 UT (cluster B not rocking)': 60}
+missing colours (among ok): {'X1': {'BH': 2, 'NS': 1}, 'X2': {'BH': 23, 'NS': 121}}
+respfiles: {'xh97mar20c_pwb013.rmf': 396} | DEADAPP all True: True
+overlap box: 203 obs (54 BH), 24 sources with >=3 box obs (7 BH)
+
+metric                                                                     obs_balanced_accuracy              source_AUC source_balanced_accuracy
+subset                                 comparison                                                                                                
+HEXTE subset                           H+X|LogReg                         +0.779 [+0.639,+0.889]  +0.875 [+0.690,+0.994]   +0.795 [+0.589,+0.958]
+                                       H+X|LogReg - H|LogReg              +0.003 [-0.078,+0.097]  -0.048 [-0.179,+0.024]   +0.000 [+0.000,+0.000]
+                                       H+X|RandomForest                   +0.751 [+0.614,+0.869]  +0.911 [+0.762,+1.000]   +0.857 [+0.643,+1.000]
+                                       H+X|RandomForest - H|RandomForest  +0.007 [-0.027,+0.041]  +0.000 [-0.036,+0.036]   +0.000 [+0.000,+0.000]
+                                       H|LogReg                           +0.776 [+0.626,+0.893]  +0.923 [+0.804,+0.994]   +0.795 [+0.589,+0.958]
+                                       H|RandomForest                     +0.744 [+0.611,+0.862]  +0.911 [+0.762,+1.000]   +0.857 [+0.643,+1.000]
+overlap box (sources with >=3 box obs) H+X|LogReg                         +0.659 [+0.535,+0.786]  +0.739 [+0.462,+0.966]   +0.681 [+0.479,+0.882]
+                                       H+X|LogReg - H|LogReg              +0.030 [-0.099,+0.147]  -0.008 [-0.210,+0.160]   +0.029 [+0.000,+0.088]
+                                       H+X|RandomForest                   +0.635 [+0.499,+0.779]  +0.798 [+0.555,+0.983]   +0.685 [+0.500,+0.870]
+                                       H+X|RandomForest - H|RandomForest  +0.010 [-0.057,+0.077]  -0.017 [-0.092,+0.059]   -0.071 [-0.214,+0.000]
+                                       H|LogReg                           +0.629 [+0.441,+0.810]  +0.748 [+0.513,+0.933]   +0.651 [+0.433,+0.853]
+                                       H|RandomForest                     +0.625 [+0.513,+0.753]  +0.815 [+0.571,+1.000]   +0.756 [+0.571,+0.929]

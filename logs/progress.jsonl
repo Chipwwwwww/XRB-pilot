@@ -32,3 +32,16 @@
 {"utc": "2026-09-29T19:55:25.306979+00:00", "stage": "3c_dataset_checks_v3c", "details": "results/data_checks.md + step3 figures"}
 {"utc": "2026-09-29T19:57:10.373397+00:00", "stage": "v3c_candidates", "details": "results/v3/v3c_* written"}
 {"utc": "2026-09-30T10:22:01.720091+00:00", "stage": "final_colour_colour", "details": "figures/final/colour_colour_decision_boundary.png"}
+{"utc": "2026-09-30T15:40:44.567495+00:00", "stage": "v4_burst_detect", "details": "61 of 456 v2 observations contain an automatically detected burst"}
+{"utc": "2026-09-30T15:50:24.503418+00:00", "stage": "v4b2_select", "details": "16 new sources (2 BH) with >=10 eligible pointings over all epochs"}
+{"utc": "2026-09-30T15:50:56.418781+00:00", "stage": "v4b2_select", "details": "15 new sources (2 BH) with >=10 eligible pointings over all epochs"}
+{"utc": "2026-09-30T15:53:06.397451+00:00", "stage": "v4b1_candidates", "details": "7975 eligible epoch-5 pointings of 31 v2 sources"}
+{"utc": "2026-09-30T15:56:12.053436+00:00", "stage": "v4a_algorithms", "details": "primary nested auto - H-LR: source BA -0.062 [-0.146,+0.021], source AUC -0.173 [-0.399,+0.012]"}
+{"utc": "2026-09-30T15:57:11.817936+00:00", "stage": "v4b3_hexte", "details": "396 obs with HEXTE; H+X|LogReg - H|LogReg source_balanced_accuracy +0.000 [+0.000,+0.000]; H+X|LogReg - H|LogReg source_AUC -0.048 [-0.179,+0.024]; H+X|RandomForest - H|RandomForest source_balanced_accuracy +0.000 [+0.000,+0.000]; H+X|RandomForest - H|RandomForest source_AUC +0.000 [-0.036,+0.036]"}
+{"utc": "2026-09-30T15:57:38.345552+00:00", "stage": "3b_fetch_process_v4b2", "details": "221 accepted observations; 0 excluded candidates logged"}
+{"utc": "2026-09-30T15:58:08.453456+00:00", "stage": "v4_burst_exclusion", "details": "auto set 61 obs, visual set 58 obs excluded; results/v4/burst_exclusion_*"}
+{"utc": "2026-09-30T16:00:02.721471+00:00", "stage": "v4b2_analysis", "details": "bridge passed (rho=0.994); extended 46 sources"}
+{"utc": "2026-09-30T16:19:20.276949+00:00", "stage": "v4a_algorithms", "details": "primary nested auto - H-LR: source BA -0.062 [-0.146,+0.021], source AUC -0.173 [-0.399,+0.012]"}
+{"utc": "2026-09-30T18:10:45.358854+00:00", "stage": "3b_fetch_process_v4b1", "details": "7949 accepted observations; 26 excluded candidates logged"}
+{"utc": "2026-09-30T18:17:01.949525+00:00", "stage": "v4b1_analysis", "details": "7949 obs; H-LR[srcw] - v2 H-LR: source BA +0.000 [+0.000,+0.000]"}
+{"utc": "2026-09-30T18:19:31.357346+00:00", "stage": "v4_complete", "details": "v4a/burst/v4b3/v4b2/v4b1 done; reports/report_v4_zh-TW.md; next: v5 (user-authorized, see preregistration_v5.md when written)"}

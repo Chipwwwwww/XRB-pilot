@@ -21,6 +21,13 @@ v3a 巢狀比較（完整能譜在兩個顏色之外有無增量）＋來源層�
 輸出在 `results/v3/`、`figures/v3/`、`data/v3/`；v3c 選樣／處理輸出在 `data/v3c/`、`results/v3c/`、`figures/v3c/`，log 在 `logs/v3/`、`logs/v3c/`。
 v3c 原始 FITS 在 `data/raw/`（不進 git），以 `XRB_VERSION=v3c` 執行 `04_fetch_process.py` 重新下載（`logs/downloads.jsonl` 有 SHA256）。
 
+**v4（預先登記：[reports/preregistration_v4.md](reports/preregistration_v4.md)，報告：[reports/report_v4_zh-TW.md](reports/report_v4_zh-TW.md)；分支 `v4-analysis`）**：
+問「換演算法、加資料、加能段能否勝過 v2 的 H-LR（兩個顏色＋Logistic Regression）」。**預先設定寫於看過 v1–v3 結果之後。**
+v4a 換演算法（8 種 × 4 表示、巢狀 LOSO 自動選擇）、burst 汙染檢查、v4b3 HEXTE 25–60 keV、v4b2 更早 gain epoch（名單以位置重新查證）、v4b1 每源全部合格觀測。
+結論：**沒有任何主要比較勝過 H-LR**（v4a 巢狀自動選擇 −0.06、v4b3 HEXTE ±0、v4b1 全部 7,949 筆觀測 ±0.000）；v4b2 擴充到 46 個天體後 RF 只在來源 balanced accuracy（門檻）上較好，AUC 無差異。
+執行：`.\run_v4.ps1 -test -a -burst -b3 -b2 -b1`（或 `./run_v4.sh test a burst b3 b2 b1`）；共用模組 `scripts/v4lib.py`，腳本 `scripts/16_*`–`25_*`。
+輸出在 `results/v4*/`、`figures/v4*/`、`data/v4*/`，log 在 `logs/v4*/`。v4b1 的原始檔（約 2 GB）下載到 `XRB_EXTERNAL_RAW`（預設 `~/xrb-pilot-data/raw`），不在 repo 內。
+
 ## 環境
 - Python venv：`C:\Users\User\venvs\xrb-pilot`（Python 3.12.10；放在 OneDrive 之外）
 - 版本鎖定：`requirements-lock.txt`；摘要：`logs/environment.txt`

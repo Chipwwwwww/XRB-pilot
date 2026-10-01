@@ -1,0 +1,188 @@
+obs_id,source_id,label,auto_burst,visual,note
+90428-01-01-07,GROJ1655-40,BH,False,not_burst,noise / variability
+91702-01-56-03,GROJ1655-40,BH,False,not_burst,noise / variability
+91702-01-81-00,GROJ1655-40,BH,False,not_burst,noise / variability
+91702-01-86-04,GROJ1655-40,BH,False,not_burst,noise / variability
+50703-01-11-00,GRS1915+105,BH,True,not_burst,"BH variability (flare/QPO), not type-I"
+70702-01-02-00,GRS1915+105,BH,False,not_burst,noise / variability
+91701-01-83-00,GRS1915+105,BH,True,not_burst,"BH variability (flare/QPO), not type-I"
+50135-01-15-00,XTEJ1550-564,BH,False,not_burst,noise / variability
+50137-02-09-00,XTEJ1550-564,BH,True,not_burst,"BH variability (flare/QPO), not type-I"
+60428-01-03-00,XTEJ1550-564,BH,False,not_burst,noise / variability
+60428-01-05-00,XTEJ1550-564,BH,False,not_burst,noise / variability
+60428-01-09-00,XTEJ1550-564,BH,True,not_burst,"BH variability (flare/QPO), not type-I"
+60428-01-15-00,XTEJ1550-564,BH,False,not_burst,noise / variability
+80135-01-01-01,XTEJ1550-564,BH,False,not_burst,noise / variability
+80135-01-02-01,XTEJ1550-564,BH,False,not_burst,noise / variability
+80135-01-03-10,XTEJ1550-564,BH,True,not_burst,"BH variability (flare/QPO), not type-I"
+80135-01-04-02,XTEJ1550-564,BH,True,not_burst,"BH variability (flare/QPO), not type-I"
+80135-01-05-10,XTEJ1550-564,BH,False,not_burst,noise / variability
+70133-01-24-00,4U1543-47,BH,False,not_burst,noise / variability
+70128-01-01-01,4U1543-47,BH,False,not_burst,noise / variability
+70124-02-09-00,4U1543-47,BH,False,not_burst,noise / variability
+70124-02-10-00,4U1543-47,BH,False,not_burst,noise / variability
+80132-01-22-00,GX339-4,BH,False,not_burst,noise / variability
+92034-08-01-00,GX339-4,BH,True,not_burst,"BH variability (flare/QPO), not type-I"
+92704-03-22-00,GX339-4,BH,False,not_burst,noise / variability
+92704-03-45-01,GX339-4,BH,False,not_burst,noise / variability
+93108-01-01-02,GX339-4,BH,False,not_burst,noise / variability
+95409-01-02-02,GX339-4,BH,True,not_burst,"BH variability (flare/QPO), not type-I"
+95409-01-29-00,GX339-4,BH,False,not_burst,noise / variability
+96409-01-10-02,GX339-4,BH,False,not_burst,noise / variability
+60113-01-11-01,XTEJ1650-500,BH,False,not_burst,noise / variability
+60113-01-23-00,XTEJ1650-500,BH,False,not_burst,noise / variability
+60113-01-34-00,XTEJ1650-500,BH,False,not_burst,noise / variability
+60118-02-28-00,XTEJ1650-500,BH,False,not_burst,noise / variability
+70124-01-02-00,XTEJ1650-500,BH,False,not_burst,noise / variability
+50407-01-07-01,XTEJ1118+480,BH,False,not_burst,noise / variability
+50407-01-09-00,XTEJ1118+480,BH,True,not_burst,"BH variability (flare/QPO), not type-I"
+50407-01-10-01,XTEJ1118+480,BH,True,not_burst,"BH variability (flare/QPO), not type-I"
+50133-01-05-00,XTEJ1118+480,BH,False,not_burst,noise / variability
+50407-01-13-02,XTEJ1118+480,BH,False,not_burst,noise / variability
+50133-01-04-01,XTEJ1118+480,BH,False,not_burst,noise / variability
+50407-01-14-02,XTEJ1118+480,BH,True,not_burst,"BH variability (flare/QPO), not type-I"
+50407-01-16-00,XTEJ1118+480,BH,False,not_burst,noise / variability
+90011-01-01-08,XTEJ1118+480,BH,True,not_burst,"BH variability (flare/QPO), not type-I"
+90011-01-01-10,XTEJ1118+480,BH,False,not_burst,noise / variability
+90011-01-01-05,XTEJ1118+480,BH,False,not_burst,noise / variability
+90111-01-02-06,XTEJ1118+480,BH,False,not_burst,noise / variability
+90111-01-02-15,XTEJ1118+480,BH,False,not_burst,noise / variability
+90111-01-02-07,XTEJ1118+480,BH,False,not_burst,noise / variability
+90111-01-03-02,XTEJ1118+480,BH,False,not_burst,noise / variability
+50030-02-04-00,4U1636-53,NS,True,burst,clear FRED profile
+60032-01-20-000,4U1636-53,NS,True,burst,clear FRED profile
+91024-01-12-10,4U1636-53,NS,True,burst,clear FRED profile
+94087-01-25-10,4U1636-53,NS,True,burst,clear FRED profile
+93408-01-55-01,4U1608-52,NS,False,not_burst,noise / variability
+50030-03-05-03,4U1728-34,NS,True,burst,clear FRED profile
+70028-01-01-05,4U1728-34,NS,False,not_burst,noise / variability
+92023-03-76-00,4U1728-34,NS,True,burst,clear FRED profile
+92023-03-98-00,4U1728-34,NS,False,not_burst,noise / variability
+92023-03-44-00,4U1728-34,NS,True,burst,clear FRED profile
+92023-03-70-00,4U1728-34,NS,True,burst,clear FRED profile
+96322-01-01-05,4U1728-34,NS,False,not_burst,noise / variability
+60054-02-03-03,AQLX1,NS,True,burst,clear FRED profile
+70069-03-01-00,AQLX1,NS,False,not_burst,noise / variability
+80403-01-03-00,AQLX1,NS,False,not_burst,noise / variability
+90017-11-06-00,AQLX1,NS,False,not_burst,noise / variability
+91028-01-29-00,AQLX1,NS,False,not_burst,noise / variability
+93076-01-02-00,AQLX1,NS,True,burst,clear FRED profile
+94076-01-03-04,AQLX1,NS,False,not_burst,noise / variability
+92019-01-16-00,EXO0748-676,NS,False,burst,burst (decay <3 s rule)
+60044-01-01-00,4U1254-690,NS,False,not_burst,noise / variability
+60044-01-01-03,4U1254-690,NS,False,not_burst,noise / variability
+60044-01-02-100,4U1254-690,NS,False,burst,burst (decay <3 s rule)
+60044-01-02-000,4U1254-690,NS,True,burst,clear FRED profile
+93406-13-01-00,4U1254-690,NS,False,not_burst,noise / variability
+95324-01-01-010,4U1254-690,NS,True,burst,clear FRED profile
+95324-01-01-000,4U1254-690,NS,False,not_burst,noise / variability
+95324-01-02-01,4U1254-690,NS,False,not_burst,noise / variability
+70050-03-01-01,4U1323-619,NS,True,burst,clear FRED profile
+70050-03-01-02,4U1323-619,NS,True,burst,clear FRED profile
+90062-03-01-02,4U1323-619,NS,True,burst,clear FRED profile
+95442-01-01-01,4U1323-619,NS,True,burst,clear FRED profile
+96405-01-01-00,4U1323-619,NS,True,burst,clear FRED profile
+96405-01-01-01,4U1323-619,NS,True,burst,clear FRED profile
+96405-01-02-01,4U1323-619,NS,True,burst,clear FRED profile
+96405-01-05-01,4U1323-619,NS,False,not_burst,noise / variability
+96405-01-05-02,4U1323-619,NS,True,burst,clear FRED profile
+96405-01-05-03,4U1323-619,NS,True,burst,clear FRED profile
+50410-01-05-00,MXB1658-298,NS,True,burst,clear FRED profile
+60048-01-02-00,MXB1658-298,NS,True,burst,clear FRED profile
+60048-02-01-00,MXB1658-298,NS,True,burst,clear FRED profile
+60048-02-03-00,MXB1658-298,NS,True,burst,clear FRED profile
+60048-03-01-00,MXB1658-298,NS,True,burst,clear FRED profile
+60048-03-05-00,MXB1658-298,NS,False,burst,burst (decay <3 s rule)
+50029-27-01-000,4U1702-429,NS,False,not_burst,noise / variability
+50030-01-04-00,4U1702-429,NS,False,not_burst,noise / variability
+80033-01-02-000,4U1702-429,NS,True,burst,clear FRED profile
+80033-01-11-02,4U1702-429,NS,False,not_burst,noise / variability
+94415-01-01-00,4U1702-429,NS,False,not_burst,noise / variability
+90170-01-01-00,4U1705-44,NS,False,not_burst,noise / variability
+93060-01-05-00,4U1705-44,NS,False,not_burst,noise / variability
+94060-01-55-00,4U1705-44,NS,False,not_burst,noise / variability
+95060-01-35-00,4U1705-44,NS,True,burst,clear FRED profile
+60034-02-01-01,4U1724-307,NS,False,not_burst,noise / variability
+50060-05-01-07,4U1724-307,NS,False,not_burst,noise / variability
+50060-05-01-05,4U1724-307,NS,False,not_burst,noise / variability
+60034-02-02-02,4U1724-307,NS,False,not_burst,noise / variability
+60034-02-05-01,4U1724-307,NS,True,not_burst,noise spikes
+80105-10-01-00,4U1724-307,NS,False,not_burst,noise / variability
+93044-06-04-00,4U1724-307,NS,False,burst,burst truncated at GTI end
+93044-06-07-00,4U1724-307,NS,False,not_burst,noise / variability
+93438-01-04-00,4U1724-307,NS,False,not_burst,noise / variability
+93438-01-07-01,4U1724-307,NS,False,not_burst,noise / variability
+50031-02-01-02,KS1731-260,NS,True,burst,clear FRED profile
+50031-02-01-05,KS1731-260,NS,True,burst,clear FRED profile
+50031-02-01-08,KS1731-260,NS,False,not_burst,noise / variability
+50031-02-02-06,KS1731-260,NS,False,not_burst,noise / variability
+50031-02-02-02,KS1731-260,NS,False,not_burst,noise / variability
+50031-02-02-03,KS1731-260,NS,False,possible_burst,possible burst tail at GTI start (uncertain)
+50031-02-02-080,KS1731-260,NS,True,burst,clear FRED profile
+50031-02-03-01,KS1731-260,NS,False,burst,long burst (rise 43 s)
+60034-01-01-00,SLX1735-269,NS,False,not_burst,noise / variability
+80138-03-02-00,SLX1735-269,NS,False,not_burst,noise / variability
+96429-01-02-02,SLX1735-269,NS,False,not_burst,noise / variability
+96429-01-03-01,SLX1735-269,NS,False,not_burst,noise / variability
+96429-01-05-00,SLX1735-269,NS,False,not_burst,noise / variability
+96429-01-07-01,SLX1735-269,NS,False,not_burst,noise / variability
+96429-01-08-03,SLX1735-269,NS,False,not_burst,noise / variability
+93200-01-03-01,4U1735-44,NS,False,burst,burst (decay <3 s rule)
+96331-01-02-01,4U1735-44,NS,False,not_burst,noise / variability
+60044-02-01-07,4U1746-371,NS,False,not_burst,noise / variability
+60044-02-01-06,4U1746-371,NS,False,not_burst,noise / variability
+60044-02-02-00,4U1746-371,NS,False,not_burst,noise / variability
+60044-02-02-09,4U1746-371,NS,False,not_burst,noise / variability
+70050-01-01-00,4U1746-371,NS,False,not_burst,noise / variability
+70050-01-01-08,4U1746-371,NS,False,not_burst,noise / variability
+90044-01-02-01,4U1746-371,NS,False,not_burst,noise / variability
+90044-01-04-000,4U1746-371,NS,False,not_burst,noise / variability
+90044-01-04-00,4U1746-371,NS,True,burst,clear FRED profile
+70080-01-02-04,SAXJ1808.4-3658,NS,True,burst,clear FRED profile
+70080-01-03-010,SAXJ1808.4-3658,NS,False,not_burst,noise / variability
+70080-02-01-03,SAXJ1808.4-3658,NS,False,not_burst,noise / variability
+70080-02-02-12,SAXJ1808.4-3658,NS,False,not_burst,noise / variability
+70080-03-22-00,SAXJ1808.4-3658,NS,False,not_burst,noise / variability
+96027-01-01-00,SAXJ1808.4-3658,NS,False,not_burst,noise / variability
+80138-04-02-00,XTEJ1814-338,NS,True,burst,clear FRED profile
+80418-01-02-00,XTEJ1814-338,NS,True,burst,clear FRED profile
+80418-01-02-05,XTEJ1814-338,NS,True,burst,clear FRED profile
+80418-01-03-02,XTEJ1814-338,NS,True,burst,clear FRED profile
+80418-01-05-00,XTEJ1814-338,NS,False,not_burst,noise / variability
+80418-01-05-08,XTEJ1814-338,NS,True,burst,clear FRED profile
+70023-01-01-01,GX17+2,NS,False,not_burst,noise / variability
+80022-01-01-02,GX17+2,NS,True,possible_burst,possible long weak GX 17+2 burst (uncertain)
+93406-11-01-00,GX17+2,NS,False,possible_burst,possible short burst in GX 17+2 (uncertain)
+96310-01-01-000,GX17+2,NS,False,not_burst,noise / variability
+40017-01-21-02,4U1820-30,NS,False,not_burst,noise / variability
+70030-03-05-00,4U1820-30,NS,False,not_burst,noise / variability
+92030-02-05-00,4U1820-30,NS,False,not_burst,noise / variability
+96090-01-01-020,4U1820-30,NS,True,burst,clear FRED profile
+50035-01-02-00,GS1826-238,NS,True,burst,clear FRED profile
+50035-01-03-02,GS1826-238,NS,False,not_burst,noise / variability
+50035-01-03-04,GS1826-238,NS,False,not_burst,noise / variability
+50035-01-03-090,GS1826-238,NS,False,burst,burst tail at GTI start
+80048-01-01-14,GS1826-238,NS,False,not_burst,noise / variability
+80049-01-01-00,GS1826-238,NS,True,burst,clear FRED profile
+90043-01-01-02,GS1826-238,NS,True,burst,clear FRED profile
+92703-01-04-02,GS1826-238,NS,False,burst,burst (rise 11 s)
+70044-01-04-00,GS1826-238,NS,True,burst,clear FRED profile
+91017-01-02-05,GS1826-238,NS,False,not_burst,noise / variability
+91017-01-02-03,GS1826-238,NS,True,burst,clear FRED profile
+91017-01-02-10,GS1826-238,NS,False,not_burst,noise / variability
+96306-01-01-01,GS1826-238,NS,False,not_burst,noise / variability
+91057-01-07-04,HETEJ1900.1-245,NS,False,not_burst,noise / variability
+92049-01-05-00,HETEJ1900.1-245,NS,False,not_burst,noise / variability
+92049-01-07-00,HETEJ1900.1-245,NS,True,burst,clear FRED profile
+92049-01-40-00,HETEJ1900.1-245,NS,False,not_burst,noise / variability
+93030-01-47-00,HETEJ1900.1-245,NS,False,not_burst,noise / variability
+94030-01-27-00,HETEJ1900.1-245,NS,False,not_burst,noise / variability
+94030-01-36-00,HETEJ1900.1-245,NS,False,not_burst,noise / variability
+95030-01-16-00,HETEJ1900.1-245,NS,False,not_burst,noise / variability
+96030-01-01-01,HETEJ1900.1-245,NS,False,not_burst,noise / variability
+96030-01-25-00,HETEJ1900.1-245,NS,False,not_burst,noise / variability
+50026-03-01-01,4U1915-05,NS,True,burst,clear FRED profile
+70034-02-01-01,4U1915-05,NS,False,not_burst,noise / variability
+70034-02-01-00,4U1915-05,NS,False,not_burst,noise / variability
+70034-02-02-01,4U1915-05,NS,True,burst,clear FRED profile
+90030-01-15-00,CYGX2,NS,False,not_burst,noise / variability
