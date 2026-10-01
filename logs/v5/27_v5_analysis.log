@@ -1,0 +1,147 @@
+S1: 456 obs; timing missing 34 (7 BH, 27 NS)
+GRS1915+105        4
+4U1608-52          4
+AQLX1              4
+GX339-4            3
+4U1636-53          3
+SLX1735-269        3
+4U1735-44          3
+CYGX2              2
+SAXJ1808.4-3658    2
+HETEJ1900.1-245    2
+4U1728-34          1
+4U1705-44          1
+EXO0748-676        1
+4U1254-690         1
+
+[S1] point metrics
+metric            obs_balanced_accuracy  source_AUC  source_balanced_accuracy
+comparison                                                                   
+H+T|LogReg                        0.878       0.988                     0.908
+H+T|RandomForest                  0.852       0.976                     0.929
+H-LR (v2)                         0.776       0.923                     0.795
+H-RF (v2)                         0.755       0.905                     0.857
+T|LogReg                          0.661       0.744                     0.693
+T|RandomForest                    0.677       0.845                     0.622
+[S1] paired differences
+metric                           obs_balanced_accuracy              source_AUC  source_balanced_accuracy
+comparison                                                                                              
+H+T|LogReg - H-LR (v2)        +0.102 [+0.001,+0.249] *  +0.065 [+0.000,+0.179]    +0.113 [-0.021,+0.277]
+H+T|RandomForest - H-LR (v2)    +0.076 [-0.038,+0.227]  +0.054 [-0.024,+0.167]  +0.134 [+0.021,+0.298] *
+H+T|RandomForest - H-RF (v2)    +0.097 [-0.002,+0.229]  +0.071 [+0.000,+0.202]    +0.071 [+0.000,+0.214]
+T|LogReg - H-LR (v2)            -0.114 [-0.305,+0.133]  -0.179 [-0.441,+0.060]    -0.101 [-0.348,+0.176]
+T|RandomForest - H-LR (v2)      -0.099 [-0.276,+0.121]  -0.077 [-0.286,+0.119]    -0.173 [-0.417,+0.134]
+
+overlap box: 234 obs, 24 sources with >=3 box obs (7 BH)
+[S1] done (19 s)
+[S2] 677 obs, timing missing 68; done (22 s)
+[S3] 7949 obs, timing missing 908; done (31 s)
+
+=== S1 v2 456 obs ===
+metric            obs_balanced_accuracy  source_AUC  source_balanced_accuracy
+comparison                                                                   
+H+T|LogReg                        0.878       0.988                     0.908
+H+T|RandomForest                  0.852       0.976                     0.929
+H-LR (v2)                         0.776       0.923                     0.795
+H-RF (v2)                         0.755       0.905                     0.857
+T|LogReg                          0.661       0.744                     0.693
+T|RandomForest                    0.677       0.845                     0.622
+metric                           obs_balanced_accuracy              source_AUC  source_balanced_accuracy
+comparison                                                                                              
+H+T|LogReg - H-LR (v2)        +0.102 [+0.001,+0.249] *  +0.065 [+0.000,+0.179]    +0.113 [-0.021,+0.277]
+H+T|RandomForest - H-LR (v2)    +0.076 [-0.038,+0.227]  +0.054 [-0.024,+0.167]  +0.134 [+0.021,+0.298] *
+H+T|RandomForest - H-RF (v2)    +0.097 [-0.002,+0.229]  +0.071 [+0.000,+0.202]    +0.071 [+0.000,+0.214]
+T|LogReg - H-LR (v2)            -0.114 [-0.305,+0.133]  -0.179 [-0.441,+0.060]    -0.101 [-0.348,+0.176]
+T|RandomForest - H-LR (v2)      -0.099 [-0.276,+0.121]  -0.077 [-0.286,+0.119]    -0.173 [-0.417,+0.134]
+
+=== S1 overlap box ===
+metric            obs_balanced_accuracy  source_AUC  source_balanced_accuracy
+comparison                                                                   
+H+T|LogReg                        0.826       0.916                     0.798
+H+T|RandomForest                  0.828       0.992                     0.929
+H-LR (v2)                         0.635       0.731                     0.681
+H-RF (v2)                         0.653       0.798                     0.756
+metric                         obs_balanced_accuracy                source_AUC source_balanced_accuracy
+comparison                                                                                             
+H+T|LogReg - H-LR (v2)        +0.191 [-0.038,+0.406]  +0.185 [+0.008,+0.403] *   +0.118 [-0.113,+0.349]
+H+T|RandomForest - H-RF (v2)  +0.175 [-0.014,+0.342]    +0.193 [+0.000,+0.445]   +0.172 [+0.000,+0.357]
+
+=== S1 burst-excluded (395 obs) ===
+metric            obs_balanced_accuracy  source_AUC  source_balanced_accuracy
+comparison                                                                   
+H+T|LogReg                        0.869       0.982                     0.908
+H+T|RandomForest                  0.841       0.976                     0.908
+H|LogReg                          0.751       0.917                     0.795
+H|RandomForest                    0.749       0.899                     0.857
+metric                                obs_balanced_accuracy              source_AUC source_balanced_accuracy
+comparison                                                                                                  
+H+T|LogReg - H|LogReg              +0.118 [+0.015,+0.261] *  +0.065 [+0.000,+0.173]   +0.113 [-0.021,+0.277]
+H+T|RandomForest - H|RandomForest  +0.092 [+0.005,+0.208] *  +0.077 [+0.000,+0.214]   +0.051 [-0.042,+0.214]
+
+=== S2 v2+v4b2 (46 sources, 677 obs) ===
+metric                 obs_balanced_accuracy  source_AUC  source_balanced_accuracy
+comparison                                                                        
+H+T|LogReg                             0.881       0.988                     0.944
+H+T|RandomForest                       0.833       0.991                     0.944
+H-LR (S2 same sample)                  0.792       0.946                     0.821
+metric                                       obs_balanced_accuracy              source_AUC  source_balanced_accuracy
+comparison                                                                                                          
+H+T|LogReg - H-LR (S2 same sample)        +0.089 [+0.001,+0.214] *  +0.042 [+0.000,+0.108]  +0.123 [+0.027,+0.261] *
+H+T|RandomForest - H-LR (S2 same sample)    +0.041 [-0.058,+0.162]  +0.045 [+0.000,+0.120]  +0.123 [+0.027,+0.261] *
+
+=== S3 v4b1 (7949 obs) ===
+metric                       obs_balanced_accuracy  source_AUC  source_balanced_accuracy
+comparison                                                                              
+H+T|LogReg[srcw]                             0.835       1.000                     1.000
+H+T|RandomForest[srcw]                       0.798       1.000                     0.929
+H-LR (v2)                                    0.776       0.923                     0.795
+H-LR[srcw] (S3 same sample)                  0.766       0.923                     0.795
+metric                                                   obs_balanced_accuracy                source_AUC  source_balanced_accuracy
+comparison                                                                                                                        
+H+T|LogReg[srcw] - H-LR (v2)                            +0.060 [-0.041,+0.223]  +0.077 [+0.006,+0.196] *  +0.205 [+0.042,+0.411] *
+H+T|LogReg[srcw] - H-LR[srcw] (S3 same sample)        +0.069 [+0.015,+0.148] *    +0.077 [+0.000,+0.196]  +0.205 [+0.042,+0.411] *
+H+T|RandomForest[srcw] - H-LR (v2)                      +0.023 [-0.106,+0.230]  +0.077 [+0.006,+0.196] *  +0.134 [+0.021,+0.298] *
+H+T|RandomForest[srcw] - H-LR[srcw] (S3 same sample)    +0.032 [-0.054,+0.163]    +0.077 [+0.000,+0.196]  +0.134 [+0.021,+0.298] *
+
+[S1] per-source mean scores
+name                        H+T|LogReg  H+T|RandomForest  H-LR (v2)  H-RF (v2)  T|LogReg  T|RandomForest
+source_id       true_label                                                                              
+4U1254-690      NS                0.09              0.03       0.11       0.03      0.41            0.20
+4U1323-619      NS                0.10              0.13       0.32       0.15      0.45            0.20
+4U1543-47       BH                0.97              0.85       0.95       0.86      0.37            0.32
+4U1608-52       NS                0.19              0.03       0.35       0.17      0.41            0.23
+4U1636-53       NS                0.07              0.05       0.22       0.09      0.36            0.24
+4U1702-429      NS                0.07              0.02       0.28       0.06      0.37            0.04
+4U1705-44       NS                0.08              0.01       0.18       0.05      0.37            0.11
+4U1724-307      NS                0.53              0.44       0.37       0.17      0.60            0.62
+4U1728-34       NS                0.03              0.02       0.17       0.17      0.34            0.18
+4U1735-44       NS                0.01              0.02       0.03       0.01      0.40            0.15
+4U1746-371      NS                0.02              0.01       0.08       0.05      0.39            0.11
+4U1820-30       NS                0.01              0.01       0.04       0.03      0.37            0.18
+4U1915-05       NS                0.09              0.04       0.29       0.11      0.41            0.14
+AQLX1           NS                0.31              0.15       0.41       0.37      0.47            0.33
+CYGX2           NS                0.25              0.40       0.21       0.41      0.38            0.17
+EXO0748-676     NS                0.04              0.13       0.28       0.25      0.41            0.20
+GROJ1655-40     BH                0.86              0.74       0.82       0.87      0.40            0.21
+GRS1915+105     BH                0.40              0.27       0.41       0.15      0.43            0.36
+GS1826-238      NS                0.13              0.12       0.32       0.05      0.49            0.22
+GX17+2          NS                0.03              0.02       0.09       0.07      0.34            0.47
+GX3+1           NS                0.07              0.03       0.09       0.07      0.41            0.35
+GX339-4         BH                0.83              0.74       0.81       0.79      0.58            0.47
+HETEJ1900.1-245 NS                0.42              0.24       0.61       0.35      0.45            0.27
+KS1731-260      NS                0.20              0.06       0.60       0.36      0.37            0.17
+MXB1658-298     NS                0.28              0.32       0.29       0.12      0.48            0.37
+SAXJ1808.4-3658 NS                0.38              0.31       0.72       0.28      0.34            0.31
+SLX1735-269     NS                0.32              0.22       0.40       0.06      0.49            0.41
+XTEJ1118+480    BH                0.94              0.77       0.41       0.26      0.89            0.86
+XTEJ1550-564    BH                0.87              0.84       0.55       0.62      0.86            0.89
+XTEJ1650-500    BH                0.86              0.72       0.85       0.70      0.45            0.40
+XTEJ1814-338    NS                0.10              0.06       0.47       0.41      0.41            0.12
+
+PRIMARY H+T-LR - H-LR (v2):
+                          point  ci2_5  ci97_5       verdict
+metric                                                      
+source_balanced_accuracy  0.113 -0.021   0.277  not detected
+source_AUC                0.065  0.000   0.179  not detected
+obs_balanced_accuracy     0.102  0.001   0.249   improvement
+total 31 s

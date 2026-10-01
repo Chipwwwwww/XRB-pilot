@@ -1,5 +1,5 @@
 {
-  "utc": "2026-09-30T18:19:31.357346+00:00",
-  "stage": "v4_complete",
-  "details": "v4a/burst/v4b3/v4b2/v4b1 done; reports/report_v4_zh-TW.md; next: v5 (user-authorized, see preregistration_v5.md when written)"
+  "utc": "2026-09-30T18:30:13.826158+00:00",
+  "stage": "v5_analysis",
+  "details": "PRIMARY H+T-LR - H-LR: source BA +0.113 [-0.021,+0.277], source AUC +0.065 [+0.000,+0.179]"
 }

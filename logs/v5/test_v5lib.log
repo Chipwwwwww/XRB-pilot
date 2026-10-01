@@ -1,0 +1,15 @@
+PASS sinusoid rms 0.2 at 0.05 Hz recovered in T1 (cospectrum, <10%) {'T1': 0.19805122784490956, 'T2': 0.03366231279250685, 'T3': 0.02685653432804864}
+PASS sinusoid rms 0.2 at 0.05 Hz recovered in T1 (auto power, <10%) {'T1': 0.19948876680285185, 'T2': 0.031654988739273804, 'T3': -0.016071220968641636}
+PASS sinusoid rms 0.2 at 0.5 Hz recovered in T2 (cospectrum, <10%) {'T1': 0.01352762384218784, 'T2': 0.19760475177404432, 'T3': -0.025720362302375042}
+PASS sinusoid rms 0.2 at 0.5 Hz recovered in T2 (auto power, <10%) {'T1': 0.003991901858693333, 'T2': 0.1978477126014402, 'T3': -0.0205443047182088}
+PASS sinusoid rms 0.2 at 3.0 Hz recovered in T3 (cospectrum, <10%) {'T1': 0.007439443675731288, 'T2': -0.01791542365082432, 'T3': 0.19904351115345584}
+PASS sinusoid rms 0.2 at 3.0 Hz recovered in T3 (auto power, <10%) {'T1': 0.007514144896681455, 'T2': 0.0018028170215949398, 'T3': 0.19772808841409711}
+PASS pure Poisson: median |T| < 0.02 in every band (cospectrum) {'T1': -0.005673137944443609, 'T2': -0.007975566975957889, 'T3': -0.015991900346146955}
+PASS one PCU on -> row invalid 
+PASS PCU switched off inside the row -> not counted as on 
+PASS background-corrected rms with 50% background (<10%) {'T1': 0.014791338978836131, 'T2': 0.1992832491594865, 'T3': -0.028195875653740748}
+PASS fill_missing: train median + indicator (array([[1., 2., 0.],
+       [2., 3., 1.],
+       [3., 4., 0.]]), array([[2., 3., 1.]]))
+
+ALL PASS

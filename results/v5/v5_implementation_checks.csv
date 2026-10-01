@@ -1,0 +1,3 @@
+check,n,value,threshold,passed
+"4b cospectrum vs auto-power T2 Spearman (S1, 20-500 c/s/PCU)",276,0.9700694910175368,0.9,True
+"4c median within-BH Spearman(T_total, hard colour)",7,0.6142857142857142,0.0,True

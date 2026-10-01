@@ -83,3 +83,10 @@
 | 天體等權重 scale 修正 | 煙霧測試 v4b1 分析時發現 `v4lib.source_equal_weights` 讓每一類權重總和為 1（整個 fit 總和 2），而 class_weight=balanced 的總和為 n；LR 目標函數中權重的總量直接乘在損失上，等於把正則化加強約 n/2 倍（分數被壓在 0.4–0.6），HistGB 的 min_hessian_to_split 也受影響（RF 與權重尺度無關）。修正為每類總和 n/2（與 balanced 同尺度；每源總權重相同的相對比例不變），新增單元測試（每源觀測數相同時與 balanced 完全相同）。只重跑 v4a 的固定模型部分（1a–1c）：1a／1b 逐位相同，1c 12 個組合改變；結論不變（來源 BA 區間 > 0 的仍是相同 3 個 QDA 組合，來源 AUC 區間 > 0 的仍為 0 個）。修正前的 1c 結果在 commit 9120afb。v4b1 主要比較（天體等權重 H-LR）尚未執行，使用修正後的權重 | **是**（看過 v4a 結果後發現；屬實作錯誤修正，預先設定的權重定義不變。v4b1 結果之前） |
 | v4b1 描述性補充 | 在 v4b1 分析中另加：(1) v4b1 訓練的 OOF 分數限制在 v2 的 456 筆觀測上、與 v2 H-LR 逐筆同樣本的配對比較；(2) 每源平均分數表與圖 `figures/v4b1/v4b1_source_scores.png`。皆為描述性 | 否（v4b1 結果之前決定） |
 | v4b1 結果 | 7,975 個候選中接受 7,949 筆（排除 26：HEASARC 缺 Std2 產品 14、deadtime 過高 7、曝光過短 5）。主要比較天體等權重 H-LR − v2 H-LR：來源 BA 0.000 [0, 0]、來源 AUC 0.000 [−0.048, +0.036]、觀測 BA −0.009 [−0.114, +0.123] → 未偵測到；31 個天體判斷與 v2 完全相同。描述性：16 個組合中 4 個（皆含強度 A／HI）來源 BA +0.134 [+0.021, +0.298]、來源 AUC 區間 > 0 的 0 個，不作結論。v4 全部完成 | 結果 |
+
+## v5（Standard-1 低頻時間變異）
+
+| 時間 | 決定 / 變更 | 是否在看到 v5 結果之後 |
+|---|---|---|
+| 階段 0 | 使用者指示「if v4 is finish, come up with v5 and run it yourself」→ v4 完成並推送後，自行設計 v5 並自行核准預先設定（沒有另外請使用者審閱）。撰寫 `preregistration_v5.md`：問題＝Standard-1（0.125 s）低頻時間變異在兩個顏色之外是否有 BH／NS 資訊。查證：Standard-1 格式（HEASARC ABC Guide；本機檔 TIMEDEL=128、1024 bins）、PCA deadtime（RXTE Cookbook）、cospectrum 白雜訊期望值為 0（Bachetti+2015 ApJ 800, 109；Bachetti & Huppenkothen 2018）、分箱因子（van der Klis 1989 Eq. 2.19）、文獻背景（Sunyaev & Revnivtsev 2000；Muñoz-Darias+2011）。`config.py` 的 v4 區塊條件放寬為 v4／v5 開頭並新增 v5 區塊；已確認 v1、v2、v3c、v4、v4b1、v4b2 的所有設定值與修改前完全相同。v5 寫於看過 v1–v4 全部結果之後 | 否（尚未計算任何 v5 特徵或模型） |
+| v5 結果 | 8,170 筆中 7,228 筆有時間特徵；實作檢查通過（cospectrum vs 自功率 T2 ρ=0.970、n=276；7 個 BH 天體內 rms 與硬色皆正相關，中位數 0.61）。Primary（S1）H+T-LR − v2 H-LR：來源 BA +0.113 [−0.021, +0.277]、來源 AUC +0.065 [0.000, +0.179] → 未偵測到；觀測 BA +0.102 [+0.001, +0.249]。描述性：45 個配對差中 15 個區間 > 0（顏色重疊區 AUC、S2 來源 BA、S3 來源 BA 與 AUC），T 單獨比 H 差。單元測試「PCU 列中關閉」的案例原本寫錯，在計算真實特徵前修正（規則未改） | 結果 |

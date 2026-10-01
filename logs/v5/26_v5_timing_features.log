@@ -1,0 +1,59 @@
+8170 unique observations {'v2': 456, 'v4b2': 221, 'v4b1': 7949}
+[Parallel(n_jobs=16)]: Using backend LokyBackend with 16 concurrent workers.
+[Parallel(n_jobs=16)]: Done 104 tasks      | elapsed:    1.8s
+[Parallel(n_jobs=16)]: Done 1072 tasks      | elapsed:    5.6s
+[Parallel(n_jobs=16)]: Done 2696 tasks      | elapsed:   11.2s
+[Parallel(n_jobs=16)]: Done 4960 tasks      | elapsed:   19.6s
+[Parallel(n_jobs=16)]: Done 7880 tasks      | elapsed:   29.7s
+[Parallel(n_jobs=16)]: Done 8170 out of 8170 | elapsed:   30.6s finished
+features done (31 s)
+status
+ok                          7228
+missing (< 3 valid rows)     942
+label                BH        NS
+T1      count  2071.000  5157.000
+        mean      0.091     0.022
+        std       0.107     0.025
+        min      -0.043    -0.093
+        25%       0.019     0.011
+        50%       0.040     0.018
+        75%       0.150     0.027
+        max       0.594     0.451
+T2      count  2071.000  5157.000
+        mean      0.099     0.042
+        std       0.085     0.053
+        min      -0.114    -0.125
+        25%       0.025     0.012
+        50%       0.090     0.021
+        75%       0.133     0.066
+        max       0.377     0.772
+T3      count  2071.000  5157.000
+        mean      0.092     0.056
+        std       0.077     0.072
+        min      -0.286    -0.276
+        25%       0.021     0.012
+        50%       0.083     0.034
+        75%       0.153     0.104
+        max       0.314     0.868
+T_total count  2071.000  5157.000
+        mean      0.175     0.079
+        std       0.142     0.087
+        min      -0.222    -0.229
+        25%       0.044     0.025
+        50%       0.162     0.043
+        75%       0.262     0.129
+        max       0.624     1.161
+
+IMPLEMENTATION CHECKS:
+                                                       check   n  value  threshold  passed
+4b cospectrum vs auto-power T2 Spearman (S1, 20-500 c/s/PCU) 276  0.970        0.9    True
+          4c median within-BH Spearman(T_total, hard colour)   7  0.614        0.0    True
+   source_id  n  spearman_Ttotal_vs_c2
+   4U1543-47 15                  0.614
+ GROJ1655-40 15                  0.182
+ GRS1915+105 11                  0.664
+     GX339-4 12                  0.790
+XTEJ1118+480 15                  0.557
+XTEJ1550-564 15                  0.882
+XTEJ1650-500 15                  0.454
+total 31 s

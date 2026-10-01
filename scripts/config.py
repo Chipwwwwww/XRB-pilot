@@ -159,7 +159,7 @@ if _os.environ.get('XRB_VERSION', 'v1') == 'v3c':
 # see reports/preregistration_v4.md). Active only for XRB_VERSION in {v4, v4b1, v4b2, v4b3}.
 # v1-v3 settings above are untouched.
 # =====================================================================================
-if _os.environ.get('XRB_VERSION', 'v1').startswith('v4'):
+if _os.environ.get('XRB_VERSION', 'v1').startswith(('v4', 'v5')):     # v5 re-uses the v4 settings (v4lib)
     N_BOOT = 2000; DEADTIME = 'std1'; VLE_DT_ALT = 1.5e-4
     V4_REPRESENTATIONS = ['H_colours', 'HI_colours_intensity', 'B_shape', 'A_intensity']   # via v3lib.v2_representations
     V4_BASELINE = ('H_colours', 'LogReg')      # v2 OOF in results/v2/oof_predictions_loso.csv, threshold 0.5
@@ -213,3 +213,16 @@ if _os.environ.get('XRB_VERSION', 'v1').startswith('v4'):
             N_PER_SOURCE = 'all'          # every eligible epoch-5 pointing (new selection script, not 03)
         else:
             MJD_MIN = 0.0                 # all gain epochs
+
+# =====================================================================================
+# v5 (written 2026-10-01 AFTER all v1-v4 results, BEFORE any v5 feature or model; see reports/preregistration_v5.md).
+# Active only for XRB_VERSION starting with v5 (the v4 block above is also active). v1-v4 behaviour is unchanged.
+# =====================================================================================
+if _os.environ.get('XRB_VERSION', 'v1').startswith('v5'):
+    V5_N_BINS, V5_DT = 1024, 0.125                  # Standard-1 row: 1024 x 0.125 s = 128 s
+    V5_BANDS_J = {'T1': (2, 12), 'T2': (13, 128), 'T3': (129, 511)}   # Fourier index ranges (inclusive), nu = j / 128 s
+    V5_MIN_PCUS = 2                                  # PCUs on for the whole row; A = on[0::2], B = on[1::2]
+    V5_BLOCKS = 8                                    # PCU "on" = all 8 blocks of 128 bins have > 0 counts
+    V5_MIN_ROWS = 3                                  # valid rows per observation, else timing features missing
+    V5_CHECK_RATE = (20.0, 500.0)                    # source counts/s/PCU range for the auto-power cross-check
+    V5_CHECK_MIN_SPEARMAN = 0.90

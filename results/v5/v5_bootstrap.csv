@@ -1,0 +1,118 @@
+name,comparison,metric,point,ci2_5,ci97_5,frac_first_better,verdict,sample,role
+H-LR (v2),H-LR (v2),source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,S1 v2 456 obs,descriptive
+H-LR (v2),H-LR (v2),source_AUC,0.9226190476190477,0.8035714285714286,0.9940476190476191,,,S1 v2 456 obs,descriptive
+H-LR (v2),H-LR (v2),obs_balanced_accuracy,0.7755392755392756,0.6332905982905983,0.8926455026455027,,,S1 v2 456 obs,descriptive
+H+T|LogReg,H+T|LogReg,source_balanced_accuracy,0.9077380952380952,0.7440476190476191,1.0,,,S1 v2 456 obs,PRIMARY
+H+T|LogReg,H+T|LogReg,source_AUC,0.9880952380952381,0.9404761904761905,1.0,,,S1 v2 456 obs,PRIMARY
+H+T|LogReg,H+T|LogReg,obs_balanced_accuracy,0.8777370777370778,0.7796888053467002,0.9473350041771094,,,S1 v2 456 obs,PRIMARY
+H+T|RandomForest,H+T|RandomForest,source_balanced_accuracy,0.9285714285714286,0.7857142857142857,1.0,,,S1 v2 456 obs,descriptive
+H+T|RandomForest,H+T|RandomForest,source_AUC,0.9761904761904762,0.9047619047619048,1.0,,,S1 v2 456 obs,descriptive
+H+T|RandomForest,H+T|RandomForest,obs_balanced_accuracy,0.8520146520146521,0.7406150793650793,0.9329410660660661,,,S1 v2 456 obs,descriptive
+T|LogReg,T|LogReg,source_balanced_accuracy,0.6934523809523809,0.5292410714285715,0.9077380952380952,,,S1 v2 456 obs,descriptive
+T|LogReg,T|LogReg,source_AUC,0.7440476190476191,0.5178571428571429,0.9287202380952373,,,S1 v2 456 obs,descriptive
+T|LogReg,T|LogReg,obs_balanced_accuracy,0.6611314611314612,0.5425250626566416,0.799034773097273,,,S1 v2 456 obs,descriptive
+T|RandomForest,T|RandomForest,source_balanced_accuracy,0.6220238095238095,0.4670386904761905,0.7857142857142857,,,S1 v2 456 obs,descriptive
+T|RandomForest,T|RandomForest,source_AUC,0.8452380952380952,0.6666666666666666,0.9702380952380952,,,S1 v2 456 obs,descriptive
+T|RandomForest,T|RandomForest,obs_balanced_accuracy,0.6768416768416768,0.5763879985754985,0.7891765873015872,,,S1 v2 456 obs,descriptive
+H+T|LogReg,H+T|LogReg - H-LR (v2),source_balanced_accuracy,0.11309523809523803,-0.02083333333333326,0.2767857142857144,0.9225,not detected,S1 v2 456 obs,PRIMARY
+H+T|LogReg,H+T|LogReg - H-LR (v2),source_AUC,0.06547619047619047,0.0,0.1785714285714286,0.964,not detected,S1 v2 456 obs,PRIMARY
+H+T|LogReg,H+T|LogReg - H-LR (v2),obs_balanced_accuracy,0.10219780219780217,0.000994152046783584,0.24861276455026454,0.9765,improvement,S1 v2 456 obs,PRIMARY
+H+T|RandomForest,H+T|RandomForest - H-LR (v2),source_balanced_accuracy,0.1339285714285714,0.02083333333333326,0.29761904761904767,0.9845,improvement,S1 v2 456 obs,descriptive
+H+T|RandomForest,H+T|RandomForest - H-LR (v2),source_AUC,0.05357142857142849,-0.023809523809523836,0.16666666666666663,0.8845,not detected,S1 v2 456 obs,descriptive
+H+T|RandomForest,H+T|RandomForest - H-LR (v2),obs_balanced_accuracy,0.0764753764753765,-0.03840125840125834,0.22667397660818706,0.877,not detected,S1 v2 456 obs,descriptive
+T|LogReg,T|LogReg - H-LR (v2),source_balanced_accuracy,-0.10119047619047628,-0.34843750000000007,0.17559523809523814,0.222,not detected,S1 v2 456 obs,descriptive
+T|LogReg,T|LogReg - H-LR (v2),source_AUC,-0.1785714285714286,-0.440625,0.05952380952380942,0.0745,not detected,S1 v2 456 obs,descriptive
+T|LogReg,T|LogReg - H-LR (v2),obs_balanced_accuracy,-0.11440781440781445,-0.30522719726667097,0.13264346764346757,0.157,not detected,S1 v2 456 obs,descriptive
+T|RandomForest,T|RandomForest - H-LR (v2),source_balanced_accuracy,-0.17261904761904767,-0.4166666666666666,0.1339285714285714,0.1095,not detected,S1 v2 456 obs,descriptive
+T|RandomForest,T|RandomForest - H-LR (v2),source_AUC,-0.07738095238095244,-0.28586309523809533,0.11904761904761907,0.199,not detected,S1 v2 456 obs,descriptive
+T|RandomForest,T|RandomForest - H-LR (v2),obs_balanced_accuracy,-0.09869759869759875,-0.2762583542188806,0.12123664529914528,0.17,not detected,S1 v2 456 obs,descriptive
+H-RF (v2),H-RF (v2),source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,S1 v2 456 obs,descriptive
+H-RF (v2),H-RF (v2),source_AUC,0.9047619047619048,0.7498511904761905,1.0,,,S1 v2 456 obs,descriptive
+H-RF (v2),H-RF (v2),obs_balanced_accuracy,0.7549043549043549,0.605590686117002,0.8815750915750915,,,S1 v2 456 obs,descriptive
+H+T|RandomForest,H+T|RandomForest,source_balanced_accuracy,0.9285714285714286,0.7857142857142857,1.0,,,S1 v2 456 obs,descriptive
+H+T|RandomForest,H+T|RandomForest,source_AUC,0.9761904761904762,0.9047619047619048,1.0,,,S1 v2 456 obs,descriptive
+H+T|RandomForest,H+T|RandomForest,obs_balanced_accuracy,0.8520146520146521,0.7406150793650793,0.9329410660660661,,,S1 v2 456 obs,descriptive
+H+T|RandomForest,H+T|RandomForest - H-RF (v2),source_balanced_accuracy,0.0714285714285714,0.0,0.2142857142857143,0.6705,not detected,S1 v2 456 obs,descriptive
+H+T|RandomForest,H+T|RandomForest - H-RF (v2),source_AUC,0.0714285714285714,0.0,0.20238095238095233,0.9115,not detected,S1 v2 456 obs,descriptive
+H+T|RandomForest,H+T|RandomForest - H-RF (v2),obs_balanced_accuracy,0.09711029711029717,-0.002412494912494833,0.2285087719298245,0.9705,not detected,S1 v2 456 obs,descriptive
+H-LR (v2),H-LR (v2),source_balanced_accuracy,0.680672268907563,0.4789915966386554,0.8823529411764706,,,S1 overlap box,descriptive
+H-LR (v2),H-LR (v2),source_AUC,0.7310924369747899,0.4789915966386555,0.9243697478991597,,,S1 overlap box,descriptive
+H-LR (v2),H-LR (v2),obs_balanced_accuracy,0.6350574712643677,0.4544368669028009,0.8074728577527027,,,S1 overlap box,descriptive
+H+T|LogReg,H+T|LogReg,source_balanced_accuracy,0.7983193277310925,0.5966386554621849,0.9705882352941176,,,S1 overlap box,descriptive
+H+T|LogReg,H+T|LogReg,source_AUC,0.9159663865546218,0.7647058823529411,1.0,,,S1 overlap box,descriptive
+H+T|LogReg,H+T|LogReg,obs_balanced_accuracy,0.8257713248638838,0.6752936235160374,0.9152756119344486,,,S1 overlap box,descriptive
+H+T|LogReg,H+T|LogReg - H-LR (v2),source_balanced_accuracy,0.11764705882352944,-0.11344537815126055,0.34905462184873787,0.829,not detected,S1 overlap box,descriptive
+H+T|LogReg,H+T|LogReg - H-LR (v2),source_AUC,0.18487394957983194,0.008403361344537896,0.40336134453781514,0.9815,improvement,S1 overlap box,descriptive
+H+T|LogReg,H+T|LogReg - H-LR (v2),obs_balanced_accuracy,0.1907138535995161,-0.03807134246293109,0.4062494199175454,0.937,not detected,S1 overlap box,descriptive
+H-RF (v2),H-RF (v2),source_balanced_accuracy,0.7563025210084033,0.5714285714285714,0.9285714285714286,,,S1 overlap box,descriptive
+H-RF (v2),H-RF (v2),source_AUC,0.7983193277310925,0.5294117647058824,1.0,,,S1 overlap box,descriptive
+H-RF (v2),H-RF (v2),obs_balanced_accuracy,0.6532062915910466,0.515783687488784,0.8021536709817487,,,S1 overlap box,descriptive
+H+T|RandomForest,H+T|RandomForest,source_balanced_accuracy,0.9285714285714286,0.7857142857142857,1.0,,,S1 overlap box,descriptive
+H+T|RandomForest,H+T|RandomForest,source_AUC,0.9915966386554622,0.9495798319327731,1.0,,,S1 overlap box,descriptive
+H+T|RandomForest,H+T|RandomForest,obs_balanced_accuracy,0.8283424077434967,0.7046001760846582,0.9112660098522166,,,S1 overlap box,descriptive
+H+T|RandomForest,H+T|RandomForest - H-RF (v2),source_balanced_accuracy,0.17226890756302526,0.0,0.3571428571428572,0.965,not detected,S1 overlap box,descriptive
+H+T|RandomForest,H+T|RandomForest - H-RF (v2),source_AUC,0.19327731092436973,0.0,0.4453781512605042,0.9675,not detected,S1 overlap box,descriptive
+H+T|RandomForest,H+T|RandomForest - H-RF (v2),obs_balanced_accuracy,0.17513611615245006,-0.013619344192913682,0.3418017892088341,0.9625,not detected,S1 overlap box,descriptive
+H|LogReg,H|LogReg,source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,S1 burst-excluded (395 obs),descriptive
+H|LogReg,H|LogReg,source_AUC,0.9166666666666666,0.7916666666666666,0.9940476190476191,,,S1 burst-excluded (395 obs),descriptive
+H|LogReg,H|LogReg,obs_balanced_accuracy,0.7509435305846329,0.5986640832057935,0.8726814314379605,,,S1 burst-excluded (395 obs),descriptive
+H+T|LogReg,H+T|LogReg,source_balanced_accuracy,0.9077380952380952,0.7440476190476191,1.0,,,S1 burst-excluded (395 obs),descriptive
+H+T|LogReg,H+T|LogReg,source_AUC,0.9821428571428571,0.9285714285714286,1.0,,,S1 burst-excluded (395 obs),descriptive
+H+T|LogReg,H+T|LogReg,obs_balanced_accuracy,0.869276507868689,0.7532587215301424,0.9467608603784785,,,S1 burst-excluded (395 obs),descriptive
+H+T|LogReg,H+T|LogReg - H|LogReg,source_balanced_accuracy,0.11309523809523803,-0.02083333333333326,0.2767857142857144,0.9225,not detected,S1 burst-excluded (395 obs),descriptive
+H+T|LogReg,H+T|LogReg - H|LogReg,source_AUC,0.06547619047619047,0.0,0.17261904761904756,0.9645,not detected,S1 burst-excluded (395 obs),descriptive
+H+T|LogReg,H+T|LogReg - H|LogReg,obs_balanced_accuracy,0.11833297728405612,0.014849042470036489,0.26110376019272324,0.9895,improvement,S1 burst-excluded (395 obs),descriptive
+H|RandomForest,H|RandomForest,source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,S1 burst-excluded (395 obs),descriptive
+H|RandomForest,H|RandomForest,source_AUC,0.8988095238095238,0.7200892857142858,1.0,,,S1 burst-excluded (395 obs),descriptive
+H|RandomForest,H|RandomForest,obs_balanced_accuracy,0.7485045930356762,0.6026739557820214,0.8670920672894357,,,S1 burst-excluded (395 obs),descriptive
+H+T|RandomForest,H+T|RandomForest,source_balanced_accuracy,0.9077380952380952,0.7440476190476191,1.0,,,S1 burst-excluded (395 obs),descriptive
+H+T|RandomForest,H+T|RandomForest,source_AUC,0.9761904761904762,0.9047619047619048,1.0,,,S1 burst-excluded (395 obs),descriptive
+H+T|RandomForest,H+T|RandomForest,obs_balanced_accuracy,0.8407391582995086,0.7196293902726486,0.9264600216740205,,,S1 burst-excluded (395 obs),descriptive
+H+T|RandomForest,H+T|RandomForest - H|RandomForest,source_balanced_accuracy,0.050595238095238027,-0.04166666666666674,0.2142857142857143,0.664,not detected,S1 burst-excluded (395 obs),descriptive
+H+T|RandomForest,H+T|RandomForest - H|RandomForest,source_AUC,0.07738095238095233,0.0,0.2142857142857142,0.914,not detected,S1 burst-excluded (395 obs),descriptive
+H+T|RandomForest,H+T|RandomForest - H|RandomForest,obs_balanced_accuracy,0.09223456526383245,0.005048798798798937,0.20809651409604166,0.979,improvement,S1 burst-excluded (395 obs),descriptive
+H-LR (S2 same sample),H-LR (S2 same sample),source_balanced_accuracy,0.8213213213213213,0.6681681681681682,0.9459459459459459,,,"S2 v2+v4b2 (46 sources, 677 obs)",descriptive
+H-LR (S2 same sample),H-LR (S2 same sample),source_AUC,0.9459459459459459,0.8678678678678678,0.996996996996997,,,"S2 v2+v4b2 (46 sources, 677 obs)",descriptive
+H-LR (S2 same sample),H-LR (S2 same sample),obs_balanced_accuracy,0.7920895897995135,0.6736111590848906,0.8926456479712681,,,"S2 v2+v4b2 (46 sources, 677 obs)",descriptive
+H+T|LogReg,H+T|LogReg,source_balanced_accuracy,0.9444444444444444,0.8333333333333333,1.0,,,"S2 v2+v4b2 (46 sources, 677 obs)",descriptive
+H+T|LogReg,H+T|LogReg,source_AUC,0.987987987987988,0.9519519519519519,1.0,,,"S2 v2+v4b2 (46 sources, 677 obs)",descriptive
+H+T|LogReg,H+T|LogReg,obs_balanced_accuracy,0.8806238290971116,0.7969854369091011,0.9407407407407408,,,"S2 v2+v4b2 (46 sources, 677 obs)",descriptive
+H+T|RandomForest,H+T|RandomForest,source_balanced_accuracy,0.9444444444444444,0.8333333333333333,1.0,,,"S2 v2+v4b2 (46 sources, 677 obs)",descriptive
+H+T|RandomForest,H+T|RandomForest,source_AUC,0.990990990990991,0.963963963963964,1.0,,,"S2 v2+v4b2 (46 sources, 677 obs)",descriptive
+H+T|RandomForest,H+T|RandomForest,obs_balanced_accuracy,0.8332913905432989,0.7338714300604544,0.9067029529529529,,,"S2 v2+v4b2 (46 sources, 677 obs)",descriptive
+H+T|LogReg,H+T|LogReg - H-LR (S2 same sample),source_balanced_accuracy,0.12312312312312312,0.027027027027026973,0.26126126126126126,0.9995,improvement,"S2 v2+v4b2 (46 sources, 677 obs)",descriptive
+H+T|LogReg,H+T|LogReg - H-LR (S2 same sample),source_AUC,0.042042042042042094,0.0,0.10810810810810811,0.9695,not detected,"S2 v2+v4b2 (46 sources, 677 obs)",descriptive
+H+T|LogReg,H+T|LogReg - H-LR (S2 same sample),obs_balanced_accuracy,0.08853423929759807,0.0011014119298353303,0.21432623673490764,0.9775,improvement,"S2 v2+v4b2 (46 sources, 677 obs)",descriptive
+H+T|RandomForest,H+T|RandomForest - H-LR (S2 same sample),source_balanced_accuracy,0.12312312312312312,0.027027027027026973,0.26126126126126126,0.9995,improvement,"S2 v2+v4b2 (46 sources, 677 obs)",descriptive
+H+T|RandomForest,H+T|RandomForest - H-LR (S2 same sample),source_AUC,0.04504504504504503,0.0,0.12012012012012008,0.9665,not detected,"S2 v2+v4b2 (46 sources, 677 obs)",descriptive
+H+T|RandomForest,H+T|RandomForest - H-LR (S2 same sample),obs_balanced_accuracy,0.04120180074378543,-0.05751684629661384,0.16218812323774132,0.764,not detected,"S2 v2+v4b2 (46 sources, 677 obs)",descriptive
+H-LR (v2),H-LR (v2),source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,S3 v4b1 (7949 obs),descriptive
+H-LR (v2),H-LR (v2),source_AUC,0.9226190476190477,0.8035714285714286,0.9940476190476191,,,S3 v4b1 (7949 obs),descriptive
+H-LR (v2),H-LR (v2),obs_balanced_accuracy,0.7755392755392756,0.6332905982905983,0.8926455026455027,,,S3 v4b1 (7949 obs),descriptive
+H+T|LogReg[srcw],H+T|LogReg[srcw],source_balanced_accuracy,1.0,1.0,1.0,,,S3 v4b1 (7949 obs),descriptive
+H+T|LogReg[srcw],H+T|LogReg[srcw],source_AUC,1.0,1.0,1.0,,,S3 v4b1 (7949 obs),descriptive
+H+T|LogReg[srcw],H+T|LogReg[srcw],obs_balanced_accuracy,0.8354891285435683,0.7370064631816011,0.9451341371573491,,,S3 v4b1 (7949 obs),descriptive
+H+T|RandomForest[srcw],H+T|RandomForest[srcw],source_balanced_accuracy,0.9285714285714286,0.7857142857142857,1.0,,,S3 v4b1 (7949 obs),descriptive
+H+T|RandomForest[srcw],H+T|RandomForest[srcw],source_AUC,1.0,1.0,1.0,,,S3 v4b1 (7949 obs),descriptive
+H+T|RandomForest[srcw],H+T|RandomForest[srcw],obs_balanced_accuracy,0.7983728748424619,0.6594166244026795,0.955051382280803,,,S3 v4b1 (7949 obs),descriptive
+H+T|LogReg[srcw],H+T|LogReg[srcw] - H-LR (v2),source_balanced_accuracy,0.2053571428571428,0.04166666666666674,0.4107142857142857,0.9955,improvement,S3 v4b1 (7949 obs),descriptive
+H+T|LogReg[srcw],H+T|LogReg[srcw] - H-LR (v2),source_AUC,0.07738095238095233,0.005952380952380931,0.1964285714285714,0.979,improvement,S3 v4b1 (7949 obs),descriptive
+H+T|LogReg[srcw],H+T|LogReg[srcw] - H-LR (v2),obs_balanced_accuracy,0.059949853004292675,-0.0407364703471045,0.222829692900769,0.8665,not detected,S3 v4b1 (7949 obs),descriptive
+H+T|RandomForest[srcw],H+T|RandomForest[srcw] - H-LR (v2),source_balanced_accuracy,0.1339285714285714,0.02083333333333326,0.29761904761904767,0.9845,improvement,S3 v4b1 (7949 obs),descriptive
+H+T|RandomForest[srcw],H+T|RandomForest[srcw] - H-LR (v2),source_AUC,0.07738095238095233,0.005952380952380931,0.1964285714285714,0.979,improvement,S3 v4b1 (7949 obs),descriptive
+H+T|RandomForest[srcw],H+T|RandomForest[srcw] - H-LR (v2),obs_balanced_accuracy,0.02283359930318629,-0.10646298509232907,0.22998924786276084,0.664,not detected,S3 v4b1 (7949 obs),descriptive
+H-LR[srcw] (S3 same sample),H-LR[srcw] (S3 same sample),source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,S3 v4b1 (7949 obs),descriptive
+H-LR[srcw] (S3 same sample),H-LR[srcw] (S3 same sample),source_AUC,0.9226190476190477,0.8035714285714286,1.0,,,S3 v4b1 (7949 obs),descriptive
+H-LR[srcw] (S3 same sample),H-LR[srcw] (S3 same sample),obs_balanced_accuracy,0.7662633084752122,0.6267650179294715,0.9088286290523312,,,S3 v4b1 (7949 obs),descriptive
+H+T|LogReg[srcw],H+T|LogReg[srcw],source_balanced_accuracy,1.0,1.0,1.0,,,S3 v4b1 (7949 obs),descriptive
+H+T|LogReg[srcw],H+T|LogReg[srcw],source_AUC,1.0,1.0,1.0,,,S3 v4b1 (7949 obs),descriptive
+H+T|LogReg[srcw],H+T|LogReg[srcw],obs_balanced_accuracy,0.8354891285435683,0.7370064631816011,0.9451341371573491,,,S3 v4b1 (7949 obs),descriptive
+H+T|RandomForest[srcw],H+T|RandomForest[srcw],source_balanced_accuracy,0.9285714285714286,0.7857142857142857,1.0,,,S3 v4b1 (7949 obs),descriptive
+H+T|RandomForest[srcw],H+T|RandomForest[srcw],source_AUC,1.0,1.0,1.0,,,S3 v4b1 (7949 obs),descriptive
+H+T|RandomForest[srcw],H+T|RandomForest[srcw],obs_balanced_accuracy,0.7983728748424619,0.6594166244026795,0.955051382280803,,,S3 v4b1 (7949 obs),descriptive
+H+T|LogReg[srcw],H+T|LogReg[srcw] - H-LR[srcw] (S3 same sample),source_balanced_accuracy,0.2053571428571428,0.04166666666666674,0.4107142857142857,0.9955,improvement,S3 v4b1 (7949 obs),descriptive
+H+T|LogReg[srcw],H+T|LogReg[srcw] - H-LR[srcw] (S3 same sample),source_AUC,0.07738095238095233,0.0,0.1964285714285714,0.973,not detected,S3 v4b1 (7949 obs),descriptive
+H+T|LogReg[srcw],H+T|LogReg[srcw] - H-LR[srcw] (S3 same sample),obs_balanced_accuracy,0.06922582006835609,0.015043289205259233,0.1484857062882912,0.9935,improvement,S3 v4b1 (7949 obs),descriptive
+H+T|RandomForest[srcw],H+T|RandomForest[srcw] - H-LR[srcw] (S3 same sample),source_balanced_accuracy,0.1339285714285714,0.02083333333333326,0.29761904761904767,0.9845,improvement,S3 v4b1 (7949 obs),descriptive
+H+T|RandomForest[srcw],H+T|RandomForest[srcw] - H-LR[srcw] (S3 same sample),source_AUC,0.07738095238095233,0.0,0.1964285714285714,0.973,not detected,S3 v4b1 (7949 obs),descriptive
+H+T|RandomForest[srcw],H+T|RandomForest[srcw] - H-LR[srcw] (S3 same sample),obs_balanced_accuracy,0.03210956636724971,-0.05423746968515681,0.16305520683812988,0.7845,not detected,S3 v4b1 (7949 obs),descriptive

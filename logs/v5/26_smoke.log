@@ -1,0 +1,51 @@
+120 unique observations {'v2': 40, 'v4b2': 40, 'v4b1': 40}
+[Parallel(n_jobs=16)]: Using backend LokyBackend with 16 concurrent workers.
+[Parallel(n_jobs=16)]: Done  37 tasks      | elapsed:    1.4s
+[Parallel(n_jobs=16)]: Done 120 out of 120 | elapsed:    1.8s finished
+features done (2 s)
+status
+ok                          109
+missing (< 3 valid rows)     11
+label              BH      NS
+T1      count  61.000  48.000
+        mean    0.068   0.021
+        std     0.086   0.030
+        min    -0.043  -0.093
+        25%     0.012   0.018
+        50%     0.031   0.022
+        75%     0.087   0.028
+        max     0.373   0.075
+T2      count  61.000  48.000
+        mean    0.074   0.033
+        std     0.082   0.041
+        min    -0.078  -0.079
+        25%     0.016   0.017
+        50%     0.039   0.026
+        75%     0.110   0.050
+        max     0.314   0.124
+T3      count  61.000  48.000
+        mean    0.067   0.043
+        std     0.081   0.069
+        min    -0.113  -0.093
+        25%     0.012  -0.010
+        50%     0.037   0.028
+        75%     0.138   0.094
+        max     0.238   0.267
+T_total count  61.000  48.000
+        mean    0.131   0.067
+        std     0.129   0.072
+        min    -0.048  -0.114
+        25%     0.026   0.032
+        50%     0.087   0.045
+        75%     0.218   0.121
+        max     0.543   0.282
+
+IMPLEMENTATION CHECKS:
+                                                       check  n  value  threshold  passed
+4b cospectrum vs auto-power T2 Spearman (S1, 20-500 c/s/PCU) 10  1.000        0.9    True
+          4c median within-BH Spearman(T_total, hard colour)  3  0.664        0.0    True
+   source_id  n  spearman_Ttotal_vs_c2
+ GROJ1655-40 15                  0.182
+ GRS1915+105 11                  0.664
+XTEJ1550-564 10                  0.891
+total 2 s
