@@ -1,0 +1,18 @@
+8350 unique observations {'v2': 456, 'v4b2': 221, 'v4b1': 7949, 'v6': 180}
+T* done (36 s)
+status
+ok                          8009
+missing (< 3 valid rows)     341
+rows: pairs 186541 single 13523
+v5 estimator on v6 obs: {'ok': 155, 'missing (< 3 valid rows)': 25}
+
+split-half reliability (S1):
+band   n  spearman_allpairs  spearman_v5_AB  mad_halfdiff_allpairs  mad_halfdiff_v5_AB
+  T1 422             0.8904          0.8541                 0.0036              0.0035
+  T2 422             0.8732          0.8673                 0.0042              0.0046
+  T3 422             0.7360          0.7087                 0.0065              0.0077
+
+agreement T* vs v5 T (obs with both): {'T1': np.float64(0.977), 'T2': np.float64(0.9771), 'T3': np.float64(0.968)} n = 7228
+missing: v5 942 of 8170 | v6 T* 341 of 8350
+nu_c available: 4357
+total 37 s

@@ -47,3 +47,7 @@
 {"utc": "2026-09-30T18:19:31.357346+00:00", "stage": "v4_complete", "details": "v4a/burst/v4b3/v4b2/v4b1 done; reports/report_v4_zh-TW.md; next: v5 (user-authorized, see preregistration_v5.md when written)"}
 {"utc": "2026-09-30T18:28:30.682698+00:00", "stage": "v5_timing_features", "details": "7228/8170 obs with timing features; checks 4b rho=0.970 (pass), 4c median=0.61 (pass)"}
 {"utc": "2026-09-30T18:30:13.826158+00:00", "stage": "v5_analysis", "details": "PRIMARY H+T-LR - H-LR: source BA +0.113 [-0.021,+0.277], source AUC +0.065 [+0.000,+0.179]"}
+{"utc": "2026-09-30T18:43:02.808150+00:00", "stage": "v6_select", "details": "12 external sources (2 BH; 4 stress-set pulsars)"}
+{"utc": "2026-09-30T18:48:46.286113+00:00", "stage": "3b_fetch_process_v6", "details": "180 accepted observations; 0 excluded candidates logged"}
+{"utc": "2026-09-30T18:49:35.329961+00:00", "stage": "v6_features", "details": "8009/8350 obs with T*; reliability T1 0.890 vs 0.854, T2 0.873 vs 0.867, T3 0.736 vs 0.709"}
+{"utc": "2026-09-30T18:49:55.886496+00:00", "stage": "v6_analysis", "details": "PRIMARY frozen external E: H_R+T-LR - H_R-LR source AUC +0.000 [+0.000,+0.000], source BA +0.105 [+0.000,+0.237]"}

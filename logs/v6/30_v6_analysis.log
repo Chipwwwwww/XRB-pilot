@@ -1,0 +1,195 @@
+frozen H_R+T-LR coefficients [c1, c2, T1, T2, T3, miss]: [-3.051  1.616  1.76   0.454  0.16   0.335]
+
+E: 23 sources (4 BH), 341 obs; E_new: 8 sources (2 BH); stress: 4 sources
+
+[v6a PRIMARY] E
+metric       obs_balanced_accuracy  source_AUC  source_balanced_accuracy
+comparison                                                              
+CCTLR (H_R)                  0.825       0.987                     0.974
+H_R+T-LR                     0.878       1.000                     0.974
+H_R-LR                       0.798       1.000                     0.868
+metric                 obs_balanced_accuracy              source_AUC source_balanced_accuracy
+comparison                                                                                   
+CCTLR (H_R) - H_R-LR  +0.027 [-0.051,+0.096]  -0.013 [-0.079,+0.000]   +0.105 [+0.000,+0.237]
+H_R+T-LR - H_R-LR     +0.080 [+0.003,+0.162]  +0.000 [+0.000,+0.000]   +0.105 [+0.000,+0.237]
+metric                          source_brier          source_logloss
+comparison                                                          
+CCTLR (H_R) - H_R-LR  -0.055 [-0.091,-0.018]  -0.129 [-0.221,-0.037]
+H_R+T-LR - H_R-LR     -0.059 [-0.093,-0.027]  -0.127 [-0.217,-0.044]
+
+[v6a sensitivity] E_new
+metric       obs_balanced_accuracy  source_AUC  source_balanced_accuracy
+comparison                                                              
+CCTLR (H_R)                  0.756       0.917                     0.917
+H_R+T-LR                     0.856       1.000                     0.917
+H_R-LR                       0.661       1.000                     0.750
+metric                 obs_balanced_accuracy              source_AUC source_balanced_accuracy
+comparison                                                                                   
+CCTLR (H_R) - H_R-LR  +0.094 [-0.056,+0.233]  -0.083 [-0.333,+0.000]   +0.167 [-0.167,+0.417]
+H_R+T-LR - H_R-LR     +0.194 [+0.056,+0.322]  +0.000 [+0.000,+0.000]   +0.167 [-0.167,+0.417]
+
+name                                           CCTLR (H_R)  H_R+T-LR  H_R-LR
+role               source_id       true_label                               
+E_new              CYGX1           BH                 0.86      0.76    0.73
+                   IGRJ00291+5934  NS                 0.67      0.59    0.48
+                   IGRJ17498-2921  NS                 0.08      0.16    0.42
+                   IGRJ17511-3057  NS                 0.26      0.13    0.50
+                   LMCX3           BH                 0.65      0.84    0.70
+                   XTEJ0929-314    NS                 0.16      0.25    0.57
+                   XTEJ1751-305    NS                 0.30      0.34    0.57
+                   XTEJ1807-294    NS                 0.18      0.25    0.67
+E_v4b2             2S0918-549      NS                 0.22      0.20    0.38
+                   4U2127+119      NS                 0.16      0.31    0.56
+                   A1744-361       NS                 0.09      0.14    0.20
+                   EXO1745-248     NS                 0.14      0.15    0.14
+                   GRS1747-312     NS                 0.20      0.16    0.29
+                   MXB0513-40      NS                 0.12      0.08    0.20
+                   NGC6440         NS                 0.12      0.15    0.29
+                   SAXJ1747.0-2853 NS                 0.04      0.16    0.35
+                   SAXJ1750.8-2900 NS                 0.27      0.26    0.41
+                   SERX1           NS                 0.01      0.08    0.10
+                   V4641SGR        BH                 0.76      0.82    0.93
+                   XTEJ1709-267    NS                 0.03      0.13    0.27
+                   XTEJ1710-281    NS                 0.14      0.28    0.56
+                   XTEJ1759-220    NS                 0.03      0.08    0.28
+                   XTEJ1859+226    BH                 0.85      0.80    0.94
+stress_slow_pulsar 4U1626-67       NS                 0.44      0.40    0.15
+                   4U1822-371      NS                 0.00      0.01    0.05
+                   GROJ1744-28     NS                 0.15      0.11    0.19
+                   HERX1           NS                 0.07      0.07    0.27
+
+[v6c S1]
+metric       obs_balanced_accuracy  source_AUC  source_balanced_accuracy
+comparison                                                              
+CCTLR                        0.845       0.976                     0.908
+H+T*-LR                      0.881       0.976                     0.929
+H+T-LR (v5)                  0.878       0.988                     0.908
+H-LR (v2)                    0.776       0.923                     0.795
+metric                    obs_balanced_accuracy              source_AUC source_balanced_accuracy
+comparison                                                                                      
+CCTLR - H-LR (v2)        +0.070 [-0.048,+0.231]  +0.054 [-0.018,+0.161]   +0.113 [-0.021,+0.277]
+H+T*-LR - H-LR (v2)      +0.105 [-0.004,+0.252]  +0.054 [-0.012,+0.155]   +0.134 [+0.021,+0.298]
+H+T-LR (v5) - H-LR (v2)  +0.102 [+0.001,+0.249]  +0.065 [+0.000,+0.179]   +0.113 [-0.021,+0.277]
+metric                obs_balanced_accuracy              source_AUC source_balanced_accuracy
+comparison                                                                                  
+CCTLR - H+T-LR (v5)  -0.032 [-0.081,+0.010]  -0.012 [-0.048,+0.000]   +0.000 [+0.000,+0.000]
+metric                             source_brier          source_logloss
+comparison                                                             
+CCTLR - H-LR (v2)        -0.065 [-0.127,-0.008]  -0.192 [-0.344,-0.054]
+H+T*-LR - H-LR (v2)      -0.071 [-0.127,-0.019]  -0.193 [-0.323,-0.075]
+H+T-LR (v5) - H-LR (v2)  -0.074 [-0.128,-0.029]  -0.195 [-0.322,-0.088]
+
+[v6c S2]
+metric          obs_balanced_accuracy  source_AUC  source_balanced_accuracy
+comparison                                                                 
+CCTLR                           0.871       0.991                     0.931
+H+T-LR (v5 S2)                  0.881       0.988                     0.944
+H-LR (S2)                       0.792       0.946                     0.821
+metric                       obs_balanced_accuracy              source_AUC source_balanced_accuracy
+comparison                                                                                         
+CCTLR - H-LR (S2)           +0.079 [-0.009,+0.212]  +0.045 [+0.000,+0.114]   +0.110 [+0.014,+0.248]
+H+T-LR (v5 S2) - H-LR (S2)  +0.089 [+0.001,+0.214]  +0.042 [+0.000,+0.108]   +0.123 [+0.027,+0.261]
+
+[v6c S3]
+metric                obs_balanced_accuracy  source_AUC  source_balanced_accuracy
+comparison                                                                       
+CCTLR[srcw]                           0.819       0.994                     0.908
+H+T-LR[srcw] (v5 S3)                  0.835       1.000                     1.000
+H-LR (v2)                             0.776       0.923                     0.795
+H-LR[srcw] (S3)                       0.766       0.923                     0.795
+metric                             obs_balanced_accuracy              source_AUC source_balanced_accuracy
+comparison                                                                                               
+CCTLR[srcw] - H-LR (v2)           +0.043 [-0.073,+0.224]  +0.071 [+0.000,+0.191]   +0.113 [-0.021,+0.277]
+H+T-LR[srcw] (v5 S3) - H-LR (v2)  +0.060 [-0.041,+0.223]  +0.077 [+0.006,+0.196]   +0.205 [+0.042,+0.411]
+H-LR[srcw] (S3) - H-LR (v2)       -0.009 [-0.114,+0.123]  +0.000 [-0.048,+0.036]   +0.000 [+0.000,+0.000]
+LOSO done (6 s)
+
+[v6d] colour-conditional source-permutation test
+   feature    S1_D   S1_p  S1_sources  S1_bh     E_D    E_p  E_sources  E_bh  S1_p_holm  E_p_holm
+       T1*  0.0567 0.0006          31      7  0.0037 0.7460         23     4     0.0024    1.0000
+       T2*  0.0437 0.0021          31      7  0.0014 0.9392         23     4     0.0063    1.0000
+       T3*  0.0202 0.0371          31      7  0.0204 0.1589         23     4     0.0371    0.6356
+log10 nu_c -0.3129 0.0037          27      7 -0.0371 0.7830         21     4     0.0075    1.0000
+
+[v6e] conformal
+                    sample       model  eps  coverage_BH  coverage_NS  mean_set_size  n_singleton_correct  n_ambiguous  n_empty  n_sources
+                   S1 LOSO   H-LR (v2)  0.1        1.000        0.917          1.806                    4           25        0         31
+                   S1 LOSO   H-LR (v2)  0.2        0.857        0.833          1.065                   24            2        0         31
+                   S1 LOSO H+T-LR (v5)  0.1        1.000        0.917          1.742                    6           23        0         31
+                   S1 LOSO H+T-LR (v5)  0.2        0.857        0.833          0.903                   26            0        3         31
+                   S1 LOSO       CCTLR  0.1        1.000        0.917          1.742                    6           23        0         31
+                   S1 LOSO       CCTLR  0.2        0.857        0.833          0.935                   26            0        2         31
+                   S1 LOSO     H+T*-LR  0.1        1.000        0.917          1.742                    6           23        0         31
+                   S1 LOSO     H+T*-LR  0.2        0.857        0.833          0.968                   26            0        1         31
+                   S1 LOSO      H_R-LR  0.1        1.000        0.917          1.806                    4           25        0         31
+                   S1 LOSO      H_R-LR  0.2        0.857        0.833          1.129                   22            4        0         31
+                   S1 LOSO    H_R+T-LR  0.1        1.000        0.917          1.742                    6           23        0         31
+                   S1 LOSO    H_R+T-LR  0.2        0.857        0.833          0.903                   26            0        3         31
+                   S1 LOSO CCTLR (H_R)  0.1        1.000        0.917          1.742                    6           23        0         31
+                   S1 LOSO CCTLR (H_R)  0.2        0.857        0.833          0.935                   26            0        2         31
+E (frozen, S1 calibration)      H_R-LR  0.1        1.000        0.947          1.783                    4           18        0         23
+E (frozen, S1 calibration)      H_R-LR  0.2        1.000        0.632          1.087                   14            2        0         23
+E (frozen, S1 calibration)    H_R+T-LR  0.1        1.000        0.947          1.783                    4           18        0         23
+E (frozen, S1 calibration)    H_R+T-LR  0.2        1.000        0.895          0.957                   21            0        1         23
+E (frozen, S1 calibration) CCTLR (H_R)  0.1        1.000        0.947          1.783                    4           18        0         23
+E (frozen, S1 calibration) CCTLR (H_R)  0.2        1.000        0.684          0.783                   17            0        5         23
+
+[v6f] budget
+model                        CCTLR[srcw]  H+T-LR[srcw] (v5 S3)  H-LR[srcw] (S3)
+metric                   k                                                     
+source_AUC               1         0.970                 0.970            0.866
+                         2         0.976                 0.982            0.893
+                         3         0.982                 0.994            0.905
+                         5         0.988                 1.000            0.917
+                         8         0.988                 1.000            0.917
+                         13        0.994                 1.000            0.917
+                         21        0.994                 1.000            0.923
+source_balanced_accuracy 1         0.887                 0.908            0.774
+                         2         0.908                 0.938            0.795
+                         3         0.908                 0.938            0.795
+                         5         0.929                 0.958            0.795
+                         8         0.908                 0.979            0.795
+                         13        0.908                 0.979            0.795
+                         21        0.908                 0.979            0.795
+
+[v6h]
+metric      obs_balanced_accuracy  source_AUC  source_balanced_accuracy
+comparison                                                             
+H+N+T-LR                    0.930       1.000                     1.000
+H+N-LR                      0.795       0.952                     0.887
+H+T1-LR                     0.879       0.988                     0.929
+H+T2-LR                     0.868       0.988                     0.887
+H+T3-LR                     0.760       0.929                     0.795
+H-LR (v2)                   0.776       0.923                     0.795
+metric                 obs_balanced_accuracy              source_AUC source_balanced_accuracy
+comparison                                                                                   
+H+N+T-LR - H-LR (v2)  +0.155 [+0.036,+0.299]  +0.077 [+0.006,+0.196]   +0.205 [+0.042,+0.411]
+H+N-LR - H-LR (v2)    +0.020 [-0.046,+0.094]  +0.030 [-0.018,+0.101]   +0.092 [+0.000,+0.256]
+H+T1-LR - H-LR (v2)   +0.103 [-0.000,+0.251]  +0.065 [+0.000,+0.179]   +0.134 [+0.021,+0.298]
+H+T2-LR - H-LR (v2)   +0.092 [+0.007,+0.207]  +0.065 [+0.000,+0.179]   +0.092 [-0.021,+0.256]
+H+T3-LR - H-LR (v2)   -0.016 [-0.045,+0.011]  +0.006 [-0.024,+0.048]   +0.000 [+0.000,+0.000]
+metric              obs_balanced_accuracy              source_AUC source_balanced_accuracy
+comparison                                                                                
+H+N+T-LR - H+N-LR  +0.135 [+0.034,+0.268]  +0.048 [+0.000,+0.137]   +0.113 [+0.000,+0.277]
+
+[v6g] proper scores (lower is better)
+metric                                      source_brier          source_logloss
+comparison                                                                      
+CCTLR (H_R) - H_R-LR              -0.055 [-0.091,-0.018]  -0.129 [-0.221,-0.037]
+CCTLR - H+T-LR (v5)               +0.009 [-0.007,+0.029]  +0.003 [-0.044,+0.053]
+CCTLR - H-LR (S2)                 -0.060 [-0.114,-0.018]  -0.166 [-0.302,-0.062]
+CCTLR - H-LR (v2)                 -0.065 [-0.127,-0.008]  -0.192 [-0.344,-0.054]
+CCTLR[srcw] - H-LR (v2)           -0.087 [-0.140,-0.041]  -0.245 [-0.377,-0.131]
+H+N+T-LR - H+N-LR                 -0.078 [-0.143,-0.033]  -0.204 [-0.347,-0.103]
+H+N+T-LR - H-LR (v2)              -0.105 [-0.162,-0.055]  -0.268 [-0.394,-0.154]
+H+N-LR - H-LR (v2)                -0.027 [-0.071,+0.010]  -0.063 [-0.151,+0.018]
+H+T*-LR - H-LR (v2)               -0.071 [-0.127,-0.019]  -0.193 [-0.323,-0.075]
+H+T-LR (v5 S2) - H-LR (S2)        -0.062 [-0.111,-0.025]  -0.156 [-0.269,-0.067]
+H+T-LR (v5) - H-LR (v2)           -0.074 [-0.128,-0.029]  -0.195 [-0.322,-0.088]
+H+T-LR[srcw] (v5 S3) - H-LR (v2)  -0.092 [-0.143,-0.050]  -0.242 [-0.357,-0.149]
+H+T1-LR - H-LR (v2)               -0.075 [-0.129,-0.029]  -0.195 [-0.323,-0.086]
+H+T2-LR - H-LR (v2)               -0.065 [-0.108,-0.029]  -0.165 [-0.252,-0.086]
+H+T3-LR - H-LR (v2)               -0.002 [-0.008,+0.003]  -0.004 [-0.017,+0.007]
+H-LR[srcw] (S3) - H-LR (v2)       -0.008 [-0.021,+0.004]  -0.025 [-0.054,+0.003]
+H_R+T-LR - H_R-LR                 -0.059 [-0.093,-0.027]  -0.127 [-0.217,-0.044]
+total 11 s

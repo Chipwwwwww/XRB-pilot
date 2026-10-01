@@ -90,3 +90,10 @@
 |---|---|---|
 | 階段 0 | 使用者指示「if v4 is finish, come up with v5 and run it yourself」→ v4 完成並推送後，自行設計 v5 並自行核准預先設定（沒有另外請使用者審閱）。撰寫 `preregistration_v5.md`：問題＝Standard-1（0.125 s）低頻時間變異在兩個顏色之外是否有 BH／NS 資訊。查證：Standard-1 格式（HEASARC ABC Guide；本機檔 TIMEDEL=128、1024 bins）、PCA deadtime（RXTE Cookbook）、cospectrum 白雜訊期望值為 0（Bachetti+2015 ApJ 800, 109；Bachetti & Huppenkothen 2018）、分箱因子（van der Klis 1989 Eq. 2.19）、文獻背景（Sunyaev & Revnivtsev 2000；Muñoz-Darias+2011）。`config.py` 的 v4 區塊條件放寬為 v4／v5 開頭並新增 v5 區塊；已確認 v1、v2、v3c、v4、v4b1、v4b2 的所有設定值與修改前完全相同。v5 寫於看過 v1–v4 全部結果之後 | 否（尚未計算任何 v5 特徵或模型） |
 | v5 結果 | 8,170 筆中 7,228 筆有時間特徵；實作檢查通過（cospectrum vs 自功率 T2 ρ=0.970、n=276；7 個 BH 天體內 rms 與硬色皆正相關，中位數 0.61）。Primary（S1）H+T-LR − v2 H-LR：來源 BA +0.113 [−0.021, +0.277]、來源 AUC +0.065 [0.000, +0.179] → 未偵測到；觀測 BA +0.102 [+0.001, +0.249]。描述性：45 個配對差中 15 個區間 > 0（顏色重疊區 AUC、S2 來源 BA、S3 來源 BA 與 AUC），T 單獨比 H 差。單元測試「PCU 列中關閉」的案例原本寫錯，在計算真實特徵前修正（規則未改） | 結果 |
+
+## v6（確認時間訊號＋新方法）
+
+| 時間 | 決定 / 變更 | 是否在看到 v6 結果之後 |
+|---|---|---|
+| 階段 0 | 使用者要求「deep think … innovations … make it v6」「new algorithms or methods」「before v6 the deep thinking is important」。依 v1–v5 證據設計 v6：primary＝凍結模型在外部天體（訓練從未用過）上檢驗 v5 的 H+T 主張；新方法：全配對 cospectrum 估計量＋單 PCU 混合估計、νPν 質心頻率、顏色條件時間概似比分類器（CCTLR）、顏色條件的天體置換檢定、天體層級 conformal 預測集、觀測數預算曲線、天體層級 proper scoring rule。外部天體名單查證：Casares & Jonker 2014 §3／Table 2（Cyg X-1、LMC X-1、LMC X-3、M33 X-7）；Patruno & Watts 2021 Table 1（AMXP 與慢速脈衝星）。透明聲明：E 中 v4b2 的 15 個天體曾在 v4b2／v5 以其他模型看過結果，因此另報只含 v6 新天體的敏感度分析。`config.py` 的 v4／v5 區塊條件擴充到 v6 並新增 v6 區塊；已確認 v1–v5 所有設定值與修改前完全相同 | 否（尚未下載任何 v6 資料、未計算任何 v6 特徵或模型） |
+| v6 結果 | 外部天體 28 個名稱中納入 12 個（Cyg X-1、LMC X-3、6 個 AMXP、4 個慢速脈衝星壓力集），180 筆全部通過；LMC X-1、Swift J1756.9-2508 因指向偏離 >0.1° 排除，M33 X-7、Swift J1749.4-2807 無目錄，NGC 6440 X-2 無法解析。Primary（外部 23 源、凍結）H_R+T-LR − H_R-LR：來源 AUC 0.000（兩者 1.000）、來源 BA +0.105 [0.000, +0.237] → 未偵測到；觀測 BA +0.080 [+0.003, +0.162]、Brier −0.059 [−0.093, −0.027]、log loss −0.127 [−0.217, −0.044]。E_new：來源 BA 0.917 vs 0.750。置換檢定：S1 四項 Holm 後皆顯著（T1* p=0.0024），外部未複製（p=0.16–0.94）。CCTLR 未勝過 H+T-LR。全配對估計量：變異 −31%～−41%、缺值 942→341。Conformal：外部 NS 覆蓋 0.895 vs 0.632。壓力集 4 個慢速脈衝星皆判為 NS（4U 1626-67 升至 0.40） | 結果 |
