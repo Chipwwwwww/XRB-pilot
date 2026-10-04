@@ -1,5 +1,5 @@
 {
-  "utc": "2026-10-04T23:40:57.127754+00:00",
-  "stage": "v7a_states",
-  "details": "PRIMARY H-LR soft AUC - hard AUC +0.309 [+0.099,+0.510]"
+  "utc": "2026-10-04T23:44:39.619221+00:00",
+  "stage": "v7b2_analysis",
+  "details": "PRIMARY H-LR main run on the 31 v2 sources - v2: source BA +0.000 [-0.214,+0.214], source AUC -0.048 [-0.167,+0.048]"
 }

@@ -1,0 +1,4 @@
+source_id,catalog_rows,after_dedup,catalogue_median_sep_from_simbad_deg,after_epoch5_window,after_exposure,after_std1rate,after_pointing_simbad
+CYGX1,1740,1740,0.0012,1370,1205,1205,1205
+LMCX1,557,557,0.2628,501,450,450,31
+LMCX3,1273,1273,0.0013,1102,951,830,830
