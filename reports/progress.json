@@ -1,5 +1,5 @@
 {
-  "utc": "2026-10-04T23:31:57.858745+00:00",
-  "stage": "v7b1_exclusion",
-  "details": "PRIMARY H-LR minbar-excluded - v2: source BA +0.000 [+0.000,+0.000], source AUC -0.006 [-0.036,+0.000]"
+  "utc": "2026-10-04T23:40:57.127754+00:00",
+  "stage": "v7a_states",
+  "details": "PRIMARY H-LR soft AUC - hard AUC +0.309 [+0.099,+0.510]"
 }

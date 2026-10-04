@@ -1,0 +1,1441 @@
+representation,model,fold,source_id,obs_id,true_label,BH_score,raw_score,threshold,predicted_label,name
+H_colours,LogReg,,GROJ1655-40,90428-01-01-07,BH,0.5643936077323385,0.5643936077323385,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GROJ1655-40,91702-01-81-00,BH,0.5952040639743427,0.5952040639743427,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GROJ1655-40,91702-01-86-04,BH,0.5120804812191104,0.5120804812191104,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GRS1915+105,50703-01-62-01,BH,0.19262403683059098,0.19262403683059098,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GRS1915+105,70702-01-02-00,BH,0.10040912999691637,0.10040912999691637,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GRS1915+105,70702-01-21-01,BH,0.17064335923533236,0.17064335923533236,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GRS1915+105,90701-01-16-00,BH,0.037061388569045284,0.03706138856904527,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GRS1915+105,92702-01-06-00,BH,0.30785914688615196,0.30785914688615196,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GRS1915+105,80701-01-53-00,BH,0.2591146074182515,0.2591146074182515,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1550-564,50135-01-02-00,BH,0.614665498231881,0.614665498231881,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1550-564,50135-01-08-00,BH,0.5723765076991377,0.5723765076991377,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1550-564,50135-01-15-00,BH,0.41230142910733014,0.41230142910733014,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1550-564,50135-01-19-00,BH,0.5603462055540475,0.5603462055540475,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1550-564,50135-01-23-00,BH,0.5207905361116315,0.5207905361116315,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1550-564,50137-02-09-00,BH,0.5276608083571376,0.5276608083571376,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1550-564,60428-01-03-00,BH,0.5257389694143659,0.5257389694143659,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1550-564,60428-01-05-00,BH,0.5023477275376719,0.5023477275376719,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1550-564,60428-01-09-00,BH,0.5295522326769054,0.5295522326769054,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1550-564,60428-01-15-00,BH,0.5734939416360925,0.5734939416360925,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1550-564,80135-01-01-01,BH,0.5296959127855693,0.5296959127855693,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1550-564,80135-01-02-01,BH,0.5726609645581612,0.5726609645581612,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1550-564,80135-01-03-10,BH,0.6002504168186892,0.6002504168186892,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1550-564,80135-01-04-02,BH,0.5682957228970703,0.5682957228970703,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1550-564,80135-01-05-10,BH,0.527914882183088,0.527914882183088,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1543-47,70133-01-31-01,BH,0.9480433355879564,0.9480433355879564,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1543-47,70128-01-01-01,BH,0.8705702947315241,0.8705702947315241,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1543-47,70124-02-09-00,BH,0.5963808605227247,0.5963808605227247,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1543-47,70124-02-10-00,BH,0.6913441800861339,0.6913441800861339,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1543-47,70124-02-14-00,BH,0.8265883304274939,0.8265883304274939,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GX339-4,80102-04-56-00,BH,0.9379106742677785,0.9379106742677785,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GX339-4,80132-01-22-00,BH,0.6970921646263171,0.6970921646263171,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GX339-4,92034-08-01-00,BH,0.8872205670572026,0.8872205670572026,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GX339-4,92035-01-03-03,BH,0.706852719034039,0.706852719034039,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GX339-4,92704-03-13-00,BH,0.7319810524452598,0.7319810524452598,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GX339-4,92704-03-22-00,BH,0.4302895353760533,0.4302895353760533,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GX339-4,92704-03-45-01,BH,0.6686757378900027,0.6686757378900027,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GX339-4,93108-01-01-02,BH,0.7822761298679265,0.7822761298679265,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1650-500,60113-01-06-00,BH,0.6392011147616871,0.6392011147616871,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1650-500,60113-01-09-00,BH,0.6844150190491145,0.6844150190491145,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1650-500,60113-01-11-01,BH,0.7097151198250785,0.7097151198250785,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1650-500,60118-02-14-00,BH,0.7261767816984669,0.7261767816984669,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1650-500,60118-02-20-00,BH,0.21705711330269006,0.21705711330269006,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1650-500,60118-02-28-00,BH,0.6593313108591999,0.6593313108591999,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1650-500,70124-01-02-00,BH,0.5766403131329146,0.5766403131329146,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1118+480,50407-01-07-01,BH,0.4434951204065389,0.4434951204065389,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1118+480,50407-01-09-00,BH,0.4603594863887418,0.4603594863887418,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1118+480,50407-01-10-01,BH,0.5121673765912671,0.5121673765912671,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1118+480,50133-01-05-00,BH,0.4736548035244308,0.4736548035244308,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1118+480,50407-01-13-02,BH,0.4165632894762163,0.4165632894762163,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1118+480,50133-01-04-01,BH,0.40149610643785805,0.40149610643785805,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1118+480,50407-01-14-02,BH,0.16381325216412257,0.16381325216412254,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1118+480,50407-01-16-00,BH,0.1012503654822553,0.10125036548225533,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1118+480,90011-01-01-08,BH,0.4101890884368322,0.4101890884368322,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1118+480,90011-01-01-10,BH,0.9882614548016836,0.9882614548016836,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1118+480,90011-01-01-05,BH,0.37734295256509226,0.37734295256509226,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1118+480,90111-01-02-06,BH,0.12265630860599896,0.12265630860599895,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1118+480,90111-01-02-15,BH,0.3069252568566191,0.3069252568566191,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1118+480,90111-01-02-07,BH,0.12142328615216019,0.12142328615216019,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1118+480,90111-01-03-02,BH,0.10478774527007317,0.10478774527007315,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1636-53,94087-01-16-00,NS,0.44776025556230376,0.44776025556230376,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1608-52,70069-01-04-03,NS,0.5733228626147627,0.5733228626147627,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1608-52,90408-01-03-03,NS,0.618098014571593,0.618098014571593,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1608-52,93408-01-14-00,NS,0.5324341792414508,0.5324341792414508,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1608-52,93408-01-27-03,NS,0.6162228337321999,0.6162228337321999,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1728-34,50030-03-05-03,NS,0.3270909301397194,0.3270909301397194,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1728-34,92023-03-44-00,NS,0.24274338170810433,0.24274338170810433,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1728-34,92023-03-49-00,NS,0.27610208643000816,0.27610208643000816,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1728-34,92023-03-70-00,NS,0.17299606082079866,0.17299606082079863,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,AQLX1,80403-01-03-00,NS,0.4969339767374157,0.4969339767374157,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,AQLX1,90017-11-06-00,NS,0.7890891311907672,0.7890891311907672,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,AQLX1,91028-01-29-00,NS,0.623965879952836,0.623965879952836,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,AQLX1,92438-01-02-02,NS,0.6895948717689988,0.6895948717689988,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,AQLX1,94076-01-03-04,NS,0.6758745584849004,0.6758745584849004,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,EXO0748-676,50045-06-05-00,NS,0.267967876824886,0.267967876824886,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,EXO0748-676,70048-03-02-00,NS,0.29629133414683784,0.29629133414683784,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,EXO0748-676,60042-03-01-00,NS,0.20082511287316968,0.20082511287316968,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,EXO0748-676,70048-13-12-00,NS,0.335423140952856,0.335423140952856,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,EXO0748-676,92019-01-06-03,NS,0.3881283900105535,0.3881283900105535,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,EXO0748-676,92019-01-26-01,NS,0.18396010027813592,0.1839601002781359,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1323-619,90062-03-01-02,NS,0.33588199184611467,0.33588199184611467,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1323-619,90062-03-01-01,NS,0.5369986013519645,0.5369986013519645,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1323-619,95442-01-01-01,NS,0.3598667166230614,0.3598667166230614,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1323-619,95442-01-01-02,NS,0.3684287212445414,0.3684287212445414,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1323-619,96405-01-01-00,NS,0.2595078966962128,0.2595078966962128,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1323-619,96405-01-01-01,NS,0.35978741733617214,0.35978741733617214,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1323-619,96405-01-02-00,NS,0.2382757962288754,0.23827579622887543,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1323-619,96405-01-04-00,NS,0.34976954199807614,0.34976954199807614,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1323-619,96405-01-05-00,NS,0.27878772793460627,0.27878772793460627,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1323-619,96405-01-05-01,NS,0.4796346205790658,0.4796346205790658,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1323-619,96405-01-05-02,NS,0.30773354310234263,0.30773354310234263,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1323-619,96405-01-05-03,NS,0.3421365257147204,0.3421365257147204,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,MXB1658-298,50410-01-05-00,NS,0.066081703228135,0.06608170322813497,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,MXB1658-298,60048-02-03-00,NS,0.09938941849197563,0.09938941849197562,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,MXB1658-298,60048-04-05-00,NS,0.4964772658730151,0.4964772658730151,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1702-429,50029-27-01-000,NS,0.5344282448672164,0.5344282448672164,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1702-429,50030-01-04-00,NS,0.5275682037701711,0.5275682037701711,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1702-429,50030-01-09-03,NS,0.43971895608714273,0.43971895608714273,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1702-429,80033-01-01-01,NS,0.4431627712324216,0.4431627712324216,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1702-429,80033-01-18-02,NS,0.3802071504880172,0.3802071504880172,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1702-429,80033-01-21-03,NS,0.3735131600128509,0.3735131600128509,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1705-44,91039-01-01-61,NS,0.3563961114192292,0.3563961114192292,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1705-44,93060-01-05-00,NS,0.5245959847819169,0.5245959847819169,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1705-44,95060-01-35-00,NS,0.2577010749459947,0.2577010749459947,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1724-307,60034-02-01-01,NS,0.41644277704357385,0.41644277704357385,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1724-307,50060-05-01-07,NS,0.4662047352180458,0.4662047352180458,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1724-307,50060-05-01-05,NS,0.41071911475115735,0.41071911475115735,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1724-307,60034-02-02-02,NS,0.3559790989882291,0.3559790989882291,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1724-307,60034-02-03-10,NS,0.34999874428562144,0.34999874428562144,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1724-307,60034-02-05-01,NS,0.38050095481142815,0.38050095481142815,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1724-307,80105-10-01-00,NS,0.37193426498182997,0.37193426498182997,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1724-307,93044-06-04-00,NS,0.0517004372832105,0.0517004372832105,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1724-307,93044-06-07-00,NS,0.25257383464752065,0.25257383464752065,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1724-307,93438-01-02-03,NS,0.318975460399912,0.318975460399912,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1724-307,93438-01-04-00,NS,0.30883541952756993,0.30883541952756993,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1724-307,93438-01-07-01,NS,0.4328560638675287,0.4328560638675287,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,KS1731-260,50031-02-01-09,NS,0.42741771897424935,0.42741771897424935,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,KS1731-260,50031-02-01-12,NS,0.4390101450471828,0.4390101450471828,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,KS1731-260,50031-02-01-02,NS,0.3552703559510522,0.3552703559510522,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,KS1731-260,50031-02-01-05,NS,0.39283544111410196,0.39283544111410196,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,KS1731-260,50031-02-01-08,NS,0.4162168537596095,0.4162168537596095,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,KS1731-260,50031-02-02-06,NS,0.4424796460284009,0.4424796460284009,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,KS1731-260,50031-02-02-02,NS,0.46450305967301714,0.46450305967301714,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,KS1731-260,50031-02-02-03,NS,0.27053516058199645,0.27053516058199645,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,KS1731-260,50031-02-02-080,NS,0.40772579770760453,0.40772579770760453,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,KS1731-260,50031-02-03-04,NS,0.7011846927880123,0.7011846927880123,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,SLX1735-269,60034-01-01-00,NS,0.5948740113867083,0.5948740113867083,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,SLX1735-269,60034-01-02-02,NS,0.4472198312960249,0.4472198312960249,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,SLX1735-269,80138-03-02-00,NS,0.5226739752703976,0.5226739752703976,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,SLX1735-269,96429-01-02-02,NS,0.5392539398806429,0.5392539398806429,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,SLX1735-269,96429-01-06-01,NS,0.7070752244074385,0.7070752244074385,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,SLX1735-269,96429-01-08-03,NS,0.5482914503424521,0.5482914503424521,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,SAXJ1808.4-3658,70080-01-02-04,NS,0.5811697087036586,0.5811697087036586,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,SAXJ1808.4-3658,70080-01-02-22,NS,0.7223552354545478,0.7223552354545478,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,SAXJ1808.4-3658,70080-01-03-010,NS,0.6967847529509508,0.6967847529509508,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,SAXJ1808.4-3658,70080-02-01-03,NS,0.6734965698273466,0.6734965698273466,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,SAXJ1808.4-3658,70080-02-02-35,NS,0.7272988541559062,0.7272988541559062,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,SAXJ1808.4-3658,70080-03-13-00,NS,0.6771358510651424,0.6771358510651424,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,SAXJ1808.4-3658,70080-03-20-13,NS,0.5758456317020441,0.5758456317020441,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,SAXJ1808.4-3658,70080-03-22-00,NS,0.37074336223142706,0.37074336223142706,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,SAXJ1808.4-3658,96027-01-01-00,NS,0.5994638828089326,0.5994638828089326,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,SAXJ1808.4-3658,96027-01-02-00,NS,0.6235098952319017,0.6235098952319017,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1814-338,80138-04-02-00,NS,0.3922127834216255,0.3922127834216255,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1814-338,80145-02-01-01,NS,0.39489773555109264,0.39489773555109264,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1814-338,80418-01-01-07,NS,0.37873133409958637,0.37873133409958637,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1814-338,80418-01-02-00,NS,0.4139545200416445,0.4139545200416445,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1814-338,80418-01-02-08,NS,0.4812392871204535,0.4812392871204535,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1814-338,80418-01-02-05,NS,0.4254919200782849,0.4254919200782849,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1814-338,80418-01-03-02,NS,0.4699776173009058,0.4699776173009058,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1814-338,80418-01-03-08,NS,0.47590851962587494,0.47590851962587494,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1814-338,80418-01-04-03,NS,0.4509277209452951,0.4509277209452951,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1814-338,80418-01-05-00,NS,0.5203365953257216,0.5203365953257216,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1814-338,80418-01-06-00,NS,0.6068491514354963,0.6068491514354963,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,XTEJ1814-338,80418-01-06-02,NS,0.6762108491870474,0.6762108491870474,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,4U1820-30,94090-01-02-01,NS,0.1733310112165456,0.17333101121654557,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GS1826-238,50035-01-02-00,NS,0.32050335612509767,0.32050335612509767,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GS1826-238,50035-01-03-02,NS,0.39806394846388726,0.39806394846388726,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GS1826-238,50035-01-03-04,NS,0.3547913544534407,0.3547913544534407,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GS1826-238,50035-01-03-090,NS,0.38567175902516876,0.38567175902516876,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GS1826-238,80048-01-01-09,NS,0.3340834989921345,0.3340834989921345,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GS1826-238,80048-01-01-14,NS,0.2748028290028138,0.2748028290028138,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GS1826-238,80049-01-01-00,NS,0.31229808602485437,0.31229808602485437,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GS1826-238,90043-01-01-02,NS,0.28783491199600253,0.28783491199600253,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GS1826-238,70044-01-03-00,NS,0.39521225248693836,0.39521225248693836,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GS1826-238,92703-01-04-02,NS,0.26596527757434196,0.26596527757434196,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GS1826-238,70044-01-04-00,NS,0.2914152800327037,0.2914152800327037,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GS1826-238,91017-01-02-05,NS,0.33414580644731706,0.33414580644731706,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GS1826-238,91017-01-02-03,NS,0.24200177577254278,0.24200177577254275,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GS1826-238,91017-01-02-10,NS,0.294366729873728,0.294366729873728,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,GS1826-238,96306-01-01-01,NS,0.2826880588512422,0.2826880588512422,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,HETEJ1900.1-245,91015-01-07-00,NS,0.6557231502938553,0.6557231502938553,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,HETEJ1900.1-245,91059-03-03-00,NS,0.7133741680910552,0.7133741680910552,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,HETEJ1900.1-245,91057-01-07-04,NS,0.6573765334158935,0.6573765334158935,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,HETEJ1900.1-245,92049-01-05-00,NS,0.6256024934394685,0.6256024934394685,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,HETEJ1900.1-245,92049-01-07-00,NS,0.10693882090216106,0.10693882090216107,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,HETEJ1900.1-245,92049-01-40-00,NS,0.6314817462850345,0.6314817462850345,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,HETEJ1900.1-245,93030-01-47-00,NS,0.6697865145118554,0.6697865145118554,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,HETEJ1900.1-245,94030-01-05-00,NS,0.7971610981350138,0.7971610981350138,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,HETEJ1900.1-245,94030-01-36-00,NS,0.6416608046852813,0.6416608046852813,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,HETEJ1900.1-245,96030-01-01-01,NS,0.4682718064592737,0.4682718064592737,0.5,NS,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,,HETEJ1900.1-245,96030-01-25-00,NS,0.6217532384583772,0.6217532384583772,0.5,BH,"H-LR [hard-like only, trained on hard-like]"
+H_colours,LogReg,1,4U1323-619,90062-03-01-02,NS,0.3137585059085552,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,1,4U1323-619,90062-03-01-01,NS,0.5502168611600454,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,1,4U1323-619,95442-01-01-01,NS,0.371431648927209,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,1,4U1323-619,95442-01-01-02,NS,0.344093567035077,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,1,4U1323-619,96405-01-01-00,NS,0.2700581568189072,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,1,4U1323-619,96405-01-01-01,NS,0.3475160105531512,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,1,4U1323-619,96405-01-02-00,NS,0.2220473683573004,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,1,4U1323-619,96405-01-04-00,NS,0.3288721228752892,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,1,4U1323-619,96405-01-05-00,NS,0.2530697142569142,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,1,4U1323-619,96405-01-05-01,NS,0.449362729108518,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,1,4U1323-619,96405-01-05-02,NS,0.2895899579684995,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,1,4U1323-619,96405-01-05-03,NS,0.2972042078392981,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,2,4U1543-47,70133-01-31-01,BH,0.9887943394445258,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,2,4U1543-47,70128-01-01-01,BH,0.9526833855491584,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,2,4U1543-47,70124-02-09-00,BH,0.6657260670777589,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,2,4U1543-47,70124-02-10-00,BH,0.729039728822251,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,2,4U1543-47,70124-02-14-00,BH,0.90046880670273,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,3,4U1608-52,70069-01-04-03,NS,0.6610861181571839,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,3,4U1608-52,90408-01-03-03,NS,0.6835419809559246,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,3,4U1608-52,93408-01-14-00,NS,0.5810305106332995,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,3,4U1608-52,93408-01-27-03,NS,0.6502513698933426,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,4,4U1636-53,94087-01-16-00,NS,0.5157438285001663,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,5,4U1702-429,50029-27-01-000,NS,0.6375005359961239,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,5,4U1702-429,50030-01-04-00,NS,0.6078036587642386,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,5,4U1702-429,50030-01-09-03,NS,0.5411136101132171,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,5,4U1702-429,80033-01-01-01,NS,0.5288382688361526,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,5,4U1702-429,80033-01-18-02,NS,0.4603866721373269,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,5,4U1702-429,80033-01-21-03,NS,0.4799487609497715,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,6,4U1705-44,91039-01-01-61,NS,0.4078827741626929,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,6,4U1705-44,93060-01-05-00,NS,0.6095523044648348,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,6,4U1705-44,95060-01-35-00,NS,0.3061233601322941,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,7,4U1724-307,60034-02-01-01,NS,0.5096875924670276,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,7,4U1724-307,50060-05-01-07,NS,0.5682309992951471,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,7,4U1724-307,50060-05-01-05,NS,0.4984722863487773,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,7,4U1724-307,60034-02-02-02,NS,0.4528063750094767,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,7,4U1724-307,60034-02-03-10,NS,0.4279801855836848,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,7,4U1724-307,60034-02-05-01,NS,0.4703303536414601,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,7,4U1724-307,80105-10-01-00,NS,0.4636625223357397,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,7,4U1724-307,93044-06-04-00,NS,0.0604712655286141,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,7,4U1724-307,93044-06-07-00,NS,0.3000299648748997,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,7,4U1724-307,93438-01-02-03,NS,0.3769365274600397,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,7,4U1724-307,93438-01-04-00,NS,0.3661899324013482,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,7,4U1724-307,93438-01-07-01,NS,0.4958585923770151,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,8,4U1728-34,50030-03-05-03,NS,0.364435035366568,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,8,4U1728-34,92023-03-44-00,NS,0.2881225357587447,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,8,4U1728-34,92023-03-49-00,NS,0.3140240528764905,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,8,4U1728-34,92023-03-70-00,NS,0.2233510413952773,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,11,4U1820-30,94090-01-02-01,NS,0.1873736860576705,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,13,AQLX1,80403-01-03-00,NS,0.5255453512716308,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,13,AQLX1,90017-11-06-00,NS,0.8099970305402584,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,13,AQLX1,91028-01-29-00,NS,0.6816405730754402,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,13,AQLX1,92438-01-02-02,NS,0.7067345194226964,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,13,AQLX1,94076-01-03-04,NS,0.7071169846162495,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,15,EXO0748-676,50045-06-05-00,NS,0.2667744686483337,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,15,EXO0748-676,70048-03-02-00,NS,0.242501187460317,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,15,EXO0748-676,60042-03-01-00,NS,0.1580059092505402,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,15,EXO0748-676,70048-13-12-00,NS,0.291581346207569,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,15,EXO0748-676,92019-01-06-03,NS,0.3852994931635567,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,15,EXO0748-676,92019-01-26-01,NS,0.1202035056089933,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,16,GROJ1655-40,90428-01-01-07,BH,0.5855091380412505,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,16,GROJ1655-40,91702-01-81-00,BH,0.6449658611817087,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,16,GROJ1655-40,91702-01-86-04,BH,0.5367539526832521,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,17,GRS1915+105,50703-01-62-01,BH,0.6486941481234076,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,17,GRS1915+105,70702-01-02-00,BH,0.3383755173181788,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,17,GRS1915+105,70702-01-21-01,BH,0.4860750176482242,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,17,GRS1915+105,90701-01-16-00,BH,0.4006867301600691,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,17,GRS1915+105,92702-01-06-00,BH,0.5533842493483186,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,17,GRS1915+105,80701-01-53-00,BH,0.5414621483808199,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,18,GS1826-238,50035-01-02-00,NS,0.3452991606078735,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,18,GS1826-238,50035-01-03-02,NS,0.3857958475019837,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,18,GS1826-238,50035-01-03-04,NS,0.3600302825547906,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,18,GS1826-238,50035-01-03-090,NS,0.4022814624992414,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,18,GS1826-238,80048-01-01-09,NS,0.3253521506456759,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,18,GS1826-238,80048-01-01-14,NS,0.2895167395087438,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,18,GS1826-238,80049-01-01-00,NS,0.3281162848254303,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,18,GS1826-238,90043-01-01-02,NS,0.2902448261367674,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,18,GS1826-238,70044-01-03-00,NS,0.4012383633989245,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,18,GS1826-238,92703-01-04-02,NS,0.2643029350389986,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,18,GS1826-238,70044-01-04-00,NS,0.2870651368772338,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,18,GS1826-238,91017-01-02-05,NS,0.3286581844781225,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,18,GS1826-238,91017-01-02-03,NS,0.2531769424411278,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,18,GS1826-238,91017-01-02-10,NS,0.2706278428623005,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,18,GS1826-238,96306-01-01-01,NS,0.2637923916671669,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,21,GX339-4,80102-04-56-00,BH,0.9431173749048796,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,21,GX339-4,80132-01-22-00,BH,0.6891323950133282,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,21,GX339-4,92034-08-01-00,BH,0.8975328836421974,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,21,GX339-4,92035-01-03-03,BH,0.8589381850659621,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,21,GX339-4,92704-03-13-00,BH,0.7921352372935968,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,21,GX339-4,92704-03-22-00,BH,0.4212794131105111,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,21,GX339-4,92704-03-45-01,BH,0.6689052838920355,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,21,GX339-4,93108-01-01-02,BH,0.7577769663215145,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,22,HETEJ1900.1-245,91015-01-07-00,NS,0.7558234609979345,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,22,HETEJ1900.1-245,91059-03-03-00,NS,0.7585984532001433,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,22,HETEJ1900.1-245,91057-01-07-04,NS,0.7160737043560886,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,22,HETEJ1900.1-245,92049-01-05-00,NS,0.6822627458420674,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,22,HETEJ1900.1-245,92049-01-07-00,NS,0.1792423885502466,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,22,HETEJ1900.1-245,92049-01-40-00,NS,0.6919659110600694,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,22,HETEJ1900.1-245,93030-01-47-00,NS,0.7205181731714168,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,22,HETEJ1900.1-245,94030-01-05-00,NS,0.8307552713870221,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,22,HETEJ1900.1-245,94030-01-36-00,NS,0.705832955622998,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,22,HETEJ1900.1-245,96030-01-01-01,NS,0.5356655562857418,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,22,HETEJ1900.1-245,96030-01-25-00,NS,0.6657633035633628,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,23,KS1731-260,50031-02-01-09,NS,0.4726746019047683,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,23,KS1731-260,50031-02-01-12,NS,0.4839544561962527,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,23,KS1731-260,50031-02-01-02,NS,0.402156178115033,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,23,KS1731-260,50031-02-01-05,NS,0.4409636472943394,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,23,KS1731-260,50031-02-01-08,NS,0.4603666592429415,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,23,KS1731-260,50031-02-02-06,NS,0.4890775704953095,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,23,KS1731-260,50031-02-02-02,NS,0.5150603922883831,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,23,KS1731-260,50031-02-02-03,NS,0.2769384112174209,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,23,KS1731-260,50031-02-02-080,NS,0.451150026849436,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,23,KS1731-260,50031-02-03-04,NS,0.8006484786730137,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,24,MXB1658-298,50410-01-05-00,NS,0.1606508780128436,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,24,MXB1658-298,60048-02-03-00,NS,0.237021871287787,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,24,MXB1658-298,60048-04-05-00,NS,0.56029668453525,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,25,SAXJ1808.4-3658,70080-01-02-04,NS,0.6757266365768521,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,25,SAXJ1808.4-3658,70080-01-02-22,NS,0.7891493774345848,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,25,SAXJ1808.4-3658,70080-01-03-010,NS,0.7719975245775567,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,25,SAXJ1808.4-3658,70080-02-01-03,NS,0.7539917988923895,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,25,SAXJ1808.4-3658,70080-02-02-35,NS,0.7914611700420026,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,25,SAXJ1808.4-3658,70080-03-13-00,NS,0.7604594084080313,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,25,SAXJ1808.4-3658,70080-03-20-13,NS,0.6702777121146377,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,25,SAXJ1808.4-3658,70080-03-22-00,NS,0.5037313932259211,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,25,SAXJ1808.4-3658,96027-01-01-00,NS,0.6888339264892921,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,25,SAXJ1808.4-3658,96027-01-02-00,NS,0.7032801756569033,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,26,SLX1735-269,60034-01-01-00,NS,0.6852321663891909,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,26,SLX1735-269,60034-01-02-02,NS,0.54446149975592,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,26,SLX1735-269,80138-03-02-00,NS,0.6161940376886094,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,26,SLX1735-269,96429-01-02-02,NS,0.6524461365314627,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,26,SLX1735-269,96429-01-06-01,NS,0.7784056582240605,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,26,SLX1735-269,96429-01-08-03,NS,0.6167092496042714,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,27,XTEJ1118+480,50407-01-07-01,BH,0.4707178133933887,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,27,XTEJ1118+480,50407-01-09-00,BH,0.4656163430387089,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,27,XTEJ1118+480,50407-01-10-01,BH,0.5027770576536337,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,27,XTEJ1118+480,50133-01-05-00,BH,0.4999784773136141,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,27,XTEJ1118+480,50407-01-13-02,BH,0.4756144302884368,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,27,XTEJ1118+480,50133-01-04-01,BH,0.4384481961316611,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,27,XTEJ1118+480,50407-01-14-02,BH,0.2771053120840163,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,27,XTEJ1118+480,50407-01-16-00,BH,0.2369926287035005,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,27,XTEJ1118+480,90011-01-01-08,BH,0.4286624056099225,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,27,XTEJ1118+480,90011-01-01-10,BH,0.9476733965952098,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,27,XTEJ1118+480,90011-01-01-05,BH,0.4174113688078337,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,27,XTEJ1118+480,90111-01-02-06,BH,0.2179950722976898,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,27,XTEJ1118+480,90111-01-02-15,BH,0.3813722387812017,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,27,XTEJ1118+480,90111-01-02-07,BH,0.2174181227636548,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,27,XTEJ1118+480,90111-01-03-02,BH,0.1966132202281152,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,28,XTEJ1550-564,50135-01-02-00,BH,0.6441260655220022,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,28,XTEJ1550-564,50135-01-08-00,BH,0.5881901249958802,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,28,XTEJ1550-564,50135-01-15-00,BH,0.3992875067208837,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,28,XTEJ1550-564,50135-01-19-00,BH,0.5790761647554087,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,28,XTEJ1550-564,50135-01-23-00,BH,0.5343976165110975,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,28,XTEJ1550-564,50137-02-09-00,BH,0.5293877404630385,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,28,XTEJ1550-564,60428-01-03-00,BH,0.5297235180805429,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,28,XTEJ1550-564,60428-01-05-00,BH,0.5009448277851856,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,28,XTEJ1550-564,60428-01-09-00,BH,0.5350572115648122,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,28,XTEJ1550-564,60428-01-15-00,BH,0.5947758407265846,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,28,XTEJ1550-564,80135-01-01-01,BH,0.5320709712191201,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,28,XTEJ1550-564,80135-01-02-01,BH,0.5829324831515645,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,28,XTEJ1550-564,80135-01-03-10,BH,0.6174203309028982,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,28,XTEJ1550-564,80135-01-04-02,BH,0.5795274227551324,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,28,XTEJ1550-564,80135-01-05-10,BH,0.5293631778618795,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,29,XTEJ1650-500,60113-01-06-00,BH,0.729750615473683,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,29,XTEJ1650-500,60113-01-09-00,BH,0.8073099006825483,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,29,XTEJ1650-500,60113-01-11-01,BH,0.8375118017291175,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,29,XTEJ1650-500,60118-02-14-00,BH,0.8184118281600198,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,29,XTEJ1650-500,60118-02-20-00,BH,0.2640717972665763,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,29,XTEJ1650-500,60118-02-28-00,BH,0.7088463659137184,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,29,XTEJ1650-500,70124-01-02-00,BH,0.6240077834318927,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,30,XTEJ1814-338,80138-04-02-00,NS,0.4203666055119938,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,30,XTEJ1814-338,80145-02-01-01,NS,0.3782537307979548,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,30,XTEJ1814-338,80418-01-01-07,NS,0.3878110248684167,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,30,XTEJ1814-338,80418-01-02-00,NS,0.4283256130431151,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,30,XTEJ1814-338,80418-01-02-08,NS,0.4704151719079623,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,30,XTEJ1814-338,80418-01-02-05,NS,0.4479357038787984,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,30,XTEJ1814-338,80418-01-03-02,NS,0.4939526316176209,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,30,XTEJ1814-338,80418-01-03-08,NS,0.4949149226860206,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,30,XTEJ1814-338,80418-01-04-03,NS,0.4558170318258124,,,NS,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,30,XTEJ1814-338,80418-01-05-00,NS,0.5377216494199765,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,30,XTEJ1814-338,80418-01-06-00,NS,0.6408848577142844,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,LogReg,30,XTEJ1814-338,80418-01-06-02,NS,0.7033460399489133,,,BH,H-LR [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,,GROJ1655-40,90428-01-01-07,BH,0.9693622837499198,0.9693622837499198,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GROJ1655-40,91702-01-81-00,BH,0.4056172807698327,0.4056172807698327,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GROJ1655-40,91702-01-86-04,BH,0.8837828998950471,0.8837828998950471,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GRS1915+105,50703-01-62-01,BH,0.6172954919682192,0.6172954919682192,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GRS1915+105,70702-01-02-00,BH,0.3325849758032238,0.3325849758032238,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GRS1915+105,70702-01-21-01,BH,0.46443857274916983,0.46443857274916983,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GRS1915+105,90701-01-16-00,BH,0.5533349238574624,0.5533349238574624,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GRS1915+105,92702-01-06-00,BH,0.13141416765911762,0.13141416765911765,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GRS1915+105,80701-01-53-00,BH,0.1483841918771167,0.14838419187711674,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1550-564,50135-01-02-00,BH,0.20056461034917517,0.20056461034917514,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1550-564,50135-01-08-00,BH,0.9299749823992834,0.9299749823992834,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1550-564,50135-01-15-00,BH,0.20065051431764502,0.20065051431764502,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1550-564,50135-01-19-00,BH,0.21782352797978444,0.2178235279797844,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1550-564,50135-01-23-00,BH,0.020054849600549207,0.020054849600549218,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1550-564,50137-02-09-00,BH,0.7796742030194344,0.7796742030194344,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1550-564,60428-01-03-00,BH,0.9371364523837431,0.9371364523837431,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1550-564,60428-01-05-00,BH,0.8340917249948511,0.8340917249948511,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1550-564,60428-01-09-00,BH,0.8367615077682952,0.8367615077682952,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1550-564,60428-01-15-00,BH,0.2428572987889751,0.24285729878897508,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1550-564,80135-01-01-01,BH,0.7796742030194344,0.7796742030194344,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1550-564,80135-01-02-01,BH,0.7796742030194344,0.7796742030194344,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1550-564,80135-01-03-10,BH,0.9083216375689284,0.9083216375689284,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1550-564,80135-01-04-02,BH,0.8340917249948511,0.8340917249948511,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1550-564,80135-01-05-10,BH,0.7796742030194344,0.7796742030194344,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1543-47,70133-01-31-01,BH,0.680912171667315,0.680912171667315,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1543-47,70128-01-01-01,BH,0.729724013980991,0.729724013980991,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1543-47,70124-02-09-00,BH,0.48310250042443087,0.48310250042443087,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1543-47,70124-02-10-00,BH,0.8065489013652007,0.8065489013652007,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1543-47,70124-02-14-00,BH,0.6254183312897639,0.6254183312897639,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GX339-4,80102-04-56-00,BH,0.9103924007396109,0.9103924007396109,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GX339-4,80132-01-22-00,BH,0.8811576521412515,0.8811576521412515,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GX339-4,92034-08-01-00,BH,0.8646442107152031,0.8646442107152031,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GX339-4,92035-01-03-03,BH,0.8496920322840072,0.8496920322840072,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GX339-4,92704-03-13-00,BH,0.2997580976650264,0.2997580976650264,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GX339-4,92704-03-22-00,BH,0.013975317410162169,0.013975317410162147,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GX339-4,92704-03-45-01,BH,0.9168899324655135,0.9168899324655135,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GX339-4,93108-01-01-02,BH,0.905982650507986,0.905982650507986,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1650-500,60113-01-06-00,BH,0.027892056315415525,0.02789205631541555,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1650-500,60113-01-09-00,BH,0.5584021514552845,0.5584021514552845,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1650-500,60113-01-11-01,BH,0.587630092435788,0.587630092435788,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1650-500,60118-02-14-00,BH,0.35947485609897484,0.35947485609897484,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1650-500,60118-02-20-00,BH,0.7366117771846452,0.7366117771846452,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1650-500,60118-02-28-00,BH,0.2844581130509206,0.2844581130509206,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1650-500,70124-01-02-00,BH,0.3881907752692795,0.3881907752692795,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1118+480,50407-01-07-01,BH,0.4465205186439309,0.4465205186439309,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1118+480,50407-01-09-00,BH,0.3848381313176547,0.3848381313176547,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1118+480,50407-01-10-01,BH,0.2729199551355438,0.2729199551355438,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1118+480,50133-01-05-00,BH,0.43587043843623674,0.43587043843623674,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1118+480,50407-01-13-02,BH,0.005898373393697087,0.005898373393697069,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1118+480,50133-01-04-01,BH,0.3816824707667468,0.3816824707667468,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1118+480,50407-01-14-02,BH,0.06559091956035612,0.06559091956035615,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1118+480,50407-01-16-00,BH,0.1349756256505611,0.13497562565056107,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1118+480,90011-01-01-08,BH,0.22315905662447466,0.22315905662447463,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1118+480,90011-01-01-10,BH,0.9534497167317861,0.9534497167317861,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1118+480,90011-01-01-05,BH,0.39357740143430575,0.39357740143430575,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1118+480,90111-01-02-06,BH,0.185546550631094,0.185546550631094,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1118+480,90111-01-02-15,BH,0.07961584974331876,0.07961584974331876,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1118+480,90111-01-02-07,BH,0.185546550631094,0.185546550631094,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1118+480,90111-01-03-02,BH,0.2691087940317878,0.2691087940317878,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1636-53,94087-01-16-00,NS,0.14572630210919635,0.14572630210919632,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1608-52,70069-01-04-03,NS,0.02435506337848159,0.024355063378481596,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1608-52,90408-01-03-03,NS,0.15009383859398318,0.15009383859398315,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1608-52,93408-01-14-00,NS,0.5601291556667094,0.5601291556667094,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1608-52,93408-01-27-03,NS,0.6710193725375555,0.6710193725375555,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1728-34,50030-03-05-03,NS,0.16215113256736513,0.16215113256736513,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1728-34,92023-03-44-00,NS,0.8209043399826907,0.8209043399826907,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1728-34,92023-03-49-00,NS,0.15793166707209177,0.15793166707209177,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1728-34,92023-03-70-00,NS,0.5937969475881125,0.5937969475881125,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,AQLX1,80403-01-03-00,NS,0.8070588136570959,0.8070588136570959,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,AQLX1,90017-11-06-00,NS,0.6002143739588482,0.6002143739588482,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,AQLX1,91028-01-29-00,NS,0.5557969076059397,0.5557969076059397,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,AQLX1,92438-01-02-02,NS,0.5731115192070907,0.5731115192070907,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,AQLX1,94076-01-03-04,NS,0.6618237803866458,0.6618237803866458,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,EXO0748-676,50045-06-05-00,NS,0.033730468505617894,0.03373046850561788,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,EXO0748-676,70048-03-02-00,NS,0.38464330335698244,0.38464330335698244,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,EXO0748-676,60042-03-01-00,NS,0.3654000573931805,0.3654000573931805,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,EXO0748-676,70048-13-12-00,NS,0.38283063106163884,0.38283063106163884,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,EXO0748-676,92019-01-06-03,NS,0.09354507572578985,0.09354507572578982,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,EXO0748-676,92019-01-26-01,NS,0.4378527620834153,0.4378527620834153,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1323-619,90062-03-01-02,NS,0.18051590584573274,0.18051590584573274,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1323-619,90062-03-01-01,NS,0.3532314417319331,0.3532314417319331,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1323-619,95442-01-01-01,NS,0.035167838067555135,0.03516783806755512,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1323-619,95442-01-01-02,NS,0.15755275918357392,0.1575527591835739,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1323-619,96405-01-01-00,NS,0.01863244069668113,0.018632440696681154,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1323-619,96405-01-01-01,NS,0.16856743751586822,0.16856743751586822,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1323-619,96405-01-02-00,NS,0.05872736512360832,0.05872736512360832,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1323-619,96405-01-04-00,NS,0.16695209391766358,0.16695209391766358,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1323-619,96405-01-05-00,NS,0.11493351378427719,0.11493351378427719,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1323-619,96405-01-05-01,NS,0.2717165323560833,0.2717165323560833,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1323-619,96405-01-05-02,NS,0.023794741567346622,0.023794741567346598,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1323-619,96405-01-05-03,NS,0.20061050780264167,0.20061050780264164,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,MXB1658-298,50410-01-05-00,NS,0.9366137085137086,0.9366137085137086,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,MXB1658-298,60048-02-03-00,NS,0.9523851370851373,0.9523851370851373,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,MXB1658-298,60048-04-05-00,NS,0.19134502164502165,0.19134502164502168,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1702-429,50029-27-01-000,NS,0.016455165611383604,0.016455165611383583,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1702-429,50030-01-04-00,NS,0.08196195207387968,0.0819619520738797,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1702-429,50030-01-09-03,NS,0.01697440355829538,0.016974403558295405,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1702-429,80033-01-01-01,NS,0.0744150321833199,0.07441503218331992,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1702-429,80033-01-18-02,NS,0.08085283945119082,0.08085283945119083,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1702-429,80033-01-21-03,NS,0.31789487097597036,0.31789487097597036,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1705-44,91039-01-01-61,NS,0.22272592962592958,0.22272592962592958,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1705-44,93060-01-05-00,NS,0.12504920634920624,0.12504920634920627,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1705-44,95060-01-35-00,NS,0.25179131979131986,0.25179131979131986,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1724-307,60034-02-01-01,NS,0.08559132008733544,0.08559132008733546,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1724-307,50060-05-01-07,NS,0.026639512631196738,0.026639512631196762,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1724-307,50060-05-01-05,NS,0.2306933382638559,0.2306933382638559,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1724-307,60034-02-02-02,NS,0.5172934806675994,0.5172934806675994,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1724-307,60034-02-03-10,NS,0.1465748392374877,0.1465748392374877,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1724-307,60034-02-05-01,NS,0.28689304491134426,0.28689304491134426,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1724-307,80105-10-01-00,NS,0.5794134136077499,0.5794134136077499,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1724-307,93044-06-04-00,NS,0.32273028674948134,0.32273028674948134,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1724-307,93044-06-07-00,NS,0.6276940547611488,0.6276940547611488,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1724-307,93438-01-02-03,NS,0.20371494657399625,0.20371494657399625,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1724-307,93438-01-04-00,NS,0.21225363994837032,0.2122536399483703,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1724-307,93438-01-07-01,NS,0.3408113997470527,0.3408113997470527,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,KS1731-260,50031-02-01-09,NS,0.42055370522705704,0.42055370522705704,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,KS1731-260,50031-02-01-12,NS,0.4447052655739598,0.4447052655739598,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,KS1731-260,50031-02-01-02,NS,0.4263288414844402,0.4263288414844402,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,KS1731-260,50031-02-01-05,NS,0.5178141729440583,0.5178141729440583,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,KS1731-260,50031-02-01-08,NS,0.4218815248604596,0.4218815248604596,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,KS1731-260,50031-02-02-06,NS,0.43895864296085,0.43895864296085,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,KS1731-260,50031-02-02-02,NS,0.7071653202570461,0.7071653202570461,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,KS1731-260,50031-02-02-03,NS,0.011548728178663648,0.011548728178663656,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,KS1731-260,50031-02-02-080,NS,0.42634754956215515,0.42634754956215515,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,KS1731-260,50031-02-03-04,NS,0.5671762832996834,0.5671762832996834,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,SLX1735-269,60034-01-01-00,NS,0.10185648238967471,0.10185648238967471,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,SLX1735-269,60034-01-02-02,NS,0.01267073185602352,0.012670731856023503,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,SLX1735-269,80138-03-02-00,NS,0.014075590289581386,0.014075590289581372,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,SLX1735-269,96429-01-02-02,NS,0.18900566044788503,0.18900566044788505,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,SLX1735-269,96429-01-06-01,NS,0.2344498180680349,0.23444981806803486,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,SLX1735-269,96429-01-08-03,NS,0.13607416748141055,0.13607416748141055,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,SAXJ1808.4-3658,70080-01-02-04,NS,0.059919429770385224,0.0599194297703852,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,SAXJ1808.4-3658,70080-01-02-22,NS,0.1483250536181675,0.14832505361816747,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,SAXJ1808.4-3658,70080-01-03-010,NS,0.49051689758260086,0.49051689758260086,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,SAXJ1808.4-3658,70080-02-01-03,NS,0.46007034999695784,0.46007034999695784,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,SAXJ1808.4-3658,70080-02-02-35,NS,0.09413380164200269,0.09413380164200266,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,SAXJ1808.4-3658,70080-03-13-00,NS,0.49724093427916544,0.49724093427916544,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,SAXJ1808.4-3658,70080-03-20-13,NS,0.0374624046484901,0.03746240464849011,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,SAXJ1808.4-3658,70080-03-22-00,NS,0.9105647314583266,0.9105647314583266,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,SAXJ1808.4-3658,96027-01-01-00,NS,0.09772231826279432,0.0977223182627943,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,SAXJ1808.4-3658,96027-01-02-00,NS,0.0750971549926347,0.07509715499263468,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1814-338,80138-04-02-00,NS,0.05645479083462779,0.0564547908346278,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1814-338,80145-02-01-01,NS,0.18534035552001793,0.18534035552001793,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1814-338,80418-01-01-07,NS,0.1758877207690625,0.1758877207690625,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1814-338,80418-01-02-00,NS,0.48275860297055323,0.48275860297055323,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1814-338,80418-01-02-08,NS,0.19441450411082706,0.19441450411082703,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1814-338,80418-01-02-05,NS,0.47100678450794686,0.47100678450794686,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1814-338,80418-01-03-02,NS,0.7144207530423778,0.7144207530423778,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1814-338,80418-01-03-08,NS,0.6502364970110097,0.6502364970110097,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1814-338,80418-01-04-03,NS,0.6227215368309977,0.6227215368309977,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1814-338,80418-01-05-00,NS,0.7368288775615071,0.7368288775615071,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1814-338,80418-01-06-00,NS,0.7536759787067473,0.7536759787067473,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,XTEJ1814-338,80418-01-06-02,NS,0.595628744068859,0.595628744068859,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,4U1820-30,94090-01-02-01,NS,0.05956606133858727,0.05956606133858726,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GS1826-238,50035-01-02-00,NS,0.19407109638574793,0.1940710963857479,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GS1826-238,50035-01-03-02,NS,0.14261092882304555,0.14261092882304555,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GS1826-238,50035-01-03-04,NS,0.013826617342520497,0.013826617342520511,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GS1826-238,50035-01-03-090,NS,0.0075757679646122345,0.007575767964612252,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GS1826-238,80048-01-01-09,NS,0.003795852702033531,0.003795852702033514,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GS1826-238,80048-01-01-14,NS,0.016518992055960746,0.01651899205596073,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GS1826-238,80049-01-01-00,NS,0.02842193447200614,0.028421934472006145,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GS1826-238,90043-01-01-02,NS,0.04149802791593715,0.041498027915937145,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GS1826-238,70044-01-03-00,NS,0.140026965202816,0.14002696520281602,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GS1826-238,92703-01-04-02,NS,0.04302876061729943,0.043028760617299405,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GS1826-238,70044-01-04-00,NS,0.03146472354768115,0.03146472354768116,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GS1826-238,91017-01-02-05,NS,0.007650398156578975,0.0076503981565789695,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GS1826-238,91017-01-02-03,NS,0.028128259631934383,0.02812825963193437,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GS1826-238,91017-01-02-10,NS,0.021550090633747854,0.021550090633747878,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,GS1826-238,96306-01-01-01,NS,0.047226435153542745,0.047226435153542766,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,HETEJ1900.1-245,91015-01-07-00,NS,0.8162829683413685,0.8162829683413685,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,HETEJ1900.1-245,91059-03-03-00,NS,0.7140146557017135,0.7140146557017135,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,HETEJ1900.1-245,91057-01-07-04,NS,0.1858780035688553,0.18587800356885534,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,HETEJ1900.1-245,92049-01-05-00,NS,0.38048018330678607,0.38048018330678607,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,HETEJ1900.1-245,92049-01-07-00,NS,0.49334711343802373,0.49334711343802373,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,HETEJ1900.1-245,92049-01-40-00,NS,0.2545462303131941,0.2545462303131941,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,HETEJ1900.1-245,93030-01-47-00,NS,0.7254258215187664,0.7254258215187664,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,HETEJ1900.1-245,94030-01-05-00,NS,0.5704388678429687,0.5704388678429687,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,HETEJ1900.1-245,94030-01-36-00,NS,0.180395274908141,0.18039527490814103,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,HETEJ1900.1-245,96030-01-01-01,NS,0.315374991192955,0.315374991192955,0.5,NS,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,,HETEJ1900.1-245,96030-01-25-00,NS,0.803191243362232,0.803191243362232,0.5,BH,"H-RF [hard-like only, trained on hard-like]"
+H_colours,RandomForest,1,4U1323-619,90062-03-01-02,NS,0.2136473981515208,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,1,4U1323-619,90062-03-01-01,NS,0.2715904761232049,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,1,4U1323-619,95442-01-01-01,NS,0.0780006841871458,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,1,4U1323-619,95442-01-01-02,NS,0.216541066138862,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,1,4U1323-619,96405-01-01-00,NS,0.0141695861452404,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,1,4U1323-619,96405-01-01-01,NS,0.1574439807462831,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,1,4U1323-619,96405-01-02-00,NS,0.039376362041706,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,1,4U1323-619,96405-01-04-00,NS,0.228010690393894,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,1,4U1323-619,96405-01-05-00,NS,0.0575745274613199,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,1,4U1323-619,96405-01-05-01,NS,0.4259899918333172,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,1,4U1323-619,96405-01-05-02,NS,0.0196028806029251,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,1,4U1323-619,96405-01-05-03,NS,0.2044343557140474,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,2,4U1543-47,70133-01-31-01,BH,0.7746988506578019,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,2,4U1543-47,70128-01-01-01,BH,0.7236523699629556,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,2,4U1543-47,70124-02-09-00,BH,0.4439678697440374,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,2,4U1543-47,70124-02-10-00,BH,0.8573010394054916,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,2,4U1543-47,70124-02-14-00,BH,0.5123791728029155,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,3,4U1608-52,70069-01-04-03,NS,0.0212629458395077,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,3,4U1608-52,90408-01-03-03,NS,0.1808515371100024,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,3,4U1608-52,93408-01-14-00,NS,0.5125354077095413,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,3,4U1608-52,93408-01-27-03,NS,0.6892772334744948,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,4,4U1636-53,94087-01-16-00,NS,0.1074392315597048,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,5,4U1702-429,50029-27-01-000,NS,0.1081694780577266,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,5,4U1702-429,50030-01-04-00,NS,0.0759062060152231,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,5,4U1702-429,50030-01-09-03,NS,0.0035238095238095,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,5,4U1702-429,80033-01-01-01,NS,0.0455343728529932,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,5,4U1702-429,80033-01-18-02,NS,0.0357711319762586,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,5,4U1702-429,80033-01-21-03,NS,0.1489658974139347,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,6,4U1705-44,91039-01-01-61,NS,0.145079872199241,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,6,4U1705-44,93060-01-05-00,NS,0.1302138221908017,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,6,4U1705-44,95060-01-35-00,NS,0.2536648851950637,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,7,4U1724-307,60034-02-01-01,NS,0.0771797118000889,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,7,4U1724-307,50060-05-01-07,NS,0.0042783882783882,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,7,4U1724-307,50060-05-01-05,NS,0.1355773355604517,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,7,4U1724-307,60034-02-02-02,NS,0.1260751438634018,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,7,4U1724-307,60034-02-03-10,NS,0.0367428983307196,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,7,4U1724-307,60034-02-05-01,NS,0.2794374471556235,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,7,4U1724-307,80105-10-01-00,NS,0.3434898882583544,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,7,4U1724-307,93044-06-04-00,NS,0.0400961424470254,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,7,4U1724-307,93044-06-07-00,NS,0.4716876706035917,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,7,4U1724-307,93438-01-02-03,NS,0.2148546133386547,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,7,4U1724-307,93438-01-04-00,NS,0.2141990745056771,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,7,4U1724-307,93438-01-07-01,NS,0.289503931933109,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,8,4U1728-34,50030-03-05-03,NS,0.0837118491399494,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,8,4U1728-34,92023-03-44-00,NS,0.820145975834741,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,8,4U1728-34,92023-03-49-00,NS,0.0773406307358974,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,8,4U1728-34,92023-03-70-00,NS,0.4555195267284683,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,11,4U1820-30,94090-01-02-01,NS,0.0314424243980987,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,13,AQLX1,80403-01-03-00,NS,0.7771992231650056,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,13,AQLX1,90017-11-06-00,NS,0.4969037149621499,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,13,AQLX1,91028-01-29-00,NS,0.5572111932354302,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,13,AQLX1,92438-01-02-02,NS,0.6774151352875226,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,13,AQLX1,94076-01-03-04,NS,0.6137358204886505,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,15,EXO0748-676,50045-06-05-00,NS,0.0683040315594106,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,15,EXO0748-676,70048-03-02-00,NS,0.3439225514723414,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,15,EXO0748-676,60042-03-01-00,NS,0.3239290197356012,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,15,EXO0748-676,70048-13-12-00,NS,0.3486603419665128,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,15,EXO0748-676,92019-01-06-03,NS,0.1437506356292662,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,15,EXO0748-676,92019-01-26-01,NS,0.4949005760419648,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,16,GROJ1655-40,90428-01-01-07,BH,0.9745827087103208,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,16,GROJ1655-40,91702-01-81-00,BH,0.6049307891873607,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,16,GROJ1655-40,91702-01-86-04,BH,0.9328177889032188,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,17,GRS1915+105,50703-01-62-01,BH,0.0623926038696239,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,17,GRS1915+105,70702-01-02-00,BH,0.0578939901979146,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,17,GRS1915+105,70702-01-21-01,BH,0.1999440500234078,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,17,GRS1915+105,90701-01-16-00,BH,0.1136360340722747,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,17,GRS1915+105,92702-01-06-00,BH,0.0673150818111555,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,17,GRS1915+105,80701-01-53-00,BH,0.123867948106074,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,18,GS1826-238,50035-01-02-00,NS,0.0916787692953772,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,18,GS1826-238,50035-01-03-02,NS,0.1870530827246667,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,18,GS1826-238,50035-01-03-04,NS,0.0142792633115213,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,18,GS1826-238,50035-01-03-090,NS,0.0106513056835637,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,18,GS1826-238,80048-01-01-09,NS,0.0040798771121351,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,18,GS1826-238,80048-01-01-14,NS,0.0053731973731973,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,18,GS1826-238,80049-01-01-00,NS,0.0196352836352836,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,18,GS1826-238,90043-01-01-02,NS,0.027080091080091,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,18,GS1826-238,70044-01-03-00,NS,0.1408766807728889,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,18,GS1826-238,92703-01-04-02,NS,0.0460015401919933,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,18,GS1826-238,70044-01-04-00,NS,0.0121620416549373,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,18,GS1826-238,91017-01-02-05,NS,0.0056036866359447,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,18,GS1826-238,91017-01-02-03,NS,0.0188326568326568,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,18,GS1826-238,91017-01-02-10,NS,0.0209770395613895,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,18,GS1826-238,96306-01-01-01,NS,0.0732756755710072,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,21,GX339-4,80102-04-56-00,BH,0.853745702726749,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,21,GX339-4,80132-01-22-00,BH,0.8720994655799063,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,21,GX339-4,92034-08-01-00,BH,0.842684933891729,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,21,GX339-4,92035-01-03-03,BH,0.7553987418492233,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,21,GX339-4,92704-03-13-00,BH,0.2091547113502599,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,21,GX339-4,92704-03-22-00,BH,0.0138170326883349,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,21,GX339-4,92704-03-45-01,BH,0.9243563167481024,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,21,GX339-4,93108-01-01-02,BH,0.910780069534232,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,22,HETEJ1900.1-245,91015-01-07-00,NS,0.7275760482499888,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,22,HETEJ1900.1-245,91059-03-03-00,NS,0.5972454674328233,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,22,HETEJ1900.1-245,91057-01-07-04,NS,0.1085308054822248,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,22,HETEJ1900.1-245,92049-01-05-00,NS,0.3387732449574066,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,22,HETEJ1900.1-245,92049-01-07-00,NS,0.1439451214132945,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,22,HETEJ1900.1-245,92049-01-40-00,NS,0.205914850666481,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,22,HETEJ1900.1-245,93030-01-47-00,NS,0.6639192214833374,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,22,HETEJ1900.1-245,94030-01-05-00,NS,0.4827703037698879,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,22,HETEJ1900.1-245,94030-01-36-00,NS,0.1177233503399924,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,22,HETEJ1900.1-245,96030-01-01-01,NS,0.2231754560199786,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,22,HETEJ1900.1-245,96030-01-25-00,NS,0.7495227656226675,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,23,KS1731-260,50031-02-01-09,NS,0.3030222986648699,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,23,KS1731-260,50031-02-01-12,NS,0.3259223081087012,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,23,KS1731-260,50031-02-01-02,NS,0.270400407159039,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,23,KS1731-260,50031-02-01-05,NS,0.4732387704083271,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,23,KS1731-260,50031-02-01-08,NS,0.2932864485294454,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,23,KS1731-260,50031-02-02-06,NS,0.3278558114095208,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,23,KS1731-260,50031-02-02-02,NS,0.6391338112123963,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,23,KS1731-260,50031-02-02-03,NS,0.0045714285714285,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,23,KS1731-260,50031-02-02-080,NS,0.2999152622170826,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,23,KS1731-260,50031-02-03-04,NS,0.609145481859639,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,24,MXB1658-298,50410-01-05-00,NS,0.0399178693424841,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,24,MXB1658-298,60048-02-03-00,NS,0.0759399394913653,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,24,MXB1658-298,60048-04-05-00,NS,0.061096089429679,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,25,SAXJ1808.4-3658,70080-01-02-04,NS,0.1263096573980948,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,25,SAXJ1808.4-3658,70080-01-02-22,NS,0.2619934517501526,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,25,SAXJ1808.4-3658,70080-01-03-010,NS,0.438712923124476,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,25,SAXJ1808.4-3658,70080-02-01-03,NS,0.4357888966404705,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,25,SAXJ1808.4-3658,70080-02-02-35,NS,0.0611287987501956,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,25,SAXJ1808.4-3658,70080-03-13-00,NS,0.4444385815371794,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,25,SAXJ1808.4-3658,70080-03-20-13,NS,0.0263564749651706,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,25,SAXJ1808.4-3658,70080-03-22-00,NS,0.7202836886623052,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,25,SAXJ1808.4-3658,96027-01-01-00,NS,0.0896583224601708,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,25,SAXJ1808.4-3658,96027-01-02-00,NS,0.0430375011667454,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,26,SLX1735-269,60034-01-01-00,NS,0.1225588831752197,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,26,SLX1735-269,60034-01-02-02,NS,0.004858939802336,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,26,SLX1735-269,80138-03-02-00,NS,0.0018550724637681,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,26,SLX1735-269,96429-01-02-02,NS,0.2096643089310908,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,26,SLX1735-269,96429-01-06-01,NS,0.1992379417468086,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,26,SLX1735-269,96429-01-08-03,NS,0.0813285209498139,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,27,XTEJ1118+480,50407-01-07-01,BH,0.3843476961355514,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,27,XTEJ1118+480,50407-01-09-00,BH,0.331812349039074,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,27,XTEJ1118+480,50407-01-10-01,BH,0.2395623314929039,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,27,XTEJ1118+480,50133-01-05-00,BH,0.4257563127009451,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,27,XTEJ1118+480,50407-01-13-02,BH,0.0082030279871101,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,27,XTEJ1118+480,50133-01-04-01,BH,0.3815861066730007,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,27,XTEJ1118+480,50407-01-14-02,BH,0.042037605936712,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,27,XTEJ1118+480,50407-01-16-00,BH,0.0356752913411224,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,27,XTEJ1118+480,90011-01-01-08,BH,0.2283935366057779,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,27,XTEJ1118+480,90011-01-01-10,BH,0.885649840708939,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,27,XTEJ1118+480,90011-01-01-05,BH,0.388072024194073,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,27,XTEJ1118+480,90111-01-02-06,BH,0.1540272004480097,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,27,XTEJ1118+480,90111-01-02-15,BH,0.0482407911870676,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,27,XTEJ1118+480,90111-01-02-07,BH,0.1626819272572404,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,27,XTEJ1118+480,90111-01-03-02,BH,0.1794900143358412,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,28,XTEJ1550-564,50135-01-02-00,BH,0.1931494515433332,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,28,XTEJ1550-564,50135-01-08-00,BH,0.9242855002137098,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,28,XTEJ1550-564,50135-01-15-00,BH,0.1707600646975831,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,28,XTEJ1550-564,50135-01-19-00,BH,0.210207741245515,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,28,XTEJ1550-564,50135-01-23-00,BH,0.0129641535803665,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,28,XTEJ1550-564,50137-02-09-00,BH,0.760563365927069,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,28,XTEJ1550-564,60428-01-03-00,BH,0.969163091010064,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,28,XTEJ1550-564,60428-01-05-00,BH,0.908903374962466,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,28,XTEJ1550-564,60428-01-09-00,BH,0.8367227576829999,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,28,XTEJ1550-564,60428-01-15-00,BH,0.1982252375357017,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,28,XTEJ1550-564,80135-01-01-01,BH,0.760563365927069,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,28,XTEJ1550-564,80135-01-02-01,BH,0.7599279299344901,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,28,XTEJ1550-564,80135-01-03-10,BH,0.9441918632174976,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,28,XTEJ1550-564,80135-01-04-02,BH,0.8992123944578111,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,28,XTEJ1550-564,80135-01-05-10,BH,0.7338989359878737,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,29,XTEJ1650-500,60113-01-06-00,BH,0.0197156595962786,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,29,XTEJ1650-500,60113-01-09-00,BH,0.4130902501515786,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,29,XTEJ1650-500,60113-01-11-01,BH,0.4454377754763401,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,29,XTEJ1650-500,60118-02-14-00,BH,0.2825122146958555,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,29,XTEJ1650-500,60118-02-20-00,BH,0.5830677771606129,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,29,XTEJ1650-500,60118-02-28-00,BH,0.4482254471105726,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,29,XTEJ1650-500,70124-01-02-00,BH,0.545735593975142,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,30,XTEJ1814-338,80138-04-02-00,NS,0.0158820749143329,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,30,XTEJ1814-338,80145-02-01-01,NS,0.1935106928449933,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,30,XTEJ1814-338,80418-01-01-07,NS,0.159777787629706,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,30,XTEJ1814-338,80418-01-02-00,NS,0.4253511938235496,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,30,XTEJ1814-338,80418-01-02-08,NS,0.2029136096277287,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,30,XTEJ1814-338,80418-01-02-05,NS,0.4324228498646706,,,NS,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,30,XTEJ1814-338,80418-01-03-02,NS,0.6319943409728163,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,30,XTEJ1814-338,80418-01-03-08,NS,0.6133787199955772,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,30,XTEJ1814-338,80418-01-04-03,NS,0.6155864060989971,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,30,XTEJ1814-338,80418-01-05-00,NS,0.7372953106694822,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,30,XTEJ1814-338,80418-01-06-00,NS,0.8200526971325828,,,BH,H-RF [v2 OOF on the same hard-like obs]
+H_colours,RandomForest,30,XTEJ1814-338,80418-01-06-02,NS,0.6837839204942283,,,BH,H-RF [v2 OOF on the same hard-like obs]
+B_shape,LogReg,,GROJ1655-40,90428-01-01-07,BH,0.7424313301025003,0.7424313301025003,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GROJ1655-40,91702-01-81-00,BH,0.5582591241824268,0.5582591241824268,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GROJ1655-40,91702-01-86-04,BH,0.261595180997475,0.261595180997475,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GRS1915+105,50703-01-62-01,BH,0.42764183899485914,0.42764183899485914,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GRS1915+105,70702-01-02-00,BH,0.035244402292846755,0.035244402292846755,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GRS1915+105,70702-01-21-01,BH,0.11679394197063486,0.11679394197063483,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GRS1915+105,90701-01-16-00,BH,0.5266673118321128,0.5266673118321128,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GRS1915+105,92702-01-06-00,BH,0.16957431024878733,0.16957431024878733,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GRS1915+105,80701-01-53-00,BH,0.1216635774174104,0.1216635774174104,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1550-564,50135-01-02-00,BH,0.6653447334317775,0.6653447334317775,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1550-564,50135-01-08-00,BH,0.8563753124827249,0.8563753124827249,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1550-564,50135-01-15-00,BH,0.14552580378454855,0.14552580378454855,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1550-564,50135-01-19-00,BH,0.8761995377854978,0.8761995377854978,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1550-564,50135-01-23-00,BH,0.9522504672933162,0.9522504672933162,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1550-564,50137-02-09-00,BH,0.82213928373238,0.82213928373238,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1550-564,60428-01-03-00,BH,0.7728558610709128,0.7728558610709128,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1550-564,60428-01-05-00,BH,0.6065409880883613,0.6065409880883613,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1550-564,60428-01-09-00,BH,0.7114887460055574,0.7114887460055574,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1550-564,60428-01-15-00,BH,0.28222965962206287,0.28222965962206287,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1550-564,80135-01-01-01,BH,0.8009070585714707,0.8009070585714707,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1550-564,80135-01-02-01,BH,0.8480353650772462,0.8480353650772462,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1550-564,80135-01-03-10,BH,0.7842026965332023,0.7842026965332023,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1550-564,80135-01-04-02,BH,0.8144637698602579,0.8144637698602579,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1550-564,80135-01-05-10,BH,0.8469929269823236,0.8469929269823236,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1543-47,70133-01-31-01,BH,0.9997153578004592,0.9997153578004592,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1543-47,70128-01-01-01,BH,0.9962031884556375,0.9962031884556375,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1543-47,70124-02-09-00,BH,0.1009043705530942,0.10090437055309422,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1543-47,70124-02-10-00,BH,0.7432814915891671,0.7432814915891671,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1543-47,70124-02-14-00,BH,0.9999265560780735,0.9999265560780735,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GX339-4,80102-04-56-00,BH,0.7547669857941471,0.7547669857941471,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GX339-4,80132-01-22-00,BH,0.7237267636047768,0.7237267636047768,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GX339-4,92034-08-01-00,BH,0.9914031864260687,0.9914031864260687,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GX339-4,92035-01-03-03,BH,0.9062688194545094,0.9062688194545094,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GX339-4,92704-03-13-00,BH,0.8086196963259772,0.8086196963259772,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GX339-4,92704-03-22-00,BH,0.9625958014003426,0.9625958014003426,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GX339-4,92704-03-45-01,BH,0.9663560847391742,0.9663560847391742,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GX339-4,93108-01-01-02,BH,0.5090008520790394,0.5090008520790394,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1650-500,60113-01-06-00,BH,0.6563260358502508,0.6563260358502508,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1650-500,60113-01-09-00,BH,0.7839174830588133,0.7839174830588133,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1650-500,60113-01-11-01,BH,0.8168291807034145,0.8168291807034145,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1650-500,60118-02-14-00,BH,0.7463063454149511,0.7463063454149511,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1650-500,60118-02-20-00,BH,0.03789365928303878,0.03789365928303879,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1650-500,60118-02-28-00,BH,0.3998315032640906,0.3998315032640906,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1650-500,70124-01-02-00,BH,0.21853752454862874,0.2185375245486287,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1118+480,50407-01-07-01,BH,0.04316996233734405,0.04316996233734403,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1118+480,50407-01-09-00,BH,0.23793253087234867,0.2379325308723487,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1118+480,50407-01-10-01,BH,0.19045994136023625,0.19045994136023628,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1118+480,50133-01-05-00,BH,0.09024321248931044,0.09024321248931043,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1118+480,50407-01-13-02,BH,0.15212617975331388,0.1521261797533139,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1118+480,50133-01-04-01,BH,0.10269715237920757,0.10269715237920758,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1118+480,50407-01-14-02,BH,0.00012012775399999898,0.00012012775400002184,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1118+480,50407-01-16-00,BH,7.5993177654498645e-06,7.599317765433615e-06,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1118+480,90011-01-01-08,BH,0.10915921221194519,0.10915921221194519,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1118+480,90011-01-01-10,BH,0.9999448925574235,0.9999448925574235,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1118+480,90011-01-01-05,BH,0.042792384333685485,0.04279238433368546,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1118+480,90111-01-02-06,BH,0.01820556975145382,0.018205569751453796,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1118+480,90111-01-02-15,BH,0.007240509438254328,0.007240509438254307,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1118+480,90111-01-02-07,BH,0.002678042203690334,0.002678042203690346,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1118+480,90111-01-03-02,BH,0.00831623359333633,0.008316233593336324,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1636-53,94087-01-16-00,NS,0.21649399539614855,0.21649399539614855,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1608-52,70069-01-04-03,NS,0.04796155285168613,0.04796155285168613,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1608-52,90408-01-03-03,NS,0.3832562651398885,0.3832562651398885,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1608-52,93408-01-14-00,NS,0.5199028403352355,0.5199028403352355,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1608-52,93408-01-27-03,NS,0.3857744910450782,0.3857744910450782,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1728-34,50030-03-05-03,NS,0.1333136139119333,0.13331361391193333,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1728-34,92023-03-44-00,NS,0.14176940869721688,0.14176940869721688,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1728-34,92023-03-49-00,NS,0.1034081134245814,0.10340811342458138,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1728-34,92023-03-70-00,NS,0.03723314172051656,0.03723314172051654,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,AQLX1,80403-01-03-00,NS,0.9580434115151929,0.9580434115151929,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,AQLX1,90017-11-06-00,NS,0.36587321452240273,0.36587321452240273,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,AQLX1,91028-01-29-00,NS,0.32660237193917424,0.32660237193917424,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,AQLX1,92438-01-02-02,NS,0.171649831495226,0.171649831495226,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,AQLX1,94076-01-03-04,NS,0.5771140311845551,0.5771140311845551,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,EXO0748-676,50045-06-05-00,NS,0.10764465712117621,0.10764465712117621,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,EXO0748-676,70048-03-02-00,NS,0.17438980805852333,0.1743898080585233,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,EXO0748-676,60042-03-01-00,NS,0.2628729918617677,0.2628729918617677,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,EXO0748-676,70048-13-12-00,NS,0.041297128738883526,0.04129712873888352,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,EXO0748-676,92019-01-06-03,NS,0.07308872930893584,0.07308872930893584,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,EXO0748-676,92019-01-26-01,NS,0.534677781042447,0.534677781042447,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1323-619,90062-03-01-02,NS,0.23944700217614057,0.2394470021761406,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1323-619,90062-03-01-01,NS,0.15082789395264284,0.15082789395264282,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1323-619,95442-01-01-01,NS,0.07055899774754176,0.07055899774754178,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1323-619,95442-01-01-02,NS,0.993709122375005,0.993709122375005,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1323-619,96405-01-01-00,NS,0.001965044375802527,0.0019650443758025002,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1323-619,96405-01-01-01,NS,0.028371167535313213,0.028371167535313224,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1323-619,96405-01-02-00,NS,0.17621349720126234,0.17621349720126234,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1323-619,96405-01-04-00,NS,0.09758942407625859,0.09758942407625858,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1323-619,96405-01-05-00,NS,0.17806712569554006,0.17806712569554004,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1323-619,96405-01-05-01,NS,0.570269850576728,0.570269850576728,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1323-619,96405-01-05-02,NS,0.2249514774313015,0.2249514774313015,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1323-619,96405-01-05-03,NS,0.3112409975001657,0.3112409975001657,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,MXB1658-298,50410-01-05-00,NS,0.040550633251753954,0.04055063325175396,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,MXB1658-298,60048-02-03-00,NS,0.025100048887669923,0.025100048887669906,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,MXB1658-298,60048-04-05-00,NS,0.8943145603970775,0.8943145603970775,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1702-429,50029-27-01-000,NS,0.5272499410030232,0.5272499410030232,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1702-429,50030-01-04-00,NS,0.45546881629797714,0.45546881629797714,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1702-429,50030-01-09-03,NS,0.5130263332540769,0.5130263332540769,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1702-429,80033-01-01-01,NS,0.2883232258200779,0.2883232258200779,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1702-429,80033-01-18-02,NS,0.3208166806385558,0.3208166806385558,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1702-429,80033-01-21-03,NS,0.4808222263920273,0.4808222263920273,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1705-44,91039-01-01-61,NS,0.20489952192004546,0.20489952192004549,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1705-44,93060-01-05-00,NS,0.5775098941483962,0.5775098941483962,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1705-44,95060-01-35-00,NS,0.08190012141937375,0.08190012141937375,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1724-307,60034-02-01-01,NS,0.16827953093908787,0.1682795309390879,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1724-307,50060-05-01-07,NS,0.26083603627365887,0.26083603627365887,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1724-307,50060-05-01-05,NS,0.22416203189455952,0.22416203189455955,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1724-307,60034-02-02-02,NS,0.18315585008897273,0.1831558500889727,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1724-307,60034-02-03-10,NS,0.08370290958027571,0.08370290958027571,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1724-307,60034-02-05-01,NS,0.3823790902262432,0.3823790902262432,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1724-307,80105-10-01-00,NS,0.13583483557882664,0.13583483557882664,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1724-307,93044-06-04-00,NS,0.006622669318424479,0.006622669318424486,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1724-307,93044-06-07-00,NS,0.050330178018583804,0.05033017801858381,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1724-307,93438-01-02-03,NS,0.1197824366145992,0.1197824366145992,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1724-307,93438-01-04-00,NS,0.11834326093771685,0.11834326093771684,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1724-307,93438-01-07-01,NS,0.36638083904459157,0.36638083904459157,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,KS1731-260,50031-02-01-09,NS,0.35833877929258834,0.35833877929258834,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,KS1731-260,50031-02-01-12,NS,0.3708515022409826,0.3708515022409826,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,KS1731-260,50031-02-01-02,NS,0.20926202649375014,0.20926202649375014,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,KS1731-260,50031-02-01-05,NS,0.3023290399822138,0.3023290399822138,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,KS1731-260,50031-02-01-08,NS,0.2710683823769992,0.2710683823769992,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,KS1731-260,50031-02-02-06,NS,0.31088551476446663,0.31088551476446663,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,KS1731-260,50031-02-02-02,NS,0.3722728540357248,0.3722728540357248,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,KS1731-260,50031-02-02-03,NS,0.10880726349457892,0.1088072634945789,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,KS1731-260,50031-02-02-080,NS,0.3469506205765788,0.3469506205765788,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,KS1731-260,50031-02-03-04,NS,0.8668202503922349,0.8668202503922349,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,SLX1735-269,60034-01-01-00,NS,0.6500622578934039,0.6500622578934039,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,SLX1735-269,60034-01-02-02,NS,0.11891757210666437,0.11891757210666438,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,SLX1735-269,80138-03-02-00,NS,0.29137350346900276,0.29137350346900276,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,SLX1735-269,96429-01-02-02,NS,0.4135827059996436,0.4135827059996436,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,SLX1735-269,96429-01-06-01,NS,0.7394605458777535,0.7394605458777535,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,SLX1735-269,96429-01-08-03,NS,0.11499493534180516,0.11499493534180519,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,SAXJ1808.4-3658,70080-01-02-04,NS,0.5463348204253945,0.5463348204253945,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,SAXJ1808.4-3658,70080-01-02-22,NS,0.9110216036704509,0.9110216036704509,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,SAXJ1808.4-3658,70080-01-03-010,NS,0.786232478226198,0.786232478226198,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,SAXJ1808.4-3658,70080-02-01-03,NS,0.6776048475879217,0.6776048475879217,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,SAXJ1808.4-3658,70080-02-02-35,NS,0.907968314749328,0.907968314749328,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,SAXJ1808.4-3658,70080-03-13-00,NS,0.5440292821256874,0.5440292821256874,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,SAXJ1808.4-3658,70080-03-20-13,NS,0.6369622815721837,0.6369622815721837,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,SAXJ1808.4-3658,70080-03-22-00,NS,0.42503570307458194,0.42503570307458194,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,SAXJ1808.4-3658,96027-01-01-00,NS,0.566670955920921,0.566670955920921,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,SAXJ1808.4-3658,96027-01-02-00,NS,0.5483745925562221,0.5483745925562221,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1814-338,80138-04-02-00,NS,0.26480733234796416,0.26480733234796416,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1814-338,80145-02-01-01,NS,0.16553672008162978,0.1655367200816298,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1814-338,80418-01-01-07,NS,0.25496035012678286,0.25496035012678286,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1814-338,80418-01-02-00,NS,0.27394171663014033,0.27394171663014033,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1814-338,80418-01-02-08,NS,0.6802203305095762,0.6802203305095762,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1814-338,80418-01-02-05,NS,0.534116632096728,0.534116632096728,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1814-338,80418-01-03-02,NS,0.4100717506362191,0.4100717506362191,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1814-338,80418-01-03-08,NS,0.06158513157870521,0.06158513157870522,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1814-338,80418-01-04-03,NS,0.3152425842222356,0.3152425842222356,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1814-338,80418-01-05-00,NS,0.16921764228000846,0.1692176422800085,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1814-338,80418-01-06-00,NS,0.6967926161496156,0.6967926161496156,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,XTEJ1814-338,80418-01-06-02,NS,0.9179935292671941,0.9179935292671941,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,4U1820-30,94090-01-02-01,NS,0.020875562740113263,0.020875562740113287,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GS1826-238,50035-01-02-00,NS,0.10394719397909813,0.1039471939790981,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GS1826-238,50035-01-03-02,NS,0.3251688049210391,0.3251688049210391,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GS1826-238,50035-01-03-04,NS,0.1240229222500635,0.12402292225006352,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GS1826-238,50035-01-03-090,NS,0.22325092914553935,0.22325092914553937,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GS1826-238,80048-01-01-09,NS,0.24245726569474285,0.24245726569474285,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GS1826-238,80048-01-01-14,NS,0.13785832775331514,0.13785832775331514,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GS1826-238,80049-01-01-00,NS,0.0779772980482133,0.07797729804821328,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GS1826-238,90043-01-01-02,NS,0.10847839223837347,0.10847839223837348,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GS1826-238,70044-01-03-00,NS,0.3830420708535347,0.3830420708535347,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GS1826-238,92703-01-04-02,NS,0.08700052605858888,0.08700052605858889,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GS1826-238,70044-01-04-00,NS,0.10883523903154746,0.10883523903154743,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GS1826-238,91017-01-02-05,NS,0.17274442885252728,0.1727444288525273,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GS1826-238,91017-01-02-03,NS,0.06874344291796353,0.06874344291796355,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GS1826-238,91017-01-02-10,NS,0.2175251432337728,0.21752514323377278,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,GS1826-238,96306-01-01-01,NS,0.10158713390824603,0.101587133908246,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,HETEJ1900.1-245,91015-01-07-00,NS,0.7431587542565549,0.7431587542565549,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,HETEJ1900.1-245,91059-03-03-00,NS,0.9059270314599938,0.9059270314599938,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,HETEJ1900.1-245,91057-01-07-04,NS,0.6330255012932007,0.6330255012932007,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,HETEJ1900.1-245,92049-01-05-00,NS,0.43784181125728244,0.43784181125728244,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,HETEJ1900.1-245,92049-01-07-00,NS,0.005756721747672611,0.005756721747672631,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,HETEJ1900.1-245,92049-01-40-00,NS,0.46739547421942274,0.46739547421942274,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,HETEJ1900.1-245,93030-01-47-00,NS,0.5139612850932689,0.5139612850932689,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,HETEJ1900.1-245,94030-01-05-00,NS,0.8624235897227074,0.8624235897227074,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,HETEJ1900.1-245,94030-01-36-00,NS,0.8098894804244098,0.8098894804244098,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,HETEJ1900.1-245,96030-01-01-01,NS,0.38086394015633995,0.38086394015633995,0.5,NS,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,,HETEJ1900.1-245,96030-01-25-00,NS,0.5841490474371245,0.5841490474371245,0.5,BH,"B-LR [hard-like only, trained on hard-like]"
+B_shape,LogReg,1,4U1323-619,90062-03-01-02,NS,0.4577830134056321,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,1,4U1323-619,90062-03-01-01,NS,0.4043096910597359,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,1,4U1323-619,95442-01-01-01,NS,0.4286899417824288,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,1,4U1323-619,95442-01-01-02,NS,0.9721872555299976,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,1,4U1323-619,96405-01-01-00,NS,0.0647538716791057,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,1,4U1323-619,96405-01-01-01,NS,0.1646520063703422,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,1,4U1323-619,96405-01-02-00,NS,0.3446571001728963,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,1,4U1323-619,96405-01-04-00,NS,0.3733747338592845,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,1,4U1323-619,96405-01-05-00,NS,0.4265001925840005,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,1,4U1323-619,96405-01-05-01,NS,0.7159276791318944,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,1,4U1323-619,96405-01-05-02,NS,0.4088136236018933,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,1,4U1323-619,96405-01-05-03,NS,0.4939175245011592,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,2,4U1543-47,70133-01-31-01,BH,0.9955690483766778,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,2,4U1543-47,70128-01-01-01,BH,0.971840719118654,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,2,4U1543-47,70124-02-09-00,BH,0.5316435078819798,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,2,4U1543-47,70124-02-10-00,BH,0.7888098714909735,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,2,4U1543-47,70124-02-14-00,BH,0.8776338979540966,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,3,4U1608-52,70069-01-04-03,NS,0.2401006793309622,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,3,4U1608-52,90408-01-03-03,NS,0.547473894589909,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,3,4U1608-52,93408-01-14-00,NS,0.5849103591930369,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,3,4U1608-52,93408-01-27-03,NS,0.4650184639914103,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,4,4U1636-53,94087-01-16-00,NS,0.2900571595350074,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,5,4U1702-429,50029-27-01-000,NS,0.4301130394450913,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,5,4U1702-429,50030-01-04-00,NS,0.4656272132812935,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,5,4U1702-429,50030-01-09-03,NS,0.3374841333402361,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,5,4U1702-429,80033-01-01-01,NS,0.3180148909056692,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,5,4U1702-429,80033-01-18-02,NS,0.2969406208586927,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,5,4U1702-429,80033-01-21-03,NS,0.3340230527241934,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,6,4U1705-44,91039-01-01-61,NS,0.3436337590695623,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,6,4U1705-44,93060-01-05-00,NS,0.5204487690139603,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,6,4U1705-44,95060-01-35-00,NS,0.1612991859315968,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,7,4U1724-307,60034-02-01-01,NS,0.2344370029214527,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,7,4U1724-307,50060-05-01-07,NS,0.3705163938440918,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,7,4U1724-307,50060-05-01-05,NS,0.2518341915445903,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,7,4U1724-307,60034-02-02-02,NS,0.2003239481962188,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,7,4U1724-307,60034-02-03-10,NS,0.2205246663592893,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,7,4U1724-307,60034-02-05-01,NS,0.386889778332854,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,7,4U1724-307,80105-10-01-00,NS,0.2577677250036517,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,7,4U1724-307,93044-06-04-00,NS,0.010093020509549,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,7,4U1724-307,93044-06-07-00,NS,0.1105293087920878,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,7,4U1724-307,93438-01-02-03,NS,0.1690602944859024,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,7,4U1724-307,93438-01-04-00,NS,0.1346514906075774,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,7,4U1724-307,93438-01-07-01,NS,0.3245113822573837,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,8,4U1728-34,50030-03-05-03,NS,0.2479316246826909,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,8,4U1728-34,92023-03-44-00,NS,0.1911829049657472,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,8,4U1728-34,92023-03-49-00,NS,0.2203563244867308,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,8,4U1728-34,92023-03-70-00,NS,0.0943982022399922,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,11,4U1820-30,94090-01-02-01,NS,0.085274159506517,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,13,AQLX1,80403-01-03-00,NS,0.6048215622939624,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,13,AQLX1,90017-11-06-00,NS,0.5816884342827578,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,13,AQLX1,91028-01-29-00,NS,0.5001952697938687,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,13,AQLX1,92438-01-02-02,NS,0.5487650018506186,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,13,AQLX1,94076-01-03-04,NS,0.6222283559912455,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,15,EXO0748-676,50045-06-05-00,NS,0.204567642803971,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,15,EXO0748-676,70048-03-02-00,NS,0.4593506993656872,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,15,EXO0748-676,60042-03-01-00,NS,0.4055982467428022,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,15,EXO0748-676,70048-13-12-00,NS,0.2335351904972233,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,15,EXO0748-676,92019-01-06-03,NS,0.2166500732679766,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,15,EXO0748-676,92019-01-26-01,NS,0.6591833494739798,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,16,GROJ1655-40,90428-01-01-07,BH,0.7499621768394261,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,16,GROJ1655-40,91702-01-81-00,BH,0.5945976168425398,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,16,GROJ1655-40,91702-01-86-04,BH,0.4945344486217385,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,17,GRS1915+105,50703-01-62-01,BH,0.2194934709433582,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,17,GRS1915+105,70702-01-02-00,BH,0.0499101248972142,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,17,GRS1915+105,70702-01-21-01,BH,0.1084714821516026,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,17,GRS1915+105,90701-01-16-00,BH,0.1040011210833721,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,17,GRS1915+105,92702-01-06-00,BH,0.1850722063491651,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,17,GRS1915+105,80701-01-53-00,BH,0.1518593334482963,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,18,GS1826-238,50035-01-02-00,NS,0.2307821306818156,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,18,GS1826-238,50035-01-03-02,NS,0.4746330583180487,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,18,GS1826-238,50035-01-03-04,NS,0.2948342355470945,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,18,GS1826-238,50035-01-03-090,NS,0.3824599678797366,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,18,GS1826-238,80048-01-01-09,NS,0.3581499813924553,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,18,GS1826-238,80048-01-01-14,NS,0.2892290906235667,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,18,GS1826-238,80049-01-01-00,NS,0.2212494801301311,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,18,GS1826-238,90043-01-01-02,NS,0.2428588602377256,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,18,GS1826-238,70044-01-03-00,NS,0.4458921482769437,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,18,GS1826-238,92703-01-04-02,NS,0.1944788200121179,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,18,GS1826-238,70044-01-04-00,NS,0.251568535904677,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,18,GS1826-238,91017-01-02-05,NS,0.2948136419057851,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,18,GS1826-238,91017-01-02-03,NS,0.1441088767693335,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,18,GS1826-238,91017-01-02-10,NS,0.3622286355758423,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,18,GS1826-238,96306-01-01-01,NS,0.2633576066850091,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,21,GX339-4,80102-04-56-00,BH,0.9258202561418534,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,21,GX339-4,80132-01-22-00,BH,0.7131805994021121,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,21,GX339-4,92034-08-01-00,BH,0.7697744697233856,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,21,GX339-4,92035-01-03-03,BH,0.7758654892907935,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,21,GX339-4,92704-03-13-00,BH,0.7880298788216366,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,21,GX339-4,92704-03-22-00,BH,0.751671982282308,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,21,GX339-4,92704-03-45-01,BH,0.8804907750538252,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,21,GX339-4,93108-01-01-02,BH,0.49295720175291,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,22,HETEJ1900.1-245,91015-01-07-00,NS,0.6269810225325597,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,22,HETEJ1900.1-245,91059-03-03-00,NS,0.609786488931966,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,22,HETEJ1900.1-245,91057-01-07-04,NS,0.5669521739801568,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,22,HETEJ1900.1-245,92049-01-05-00,NS,0.5066291800579498,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,22,HETEJ1900.1-245,92049-01-07-00,NS,0.0286969792452255,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,22,HETEJ1900.1-245,92049-01-40-00,NS,0.525175196664963,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,22,HETEJ1900.1-245,93030-01-47-00,NS,0.521281419909723,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,22,HETEJ1900.1-245,94030-01-05-00,NS,0.6572587737483581,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,22,HETEJ1900.1-245,94030-01-36-00,NS,0.6916360981883936,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,22,HETEJ1900.1-245,96030-01-01-01,NS,0.4119749482315676,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,22,HETEJ1900.1-245,96030-01-25-00,NS,0.614462890189622,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,23,KS1731-260,50031-02-01-09,NS,0.4489252386311509,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,23,KS1731-260,50031-02-01-12,NS,0.4662901048914528,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,23,KS1731-260,50031-02-01-02,NS,0.3114500986039611,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,23,KS1731-260,50031-02-01-05,NS,0.3955372008907437,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,23,KS1731-260,50031-02-01-08,NS,0.4006269468934098,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,23,KS1731-260,50031-02-02-06,NS,0.4591894498629771,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,23,KS1731-260,50031-02-02-02,NS,0.5283444557730318,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,23,KS1731-260,50031-02-02-03,NS,0.2069854770800771,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,23,KS1731-260,50031-02-02-080,NS,0.4414647803241742,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,23,KS1731-260,50031-02-03-04,NS,0.8054622350735091,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,24,MXB1658-298,50410-01-05-00,NS,0.0338555620681259,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,24,MXB1658-298,60048-02-03-00,NS,0.051100966041044,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,24,MXB1658-298,60048-04-05-00,NS,0.8462253807252315,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,25,SAXJ1808.4-3658,70080-01-02-04,NS,0.4935920928060146,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,25,SAXJ1808.4-3658,70080-01-02-22,NS,0.7412996921036481,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,25,SAXJ1808.4-3658,70080-01-03-010,NS,0.6998283711567187,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,25,SAXJ1808.4-3658,70080-02-01-03,NS,0.701123484062197,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,25,SAXJ1808.4-3658,70080-02-02-35,NS,0.8605742516651751,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,25,SAXJ1808.4-3658,70080-03-13-00,NS,0.6089458419500549,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,25,SAXJ1808.4-3658,70080-03-20-13,NS,0.6715699032604097,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,25,SAXJ1808.4-3658,70080-03-22-00,NS,0.4591022293067773,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,25,SAXJ1808.4-3658,96027-01-01-00,NS,0.5192110337055934,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,25,SAXJ1808.4-3658,96027-01-02-00,NS,0.5055140205227467,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,26,SLX1735-269,60034-01-01-00,NS,0.4945155659783337,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,26,SLX1735-269,60034-01-02-02,NS,0.2079079013200226,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,26,SLX1735-269,80138-03-02-00,NS,0.3072541254461335,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,26,SLX1735-269,96429-01-02-02,NS,0.2563511075728205,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,26,SLX1735-269,96429-01-06-01,NS,0.7438803435407461,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,26,SLX1735-269,96429-01-08-03,NS,0.2955021400345643,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,27,XTEJ1118+480,50407-01-07-01,BH,0.2338674954072775,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,27,XTEJ1118+480,50407-01-09-00,BH,0.3491124677546192,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,27,XTEJ1118+480,50407-01-10-01,BH,0.375959711937344,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,27,XTEJ1118+480,50133-01-05-00,BH,0.295973900604446,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,27,XTEJ1118+480,50407-01-13-02,BH,0.3295149523002818,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,27,XTEJ1118+480,50133-01-04-01,BH,0.2899094343460444,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,27,XTEJ1118+480,50407-01-14-02,BH,0.0175241658884913,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,27,XTEJ1118+480,50407-01-16-00,BH,0.0075100175265094,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,27,XTEJ1118+480,90011-01-01-08,BH,0.2031086283994125,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,27,XTEJ1118+480,90011-01-01-10,BH,0.9866650247491288,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,27,XTEJ1118+480,90011-01-01-05,BH,0.2368197798805643,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,27,XTEJ1118+480,90111-01-02-06,BH,0.2908833418330894,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,27,XTEJ1118+480,90111-01-02-15,BH,0.1758483721940217,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,27,XTEJ1118+480,90111-01-02-07,BH,0.0464438529423087,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,27,XTEJ1118+480,90111-01-03-02,BH,0.3118896203672998,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,28,XTEJ1550-564,50135-01-02-00,BH,0.5389510952181488,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,28,XTEJ1550-564,50135-01-08-00,BH,0.7969560518875668,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,28,XTEJ1550-564,50135-01-15-00,BH,0.2396889748936043,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,28,XTEJ1550-564,50135-01-19-00,BH,0.8130493333257794,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,28,XTEJ1550-564,50135-01-23-00,BH,0.7606314742720945,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,28,XTEJ1550-564,50137-02-09-00,BH,0.8479791490212721,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,28,XTEJ1550-564,60428-01-03-00,BH,0.8058043493339401,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,28,XTEJ1550-564,60428-01-05-00,BH,0.7491789922881383,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,28,XTEJ1550-564,60428-01-09-00,BH,0.732866722977027,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,28,XTEJ1550-564,60428-01-15-00,BH,0.6777571386768177,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,28,XTEJ1550-564,80135-01-01-01,BH,0.8653387816234256,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,28,XTEJ1550-564,80135-01-02-01,BH,0.8976988562265579,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,28,XTEJ1550-564,80135-01-03-10,BH,0.8748641275092013,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,28,XTEJ1550-564,80135-01-04-02,BH,0.8560525540932084,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,28,XTEJ1550-564,80135-01-05-10,BH,0.8675441889034389,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,29,XTEJ1650-500,60113-01-06-00,BH,0.585085562013075,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,29,XTEJ1650-500,60113-01-09-00,BH,0.6420632546222722,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,29,XTEJ1650-500,60113-01-11-01,BH,0.6600386564267909,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,29,XTEJ1650-500,60118-02-14-00,BH,0.6272759558617371,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,29,XTEJ1650-500,60118-02-20-00,BH,0.4370842026294514,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,29,XTEJ1650-500,60118-02-28-00,BH,0.6565327493466994,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,29,XTEJ1650-500,70124-01-02-00,BH,0.6870979623285802,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,30,XTEJ1814-338,80138-04-02-00,NS,0.5147841412977292,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,30,XTEJ1814-338,80145-02-01-01,NS,0.3919311128587504,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,30,XTEJ1814-338,80418-01-01-07,NS,0.518095437655069,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,30,XTEJ1814-338,80418-01-02-00,NS,0.4153416197199086,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,30,XTEJ1814-338,80418-01-02-08,NS,0.7061351986725627,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,30,XTEJ1814-338,80418-01-02-05,NS,0.5892549840823479,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,30,XTEJ1814-338,80418-01-03-02,NS,0.3937902813631804,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,30,XTEJ1814-338,80418-01-03-08,NS,0.4025226648643758,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,30,XTEJ1814-338,80418-01-04-03,NS,0.3842164406713131,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,30,XTEJ1814-338,80418-01-05-00,NS,0.3925663665452414,,,NS,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,30,XTEJ1814-338,80418-01-06-00,NS,0.7048399306020352,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,LogReg,30,XTEJ1814-338,80418-01-06-02,NS,0.828171600937578,,,BH,B-LR [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,,GROJ1655-40,90428-01-01-07,BH,0.7753457345005338,0.7753457345005338,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GROJ1655-40,91702-01-81-00,BH,0.5695620902193603,0.5695620902193603,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GROJ1655-40,91702-01-86-04,BH,0.49042087425299025,0.49042087425299025,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GRS1915+105,50703-01-62-01,BH,0.7298212576378035,0.7298212576378035,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GRS1915+105,70702-01-02-00,BH,0.3439030152077031,0.3439030152077031,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GRS1915+105,70702-01-21-01,BH,0.4626209609960448,0.4626209609960448,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GRS1915+105,90701-01-16-00,BH,0.5303866395430172,0.5303866395430172,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GRS1915+105,92702-01-06-00,BH,0.08878497013372089,0.08878497013372091,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GRS1915+105,80701-01-53-00,BH,0.33919029167403203,0.33919029167403203,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1550-564,50135-01-02-00,BH,0.1306038607066875,0.13060386070668753,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1550-564,50135-01-08-00,BH,0.8020426419911016,0.8020426419911016,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1550-564,50135-01-15-00,BH,0.1914510998486635,0.19145109984866351,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1550-564,50135-01-19-00,BH,0.42408667272253114,0.42408667272253114,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1550-564,50135-01-23-00,BH,0.48781870448451436,0.48781870448451436,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1550-564,50137-02-09-00,BH,0.6161165909387203,0.6161165909387203,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1550-564,60428-01-03-00,BH,0.7481035531467352,0.7481035531467352,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1550-564,60428-01-05-00,BH,0.6845692006334354,0.6845692006334354,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1550-564,60428-01-09-00,BH,0.7429946064904202,0.7429946064904202,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1550-564,60428-01-15-00,BH,0.5076448818324026,0.5076448818324026,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1550-564,80135-01-01-01,BH,0.5959404257046603,0.5959404257046603,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1550-564,80135-01-02-01,BH,0.47876610755634785,0.47876610755634785,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1550-564,80135-01-03-10,BH,0.48690713319737344,0.48690713319737344,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1550-564,80135-01-04-02,BH,0.6677200311632133,0.6677200311632133,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1550-564,80135-01-05-10,BH,0.6086512519154865,0.6086512519154865,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1543-47,70133-01-31-01,BH,0.8540215655883788,0.8540215655883788,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1543-47,70128-01-01-01,BH,0.8226249885542256,0.8226249885542256,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1543-47,70124-02-09-00,BH,0.46492032271035966,0.46492032271035966,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1543-47,70124-02-10-00,BH,0.5190172123263478,0.5190172123263478,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1543-47,70124-02-14-00,BH,0.5786258769316055,0.5786258769316055,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GX339-4,80102-04-56-00,BH,0.6992965720953219,0.6992965720953219,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GX339-4,80132-01-22-00,BH,0.8093444335254476,0.8093444335254476,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GX339-4,92034-08-01-00,BH,0.7534763496262528,0.7534763496262528,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GX339-4,92035-01-03-03,BH,0.9422302683972764,0.9422302683972764,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GX339-4,92704-03-13-00,BH,0.27239758705086564,0.27239758705086564,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GX339-4,92704-03-22-00,BH,0.2472046778635132,0.24720467786351316,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GX339-4,92704-03-45-01,BH,0.6214638784698281,0.6214638784698281,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GX339-4,93108-01-01-02,BH,0.8027598914540361,0.8027598914540361,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1650-500,60113-01-06-00,BH,0.14859059174160216,0.14859059174160213,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1650-500,60113-01-09-00,BH,0.269901873558202,0.269901873558202,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1650-500,60113-01-11-01,BH,0.5020979310026015,0.5020979310026015,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1650-500,60118-02-14-00,BH,0.18364209710731294,0.18364209710731294,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1650-500,60118-02-20-00,BH,0.4136805521498234,0.4136805521498234,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1650-500,60118-02-28-00,BH,0.4830915177998395,0.4830915177998395,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1650-500,70124-01-02-00,BH,0.4942791566897396,0.4942791566897396,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1118+480,50407-01-07-01,BH,0.04810958164642376,0.04810958164642375,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1118+480,50407-01-09-00,BH,0.11296004231138168,0.1129600423113817,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1118+480,50407-01-10-01,BH,0.27711986204129474,0.27711986204129474,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1118+480,50133-01-05-00,BH,0.01403309552654014,0.014033095526540135,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1118+480,50407-01-13-02,BH,0.02188985507246377,0.021889855072463767,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1118+480,50133-01-04-01,BH,0.025982162764771444,0.025982162764771468,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1118+480,50407-01-14-02,BH,0.03383277005222085,0.03383277005222085,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1118+480,50407-01-16-00,BH,0.07905191843507586,0.07905191843507584,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1118+480,90011-01-01-08,BH,0.1766630758148729,0.1766630758148729,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1118+480,90011-01-01-10,BH,0.965281249084076,0.965281249084076,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1118+480,90011-01-01-05,BH,0.06048816681494029,0.0604881668149403,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1118+480,90111-01-02-06,BH,0.06739650884220849,0.06739650884220848,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1118+480,90111-01-02-15,BH,0.20084619866421272,0.20084619866421272,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1118+480,90111-01-02-07,BH,0.058221545502552374,0.05822154550255239,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1118+480,90111-01-03-02,BH,0.13881233096939122,0.13881233096939122,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1636-53,94087-01-16-00,NS,0.03025387247814504,0.030253872478145063,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1608-52,70069-01-04-03,NS,0.1967343254778398,0.1967343254778398,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1608-52,90408-01-03-03,NS,0.14980682543425228,0.14980682543425228,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1608-52,93408-01-14-00,NS,0.32014088433259047,0.32014088433259047,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1608-52,93408-01-27-03,NS,0.45825937368571723,0.45825937368571723,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1728-34,50030-03-05-03,NS,0.06155789129334649,0.06155789129334651,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1728-34,92023-03-44-00,NS,0.06765869585888146,0.06765869585888146,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1728-34,92023-03-49-00,NS,0.054659329972373216,0.054659329972373216,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1728-34,92023-03-70-00,NS,0.2993792824465722,0.2993792824465722,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,AQLX1,80403-01-03-00,NS,0.6403541690885578,0.6403541690885578,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,AQLX1,90017-11-06-00,NS,0.6270011051659069,0.6270011051659069,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,AQLX1,91028-01-29-00,NS,0.22859996800704974,0.2285999680070497,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,AQLX1,92438-01-02-02,NS,0.6203371959636629,0.6203371959636629,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,AQLX1,94076-01-03-04,NS,0.5316783416487066,0.5316783416487066,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,EXO0748-676,50045-06-05-00,NS,0.1984883073312581,0.1984883073312581,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,EXO0748-676,70048-03-02-00,NS,0.3715506485178357,0.3715506485178357,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,EXO0748-676,60042-03-01-00,NS,0.22986393174682118,0.22986393174682118,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,EXO0748-676,70048-13-12-00,NS,0.2835717600190955,0.2835717600190955,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,EXO0748-676,92019-01-06-03,NS,0.23408958637192473,0.23408958637192473,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,EXO0748-676,92019-01-26-01,NS,0.3479115008365915,0.3479115008365915,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1323-619,90062-03-01-02,NS,0.40406578332672843,0.40406578332672843,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1323-619,90062-03-01-01,NS,0.57496694055253,0.57496694055253,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1323-619,95442-01-01-01,NS,0.21971667361194208,0.21971667361194208,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1323-619,95442-01-01-02,NS,0.47786854363518705,0.47786854363518705,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1323-619,96405-01-01-00,NS,0.14482730953151662,0.14482730953151662,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1323-619,96405-01-01-01,NS,0.2617557436268464,0.2617557436268464,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1323-619,96405-01-02-00,NS,0.3083537168956234,0.3083537168956234,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1323-619,96405-01-04-00,NS,0.22717122870181589,0.22717122870181589,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1323-619,96405-01-05-00,NS,0.25298877638697403,0.25298877638697403,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1323-619,96405-01-05-01,NS,0.6294092246337073,0.6294092246337073,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1323-619,96405-01-05-02,NS,0.2283680558321992,0.22836805583219918,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1323-619,96405-01-05-03,NS,0.3535705211858421,0.3535705211858421,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,MXB1658-298,50410-01-05-00,NS,0.800880086580087,0.800880086580087,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,MXB1658-298,60048-02-03-00,NS,0.9271277056277059,0.9271277056277059,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,MXB1658-298,60048-04-05-00,NS,0.6192085470085469,0.6192085470085469,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1702-429,50029-27-01-000,NS,0.40386357160252556,0.40386357160252556,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1702-429,50030-01-04-00,NS,0.040253378302099296,0.040253378302099276,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1702-429,50030-01-09-03,NS,0.4210233302294544,0.4210233302294544,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1702-429,80033-01-01-01,NS,0.05659262145504784,0.056592621455047856,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1702-429,80033-01-18-02,NS,0.07758979717560616,0.07758979717560616,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1702-429,80033-01-21-03,NS,0.505422733676483,0.505422733676483,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1705-44,91039-01-01-61,NS,0.10802857142857136,0.10802857142857139,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1705-44,93060-01-05-00,NS,0.04524444444444442,0.04524444444444445,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1705-44,95060-01-35-00,NS,0.08524761904761902,0.08524761904761904,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1724-307,60034-02-01-01,NS,0.024361514036624177,0.024361514036624173,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1724-307,50060-05-01-07,NS,0.0706450148081208,0.07064501480812077,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1724-307,50060-05-01-05,NS,0.04051716694725094,0.040517166947250924,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1724-307,60034-02-02-02,NS,0.22654394080087825,0.22654394080087822,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1724-307,60034-02-03-10,NS,0.07075220461889631,0.07075220461889631,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1724-307,60034-02-05-01,NS,0.15646636779424983,0.15646636779424983,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1724-307,80105-10-01-00,NS,0.20495481629845025,0.20495481629845022,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1724-307,93044-06-04-00,NS,0.38730610772761254,0.38730610772761254,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1724-307,93044-06-07-00,NS,0.08901733976159548,0.0890173397615955,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1724-307,93438-01-02-03,NS,0.08375832995812782,0.08375832995812783,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1724-307,93438-01-04-00,NS,0.10578779754487255,0.10578779754487254,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1724-307,93438-01-07-01,NS,0.1079028443394307,0.10790284433943069,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,KS1731-260,50031-02-01-09,NS,0.2884557055434621,0.2884557055434621,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,KS1731-260,50031-02-01-12,NS,0.31754041278892925,0.31754041278892925,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,KS1731-260,50031-02-01-02,NS,0.07587112589612499,0.07587112589612499,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,KS1731-260,50031-02-01-05,NS,0.17510423992235075,0.17510423992235075,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,KS1731-260,50031-02-01-08,NS,0.3032239066969889,0.3032239066969889,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,KS1731-260,50031-02-02-06,NS,0.4603795896149265,0.4603795896149265,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,KS1731-260,50031-02-02-02,NS,0.45080889585443906,0.45080889585443906,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,KS1731-260,50031-02-02-03,NS,0.15116759804754976,0.15116759804754978,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,KS1731-260,50031-02-02-080,NS,0.29038059952560663,0.29038059952560663,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,KS1731-260,50031-02-03-04,NS,0.288236824745891,0.288236824745891,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,SLX1735-269,60034-01-01-00,NS,0.3921828069359362,0.3921828069359362,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,SLX1735-269,60034-01-02-02,NS,0.1955659028244427,0.1955659028244427,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,SLX1735-269,80138-03-02-00,NS,0.10693539296550292,0.10693539296550292,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,SLX1735-269,96429-01-02-02,NS,0.49676458401530227,0.49676458401530227,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,SLX1735-269,96429-01-06-01,NS,0.4484112044682011,0.4484112044682011,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,SLX1735-269,96429-01-08-03,NS,0.21561546416620014,0.21561546416620014,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,SAXJ1808.4-3658,70080-01-02-04,NS,0.36579625472391436,0.36579625472391436,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,SAXJ1808.4-3658,70080-01-02-22,NS,0.5287290455971937,0.5287290455971937,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,SAXJ1808.4-3658,70080-01-03-010,NS,0.43986658955739205,0.43986658955739205,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,SAXJ1808.4-3658,70080-02-01-03,NS,0.47789601783951197,0.47789601783951197,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,SAXJ1808.4-3658,70080-02-02-35,NS,0.4726219662395908,0.4726219662395908,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,SAXJ1808.4-3658,70080-03-13-00,NS,0.45175129968679234,0.45175129968679234,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,SAXJ1808.4-3658,70080-03-20-13,NS,0.3093396653435973,0.3093396653435973,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,SAXJ1808.4-3658,70080-03-22-00,NS,0.4369360478211705,0.4369360478211705,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,SAXJ1808.4-3658,96027-01-01-00,NS,0.44668276764172665,0.44668276764172665,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,SAXJ1808.4-3658,96027-01-02-00,NS,0.30870203195776064,0.30870203195776064,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1814-338,80138-04-02-00,NS,0.23047897409414797,0.230478974094148,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1814-338,80145-02-01-01,NS,0.27730097688719235,0.27730097688719235,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1814-338,80418-01-01-07,NS,0.3775711713488516,0.3775711713488516,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1814-338,80418-01-02-00,NS,0.4651972392849079,0.4651972392849079,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1814-338,80418-01-02-08,NS,0.42575653028993893,0.42575653028993893,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1814-338,80418-01-02-05,NS,0.5567300026753325,0.5567300026753325,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1814-338,80418-01-03-02,NS,0.39762130626795,0.39762130626795,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1814-338,80418-01-03-08,NS,0.3468319076879931,0.3468319076879931,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1814-338,80418-01-04-03,NS,0.39639047949584805,0.39639047949584805,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1814-338,80418-01-05-00,NS,0.3769203549326249,0.3769203549326249,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1814-338,80418-01-06-00,NS,0.5675552582305818,0.5675552582305818,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,XTEJ1814-338,80418-01-06-02,NS,0.6459150645476454,0.6459150645476454,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,4U1820-30,94090-01-02-01,NS,0.05215845548755571,0.052158455487555724,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GS1826-238,50035-01-02-00,NS,0.1526552335186609,0.1526552335186609,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GS1826-238,50035-01-03-02,NS,0.09765506271270319,0.09765506271270316,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GS1826-238,50035-01-03-04,NS,0.2224840372375031,0.2224840372375031,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GS1826-238,50035-01-03-090,NS,0.31456735734194724,0.31456735734194724,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GS1826-238,80048-01-01-09,NS,0.10778810812820572,0.10778810812820569,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GS1826-238,80048-01-01-14,NS,0.17607334988469264,0.17607334988469264,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GS1826-238,80049-01-01-00,NS,0.2052246811587144,0.2052246811587144,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GS1826-238,90043-01-01-02,NS,0.16734638123517898,0.16734638123517898,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GS1826-238,70044-01-03-00,NS,0.19473907859448164,0.19473907859448164,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GS1826-238,92703-01-04-02,NS,0.19530016184058702,0.19530016184058702,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GS1826-238,70044-01-04-00,NS,0.15339018514586367,0.1533901851458637,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GS1826-238,91017-01-02-05,NS,0.17590543944659587,0.17590543944659584,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GS1826-238,91017-01-02-03,NS,0.1375543712537014,0.13755437125370143,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GS1826-238,91017-01-02-10,NS,0.06721223050033781,0.06721223050033782,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,GS1826-238,96306-01-01-01,NS,0.08015230000456153,0.08015230000456154,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,HETEJ1900.1-245,91015-01-07-00,NS,0.6887868761320637,0.6887868761320637,0.5,BH,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,HETEJ1900.1-245,91059-03-03-00,NS,0.4375690257461249,0.4375690257461249,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,HETEJ1900.1-245,91057-01-07-04,NS,0.31964720328015184,0.31964720328015184,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,HETEJ1900.1-245,92049-01-05-00,NS,0.20914048506215205,0.20914048506215205,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,HETEJ1900.1-245,92049-01-07-00,NS,0.3787898567901143,0.3787898567901143,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,HETEJ1900.1-245,92049-01-40-00,NS,0.23642480178884617,0.23642480178884617,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,HETEJ1900.1-245,93030-01-47-00,NS,0.28258688953848754,0.28258688953848754,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,HETEJ1900.1-245,94030-01-05-00,NS,0.3589430541469146,0.3589430541469146,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,HETEJ1900.1-245,94030-01-36-00,NS,0.23829533295358024,0.23829533295358024,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,HETEJ1900.1-245,96030-01-01-01,NS,0.07957510294584497,0.07957510294584498,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,,HETEJ1900.1-245,96030-01-25-00,NS,0.436434616493031,0.436434616493031,0.5,NS,"B-RF [hard-like only, trained on hard-like]"
+B_shape,RandomForest,1,4U1323-619,90062-03-01-02,NS,0.3974476107174334,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,1,4U1323-619,90062-03-01-01,NS,0.6005901841707194,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,1,4U1323-619,95442-01-01-01,NS,0.2566615504354436,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,1,4U1323-619,95442-01-01-02,NS,0.4608910599885855,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,1,4U1323-619,96405-01-01-00,NS,0.14804136957902,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,1,4U1323-619,96405-01-01-01,NS,0.3198040389838156,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,1,4U1323-619,96405-01-02-00,NS,0.3296125759686055,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,1,4U1323-619,96405-01-04-00,NS,0.1492610595478303,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,1,4U1323-619,96405-01-05-00,NS,0.2235485524510407,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,1,4U1323-619,96405-01-05-01,NS,0.6091047480676139,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,1,4U1323-619,96405-01-05-02,NS,0.2190802306323805,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,1,4U1323-619,96405-01-05-03,NS,0.3570125737085511,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,2,4U1543-47,70133-01-31-01,BH,0.938668911781363,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,2,4U1543-47,70128-01-01-01,BH,0.836521027053202,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,2,4U1543-47,70124-02-09-00,BH,0.4704758374378503,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,2,4U1543-47,70124-02-10-00,BH,0.5105960749950507,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,2,4U1543-47,70124-02-14-00,BH,0.554493340810784,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,3,4U1608-52,70069-01-04-03,NS,0.1593819569767238,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,3,4U1608-52,90408-01-03-03,NS,0.1315597934545302,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,3,4U1608-52,93408-01-14-00,NS,0.3227408278624571,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,3,4U1608-52,93408-01-27-03,NS,0.5332616377514571,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,4,4U1636-53,94087-01-16-00,NS,0.0267336794923001,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,5,4U1702-429,50029-27-01-000,NS,0.383737194316723,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,5,4U1702-429,50030-01-04-00,NS,0.0471563020753525,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,5,4U1702-429,50030-01-09-03,NS,0.399298458349956,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,5,4U1702-429,80033-01-01-01,NS,0.0589277013988438,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,5,4U1702-429,80033-01-18-02,NS,0.0281395731474855,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,5,4U1702-429,80033-01-21-03,NS,0.3771914979318032,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,6,4U1705-44,91039-01-01-61,NS,0.1479537833363932,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,6,4U1705-44,93060-01-05-00,NS,0.0509421148289073,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,6,4U1705-44,95060-01-35-00,NS,0.0250820278406485,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,7,4U1724-307,60034-02-01-01,NS,0.0185512474946437,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,7,4U1724-307,50060-05-01-07,NS,0.0480829607379304,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,7,4U1724-307,50060-05-01-05,NS,0.0224479744236287,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,7,4U1724-307,60034-02-02-02,NS,0.1499690200703219,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,7,4U1724-307,60034-02-03-10,NS,0.069758973557189,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,7,4U1724-307,60034-02-05-01,NS,0.0943959308939236,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,7,4U1724-307,80105-10-01-00,NS,0.1146420651723604,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,7,4U1724-307,93044-06-04-00,NS,0.0529021694267921,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,7,4U1724-307,93044-06-07-00,NS,0.076718692494782,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,7,4U1724-307,93438-01-02-03,NS,0.0768880544401463,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,7,4U1724-307,93438-01-04-00,NS,0.1037609251377979,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,7,4U1724-307,93438-01-07-01,NS,0.1167446876122363,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,8,4U1728-34,50030-03-05-03,NS,0.0416935596448682,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,8,4U1728-34,92023-03-44-00,NS,0.0631518501841082,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,8,4U1728-34,92023-03-49-00,NS,0.0587150314322974,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,8,4U1728-34,92023-03-70-00,NS,0.1009924543916219,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,11,4U1820-30,94090-01-02-01,NS,0.0430201119635081,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,13,AQLX1,80403-01-03-00,NS,0.4591939563540658,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,13,AQLX1,90017-11-06-00,NS,0.5790409814034094,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,13,AQLX1,91028-01-29-00,NS,0.1678550993850652,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,13,AQLX1,92438-01-02-02,NS,0.596080216913463,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,13,AQLX1,94076-01-03-04,NS,0.4823532990492766,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,15,EXO0748-676,50045-06-05-00,NS,0.2060883220670335,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,15,EXO0748-676,70048-03-02-00,NS,0.316454651220197,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,15,EXO0748-676,60042-03-01-00,NS,0.1977105453344569,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,15,EXO0748-676,70048-13-12-00,NS,0.2504642850036208,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,15,EXO0748-676,92019-01-06-03,NS,0.1772347697095041,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,15,EXO0748-676,92019-01-26-01,NS,0.2752433665189002,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,16,GROJ1655-40,90428-01-01-07,BH,0.7102138382462899,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,16,GROJ1655-40,91702-01-81-00,BH,0.4748345398259594,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,16,GROJ1655-40,91702-01-86-04,BH,0.5612366168463486,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,17,GRS1915+105,50703-01-62-01,BH,0.419736207038196,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,17,GRS1915+105,70702-01-02-00,BH,0.0712665386314373,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,17,GRS1915+105,70702-01-21-01,BH,0.1541934106589608,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,17,GRS1915+105,90701-01-16-00,BH,0.0200503095352225,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,17,GRS1915+105,92702-01-06-00,BH,0.0355595212860627,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,17,GRS1915+105,80701-01-53-00,BH,0.124616306358982,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,18,GS1826-238,50035-01-02-00,NS,0.1109061520716838,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,18,GS1826-238,50035-01-03-02,NS,0.1453685860949932,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,18,GS1826-238,50035-01-03-04,NS,0.2035517390389865,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,18,GS1826-238,50035-01-03-090,NS,0.3047416313665984,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,18,GS1826-238,80048-01-01-09,NS,0.0759059229911575,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,18,GS1826-238,80048-01-01-14,NS,0.1226461287027769,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,18,GS1826-238,80049-01-01-00,NS,0.1691770601204562,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,18,GS1826-238,90043-01-01-02,NS,0.1391849618503057,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,18,GS1826-238,70044-01-03-00,NS,0.2381038584630559,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,18,GS1826-238,92703-01-04-02,NS,0.1188107044516581,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,18,GS1826-238,70044-01-04-00,NS,0.1129555626531646,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,18,GS1826-238,91017-01-02-05,NS,0.1684574771873372,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,18,GS1826-238,91017-01-02-03,NS,0.1081055314801845,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,18,GS1826-238,91017-01-02-10,NS,0.051654807711456,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,18,GS1826-238,96306-01-01-01,NS,0.0550390166234111,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,21,GX339-4,80102-04-56-00,BH,0.537225112482323,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,21,GX339-4,80132-01-22-00,BH,0.7744763161054165,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,21,GX339-4,92034-08-01-00,BH,0.625071135540811,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,21,GX339-4,92035-01-03-03,BH,0.8616542028111205,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,21,GX339-4,92704-03-13-00,BH,0.1964578887960717,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,21,GX339-4,92704-03-22-00,BH,0.2843481814516717,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,21,GX339-4,92704-03-45-01,BH,0.5852566566464191,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,21,GX339-4,93108-01-01-02,BH,0.7374215533011784,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,22,HETEJ1900.1-245,91015-01-07-00,NS,0.627519926551952,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,22,HETEJ1900.1-245,91059-03-03-00,NS,0.3082343737487716,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,22,HETEJ1900.1-245,91057-01-07-04,NS,0.2764283435087288,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,22,HETEJ1900.1-245,92049-01-05-00,NS,0.1873680685929994,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,22,HETEJ1900.1-245,92049-01-07-00,NS,0.0361700910693223,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,22,HETEJ1900.1-245,92049-01-40-00,NS,0.1863394760816633,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,22,HETEJ1900.1-245,93030-01-47-00,NS,0.1953232616763643,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,22,HETEJ1900.1-245,94030-01-05-00,NS,0.3028321260937743,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,22,HETEJ1900.1-245,94030-01-36-00,NS,0.213635828708257,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,22,HETEJ1900.1-245,96030-01-01-01,NS,0.0868351730482304,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,22,HETEJ1900.1-245,96030-01-25-00,NS,0.3805526130935915,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,23,KS1731-260,50031-02-01-09,NS,0.1995111400148698,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,23,KS1731-260,50031-02-01-12,NS,0.2991436520791684,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,23,KS1731-260,50031-02-01-02,NS,0.0576091620160732,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,23,KS1731-260,50031-02-01-05,NS,0.1422970837040393,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,23,KS1731-260,50031-02-01-08,NS,0.2785938227289482,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,23,KS1731-260,50031-02-02-06,NS,0.4619015598014556,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,23,KS1731-260,50031-02-02-02,NS,0.4266243573175625,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,23,KS1731-260,50031-02-02-03,NS,0.097836821324771,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,23,KS1731-260,50031-02-02-080,NS,0.2105268574784954,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,23,KS1731-260,50031-02-03-04,NS,0.2632437235693918,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,24,MXB1658-298,50410-01-05-00,NS,0.0053788819875776,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,24,MXB1658-298,60048-02-03-00,NS,0.0998016589824844,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,24,MXB1658-298,60048-04-05-00,NS,0.5043809940009972,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,25,SAXJ1808.4-3658,70080-01-02-04,NS,0.2909692473916047,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,25,SAXJ1808.4-3658,70080-01-02-22,NS,0.4285568754203425,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,25,SAXJ1808.4-3658,70080-01-03-010,NS,0.3493730601514761,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,25,SAXJ1808.4-3658,70080-02-01-03,NS,0.4119673650139197,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,25,SAXJ1808.4-3658,70080-02-02-35,NS,0.339642523827798,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,25,SAXJ1808.4-3658,70080-03-13-00,NS,0.3264909540265461,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,25,SAXJ1808.4-3658,70080-03-20-13,NS,0.3132987149499805,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,25,SAXJ1808.4-3658,70080-03-22-00,NS,0.3408492795884054,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,25,SAXJ1808.4-3658,96027-01-01-00,NS,0.3566227905136978,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,25,SAXJ1808.4-3658,96027-01-02-00,NS,0.2893923183319907,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,26,SLX1735-269,60034-01-01-00,NS,0.2716958886000565,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,26,SLX1735-269,60034-01-02-02,NS,0.2177814358542665,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,26,SLX1735-269,80138-03-02-00,NS,0.0765014197925309,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,26,SLX1735-269,96429-01-02-02,NS,0.4475017847479324,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,26,SLX1735-269,96429-01-06-01,NS,0.3821511713632807,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,26,SLX1735-269,96429-01-08-03,NS,0.1908891048531675,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,27,XTEJ1118+480,50407-01-07-01,BH,0.0979558465341522,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,27,XTEJ1118+480,50407-01-09-00,BH,0.1303454920013749,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,27,XTEJ1118+480,50407-01-10-01,BH,0.2647670456325137,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,27,XTEJ1118+480,50133-01-05-00,BH,0.0227416118989968,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,27,XTEJ1118+480,50407-01-13-02,BH,0.0368857559518781,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,27,XTEJ1118+480,50133-01-04-01,BH,0.0090947611710323,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,27,XTEJ1118+480,50407-01-14-02,BH,0.0336039576278022,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,27,XTEJ1118+480,50407-01-16-00,BH,0.0714512570367496,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,27,XTEJ1118+480,90011-01-01-08,BH,0.2008986288630001,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,27,XTEJ1118+480,90011-01-01-10,BH,0.8900194666798515,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,27,XTEJ1118+480,90011-01-01-05,BH,0.0588334966928505,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,27,XTEJ1118+480,90111-01-02-06,BH,0.0370926538799465,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,27,XTEJ1118+480,90111-01-02-15,BH,0.169180560566315,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,27,XTEJ1118+480,90111-01-02-07,BH,0.0253953332605292,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,27,XTEJ1118+480,90111-01-03-02,BH,0.1085316706186461,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,28,XTEJ1550-564,50135-01-02-00,BH,0.1216971860544392,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,28,XTEJ1550-564,50135-01-08-00,BH,0.8461598495859052,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,28,XTEJ1550-564,50135-01-15-00,BH,0.2218515848874007,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,28,XTEJ1550-564,50135-01-19-00,BH,0.3683485658753478,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,28,XTEJ1550-564,50135-01-23-00,BH,0.351482866394062,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,28,XTEJ1550-564,50137-02-09-00,BH,0.6845522334660353,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,28,XTEJ1550-564,60428-01-03-00,BH,0.8855702907915906,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,28,XTEJ1550-564,60428-01-05-00,BH,0.825475235580591,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,28,XTEJ1550-564,60428-01-09-00,BH,0.8035973275411623,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,28,XTEJ1550-564,60428-01-15-00,BH,0.4922179105551771,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,28,XTEJ1550-564,80135-01-01-01,BH,0.6131433640430066,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,28,XTEJ1550-564,80135-01-02-01,BH,0.4906153469575871,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,28,XTEJ1550-564,80135-01-03-10,BH,0.5250823622325693,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,28,XTEJ1550-564,80135-01-04-02,BH,0.7527228021982915,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,28,XTEJ1550-564,80135-01-05-10,BH,0.6857593171584958,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,29,XTEJ1650-500,60113-01-06-00,BH,0.0859470469592876,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,29,XTEJ1650-500,60113-01-09-00,BH,0.2639610049081859,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,29,XTEJ1650-500,60113-01-11-01,BH,0.517730201040567,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,29,XTEJ1650-500,60118-02-14-00,BH,0.1382856172409131,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,29,XTEJ1650-500,60118-02-20-00,BH,0.3513638318802696,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,29,XTEJ1650-500,60118-02-28-00,BH,0.4552298502572077,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,29,XTEJ1650-500,70124-01-02-00,BH,0.5138637147798644,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,30,XTEJ1814-338,80138-04-02-00,NS,0.2309529898140756,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,30,XTEJ1814-338,80145-02-01-01,NS,0.4147260673550272,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,30,XTEJ1814-338,80418-01-01-07,NS,0.5338999749511151,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,30,XTEJ1814-338,80418-01-02-00,NS,0.4225752521799544,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,30,XTEJ1814-338,80418-01-02-08,NS,0.5466818041010669,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,30,XTEJ1814-338,80418-01-02-05,NS,0.5519505785615044,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,30,XTEJ1814-338,80418-01-03-02,NS,0.3847364181289665,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,30,XTEJ1814-338,80418-01-03-08,NS,0.4736723024466369,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,30,XTEJ1814-338,80418-01-04-03,NS,0.5235028348415259,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,30,XTEJ1814-338,80418-01-05-00,NS,0.3529615977870433,,,NS,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,30,XTEJ1814-338,80418-01-06-00,NS,0.5920526644562207,,,BH,B-RF [v2 OOF on the same hard-like obs]
+B_shape,RandomForest,30,XTEJ1814-338,80418-01-06-02,NS,0.6263526071553066,,,BH,B-RF [v2 OOF on the same hard-like obs]
