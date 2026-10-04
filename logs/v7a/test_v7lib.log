@@ -1,0 +1,11 @@
+PASS auc_ba AUC == sklearn (ties) (0.516055861946273, 0.516055861946273)
+PASS auc_ba BA == sklearn 
+PASS auc_ba weighted AUC == sklearn sample_weight 
+PASS auc_ba weighted BA == sklearn sample_weight 
+PASS auc_ba single class -> NaN 
+PASS boot_draws == v4lib draws 
+PASS bursts_in_gti overlap 
+PASS MET -> UTC -> MET round trip < 1 ms 1.7881393432617188e-07
+PASS TT - UTC offset ~ 64-66 s 64.18399983085692
+
+ALL PASS

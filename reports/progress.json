@@ -1,5 +1,5 @@
 {
-  "utc": "2026-09-30T18:49:55.886496+00:00",
-  "stage": "v6_analysis",
-  "details": "PRIMARY frozen external E: H_R+T-LR - H_R-LR source AUC +0.000 [+0.000,+0.000], source BA +0.105 [+0.000,+0.237]"
+  "utc": "2026-10-04T23:31:57.858745+00:00",
+  "stage": "v7b1_exclusion",
+  "details": "PRIMARY H-LR minbar-excluded - v2: source BA +0.000 [+0.000,+0.000], source AUC -0.006 [-0.036,+0.000]"
 }

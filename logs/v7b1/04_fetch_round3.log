@@ -1,0 +1,8 @@
+Energy grid: 45 bins, 4.908-25.008 keV (reference 91702-01-66-05)
+GS1826-238 bin 10 accepted 90043-01-02-00 
+4U1735-44 bin 12 accepted 93200-01-03-00 
+            candidates_tried  accepted  bins_empty
+source_id                                         
+4U1735-44                  1         1           0
+GS1826-238                 1         1           0
+Series([], )

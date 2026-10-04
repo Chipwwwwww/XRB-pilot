@@ -1,0 +1,325 @@
+name,comparison,metric,point,ci2_5,ci97_5,frac_first_better,verdict,set,model,comparison_type,role
+v2 H-LR (456 obs),v2 H-LR (456 obs),source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,minbar,H-LR,"vs v2 (all obs, paired by source)",PRIMARY
+v2 H-LR (456 obs),v2 H-LR (456 obs),source_AUC,0.9226190476190477,0.8035714285714286,0.9940476190476191,,,minbar,H-LR,"vs v2 (all obs, paired by source)",PRIMARY
+v2 H-LR (456 obs),v2 H-LR (456 obs),obs_balanced_accuracy,0.7755392755392756,0.6332905982905983,0.8926455026455027,,,minbar,H-LR,"vs v2 (all obs, paired by source)",PRIMARY
+H-LR [minbar],H-LR [minbar],source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,minbar,H-LR,"vs v2 (all obs, paired by source)",PRIMARY
+H-LR [minbar],H-LR [minbar],source_AUC,0.9166666666666666,0.7916666666666666,0.9940476190476191,,,minbar,H-LR,"vs v2 (all obs, paired by source)",PRIMARY
+H-LR [minbar],H-LR [minbar],obs_balanced_accuracy,0.7550300666341622,0.6045037108616612,0.880280612244898,,,minbar,H-LR,"vs v2 (all obs, paired by source)",PRIMARY
+H-LR [minbar],H-LR [minbar] - v2 H-LR (456 obs),source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,minbar,H-LR,"vs v2 (all obs, paired by source)",PRIMARY
+H-LR [minbar],H-LR [minbar] - v2 H-LR (456 obs),source_AUC,-0.005952380952381042,-0.0357142857142857,0.0,0.0,not detected,minbar,H-LR,"vs v2 (all obs, paired by source)",PRIMARY
+H-LR [minbar],H-LR [minbar] - v2 H-LR (456 obs),obs_balanced_accuracy,-0.02050920890511343,-0.037185189573431074,-0.00652962667139985,0.0,not detected,minbar,H-LR,"vs v2 (all obs, paired by source)",PRIMARY
+v2 H-LR (same kept obs),v2 H-LR (same kept obs),source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,minbar,H-LR,vs v2 on the same kept obs,descriptive
+v2 H-LR (same kept obs),v2 H-LR (same kept obs),source_AUC,0.9226190476190477,0.8035714285714286,0.9940476190476191,,,minbar,H-LR,vs v2 on the same kept obs,descriptive
+v2 H-LR (same kept obs),v2 H-LR (same kept obs),obs_balanced_accuracy,0.7580854867544287,0.6137292205614641,0.880280612244898,,,minbar,H-LR,vs v2 on the same kept obs,descriptive
+H-LR [minbar],H-LR [minbar],source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,minbar,H-LR,vs v2 on the same kept obs,descriptive
+H-LR [minbar],H-LR [minbar],source_AUC,0.9166666666666666,0.7916666666666666,0.9940476190476191,,,minbar,H-LR,vs v2 on the same kept obs,descriptive
+H-LR [minbar],H-LR [minbar],obs_balanced_accuracy,0.7550300666341622,0.6045037108616612,0.880280612244898,,,minbar,H-LR,vs v2 on the same kept obs,descriptive
+H-LR [minbar],H-LR [minbar] - v2 H-LR (same kept obs),source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,minbar,H-LR,vs v2 on the same kept obs,descriptive
+H-LR [minbar],H-LR [minbar] - v2 H-LR (same kept obs),source_AUC,-0.005952380952381042,-0.0357142857142857,0.0,0.0,not detected,minbar,H-LR,vs v2 on the same kept obs,descriptive
+H-LR [minbar],H-LR [minbar] - v2 H-LR (same kept obs),obs_balanced_accuracy,-0.0030554201202664943,-0.014285714285714235,0.003987344149015954,0.2425,not detected,minbar,H-LR,vs v2 on the same kept obs,descriptive
+v2 H-RF (456 obs),v2 H-RF (456 obs),source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,minbar,H-RF,"vs v2 (all obs, paired by source)",descriptive
+v2 H-RF (456 obs),v2 H-RF (456 obs),source_AUC,0.9047619047619048,0.7498511904761905,1.0,,,minbar,H-RF,"vs v2 (all obs, paired by source)",descriptive
+v2 H-RF (456 obs),v2 H-RF (456 obs),obs_balanced_accuracy,0.7549043549043549,0.605590686117002,0.8815750915750915,,,minbar,H-RF,"vs v2 (all obs, paired by source)",descriptive
+H-RF [minbar],H-RF [minbar],source_balanced_accuracy,0.8363095238095238,0.6428571428571428,1.0,,,minbar,H-RF,"vs v2 (all obs, paired by source)",descriptive
+H-RF [minbar],H-RF [minbar],source_AUC,0.8869047619047619,0.7022321428571429,1.0,,,minbar,H-RF,"vs v2 (all obs, paired by source)",descriptive
+H-RF [minbar],H-RF [minbar],obs_balanced_accuracy,0.7334470989761093,0.5846844944874502,0.8587948627726952,,,minbar,H-RF,"vs v2 (all obs, paired by source)",descriptive
+H-RF [minbar],H-RF [minbar] - v2 H-RF (456 obs),source_balanced_accuracy,-0.02083333333333337,-0.0625,0.0,0.0,not detected,minbar,H-RF,"vs v2 (all obs, paired by source)",descriptive
+H-RF [minbar],H-RF [minbar] - v2 H-RF (456 obs),source_AUC,-0.017857142857142905,-0.0714285714285714,0.011904761904761862,0.0475,not detected,minbar,H-RF,"vs v2 (all obs, paired by source)",descriptive
+H-RF [minbar],H-RF [minbar] - v2 H-RF (456 obs),obs_balanced_accuracy,-0.021457255928245655,-0.04078228822608394,-0.006341473950910721,0.001,not detected,minbar,H-RF,"vs v2 (all obs, paired by source)",descriptive
+v2 H-RF (same kept obs),v2 H-RF (same kept obs),source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,minbar,H-RF,vs v2 on the same kept obs,descriptive
+v2 H-RF (same kept obs),v2 H-RF (same kept obs),source_AUC,0.8928571428571429,0.7142857142857143,1.0,,,minbar,H-RF,vs v2 on the same kept obs,descriptive
+v2 H-RF (same kept obs),v2 H-RF (same kept obs),obs_balanced_accuracy,0.7484479115878433,0.6005109397221311,0.8765007047048948,,,minbar,H-RF,vs v2 on the same kept obs,descriptive
+H-RF [minbar],H-RF [minbar],source_balanced_accuracy,0.8363095238095238,0.6428571428571428,1.0,,,minbar,H-RF,vs v2 on the same kept obs,descriptive
+H-RF [minbar],H-RF [minbar],source_AUC,0.8869047619047619,0.7022321428571429,1.0,,,minbar,H-RF,vs v2 on the same kept obs,descriptive
+H-RF [minbar],H-RF [minbar],obs_balanced_accuracy,0.7334470989761093,0.5846844944874502,0.8587948627726952,,,minbar,H-RF,vs v2 on the same kept obs,descriptive
+H-RF [minbar],H-RF [minbar] - v2 H-RF (same kept obs),source_balanced_accuracy,-0.02083333333333337,-0.0625,0.0,0.0,not detected,minbar,H-RF,vs v2 on the same kept obs,descriptive
+H-RF [minbar],H-RF [minbar] - v2 H-RF (same kept obs),source_AUC,-0.005952380952381042,-0.0357142857142857,0.0,0.0,not detected,minbar,H-RF,vs v2 on the same kept obs,descriptive
+H-RF [minbar],H-RF [minbar] - v2 H-RF (same kept obs),obs_balanced_accuracy,-0.015000812611734027,-0.034834373984165445,-0.0013486432723539932,0.007,not detected,minbar,H-RF,vs v2 on the same kept obs,descriptive
+v2 B-LR (456 obs),v2 B-LR (456 obs),source_balanced_accuracy,0.7738095238095238,0.5684523809523809,0.9375,,,minbar,B-LR,"vs v2 (all obs, paired by source)",descriptive
+v2 B-LR (456 obs),v2 B-LR (456 obs),source_AUC,0.875,0.690327380952381,1.0,,,minbar,B-LR,"vs v2 (all obs, paired by source)",descriptive
+v2 B-LR (456 obs),v2 B-LR (456 obs),obs_balanced_accuracy,0.7607244607244608,0.5916045991045991,0.9026075605680869,,,minbar,B-LR,"vs v2 (all obs, paired by source)",descriptive
+B-LR [minbar],B-LR [minbar],source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,minbar,B-LR,"vs v2 (all obs, paired by source)",descriptive
+B-LR [minbar],B-LR [minbar],source_AUC,0.8630952380952381,0.6547619047619048,1.0,,,minbar,B-LR,"vs v2 (all obs, paired by source)",descriptive
+B-LR [minbar],B-LR [minbar],obs_balanced_accuracy,0.7581667479278401,0.5829519110275689,0.9056152223612584,,,minbar,B-LR,"vs v2 (all obs, paired by source)",descriptive
+B-LR [minbar],B-LR [minbar] - v2 B-LR (456 obs),source_balanced_accuracy,-0.02083333333333337,-0.0625,0.0,0.0,not detected,minbar,B-LR,"vs v2 (all obs, paired by source)",descriptive
+B-LR [minbar],B-LR [minbar] - v2 B-LR (456 obs),source_AUC,-0.011904761904761862,-0.0535714285714286,0.0,0.0,not detected,minbar,B-LR,"vs v2 (all obs, paired by source)",descriptive
+B-LR [minbar],B-LR [minbar] - v2 B-LR (456 obs),obs_balanced_accuracy,-0.002557712796620648,-0.02036019631018491,0.015260178040350498,0.398,not detected,minbar,B-LR,"vs v2 (all obs, paired by source)",descriptive
+v2 B-LR (same kept obs),v2 B-LR (same kept obs),source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,minbar,B-LR,vs v2 on the same kept obs,descriptive
+v2 B-LR (same kept obs),v2 B-LR (same kept obs),source_AUC,0.8690476190476191,0.6666666666666666,1.0,,,minbar,B-LR,vs v2 on the same kept obs,descriptive
+v2 B-LR (same kept obs),v2 B-LR (same kept obs),obs_balanced_accuracy,0.7503494230456688,0.5791542267537929,0.8952105595396401,,,minbar,B-LR,vs v2 on the same kept obs,descriptive
+B-LR [minbar],B-LR [minbar],source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,minbar,B-LR,vs v2 on the same kept obs,descriptive
+B-LR [minbar],B-LR [minbar],source_AUC,0.8630952380952381,0.6547619047619048,1.0,,,minbar,B-LR,vs v2 on the same kept obs,descriptive
+B-LR [minbar],B-LR [minbar],obs_balanced_accuracy,0.7581667479278401,0.5829519110275689,0.9056152223612584,,,minbar,B-LR,vs v2 on the same kept obs,descriptive
+B-LR [minbar],B-LR [minbar] - v2 B-LR (same kept obs),source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,minbar,B-LR,vs v2 on the same kept obs,descriptive
+B-LR [minbar],B-LR [minbar] - v2 B-LR (same kept obs),source_AUC,-0.005952380952380931,-0.0357142857142857,0.0,0.0,not detected,minbar,B-LR,vs v2 on the same kept obs,descriptive
+B-LR [minbar],B-LR [minbar] - v2 B-LR (same kept obs),obs_balanced_accuracy,0.00781732488217135,-0.006969001629134164,0.022606655651584397,0.8225,not detected,minbar,B-LR,vs v2 on the same kept obs,descriptive
+v2 B-RF (456 obs),v2 B-RF (456 obs),source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,minbar,B-RF,"vs v2 (all obs, paired by source)",descriptive
+v2 B-RF (456 obs),v2 B-RF (456 obs),source_AUC,0.8928571428571429,0.7321428571428571,1.0,,,minbar,B-RF,"vs v2 (all obs, paired by source)",descriptive
+v2 B-RF (456 obs),v2 B-RF (456 obs),obs_balanced_accuracy,0.7605616605616605,0.6209851953601954,0.877205774853801,,,minbar,B-RF,"vs v2 (all obs, paired by source)",descriptive
+B-RF [minbar],B-RF [minbar],source_balanced_accuracy,0.8363095238095238,0.6428571428571428,1.0,,,minbar,B-RF,"vs v2 (all obs, paired by source)",descriptive
+B-RF [minbar],B-RF [minbar],source_AUC,0.8690476190476191,0.6666666666666666,1.0,,,minbar,B-RF,"vs v2 (all obs, paired by source)",descriptive
+B-RF [minbar],B-RF [minbar],obs_balanced_accuracy,0.7638062733625874,0.6138596616906226,0.8914008455494874,,,minbar,B-RF,"vs v2 (all obs, paired by source)",descriptive
+B-RF [minbar],B-RF [minbar] - v2 B-RF (456 obs),source_balanced_accuracy,-0.02083333333333337,-0.0625,0.0,0.0,not detected,minbar,B-RF,"vs v2 (all obs, paired by source)",descriptive
+B-RF [minbar],B-RF [minbar] - v2 B-RF (456 obs),source_AUC,-0.023809523809523836,-0.0892857142857143,0.0,0.0,not detected,minbar,B-RF,"vs v2 (all obs, paired by source)",descriptive
+B-RF [minbar],B-RF [minbar] - v2 B-RF (456 obs),obs_balanced_accuracy,0.003244612800926916,-0.01359434444047789,0.018946907465180823,0.639,not detected,minbar,B-RF,"vs v2 (all obs, paired by source)",descriptive
+v2 B-RF (same kept obs),v2 B-RF (same kept obs),source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,minbar,B-RF,vs v2 on the same kept obs,descriptive
+v2 B-RF (same kept obs),v2 B-RF (same kept obs),source_AUC,0.8809523809523809,0.6904761904761905,1.0,,,minbar,B-RF,vs v2 on the same kept obs,descriptive
+v2 B-RF (same kept obs),v2 B-RF (same kept obs),obs_balanced_accuracy,0.7580529822850642,0.6181674720628209,0.8754026610644258,,,minbar,B-RF,vs v2 on the same kept obs,descriptive
+B-RF [minbar],B-RF [minbar],source_balanced_accuracy,0.8363095238095238,0.6428571428571428,1.0,,,minbar,B-RF,vs v2 on the same kept obs,descriptive
+B-RF [minbar],B-RF [minbar],source_AUC,0.8690476190476191,0.6666666666666666,1.0,,,minbar,B-RF,vs v2 on the same kept obs,descriptive
+B-RF [minbar],B-RF [minbar],obs_balanced_accuracy,0.7638062733625874,0.6138596616906226,0.8914008455494874,,,minbar,B-RF,vs v2 on the same kept obs,descriptive
+B-RF [minbar],B-RF [minbar] - v2 B-RF (same kept obs),source_balanced_accuracy,-0.02083333333333337,-0.0625,0.0,0.0,not detected,minbar,B-RF,vs v2 on the same kept obs,descriptive
+B-RF [minbar],B-RF [minbar] - v2 B-RF (same kept obs),source_AUC,-0.011904761904761862,-0.05357142857142849,0.0,0.0,not detected,minbar,B-RF,vs v2 on the same kept obs,descriptive
+B-RF [minbar],B-RF [minbar] - v2 B-RF (same kept obs),obs_balanced_accuracy,0.005753291077523204,-0.009733493524353648,0.020850544361846402,0.7415,not detected,minbar,B-RF,vs v2 on the same kept obs,descriptive
+H-LR [minbar],H-LR [minbar],source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,minbar,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+H-LR [minbar],H-LR [minbar],source_AUC,0.9166666666666666,0.7916666666666666,0.9940476190476191,,,minbar,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+H-LR [minbar],H-LR [minbar],obs_balanced_accuracy,0.7550300666341622,0.6045037108616612,0.880280612244898,,,minbar,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+B-LR [minbar],B-LR [minbar],source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,minbar,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+B-LR [minbar],B-LR [minbar],source_AUC,0.8630952380952381,0.6547619047619048,1.0,,,minbar,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+B-LR [minbar],B-LR [minbar],obs_balanced_accuracy,0.7581667479278401,0.5829519110275689,0.9056152223612584,,,minbar,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+B-LR [minbar],B-LR [minbar] - H-LR [minbar],source_balanced_accuracy,-0.04166666666666674,-0.10416666666666663,0.0,0.0,not detected,minbar,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+B-LR [minbar],B-LR [minbar] - H-LR [minbar],source_AUC,-0.05357142857142849,-0.19047619047619047,0.04761904761904767,0.1625,not detected,minbar,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+B-LR [minbar],B-LR [minbar] - H-LR [minbar],obs_balanced_accuracy,0.0031366812936779453,-0.061276117514292974,0.054494972263259944,0.564,not detected,minbar,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+H-RF [minbar],H-RF [minbar],source_balanced_accuracy,0.8363095238095238,0.6428571428571428,1.0,,,minbar,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+H-RF [minbar],H-RF [minbar],source_AUC,0.8869047619047619,0.7022321428571429,1.0,,,minbar,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+H-RF [minbar],H-RF [minbar],obs_balanced_accuracy,0.7334470989761093,0.5846844944874502,0.8587948627726952,,,minbar,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+B-RF [minbar],B-RF [minbar],source_balanced_accuracy,0.8363095238095238,0.6428571428571428,1.0,,,minbar,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+B-RF [minbar],B-RF [minbar],source_AUC,0.8690476190476191,0.6666666666666666,1.0,,,minbar,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+B-RF [minbar],B-RF [minbar],obs_balanced_accuracy,0.7638062733625874,0.6138596616906226,0.8914008455494874,,,minbar,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+B-RF [minbar],B-RF [minbar] - H-RF [minbar],source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,minbar,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+B-RF [minbar],B-RF [minbar] - H-RF [minbar],source_AUC,-0.017857142857142794,-0.09523809523809523,0.04761904761904767,0.224,not detected,minbar,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+B-RF [minbar],B-RF [minbar] - H-RF [minbar],obs_balanced_accuracy,0.03035917438647817,0.0035708450046685212,0.061856667120263734,0.9865,improvement,minbar,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+v2 H-LR (456 obs),v2 H-LR (456 obs),source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,literal,H-LR,"vs v2 (all obs, paired by source)",descriptive
+v2 H-LR (456 obs),v2 H-LR (456 obs),source_AUC,0.9226190476190477,0.8035714285714286,0.9940476190476191,,,literal,H-LR,"vs v2 (all obs, paired by source)",descriptive
+v2 H-LR (456 obs),v2 H-LR (456 obs),obs_balanced_accuracy,0.7755392755392756,0.6332905982905983,0.8926455026455027,,,literal,H-LR,"vs v2 (all obs, paired by source)",descriptive
+H-LR [literal],H-LR [literal],source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,literal,H-LR,"vs v2 (all obs, paired by source)",descriptive
+H-LR [literal],H-LR [literal],source_AUC,0.9226190476190477,0.8035714285714286,0.9940476190476191,,,literal,H-LR,"vs v2 (all obs, paired by source)",descriptive
+H-LR [literal],H-LR [literal],obs_balanced_accuracy,0.7523399603743937,0.5987750934298128,0.8789577154523962,,,literal,H-LR,"vs v2 (all obs, paired by source)",descriptive
+H-LR [literal],H-LR [literal] - v2 H-LR (456 obs),source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,literal,H-LR,"vs v2 (all obs, paired by source)",descriptive
+H-LR [literal],H-LR [literal] - v2 H-LR (456 obs),source_AUC,0.0,0.0,0.0,0.0,not detected,literal,H-LR,"vs v2 (all obs, paired by source)",descriptive
+H-LR [literal],H-LR [literal] - v2 H-LR (456 obs),obs_balanced_accuracy,-0.02319931516488194,-0.040438671114786315,-0.008108424922562871,0.0005,not detected,literal,H-LR,"vs v2 (all obs, paired by source)",descriptive
+v2 H-LR (same kept obs),v2 H-LR (same kept obs),source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,literal,H-LR,vs v2 on the same kept obs,descriptive
+v2 H-LR (same kept obs),v2 H-LR (same kept obs),source_AUC,0.9226190476190477,0.8035714285714286,0.9940476190476191,,,literal,H-LR,vs v2 on the same kept obs,descriptive
+v2 H-LR (same kept obs),v2 H-LR (same kept obs),obs_balanced_accuracy,0.7554997608799617,0.6114475612800325,0.8784140590509779,,,literal,H-LR,vs v2 on the same kept obs,descriptive
+H-LR [literal],H-LR [literal],source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,literal,H-LR,vs v2 on the same kept obs,descriptive
+H-LR [literal],H-LR [literal],source_AUC,0.9226190476190477,0.8035714285714286,0.9940476190476191,,,literal,H-LR,vs v2 on the same kept obs,descriptive
+H-LR [literal],H-LR [literal],obs_balanced_accuracy,0.7523399603743937,0.5987750934298128,0.8789577154523962,,,literal,H-LR,vs v2 on the same kept obs,descriptive
+H-LR [literal],H-LR [literal] - v2 H-LR (same kept obs),source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,literal,H-LR,vs v2 on the same kept obs,descriptive
+H-LR [literal],H-LR [literal] - v2 H-LR (same kept obs),source_AUC,0.0,0.0,0.0,0.0,not detected,literal,H-LR,vs v2 on the same kept obs,descriptive
+H-LR [literal],H-LR [literal] - v2 H-LR (same kept obs),obs_balanced_accuracy,-0.003159800505568078,-0.014423076923076875,0.004085564471279748,0.2405,not detected,literal,H-LR,vs v2 on the same kept obs,descriptive
+v2 H-RF (456 obs),v2 H-RF (456 obs),source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,literal,H-RF,"vs v2 (all obs, paired by source)",descriptive
+v2 H-RF (456 obs),v2 H-RF (456 obs),source_AUC,0.9047619047619048,0.7498511904761905,1.0,,,literal,H-RF,"vs v2 (all obs, paired by source)",descriptive
+v2 H-RF (456 obs),v2 H-RF (456 obs),obs_balanced_accuracy,0.7549043549043549,0.605590686117002,0.8815750915750915,,,literal,H-RF,"vs v2 (all obs, paired by source)",descriptive
+H-RF [literal],H-RF [literal],source_balanced_accuracy,0.8363095238095238,0.6428571428571428,1.0,,,literal,H-RF,"vs v2 (all obs, paired by source)",descriptive
+H-RF [literal],H-RF [literal],source_AUC,0.8869047619047619,0.7022321428571429,1.0,,,literal,H-RF,"vs v2 (all obs, paired by source)",descriptive
+H-RF [literal],H-RF [literal],obs_balanced_accuracy,0.727915556466489,0.5827375287222865,0.8542342856243027,,,literal,H-RF,"vs v2 (all obs, paired by source)",descriptive
+H-RF [literal],H-RF [literal] - v2 H-RF (456 obs),source_balanced_accuracy,-0.02083333333333337,-0.0625,0.0,0.0,not detected,literal,H-RF,"vs v2 (all obs, paired by source)",descriptive
+H-RF [literal],H-RF [literal] - v2 H-RF (456 obs),source_AUC,-0.017857142857142905,-0.0714285714285714,0.011904761904761862,0.0475,not detected,literal,H-RF,"vs v2 (all obs, paired by source)",descriptive
+H-RF [literal],H-RF [literal] - v2 H-RF (456 obs),obs_balanced_accuracy,-0.026988798437865946,-0.04108445217674378,-0.012233236934609351,0.0,not detected,literal,H-RF,"vs v2 (all obs, paired by source)",descriptive
+v2 H-RF (same kept obs),v2 H-RF (same kept obs),source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,literal,H-RF,vs v2 on the same kept obs,descriptive
+v2 H-RF (same kept obs),v2 H-RF (same kept obs),source_AUC,0.8928571428571429,0.7142857142857143,1.0,,,literal,H-RF,vs v2 on the same kept obs,descriptive
+v2 H-RF (same kept obs),v2 H-RF (same kept obs),obs_balanced_accuracy,0.7432704789232767,0.5958437556284101,0.8730452424274447,,,literal,H-RF,vs v2 on the same kept obs,descriptive
+H-RF [literal],H-RF [literal],source_balanced_accuracy,0.8363095238095238,0.6428571428571428,1.0,,,literal,H-RF,vs v2 on the same kept obs,descriptive
+H-RF [literal],H-RF [literal],source_AUC,0.8869047619047619,0.7022321428571429,1.0,,,literal,H-RF,vs v2 on the same kept obs,descriptive
+H-RF [literal],H-RF [literal],obs_balanced_accuracy,0.727915556466489,0.5827375287222865,0.8542342856243027,,,literal,H-RF,vs v2 on the same kept obs,descriptive
+H-RF [literal],H-RF [literal] - v2 H-RF (same kept obs),source_balanced_accuracy,-0.02083333333333337,-0.0625,0.0,0.0,not detected,literal,H-RF,vs v2 on the same kept obs,descriptive
+H-RF [literal],H-RF [literal] - v2 H-RF (same kept obs),source_AUC,-0.005952380952381042,-0.0357142857142857,0.0,0.0,not detected,literal,H-RF,vs v2 on the same kept obs,descriptive
+H-RF [literal],H-RF [literal] - v2 H-RF (same kept obs),obs_balanced_accuracy,-0.015354922456787712,-0.02922328977137414,-0.003860632610632605,0.0,not detected,literal,H-RF,vs v2 on the same kept obs,descriptive
+v2 B-LR (456 obs),v2 B-LR (456 obs),source_balanced_accuracy,0.7738095238095238,0.5684523809523809,0.9375,,,literal,B-LR,"vs v2 (all obs, paired by source)",descriptive
+v2 B-LR (456 obs),v2 B-LR (456 obs),source_AUC,0.875,0.690327380952381,1.0,,,literal,B-LR,"vs v2 (all obs, paired by source)",descriptive
+v2 B-LR (456 obs),v2 B-LR (456 obs),obs_balanced_accuracy,0.7607244607244608,0.5916045991045991,0.9026075605680869,,,literal,B-LR,"vs v2 (all obs, paired by source)",descriptive
+B-LR [literal],B-LR [literal],source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,literal,B-LR,"vs v2 (all obs, paired by source)",descriptive
+B-LR [literal],B-LR [literal],source_AUC,0.8630952380952381,0.6547619047619048,1.0,,,literal,B-LR,"vs v2 (all obs, paired by source)",descriptive
+B-LR [literal],B-LR [literal],obs_balanced_accuracy,0.7553802008608321,0.5791691409830187,0.9062094985655825,,,literal,B-LR,"vs v2 (all obs, paired by source)",descriptive
+B-LR [literal],B-LR [literal] - v2 B-LR (456 obs),source_balanced_accuracy,-0.02083333333333337,-0.0625,0.0,0.0,not detected,literal,B-LR,"vs v2 (all obs, paired by source)",descriptive
+B-LR [literal],B-LR [literal] - v2 B-LR (456 obs),source_AUC,-0.011904761904761862,-0.0535714285714286,0.0,0.0,not detected,literal,B-LR,"vs v2 (all obs, paired by source)",descriptive
+B-LR [literal],B-LR [literal] - v2 B-LR (456 obs),obs_balanced_accuracy,-0.005344259863628631,-0.022707565746248586,0.013214680222503791,0.2985,not detected,literal,B-LR,"vs v2 (all obs, paired by source)",descriptive
+v2 B-LR (same kept obs),v2 B-LR (same kept obs),source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,literal,B-LR,vs v2 on the same kept obs,descriptive
+v2 B-LR (same kept obs),v2 B-LR (same kept obs),source_AUC,0.8690476190476191,0.6666666666666666,1.0,,,literal,B-LR,vs v2 on the same kept obs,descriptive
+v2 B-LR (same kept obs),v2 B-LR (same kept obs),obs_balanced_accuracy,0.7473184395709503,0.5785924222506497,0.895993501973412,,,literal,B-LR,vs v2 on the same kept obs,descriptive
+B-LR [literal],B-LR [literal],source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,literal,B-LR,vs v2 on the same kept obs,descriptive
+B-LR [literal],B-LR [literal],source_AUC,0.8630952380952381,0.6547619047619048,1.0,,,literal,B-LR,vs v2 on the same kept obs,descriptive
+B-LR [literal],B-LR [literal],obs_balanced_accuracy,0.7553802008608321,0.5791691409830187,0.9062094985655825,,,literal,B-LR,vs v2 on the same kept obs,descriptive
+B-LR [literal],B-LR [literal] - v2 B-LR (same kept obs),source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,literal,B-LR,vs v2 on the same kept obs,descriptive
+B-LR [literal],B-LR [literal] - v2 B-LR (same kept obs),source_AUC,-0.005952380952380931,-0.0357142857142857,0.0,0.0,not detected,literal,B-LR,vs v2 on the same kept obs,descriptive
+B-LR [literal],B-LR [literal] - v2 B-LR (same kept obs),obs_balanced_accuracy,0.008061761289881786,-0.007196187958382977,0.02343499003879619,0.8325,not detected,literal,B-LR,vs v2 on the same kept obs,descriptive
+v2 B-RF (456 obs),v2 B-RF (456 obs),source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,literal,B-RF,"vs v2 (all obs, paired by source)",descriptive
+v2 B-RF (456 obs),v2 B-RF (456 obs),source_AUC,0.8928571428571429,0.7321428571428571,1.0,,,literal,B-RF,"vs v2 (all obs, paired by source)",descriptive
+v2 B-RF (456 obs),v2 B-RF (456 obs),obs_balanced_accuracy,0.7605616605616605,0.6209851953601954,0.877205774853801,,,literal,B-RF,"vs v2 (all obs, paired by source)",descriptive
+B-RF [literal],B-RF [literal],source_balanced_accuracy,0.8363095238095238,0.6428571428571428,1.0,,,literal,B-RF,"vs v2 (all obs, paired by source)",descriptive
+B-RF [literal],B-RF [literal],source_AUC,0.8571428571428571,0.6547619047619048,1.0,,,literal,B-RF,"vs v2 (all obs, paired by source)",descriptive
+B-RF [literal],B-RF [literal],obs_balanced_accuracy,0.7526303204208513,0.610085730284871,0.8760254852429481,,,literal,B-RF,"vs v2 (all obs, paired by source)",descriptive
+B-RF [literal],B-RF [literal] - v2 B-RF (456 obs),source_balanced_accuracy,-0.02083333333333337,-0.0625,0.0,0.0,not detected,literal,B-RF,"vs v2 (all obs, paired by source)",descriptive
+B-RF [literal],B-RF [literal] - v2 B-RF (456 obs),source_AUC,-0.03571428571428581,-0.11309523809523803,0.0,0.0,not detected,literal,B-RF,"vs v2 (all obs, paired by source)",descriptive
+B-RF [literal],B-RF [literal] - v2 B-RF (456 obs),obs_balanced_accuracy,-0.007931340140809207,-0.02400981338481352,0.0077166216153955036,0.168,not detected,literal,B-RF,"vs v2 (all obs, paired by source)",descriptive
+v2 B-RF (same kept obs),v2 B-RF (same kept obs),source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,literal,B-RF,vs v2 on the same kept obs,descriptive
+v2 B-RF (same kept obs),v2 B-RF (same kept obs),source_AUC,0.8809523809523809,0.6904761904761905,1.0,,,literal,B-RF,vs v2 on the same kept obs,descriptive
+v2 B-RF (same kept obs),v2 B-RF (same kept obs),obs_balanced_accuracy,0.7578568012570882,0.6169804915874504,0.8812937176927952,,,literal,B-RF,vs v2 on the same kept obs,descriptive
+B-RF [literal],B-RF [literal],source_balanced_accuracy,0.8363095238095238,0.6428571428571428,1.0,,,literal,B-RF,vs v2 on the same kept obs,descriptive
+B-RF [literal],B-RF [literal],source_AUC,0.8571428571428571,0.6547619047619048,1.0,,,literal,B-RF,vs v2 on the same kept obs,descriptive
+B-RF [literal],B-RF [literal],obs_balanced_accuracy,0.7526303204208513,0.610085730284871,0.8760254852429481,,,literal,B-RF,vs v2 on the same kept obs,descriptive
+B-RF [literal],B-RF [literal] - v2 B-RF (same kept obs),source_balanced_accuracy,-0.02083333333333337,-0.0625,0.0,0.0,not detected,literal,B-RF,vs v2 on the same kept obs,descriptive
+B-RF [literal],B-RF [literal] - v2 B-RF (same kept obs),source_AUC,-0.023809523809523836,-0.08333333333333326,0.0,0.0,not detected,literal,B-RF,vs v2 on the same kept obs,descriptive
+B-RF [literal],B-RF [literal] - v2 B-RF (same kept obs),obs_balanced_accuracy,-0.005226480836236891,-0.022489495798319284,0.011706044250634484,0.241,not detected,literal,B-RF,vs v2 on the same kept obs,descriptive
+H-LR [literal],H-LR [literal],source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,literal,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+H-LR [literal],H-LR [literal],source_AUC,0.9226190476190477,0.8035714285714286,0.9940476190476191,,,literal,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+H-LR [literal],H-LR [literal],obs_balanced_accuracy,0.7523399603743937,0.5987750934298128,0.8789577154523962,,,literal,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+B-LR [literal],B-LR [literal],source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,literal,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+B-LR [literal],B-LR [literal],source_AUC,0.8630952380952381,0.6547619047619048,1.0,,,literal,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+B-LR [literal],B-LR [literal],obs_balanced_accuracy,0.7553802008608321,0.5791691409830187,0.9062094985655825,,,literal,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+B-LR [literal],B-LR [literal] - H-LR [literal],source_balanced_accuracy,-0.04166666666666674,-0.10416666666666663,0.0,0.0,not detected,literal,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+B-LR [literal],B-LR [literal] - H-LR [literal],source_AUC,-0.059523809523809534,-0.20833333333333337,0.04761904761904767,0.1555,not detected,literal,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+B-LR [literal],B-LR [literal] - H-LR [literal],obs_balanced_accuracy,0.0030402404864384724,-0.05992763977650527,0.0545393529997176,0.5615,not detected,literal,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+H-RF [literal],H-RF [literal],source_balanced_accuracy,0.8363095238095238,0.6428571428571428,1.0,,,literal,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+H-RF [literal],H-RF [literal],source_AUC,0.8869047619047619,0.7022321428571429,1.0,,,literal,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+H-RF [literal],H-RF [literal],obs_balanced_accuracy,0.727915556466489,0.5827375287222865,0.8542342856243027,,,literal,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+B-RF [literal],B-RF [literal],source_balanced_accuracy,0.8363095238095238,0.6428571428571428,1.0,,,literal,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+B-RF [literal],B-RF [literal],source_AUC,0.8571428571428571,0.6547619047619048,1.0,,,literal,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+B-RF [literal],B-RF [literal],obs_balanced_accuracy,0.7526303204208513,0.610085730284871,0.8760254852429481,,,literal,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+B-RF [literal],B-RF [literal] - H-RF [literal],source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,literal,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+B-RF [literal],B-RF [literal] - H-RF [literal],source_AUC,-0.029761904761904767,-0.125,0.04761904761904756,0.181,not detected,literal,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+B-RF [literal],B-RF [literal] - H-RF [literal],obs_balanced_accuracy,0.02471476395436234,0.001415213872101559,0.04655575110368703,0.981,improvement,literal,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+v2 H-LR (456 obs),v2 H-LR (456 obs),source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,union,H-LR,"vs v2 (all obs, paired by source)",descriptive
+v2 H-LR (456 obs),v2 H-LR (456 obs),source_AUC,0.9226190476190477,0.8035714285714286,0.9940476190476191,,,union,H-LR,"vs v2 (all obs, paired by source)",descriptive
+v2 H-LR (456 obs),v2 H-LR (456 obs),obs_balanced_accuracy,0.7755392755392756,0.6332905982905983,0.8926455026455027,,,union,H-LR,"vs v2 (all obs, paired by source)",descriptive
+H-LR [union],H-LR [union],source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,union,H-LR,"vs v2 (all obs, paired by source)",descriptive
+H-LR [union],H-LR [union],source_AUC,0.9107142857142857,0.7857142857142857,0.9940476190476191,,,union,H-LR,"vs v2 (all obs, paired by source)",descriptive
+H-LR [union],H-LR [union],obs_balanced_accuracy,0.7602847324496809,0.6230750633586769,0.8765001399032573,,,union,H-LR,"vs v2 (all obs, paired by source)",descriptive
+H-LR [union],H-LR [union] - v2 H-LR (456 obs),source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,union,H-LR,"vs v2 (all obs, paired by source)",descriptive
+H-LR [union],H-LR [union] - v2 H-LR (456 obs),source_AUC,-0.011904761904761973,-0.0535714285714286,0.0,0.0,not detected,union,H-LR,"vs v2 (all obs, paired by source)",descriptive
+H-LR [union],H-LR [union] - v2 H-LR (456 obs),obs_balanced_accuracy,-0.01525454308959473,-0.032274909554960894,0.0015948565543054433,0.0395,not detected,union,H-LR,"vs v2 (all obs, paired by source)",descriptive
+v2 H-LR (same kept obs),v2 H-LR (same kept obs),source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,union,H-LR,vs v2 on the same kept obs,descriptive
+v2 H-LR (same kept obs),v2 H-LR (same kept obs),source_AUC,0.9226190476190477,0.8035714285714286,0.9940476190476191,,,union,H-LR,vs v2 on the same kept obs,descriptive
+v2 H-LR (same kept obs),v2 H-LR (same kept obs),obs_balanced_accuracy,0.7589592538046146,0.6145864169406511,0.8806207482993197,,,union,H-LR,vs v2 on the same kept obs,descriptive
+H-LR [union],H-LR [union],source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,union,H-LR,vs v2 on the same kept obs,descriptive
+H-LR [union],H-LR [union],source_AUC,0.9107142857142857,0.7857142857142857,0.9940476190476191,,,union,H-LR,vs v2 on the same kept obs,descriptive
+H-LR [union],H-LR [union],obs_balanced_accuracy,0.7602847324496809,0.6230750633586769,0.8765001399032573,,,union,H-LR,vs v2 on the same kept obs,descriptive
+H-LR [union],H-LR [union] - v2 H-LR (same kept obs),source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,union,H-LR,vs v2 on the same kept obs,descriptive
+H-LR [union],H-LR [union] - v2 H-LR (same kept obs),source_AUC,-0.011904761904761973,-0.0535714285714286,0.0,0.0,not detected,union,H-LR,vs v2 on the same kept obs,descriptive
+H-LR [union],H-LR [union] - v2 H-LR (same kept obs),obs_balanced_accuracy,0.0013254786450662692,-0.010036077632896049,0.013082846127774798,0.538,not detected,union,H-LR,vs v2 on the same kept obs,descriptive
+v2 H-RF (456 obs),v2 H-RF (456 obs),source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,union,H-RF,"vs v2 (all obs, paired by source)",descriptive
+v2 H-RF (456 obs),v2 H-RF (456 obs),source_AUC,0.9047619047619048,0.7498511904761905,1.0,,,union,H-RF,"vs v2 (all obs, paired by source)",descriptive
+v2 H-RF (456 obs),v2 H-RF (456 obs),obs_balanced_accuracy,0.7549043549043549,0.605590686117002,0.8815750915750915,,,union,H-RF,"vs v2 (all obs, paired by source)",descriptive
+H-RF [union],H-RF [union],source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,union,H-RF,"vs v2 (all obs, paired by source)",descriptive
+H-RF [union],H-RF [union],source_AUC,0.8869047619047619,0.7022321428571429,1.0,,,union,H-RF,"vs v2 (all obs, paired by source)",descriptive
+H-RF [union],H-RF [union],obs_balanced_accuracy,0.7411880216003928,0.5923498489333782,0.8707256880024736,,,union,H-RF,"vs v2 (all obs, paired by source)",descriptive
+H-RF [union],H-RF [union] - v2 H-RF (456 obs),source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,union,H-RF,"vs v2 (all obs, paired by source)",descriptive
+H-RF [union],H-RF [union] - v2 H-RF (456 obs),source_AUC,-0.017857142857142905,-0.0714285714285714,0.011904761904761862,0.0475,not detected,union,H-RF,"vs v2 (all obs, paired by source)",descriptive
+H-RF [union],H-RF [union] - v2 H-RF (456 obs),obs_balanced_accuracy,-0.013716333303962158,-0.030134126492067714,-0.00046785404305569445,0.0215,not detected,union,H-RF,"vs v2 (all obs, paired by source)",descriptive
+v2 H-RF (same kept obs),v2 H-RF (same kept obs),source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,union,H-RF,vs v2 on the same kept obs,descriptive
+v2 H-RF (same kept obs),v2 H-RF (same kept obs),source_AUC,0.8928571428571429,0.7142857142857143,1.0,,,union,H-RF,vs v2 on the same kept obs,descriptive
+v2 H-RF (same kept obs),v2 H-RF (same kept obs),obs_balanced_accuracy,0.7514972999509082,0.604038898811366,0.8781058704111425,,,union,H-RF,vs v2 on the same kept obs,descriptive
+H-RF [union],H-RF [union],source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,union,H-RF,vs v2 on the same kept obs,descriptive
+H-RF [union],H-RF [union],source_AUC,0.8869047619047619,0.7022321428571429,1.0,,,union,H-RF,vs v2 on the same kept obs,descriptive
+H-RF [union],H-RF [union],obs_balanced_accuracy,0.7411880216003928,0.5923498489333782,0.8707256880024736,,,union,H-RF,vs v2 on the same kept obs,descriptive
+H-RF [union],H-RF [union] - v2 H-RF (same kept obs),source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,union,H-RF,vs v2 on the same kept obs,descriptive
+H-RF [union],H-RF [union] - v2 H-RF (same kept obs),source_AUC,-0.005952380952381042,-0.0357142857142857,0.0,0.0,not detected,union,H-RF,vs v2 on the same kept obs,descriptive
+H-RF [union],H-RF [union] - v2 H-RF (same kept obs),obs_balanced_accuracy,-0.010309278350515427,-0.024055460099274447,0.0,0.023,not detected,union,H-RF,vs v2 on the same kept obs,descriptive
+v2 B-LR (456 obs),v2 B-LR (456 obs),source_balanced_accuracy,0.7738095238095238,0.5684523809523809,0.9375,,,union,B-LR,"vs v2 (all obs, paired by source)",descriptive
+v2 B-LR (456 obs),v2 B-LR (456 obs),source_AUC,0.875,0.690327380952381,1.0,,,union,B-LR,"vs v2 (all obs, paired by source)",descriptive
+v2 B-LR (456 obs),v2 B-LR (456 obs),obs_balanced_accuracy,0.7607244607244608,0.5916045991045991,0.9026075605680869,,,union,B-LR,"vs v2 (all obs, paired by source)",descriptive
+B-LR [union],B-LR [union],source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,union,B-LR,"vs v2 (all obs, paired by source)",descriptive
+B-LR [union],B-LR [union],source_AUC,0.8630952380952381,0.6547619047619048,1.0,,,union,B-LR,"vs v2 (all obs, paired by source)",descriptive
+B-LR [union],B-LR [union],obs_balanced_accuracy,0.7592047128129602,0.5818322187217376,0.9072950759251068,,,union,B-LR,"vs v2 (all obs, paired by source)",descriptive
+B-LR [union],B-LR [union] - v2 B-LR (456 obs),source_balanced_accuracy,-0.02083333333333337,-0.0625,0.0,0.0,not detected,union,B-LR,"vs v2 (all obs, paired by source)",descriptive
+B-LR [union],B-LR [union] - v2 B-LR (456 obs),source_AUC,-0.011904761904761862,-0.0535714285714286,0.0,0.0,not detected,union,B-LR,"vs v2 (all obs, paired by source)",descriptive
+B-LR [union],B-LR [union] - v2 B-LR (456 obs),obs_balanced_accuracy,-0.0015197479115005574,-0.02074980574980572,0.016220375498628307,0.4595,not detected,union,B-LR,"vs v2 (all obs, paired by source)",descriptive
+v2 B-LR (same kept obs),v2 B-LR (same kept obs),source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,union,B-LR,vs v2 on the same kept obs,descriptive
+v2 B-LR (same kept obs),v2 B-LR (same kept obs),source_AUC,0.8690476190476191,0.6666666666666666,1.0,,,union,B-LR,vs v2 on the same kept obs,descriptive
+v2 B-LR (same kept obs),v2 B-LR (same kept obs),obs_balanced_accuracy,0.75139911634757,0.5819256854256853,0.895967235379,,,union,B-LR,vs v2 on the same kept obs,descriptive
+B-LR [union],B-LR [union],source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,union,B-LR,vs v2 on the same kept obs,descriptive
+B-LR [union],B-LR [union],source_AUC,0.8630952380952381,0.6547619047619048,1.0,,,union,B-LR,vs v2 on the same kept obs,descriptive
+B-LR [union],B-LR [union],obs_balanced_accuracy,0.7592047128129602,0.5818322187217376,0.9072950759251068,,,union,B-LR,vs v2 on the same kept obs,descriptive
+B-LR [union],B-LR [union] - v2 B-LR (same kept obs),source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,union,B-LR,vs v2 on the same kept obs,descriptive
+B-LR [union],B-LR [union] - v2 B-LR (same kept obs),source_AUC,-0.005952380952380931,-0.0357142857142857,0.0,0.0,not detected,union,B-LR,vs v2 on the same kept obs,descriptive
+B-LR [union],B-LR [union] - v2 B-LR (same kept obs),obs_balanced_accuracy,0.007805596465390252,-0.0071834877295627875,0.02257097034674949,0.831,not detected,union,B-LR,vs v2 on the same kept obs,descriptive
+v2 B-RF (456 obs),v2 B-RF (456 obs),source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,union,B-RF,"vs v2 (all obs, paired by source)",descriptive
+v2 B-RF (456 obs),v2 B-RF (456 obs),source_AUC,0.8928571428571429,0.7321428571428571,1.0,,,union,B-RF,"vs v2 (all obs, paired by source)",descriptive
+v2 B-RF (456 obs),v2 B-RF (456 obs),obs_balanced_accuracy,0.7605616605616605,0.6209851953601954,0.877205774853801,,,union,B-RF,"vs v2 (all obs, paired by source)",descriptive
+B-RF [union],B-RF [union],source_balanced_accuracy,0.8363095238095238,0.6428571428571428,1.0,,,union,B-RF,"vs v2 (all obs, paired by source)",descriptive
+B-RF [union],B-RF [union],source_AUC,0.875,0.6845238095238095,1.0,,,union,B-RF,"vs v2 (all obs, paired by source)",descriptive
+B-RF [union],B-RF [union],obs_balanced_accuracy,0.7700049091801668,0.6201146532438478,0.8968700449426854,,,union,B-RF,"vs v2 (all obs, paired by source)",descriptive
+B-RF [union],B-RF [union] - v2 B-RF (456 obs),source_balanced_accuracy,-0.02083333333333337,-0.0625,0.0,0.0,not detected,union,B-RF,"vs v2 (all obs, paired by source)",descriptive
+B-RF [union],B-RF [union] - v2 B-RF (456 obs),source_AUC,-0.017857142857142905,-0.07142857142857151,0.012053571428570681,0.1005,not detected,union,B-RF,"vs v2 (all obs, paired by source)",descriptive
+B-RF [union],B-RF [union] - v2 B-RF (456 obs),obs_balanced_accuracy,0.009443248618506317,-0.011116071428571498,0.03211514072983137,0.7935,not detected,union,B-RF,"vs v2 (all obs, paired by source)",descriptive
+v2 B-RF (same kept obs),v2 B-RF (same kept obs),source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,union,B-RF,vs v2 on the same kept obs,descriptive
+v2 B-RF (same kept obs),v2 B-RF (same kept obs),source_AUC,0.8809523809523809,0.6904761904761905,1.0,,,union,B-RF,vs v2 on the same kept obs,descriptive
+v2 B-RF (same kept obs),v2 B-RF (same kept obs),obs_balanced_accuracy,0.759548355424644,0.6192103474143186,0.8774765127506167,,,union,B-RF,vs v2 on the same kept obs,descriptive
+B-RF [union],B-RF [union],source_balanced_accuracy,0.8363095238095238,0.6428571428571428,1.0,,,union,B-RF,vs v2 on the same kept obs,descriptive
+B-RF [union],B-RF [union],source_AUC,0.875,0.6845238095238095,1.0,,,union,B-RF,vs v2 on the same kept obs,descriptive
+B-RF [union],B-RF [union],obs_balanced_accuracy,0.7700049091801668,0.6201146532438478,0.8968700449426854,,,union,B-RF,vs v2 on the same kept obs,descriptive
+B-RF [union],B-RF [union] - v2 B-RF (same kept obs),source_balanced_accuracy,-0.02083333333333337,-0.0625,0.0,0.0,not detected,union,B-RF,vs v2 on the same kept obs,descriptive
+B-RF [union],B-RF [union] - v2 B-RF (same kept obs),source_AUC,-0.005952380952380931,-0.04761904761904767,0.023809523809523836,0.219,not detected,union,B-RF,vs v2 on the same kept obs,descriptive
+B-RF [union],B-RF [union] - v2 B-RF (same kept obs),obs_balanced_accuracy,0.01045655375552279,-0.00924884837680815,0.032758031442241965,0.822,not detected,union,B-RF,vs v2 on the same kept obs,descriptive
+H-LR [union],H-LR [union],source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,union,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+H-LR [union],H-LR [union],source_AUC,0.9107142857142857,0.7857142857142857,0.9940476190476191,,,union,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+H-LR [union],H-LR [union],obs_balanced_accuracy,0.7602847324496809,0.6230750633586769,0.8765001399032573,,,union,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+B-LR [union],B-LR [union],source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,union,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+B-LR [union],B-LR [union],source_AUC,0.8630952380952381,0.6547619047619048,1.0,,,union,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+B-LR [union],B-LR [union],obs_balanced_accuracy,0.7592047128129602,0.5818322187217376,0.9072950759251068,,,union,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+B-LR [union],B-LR [union] - H-LR [union],source_balanced_accuracy,-0.04166666666666674,-0.10416666666666663,0.0,0.0,not detected,union,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+B-LR [union],B-LR [union] - H-LR [union],source_AUC,-0.04761904761904756,-0.1785714285714285,0.04761904761904767,0.17,not detected,union,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+B-LR [union],B-LR [union] - H-LR [union],obs_balanced_accuracy,-0.0010800196367206638,-0.0645083971154824,0.053148758324084375,0.5095,not detected,union,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+H-RF [union],H-RF [union],source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,union,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+H-RF [union],H-RF [union],source_AUC,0.8869047619047619,0.7022321428571429,1.0,,,union,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+H-RF [union],H-RF [union],obs_balanced_accuracy,0.7411880216003928,0.5923498489333782,0.8707256880024736,,,union,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+B-RF [union],B-RF [union],source_balanced_accuracy,0.8363095238095238,0.6428571428571428,1.0,,,union,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+B-RF [union],B-RF [union],source_AUC,0.875,0.6845238095238095,1.0,,,union,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+B-RF [union],B-RF [union],obs_balanced_accuracy,0.7700049091801668,0.6201146532438478,0.8968700449426854,,,union,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+B-RF [union],B-RF [union] - H-RF [union],source_balanced_accuracy,-0.02083333333333337,-0.0625,0.0,0.0,not detected,union,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+B-RF [union],B-RF [union] - H-RF [union],source_AUC,-0.011904761904761862,-0.07142857142857151,0.04761904761904767,0.2405,not detected,union,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+B-RF [union],B-RF [union] - H-RF [union],obs_balanced_accuracy,0.028816887579774075,0.002329667300346333,0.05422973407414589,0.9825,improvement,union,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+v2 H-LR (456 obs),v2 H-LR (456 obs),source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,replaced,H-LR,"vs v2 (all obs, paired by source)",descriptive
+v2 H-LR (456 obs),v2 H-LR (456 obs),source_AUC,0.9226190476190477,0.8035714285714286,0.9940476190476191,,,replaced,H-LR,"vs v2 (all obs, paired by source)",descriptive
+v2 H-LR (456 obs),v2 H-LR (456 obs),obs_balanced_accuracy,0.7755392755392756,0.6332905982905983,0.8926455026455027,,,replaced,H-LR,"vs v2 (all obs, paired by source)",descriptive
+H-LR [replaced],H-LR [replaced],source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,replaced,H-LR,"vs v2 (all obs, paired by source)",descriptive
+H-LR [replaced],H-LR [replaced],source_AUC,0.9226190476190477,0.8035714285714286,0.9940476190476191,,,replaced,H-LR,"vs v2 (all obs, paired by source)",descriptive
+H-LR [replaced],H-LR [replaced],obs_balanced_accuracy,0.75,0.6016173765498473,0.8730575222969801,,,replaced,H-LR,"vs v2 (all obs, paired by source)",descriptive
+H-LR [replaced],H-LR [replaced] - v2 H-LR (456 obs),source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,replaced,H-LR,"vs v2 (all obs, paired by source)",descriptive
+H-LR [replaced],H-LR [replaced] - v2 H-LR (456 obs),source_AUC,0.0,0.0,0.0,0.0,not detected,replaced,H-LR,"vs v2 (all obs, paired by source)",descriptive
+H-LR [replaced],H-LR [replaced] - v2 H-LR (456 obs),obs_balanced_accuracy,-0.025539275539275597,-0.043958506627113605,-0.009462248566230997,0.0,not detected,replaced,H-LR,"vs v2 (all obs, paired by source)",descriptive
+v2 H-RF (456 obs),v2 H-RF (456 obs),source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,replaced,H-RF,"vs v2 (all obs, paired by source)",descriptive
+v2 H-RF (456 obs),v2 H-RF (456 obs),source_AUC,0.9047619047619048,0.7498511904761905,1.0,,,replaced,H-RF,"vs v2 (all obs, paired by source)",descriptive
+v2 H-RF (456 obs),v2 H-RF (456 obs),obs_balanced_accuracy,0.7549043549043549,0.605590686117002,0.8815750915750915,,,replaced,H-RF,"vs v2 (all obs, paired by source)",descriptive
+H-RF [replaced],H-RF [replaced],source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,replaced,H-RF,"vs v2 (all obs, paired by source)",descriptive
+H-RF [replaced],H-RF [replaced],source_AUC,0.8928571428571429,0.7142857142857143,1.0,,,replaced,H-RF,"vs v2 (all obs, paired by source)",descriptive
+H-RF [replaced],H-RF [replaced],obs_balanced_accuracy,0.740909090909091,0.5942334026152996,0.8717116023511373,,,replaced,H-RF,"vs v2 (all obs, paired by source)",descriptive
+H-RF [replaced],H-RF [replaced] - v2 H-RF (456 obs),source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,replaced,H-RF,"vs v2 (all obs, paired by source)",descriptive
+H-RF [replaced],H-RF [replaced] - v2 H-RF (456 obs),source_AUC,-0.011904761904761862,-0.04761904761904756,0.0,0.0,not detected,replaced,H-RF,"vs v2 (all obs, paired by source)",descriptive
+H-RF [replaced],H-RF [replaced] - v2 H-RF (456 obs),obs_balanced_accuracy,-0.013995263995263962,-0.029688114425166924,-0.00032609634142800984,0.0215,not detected,replaced,H-RF,"vs v2 (all obs, paired by source)",descriptive
+v2 B-LR (456 obs),v2 B-LR (456 obs),source_balanced_accuracy,0.7738095238095238,0.5684523809523809,0.9375,,,replaced,B-LR,"vs v2 (all obs, paired by source)",descriptive
+v2 B-LR (456 obs),v2 B-LR (456 obs),source_AUC,0.875,0.690327380952381,1.0,,,replaced,B-LR,"vs v2 (all obs, paired by source)",descriptive
+v2 B-LR (456 obs),v2 B-LR (456 obs),obs_balanced_accuracy,0.7607244607244608,0.5916045991045991,0.9026075605680869,,,replaced,B-LR,"vs v2 (all obs, paired by source)",descriptive
+B-LR [replaced],B-LR [replaced],source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,replaced,B-LR,"vs v2 (all obs, paired by source)",descriptive
+B-LR [replaced],B-LR [replaced],source_AUC,0.875,0.690327380952381,1.0,,,replaced,B-LR,"vs v2 (all obs, paired by source)",descriptive
+B-LR [replaced],B-LR [replaced],obs_balanced_accuracy,0.7567099567099567,0.5841914384792117,0.8984997598864157,,,replaced,B-LR,"vs v2 (all obs, paired by source)",descriptive
+B-LR [replaced],B-LR [replaced] - v2 B-LR (456 obs),source_balanced_accuracy,-0.02083333333333337,-0.0625,0.0,0.0,not detected,replaced,B-LR,"vs v2 (all obs, paired by source)",descriptive
+B-LR [replaced],B-LR [replaced] - v2 B-LR (456 obs),source_AUC,0.0,0.0,0.0,0.0,not detected,replaced,B-LR,"vs v2 (all obs, paired by source)",descriptive
+B-LR [replaced],B-LR [replaced] - v2 B-LR (456 obs),obs_balanced_accuracy,-0.0040145040145040944,-0.01603653629994268,0.006780756923755892,0.251,not detected,replaced,B-LR,"vs v2 (all obs, paired by source)",descriptive
+v2 B-RF (456 obs),v2 B-RF (456 obs),source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,replaced,B-RF,"vs v2 (all obs, paired by source)",descriptive
+v2 B-RF (456 obs),v2 B-RF (456 obs),source_AUC,0.8928571428571429,0.7321428571428571,1.0,,,replaced,B-RF,"vs v2 (all obs, paired by source)",descriptive
+v2 B-RF (456 obs),v2 B-RF (456 obs),obs_balanced_accuracy,0.7605616605616605,0.6209851953601954,0.877205774853801,,,replaced,B-RF,"vs v2 (all obs, paired by source)",descriptive
+B-RF [replaced],B-RF [replaced],source_balanced_accuracy,0.8363095238095238,0.6428571428571428,1.0,,,replaced,B-RF,"vs v2 (all obs, paired by source)",descriptive
+B-RF [replaced],B-RF [replaced],source_AUC,0.8690476190476191,0.6666666666666666,1.0,,,replaced,B-RF,"vs v2 (all obs, paired by source)",descriptive
+B-RF [replaced],B-RF [replaced],obs_balanced_accuracy,0.7352813852813853,0.6009493123746172,0.8502791976750272,,,replaced,B-RF,"vs v2 (all obs, paired by source)",descriptive
+B-RF [replaced],B-RF [replaced] - v2 B-RF (456 obs),source_balanced_accuracy,-0.02083333333333337,-0.0625,0.0,0.0,not detected,replaced,B-RF,"vs v2 (all obs, paired by source)",descriptive
+B-RF [replaced],B-RF [replaced] - v2 B-RF (456 obs),source_AUC,-0.023809523809523836,-0.0892857142857143,0.0,0.0,not detected,replaced,B-RF,"vs v2 (all obs, paired by source)",descriptive
+B-RF [replaced],B-RF [replaced] - v2 B-RF (456 obs),obs_balanced_accuracy,-0.02528027528027521,-0.054893489438067405,0.002660374607490029,0.0335,not detected,replaced,B-RF,"vs v2 (all obs, paired by source)",descriptive
+H-LR [replaced],H-LR [replaced],source_balanced_accuracy,0.7946428571428572,0.5892857142857143,0.9583333333333333,,,replaced,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+H-LR [replaced],H-LR [replaced],source_AUC,0.9226190476190477,0.8035714285714286,0.9940476190476191,,,replaced,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+H-LR [replaced],H-LR [replaced],obs_balanced_accuracy,0.75,0.6016173765498473,0.8730575222969801,,,replaced,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+B-LR [replaced],B-LR [replaced],source_balanced_accuracy,0.7529761904761905,0.5476190476190476,0.9166666666666667,,,replaced,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+B-LR [replaced],B-LR [replaced],source_AUC,0.875,0.690327380952381,1.0,,,replaced,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+B-LR [replaced],B-LR [replaced],obs_balanced_accuracy,0.7567099567099567,0.5841914384792117,0.8984997598864157,,,replaced,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+B-LR [replaced],B-LR [replaced] - H-LR [replaced],source_balanced_accuracy,-0.04166666666666674,-0.10416666666666663,0.0,0.0,not detected,replaced,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+B-LR [replaced],B-LR [replaced] - H-LR [replaced],source_AUC,-0.04761904761904767,-0.1785714285714285,0.04761904761904767,0.172,not detected,replaced,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+B-LR [replaced],B-LR [replaced] - H-LR [replaced],obs_balanced_accuracy,0.006709956709956666,-0.05906045258186794,0.06151619527919305,0.6,not detected,replaced,B-LR vs H-LR,v1-v3 headline inside the set,descriptive
+H-RF [replaced],H-RF [replaced],source_balanced_accuracy,0.8571428571428572,0.6428571428571428,1.0,,,replaced,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+H-RF [replaced],H-RF [replaced],source_AUC,0.8928571428571429,0.7142857142857143,1.0,,,replaced,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+H-RF [replaced],H-RF [replaced],obs_balanced_accuracy,0.740909090909091,0.5942334026152996,0.8717116023511373,,,replaced,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+B-RF [replaced],B-RF [replaced],source_balanced_accuracy,0.8363095238095238,0.6428571428571428,1.0,,,replaced,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+B-RF [replaced],B-RF [replaced],source_AUC,0.8690476190476191,0.6666666666666666,1.0,,,replaced,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+B-RF [replaced],B-RF [replaced],obs_balanced_accuracy,0.7352813852813853,0.6009493123746172,0.8502791976750272,,,replaced,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+B-RF [replaced],B-RF [replaced] - H-RF [replaced],source_balanced_accuracy,-0.02083333333333337,-0.0625,0.0,0.0,not detected,replaced,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+B-RF [replaced],B-RF [replaced] - H-RF [replaced],source_AUC,-0.023809523809523836,-0.1071428571428571,0.0357142857142857,0.1725,not detected,replaced,B-RF vs H-RF,v1-v3 headline inside the set,descriptive
+B-RF [replaced],B-RF [replaced] - H-RF [replaced],obs_balanced_accuracy,-0.005627705627705648,-0.02967666734122269,0.017776460364042884,0.3095,not detected,replaced,B-RF vs H-RF,v1-v3 headline inside the set,descriptive

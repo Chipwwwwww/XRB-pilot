@@ -51,3 +51,10 @@
 {"utc": "2026-09-30T18:48:46.286113+00:00", "stage": "3b_fetch_process_v6", "details": "180 accepted observations; 0 excluded candidates logged"}
 {"utc": "2026-09-30T18:49:35.329961+00:00", "stage": "v6_features", "details": "8009/8350 obs with T*; reliability T1 0.890 vs 0.854, T2 0.873 vs 0.867, T3 0.736 vs 0.709"}
 {"utc": "2026-09-30T18:49:55.886496+00:00", "stage": "v6_analysis", "details": "PRIMARY frozen external E: H_R+T-LR - H_R-LR source AUC +0.000 [+0.000,+0.000], source BA +0.105 [+0.000,+0.237]"}
+{"utc": "2026-10-04T23:26:22.929677+00:00", "stage": "v7b1_minbar", "details": "67/456 v2 observations contain a MINBAR burst in the spectrum GTIs"}
+{"utc": "2026-10-04T23:27:41.375115+00:00", "stage": "v7b1_minbar", "details": "58/456 v2 observations contain a MINBAR burst in the spectrum GTIs"}
+{"utc": "2026-10-04T23:30:37.989457+00:00", "stage": "3b_fetch_process_v7b1", "details": "48 accepted observations; 0 excluded candidates logged"}
+{"utc": "2026-10-04T23:31:02.014270+00:00", "stage": "3b_fetch_process_v7b1", "details": "9 accepted observations; 0 excluded candidates logged"}
+{"utc": "2026-10-04T23:31:08.511180+00:00", "stage": "3b_fetch_process_v7b1", "details": "2 accepted observations; 0 excluded candidates logged"}
+{"utc": "2026-10-04T23:31:08.679973+00:00", "stage": "v7b1_replace", "details": "37 of 58 contaminated bins replaced; 21 without a clean replacement"}
+{"utc": "2026-10-04T23:31:57.858745+00:00", "stage": "v7b1_exclusion", "details": "PRIMARY H-LR minbar-excluded - v2: source BA +0.000 [+0.000,+0.000], source AUC -0.006 [-0.036,+0.000]"}
