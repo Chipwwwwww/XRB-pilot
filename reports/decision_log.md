@@ -103,3 +103,4 @@
 | 時間 | 決定 / 變更 | 是否在看過 v7 結果之後 |
 |---|---|---|
 | 階段 0 | 使用者貼上 v7 任務說明（A 能態、B1 MINBAR 爆發、B2 持續黑洞、C MAXI）。已有 v1–v6，本輪為 v7。撰寫 `preregistration_v7.md` 與 `config.py` v7 區塊（v4／v5／v6 區塊條件擴充到 v7；v7 區塊在最後並恢復 epoch 5 選樣窗）；已確認 v1–v6 所有設定值不變。查證：MINBAR DR1 官方檔（Monash Bridges，CC BY 4.0，figshare md5）、RM06 Table 2 門檻（r＝0.1–10 Hz rms）、Z 源名單、Marcel+2026（arXiv:2606.19952）Table 1 的 Cyg X-1／LMC X-1／LMC X-3 動力學確認與高／低質量分界、SIMBAD 伴星光譜型、Orosz+2009／2014、de Beurs+2022 全文與 GitHub（含處理後資料與 R 程式）、MAXI 標準產品格式與 on-demand 無程式化介面。發現：LMC X-1 的 RXTE 目錄中位指向距 SIMBAD 位置 0.263°（以 SIMBAD 位置 ≤0.1° 仍有 31 筆合格）；LMC X-1 伴星在 SIMBAD 非超巨星；de Beurs 的「BH」12 個中 7 個是 candidate。以上列為待使用者決定事項。未下載任何 v7 資料、未訓練任何模型 | 否 |
+| 核准 | 2026-10-05 07:23 使用者回覆「按照你的直接continue到最後」→ 核准 v7 預先設定，三項待決事項皆採建議：(1) LMC X-1 以 SIMBAD 位置 ≤0.1° 為指向規則（三個持續黑洞一律用同一規則）；(2) B2 敏感度的理由改為「排除 Marcel+2026 Table 1 分界線以上的兩個高質量 X 光雙星」；(3) C1 用 de Beurs 公開處理後檔案、C2 用 MAXI 標準產品能段。並授權各階段（含下載）無重大問題時不再停下 | 否 |
