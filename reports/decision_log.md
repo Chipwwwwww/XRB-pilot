@@ -97,3 +97,9 @@
 |---|---|---|
 | 階段 0 | 使用者要求「deep think … innovations … make it v6」「new algorithms or methods」「before v6 the deep thinking is important」。依 v1–v5 證據設計 v6：primary＝凍結模型在外部天體（訓練從未用過）上檢驗 v5 的 H+T 主張；新方法：全配對 cospectrum 估計量＋單 PCU 混合估計、νPν 質心頻率、顏色條件時間概似比分類器（CCTLR）、顏色條件的天體置換檢定、天體層級 conformal 預測集、觀測數預算曲線、天體層級 proper scoring rule。外部天體名單查證：Casares & Jonker 2014 §3／Table 2（Cyg X-1、LMC X-1、LMC X-3、M33 X-7）；Patruno & Watts 2021 Table 1（AMXP 與慢速脈衝星）。透明聲明：E 中 v4b2 的 15 個天體曾在 v4b2／v5 以其他模型看過結果，因此另報只含 v6 新天體的敏感度分析。`config.py` 的 v4／v5 區塊條件擴充到 v6 並新增 v6 區塊；已確認 v1–v5 所有設定值與修改前完全相同 | 否（尚未下載任何 v6 資料、未計算任何 v6 特徵或模型） |
 | v6 結果 | 外部天體 28 個名稱中納入 12 個（Cyg X-1、LMC X-3、6 個 AMXP、4 個慢速脈衝星壓力集），180 筆全部通過；LMC X-1、Swift J1756.9-2508 因指向偏離 >0.1° 排除，M33 X-7、Swift J1749.4-2807 無目錄，NGC 6440 X-2 無法解析。Primary（外部 23 源、凍結）H_R+T-LR − H_R-LR：來源 AUC 0.000（兩者 1.000）、來源 BA +0.105 [0.000, +0.237] → 未偵測到；觀測 BA +0.080 [+0.003, +0.162]、Brier −0.059 [−0.093, −0.027]、log loss −0.127 [−0.217, −0.044]。E_new：來源 BA 0.917 vs 0.750。置換檢定：S1 四項 Holm 後皆顯著（T1* p=0.0024），外部未複製（p=0.16–0.94）。CCTLR 未勝過 H+T-LR。全配對估計量：變異 −31%～−41%、缺值 942→341。Conformal：外部 NS 覆蓋 0.895 vs 0.632。壓力集 4 個慢速脈衝星皆判為 NS（4U 1626-67 升至 0.40） | 結果 |
+
+## v7（能態條件評估、爆發污染、持續黑洞、MAXI 跨儀器；2026-10-05）
+
+| 時間 | 決定 / 變更 | 是否在看過 v7 結果之後 |
+|---|---|---|
+| 階段 0 | 使用者貼上 v7 任務說明（A 能態、B1 MINBAR 爆發、B2 持續黑洞、C MAXI）。已有 v1–v6，本輪為 v7。撰寫 `preregistration_v7.md` 與 `config.py` v7 區塊（v4／v5／v6 區塊條件擴充到 v7；v7 區塊在最後並恢復 epoch 5 選樣窗）；已確認 v1–v6 所有設定值不變。查證：MINBAR DR1 官方檔（Monash Bridges，CC BY 4.0，figshare md5）、RM06 Table 2 門檻（r＝0.1–10 Hz rms）、Z 源名單、Marcel+2026（arXiv:2606.19952）Table 1 的 Cyg X-1／LMC X-1／LMC X-3 動力學確認與高／低質量分界、SIMBAD 伴星光譜型、Orosz+2009／2014、de Beurs+2022 全文與 GitHub（含處理後資料與 R 程式）、MAXI 標準產品格式與 on-demand 無程式化介面。發現：LMC X-1 的 RXTE 目錄中位指向距 SIMBAD 位置 0.263°（以 SIMBAD 位置 ≤0.1° 仍有 31 筆合格）；LMC X-1 伴星在 SIMBAD 非超巨星；de Beurs 的「BH」12 個中 7 個是 candidate。以上列為待使用者決定事項。未下載任何 v7 資料、未訓練任何模型 | 否 |
