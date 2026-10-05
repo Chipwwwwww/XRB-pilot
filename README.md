@@ -64,6 +64,10 @@ CCTLR 沒有勝過簡單的 H+T-LR；「同顏色下 BH 低頻變異較強」在
 (v11a) LR 的硬態時間增益 +0.066 [−0.095, +0.180]（未偵測到；RF +0.247 [+0.128, +0.384]，與 v9／v10 一致）；
 (v11b) 同顏色下 BH 的特徵頻率低 0.66 dex，p = 0.023（有差異），但事後剔除可能背景主導的極硬觀測後為 −0.46、p = 0.19。
 **預先設定寫於看過 v1–v10 之後。** 執行：`.\run_v11.ps1`（或 `./run_v11.sh`；串流約 40 GB，不存原始檔）；模組 `scripts/v11lib.py`，腳本 `55_*`–`57_*`；圖 `figures/v11/v11_prospective.png`。
+**v12（預先登記：[reports/preregistration_v12.md](reports/preregistration_v12.md)，報告：[reports/report_v12_zh-TW.md](reports/report_v12_zh-TW.md)；分支 `v12-analysis`）**：
+以 NICER 官方 3C50 背景模型修正並篩選 v10＋v11 的 684 筆觀測（背景比例中位數 0.8%）：(v12a) 同顏色下 BH 的特徵頻率低 0.51 dex，p = 0.073（未偵測到；各種背景處理下效應都在 −0.50 到 −0.57）；
+(v12b) RF 的硬態時間增益 +0.174 [+0.071, +0.300]（有差異）。**預先設定寫於看過 v1–v11 之後；RF 為事後選定。**
+執行：`58_v12_bkg.py`（WSL HEASoft＋NICER CALDB）→ `59_v12_analysis.py`；圖 `figures/v12/v12_background.png`。
 
 ## 環境
 - Python venv：`C:\Users\User\venvs\xrb-pilot`（Python 3.12.10；放在 OneDrive 之外）

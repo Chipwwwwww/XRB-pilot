@@ -1,0 +1,10 @@
+analysis,D,p,n_obs,n_sources,n_bh,role,verdict
+"v12a: corrected + screened (f <= 0.20), v10 + v11 observations",-0.5138153727920397,0.07294635268236588,200,42,8,PRIMARY,not detected
+threshold f <= 0.10,-0.5090740648672987,0.0792460376981151,196,42,8,descriptive,
+threshold f <= 0.30,-0.4971072127407866,0.0855957202139893,203,42,8,descriptive,
+screened only (no correction),-0.5228771879791781,0.07464626768661567,199,42,8,descriptive,
+"no screening, no correction (all v10 + v11 observations)",-0.5635807146800085,0.021148942552872356,292,51,9,descriptive,
+"corrected + screened, v10 observations only",-0.5153113957395753,0.03629818509074546,99,32,7,descriptive,
+"corrected + screened, v11 observations only",-0.4722870820924893,0.239938003099845,101,35,7,descriptive,
+3C50-failed observations included without correction,-0.5709094130153053,0.02224888755562222,288,51,9,descriptive,
+"pooled RXTE (f <= 0.20, 94 obs) + NICER (corrected, screened): mean D",-0.3098024661978347,0.029398530073496326,294,55,15,descriptive,
