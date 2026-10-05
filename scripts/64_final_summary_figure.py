@@ -55,7 +55,7 @@ for (i, r), yy in zip(G.iterrows(), y):
     col = '#2a78d6' if r.model == 'LR' else '#c2410c'
     a.errorbar(r.point, yy, xerr=[[r.point - r.lo], [r.hi - r.point]], fmt='s' if r.primary else 'o', color=col, mfc=col if r.primary else 'white', capsize=2, ms=6)
 a.set_yticks(y); a.set_yticklabels([f'{r.label} [{r.model}]' for r in G.itertuples()], fontsize=8); a.axvline(0, color=INK2, lw=.8, ls='--')
-a.set_xlabel('hard-state AUC gain from Standard-1-type timing features (H+T - H), 95% source bootstrap')
+a.set_xlabel('hard-state AUC gain from low-frequency (0.016-4 Hz) timing features (H+T - H), 95% source bootstrap')
 a.set_title('(a) timing information inside the hard state (filled = pre-registered primary; blue LR, orange RF)', loc='left', fontsize=9)
 a = ax[1]; y = np.arange(len(Dn))[::-1]
 for (i, r), yy in zip(Dn.iterrows(), y):

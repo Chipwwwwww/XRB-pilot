@@ -1,5 +1,12 @@
 # XRB-pilot：RXTE/PCA 能譜的 BH／NS 分類小型驗證
 
+> **最終總結（v1–v13，2026-10-06 收尾）**：見 [reports/final_summary_zh-TW.md](reports/final_summary_zh-TW.md) 與 `figures/final/summary_across_versions.png`。
+> - X 光顏色在沒見過的天體上能分辨 BH／NS，但資訊幾乎全在兩個硬度比，且主要在軟態有效；硬態時兩類重疊。
+> - 加入 0.016–4 Hz 時間變異後，硬態分辨力穩定提升：RXTE、NICER、跨儀器合併都成立，並在事先凍結管線與模型的全新 NICER 觀測上前瞻性確認（v13 RF +0.18 [+0.05, +0.34]）。
+> - 同顏色下 BH 的特徵頻率較低（約 −0.3 到 −0.6 dex）方向一致，合併檢定有差異（p = 0.0012），但單一資料集多在邊界。
+> - 主要限制：只有 16 個動力學確認 BH 天體，所有新資料檢驗都還沒有用到新天體。
+
+
 **整合報告（先讀這份）：[reports/final_report_zh-TW.md](reports/final_report_zh-TW.md)**——v1 到 v3 的問題、方法、結果與限制；收尾圖 `figures/final/colour_colour_decision_boundary.png`（`scripts/15_colour_colour.py`）。
 
 
