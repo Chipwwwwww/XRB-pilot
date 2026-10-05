@@ -159,7 +159,7 @@ if _os.environ.get('XRB_VERSION', 'v1') == 'v3c':
 # see reports/preregistration_v4.md). Active only for XRB_VERSION in {v4, v4b1, v4b2, v4b3}.
 # v1-v3 settings above are untouched.
 # =====================================================================================
-if _os.environ.get('XRB_VERSION', 'v1').startswith(('v4', 'v5', 'v6', 'v7')):     # v5/v6/v7 re-use the v4 settings (v4lib)
+if _os.environ.get('XRB_VERSION', 'v1').startswith(('v4', 'v5', 'v6', 'v7', 'v8')):     # v5-v8 re-use the v4 settings (v4lib)
     N_BOOT = 2000; DEADTIME = 'std1'; VLE_DT_ALT = 1.5e-4
     V4_REPRESENTATIONS = ['H_colours', 'HI_colours_intensity', 'B_shape', 'A_intensity']   # via v3lib.v2_representations
     V4_BASELINE = ('H_colours', 'LogReg')      # v2 OOF in results/v2/oof_predictions_loso.csv, threshold 0.5
@@ -218,7 +218,7 @@ if _os.environ.get('XRB_VERSION', 'v1').startswith(('v4', 'v5', 'v6', 'v7')):   
 # v5 (written 2026-10-01 AFTER all v1-v4 results, BEFORE any v5 feature or model; see reports/preregistration_v5.md).
 # Active only for XRB_VERSION starting with v5 (the v4 block above is also active). v1-v4 behaviour is unchanged.
 # =====================================================================================
-if _os.environ.get('XRB_VERSION', 'v1').startswith(('v5', 'v6', 'v7')):     # v6/v7 re-use the v5 timing settings (v5lib)
+if _os.environ.get('XRB_VERSION', 'v1').startswith(('v5', 'v6', 'v7', 'v8')):     # v6-v8 re-use the v5 timing settings (v5lib)
     V5_N_BINS, V5_DT = 1024, 0.125                  # Standard-1 row: 1024 x 0.125 s = 128 s
     V5_BANDS_J = {'T1': (2, 12), 'T2': (13, 128), 'T3': (129, 511)}   # Fourier index ranges (inclusive), nu = j / 128 s
     V5_MIN_PCUS = 2                                  # PCUs on for the whole row; A = on[0::2], B = on[1::2]
@@ -231,7 +231,7 @@ if _os.environ.get('XRB_VERSION', 'v1').startswith(('v5', 'v6', 'v7')):     # v6
 # v6 (written 2026-10-01 AFTER all v1-v5 results, BEFORE any v6 download/feature/model; see reports/preregistration_v6.md).
 # Active only for XRB_VERSION starting with v6 (the v4 and v5 blocks above are also active). v1-v5 behaviour unchanged.
 # =====================================================================================
-if _os.environ.get('XRB_VERSION', 'v1').startswith(('v6', 'v7')):     # v7 re-uses the v6 estimator settings (v6lib)
+if _os.environ.get('XRB_VERSION', 'v1').startswith(('v6', 'v7', 'v8')):     # v7/v8 re-use the v6 estimator settings (v6lib)
     MIN_ELIGIBLE = 10; MJD_MAX = 55931.0; MJD_MIN = 0.0          # selection as v4b2: all gain epochs, >= 10 eligible
     V6_AUTO_MAX_RATE = 500.0            # counts/s/PCU: single-PCU rows use the auto-power estimator only below this
     V6_NLOGBINS = 9                     # log-spaced bins 1/128 .. 4 Hz for the nuPnu centroid
@@ -249,7 +249,7 @@ if _os.environ.get('XRB_VERSION', 'v1').startswith(('v6', 'v7')):     # v7 re-us
 # Active only for XRB_VERSION starting with v7 (the v4/v5/v6 blocks above are also active; this block comes last and
 # restores the v2 gain-epoch-5 selection window). v1-v6 behaviour unchanged. Awaiting user approval before any run.
 # =====================================================================================
-if _os.environ.get('XRB_VERSION', 'v1').startswith('v7'):
+if _os.environ.get('XRB_VERSION', 'v1').startswith(('v7', 'v8')):     # v8 re-uses the v7 state / MINBAR / MAXI settings
     MJD_MIN = 51677.0; MJD_MAX = 55931.0; MIN_ELIGIBLE = 10; N_PER_SOURCE = 15    # v2 rules (B2)
     DEADTIME = 'std1'; VLE_DT_ALT = 1.5e-4
     # ---- B1: MINBAR DR1 (Galloway et al. 2020, ApJS 249, 32; Monash Bridges, CC BY 4.0) ----
@@ -275,3 +275,31 @@ if _os.environ.get('XRB_VERSION', 'v1').startswith('v7'):
     V7_MAXI_SIGMA, V7_MAXI_OUTLIER_SIGMA, V7_MAXI_MIN_POINTS = 3.0, 10.0, 100
     V7_MAXI_TRAIN_CAP = 200
     V7_C2_KNN_GRID = (5, 15, 24, 35); V7_C2_SVM_GRID = dict(C=(0.1, 1.0, 10.0), gamma=(0.1, 0.585, 3.0))
+
+# =====================================================================================
+# v8 (written 2026-10-05 AFTER all v1-v7 results, BEFORE any v8 download/feature/model; see reports/preregistration_v8.md).
+# Active only for XRB_VERSION starting with v8 (the v4-v7 blocks above are also active). v1-v7 behaviour unchanged.
+# =====================================================================================
+if _os.environ.get('XRB_VERSION', 'v1').startswith('v8'):
+    # ---- v8b: new dynamically confirmed BHs (Marcel+2026 Table 1, not used in any earlier RXTE sample) ----
+    MJD_MIN = 0.0; MJD_MAX = 55931.0            # all gain epochs (as v4b2 / v6)
+    MIN_ELIGIBLE = 3; N_PER_SOURCE = 15         # >= 3 eligible pointings (explicit relaxation of the v2 rule)
+    V8_NEW_BH = {'GS1354-64': 'GS 1354-64', 'SS433': 'SS 433'}       # from the TAP query in preregistration_v8.md sec. 2
+    V8_TAP_URL = 'https://heasarc.gsfc.nasa.gov/xamin/vo/tap/sync'
+    V8_MIN_SOURCES_PER_CLASS = 3                # v8b primary testable if >= 3 BH and >= 3 NS sources in the stratum
+    # ---- v8c: event-mode high-frequency timing ----
+    V8_HF_MODE_REGEX = r'^E_\d+us_\d+M_0_\d+s$'
+    V8_HF_CHAINS = 'X1L^X1R^X2L^X2R^X3L^X3R'
+    V8_HF_MAX_TIMEDEL = 2.0 ** -12
+    V8_HF_DT = 2.0 ** -12                       # bin width (s): Nyquist 2048 Hz
+    V8_HF_SEG_S = 16.0                          # segment length (s): N = 65536 bins
+    V8_HF_BANDS_J = {'LC': (16, 63), 'HF1': (64, 1023), 'HF2': (1024, 8191), 'HF3': (8192, 16383), 'NULL': (24576, 32767)}
+    V8_HF_MIN_SEG = 10
+    V8_HF_MAX_NULL_Z = 5.0
+    V8_HF_MAX_NULL_FAIL_FRAC = 0.20
+    V8_HF_MIN_SPEARMAN_LC = 0.90
+    V8_AMXP = ('SAXJ1808.4-3658', 'XTEJ1814-338', 'HETEJ1900.1-245')
+    # ---- v8d: MAXI N_H control ----
+    V8_NH_GAMMA = 2.0
+    V8_NH_GRID = (19.0, 23.5, 200)              # log10 N_H grid (cm^-2) for the tbabs transmission table (plus N_H = 0)
+    V8_NH_BANDS = {'L': (2.0, 4.0), 'M': (4.0, 10.0), 'H': (10.0, 20.0)}
