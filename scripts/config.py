@@ -159,7 +159,7 @@ if _os.environ.get('XRB_VERSION', 'v1') == 'v3c':
 # see reports/preregistration_v4.md). Active only for XRB_VERSION in {v4, v4b1, v4b2, v4b3}.
 # v1-v3 settings above are untouched.
 # =====================================================================================
-if _os.environ.get('XRB_VERSION', 'v1').startswith(('v4', 'v5', 'v6', 'v7', 'v8', 'v9', 'v10', 'v11')):     # v5-v11 re-use the v4 settings (v4lib)
+if _os.environ.get('XRB_VERSION', 'v1').startswith(('v4', 'v5', 'v6', 'v7', 'v8', 'v9', 'v10', 'v11', 'v12')):     # v5-v12 re-use the v4 settings (v4lib)
     N_BOOT = 2000; DEADTIME = 'std1'; VLE_DT_ALT = 1.5e-4
     V4_REPRESENTATIONS = ['H_colours', 'HI_colours_intensity', 'B_shape', 'A_intensity']   # via v3lib.v2_representations
     V4_BASELINE = ('H_colours', 'LogReg')      # v2 OOF in results/v2/oof_predictions_loso.csv, threshold 0.5
@@ -218,7 +218,7 @@ if _os.environ.get('XRB_VERSION', 'v1').startswith(('v4', 'v5', 'v6', 'v7', 'v8'
 # v5 (written 2026-10-01 AFTER all v1-v4 results, BEFORE any v5 feature or model; see reports/preregistration_v5.md).
 # Active only for XRB_VERSION starting with v5 (the v4 block above is also active). v1-v4 behaviour is unchanged.
 # =====================================================================================
-if _os.environ.get('XRB_VERSION', 'v1').startswith(('v5', 'v6', 'v7', 'v8', 'v9', 'v10', 'v11')):     # v6-v11 re-use the v5 timing settings (v5lib)
+if _os.environ.get('XRB_VERSION', 'v1').startswith(('v5', 'v6', 'v7', 'v8', 'v9', 'v10', 'v11', 'v12')):     # v6-v12 re-use the v5 timing settings (v5lib)
     V5_N_BINS, V5_DT = 1024, 0.125                  # Standard-1 row: 1024 x 0.125 s = 128 s
     V5_BANDS_J = {'T1': (2, 12), 'T2': (13, 128), 'T3': (129, 511)}   # Fourier index ranges (inclusive), nu = j / 128 s
     V5_MIN_PCUS = 2                                  # PCUs on for the whole row; A = on[0::2], B = on[1::2]
@@ -231,7 +231,7 @@ if _os.environ.get('XRB_VERSION', 'v1').startswith(('v5', 'v6', 'v7', 'v8', 'v9'
 # v6 (written 2026-10-01 AFTER all v1-v5 results, BEFORE any v6 download/feature/model; see reports/preregistration_v6.md).
 # Active only for XRB_VERSION starting with v6 (the v4 and v5 blocks above are also active). v1-v5 behaviour unchanged.
 # =====================================================================================
-if _os.environ.get('XRB_VERSION', 'v1').startswith(('v6', 'v7', 'v8', 'v9', 'v10', 'v11')):     # v7-v11 re-use the v6 estimator settings (v6lib)
+if _os.environ.get('XRB_VERSION', 'v1').startswith(('v6', 'v7', 'v8', 'v9', 'v10', 'v11', 'v12')):     # v7-v12 re-use the v6 estimator settings (v6lib)
     MIN_ELIGIBLE = 10; MJD_MAX = 55931.0; MJD_MIN = 0.0          # selection as v4b2: all gain epochs, >= 10 eligible
     V6_AUTO_MAX_RATE = 500.0            # counts/s/PCU: single-PCU rows use the auto-power estimator only below this
     V6_NLOGBINS = 9                     # log-spaced bins 1/128 .. 4 Hz for the nuPnu centroid
@@ -249,7 +249,7 @@ if _os.environ.get('XRB_VERSION', 'v1').startswith(('v6', 'v7', 'v8', 'v9', 'v10
 # Active only for XRB_VERSION starting with v7 (the v4/v5/v6 blocks above are also active; this block comes last and
 # restores the v2 gain-epoch-5 selection window). v1-v6 behaviour unchanged. Awaiting user approval before any run.
 # =====================================================================================
-if _os.environ.get('XRB_VERSION', 'v1').startswith(('v7', 'v8', 'v9', 'v10', 'v11')):     # v8-v11 re-use the v7 state / MINBAR / MAXI settings
+if _os.environ.get('XRB_VERSION', 'v1').startswith(('v7', 'v8', 'v9', 'v10', 'v11', 'v12')):     # v8-v12 re-use the v7 state / MINBAR / MAXI settings
     MJD_MIN = 51677.0; MJD_MAX = 55931.0; MIN_ELIGIBLE = 10; N_PER_SOURCE = 15    # v2 rules (B2)
     DEADTIME = 'std1'; VLE_DT_ALT = 1.5e-4
     # ---- B1: MINBAR DR1 (Galloway et al. 2020, ApJS 249, 32; Monash Bridges, CC BY 4.0) ----
@@ -308,7 +308,7 @@ if _os.environ.get('XRB_VERSION', 'v1').startswith('v8'):
 # v9 (written 2026-10-05 AFTER all v1-v8 results, BEFORE any v9 download/feature/model; see reports/preregistration_v9.md).
 # Active only for XRB_VERSION starting with v9 (the v4-v7 blocks above are also active). v1-v8 behaviour unchanged.
 # =====================================================================================
-if _os.environ.get('XRB_VERSION', 'v1').startswith(('v9', 'v10', 'v11')):     # v10/v11 re-use the v9 NICER settings
+if _os.environ.get('XRB_VERSION', 'v1').startswith(('v9', 'v10', 'v11', 'v12')):     # v10-v12 re-use the v9 NICER settings
     # ---- NICER/XTI selection ----
     V9_TAP_URL = 'https://heasarc.gsfc.nasa.gov/xamin/vo/tap/sync'
     V9_ARCHIVE = 'https://nasa-heasarc.s3.amazonaws.com/nicer/data/obs/'   # HEASARC's AWS open-data mirror (decision_log: ~10x faster, bytes identical)
@@ -341,7 +341,7 @@ if _os.environ.get('XRB_VERSION', 'v1').startswith(('v9', 'v10', 'v11')):     # 
 # v10 (written 2026-10-06 AFTER all v1-v9 results, BEFORE any v10 download/feature/pooled statistic; see
 # reports/preregistration_v10.md). Active only for XRB_VERSION starting with v10 (the v4-v7 and v9 blocks are also active).
 # =====================================================================================
-if _os.environ.get('XRB_VERSION', 'v1').startswith(('v10', 'v11')):     # v11 re-uses the frozen v10 settings
+if _os.environ.get('XRB_VERSION', 'v1').startswith(('v10', 'v11', 'v12')):     # v11/v12 re-use the frozen v10 settings
     V10_FULL_CAP_BYTES = 1_000_000_000  # NICER: whole cleaned event file, at most the first 1 GB (compressed)
     V10_MATCH_DEG = 0.1                 # RXTE <-> NICER source identity by position (canonical name = NICER name)
     V10_N_PERM = 20000
@@ -354,7 +354,7 @@ if _os.environ.get('XRB_VERSION', 'v1').startswith(('v10', 'v11')):     # v11 re
 # reports/preregistration_v11.md). Active only for XRB_VERSION starting with v11 (v4-v7, v9, v10 blocks also active).
 # Everything about features, states and models is FROZEN from v10; only the data are new.
 # =====================================================================================
-if _os.environ.get('XRB_VERSION', 'v1').startswith('v11'):
+if _os.environ.get('XRB_VERSION', 'v1').startswith(('v11', 'v12')):     # v12 re-uses the v11 settings
     V11_N_PER_SOURCE = 8                # never-used NICER observations per v9 source (time-stratified)
     V11_SEED_OFFSET = 1000              # default_rng(SEED + V11_SEED_OFFSET + position in data/v9/sources.csv)
     V11_MAX_TRIES = 3
@@ -363,3 +363,16 @@ if _os.environ.get('XRB_VERSION', 'v1').startswith('v11'):
     V11_RANGE_CONCURRENCY = 6           # concurrent 64-MB range requests within one file (parsed in order)
     V11_LORENTZ_NU = (1.0 / 128.0, 128.0)       # allowed range of the Lorentzian width (Hz)
     V11_LORENTZ_DBIC = 6.0              # two Lorentzians preferred if BIC improves by more than 6
+
+# =====================================================================================
+# v12 (written 2026-10-06 ~03:20 AFTER all v1-v11 results, BEFORE any v12 background estimate/model; see
+# reports/preregistration_v12.md). NICER background (3C50, HEASoft nibackgen3C50 + NICER CALDB) for the v10 + v11 observations.
+# =====================================================================================
+if _os.environ.get('XRB_VERSION', 'v1').startswith('v12'):
+    V12_BKG_MAX_RATE = 500.0            # 3C50 run for observations with 2-10 keV rate < 500 c/s; brighter ones: background negligible
+    V12_FBKG_MAX = 0.20                 # observations with 2-10 keV background fraction > 0.20 excluded (background-dominated)
+    V12_FBKG_SENS = (0.10, 0.30)
+    V12_PI_BANDS = {'A': (200, 400), 'B': (400, 600), 'C': (600, 1000), 'T': (200, 1000)}
+    V12_CALDB = 'caldb'                 # under XRB_EXTERNAL_RAW/.. : NICER CALDB goodfiles_nicer_xti.tar.gz (SHA256 logged)
+    V12_N_WORKERS = 3
+    V12_IC_TOT_RATIO = (0.7, 1.3)       # 3C50 total 2-10 keV rate / pipeline rate within this range for >= 90% of observations
