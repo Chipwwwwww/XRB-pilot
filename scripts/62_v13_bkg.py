@@ -43,7 +43,8 @@ def one(r):
     if r.obsid in done and done[r.obsid].get('status') == 'ok': return done[r.obsid]
     out = SPEC/r.obsid; out.mkdir(parents=True, exist_ok=True)
     ufa = r.url.replace('_cl.evt.gz', '_ufa.evt.gz')
-    p = subprocess.run(['wsl', '-d', 'Ubuntu-22.04', '-u', 'root', '--', 'bash', wsl(ROOT/'scripts/v12_bkg3c50.sh'), r.obsid, r.url, ufa, wsl(out), wsl(CAL)],
+    keep = [wsl(L10.EXT/'nicer_v13_cl'/r.obsid)] if C.V13_KEEP_CL else []     # cl kept for the 3C50-GTI sensitivity analysis
+    p = subprocess.run(['wsl', '-d', 'Ubuntu-22.04', '-u', 'root', '--', 'bash', wsl(ROOT/'scripts/v12_bkg3c50.sh'), r.obsid, r.url, ufa, wsl(out), wsl(CAL)] + keep,
                        capture_output=True, text=True)
     rec = dict(obsid=r.obsid, source=r.source, label=r.label, sample=r.sample, rate_2_10=r.rate_2_10)
     for l in p.stdout.splitlines():
