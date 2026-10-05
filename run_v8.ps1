@@ -10,7 +10,8 @@ foreach ($d in 'v8','v8b','v8c','v8d') { New-Item -ItemType Directory -Force "..
 & $py 41_v8b_select.py *> '..\logs\v8b\41_v8b_select.log'                   # new dynamical BHs (TAP / MissionLongData)
 $env:XRB_VERSION = 'v8b'; & $py 21_v4b2_fetch_process.py *> '..\logs\v8b\21_fetch_process.log'; $env:XRB_VERSION = $null
 & $py 42_v8_states_timing.py *> '..\logs\v8b\42_states_timing.log'          # external set X: MINBAR, states, v5 timing
-& $py 43_v8c_events.py *> '..\logs\v8c\43_events.log'                       # event survey + download + HF features (exit 3 if IC4/QC fail)
+& $py 43_v8c_events.py *> '..\logs\v8c\43_events.log'                       # survey + download + HF features; exit 3 = IC4 failed
+if ($LASTEXITCODE -eq 3) { Write-Host 'IC4 failed (as in the recorded run): v8c is exploratory, see decision_log; continuing' }
 & $py 44_v8_analysis.py *> '..\logs\v8\44_analysis.log'                     # v8a, v8b, v8c (exit 3 if IC1/IC2 fail)
 & $py 45_v8d_nh.py *> '..\logs\v8d\45_nh.log'                               # HI4PI N_H + tbabs (WSL), MAXI models (exit 3 if IC6 fails)
 & $py 46_v8_summary_figure.py *> '..\logs\v8\46_summary_figure.log'

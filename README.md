@@ -43,6 +43,12 @@ CCTLR 沒有勝過簡單的 H+T-LR；「同顏色下 BH 低頻變異較強」在
 (B1) MINBAR 官方爆發表：456 筆中 58 筆含 type-I 爆發，排除後 v1–v3 結論不變；(B2) 加入 Cyg X-1、LMC X-1、LMC X-3：原 31 源上未偵測到差異；
 (C) 以 de Beurs+2022 的公開資料精確重現其結果，再以 MAXI 標準產品＋嚴格流程重做：LR 幾乎沒有分辨力（來源 AUC 0.56），預先宣告的兩項比較都未偵測到差異；非線性模型用兩個顏色可達 0.80；RXTE 與 MAXI 對 30 個共同天體的分數 Spearman 0.63。
 **預先設定寫於看過 v1–v6 之後。** 執行：`.\run_v7.ps1`（或 `./run_v7.sh`）；模組 `scripts/v7lib.py`，腳本 `31_*`–`40_*`；輸出 `data/v7*/`、`results/v7*/`、`figures/v7*/`；總結圖 `figures/v7/v7_summary.png`。
+**v8（預先登記：[reports/preregistration_v8.md](reports/preregistration_v8.md)，報告：[reports/report_v8_zh-TW.md](reports/report_v8_zh-TW.md)；分支 `v8-analysis`）**：
+(v8a) v2 樣本的硬態類觀測中，加入 Standard-1 低頻時間變異後觀測層級 AUC 0.646 → 0.910，差 +0.264 [+0.048, +0.455]（有差異），能態差距縮小 0.23；
+(v8b) 外部天體（含新增的動力學確認 BH GS 1354-64、SS 433）的硬態類上，凍結模型差 +0.064 [−0.185, +0.367]（未偵測到）；
+(v8c) RXTE event mode 4–1024 Hz 跨 PCU cospectrum（2.4 GB 事件檔）：實作檢查 IC4 未通過，全部為探索性；高頻在低頻時間特徵之外幾乎沒有增量，扣除空白頻段後 512–1024 Hz 功率只在 1/17 個 NS、0/6 個 BH 偵測到；
+(v8d) MAXI 上含 2–4 keV 的顏色增益在 HI4PI N_H 校正後仍在：RF +0.377 [+0.160, +0.595]（有差異），N_H 本身 AUC 0.41。
+**預先設定寫於看過 v1–v7 之後。** 執行：`.\run_v8.ps1`（或 `./run_v8.sh`；v8d 需要 WSL 的 HEASoft）；模組 `scripts/v8lib.py`，腳本 `41_*`–`46_*`；輸出 `data/v8*/`、`results/v8*/`、`figures/v8*/`；總結圖 `figures/v8/v8_summary.png`。
 
 ## 環境
 - Python venv：`C:\Users\User\venvs\xrb-pilot`（Python 3.12.10；放在 OneDrive 之外）
