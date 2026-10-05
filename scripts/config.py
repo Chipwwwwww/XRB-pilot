@@ -359,6 +359,7 @@ if _os.environ.get('XRB_VERSION', 'v1').startswith('v11'):
     V11_SEED_OFFSET = 1000              # default_rng(SEED + V11_SEED_OFFSET + position in data/v9/sources.csv)
     V11_MAX_TRIES = 3
     V11_STREAM_CHUNK = 64 << 20         # bytes per range request; raw bytes are NOT stored (SHA256 logged)
-    V11_N_WORKERS = 3
+    V11_N_WORKERS = 2                   # observations in parallel (memory: OneDrive uses ~10 GB RAM; user: n_jobs <= 2)
+    V11_RANGE_CONCURRENCY = 6           # concurrent 64-MB range requests within one file (parsed in order)
     V11_LORENTZ_NU = (1.0 / 128.0, 128.0)       # allowed range of the Lorentzian width (Hz)
     V11_LORENTZ_DBIC = 6.0              # two Lorentzians preferred if BIC improves by more than 6
