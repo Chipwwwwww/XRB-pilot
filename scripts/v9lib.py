@@ -209,8 +209,9 @@ def segment_stats(x):
     return out
 
 
-def obs_features(arr, gap=None):
-    """Per-observation NICER features from parsed events (dict TIME, PI, DET_ID). Returns a record (status 'ok' or reason)."""
+def obs_features(arr, gap=None, return_segments=False):
+    """Per-observation NICER features from parsed events (dict TIME, PI, DET_ID). Returns a record (status 'ok' or reason).
+    return_segments=True (added for v10, default unchanged) also returns the per-segment statistics DataFrame."""
     t, pi, det = arr['TIME'], arr['PI'], arr['DET_ID']
     rec = dict(n_events=len(t))
     if len(t) < 100: rec['status'] = 'missing (no events)'; return rec
@@ -245,7 +246,9 @@ def obs_features(arr, gap=None):
                 nseg += 1
             s0 += L
     rec.update(n_seg=nseg, n_seg_burst_removed=n_burst_seg, good_time_s=float((gi[:, 1] - gi[:, 0]).sum()) if len(gi) else 0.0)
-    if nseg < C.V9_MIN_SEG: rec['status'] = f'missing (< {C.V9_MIN_SEG} valid segments)'; return rec
+    if nseg < C.V9_MIN_SEG:
+        rec['status'] = f'missing (< {C.V9_MIN_SEG} valid segments)'
+        return (rec, pd.DataFrame(segs)) if return_segments else rec
     S = pd.DataFrame(segs); D = S.den.sum()
     rate = float(S.rate.mean()); rec.update(rate_2_10=rate, mean_n_mpu=float(S.n_on.mean()), cA=cA, cB=cB, cC=cC,
                                            c1=cB / cA if cA else np.nan, c2=cC / cB if cB else np.nan)
@@ -262,4 +265,4 @@ def obs_features(arr, gap=None):
     r = rec['STATE']
     rec['state'] = 'hard-like' if r > C.V7_RMS_HARD else ('soft-like' if r < C.V7_RMS_SOFT else 'intermediate')
     rec['status'] = 'ok' if rate >= C.V9_MIN_RATE else f'excluded (2-10 keV rate {rate:.1f} < {C.V9_MIN_RATE})'
-    return rec
+    return (rec, S) if return_segments else rec
