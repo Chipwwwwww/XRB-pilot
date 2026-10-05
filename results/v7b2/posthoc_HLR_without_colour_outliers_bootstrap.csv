@@ -1,0 +1,4 @@
+name,comparison,metric,point,ci2_5,ci97_5,frac_first_better,verdict
+H-LR main w/o 3 outliers on 31,H-LR main w/o 3 outliers on 31 - v2 H-LR,source_balanced_accuracy,-0.07142857142857151,-0.2142857142857143,0.0,0.0,not detected
+H-LR main w/o 3 outliers on 31,H-LR main w/o 3 outliers on 31 - v2 H-LR,source_AUC,0.005952380952380931,-0.0357142857142857,0.0535714285714286,0.4835,not detected
+H-LR main w/o 3 outliers on 31,H-LR main w/o 3 outliers on 31 - v2 H-LR,obs_balanced_accuracy,-0.031949531949531984,-0.12910609857978284,0.04281539853908276,0.2635,not detected

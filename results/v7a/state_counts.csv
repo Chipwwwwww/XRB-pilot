@@ -1,0 +1,7 @@
+,n_obs,n_obs,n_sources,n_sources
+label,BH,NS,BH,NS
+state,,,,
+hard-like,59,121,7,17
+intermediate,1,20,1,11
+soft-like,38,183,5,22
+unknown,7,27,2,12

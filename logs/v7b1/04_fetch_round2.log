@@ -1,0 +1,18 @@
+Energy grid: 45 bins, 4.908-25.008 keV (reference 91702-01-66-05)
+4U1636-53 bin 10 accepted 94087-01-11-10 
+KS1731-260 bin 2 accepted 50031-02-01-03 
+4U1735-44 bin 12 accepted 93200-01-02-00 
+XTEJ1814-338 bin 0 accepted 80145-02-01-010 
+XTEJ1814-338 bin 5 accepted 80418-01-03-12 
+GS1826-238 bin 3 accepted 70044-01-01-01 
+GS1826-238 bin 7 accepted 80049-01-04-00 
+GS1826-238 bin 9 accepted 92703-01-04-01 
+GS1826-238 bin 10 accepted 90043-01-03-01 
+              candidates_tried  accepted  bins_empty
+source_id                                           
+4U1636-53                    1         1           0
+4U1735-44                    1         1           0
+GS1826-238                   4         4           0
+KS1731-260                   1         1           0
+XTEJ1814-338                 2         2           0
+Series([], )

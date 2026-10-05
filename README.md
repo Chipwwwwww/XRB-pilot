@@ -38,6 +38,11 @@ v4a 換演算法（8 種 × 4 表示、巢狀 LOSO 自動選擇）、burst 汙�
 結果：外部天體上來源 BA 0.868 → 0.974，但 AUC 兩者皆 1.000，primary 依嚴格規則**未偵測到**；Brier、log loss、觀測 BA 一致改善；
 CCTLR 沒有勝過簡單的 H+T-LR；「同顏色下 BH 低頻變異較強」在 v2 天體上顯著、在外部天體上未複製。
 執行：`.\run_v6.ps1`（或 `./run_v6.sh`）；模組 `scripts/v6lib.py`，腳本 `28_*`–`30_*`；輸出 `data/v6/`、`results/v6/`、`figures/v6/`。
+**v7（預先登記：[reports/preregistration_v7.md](reports/preregistration_v7.md)，報告：[reports/report_v7_zh-TW.md](reports/report_v7_zh-TW.md)；分支 `v7-analysis`）**：
+(A) 能態條件評估：v2 H-LR 的觀測層級 AUC 在變化弱（軟態類）觀測 0.954、變化強（硬態類）0.646，差 +0.31 [+0.10, +0.51]（有差異）；
+(B1) MINBAR 官方爆發表：456 筆中 58 筆含 type-I 爆發，排除後 v1–v3 結論不變；(B2) 加入 Cyg X-1、LMC X-1、LMC X-3：原 31 源上未偵測到差異；
+(C) 以 de Beurs+2022 的公開資料精確重現其結果，再以 MAXI 標準產品＋嚴格流程重做：LR 幾乎沒有分辨力（來源 AUC 0.56），預先宣告的兩項比較都未偵測到差異；非線性模型用兩個顏色可達 0.80；RXTE 與 MAXI 對 30 個共同天體的分數 Spearman 0.63。
+**預先設定寫於看過 v1–v6 之後。** 執行：`.\run_v7.ps1`（或 `./run_v7.sh`）；模組 `scripts/v7lib.py`，腳本 `31_*`–`40_*`；輸出 `data/v7*/`、`results/v7*/`、`figures/v7*/`；總結圖 `figures/v7/v7_summary.png`。
 
 ## 環境
 - Python venv：`C:\Users\User\venvs\xrb-pilot`（Python 3.12.10；放在 OneDrive 之外）

@@ -1,0 +1,11 @@
+MINBAR burst names without a source-table position: []
+MINBAR: 7111 bursts (2288 RXTE/PCA), 118848 observations; v7b2: 45 observations
+
+contaminated (PRIMARY: MINBAR burst in GTI from the same ObsID or an origin within 1.0 deg): 0 of 45 ({})
+contaminated (literal preregistered rule, any burst anywhere in the sky): 1 ({'BH': 1}); bursts in GTIs: 1, in FOV: 0
+Series([], )
+
+bursts in GTI by origin (sep from our source position):
+                              n     sep
+source_id minbar_name in_fov           
+CYGX1     4U 1702-429 False   1  87.523

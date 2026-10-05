@@ -1,0 +1,8 @@
+CYGX1 {'source_id': 'CYGX1', 'catalog_rows': 1740, 'after_dedup': 1740, 'catalogue_median_sep_from_simbad_deg': 0.0012, 'after_epoch5_window': 1370, 'after_exposure': 1205, 'after_std1rate': 1205, 'after_pointing_simbad': 1205}
+LMCX1 {'source_id': 'LMCX1', 'catalog_rows': 557, 'after_dedup': 557, 'catalogue_median_sep_from_simbad_deg': 0.2628, 'after_epoch5_window': 501, 'after_exposure': 450, 'after_std1rate': 450, 'after_pointing_simbad': 31}
+LMCX3 {'source_id': 'LMCX3', 'catalog_rows': 1273, 'after_dedup': 1273, 'catalogue_median_sep_from_simbad_deg': 0.0013, 'after_epoch5_window': 1102, 'after_exposure': 951, 'after_std1rate': 830, 'after_pointing_simbad': 830}
+source_id  n_eligible  included
+    CYGX1        1205      True
+    LMCX1          31      True
+    LMCX3         830      True 
+candidates: 2066

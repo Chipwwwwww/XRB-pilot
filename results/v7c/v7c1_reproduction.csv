@@ -1,0 +1,3 @@
+alg,correct,of,accuracy,BH_correct,BH_of,NPNS_correct,Pulsar_correct,indeterminate,paper_total,paper_BH,reproduced
+KNN,38,44,0.8636363636363636,7,12,19,12,2,37,6,True
+SVM,36,44,0.8181818181818182,5,12,19,12,1,36,5,True

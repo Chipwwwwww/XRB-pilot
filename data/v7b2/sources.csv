@@ -1,0 +1,4 @@
+source_id,name,aliases,ra_deg,dec_deg,label,evidence,reference_url,status,coord_origin,n_eligible,included,hmxb_above_line
+CYGX1,Cyg X-1,HD 226868 (O9.7 Iab),299.5903,35.2016,BH,"Dynamically confirmed BH (Marcel et al. 2026, arXiv:2606.19952, Table 1; above the high-/low-mass line)",https://arxiv.org/abs/2606.19952,confirmed,SIMBAD position (CDS Sesame),1205,True,True
+LMCX1,LMC X-1,O8(f)p,84.9118,-69.7432,BH,"Dynamically confirmed BH (Marcel et al. 2026, arXiv:2606.19952, Table 1; above the high-/low-mass line)",https://arxiv.org/abs/2606.19952,confirmed,SIMBAD position (CDS Sesame),31,True,True
+LMCX3,LMC X-3,B2.5 Ve,84.736,-64.0843,BH,"Dynamically confirmed BH (Marcel et al. 2026, arXiv:2606.19952, Table 1; below the high-/low-mass line)",https://arxiv.org/abs/2606.19952,confirmed,SIMBAD position (CDS Sesame),830,True,False

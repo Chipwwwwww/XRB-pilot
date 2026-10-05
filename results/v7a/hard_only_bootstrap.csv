@@ -1,0 +1,37 @@
+name,comparison,metric,point,ci2_5,ci97_5,frac_first_better,verdict,model
+H-LR [v2 OOF on the same hard-like obs],H-LR [v2 OOF on the same hard-like obs],source_balanced_accuracy,0.6512605042016807,0.44957983193277307,0.8403361344537814,,,H-LR
+H-LR [v2 OOF on the same hard-like obs],H-LR [v2 OOF on the same hard-like obs],source_AUC,0.7478991596638656,0.5294117647058824,0.9327731092436975,,,H-LR
+H-LR [v2 OOF on the same hard-like obs],H-LR [v2 OOF on the same hard-like obs],obs_balanced_accuracy,0.6323714805995237,0.45689507017166126,0.8021985748789333,,,H-LR
+"H-LR [hard-like only, trained on hard-like]","H-LR [hard-like only, trained on hard-like]",source_balanced_accuracy,0.7100840336134454,0.5084033613445378,0.8991596638655461,,,H-LR
+"H-LR [hard-like only, trained on hard-like]","H-LR [hard-like only, trained on hard-like]",source_AUC,0.680672268907563,0.4117647058823529,0.9159663865546218,,,H-LR
+"H-LR [hard-like only, trained on hard-like]","H-LR [hard-like only, trained on hard-like]",obs_balanced_accuracy,0.6524022972405099,0.4620555380011524,0.8350653674490883,,,H-LR
+"H-LR [hard-like only, trained on hard-like]","H-LR [hard-like only, trained on hard-like] - H-LR [v2 OOF on the same hard-like obs]",source_balanced_accuracy,0.05882352941176472,0.0,0.1470588235294118,0.8865,not detected,H-LR
+"H-LR [hard-like only, trained on hard-like]","H-LR [hard-like only, trained on hard-like] - H-LR [v2 OOF on the same hard-like obs]",source_AUC,-0.0672268907563025,-0.25210084033613445,0.03361344537815125,0.1685,not detected,H-LR
+"H-LR [hard-like only, trained on hard-like]","H-LR [hard-like only, trained on hard-like] - H-LR [v2 OOF on the same hard-like obs]",obs_balanced_accuracy,0.02003081664098616,-0.05216295950229126,0.06731770833333336,0.7745,not detected,H-LR
+H-RF [v2 OOF on the same hard-like obs],H-RF [v2 OOF on the same hard-like obs],source_balanced_accuracy,0.7563025210084033,0.5543067226890757,0.9285714285714286,,,H-RF
+H-RF [v2 OOF on the same hard-like obs],H-RF [v2 OOF on the same hard-like obs],source_AUC,0.7983193277310925,0.5462184873949579,0.9831932773109243,,,H-RF
+H-RF [v2 OOF on the same hard-like obs],H-RF [v2 OOF on the same hard-like obs],obs_balanced_accuracy,0.6376943549516739,0.49464091614906835,0.7901062355180404,,,H-RF
+"H-RF [hard-like only, trained on hard-like]","H-RF [hard-like only, trained on hard-like]",source_balanced_accuracy,0.726890756302521,0.5252100840336134,0.9285714285714286,,,H-RF
+"H-RF [hard-like only, trained on hard-like]","H-RF [hard-like only, trained on hard-like]",source_AUC,0.8067226890756303,0.5966386554621849,0.9581932773109233,,,H-RF
+"H-RF [hard-like only, trained on hard-like]","H-RF [hard-like only, trained on hard-like]",obs_balanced_accuracy,0.6174534248494187,0.4851063543226561,0.7491482553624106,,,H-RF
+"H-RF [hard-like only, trained on hard-like]","H-RF [hard-like only, trained on hard-like] - H-RF [v2 OOF on the same hard-like obs]",source_balanced_accuracy,-0.02941176470588236,-0.08823529411764719,0.0,0.0,not detected,H-RF
+"H-RF [hard-like only, trained on hard-like]","H-RF [hard-like only, trained on hard-like] - H-RF [v2 OOF on the same hard-like obs]",source_AUC,0.008403361344537785,-0.15126050420168058,0.18487394957983194,0.4805,not detected,H-RF
+"H-RF [hard-like only, trained on hard-like]","H-RF [hard-like only, trained on hard-like] - H-RF [v2 OOF on the same hard-like obs]",obs_balanced_accuracy,-0.02024093010225525,-0.07271032118628289,0.03533783611408745,0.2,not detected,H-RF
+B-LR [v2 OOF on the same hard-like obs],B-LR [v2 OOF on the same hard-like obs],source_balanced_accuracy,0.7394957983193278,0.5378151260504201,0.9117647058823529,,,B-LR
+B-LR [v2 OOF on the same hard-like obs],B-LR [v2 OOF on the same hard-like obs],source_AUC,0.7310924369747899,0.42857142857142855,1.0,,,B-LR
+B-LR [v2 OOF on the same hard-like obs],B-LR [v2 OOF on the same hard-like obs],obs_balanced_accuracy,0.6395853761030956,0.44744997804241776,0.8258256106761275,,,B-LR
+"B-LR [hard-like only, trained on hard-like]","B-LR [hard-like only, trained on hard-like]",source_balanced_accuracy,0.7983193277310925,0.5966386554621849,0.9705882352941176,,,B-LR
+"B-LR [hard-like only, trained on hard-like]","B-LR [hard-like only, trained on hard-like]",source_AUC,0.7478991596638656,0.47058823529411764,0.9831932773109243,,,B-LR
+"B-LR [hard-like only, trained on hard-like]","B-LR [hard-like only, trained on hard-like]",obs_balanced_accuracy,0.6432973805855162,0.47317968468018595,0.8133255302120849,,,B-LR
+"B-LR [hard-like only, trained on hard-like]","B-LR [hard-like only, trained on hard-like] - B-LR [v2 OOF on the same hard-like obs]",source_balanced_accuracy,0.05882352941176472,0.0,0.1470588235294118,0.898,not detected,B-LR
+"B-LR [hard-like only, trained on hard-like]","B-LR [hard-like only, trained on hard-like] - B-LR [v2 OOF on the same hard-like obs]",source_AUC,0.01680672268907568,-0.07563025210084029,0.1430672268907552,0.513,not detected,B-LR
+"B-LR [hard-like only, trained on hard-like]","B-LR [hard-like only, trained on hard-like] - B-LR [v2 OOF on the same hard-like obs]",obs_balanced_accuracy,0.0037120044824205944,-0.06039939024390242,0.06779692990736727,0.5575,not detected,B-LR
+B-RF [v2 OOF on the same hard-like obs],B-RF [v2 OOF on the same hard-like obs],source_balanced_accuracy,0.7857142857142857,0.5714285714285714,0.9285714285714286,,,B-RF
+B-RF [v2 OOF on the same hard-like obs],B-RF [v2 OOF on the same hard-like obs],source_AUC,0.773109243697479,0.5039915966386554,0.9915966386554622,,,B-RF
+B-RF [v2 OOF on the same hard-like obs],B-RF [v2 OOF on the same hard-like obs],obs_balanced_accuracy,0.6496708222440117,0.5201172352653459,0.788978608529251,,,B-RF
+"B-RF [hard-like only, trained on hard-like]","B-RF [hard-like only, trained on hard-like]",source_balanced_accuracy,0.726890756302521,0.5252100840336134,0.9285714285714286,,,B-RF
+"B-RF [hard-like only, trained on hard-like]","B-RF [hard-like only, trained on hard-like]",source_AUC,0.7983193277310925,0.5546218487394958,0.9747899159663865,,,B-RF
+"B-RF [hard-like only, trained on hard-like]","B-RF [hard-like only, trained on hard-like]",obs_balanced_accuracy,0.6498809357052808,0.5247531265031266,0.7760599311840121,,,B-RF
+"B-RF [hard-like only, trained on hard-like]","B-RF [hard-like only, trained on hard-like] - B-RF [v2 OOF on the same hard-like obs]",source_balanced_accuracy,-0.05882352941176472,-0.1470588235294118,0.0,0.0,not detected,B-RF
+"B-RF [hard-like only, trained on hard-like]","B-RF [hard-like only, trained on hard-like] - B-RF [v2 OOF on the same hard-like obs]",source_AUC,0.025210084033613467,-0.1346638655462185,0.22689075630252098,0.5445,not detected,B-RF
+"B-RF [hard-like only, trained on hard-like]","B-RF [hard-like only, trained on hard-like] - B-RF [v2 OOF on the same hard-like obs]",obs_balanced_accuracy,0.00021011346126909025,-0.05235513382266342,0.06252453637242555,0.478,not detected,B-RF

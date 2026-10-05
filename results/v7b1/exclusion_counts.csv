@@ -1,0 +1,5 @@
+set,n_obs,n_BH_obs,n_sources,min_obs_per_source,fewest
+minbar,398,105,31,4,4U1915-05
+literal,389,102,31,4,4U1915-05
+union,396,105,31,4,4U1915-05
+replaced,435,105,31,4,4U1915-05

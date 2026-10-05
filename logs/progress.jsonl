@@ -51,3 +51,23 @@
 {"utc": "2026-09-30T18:48:46.286113+00:00", "stage": "3b_fetch_process_v6", "details": "180 accepted observations; 0 excluded candidates logged"}
 {"utc": "2026-09-30T18:49:35.329961+00:00", "stage": "v6_features", "details": "8009/8350 obs with T*; reliability T1 0.890 vs 0.854, T2 0.873 vs 0.867, T3 0.736 vs 0.709"}
 {"utc": "2026-09-30T18:49:55.886496+00:00", "stage": "v6_analysis", "details": "PRIMARY frozen external E: H_R+T-LR - H_R-LR source AUC +0.000 [+0.000,+0.000], source BA +0.105 [+0.000,+0.237]"}
+{"utc": "2026-10-04T23:26:22.929677+00:00", "stage": "v7b1_minbar", "details": "67/456 v2 observations contain a MINBAR burst in the spectrum GTIs"}
+{"utc": "2026-10-04T23:27:41.375115+00:00", "stage": "v7b1_minbar", "details": "58/456 v2 observations contain a MINBAR burst in the spectrum GTIs"}
+{"utc": "2026-10-04T23:30:37.989457+00:00", "stage": "3b_fetch_process_v7b1", "details": "48 accepted observations; 0 excluded candidates logged"}
+{"utc": "2026-10-04T23:31:02.014270+00:00", "stage": "3b_fetch_process_v7b1", "details": "9 accepted observations; 0 excluded candidates logged"}
+{"utc": "2026-10-04T23:31:08.511180+00:00", "stage": "3b_fetch_process_v7b1", "details": "2 accepted observations; 0 excluded candidates logged"}
+{"utc": "2026-10-04T23:31:08.679973+00:00", "stage": "v7b1_replace", "details": "37 of 58 contaminated bins replaced; 21 without a clean replacement"}
+{"utc": "2026-10-04T23:31:57.858745+00:00", "stage": "v7b1_exclusion", "details": "PRIMARY H-LR minbar-excluded - v2: source BA +0.000 [+0.000,+0.000], source AUC -0.006 [-0.036,+0.000]"}
+{"utc": "2026-10-04T23:40:57.127754+00:00", "stage": "v7a_states", "details": "PRIMARY H-LR soft AUC - hard AUC +0.309 [+0.099,+0.510]"}
+{"utc": "2026-10-04T23:41:56.695268+00:00", "stage": "v7b2_select", "details": "3 persistent BHs, 2066 ranked candidates"}
+{"utc": "2026-10-04T23:42:07.047845+00:00", "stage": "v7b2_select", "details": "3 persistent BHs, 2066 ranked candidates"}
+{"utc": "2026-10-04T23:43:15.074915+00:00", "stage": "3b_fetch_process_v7b2", "details": "45 accepted observations; 0 excluded candidates logged"}
+{"utc": "2026-10-04T23:43:25.793528+00:00", "stage": "v7b1_minbar_v7b2", "details": "0/45 v7b2 observations contain a MINBAR burst in the spectrum GTIs"}
+{"utc": "2026-10-04T23:44:39.619221+00:00", "stage": "v7b2_analysis", "details": "PRIMARY H-LR main run on the 31 v2 sources - v2: source BA +0.000 [-0.214,+0.214], source AUC -0.048 [-0.167,+0.048]"}
+{"utc": "2026-10-04T23:50:49.730676+00:00", "stage": "v7c2_select", "details": "C2 sources with >=100 MAXI points: {'PSR': 47, 'NPNS': 45, 'BH': 13}"}
+{"utc": "2026-10-04T23:51:23.864722+00:00", "stage": "v7c1_repro", "details": "KNN 38/44 (BH 7/12) reproduced=True; SVM 36/44 (BH 5/12) reproduced=True"}
+{"utc": "2026-10-04T23:59:53.600120+00:00", "stage": "v7c2_select", "details": "C2 sources with >=100 MAXI points: {'NPNS': 48, 'PSR': 39, 'BH': 13}"}
+{"utc": "2026-10-05T00:02:42.907353+00:00", "stage": "v7c2_analysis", "details": "(i) CCI vs 2D colours source_balanced_accuracy +0.125 [+0.000,+0.375]; (i) CCI vs 2D colours source_AUC +0.000 [+0.000,+0.000]; (ii) colours incl. 2-4 keV vs >= 4 keV colour source_balanced_accuracy +0.125 [-0.250,+0.375]; (ii) colours incl. 2-4 keV vs >= 4 keV colour source_AUC +0.375 [-0.250,+0.875]"}
+{"utc": "2026-10-05T01:41:39.475531+00:00", "stage": "v7c2_analysis", "details": "(i) CCI vs 2D colours source_balanced_accuracy -0.077 [-0.192,+0.010]; (i) CCI vs 2D colours source_AUC -0.029 [-0.066,+0.002]; (ii) colours incl. 2-4 keV vs >= 4 keV colour source_balanced_accuracy +0.098 [-0.087,+0.280]; (ii) colours incl. 2-4 keV vs >= 4 keV colour source_AUC +0.139 [-0.032,+0.306]"}
+{"utc": "2026-10-05T01:43:49.062189+00:00", "stage": "v7_complete", "details": "v7a/v7b1/v7b2/v7c1/v7c2/v7c3 done; reports/report_v7_zh-TW.md; branch v7-analysis"}
+{"utc": "2026-10-05T01:45:49.927621+00:00", "stage": "v7c2_analysis", "details": "(i) CCI vs 2D colours source_balanced_accuracy -0.077 [-0.192,+0.010]; (i) CCI vs 2D colours source_AUC -0.029 [-0.066,+0.002]; (ii) colours incl. 2-4 keV vs >= 4 keV colour source_balanced_accuracy +0.098 [-0.087,+0.280]; (ii) colours incl. 2-4 keV vs >= 4 keV colour source_AUC +0.139 [-0.032,+0.306]"}

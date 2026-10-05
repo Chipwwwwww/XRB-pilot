@@ -1,0 +1,107 @@
+state
+soft-like       221
+hard-like       180
+unknown          34
+intermediate     21
+rows removed for bursts: 143
+
+SANITY CHECK:
+                                          check  value  n  threshold  passed
+               XTE J1118+480 hard-like fraction  1.000 15      0.667    True
+Z sources (Cyg X-2, GX 17+2) soft-like fraction  0.964 28      0.667    True
+
+             n_obs      n_sources    
+label           BH   NS        BH  NS
+state                                
+hard-like       59  121         7  17
+intermediate     1   20         1  11
+soft-like       38  183         5  22
+unknown          7   27         2  12
+
+BH sources, fraction of observations per state:
+state         hard-like  intermediate  soft-like  unknown
+source_id                                                
+4U1543-47         0.333         0.000      0.667    0.000
+GROJ1655-40       0.200         0.000      0.800    0.000
+GRS1915+105       0.400         0.067      0.267    0.267
+GX339-4           0.533         0.000      0.267    0.200
+XTEJ1118+480      1.000         0.000      0.000    0.000
+XTEJ1550-564      1.000         0.000      0.000    0.000
+XTEJ1650-500      0.467         0.000      0.533    0.000
+
+metric                                                                                 obs_AUC obs_balanced_accuracy
+analysis                                      model group                                                           
+MINBAR-excluded OOF (v7b1)                    B-LR  hard-like              0.612 [0.299,0.883]   0.600 [0.378,0.801]
+                                                    intermediate           0.167 [0.000,0.400]   0.333 [0.167,0.500]
+                                                    soft-like              0.941 [0.737,1.000]   0.936 [0.801,0.992]
+                                                    soft-like - hard-like  0.329 [0.097,0.585]   0.335 [0.145,0.522]
+                                                    unknown                0.648 [0.268,1.000]   0.599 [0.324,0.939]
+                                              B-RF  hard-like              0.593 [0.331,0.840]   0.656 [0.506,0.810]
+                                                    intermediate           0.500 [0.185,0.923]   0.472 [0.429,0.500]
+                                                    soft-like              0.944 [0.770,1.000]   0.942 [0.806,1.000]
+                                                    soft-like - hard-like  0.350 [0.116,0.587]   0.286 [0.132,0.428]
+                                                    unknown                0.604 [0.265,0.976]   0.566 [0.375,0.800]
+                                              H-LR  hard-like              0.568 [0.355,0.797]   0.561 [0.361,0.744]
+                                                    intermediate           0.500 [0.167,0.923]   0.278 [0.105,0.500]
+                                                    soft-like              0.956 [0.811,1.000]   0.951 [0.816,0.997]
+                                                    soft-like - hard-like  0.389 [0.160,0.592]   0.390 [0.193,0.588]
+                                                    unknown                0.659 [0.413,0.898]   0.626 [0.432,0.854]
+                                              H-RF  hard-like              0.652 [0.470,0.805]   0.588 [0.446,0.735]
+                                                    intermediate           0.278 [0.111,0.500]   0.444 [0.357,0.500]
+                                                    soft-like              0.947 [0.786,1.000]   0.926 [0.792,0.988]
+                                                    soft-like - hard-like  0.295 [0.150,0.433]   0.338 [0.184,0.471]
+                                                    unknown                0.712 [0.448,0.986]   0.637 [0.389,0.962]
+MINBAR-excluded OOF (v7b1) | overlap box (2e) B-LR  inside overlap box     0.655 [0.373,0.884]   0.636 [0.425,0.826]
+                                                    outside overlap box    0.929 [0.771,1.000]   0.880 [0.684,0.996]
+                                              B-RF  inside overlap box     0.605 [0.341,0.845]   0.665 [0.529,0.802]
+                                                    outside overlap box    0.922 [0.764,1.000]   0.877 [0.679,0.996]
+                                              H-LR  inside overlap box     0.580 [0.381,0.792]   0.580 [0.378,0.766]
+                                                    outside overlap box    0.956 [0.856,1.000]   0.928 [0.794,1.000]
+                                              H-RF  inside overlap box     0.662 [0.490,0.807]   0.606 [0.459,0.744]
+                                                    outside overlap box    0.923 [0.770,1.000]   0.874 [0.676,0.994]
+v2 OOF                                        B-LR  hard-like              0.653 [0.355,0.907]   0.640 [0.436,0.824]
+                                                    intermediate           0.350 [0.087,0.667]   0.350 [0.196,0.500]
+                                                    soft-like              0.946 [0.757,1.000]   0.930 [0.795,0.991]
+                                                    soft-like - hard-like  0.293 [0.079,0.530]   0.291 [0.115,0.471]
+                                                    unknown                0.656 [0.292,1.000]   0.603 [0.333,0.940]
+                                              B-RF  hard-like              0.633 [0.381,0.871]   0.650 [0.520,0.778]
+                                                    intermediate           0.600 [0.286,1.000]   0.475 [0.435,0.500]
+                                                    soft-like              0.946 [0.776,1.000]   0.944 [0.809,1.000]
+                                                    soft-like - hard-like  0.314 [0.091,0.545]   0.294 [0.158,0.414]
+                                                    unknown                0.619 [0.279,0.971]   0.624 [0.452,0.833]
+                                              H-LR  hard-like              0.646 [0.445,0.841]   0.632 [0.441,0.805]
+                                                    intermediate           0.450 [0.142,0.833]   0.275 [0.125,0.465]
+                                                    soft-like              0.954 [0.801,1.000]   0.952 [0.818,0.998]
+                                                    soft-like - hard-like  0.309 [0.099,0.510]   0.320 [0.136,0.512]
+                                                    unknown                0.672 [0.446,0.889]   0.635 [0.446,0.860]
+                                              H-RF  hard-like              0.693 [0.516,0.841]   0.638 [0.493,0.781]
+                                                    intermediate           0.350 [0.188,0.563]   0.450 [0.370,0.500]
+                                                    soft-like              0.947 [0.791,1.000]   0.933 [0.796,0.994]
+                                                    soft-like - hard-like  0.254 [0.113,0.393]   0.296 [0.144,0.430]
+                                                    unknown                0.696 [0.424,0.987]   0.659 [0.409,0.980]
+v2 OOF | overlap box (2e)                     B-LR  inside overlap box     0.679 [0.401,0.901]   0.654 [0.455,0.828]
+                                                    outside overlap box    0.934 [0.786,1.000]   0.878 [0.677,0.997]
+                                              B-RF  inside overlap box     0.637 [0.379,0.869]   0.653 [0.532,0.766]
+                                                    outside overlap box    0.935 [0.798,1.000]   0.886 [0.686,1.000]
+                                              H-LR  inside overlap box     0.637 [0.445,0.823]   0.633 [0.444,0.802]
+                                                    outside overlap box    0.954 [0.851,1.000]   0.929 [0.796,1.000]
+                                              H-RF  inside overlap box     0.697 [0.532,0.833]   0.652 [0.508,0.791]
+                                                    outside overlap box    0.924 [0.776,1.000]   0.875 [0.675,0.994]
+
+PRIMARY H-LR soft-like AUC - hard-like AUC: +0.309 [+0.099,+0.510] (testable: True; BH sources soft 5, hard 7)
+
+[2f exploratory] hard-like only: 180 obs, 24 sources (7 BH)
+metric                                                                                 obs_balanced_accuracy             source_AUC source_balanced_accuracy
+comparison                                                                                                                                                  
+B-LR [hard-like only, trained on hard-like]                                              0.643 [0.473,0.813]    0.748 [0.471,0.983]      0.798 [0.597,0.971]
+B-LR [hard-like only, trained on hard-like] - B-LR [v2 OOF on the same hard-like obs]   0.004 [-0.060,0.068]   0.017 [-0.076,0.143]      0.059 [0.000,0.147]
+B-LR [v2 OOF on the same hard-like obs]                                                  0.640 [0.447,0.826]    0.731 [0.429,1.000]      0.739 [0.538,0.912]
+B-RF [hard-like only, trained on hard-like]                                              0.650 [0.525,0.776]    0.798 [0.555,0.975]      0.727 [0.525,0.929]
+B-RF [hard-like only, trained on hard-like] - B-RF [v2 OOF on the same hard-like obs]   0.000 [-0.052,0.063]   0.025 [-0.135,0.227]    -0.059 [-0.147,0.000]
+B-RF [v2 OOF on the same hard-like obs]                                                  0.650 [0.520,0.789]    0.773 [0.504,0.992]      0.786 [0.571,0.929]
+H-LR [hard-like only, trained on hard-like]                                              0.652 [0.462,0.835]    0.681 [0.412,0.916]      0.710 [0.508,0.899]
+H-LR [hard-like only, trained on hard-like] - H-LR [v2 OOF on the same hard-like obs]   0.020 [-0.052,0.067]  -0.067 [-0.252,0.034]      0.059 [0.000,0.147]
+H-LR [v2 OOF on the same hard-like obs]                                                  0.632 [0.457,0.802]    0.748 [0.529,0.933]      0.651 [0.450,0.840]
+H-RF [hard-like only, trained on hard-like]                                              0.617 [0.485,0.749]    0.807 [0.597,0.958]      0.727 [0.525,0.929]
+H-RF [hard-like only, trained on hard-like] - H-RF [v2 OOF on the same hard-like obs]  -0.020 [-0.073,0.035]   0.008 [-0.151,0.185]    -0.029 [-0.088,0.000]
+H-RF [v2 OOF on the same hard-like obs]                                                  0.638 [0.495,0.790]    0.798 [0.546,0.983]      0.756 [0.554,0.929]

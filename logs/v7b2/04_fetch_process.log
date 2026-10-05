@@ -1,0 +1,52 @@
+Energy grid: 45 bins, 4.908-25.008 keV (reference 91702-01-66-05)
+CYGX1 bin 0 accepted 50110-01-06-03 
+CYGX1 bin 3 accepted 60089-03-06-02 
+CYGX1 bin 1 accepted 50110-01-25-02 
+CYGX1 bin 2 accepted 50110-01-44-01 
+CYGX1 bin 5 accepted 90026-01-01-01 
+CYGX1 bin 4 accepted 60090-01-39-02 
+CYGX1 bin 6 accepted 80110-01-12-03 
+CYGX1 bin 7 accepted 91096-01-01-01 
+CYGX1 bin 9 accepted 80110-01-51-00 
+CYGX1 bin 10 accepted 93121-01-18-04 
+CYGX1 bin 11 accepted 94121-01-03-03 
+CYGX1 bin 8 accepted 92090-01-09-00 
+CYGX1 bin 13 accepted 95121-01-17-02 
+CYGX1 bin 12 accepted 94121-01-12-01 
+CYGX1 bin 14 accepted 96121-01-12-00 
+LMCX1 bin 0 accepted 80118-01-01-01 
+LMCX1 bin 1 accepted 80118-01-02-00 
+LMCX1 bin 3 accepted 80118-01-04-02 
+LMCX1 bin 2 accepted 80118-01-03-00 
+LMCX1 bin 4 accepted 80118-01-04-00 
+LMCX1 bin 5 accepted 80118-01-05-01 
+LMCX1 bin 6 accepted 80118-01-05-03 
+LMCX1 bin 7 accepted 80118-01-05-02 
+LMCX1 bin 8 accepted 80118-01-06-00 
+LMCX1 bin 9 accepted 80118-01-06-01 
+LMCX1 bin 10 accepted 80118-01-07-02 
+LMCX1 bin 11 accepted 80118-01-05-04 
+LMCX1 bin 12 accepted 95338-06-02-00 
+LMCX1 bin 13 accepted 95338-06-02-01 
+LMCX3 bin 0 accepted 60097-01-10-04 
+LMCX1 bin 14 accepted 95338-06-04-00 
+LMCX3 bin 1 accepted 91105-03-04-00 
+LMCX3 bin 2 accepted 91105-03-34-00 
+LMCX3 bin 3 accepted 91105-03-81-00 
+LMCX3 bin 5 accepted 92095-03-63-01 
+LMCX3 bin 4 accepted 91105-03-91-00 
+LMCX3 bin 6 accepted 92095-03-03-10 
+LMCX3 bin 7 accepted 92095-03-12-11 
+LMCX3 bin 9 accepted 93113-01-32-10 
+LMCX3 bin 8 accepted 93113-01-54-00 
+LMCX3 bin 10 accepted 94113-01-05-00 
+LMCX3 bin 11 accepted 94113-01-94-00 
+LMCX3 bin 12 accepted 95113-01-32-00 
+LMCX3 bin 13 accepted 96113-01-15-00 
+LMCX3 bin 14 accepted 96113-01-62-00 
+           candidates_tried  accepted  bins_empty
+source_id                                        
+CYGX1                    15        15           0
+LMCX1                    15        15           0
+LMCX3                    15        15           0
+Series([], )
