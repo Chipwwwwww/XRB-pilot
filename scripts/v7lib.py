@@ -243,10 +243,14 @@ def c2_outer(test_src, data, alg, cols, grid, cap, seed):
     cfg, inner = None, []
     if alg in grid:
         best = (-1.0, None)
+        if alg == 'SVM':      # inner grouped 5-fold over training sources (compute deviation, see decision_log); KNN: inner LOSO
+            from sklearn.model_selection import GroupKFold
+            splits = [(tr.source.values[i_te][0], i_tr, i_te) for i_tr, i_te in GroupKFold(n_splits=5).split(tr, tr.y, tr.source)]
+        else:
+            splits = [(s, np.where((tr.source != s).values)[0], np.where((tr.source == s).values)[0]) for s in tr.source.unique()]
         for c in grid[alg]:
             sc = np.full(len(tr), np.nan)
-            for s in tr.source.unique():
-                itr, ite = (tr.source != s).values, (tr.source == s).values
+            for _, itr, ite in splits:
                 if len(np.unique(tr.y.values[itr])) < 2: continue
                 sc[ite] = C2Model(alg, c).fit(tr[cols].values[itr], tr.y.values[itr]).score(tr[cols].values[ite])
             a = c2_src_auc(sc, tr); inner.append(dict(test_source=test_src, alg=alg, cfg=str(c), inner_source_AUC=a))
@@ -254,3 +258,13 @@ def c2_outer(test_src, data, alg, cols, grid, cap, seed):
         cfg = best[1]
     s = C2Model(alg, cfg).fit(tr[cols].values, tr.y.values).score(te[cols].values)
     return test_src, alg, str(cfg), s, inner
+
+
+def c2_outer_cached(cache_file, test_src, data, alg, cols, grid, cap, seed):
+    """c2_outer with an on-disk cache (one file per task / algorithm / feature set / held-out source) so that an
+    interrupted run resumes; identical results (deterministic inputs and seeds)."""
+    import joblib, os
+    if os.path.exists(cache_file): return joblib.load(cache_file)
+    out = c2_outer(test_src, data, alg, cols, grid, cap, seed)
+    tmp = cache_file + '.part'; joblib.dump(out, tmp); os.replace(tmp, cache_file)
+    return out

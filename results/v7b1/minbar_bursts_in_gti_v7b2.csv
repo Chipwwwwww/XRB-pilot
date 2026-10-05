@@ -1,0 +1,2 @@
+obs_id,source_id,label,minbar_name,instr,minbar_obsid,burst_time_mjd,dur_used_s,sflag,entry,origin_sep_deg,same_obsid,in_fov
+50110-01-25-02,CYGX1,BH,4U 1702-429,SW1,10704,51950.47093,41.4,-,1450,87.52306151310393,False,False

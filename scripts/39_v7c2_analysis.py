@@ -106,12 +106,14 @@ for task, (c1, c0, algs) in TASKS.items():
     print(f'\n[{task}] {len(srcs)} sources ({data[data.y == 1].source.nunique()} BH), {len(data)} points', flush=True)
     for alg in algs:
         for fs, cols in FS.items():
-            res = Parallel(n_jobs=16)(delayed(L7.c2_outer)(s, data, alg, cols, GRID, C.V7_MAXI_TRAIN_CAP, C.SEED) for s in srcs)
+            cdir = R7/'cache'; cdir.mkdir(exist_ok=True); tag = task.split(':')[0]
+            akey = alg + ('_gkf5' if alg == 'SVM' else '')     # SVM inner tuning: grouped 5-fold (see decision_log)
+            res = Parallel(n_jobs=16)(delayed(L7.c2_outer_cached)(str(cdir/f'{tag}_{akey}_{fs}_{s}.pkl'), s, data, alg, cols, GRID, C.V7_MAXI_TRAIN_CAP, C.SEED) for s in srcs)
             name = f'{alg} [{fs}]'
             oofs[(task, name)] = oof_frame(res, data, name)
             inners += [dict(task=task, feature_set=fs, **x) for r in res for x in r[4]]
             print(f'  {name} done ({time.time()-T0:.0f} s)', flush=True)
-            pd.concat([v.assign(task=t) for (t, n), v in oofs.items()]).to_csv(R7/'v7c2_oof_predictions.csv', index=False)
+            pd.concat([v.assign(task=t) for (t, n), v in oofs.items()]).to_csv(R7/'v7c2_oof_predictions.csv.gz', index=False)
         for ref, cmp_, lab in (('C2D', 'CCI', '(i) CCI vs 2D colours'), ('C1D', 'C2D', '(ii) colours incl. 2-4 keV vs >= 4 keV colour')):
             b = L.paired_bootstrap({f'{alg} [{ref}]': oofs[(task, f'{alg} [{ref}]')], f'{alg} [{cmp_}]': oofs[(task, f'{alg} [{cmp_}]')]}, f'{alg} [{ref}]')
             b['task'] = task; b['model'] = alg; b['comparison_set'] = lab

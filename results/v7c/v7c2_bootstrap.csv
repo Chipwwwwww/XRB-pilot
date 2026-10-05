@@ -1,0 +1,109 @@
+name,comparison,metric,point,ci2_5,ci97_5,frac_first_better,verdict,task,model,comparison_set,role
+LR [C2D],LR [C2D],source_balanced_accuracy,0.5961538461538461,0.44631410256410253,0.7396634615384612,,,main: BH vs NPNS,LR,(i) CCI vs 2D colours,PRIMARY
+LR [C2D],LR [C2D],source_AUC,0.5897435897435898,0.41025641025641024,0.7644230769230769,,,main: BH vs NPNS,LR,(i) CCI vs 2D colours,PRIMARY
+LR [C2D],LR [C2D],obs_balanced_accuracy,0.6113546054115998,0.49626597928133986,0.7604483963813021,,,main: BH vs NPNS,LR,(i) CCI vs 2D colours,PRIMARY
+LR [CCI],LR [CCI],source_balanced_accuracy,0.5192307692307692,0.3653846153846154,0.6730769230769231,,,main: BH vs NPNS,LR,(i) CCI vs 2D colours,PRIMARY
+LR [CCI],LR [CCI],source_AUC,0.5608974358974359,0.38782051282051283,0.7371794871794872,,,main: BH vs NPNS,LR,(i) CCI vs 2D colours,PRIMARY
+LR [CCI],LR [CCI],obs_balanced_accuracy,0.6053518870481878,0.49108896722427176,0.7467388014744175,,,main: BH vs NPNS,LR,(i) CCI vs 2D colours,PRIMARY
+LR [CCI],LR [CCI] - LR [C2D],source_balanced_accuracy,-0.07692307692307698,-0.1923076923076923,0.010416666666666685,0.042,not detected,main: BH vs NPNS,LR,(i) CCI vs 2D colours,PRIMARY
+LR [CCI],LR [CCI] - LR [C2D],source_AUC,-0.028846153846153855,-0.0657051282051282,0.0016025641025640969,0.0275,not detected,main: BH vs NPNS,LR,(i) CCI vs 2D colours,PRIMARY
+LR [CCI],LR [CCI] - LR [C2D],obs_balanced_accuracy,-0.006002718363412041,-0.015425296105709039,-0.0012066606948459408,0.004,not detected,main: BH vs NPNS,LR,(i) CCI vs 2D colours,PRIMARY
+LR [C1D],LR [C1D],source_balanced_accuracy,0.4983974358974359,0.3516826923076923,0.6450320512820513,,,main: BH vs NPNS,LR,(ii) colours incl. 2-4 keV vs >= 4 keV colour,PRIMARY
+LR [C1D],LR [C1D],source_AUC,0.45032051282051283,0.2932291666666667,0.6218349358974357,,,main: BH vs NPNS,LR,(ii) colours incl. 2-4 keV vs >= 4 keV colour,PRIMARY
+LR [C1D],LR [C1D],obs_balanced_accuracy,0.5235105712038995,0.4421376817456383,0.7706363679159737,,,main: BH vs NPNS,LR,(ii) colours incl. 2-4 keV vs >= 4 keV colour,PRIMARY
+LR [C2D],LR [C2D],source_balanced_accuracy,0.5961538461538461,0.44631410256410253,0.7396634615384612,,,main: BH vs NPNS,LR,(ii) colours incl. 2-4 keV vs >= 4 keV colour,PRIMARY
+LR [C2D],LR [C2D],source_AUC,0.5897435897435898,0.41025641025641024,0.7644230769230769,,,main: BH vs NPNS,LR,(ii) colours incl. 2-4 keV vs >= 4 keV colour,PRIMARY
+LR [C2D],LR [C2D],obs_balanced_accuracy,0.6113546054115998,0.49626597928133986,0.7604483963813021,,,main: BH vs NPNS,LR,(ii) colours incl. 2-4 keV vs >= 4 keV colour,PRIMARY
+LR [C2D],LR [C2D] - LR [C1D],source_balanced_accuracy,0.09775641025641024,-0.08733974358974361,0.2797275641025637,0.845,not detected,main: BH vs NPNS,LR,(ii) colours incl. 2-4 keV vs >= 4 keV colour,PRIMARY
+LR [C2D],LR [C2D] - LR [C1D],source_AUC,0.13942307692307693,-0.03205128205128199,0.3061698717948714,0.949,not detected,main: BH vs NPNS,LR,(ii) colours incl. 2-4 keV vs >= 4 keV colour,PRIMARY
+LR [C2D],LR [C2D] - LR [C1D],obs_balanced_accuracy,0.08784403420770026,-0.05557905395274429,0.19621828292934043,0.7965,not detected,main: BH vs NPNS,LR,(ii) colours incl. 2-4 keV vs >= 4 keV colour,PRIMARY
+RF [C2D],RF [C2D],source_balanced_accuracy,0.5769230769230769,0.5,0.6923076923076923,,,main: BH vs NPNS,RF,(i) CCI vs 2D colours,descriptive
+RF [C2D],RF [C2D],source_AUC,0.7740384615384616,0.5897035256410257,0.9342948717948718,,,main: BH vs NPNS,RF,(i) CCI vs 2D colours,descriptive
+RF [C2D],RF [C2D],obs_balanced_accuracy,0.5969006308849643,0.49788780542923106,0.681932858860483,,,main: BH vs NPNS,RF,(i) CCI vs 2D colours,descriptive
+RF [CCI],RF [CCI],source_balanced_accuracy,0.5384615384615384,0.5,0.6153846153846154,,,main: BH vs NPNS,RF,(i) CCI vs 2D colours,descriptive
+RF [CCI],RF [CCI],source_AUC,0.7291666666666666,0.5448717948717948,0.8878205128205128,,,main: BH vs NPNS,RF,(i) CCI vs 2D colours,descriptive
+RF [CCI],RF [CCI],obs_balanced_accuracy,0.6033925176634007,0.5269005801393586,0.6696842465268731,,,main: BH vs NPNS,RF,(i) CCI vs 2D colours,descriptive
+RF [CCI],RF [CCI] - RF [C2D],source_balanced_accuracy,-0.038461538461538436,-0.11538461538461542,0.0,0.0,not detected,main: BH vs NPNS,RF,(i) CCI vs 2D colours,descriptive
+RF [CCI],RF [CCI] - RF [C2D],source_AUC,-0.044871794871794934,-0.1217948717948717,0.011217948717948678,0.0605,not detected,main: BH vs NPNS,RF,(i) CCI vs 2D colours,descriptive
+RF [CCI],RF [CCI] - RF [C2D],obs_balanced_accuracy,0.006491886778436484,-0.021648833313430448,0.03973934446154412,0.638,not detected,main: BH vs NPNS,RF,(i) CCI vs 2D colours,descriptive
+RF [C1D],RF [C1D],source_balanced_accuracy,0.5,0.5,0.5,,,main: BH vs NPNS,RF,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+RF [C1D],RF [C1D],source_AUC,0.36378205128205127,0.21634615384615385,0.5320913461538459,,,main: BH vs NPNS,RF,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+RF [C1D],RF [C1D],obs_balanced_accuracy,0.4879629572423507,0.47398762666398475,0.5199245081203336,,,main: BH vs NPNS,RF,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+RF [C2D],RF [C2D],source_balanced_accuracy,0.5769230769230769,0.5,0.6923076923076923,,,main: BH vs NPNS,RF,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+RF [C2D],RF [C2D],source_AUC,0.7740384615384616,0.5897035256410257,0.9342948717948718,,,main: BH vs NPNS,RF,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+RF [C2D],RF [C2D],obs_balanced_accuracy,0.5969006308849643,0.49788780542923106,0.681932858860483,,,main: BH vs NPNS,RF,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+RF [C2D],RF [C2D] - RF [C1D],source_balanced_accuracy,0.07692307692307687,0.0,0.1923076923076923,0.877,not detected,main: BH vs NPNS,RF,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+RF [C2D],RF [C2D] - RF [C1D],source_AUC,0.4102564102564103,0.22916666666666669,0.5913461538461537,1.0,improvement,main: BH vs NPNS,RF,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+RF [C2D],RF [C2D] - RF [C1D],obs_balanced_accuracy,0.10893767364261353,0.016954686338232758,0.1916292786739192,1.0,improvement,main: BH vs NPNS,RF,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+KNN [C2D],KNN [C2D],source_balanced_accuracy,0.7379807692307692,0.598457532051282,0.874198717948718,,,main: BH vs NPNS,KNN,(i) CCI vs 2D colours,descriptive
+KNN [C2D],KNN [C2D],source_AUC,0.7996794871794872,0.6330128205128205,0.9375,,,main: BH vs NPNS,KNN,(i) CCI vs 2D colours,descriptive
+KNN [C2D],KNN [C2D],obs_balanced_accuracy,0.6664393857071989,0.5233235958956363,0.7838996107259776,,,main: BH vs NPNS,KNN,(i) CCI vs 2D colours,descriptive
+KNN [CCI],KNN [CCI],source_balanced_accuracy,0.6682692307692308,0.5144230769230769,0.8044871794871795,,,main: BH vs NPNS,KNN,(i) CCI vs 2D colours,descriptive
+KNN [CCI],KNN [CCI],source_AUC,0.7355769230769231,0.5528445512820513,0.8878605769230766,,,main: BH vs NPNS,KNN,(i) CCI vs 2D colours,descriptive
+KNN [CCI],KNN [CCI],obs_balanced_accuracy,0.621532239653537,0.5093311244605672,0.716726653949872,,,main: BH vs NPNS,KNN,(i) CCI vs 2D colours,descriptive
+KNN [CCI],KNN [CCI] - KNN [C2D],source_balanced_accuracy,-0.06971153846153832,-0.21634615384615385,0.06971153846153832,0.1405,not detected,main: BH vs NPNS,KNN,(i) CCI vs 2D colours,descriptive
+KNN [CCI],KNN [CCI] - KNN [C2D],source_AUC,-0.0641025641025641,-0.17307692307692302,0.016025641025640972,0.0675,not detected,main: BH vs NPNS,KNN,(i) CCI vs 2D colours,descriptive
+KNN [CCI],KNN [CCI] - KNN [C2D],obs_balanced_accuracy,-0.04490714605366186,-0.0871133840031558,0.009703396091509716,0.0655,not detected,main: BH vs NPNS,KNN,(i) CCI vs 2D colours,descriptive
+KNN [C1D],KNN [C1D],source_balanced_accuracy,0.3966346153846154,0.2676282051282051,0.5360576923076923,,,main: BH vs NPNS,KNN,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+KNN [C1D],KNN [C1D],source_AUC,0.42788461538461536,0.2756009615384616,0.5994391025641022,,,main: BH vs NPNS,KNN,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+KNN [C1D],KNN [C1D],obs_balanced_accuracy,0.5044052075482026,0.45538881764671946,0.6021213328586309,,,main: BH vs NPNS,KNN,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+KNN [C2D],KNN [C2D],source_balanced_accuracy,0.7379807692307692,0.598457532051282,0.874198717948718,,,main: BH vs NPNS,KNN,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+KNN [C2D],KNN [C2D],source_AUC,0.7996794871794872,0.6330128205128205,0.9375,,,main: BH vs NPNS,KNN,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+KNN [C2D],KNN [C2D],obs_balanced_accuracy,0.6664393857071989,0.5233235958956363,0.7838996107259776,,,main: BH vs NPNS,KNN,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+KNN [C2D],KNN [C2D] - KNN [C1D],source_balanced_accuracy,0.34134615384615374,0.13541666666666669,0.5504807692307692,0.9995,improvement,main: BH vs NPNS,KNN,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+KNN [C2D],KNN [C2D] - KNN [C1D],source_AUC,0.37179487179487186,0.1842948717948718,0.565745192307692,1.0,improvement,main: BH vs NPNS,KNN,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+KNN [C2D],KNN [C2D] - KNN [C1D],obs_balanced_accuracy,0.16203417815899623,0.05295084746027248,0.26562499681125756,1.0,improvement,main: BH vs NPNS,KNN,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+SVM [C2D],SVM [C2D],source_balanced_accuracy,0.5737179487179487,0.4583333333333333,0.706810897435897,,,main: BH vs NPNS,SVM,(i) CCI vs 2D colours,descriptive
+SVM [C2D],SVM [C2D],source_AUC,0.7419871794871795,0.5592948717948718,0.8990384615384616,,,main: BH vs NPNS,SVM,(i) CCI vs 2D colours,descriptive
+SVM [C2D],SVM [C2D],obs_balanced_accuracy,0.6267291844488194,0.5366628114364048,0.7045044825292042,,,main: BH vs NPNS,SVM,(i) CCI vs 2D colours,descriptive
+SVM [CCI],SVM [CCI],source_balanced_accuracy,0.5913461538461539,0.4655448717948718,0.7275641025641025,,,main: BH vs NPNS,SVM,(i) CCI vs 2D colours,descriptive
+SVM [CCI],SVM [CCI],source_AUC,0.6233974358974359,0.4182692307692308,0.8108974358974359,,,main: BH vs NPNS,SVM,(i) CCI vs 2D colours,descriptive
+SVM [CCI],SVM [CCI],obs_balanced_accuracy,0.558230400424063,0.4722762039410887,0.6349219203635827,,,main: BH vs NPNS,SVM,(i) CCI vs 2D colours,descriptive
+SVM [CCI],SVM [CCI] - SVM [C2D],source_balanced_accuracy,0.017628205128205177,-0.11538461538461536,0.15384615384615385,0.577,not detected,main: BH vs NPNS,SVM,(i) CCI vs 2D colours,descriptive
+SVM [CCI],SVM [CCI] - SVM [C2D],source_AUC,-0.11858974358974361,-0.21153846153846156,-0.04006410256410253,0.002,not detected,main: BH vs NPNS,SVM,(i) CCI vs 2D colours,descriptive
+SVM [CCI],SVM [CCI] - SVM [C2D],obs_balanced_accuracy,-0.0684987840247564,-0.09884934526329486,-0.03605798526345993,0.0,not detected,main: BH vs NPNS,SVM,(i) CCI vs 2D colours,descriptive
+SVM [C1D],SVM [C1D],source_balanced_accuracy,0.39743589743589747,0.25080128205128205,0.5441506410256406,,,main: BH vs NPNS,SVM,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+SVM [C1D],SVM [C1D],source_AUC,0.44551282051282054,0.2772035256410257,0.6266025641025641,,,main: BH vs NPNS,SVM,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+SVM [C1D],SVM [C1D],obs_balanced_accuracy,0.4955977117025803,0.4130887858216403,0.6583992093371572,,,main: BH vs NPNS,SVM,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+SVM [C2D],SVM [C2D],source_balanced_accuracy,0.5737179487179487,0.4583333333333333,0.706810897435897,,,main: BH vs NPNS,SVM,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+SVM [C2D],SVM [C2D],source_AUC,0.7419871794871795,0.5592948717948718,0.8990384615384616,,,main: BH vs NPNS,SVM,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+SVM [C2D],SVM [C2D],obs_balanced_accuracy,0.6267291844488194,0.5366628114364048,0.7045044825292042,,,main: BH vs NPNS,SVM,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+SVM [C2D],SVM [C2D] - SVM [C1D],source_balanced_accuracy,0.1762820512820512,-0.04727564102564108,0.41025641025641024,0.933,not detected,main: BH vs NPNS,SVM,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+SVM [C2D],SVM [C2D] - SVM [C1D],source_AUC,0.296474358974359,0.09615384615384615,0.5144230769230769,0.997,improvement,main: BH vs NPNS,SVM,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+SVM [C2D],SVM [C2D] - SVM [C1D],obs_balanced_accuracy,0.1311314727462391,-0.013009138361557584,0.21357813463668496,0.9635,not detected,main: BH vs NPNS,SVM,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+LR [C2D],LR [C2D],source_balanced_accuracy,0.6923076923076923,0.5512820512820513,0.8461538461538461,,,secondary: BH vs PSR,LR,(i) CCI vs 2D colours,descriptive
+LR [C2D],LR [C2D],source_AUC,0.814595660749507,0.6785009861932939,0.9309664694280079,,,secondary: BH vs PSR,LR,(i) CCI vs 2D colours,descriptive
+LR [C2D],LR [C2D],obs_balanced_accuracy,0.6875102627913958,0.49192618061519827,0.8517042399631474,,,secondary: BH vs PSR,LR,(i) CCI vs 2D colours,descriptive
+LR [CCI],LR [CCI],source_balanced_accuracy,0.6923076923076923,0.5512820512820513,0.8461538461538461,,,secondary: BH vs PSR,LR,(i) CCI vs 2D colours,descriptive
+LR [CCI],LR [CCI],source_AUC,0.814595660749507,0.6765285996055227,0.9289940828402367,,,secondary: BH vs PSR,LR,(i) CCI vs 2D colours,descriptive
+LR [CCI],LR [CCI],obs_balanced_accuracy,0.6866207666332451,0.4917169084529642,0.85059287481065,,,secondary: BH vs PSR,LR,(i) CCI vs 2D colours,descriptive
+LR [CCI],LR [CCI] - LR [C2D],source_balanced_accuracy,0.0,0.0,0.0,0.0,not detected,secondary: BH vs PSR,LR,(i) CCI vs 2D colours,descriptive
+LR [CCI],LR [CCI] - LR [C2D],source_AUC,0.0,-0.01183431952662728,0.013806706114398382,0.398,not detected,secondary: BH vs PSR,LR,(i) CCI vs 2D colours,descriptive
+LR [CCI],LR [CCI] - LR [C2D],obs_balanced_accuracy,-0.0008894961581507044,-0.0077794389349652385,0.0015781865888353853,0.2835,not detected,secondary: BH vs PSR,LR,(i) CCI vs 2D colours,descriptive
+LR [C1D],LR [C1D],source_balanced_accuracy,0.5256410256410257,0.3717948717948718,0.6794871794871795,,,secondary: BH vs PSR,LR,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+LR [C1D],LR [C1D],source_AUC,0.5069033530571992,0.2781065088757396,0.7357495069033527,,,secondary: BH vs PSR,LR,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+LR [C1D],LR [C1D],obs_balanced_accuracy,0.6455165331583348,0.42645215732243374,0.7264992808213862,,,secondary: BH vs PSR,LR,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+LR [C2D],LR [C2D],source_balanced_accuracy,0.6923076923076923,0.5512820512820513,0.8461538461538461,,,secondary: BH vs PSR,LR,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+LR [C2D],LR [C2D],source_AUC,0.814595660749507,0.6785009861932939,0.9309664694280079,,,secondary: BH vs PSR,LR,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+LR [C2D],LR [C2D],obs_balanced_accuracy,0.6875102627913958,0.49192618061519827,0.8517042399631474,,,secondary: BH vs PSR,LR,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+LR [C2D],LR [C2D] - LR [C1D],source_balanced_accuracy,0.16666666666666663,-0.012820512820512775,0.34615384615384615,0.9615,not detected,secondary: BH vs PSR,LR,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+LR [C2D],LR [C2D] - LR [C1D],source_AUC,0.3076923076923077,0.09861932938856022,0.5108974358974355,0.998,improvement,secondary: BH vs PSR,LR,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+LR [C2D],LR [C2D] - LR [C1D],obs_balanced_accuracy,0.04199372963306103,-0.1693309894963289,0.3043005649911425,0.6755,not detected,secondary: BH vs PSR,LR,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+RF [C2D],RF [C2D],source_balanced_accuracy,0.6153846153846154,0.5,0.7307692307692308,,,secondary: BH vs PSR,RF,(i) CCI vs 2D colours,descriptive
+RF [C2D],RF [C2D],source_AUC,0.8126232741617357,0.6764792899408284,0.9270710059171594,,,secondary: BH vs PSR,RF,(i) CCI vs 2D colours,descriptive
+RF [C2D],RF [C2D],obs_balanced_accuracy,0.6425724161129146,0.4968170892132256,0.771134604143789,,,secondary: BH vs PSR,RF,(i) CCI vs 2D colours,descriptive
+RF [CCI],RF [CCI],source_balanced_accuracy,0.6538461538461539,0.5384615384615384,0.7692307692307692,,,secondary: BH vs PSR,RF,(i) CCI vs 2D colours,descriptive
+RF [CCI],RF [CCI],source_AUC,0.7948717948717948,0.6469428007889546,0.9132149901380671,,,secondary: BH vs PSR,RF,(i) CCI vs 2D colours,descriptive
+RF [CCI],RF [CCI],obs_balanced_accuracy,0.6608047136807063,0.5030393743397145,0.8011080949161431,,,secondary: BH vs PSR,RF,(i) CCI vs 2D colours,descriptive
+RF [CCI],RF [CCI] - RF [C2D],source_balanced_accuracy,0.038461538461538436,0.0,0.11538461538461542,0.632,not detected,secondary: BH vs PSR,RF,(i) CCI vs 2D colours,descriptive
+RF [CCI],RF [CCI] - RF [C2D],source_AUC,-0.01775147928994092,-0.07697238658777125,0.035502958579881616,0.234,not detected,secondary: BH vs PSR,RF,(i) CCI vs 2D colours,descriptive
+RF [CCI],RF [CCI] - RF [C2D],obs_balanced_accuracy,0.018232297567791655,-0.013183565054096671,0.03493912522961443,0.8705,not detected,secondary: BH vs PSR,RF,(i) CCI vs 2D colours,descriptive
+RF [C1D],RF [C1D],source_balanced_accuracy,0.5256410256410257,0.46153846153846156,0.6153846153846154,,,secondary: BH vs PSR,RF,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+RF [C1D],RF [C1D],source_AUC,0.6272189349112426,0.40631163708086787,0.8205621301775144,,,secondary: BH vs PSR,RF,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+RF [C1D],RF [C1D],obs_balanced_accuracy,0.6094592863747306,0.5050917443260963,0.6484676533507228,,,secondary: BH vs PSR,RF,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+RF [C2D],RF [C2D],source_balanced_accuracy,0.6153846153846154,0.5,0.7307692307692308,,,secondary: BH vs PSR,RF,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+RF [C2D],RF [C2D],source_AUC,0.8126232741617357,0.6764792899408284,0.9270710059171594,,,secondary: BH vs PSR,RF,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+RF [C2D],RF [C2D],obs_balanced_accuracy,0.6425724161129146,0.4968170892132256,0.771134604143789,,,secondary: BH vs PSR,RF,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+RF [C2D],RF [C2D] - RF [C1D],source_balanced_accuracy,0.08974358974358976,-0.05128205128205132,0.23076923076923084,0.8735,not detected,secondary: BH vs PSR,RF,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+RF [C2D],RF [C2D] - RF [C1D],source_AUC,0.18540433925049316,-0.0019723865877712132,0.4023668639053254,0.9705,not detected,secondary: BH vs PSR,RF,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
+RF [C2D],RF [C2D] - RF [C1D],obs_balanced_accuracy,0.03311312973818403,-0.1382803160998239,0.16733187657274176,0.66,not detected,secondary: BH vs PSR,RF,(ii) colours incl. 2-4 keV vs >= 4 keV colour,descriptive
