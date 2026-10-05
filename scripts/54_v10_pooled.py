@@ -3,7 +3,7 @@ IC3 source identity (labels consistent across instruments); IC2 (single-componen
 instrument pooled permutation D equals v6lib.perm_test D).
 v10a PRIMARY: equal-weight mean of the hard-like observation-level AUC gains (LR) of RXTE S1 (v5 vs v2 OOF), RXTE X (frozen v6),
 NICER (full-data LOSO). v10b PRIMARY: mean over RXTE and NICER of the colour-conditional D(log10 nu_c), joint label permutation."""
-import os, sys, time
+import os, sys, time, zlib
 os.environ['XRB_VERSION'] = 'v10'
 sys.path.insert(0, os.path.dirname(__file__))
 from common import ROOT, progress
@@ -169,7 +169,7 @@ a.set_title(f'(a) v10a: pooled = {pp:+.3f} [{prim["ci2_5"]:+.3f}, {prim["ci97_5"
 a = ax[1]
 for i, (k, r) in enumerate(resid.items()):
     for s, v in r.dropna().items():
-        a.scatter(v, i + np.random.default_rng(abs(hash(s)) % 2**32).uniform(-0.2, 0.2), s=22, color=CLASS_COLOR[labB[s]], alpha=.8)
+        a.scatter(v, i + np.random.default_rng(zlib.crc32(s.encode())).uniform(-0.2, 0.2), s=22, color=CLASS_COLOR[labB[s]], alpha=.8)
 a.set_yticks([0, 1]); a.set_yticklabels(list(resid)); a.axvline(0, color=INK2, lw=.6)
 pB = B10[B10.role == 'PRIMARY'].iloc[0]
 a.set_xlabel('source-mean residual of log10 nu_c (colour-conditional; blue BH, orange NS)')

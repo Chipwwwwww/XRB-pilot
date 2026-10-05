@@ -128,8 +128,9 @@ def pooled_perm(resids, labels, n_perm=None, seed=None):
     D_inst = stat(y); D = float(np.nanmean(D_inst))
     # restricted permutation: labels are permuted within strata of instrument membership (RXTE only / NICER only / both),
     # keeping the number of BH per stratum fixed (decision_log v10: union-wide permutation lost power, synthetic test)
-    member = np.array([tuple(k for k, (ix, _) in R.items() if i in set(ix)) for i in range(len(names))], dtype=object)
-    strata = [np.where(np.array([m == u for m in member]))[0] for u in sorted(set(member), key=str)]
+    sets = {k: set(ix.tolist()) for k, (ix, _) in R.items()}
+    member = [tuple(k for k in R if i in sets[k]) for i in range(len(names))]
+    strata = [np.array([i for i, m in enumerate(member) if m == u]) for u in sorted(set(member), key=str)]
     Dp = np.empty(n_perm)
     for i in range(n_perm):
         yy = np.zeros(len(names), bool)
