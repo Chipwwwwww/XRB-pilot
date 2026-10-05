@@ -1,0 +1,34 @@
+part,analysis,comparison,metric,point,ci2_5,ci97_5,n_valid_draws,role,verdict,frac_first_better,name
+v8b,X frozen v6 models | soft-like,H_R-LR,obs_AUC,0.8276746642523012,0.6618116567131166,0.9839346049294875,2000.0,descriptive,,,
+v8b,X frozen v6 models | soft-like,H_R-LR,obs_balanced_accuracy,0.7801418439716312,0.614954834907095,0.926961373550114,2000.0,descriptive,,,
+v8b,X frozen v6 models | intermediate,H_R-LR,obs_AUC,0.9506172839506173,0.8555555555555555,1.0,1806.0,descriptive,,,
+v8b,X frozen v6 models | intermediate,H_R-LR,obs_balanced_accuracy,0.7037037037037037,0.6153846153846154,0.8181818181818181,1806.0,descriptive,,,
+v8b,X frozen v6 models | hard-like,H_R-LR,obs_AUC,0.8173913043478261,0.5949244022503516,0.9805788300181892,2000.0,descriptive,,,
+v8b,X frozen v6 models | hard-like,H_R-LR,obs_balanced_accuracy,0.7391304347826086,0.6557377049180328,0.8369628412537916,2000.0,descriptive,,,
+v8b,X frozen v6 models | soft-like,H_R+T-LR,obs_AUC,0.709672551682511,0.3563690499167948,0.9773113656927479,2000.0,descriptive,,,
+v8b,X frozen v6 models | soft-like,H_R+T-LR,obs_balanced_accuracy,0.7730496453900709,0.5708643409049078,0.942127420265569,2000.0,descriptive,,,
+v8b,X frozen v6 models | intermediate,H_R+T-LR,obs_AUC,0.9135802469135802,0.30631868131868134,1.0,1806.0,descriptive,,,
+v8b,X frozen v6 models | intermediate,H_R+T-LR,obs_balanced_accuracy,0.8796296296296297,0.42857142857142855,1.0,1806.0,descriptive,,,
+v8b,X frozen v6 models | hard-like,H_R+T-LR,obs_AUC,0.8816425120772947,0.7104755196135831,0.9932942686858859,2000.0,descriptive,,,
+v8b,X frozen v6 models | hard-like,H_R+T-LR,obs_balanced_accuracy,0.8478260869565217,0.7413793103448276,0.9322316384180789,2000.0,descriptive,,,
+v8b,X frozen v6 models | soft-like,H_R+T-LR - H_R-LR,obs_AUC,-0.11800211256979021,-0.3369292289988493,0.05544701196530547,2000.0,descriptive,not detected,0.169,
+v8b,X frozen v6 models | soft-like,H_R+T-LR - H_R-LR,obs_balanced_accuracy,-0.007092198581560294,-0.07927628205128211,0.07282006384600727,2000.0,descriptive,not detected,0.4455,
+v8b,X frozen v6 models | intermediate,H_R+T-LR - H_R-LR,obs_AUC,-0.03703703703703709,-0.6666666666666667,0.1175245098039216,1806.0,descriptive,not detected,0.36766334440753046,
+v8b,X frozen v6 models | intermediate,H_R+T-LR - H_R-LR,obs_balanced_accuracy,0.17592592592592593,-0.3042507763975156,0.3214285714285714,1806.0,descriptive,not detected,0.7236987818383167,
+v8b,X frozen v6 models | hard-like,H_R+T-LR - H_R-LR,obs_AUC,0.06425120772946857,-0.18490662822710507,0.3672711128657847,2000.0,PRIMARY,not detected,0.679,
+v8b,X frozen v6 models | hard-like,H_R+T-LR - H_R-LR,obs_balanced_accuracy,0.10869565217391308,-0.06945251937984505,0.2470728291316525,2000.0,descriptive,not detected,0.8815,
+v8b,"X frozen v6 models, all states | all",H_R-LR,obs_AUC,0.8173198954833893,0.6466579009099103,0.94595841847435,2000.0,descriptive,,,
+v8b,"X frozen v6 models, all states | all",H_R-LR,obs_balanced_accuracy,0.74822695035461,0.6276874366767984,0.8558689692982455,2000.0,descriptive,,,
+v8b,"X frozen v6 models, all states | all",H_R+T-LR,obs_AUC,0.7987681970884658,0.5401851132390246,0.9535839979888932,2000.0,descriptive,,,
+v8b,"X frozen v6 models, all states | all",H_R+T-LR,obs_balanced_accuracy,0.8180104516610676,0.6674944008958567,0.9165367083371387,2000.0,descriptive,,,
+v8b,"X frozen v6 models, all states | all",H_R+T-LR - H_R-LR,obs_AUC,-0.018551698394923544,-0.14428174396387003,0.09273355803301361,2000.0,descriptive,not detected,0.413,
+v8b,"X frozen v6 models, all states | all",H_R+T-LR - H_R-LR,obs_balanced_accuracy,0.06978350130645761,-0.004937574848451117,0.14286251342642312,2000.0,descriptive,not detected,0.9655,
+v8b,X hard-like | source level (restricted OOF),H_R-LR,source_balanced_accuracy,0.7333333333333334,0.6,0.8666666666666667,,descriptive,,,H_R-LR
+v8b,X hard-like | source level (restricted OOF),H_R-LR,source_AUC,0.88,0.6666666666666666,1.0,,descriptive,,,H_R-LR
+v8b,X hard-like | source level (restricted OOF),H_R-LR,obs_balanced_accuracy,0.7391304347826086,0.6588086373790022,0.8369565217391304,,descriptive,,,H_R-LR
+v8b,X hard-like | source level (restricted OOF),H_R+T-LR,source_balanced_accuracy,0.8666666666666667,0.7333333333333334,0.9666666666666667,,descriptive,,,H_R+T-LR
+v8b,X hard-like | source level (restricted OOF),H_R+T-LR,source_AUC,0.96,0.8666666666666667,1.0,,descriptive,,,H_R+T-LR
+v8b,X hard-like | source level (restricted OOF),H_R+T-LR,obs_balanced_accuracy,0.8478260869565217,0.75,0.9294894366197183,,descriptive,,,H_R+T-LR
+v8b,X hard-like | source level (restricted OOF),H_R+T-LR - H_R-LR,source_balanced_accuracy,0.1333333333333333,-0.03333333333333344,0.30000000000000004,,descriptive,not detected,0.909,H_R+T-LR
+v8b,X hard-like | source level (restricted OOF),H_R+T-LR - H_R-LR,source_AUC,0.07999999999999996,-0.09333333333333338,0.30666666666666675,,descriptive,not detected,0.77,H_R+T-LR
+v8b,X hard-like | source level (restricted OOF),H_R+T-LR - H_R-LR,obs_balanced_accuracy,0.10869565217391308,-0.06666666666666665,0.25,,descriptive,not detected,0.8925,H_R+T-LR

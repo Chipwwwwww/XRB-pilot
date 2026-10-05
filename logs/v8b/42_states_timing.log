@@ -1,0 +1,36 @@
+                                 n_obs  n_src
+sample role               label              
+v4b2   E_v4b2             BH        26      2
+                          NS       195     13
+v6     E_new              BH        30      2
+                          NS        90      6
+       stress_slow_pulsar NS        60      4
+v7b2   v7b2_LMCX1         BH        15      1
+v8b    v8b_new            BH        23      2
+MINBAR (FOV rule) bursts in GTI: 69 in 34 observations
+
+states:
+state                     hard-like  intermediate  soft-like  unknown
+role               label                                             
+E_new              BH            14             0          9        7
+                   NS            51            13         11       15
+E_v4b2             BH             6             1         18        1
+                   NS            18            14        130       33
+stress_slow_pulsar NS            32             1         24        3
+v7b2_LMCX1         BH             3             5          4        3
+v8b_new            BH             7             0         16        0
+
+BH sources, state counts:
+state         hard-like  intermediate  soft-like  unknown
+source_id                                                
+CYGX1                14             0          0        1
+GS1354-64             7             0          1        0
+LMCX1                 3             5          4        3
+LMCX3                 0             0          9        6
+SS433                 0             0         15        0
+V4641SGR              5             0          5        1
+XTEJ1859+226          1             1         13        0
+
+timing status: {'ok': 377, 'missing (< 3 valid rows)': 62}
+
+X hard-like (excluding stress set): 99 obs, BH sources 5, NS sources 15 (21 s)

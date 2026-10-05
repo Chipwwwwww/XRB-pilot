@@ -1,0 +1,147 @@
+IC1: {'check': 'IC1 v2 H-LR hard-like obs AUC = v7a', 'v7a': (np.float64(0.6456086286594761), np.float64(0.4446060128954866), np.float64(0.8413840791948591)), 'v8': (0.6456086286594761, 0.4446060128954866, 0.8413840791948591), 'passed': True}
+hard-only H-LR reproduces v7a 2f: max diff 1.1102230246251565e-16
+v8a done (6 s)
+IC2:
+   model  n_common  n_v6  max_abs_diff  passed
+  H_R-LR       401   401  1.110223e-16    True
+H_R+T-LR       401   401  1.110223e-16    True
+X hard-like: 99 obs, 5 BH / 15 NS sources -> testable True
+
+X per source x state (mean score, n):
+                                                               mean            size       
+name                                                       H_R+T-LR H_R-LR H_R+T-LR H_R-LR
+role               source_id       true_label state                                       
+E_new              CYGX1           BH         hard-like        0.80   0.74       14     14
+                                              unknown          0.20   0.64        1      1
+                   IGRJ00291+5934  NS         hard-like        0.89   0.45        9      9
+                                              soft-like        0.05   0.60        2      2
+                                              unknown          0.20   0.49        4      4
+                   IGRJ17498-2921  NS         hard-like        0.14   0.49        6      6
+                                              intermediate     0.13   0.40        5      5
+                                              soft-like        0.10   0.36        1      1
+                                              unknown          0.26   0.35        3      3
+                   IGRJ17511-3057  NS         hard-like        0.06   0.51        4      4
+                                              intermediate     0.05   0.49        3      3
+                                              unknown          0.20   0.49        8      8
+                   LMCX3           BH         soft-like        0.84   0.75        9      9
+                                              unknown          0.83   0.62        6      6
+                   XTEJ0929-314    NS         hard-like        0.27   0.59       14     14
+                                              soft-like        0.07   0.39        1      1
+                   XTEJ1751-305    NS         hard-like        0.35   0.52       11     11
+                                              soft-like        0.31   0.72        4      4
+                   XTEJ1807-294    NS         hard-like        0.31   0.65        7      7
+                                              intermediate     0.09   0.57        5      5
+                                              soft-like        0.38   0.86        3      3
+E_v4b2             2S0918-549      NS         hard-like        0.02   0.38        2      2
+                                              soft-like        0.06   0.25        8      8
+                                              unknown          0.51   0.59        5      5
+                   4U2127+119      NS         hard-like        0.12   0.33        1      1
+                                              intermediate     0.28   0.55        7      7
+                                              soft-like        0.29   0.56        6      6
+                                              unknown          0.93   0.86        1      1
+                   A1744-361       NS         soft-like        0.11   0.17       12     12
+                                              unknown          0.25   0.28        3      3
+                   EXO1745-248     NS         hard-like        0.73   0.32        2      2
+                                              soft-like        0.06   0.12       11     11
+                                              unknown          0.06   0.05        2      2
+                   GRS1747-312     NS         soft-like        0.11   0.24       14     14
+                                              unknown          0.93   0.97        1      1
+                   MXB0513-40      NS         hard-like        0.23   0.25        3      3
+                                              intermediate     0.01   0.04        1      1
+                                              soft-like        0.01   0.27        6      6
+                                              unknown          0.07   0.10        5      5
+                   NGC6440         NS         hard-like        0.59   0.69        2      2
+                                              intermediate     0.17   0.65        2      2
+                                              soft-like        0.04   0.10       10     10
+                                              unknown          0.34   0.63        1      1
+                   SAXJ1747.0-2853 NS         soft-like        0.13   0.35       14     14
+                                              unknown          0.57   0.39        1      1
+                   SAXJ1750.8-2900 NS         hard-like        0.20   0.66        1      1
+                                              soft-like        0.14   0.38        4      4
+                                              unknown          0.32   0.39       10     10
+                   SERX1           NS         soft-like        0.06   0.10       14     14
+                                              unknown          0.29   0.12        1      1
+                   V4641SGR        BH         hard-like        0.95   0.91        5      5
+                                              soft-like        0.65   0.93        5      5
+                                              unknown          1.00   1.00        1      1
+                   XTEJ1709-267    NS         hard-like        0.44   0.68        1      1
+                                              intermediate     0.38   0.84        2      2
+                                              soft-like        0.07   0.14       12     12
+                   XTEJ1710-281    NS         hard-like        0.59   0.85        4      4
+                                              intermediate     0.02   0.37        1      1
+                                              soft-like        0.18   0.46        9      9
+                                              unknown          0.21   0.58        1      1
+                   XTEJ1759-220    NS         hard-like        0.03   0.45        2      2
+                                              intermediate     0.10   0.56        1      1
+                                              soft-like        0.05   0.24       10     10
+                                              unknown          0.29   0.20        2      2
+                   XTEJ1859+226    BH         hard-like        0.60   0.76        1      1
+                                              intermediate     0.11   0.89        1      1
+                                              soft-like        0.87   0.96       13     13
+stress_slow_pulsar 4U1626-67       NS         hard-like        0.46   0.15       13     13
+                                              unknown          0.01   0.13        2      2
+                   4U1822-371      NS         soft-like        0.01   0.05       15     15
+                   GROJ1744-28     NS         hard-like        0.17   0.11        8      8
+                                              intermediate     0.06   0.27        1      1
+                                              soft-like        0.03   0.29        6      6
+                   HERX1           NS         hard-like        0.09   0.21       11     11
+                                              soft-like        0.01   0.51        3      3
+                                              unknown          0.01   0.17        1      1
+v7b2_LMCX1         LMCX1           BH         hard-like        0.99   0.82        3      3
+                                              intermediate     0.99   0.89        5      5
+                                              soft-like        1.00   0.96        4      4
+                                              unknown          0.99   0.88        3      3
+v8b_new            GS1354-64       BH         hard-like        0.97   0.54        7      7
+                                              soft-like        0.00   0.50        1      1
+                   SS433           BH         soft-like        0.02   0.31       15     15
+v8b done (7 s)
+
+metric                                                                                                        obs_AUC              source_AUC source_balanced_accuracy
+part analysis                                     comparison                                                                                                          
+v8a  S1 burst-excluded (v5) | hard-like           H+T-LR (burst-excl.) - H-LR (burst-excl.)    +0.280 [+0.055,+0.484]                     NaN                      NaN
+     S1 existing OOF | difference in differences  H+T-LR gap - H-LR gap                        -0.229 [-0.420,-0.005]                     NaN                      NaN
+                                                  H+T-RF gap - H-RF gap                        -0.207 [-0.354,-0.056]                     NaN                      NaN
+     S1 existing OOF | hard-like                  H+N+T-LR - H+N-LR                            +0.201 [+0.019,+0.418]                     NaN                      NaN
+                                                  H+T*-LR - H-LR                               +0.270 [+0.059,+0.457]                     NaN                      NaN
+                                                  H+T-LR - H-LR                              +0.264 [+0.048,+0.455] *                     NaN                      NaN
+                                                  H+T-RF - H-RF                                +0.230 [+0.074,+0.408]                     NaN                      NaN
+                                                  H+T1-LR - H-LR                               +0.280 [+0.059,+0.481]                     NaN                      NaN
+                                                  H+T2-LR - H-LR                               +0.228 [+0.042,+0.411]                     NaN                      NaN
+                                                  H+T3-LR - H-LR                               +0.008 [-0.029,+0.060]                     NaN                      NaN
+     S1 existing OOF | intermediate               H+N+T-LR - H+N-LR                            +0.200 [+0.000,+0.435]                     NaN                      NaN
+                                                  H+T*-LR - H-LR                               +0.500 [+0.167,+0.778]                     NaN                      NaN
+                                                  H+T-LR - H-LR                                +0.400 [+0.111,+0.700]                     NaN                      NaN
+                                                  H+T-RF - H-RF                                +0.550 [+0.370,+0.765]                     NaN                      NaN
+                                                  H+T1-LR - H-LR                               +0.300 [+0.100,+0.500]                     NaN                      NaN
+                                                  H+T2-LR - H-LR                               +0.450 [+0.154,+0.706]                     NaN                      NaN
+                                                  H+T3-LR - H-LR                               +0.150 [+0.000,+0.316]                     NaN                      NaN
+     S1 existing OOF | soft-like                  H+N+T-LR - H+N-LR                            +0.004 [-0.001,+0.018]                     NaN                      NaN
+                                                  H+T*-LR - H-LR                               +0.038 [+0.000,+0.170]                     NaN                      NaN
+                                                  H+T-LR - H-LR                                +0.036 [+0.000,+0.158]                     NaN                      NaN
+                                                  H+T-RF - H-RF                                +0.022 [-0.008,+0.110]                     NaN                      NaN
+                                                  H+T1-LR - H-LR                               +0.035 [+0.000,+0.155]                     NaN                      NaN
+                                                  H+T2-LR - H-LR                               +0.027 [+0.000,+0.121]                     NaN                      NaN
+                                                  H+T3-LR - H-LR                               +0.006 [+0.000,+0.026]                     NaN                      NaN
+     S1 hard-like | source level (restricted OOF) H+T-LR - H-LR                                                   NaN  +0.185 [+0.008,+0.403]   +0.147 [-0.084,+0.391]
+     S1 trained on hard-like only | hard-like     H+T-LR [hard-only] - H-LR [hard-only]        +0.267 [+0.060,+0.460]                     NaN                      NaN
+v8b  X frozen v6 models | hard-like               H_R+T-LR - H_R-LR                          +0.064 [-0.185,+0.367] *                     NaN                      NaN
+     X frozen v6 models | intermediate            H_R+T-LR - H_R-LR                            -0.037 [-0.667,+0.118]                     NaN                      NaN
+     X frozen v6 models | soft-like               H_R+T-LR - H_R-LR                            -0.118 [-0.337,+0.055]                     NaN                      NaN
+     X frozen v6 models, all states | all         H_R+T-LR - H_R-LR                            -0.019 [-0.144,+0.093]                     NaN                      NaN
+     X hard-like | source level (restricted OOF)  H_R+T-LR - H_R-LR                                               NaN  +0.080 [-0.093,+0.307]   +0.133 [-0.033,+0.300]
+
+comparison                                                   H+N+T-LR               H+N-LR              H+T*-LR               H+T-LR H+T-LR (burst-excl.)   H+T-LR [hard-only]           H+T-LR gap               H+T-RF            H+T-RF gap              H+T1-LR              H+T2-LR              H+T3-LR                 H-LR   H-LR (burst-excl.)     H-LR [hard-only]                 H-RF             H_R+T-LR               H_R-LR
+part analysis                                                                                                                                                                                                                                                                                                                                                                                                                              
+v8a  S1 burst-excluded (v5) | hard-like                           NaN                  NaN                  NaN                  NaN  0.875 [0.755,0.963]                  NaN                  NaN                  NaN                   NaN                  NaN                  NaN                  NaN                  NaN  0.595 [0.383,0.803]                  NaN                  NaN                  NaN                  NaN
+     S1 existing OOF | hard-like                  0.949 [0.888,0.989]  0.748 [0.523,0.930]  0.916 [0.818,0.979]  0.910 [0.803,0.975]                  NaN                  NaN                  NaN  0.923 [0.836,0.977]                   NaN  0.926 [0.818,0.982]  0.874 [0.759,0.963]  0.654 [0.449,0.849]  0.646 [0.445,0.841]                  NaN                  NaN  0.693 [0.516,0.841]                  NaN                  NaN
+     S1 existing OOF | intermediate               0.950 [0.870,1.000]  0.750 [0.438,1.000]  0.950 [0.870,1.000]  0.850 [0.609,1.000]                  NaN                  NaN                  NaN  0.900 [0.800,1.000]                   NaN  0.750 [0.526,1.000]  0.900 [0.800,1.000]  0.600 [0.312,0.929]  0.450 [0.142,0.833]                  NaN                  NaN  0.350 [0.188,0.563]                  NaN                  NaN
+     S1 existing OOF | soft-like                  0.999 [0.997,1.000]  0.995 [0.982,1.000]  0.993 [0.961,1.000]  0.990 [0.950,1.000]                  NaN                  NaN                  NaN  0.970 [0.889,1.000]                   NaN  0.989 [0.945,1.000]  0.982 [0.916,1.000]  0.961 [0.826,1.000]  0.954 [0.801,1.000]                  NaN                  NaN  0.947 [0.791,1.000]                  NaN                  NaN
+     S1 existing OOF | soft-like - hard-like gap                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN  0.080 [0.014,0.181]                  NaN  0.047 [-0.041,0.132]                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN
+     S1 trained on hard-like only | hard-like                     NaN                  NaN                  NaN                  NaN                  NaN  0.887 [0.747,0.967]                  NaN                  NaN                   NaN                  NaN                  NaN                  NaN                  NaN                  NaN  0.620 [0.382,0.848]                  NaN                  NaN                  NaN
+v8b  X frozen v6 models | hard-like                               NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN                   NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN  0.882 [0.710,0.993]  0.817 [0.595,0.981]
+     X frozen v6 models | intermediate                            NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN                   NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN  0.914 [0.306,1.000]  0.951 [0.856,1.000]
+     X frozen v6 models | soft-like                               NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN                   NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN  0.710 [0.356,0.977]  0.828 [0.662,0.984]
+     X frozen v6 models, all states | all                         NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN                   NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN                  NaN  0.799 [0.540,0.954]  0.817 [0.647,0.946]
+PRIMARY v8a S1 existing OOF | hard-like H+T-LR - H-LR obs_AUC: +0.264 [+0.048,+0.455] -> difference (CI excludes 0)
+PRIMARY v8b X frozen v6 models | hard-like H_R+T-LR - H_R-LR obs_AUC: +0.064 [-0.185,+0.367] -> not detected
+total 7 s

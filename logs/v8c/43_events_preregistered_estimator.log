@@ -1,0 +1,32 @@
+                n  src
+sample label          
+S1     BH      59    7
+       NS     121   17
+X      BH      30    5
+       NS     101   18
+
+survey: 311 obs, 201 with a qualifying event file, 2439 MB to download (158 s)
+                     n        MB
+mode                            
+E_125us_64M_0_1s   327  2298.389
+E_125us_64M_0_8s     5    48.800
+E_16us_64M_0_8s      5    53.000
+E_250us_128M_0_1s    4    39.200
+download done (1170 s)
+
+HF features (1240 s):
+sample  status                            
+S1      missing (no qualifying event file)     32
+        ok                                    148
+X       missing (0 valid segments)              2
+        missing (no qualifying event file)     78
+        ok                                     51
+null-band QC: 0/148 S1 observations with a qualifying file excluded (0.000; stop if > 0.2)
+null z (S1, valid segments): median 0.53, |z|>3: 4
+                                                        check   n  spearman  threshold  passed
+IC4 LC (1-4 Hz, events) vs v6 T3* (1-4 Hz, Standard-1), S1-HF 148    0.8132        0.9   False
+  null-band QC failure fraction (S1 obs with qualifying file) 148    0.0000        0.2    True
+
+S1-HF: {'n': {'BH': 37, 'NS': 111}, 'src': {'BH': 6, 'NS': 17}} 
+X-HF: {'n': {'BH': 10, 'NS': 41}, 'src': {'BH': 2, 'NS': 14}}
+IMPLEMENTATION CHECK FAILED -> v8c stops (preregistration_v8 sec. 5)

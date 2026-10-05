@@ -1,0 +1,7 @@
+check,n,spearman
+LC vs T3* (all S1-HF),148.0,0.8184143601209758
+LC vs T3* (top 50% S/N),74.0,0.9784672343576452
+"v5 T3 (A/B) vs T3*, both Standard-1 (all S1-HF)",148.0,0.895886161466219
+T3* split-half (odd vs even rows),148.0,0.562770001887931
+T3* full-data reliability (Spearman-Brown of split-half),,0.7202211473320669
+LC: linear slope on T3* / median ratio,148.0,0.8177270488472237
