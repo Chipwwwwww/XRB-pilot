@@ -1,5 +1,5 @@
 {
-  "utc": "2026-10-05T20:49:50.011925+00:00",
-  "stage": "v12_analysis",
-  "details": "v12a D -0.514 p 0.0729; v12b +0.174 [+0.071,+0.300]"
+  "utc": "2026-10-05T21:33:51.876984+00:00",
+  "stage": "v13_fetch",
+  "details": "238 accepted new obs; 37 sources; 34.4 GB streamed"
 }
