@@ -1,0 +1,33 @@
+Energy grid: 45 bins, 4.908-25.008 keV (reference 91702-01-66-05)
+GS1354-64 bin 2 EMPTY 20431-01-02-03 fetch_or_read_error: FileNotFoundError: StdProd Std2 files not found (HTTP Error 404: Not Found)
+GS1354-64 bin 0 EMPTY 20431-01-01-00 fetch_or_read_error: FileNotFoundError: StdProd Std2 files not found (HTTP Error 404: Not Found)
+GS1354-64 bin 1 EMPTY 20431-01-02-00 fetch_or_read_error: FileNotFoundError: StdProd Std2 files not found (HTTP Error 404: Not Found)
+GS1354-64 bin 6 accepted 30401-01-01-00 
+GS1354-64 bin 5 accepted 20431-01-05-00 
+GS1354-64 bin 7 accepted 30401-01-02-00 
+GS1354-64 bin 3 accepted 20431-01-03-00 
+GS1354-64 bin 10 accepted 30401-01-05-00 
+GS1354-64 bin 4 accepted 20431-01-04-00 
+GS1354-64 bin 8 accepted 30401-01-03-00 
+GS1354-64 bin 9 accepted 30401-01-04-00 
+SS433 bin 0 accepted 10127-01-04-00 
+SS433 bin 2 accepted 20102-02-01-01 
+SS433 bin 3 accepted 20102-02-02-01 
+SS433 bin 5 accepted 30273-01-05-02 
+SS433 bin 4 accepted 30273-01-02-01 
+SS433 bin 6 accepted 60058-01-08-00 
+SS433 bin 8 accepted 60058-01-17-00 
+SS433 bin 1 accepted 20102-01-02-00 
+SS433 bin 7 accepted 60058-01-15-00 
+SS433 bin 9 accepted 90401-01-03-02 
+SS433 bin 10 accepted 90401-01-04-02 
+SS433 bin 12 accepted 91092-02-01-02 
+SS433 bin 11 accepted 91103-01-02-01 
+SS433 bin 13 accepted 91092-02-01-01 
+SS433 bin 14 accepted 91092-02-08-00 
+           candidates_tried  accepted  bins_empty
+source_id                                        
+GS1354-64                11         8           3
+SS433                    15        15           0
+reason
+fetch_or_read_error    3
