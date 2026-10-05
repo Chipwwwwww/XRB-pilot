@@ -135,3 +135,10 @@
 | v8c 結果（探索性） | S1-HF：148 筆、23 源（6 BH）。在 S1-HF 內重新訓練：H-LR 0.797、H+HF-LR 0.740（−0.056 [−0.154, +0.010]）、H+T-LR 0.943、H+T+HF-LR 0.936（−0.007）、HF-LR 0.384；RF：H+HF-RF − H-RF +0.244 [+0.098, +0.411]、H+T+HF-RF − H+T-RF +0.034 [+0.005, +0.075]。排除 AMXP 後 LR 增量 −0.027。外部 X-HF（44 筆，2 BH／11 NS）凍結 H_R+HF-LR − H_R-LR −0.021。SR2000 式判準（每源 HF3 > 3σ → NS）：BH 6/6 判為 BH，NS 6/17 判為 NS | 結果 |
 | v8c 事後修正（空白頻段扣除） | 看到上列結果後發現：4U 1323-619 在空白頻段（1536–2048 Hz）的功率（0.096）大於 512–1024 Hz（0.072），GS 1826-238 兩者相當 → 有一個跨 PCU 的白色相關成分（可能是同時打到多個 PCU 的粒子事件；暗源經源計數率正規化後被放大）。事後描述性分析：各頻段減去「空白頻段 × 頻寬比」。扣除後 SR2000 式判準只有 SAX J1808.4-3658（z = 3.3，可能是 401 Hz 脈衝的倍頻）在 3σ 以上；BH 全部未偵測到（\|z\| < 1.5）；4U 1608-52、4U 1636-53、4U 1702-429、4U 1728-34 的 z 為 1.8–2.6。模型：H+HFc-LR − H-LR +0.074 [−0.023, +0.201]、H+HFc-RF − H-RF +0.189 [+0.019, +0.400]、相對 H+T 的增量 LR +0.006、RF +0.009。全部標為事後分析 | **是**（看過 v8c 結果之後） |
 | v8 完成 | 報告 `report_v8_zh-TW.md`；README 與 `final_report_zh-TW.md` 新增 v8 一節（只有插入，既有數字未改）；總結圖 `figures/v8/v8_summary.png`；`run_v8.ps1`／`run_v8.sh`（43 以 exit 3 結束時仍繼續，與實際執行過程相同） | — |
+
+## v9（NICER 獨立檢驗：硬態內時間資訊、BH 特徵頻率；MAXI 能態分層；2026-10-05）
+
+| 時間 | 決定 / 變更 | 是否在看過 v9 結果之後 |
+|---|---|---|
+| 合併 | 使用者「merge and pull and get on to next step」：PR #5（v7）與 #6（v8）以 merge commit 合併到 master（7ecd480、a2e1cce），本機 master 已 pull | — |
+| 階段 0（約 23:00） | 撰寫並自行核准 `preregistration_v9.md`。分支 `v9-analysis` 自 master a2e1cce。`config.py`：v4–v7 區塊條件擴充到 v9，新增 v9 區塊；已逐一比對 v1–v8 全部版本（含 v8、v8b–d）的大寫設定值，與 v8 版完全相同。查證：HEASARC TAP `nicermastr` 欄位與 Marcel BH／MINBAR NS 的 NICER 觀測數；cl 事件檔格式（HTTP range 讀檔頭：TIME/PI/DET_ID，每列 39 bytes，亮源單檔可達 2.2 GB）；NICER 偵測器編號、PI 道寬、視野（Mission Guide、CALDB Det Params）；NICER deadtime 論文（arXiv:2409.12574 摘要）。未下載任何 NICER 事件、未計算任何 v9 特徵、未訓練任何 v9 模型 | 否 |
