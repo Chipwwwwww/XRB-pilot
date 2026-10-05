@@ -1,0 +1,26 @@
+analysis,comparison,metric,point,ci2_5,ci97_5,n_valid_draws,role,verdict,name,frac_first_better
+new obs | soft-like,H_N-LR,obs_AUC,0.8261538461538461,0.47755637824235386,1.0,2000.0,descriptive,,,
+new obs | intermediate,H_N-LR,obs_AUC,0.9090909090909091,0.75,1.0,1327.0,descriptive,,,
+new obs | hard-like,H_N-LR,obs_AUC,0.6603305785123967,0.4250162863361621,0.845244455645161,2000.0,descriptive,,,
+new obs | soft-like,H_N+T_N-LR,obs_AUC,0.800923076923077,0.47931222504607335,0.9893104930059797,2000.0,descriptive,,,
+new obs | intermediate,H_N+T_N-LR,obs_AUC,1.0,1.0,1.0,1327.0,descriptive,,,
+new obs | hard-like,H_N+T_N-LR,obs_AUC,0.7264462809917356,0.4457660778887659,0.9108653467386131,2000.0,descriptive,,,
+new obs | soft-like,H_N-RF,obs_AUC,0.8964615384615384,0.6819429499072357,0.9980270425618928,2000.0,descriptive,,,
+new obs | intermediate,H_N-RF,obs_AUC,0.9090909090909091,0.6666666666666666,1.0,1327.0,descriptive,,,
+new obs | hard-like,H_N-RF,obs_AUC,0.6652892561983471,0.43451634199548395,0.8341029646468399,2000.0,descriptive,,,
+new obs | soft-like,H_N+T_N-RF,obs_AUC,0.8987692307692308,0.7063700292245068,1.0,2000.0,descriptive,,,
+new obs | intermediate,H_N+T_N-RF,obs_AUC,1.0,1.0,1.0,1327.0,descriptive,,,
+new obs | hard-like,H_N+T_N-RF,obs_AUC,0.912396694214876,0.8011741713570982,0.9788639501304001,2000.0,descriptive,,,
+new obs | soft-like,H_N+T_N-LR - H_N-LR,obs_AUC,-0.025230769230769168,-0.08153170472249423,0.01626142006639411,2000.0,descriptive,not detected,,
+new obs | hard-like,H_N+T_N-LR - H_N-LR,obs_AUC,0.06611570247933884,-0.09454080814889713,0.18027382005433748,2000.0,PRIMARY,not detected,,
+new obs | soft-like,H_N+T_N-RF - H_N-RF,obs_AUC,0.002307692307692344,-0.025073785371693198,0.03633616701364785,2000.0,descriptive,not detected,,
+new obs | hard-like,H_N+T_N-RF - H_N-RF,obs_AUC,0.2471074380165289,0.12841927083333332,0.3838626138782162,2000.0,descriptive,difference (CI excludes 0),,
+new obs hard-like | source level,H_N-LR,source_balanced_accuracy,0.702020202020202,0.5555555555555556,0.8181818181818181,,descriptive,,H_N-LR,
+new obs hard-like | source level,H_N-LR,source_AUC,0.7239057239057239,0.4882154882154882,0.9057239057239057,,descriptive,,H_N-LR,
+new obs hard-like | source level,H_N-LR,obs_balanced_accuracy,0.6939393939393939,0.5240510790859744,0.8181818181818181,,descriptive,,H_N-LR,
+new obs hard-like | source level,H_N+T_N-LR,source_balanced_accuracy,0.606060606060606,0.40909090909090906,0.7627525252525245,,descriptive,,H_N+T_N-LR,
+new obs hard-like | source level,H_N+T_N-LR,source_AUC,0.7104377104377104,0.4444444444444444,0.9260101010101005,,descriptive,,H_N+T_N-LR,
+new obs hard-like | source level,H_N+T_N-LR,obs_balanced_accuracy,0.6136363636363636,0.4350404774133588,0.7322390853847769,,descriptive,,H_N+T_N-LR,
+new obs hard-like | source level,H_N+T_N-LR - H_N-LR,source_balanced_accuracy,-0.09595959595959602,-0.2676767676767676,0.045454545454545414,,descriptive,not detected,H_N+T_N-LR,0.1105
+new obs hard-like | source level,H_N+T_N-LR - H_N-LR,source_AUC,-0.013468013468013518,-0.2121212121212121,0.1649831649831649,,descriptive,not detected,H_N+T_N-LR,0.463
+new obs hard-like | source level,H_N+T_N-LR - H_N-LR,obs_balanced_accuracy,-0.08030303030303021,-0.16582336523125993,-0.021986006587701574,,descriptive,not detected,H_N+T_N-LR,0.0035

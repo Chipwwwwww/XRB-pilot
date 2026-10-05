@@ -1,0 +1,1 @@
+median BH 0.5917 Hz, NS 2.8594 Hz, nu* = 1.3007 Hz; n BH obs 32, NS obs 111

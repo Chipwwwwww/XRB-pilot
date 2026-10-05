@@ -1,0 +1,8 @@
+IC3: overlap with v9 tries = 0
+                                   sources  bins  candidates
+group                       label                           
+never-used NICER source     BH           1     0           2
+                            NS           7     0          17
+v9 source, new observations BH          10     0        1303
+                            NS          48     0        1753
+source x bin groups: 422

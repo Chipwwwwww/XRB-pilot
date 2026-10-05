@@ -1,0 +1,5 @@
+test,value,passed
+single Lorentzian nu0 = 0.3 Hz: median fitted width over 20 noisy draws,0.302,True
+single Lorentzian nu0 = 5.0 Hz: median fitted width over 20 noisy draws,5.097,True
+two Lorentzians (0.1 + 3 Hz): lower width (two components chosen in 100%),0.101,True
+"streamed parse == v10 prefix+tail parse (6403520101, 16982648 bytes)",729479.0,True
