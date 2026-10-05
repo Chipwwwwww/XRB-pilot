@@ -1,0 +1,5 @@
+analysis,n_obs,n_bh_obs,D,p,n_sources,n_bh
+POST HOC v11b sensitivity: all (PRIMARY set),142,33,-0.6628410883461666,0.02249887505624719,42,9
+POST HOC v11b sensitivity: background-screened: 12-15/2-10 keV ratio <= 0.2687 (v10 frozen threshold),134,33,-0.6041454473775428,0.057547122643867805,38,9
+"POST HOC v11b sensitivity: c2 <= 0.7 (exclude very hard, likely background-dominated / dipping)",122,30,-0.4577725502362219,0.18889055547222638,34,7
+POST HOC v11b sensitivity: both screens,122,30,-0.4577725502362219,0.18889055547222638,34,7
