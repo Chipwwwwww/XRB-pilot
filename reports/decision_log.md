@@ -181,3 +181,4 @@
 |---|---|---|
 | 合併 | 使用者「merge and continue」：PR #9（v11）以 merge commit 合併到 master（aa6ed06），本機已 pull | — |
 | 階段 0（約 03:20） | 撰寫並自行核准 `preregistration_v12.md`；分支 `v12-analysis` 自 master。`config.py`：v4–v7、v9–v11 區塊條件擴充到 v12，新增 v12 區塊；已逐一比對 v1–v11 全部版本的設定值，與 v11 版完全相同。可行性：WSL HEASoft 6.37.1 有 `nibackgen3C50`；NICER CALDB（`goodfiles_nicer_xti.tar.gz`，112,180,364 bytes，SHA256 572954c8126746f2c3bd9039ef3c1bd5ab216dfd0aab30988201c0442f55c22d）與 `caldb.config`／`alias_config.fits` 下載到 `~/xrb-pilot-data/caldb`；以 3657027601 試跑：3C50 總 2–10 keV 58.0 c/s（管線 61.3）、背景 0.67 c/s。只看了這兩個率，沒有看任何分類或 ν_c 結果 | 否 |
+| v12 3C50 增益 epoch（建模前） | 前 20 筆中有 3 筆（LMC X-1 1100070102、LMC X-3 1101010119、V4641 Sgr 1200300109）失敗：`nibackgen3C50` 不接受以原始增益校正檔 `nixtiflightpi20170601v001` 處理的資料（`gainepoch=AUTO` 與手動 `gainepoch=2018` 都拒絕）。要處理這些資料，需要從原始資料重跑 NICER 標準流程，這次做不到。依預先設定（3C50 失敗 → 主要分析排除），並新增一個敏感度分析：把這些觀測不修正、直接納入。移除無效的 2018 備援，續跑。沒有看任何 v12 分類或 ν_c 結果 | 否 |
