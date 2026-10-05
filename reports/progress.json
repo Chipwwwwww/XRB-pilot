@@ -1,5 +1,5 @@
 {
-  "utc": "2026-10-05T01:45:49.927621+00:00",
-  "stage": "v7c2_analysis",
-  "details": "(i) CCI vs 2D colours source_balanced_accuracy -0.077 [-0.192,+0.010]; (i) CCI vs 2D colours source_AUC -0.029 [-0.066,+0.002]; (ii) colours incl. 2-4 keV vs >= 4 keV colour source_balanced_accuracy +0.098 [-0.087,+0.280]; (ii) colours incl. 2-4 keV vs >= 4 keV colour source_AUC +0.139 [-0.032,+0.306]"
+  "utc": "2026-10-05T14:04:34.844850+00:00",
+  "stage": "v8_analysis",
+  "details": "v8a +0.264 [+0.048,+0.455]; v8b +0.064 [-0.185,+0.367]; v8c -0.056 [-0.154,+0.010]"
 }
