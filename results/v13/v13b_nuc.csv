@@ -1,0 +1,12 @@
+analysis,D,p,n_obs,n_sources,n_bh,role,verdict
+v13b: corrected + screened (frozen v12 pipeline),-0.42680764970379537,0.20918954052297384,74.0,27.0,8.0,PRIMARY,not detected
+"no screening, no correction",-0.5200027846758981,0.08144592770361482,91.0,31.0,8.0,descriptive,
+influence: without 4U 1543-475,-0.49175865541515446,,,,,influence,
+influence: without Cyg X-1,-0.4287081070561673,,,,,influence,
+influence: without GRS 1915+105,-0.38198016052166545,,,,,influence,
+influence: without GX 339-4,-0.3978830180797478,,,,,influence,
+influence: without LMC X-3,-0.3133477482765014,,,,,influence,
+influence: without MAXI J1820+070,-0.4518006955830246,,,,,influence,
+influence: without SAX J1819.3-2525,-0.5038440034642627,,,,,influence,
+influence: without Swift J1727.8-1613,-0.4451388092338389,,,,,influence,
+3C50-GTI-restricted features for faint observations (106 recomputed),-0.29979593182686987,0.4129293535323234,73.0,26.0,7.0,descriptive,

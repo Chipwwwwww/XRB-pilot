@@ -1,0 +1,52 @@
+v13: 238 accepted, 198 kept after 3C50 screening; 3C50 status: {'ok': 109, 'bright (not run)': 90, 'failed (rc 255): FileN': 38, 'failed (rc 218): FileN': 1}
+                     n  src
+label state                
+BH    hard-like     29    8
+      intermediate   2    2
+      soft-like     21    6
+NS    hard-like     45   19
+      intermediate   2    1
+      soft-like     99   19
+                                   check  n  value  passed
+IC1 Z sources soft-like (v13, corrected) 16 0.9375    True
+v13 hard-like: 74 obs, 8 BH / 19 NS sources -> testable True
+
+[v13a]
+              analysis          comparison  point  ci2_5  ci97_5
+             soft-like              H_N-RF  0.938  0.760   1.000
+             hard-like              H_N-RF  0.680  0.463   0.870
+             soft-like          H_N+T_N-RF  0.943  0.772   1.000
+             hard-like          H_N+T_N-RF  0.864  0.714   0.968
+             soft-like              H_N-LR  0.870  0.579   1.000
+             hard-like              H_N-LR  0.503  0.242   0.766
+             soft-like          H_N+T_N-LR  0.843  0.560   0.997
+             hard-like          H_N+T_N-LR  0.685  0.375   0.940
+             soft-like H_N+T_N-RF - H_N-RF  0.005 -0.015   0.035
+             hard-like H_N+T_N-RF - H_N-RF  0.184  0.049   0.337
+             soft-like H_N+T_N-LR - H_N-LR -0.027 -0.075   0.000
+             hard-like H_N+T_N-LR - H_N-LR  0.182  0.022   0.347
+hard-like source level              H_N-RF  0.717  0.507   0.895
+hard-like source level          H_N+T_N-RF  0.842  0.671   0.961
+hard-like source level H_N+T_N-RF - H_N-RF  0.125 -0.053   0.303
+influence (RF gain, leave one BH out): [0.206, 0.212, 0.146, 0.176, 0.183, 0.18, 0.191, 0.177] 
+frozen rule:
+ nu_star_Hz  obs_sensitivity  obs_specificity  source_sensitivity  source_specificity  n_BH_src  n_NS_src
+      1.336            0.793            0.756               0.875               0.684         8        19
+
+[v13b]
+                                                            analysis       D      p  n_obs  n_sources  n_bh        role      verdict
+                    v13b: corrected + screened (frozen v12 pipeline) -0.4268 0.2092   74.0       27.0   8.0     PRIMARY not detected
+                                         no screening, no correction -0.5200 0.0814   91.0       31.0   8.0 descriptive          NaN
+                                      influence: without 4U 1543-475 -0.4918    NaN    NaN        NaN   NaN   influence          NaN
+                                          influence: without Cyg X-1 -0.4287    NaN    NaN        NaN   NaN   influence          NaN
+                                     influence: without GRS 1915+105 -0.3820    NaN    NaN        NaN   NaN   influence          NaN
+                                         influence: without GX 339-4 -0.3979    NaN    NaN        NaN   NaN   influence          NaN
+                                          influence: without LMC X-3 -0.3133    NaN    NaN        NaN   NaN   influence          NaN
+                                   influence: without MAXI J1820+070 -0.4518    NaN    NaN        NaN   NaN   influence          NaN
+                                 influence: without SAX J1819.3-2525 -0.5038    NaN    NaN        NaN   NaN   influence          NaN
+                               influence: without Swift J1727.8-1613 -0.4451    NaN    NaN        NaN   NaN   influence          NaN
+3C50-GTI-restricted features for faint observations (106 recomputed) -0.2998 0.4129   73.0       26.0   7.0 descriptive          NaN 
+ {'analysis': '3C50-GTI-restricted: RF hard-like gain', 'point': 0.19047619047619047, 'ci2_5': 0.06452263471177946, 'ci97_5': 0.32987988945578217, 'n_valid_draws': 2000}
+PRIMARY v13a H_N+T_N-RF - H_N-RF: +0.184 [+0.049,+0.337] -> difference (CI excludes 0)
+PRIMARY v13b D = -0.427, p = 0.2092 -> not detected
+total 89 s
