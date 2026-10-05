@@ -1,0 +1,9 @@
+analysis,D,p,n_sources,n_bh,role,verdict
+RXTE alone (colour-conditional residual),-0.26523481877283506,0.001799910004499775,44,12,descriptive,
+NICER alone (colour-conditional residual),-0.47070505948379754,0.03304834758262087,39,7,descriptive,
+POOLED RXTE + NICER (colour-conditional residual),-0.3679699391283163,0.00119994000299985,64,15,PRIMARY,difference (p < 0.05)
+"RXTE colour window [0.238, 2.591] on c2R",,,44,12,window,
+"NICER colour window [0.109, 2.045] on c2",,,36,7,window,
+RXTE colour window: BH - NS mean log10 nu_c,-0.36745545950555947,9.99950002499875e-05,44,12,descriptive,
+NICER colour window: BH - NS mean log10 nu_c,-0.3938301005457501,0.18204089795510225,36,7,descriptive,
+POOLED colour window: BH - NS mean log10 nu_c (pre-registered descriptive),-0.38064278002565477,0.014899255037248137,61,15,descriptive,

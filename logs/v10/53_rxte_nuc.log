@@ -1,0 +1,7 @@
+895 RXTE observations; 38 need the v6 nu_c computed
+                n  src  nu_c_ok
+sample label                   
+S1     BH      59    7       59
+       NS     121   17      121
+X      BH      30    5       30
+       NS      69   15       69

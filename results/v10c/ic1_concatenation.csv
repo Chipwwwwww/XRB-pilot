@@ -1,0 +1,2 @@
+check,obsid,file_bytes,n_events,passed
+IC1 prefix + tail == one-shot download,6403520101,16982648,729479,True

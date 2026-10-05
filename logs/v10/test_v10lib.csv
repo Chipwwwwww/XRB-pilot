@@ -1,0 +1,4 @@
+test,passed
+pooled_boot(1 component) == strat_boot difference,True
+pooled_perm null: fraction p < 0.05 over 200 data sets = 0.065 (0.01-0.10),True
+"pooled_perm power (BH shift -1.5 sd, 50 data sets): fraction p < 0.05 = 0.98 (>= 0.80)",True

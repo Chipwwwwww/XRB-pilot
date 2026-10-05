@@ -1,0 +1,108 @@
+IC3: 34 RXTE sources matched to NICER; label conflicts: 0
+    rxte_source       nicer_name rxte_label  sep_deg
+    GRS1915+105     GRS 1915+105         BH   0.0002
+      4U1543-47      4U 1543-475         BH   0.0006
+        GX339-4         GX 339-4         BH   0.0003
+       V4641SGR SAX J1819.3-2525         BH   0.0096
+      4U1636-53      4U 1636-536         NS   0.0014
+      4U1608-52      4U 1608-522         NS   0.0001
+      4U1728-34       4U 1728-34         NS   0.0013
+          AQLX1          Aql X-1         NS   0.0006
+    EXO0748-676     EXO 0748-676         NS   0.0024
+     4U1254-690       4U 1254-69         NS   0.0002
+     4U1323-619       4U 1323-62         NS   0.0006
+     4U1702-429      4U 1702-429         NS   0.0006
+      4U1705-44       4U 1705-44         NS   0.0014
+     4U1724-307       4U 1722-30         NS   0.0017
+      4U1735-44      4U 1735-444         NS   0.0000
+          GX3+1           GX 3+1         NS   0.0007
+SAXJ1808.4-3658 SAX J1808.4-3658         NS   0.0006
+         GX17+2          GX 17+2         NS   0.0003
+      4U1820-30      4U 1820-303         NS   0.0001
+     GS1826-238       GS 1826-24         NS   0.0000
+          CYGX2          Cyg X-2         NS   0.0007
+     2S0918-549      2S 0918-549         NS   0.0010
+     4U2127+119          M15 X-2         NS   0.0018
+      A1744-361      1A 1744-361         NS   0.0003
+    GRS1747-312     GRS 1747-312         NS   0.0041
+     MXB0513-40       4U 0513-40         NS   0.0006
+SAXJ1747.0-2853 SAX J1747.0-2853         NS   0.0238
+SAXJ1750.8-2900 SAX J1750.8-2900         NS   0.0366
+          SERX1          Ser X-1         NS   0.0003
+   XTEJ1709-267    XTE J1709-267         NS   0.0025
+          CYGX1          Cyg X-1         BH   0.0012
+          LMCX3          LMC X-3         BH   0.0013
+ IGRJ17498-2921  IGR J17498-2921         NS   0.0003
+          LMCX1          LMC X-1         BH   0.0000
+IC2a pooled_boot(S1 only) = v8a PRIMARY: True (0.2643, 0.0484, 0.4549)
+union: 86 sources (16 BH)
+
+[v10a]
+                                                                  component  point  ci2_5  ci97_5  n_hard_obs  n_BH_sources  n_NS_sources        role                    verdict
+                                                                    RXTE S1  0.264  0.044   0.469       180.0           7.0          17.0   component                        NaN
+                                                                     RXTE X  0.064 -0.171   0.341        99.0           5.0          15.0   component                        NaN
+                                                               NICER (full)  0.107 -0.010   0.224       144.0           7.0          32.0   component                        NaN
+                                                     POOLED (equal weights)  0.145  0.028   0.257         NaN           NaN           NaN     PRIMARY difference (CI excludes 0)
+                                             pooled, weighted by BH sources  0.154  0.041   0.260         NaN           NaN           NaN descriptive                        NaN
+                                                               RXTE S1 (RF)  0.230  0.062   0.410         NaN           NaN           NaN descriptive                        NaN
+                                                            NICER full (RF)  0.219  0.100   0.337         NaN           NaN           NaN descriptive                        NaN
+                                                pooled RF (RXTE S1 + NICER)  0.224  0.108   0.333         NaN           NaN           NaN descriptive                        NaN
+NICER, background-screened (12-15/2-10 keV ratio <= 0.2687; 13 obs removed)  0.126  0.016   0.242         NaN           NaN           NaN descriptive                        NaN
+                                      pooled with background-screened NICER  0.152  0.036   0.263         NaN           NaN           NaN descriptive                        NaN
+
+[v10a influence, leave one BH source out]
+          left_out  pooled  RXTE S1  RXTE X  NICER (full)
+       4U 1543-475   0.149    0.288   0.064         0.094
+           Cyg X-1   0.158    0.264   0.127         0.082
+       GROJ1655-40   0.150    0.277   0.064         0.107
+      GRS 1915+105   0.153    0.274   0.064         0.120
+         GS1354-64   0.118    0.264  -0.018         0.107
+          GX 339-4   0.152    0.292   0.064         0.101
+           LMC X-1   0.148    0.264   0.071         0.107
+           LMC X-3   0.153    0.264   0.064         0.132
+    MAXI J1820+070   0.142    0.264   0.064         0.098
+  SAX J1819.3-2525   0.152    0.264   0.083         0.107
+             SS433   0.145    0.264   0.064         0.107
+Swift J1727.8-1613   0.150    0.264   0.064         0.120
+      XTEJ1118+480   0.110    0.157   0.064         0.107
+      XTEJ1550-564   0.142    0.256   0.064         0.107
+      XTEJ1650-500   0.153    0.287   0.064         0.107
+      XTEJ1859+226   0.148    0.264   0.072         0.107
+
+IC2b:
+instrument      D_v6     D_v10  passed
+      RXTE -0.265235 -0.265235    True
+     NICER -0.470705 -0.470705    True
+
+[v10b]
+                                                                  analysis       D      p  n_sources  n_bh        role               verdict
+                                  RXTE alone (colour-conditional residual) -0.2652 0.0018         44    12 descriptive                   NaN
+                                 NICER alone (colour-conditional residual) -0.4707 0.0330         39     7 descriptive                   NaN
+                         POOLED RXTE + NICER (colour-conditional residual) -0.3680 0.0012         64    15     PRIMARY difference (p < 0.05)
+                                  RXTE colour window [0.238, 2.591] on c2R     NaN    NaN         44    12      window                   NaN
+                                  NICER colour window [0.109, 2.045] on c2     NaN    NaN         36     7      window                   NaN
+                               RXTE colour window: BH - NS mean log10 nu_c -0.3675 0.0001         44    12 descriptive                   NaN
+                              NICER colour window: BH - NS mean log10 nu_c -0.3938 0.1820         36     7 descriptive                   NaN
+POOLED colour window: BH - NS mean log10 nu_c (pre-registered descriptive) -0.3806 0.0149         61    15 descriptive                   NaN
+
+[v10b influence]
+          left_out  D_pooled
+       4U 1543-475    -0.420
+           Cyg X-1    -0.372
+       GROJ1655-40    -0.384
+      GRS 1915+105    -0.329
+         GS1354-64    -0.368
+          GX 339-4    -0.349
+           LMC X-1    -0.357
+           LMC X-3    -0.392
+    MAXI J1820+070    -0.349
+  SAX J1819.3-2525    -0.361
+Swift J1727.8-1613    -0.376
+      XTEJ1118+480    -0.349
+      XTEJ1550-564    -0.364
+      XTEJ1650-500    -0.367
+      XTEJ1859+226    -0.383
+
+PRIMARY v10a pooled gain +0.145 [+0.028,+0.257] -> difference (CI excludes 0)
+PRIMARY v10b pooled D -0.368, p = 0.0012 -> difference (p < 0.05)
+total 43 s

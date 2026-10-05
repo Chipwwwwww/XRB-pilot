@@ -54,6 +54,11 @@ CCTLR 沒有勝過簡單的 H+T-LR；「同顏色下 BH 低頻變異較強」在
 (v9a) 加入時間特徵後 0.795，差 +0.112 [−0.004, +0.229]（未偵測到；RF +0.236 [+0.104, +0.372]）；(v9b) 同顏色下 BH 的特徵頻率 ν_c 低 0.31 dex（與 RXTE 相同），p = 0.136（未偵測到）；
 (v9c) MAXI 的 2–4 keV 增益在各個 ≥ 4 keV 顏色分層都存在。**預先設定寫於看過 v1–v8 之後。**
 執行：`.\run_v9.ps1`（或 `./run_v9.sh`；NICER 前段約 14 GB 存到 `~/xrb-pilot-data/raw/nicer`）；模組 `scripts/v9lib.py`，腳本 `47_*`–`51_*`；總結圖 `figures/v9/v9_summary.png`。
+**v10（預先登記：[reports/preregistration_v10.md](reports/preregistration_v10.md)，報告：[reports/report_v10_zh-TW.md](reports/report_v10_zh-TW.md)；分支 `v10-analysis`）**：
+跨儀器整合（RXTE＋NICER，天體聯集 86 個、16 個動力學確認 BH；NICER 改用整筆觀測）：(v10a) 合併的硬態時間增益 +0.145 [+0.028, +0.257]（有差異）；
+(v10b) 同顏色下 BH 的特徵頻率 ν_c 低 0.368 dex（約 2.3 倍），p = 0.0012（有差異）；逐一移除任一 BH 天體結論不變。
+**假說與合併方式來自 v5–v9 的結果，這是全部資料的整體證據，不是獨立確認；預先設定寫於看過 v1–v9 之後。**
+執行：`.\run_v10.ps1`（或 `./run_v10.sh`；需先跑 v9；NICER 尾段約 24 GB 存到 `~/xrb-pilot-data/raw/nicer_tail`）；模組 `scripts/v10lib.py`，腳本 `52_*`–`54_*`；圖 `figures/v10/v10_pooled.png`。
 
 ## 環境
 - Python venv：`C:\Users\User\venvs\xrb-pilot`（Python 3.12.10；放在 OneDrive 之外）

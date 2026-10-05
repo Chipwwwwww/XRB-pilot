@@ -1,0 +1,40 @@
+368 v9-accepted observations; 192 need a tail
+IC1: 6403520101 16982648 bytes, 729479 events -> passed
+tails: 192 files, 24.17 GB, complete 180 (1102 s)
+features (1387 s): {'ok': 366, 'excluded (2-10 keV rate 19.8 <': 1, 'excluded (2-10 keV rate 19.2 <': 1}
+                      n  src
+label state                 
+BH    hard-like      32    7
+      intermediate    4    3
+      soft-like      28    7
+NS    hard-like     112   32
+      intermediate   19   16
+      soft-like     171   40
+segments per observation: prefix (v9) median 9.0 -> full median 16.0
+
+prefix (v9) vs full:
+feature   n  spearman_prefix_vs_full
+     T1 366                    0.915
+     T2 366                    0.948
+     T3 366                    0.961
+  STATE 366                    0.968
+   nu_c 238                    0.932
+     c1 366                    0.969
+     c2 366                    0.948
+
+split-half (full data):
+feature   n  spearman_odd_even  spearman_brown
+     T1 350              0.681           0.810
+     T2 350              0.796           0.886
+     T3 350              0.674           0.806
+  STATE 350              0.760           0.864
+   nu_c 195              0.805           0.892
+
+state change prefix -> full:
+full          hard-like  intermediate  soft-like
+v9 prefix                                       
+hard-like           139             1          0
+intermediate          1            21          2
+soft-like             4             1        197
+IC4: 0.938 of 16 -> passed
+total 1387 s
