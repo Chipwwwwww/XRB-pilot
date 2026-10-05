@@ -1,0 +1,11 @@
+Aql X-1                bin 0 accepted 1050340105 soft-like (ok; 73 MB) [36 s]
+MAXI J1820+070         bin 0 accepted 1200120116 hard-like (ok; 300 MB) [103 s]
+
+2 accepted of 2 bins; tried 2; downloaded 0.37 GB (103 s)
+status
+ok    2
+                 n  src
+label state            
+BH    hard-like  1    1
+NS    soft-like  1    1
+exit 0

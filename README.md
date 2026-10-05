@@ -49,6 +49,11 @@ CCTLR 沒有勝過簡單的 H+T-LR；「同顏色下 BH 低頻變異較強」在
 (v8c) RXTE event mode 4–1024 Hz 跨 PCU cospectrum（2.4 GB 事件檔）：實作檢查 IC4 未通過，全部為探索性；高頻在低頻時間特徵之外幾乎沒有增量，扣除空白頻段後 512–1024 Hz 功率只在 1/17 個 NS、0/6 個 BH 偵測到；
 (v8d) MAXI 上含 2–4 keV 的顏色增益在 HI4PI N_H 校正後仍在：RF +0.377 [+0.160, +0.595]（有差異），N_H 本身 AUC 0.41。
 **預先設定寫於看過 v1–v7 之後。** 執行：`.\run_v8.ps1`（或 `./run_v8.sh`；v8d 需要 WSL 的 HEASoft）；模組 `scripts/v8lib.py`，腳本 `41_*`–`46_*`；輸出 `data/v8*/`、`results/v8*/`、`figures/v8*/`；總結圖 `figures/v8/v8_summary.png`。
+**v9（預先登記：[reports/preregistration_v9.md](reports/preregistration_v9.md)，報告：[reports/report_v9_zh-TW.md](reports/report_v9_zh-TW.md)；分支 `v9-analysis`）**：
+用 NICER（獨立儀器、2017 年後、含從未用過的 MAXI J1820+070、Swift J1727.8-1613）重做硬態檢驗：368 筆觀測（BH 9／NS 54 源），只用顏色時硬態類 AUC 0.683（RXTE 0.646），
+(v9a) 加入時間特徵後 0.795，差 +0.112 [−0.004, +0.229]（未偵測到；RF +0.236 [+0.104, +0.372]）；(v9b) 同顏色下 BH 的特徵頻率 ν_c 低 0.31 dex（與 RXTE 相同），p = 0.136（未偵測到）；
+(v9c) MAXI 的 2–4 keV 增益在各個 ≥ 4 keV 顏色分層都存在。**預先設定寫於看過 v1–v8 之後。**
+執行：`.\run_v9.ps1`（或 `./run_v9.sh`；NICER 前段約 14 GB 存到 `~/xrb-pilot-data/raw/nicer`）；模組 `scripts/v9lib.py`，腳本 `47_*`–`51_*`；總結圖 `figures/v9/v9_summary.png`。
 
 ## 環境
 - Python venv：`C:\Users\User\venvs\xrb-pilot`（Python 3.12.10；放在 OneDrive 之外）

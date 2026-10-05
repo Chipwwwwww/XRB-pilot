@@ -1,0 +1,25 @@
+C:\Users\User\OneDrive\Documents\ChatGPT\XRB-pilot\scripts\50_v9c_maxi_strata.py:21: DtypeWarning: Columns (6) have mixed types. Specify dtype option on import or set low_memory=False.
+  oof = pd.read_csv(ROOT/'results/v8d/v8d_oof_predictions.csv.gz')
+C4 tertile cuts: [-0.671 -0.445]
+stratum                         C4 high (hardest) C4 low (softest >=4 keV)               C4 middle
+comparison                                                                                        
+RF [C1D]                   +0.477 [+0.456,+0.495]   +0.393 [+0.359,+0.566]  +0.433 [+0.389,+0.521]
+RF [C1D_NH]                +0.468 [+0.446,+0.484]   +0.388 [+0.353,+0.571]  +0.431 [+0.386,+0.516]
+RF [C2D]                   +0.529 [+0.479,+0.571]   +0.561 [+0.183,+0.994]  +0.493 [+0.206,+0.733]
+RF [C2D] - RF [C1D]        +0.052 [+0.007,+0.103]   +0.167 [-0.185,+0.580]  +0.060 [-0.184,+0.264]
+RF [C2D_NH]                +0.529 [+0.480,+0.564]   +0.556 [+0.173,+0.994]  +0.478 [+0.196,+0.717]
+RF [C2D_NH] - RF [C1D_NH]  +0.061 [+0.017,+0.098]   +0.168 [-0.197,+0.589]  +0.048 [-0.192,+0.244]
+                 stratum  n_points  n_BH_sources  n_NS_sources
+C4 low (softest >=4 keV)   31154.0           8.0          38.0
+               C4 middle   31153.0          11.0          44.0
+       C4 high (hardest)   31154.0          13.0          48.0
+
+[post hoc] source-level AUC within C4 tertiles:
+stratum                         C4 high (hardest) C4 low (softest >=4 keV)               C4 middle
+comparison                                                                                        
+RF [C1D]                   +0.202 [+0.062,+0.375]   +0.405 [+0.171,+0.674]  +0.481 [+0.275,+0.696]
+RF [C1D_NH]                +0.175 [+0.050,+0.322]   +0.595 [+0.303,+0.859]  +0.436 [+0.227,+0.651]
+RF [C2D]                   +0.590 [+0.407,+0.764]   +0.793 [+0.533,+0.980]  +0.750 [+0.525,+0.936]
+RF [C2D] - RF [C1D]        +0.388 [+0.160,+0.603]   +0.388 [+0.151,+0.628]  +0.269 [-0.048,+0.570]
+RF [C2D_NH]                +0.535 [+0.354,+0.716]   +0.852 [+0.592,+1.000]  +0.835 [+0.636,+0.967]
+RF [C2D_NH] - RF [C1D_NH]  +0.361 [+0.122,+0.601]   +0.257 [+0.003,+0.543]  +0.399 [+0.159,+0.647]
