@@ -59,6 +59,11 @@ CCTLR 沒有勝過簡單的 H+T-LR；「同顏色下 BH 低頻變異較強」在
 (v10b) 同顏色下 BH 的特徵頻率 ν_c 低 0.368 dex（約 2.3 倍），p = 0.0012（有差異）；逐一移除任一 BH 天體結論不變。
 **假說與合併方式來自 v5–v9 的結果，這是全部資料的整體證據，不是獨立確認；預先設定寫於看過 v1–v9 之後。**
 執行：`.\run_v10.ps1`（或 `./run_v10.sh`；需先跑 v9；NICER 尾段約 24 GB 存到 `~/xrb-pilot-data/raw/nicer_tail`）；模組 `scripts/v10lib.py`，腳本 `52_*`–`54_*`；圖 `figures/v10/v10_pooled.png`。
+**v11（預先登記：[reports/preregistration_v11.md](reports/preregistration_v11.md)，報告：[reports/report_v11_zh-TW.md](reports/report_v11_zh-TW.md)；分支 `v11-analysis`）**：
+在 318 筆從未用過的 NICER 觀測上，以凍結的管線、門檻與「排除該天體」的模型做前瞻性檢驗（觀測層級獨立；天體與 v10 相同）：
+(v11a) LR 的硬態時間增益 +0.066 [−0.095, +0.180]（未偵測到；RF +0.247 [+0.128, +0.384]，與 v9／v10 一致）；
+(v11b) 同顏色下 BH 的特徵頻率低 0.66 dex，p = 0.023（有差異），但事後剔除可能背景主導的極硬觀測後為 −0.46、p = 0.19。
+**預先設定寫於看過 v1–v10 之後。** 執行：`.\run_v11.ps1`（或 `./run_v11.sh`；串流約 40 GB，不存原始檔）；模組 `scripts/v11lib.py`，腳本 `55_*`–`57_*`；圖 `figures/v11/v11_prospective.png`。
 
 ## 環境
 - Python venv：`C:\Users\User\venvs\xrb-pilot`（Python 3.12.10；放在 OneDrive 之外）
