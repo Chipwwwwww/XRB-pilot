@@ -1,0 +1,14 @@
+analysis,D,p,n_sources,n_bh,role,verdict
+new hard-like obs: colour-conditional D(log10 nu_c),-0.6628410883461666,0.02249887505624719,42.0,9.0,PRIMARY,difference (p < 0.05)
+new: D(log10 nu_c) controlling colour + log count rate (brightness proxy),-0.7085630057940195,0.018199090045497725,42.0,9.0,descriptive,
+v10 full: D(log10 nu_c) controlling colour + log count rate (brightness proxy),-0.4587982222072462,0.04574771261436928,39.0,7.0,descriptive,
+influence: without 4U 1543-475,-0.7280790084385114,,,,influence,
+influence: without Cyg X-1,-0.6921448319719125,,,,influence,
+influence: without GRS 1915+105,-0.6988944615626993,,,,influence,
+influence: without GX 339-4,-0.7431980634448814,,,,influence,
+influence: without LMC X-1,-0.5118470853474415,,,,influence,
+influence: without LMC X-3,-0.5687287129881042,,,,influence,
+influence: without MAXI J1820+070,-0.67254572269274,,,,influence,
+influence: without SAX J1819.3-2525,-0.6445322739649325,,,,influence,
+influence: without Swift J1727.8-1613,-0.7055996347042769,,,,influence,
+"v11c new hard-like: colour-conditional D(log10 nu_L, lowest Lorentzian width)",-0.6703530718811278,0.02334883255837208,42.0,9.0,descriptive,

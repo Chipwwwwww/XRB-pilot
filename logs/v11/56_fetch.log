@@ -1,0 +1,528 @@
+Cyg X-1                bin 0 accepted 0100320107 hard-like (ok; 593 MB) [59 s]
+Cyg X-1                bin 2 accepted 4690020104 hard-like (ok; 99 MB) [69 s]
+Cyg X-1                bin 1 accepted 1100320121 hard-like (ok; 1000 MB) [88 s]
+Cyg X-1                bin 4 accepted 5100320122 hard-like (ok; 309 MB) [127 s]
+Cyg X-1                bin 3 accepted 5100320105 hard-like (ok; 894 MB) [142 s]
+Cyg X-1                bin 5 accepted 5100320132 hard-like (ok; 689 MB) [190 s]
+Cyg X-1                bin 7 accepted 8656010601 hard-like (ok; 73 MB) [204 s]
+LMC X-1                bin 0 accepted 1100070101 soft-like (ok; 7 MB) [208 s]
+LMC X-1                bin 1 accepted 5100070102 hard-like (ok; 19 MB) [214 s]
+LMC X-1                bin 2 accepted 5100070104 hard-like (ok; 16 MB) [218 s]
+Cyg X-1                bin 6 accepted 5100320140 hard-like (ok; 1000 MB) [222 s]
+LMC X-3                bin 1 accepted 1101010125 soft-like (ok; 9 MB) [226 s]
+LMC X-3                bin 2 accepted 1101010138 soft-like (ok; 39 MB) [236 s]
+LMC X-3                bin 0 accepted 1101010103 hard-like (ok; 254 MB) [239 s]
+LMC X-3                bin 4 accepted 5101010112 soft-like (ok; 16 MB) [243 s]
+LMC X-3                bin 3 accepted 3609010501 soft-like (ok; 62 MB) [246 s]
+LMC X-3                bin 5 accepted 6101010105 soft-like (ok; 31 MB) [250 s]
+LMC X-3                bin 7 accepted 7704010206 soft-like (ok; 9 MB) [254 s]
+SAX J1819.3-2525       bin 0 accepted 1200300107 hard-like (ok; 54 MB) [262 s]
+LMC X-3                bin 6 accepted 6101010124 soft-like (ok; 24 MB) [264 s]
+SAX J1819.3-2525       bin 2 accepted 3200300112 soft-like (ok; 7 MB) [268 s]
+SAX J1819.3-2525       bin 1 EMPTY (excluded (2-10 keV rate 6.3 < 20.0); 10 MB) [271 s]
+SAX J1819.3-2525       bin 3 EMPTY (missing (< 3 valid segments); 1 MB) [274 s]
+SAX J1819.3-2525       bin 4 accepted 4200300106 intermediate (ok; 10 MB) [274 s]
+SAX J1819.3-2525       bin 5 accepted 4702010105 soft-like (ok; 7 MB) [278 s]
+SAX J1819.3-2525       bin 6 accepted 4702010201 soft-like (ok; 18 MB) [279 s]
+SAX J1819.3-2525       bin 7 EMPTY (excluded (2-10 keV rate 4.6 < 20.0); 2 MB) [285 s]
+4U 1543-475            bin 0 EMPTY (missing (< 3 valid segments); 2720 MB) [569 s]
+4U 1543-475            bin 1 accepted 4202230125 soft-like (ok; 2432 MB) [593 s]
+4U 1543-475            bin 3 accepted 4202230187 soft-like (ok; 515 MB) [645 s]
+4U 1543-475            bin 2 accepted 4655060401 soft-like (ok; 1000 MB) [652 s]
+4U 1543-475            bin 4 accepted 4202230210 hard-like (ok; 15 MB) [654 s]
+4U 1543-475            bin 6 accepted 5202230214 hard-like (ok; 6 MB) [657 s]
+4U 1543-475            bin 5 accepted 5202230201 hard-like (ok; 22 MB) [662 s]
+4U 1543-475            bin 7 EMPTY (missing (< 3 valid segments); 1 MB) [664 s]
+GX 339-4               bin 1 accepted 3558010801 hard-like (ok; 29 MB) [669 s]
+GX 339-4               bin 0 accepted 1133010119 hard-like (ok; 48 MB) [681 s]
+GX 339-4               bin 2 accepted 4133010111 soft-like (ok; 1000 MB) [740 s]
+GX 339-4               bin 3 accepted 4133010117 soft-like (ok; 1000 MB) [757 s]
+GX 339-4               bin 5 accepted 4133010193 soft-like (ok; 222 MB) [789 s]
+GX 339-4               bin 6 accepted 5599010103 hard-like (ok; 5 MB) [793 s]
+GX 339-4               bin 4 accepted 4133010158 soft-like (ok; 337 MB) [793 s]
+GX 339-4               bin 7 accepted 6133010214 soft-like (ok; 152 MB) [819 s]
+Swift J1727.8-1613     bin 1 accepted 6203980115 hard-like (ok; 515 MB) [871 s]
+Swift J1727.8-1613     bin 0 accepted 6203980108 hard-like (ok; 1000 MB) [893 s]
+Swift J1727.8-1613     bin 2 accepted 6203980121 hard-like (ok; 413 MB) [912 s]
+Swift J1727.8-1613     bin 3 accepted 6203980139 soft-like (ok; 234 MB) [921 s]
+Swift J1727.8-1613     bin 5 accepted 7708010105 soft-like (ok; 157 MB) [939 s]
+Swift J1727.8-1613     bin 4 accepted 6203980147 soft-like (ok; 372 MB) [946 s]
+Swift J1727.8-1613     bin 6 accepted 7203980104 hard-like (ok; 46 MB) [947 s]
+Swift J1727.8-1613     bin 7 accepted 6588020110 hard-like (ok; 5 MB) [949 s]
+GS 2023+338            bin 0 EMPTY (missing (< 3 valid segments); 1 MB) [952 s]
+GS 2023+338            bin 1 EMPTY (missing (< 3 valid segments); 0 MB) [954 s]
+GS 2023+338            bin 2 EMPTY (missing (< 3 valid segments); 1 MB) [959 s]
+GS 2023+338            bin 3 EMPTY (missing (< 3 valid segments); 1 MB) [961 s]
+GS 2023+338            bin 5 EMPTY (missing (< 3 valid segments); 0 MB) [965 s]
+GS 2023+338            bin 4 EMPTY (missing (< 3 valid segments); 0 MB) [965 s]
+GS 2023+338            bin 6 EMPTY (missing (< 3 valid segments); 0 MB) [968 s]
+GS 2023+338            bin 7 EMPTY (missing (< 3 valid segments); 3 MB) [970 s]
+MAXI J1820+070         bin 1 accepted 1200120148 hard-like (ok; 1000 MB) [1047 s]
+MAXI J1820+070         bin 0 accepted 1200120112 hard-like (ok; 1000 MB) [1078 s]
+MAXI J1820+070         bin 2 accepted 1200120169 hard-like (ok; 469 MB) [1082 s]
+MAXI J1820+070         bin 4 EMPTY (missing (< 3 valid segments); 8 MB) [1094 s]
+MAXI J1820+070         bin 3 accepted 1200120187 hard-like (ok; 214 MB) [1098 s]
+MAXI J1820+070         bin 6 accepted 3200120404 hard-like (ok; 10 MB) [1102 s]
+MAXI J1820+070         bin 5 accepted 2200120313 hard-like (ok; 51 MB) [1104 s]
+XTE J1859+226          bin 0 EMPTY (missing (< 3 valid segments); 0 MB) [1106 s]
+XTE J1859+226          bin 1 EMPTY (missing (< 3 valid segments); 0 MB) [1108 s]
+MAXI J1820+070         bin 7 EMPTY (missing (< 3 valid segments); 3 MB) [1109 s]
+GRS 1915+105           bin 1 accepted 2596010301 hard-like (ok; 15 MB) [1126 s]
+GRS 1915+105           bin 2 accepted 2103010204 soft-like (ok; 9 MB) [1133 s]
+GRS 1915+105           bin 3 accepted 3607012501 soft-like (ok; 2 MB) [1138 s]
+GRS 1915+105           bin 0 accepted 1103010133 soft-like (ok; 469 MB) [1144 s]
+GRS 1915+105           bin 4 accepted 4103010227 hard-like (ok; 39 MB) [1145 s]
+GRS 1915+105           bin 5 accepted 4103010240 hard-like (ok; 7 MB) [1148 s]
+GRS 1915+105           bin 6 accepted 6103010206 hard-like (ok; 23 MB) [1151 s]
+GRS 1915+105           bin 7 accepted 7544012501 soft-like (ok; 5 MB) [1156 s]
+1A 1744-361            bin 0 accepted 5202800102 soft-like (ok; 55 MB) [1161 s]
+1A 1744-361            bin 1 accepted 5202800113 soft-like (ok; 46 MB) [1165 s]
+1A 1744-361            bin 2 accepted 5202800125 soft-like (ok; 15 MB) [1165 s]
+1A 1744-361            bin 3 accepted 5202800131 soft-like (ok; 16 MB) [1169 s]
+1A 1744-361            bin 5 accepted 5202800143 soft-like (ok; 9 MB) [1175 s]
+1A 1744-361            bin 4 accepted 5202800140 soft-like (ok; 12 MB) [1177 s]
+1A 1744-361            bin 6 accepted 7202800104 intermediate (ok; 9 MB) [1179 s]
+1A 1744-361            bin 7 accepted 7202800108 soft-like (ok; 14 MB) [1182 s]
+2S 0918-549            bin 1 accepted 2050450121 hard-like (ok; 8 MB) [1185 s]
+2S 0918-549            bin 0 accepted 2050450105 intermediate (ok; 39 MB) [1192 s]
+2S 0918-549            bin 2 EMPTY (excluded (2-10 keV rate 13.9 < 20.0); 29 MB) [1199 s]
+2S 0918-549            bin 4 accepted 4050450125 hard-like (ok; 7 MB) [1203 s]
+2S 0918-549            bin 3 accepted 3050450170 soft-like (ok; 24 MB) [1204 s]
+2S 0918-549            bin 5 accepted 5050450109 intermediate (ok; 5 MB) [1206 s]
+2S 0918-549            bin 6 accepted 5050450119 soft-like (ok; 16 MB) [1208 s]
+4U 0513-40             bin 0 accepted 1050010107 soft-like (ok; 52 MB) [1217 s]
+2S 0918-549            bin 7 EMPTY (excluded (2-10 keV rate 15.6 < 20.0); 30 MB) [1228 s]
+4U 0513-40             bin 1 accepted 1050010111 hard-like (ok; 92 MB) [1241 s]
+4U 0614+09             bin 1 accepted 1050020136 hard-like (ok; 33 MB) [1246 s]
+4U 0614+09             bin 2 accepted 1050020180 hard-like (ok; 39 MB) [1254 s]
+4U 0614+09             bin 0 accepted 1050020124 hard-like (ok; 239 MB) [1261 s]
+4U 0614+09             bin 3 accepted 1050020186 hard-like (ok; 87 MB) [1270 s]
+4U 0614+09             bin 4 accepted 1050020224 hard-like (ok; 112 MB) [1275 s]
+4U 0614+09             bin 5 accepted 1050020250 soft-like (ok; 91 MB) [1300 s]
+4U 0614+09             bin 7 accepted 5050020207 soft-like (ok; 103 MB) [1316 s]
+4U 1246-588            bin 0 accepted 2200970103 soft-like (ok; 12 MB) [1320 s]
+4U 1246-588            bin 1 accepted 2200970134 hard-like (ok; 5 MB) [1333 s]
+4U 1246-588            bin 2 EMPTY (excluded (2-10 keV rate 5.8 < 20.0); 3 MB) [1338 s]
+4U 0614+09             bin 6 accepted 1050020257 soft-like (ok; 546 MB) [1341 s]
+4U 1246-588            bin 3 EMPTY (excluded (2-10 keV rate 5.6 < 20.0); 4 MB) [1344 s]
+4U 1246-588            bin 4 accepted 8200970114 soft-like (ok; 3 MB) [1344 s]
+4U 1246-588            bin 6 accepted 8200970117 hard-like (ok; 3 MB) [1347 s]
+4U 1246-588            bin 7 accepted 8200970118 hard-like (ok; 2 MB) [1350 s]
+4U 1246-588            bin 5 EMPTY (excluded (2-10 keV rate 14.9 < 20.0); 42 MB) [1352 s]
+4U 1254-69             bin 1 accepted 2050470130 soft-like (ok; 7 MB) [1356 s]
+4U 1254-69             bin 0 accepted 1050470106 soft-like (ok; 34 MB) [1357 s]
+4U 1254-69             bin 2 accepted 3050470120 soft-like (ok; 11 MB) [1359 s]
+4U 1254-69             bin 4 accepted 4050470146 soft-like (ok; 30 MB) [1366 s]
+4U 1254-69             bin 3 accepted 3050470164 soft-like (ok; 8 MB) [1368 s]
+4U 1254-69             bin 5 accepted 4050470163 soft-like (ok; 22 MB) [1371 s]
+4U 1254-69             bin 6 accepted 4050470165 soft-like (ok; 7 MB) [1372 s]
+4U 1323-62             bin 0 accepted 1105010105 hard-like (ok; 45 MB) [1380 s]
+4U 1254-69             bin 7 EMPTY (missing (< 3 valid segments); 30 MB) [1384 s]
+4U 1323-62             bin 2 EMPTY (excluded (2-10 keV rate 7.0 < 20.0); 1 MB) [1392 s]
+4U 1323-62             bin 1 EMPTY (excluded (2-10 keV rate 6.0 < 20.0); 71 MB) [1397 s]
+4U 1323-62             bin 3 EMPTY (excluded (2-10 keV rate 6.9 < 20.0); 1 MB) [1399 s]
+4U 1323-62             bin 4 EMPTY (excluded (2-10 keV rate 5.0 < 20.0); 2 MB) [1404 s]
+4U 1323-62             bin 5 EMPTY (excluded (2-10 keV rate 6.8 < 20.0); 1 MB) [1406 s]
+4U 1323-62             bin 6 EMPTY (missing (< 3 valid segments); 5 MB) [1412 s]
+4U 1323-62             bin 7 EMPTY (missing (< 3 valid segments); 4 MB) [1413 s]
+4U 1543-624            bin 0 accepted 1050060101 hard-like (ok; 11 MB) [1416 s]
+4U 1543-624            bin 1 accepted 1050060104 hard-like (ok; 51 MB) [1423 s]
+4U 1543-624            bin 2 accepted 1050060106 hard-like (ok; 86 MB) [1428 s]
+4U 1543-624            bin 3 accepted 1050060108 hard-like (ok; 70 MB) [1435 s]
+4U 1543-624            bin 5 accepted 1050060114 hard-like (ok; 9 MB) [1438 s]
+4U 1543-624            bin 4 accepted 1050060110 hard-like (ok; 55 MB) [1440 s]
+4U 1543-624            bin 7 accepted 1050060121 hard-like (ok; 5 MB) [1444 s]
+4U 1543-624            bin 6 accepted 1050060119 hard-like (ok; 133 MB) [1462 s]
+4U 1608-522            bin 1 accepted 1050070131 soft-like (ok; 53 MB) [1475 s]
+4U 1608-522            bin 2 accepted 2050070103 soft-like (ok; 54 MB) [1488 s]
+4U 1608-522            bin 0 accepted 0050070102 hard-like (ok; 427 MB) [1505 s]
+4U 1608-522            bin 3 accepted 3657021001 soft-like (ok; 170 MB) [1514 s]
+4U 1608-522            bin 4 accepted 3657022101 soft-like (ok; 232 MB) [1523 s]
+4U 1608-522            bin 5 accepted 3657023201 soft-like (ok; 134 MB) [1529 s]
+4U 1608-522            bin 7 accepted 3657026901 soft-like (ok; 20 MB) [1534 s]
+4U 1608-522            bin 6 accepted 3657024301 soft-like (ok; 190 MB) [1536 s]
+4U 1636-536            bin 0 accepted 1050080112 soft-like (ok; 52 MB) [1544 s]
+4U 1636-536            bin 1 accepted 1050080134 hard-like (ok; 73 MB) [1548 s]
+4U 1636-536            bin 2 accepted 1050080142 hard-like (ok; 27 MB) [1551 s]
+4U 1636-536            bin 3 accepted 1050080159 hard-like (ok; 10 MB) [1552 s]
+4U 1636-536            bin 5 accepted 1050080182 hard-like (ok; 11 MB) [1556 s]
+4U 1636-536            bin 4 accepted 1050080171 hard-like (ok; 30 MB) [1557 s]
+4U 1636-536            bin 7 accepted 5050080201 hard-like (ok; 11 MB) [1562 s]
+4U 1636-536            bin 6 accepted 1050080191 hard-like (ok; 37 MB) [1563 s]
+4U 1702-429            bin 0 accepted 0050110110 hard-like (ok; 5 MB) [1565 s]
+4U 1702-429            bin 1 accepted 1050110117 hard-like (ok; 4 MB) [1566 s]
+4U 1702-429            bin 2 accepted 2050110102 hard-like (ok; 5 MB) [1568 s]
+4U 1702-429            bin 3 accepted 2050110109 hard-like (ok; 7 MB) [1570 s]
+4U 1702-429            bin 4 accepted 2050110112 hard-like (ok; 3 MB) [1571 s]
+4U 1702-429            bin 5 accepted 2050110123 hard-like (ok; 4 MB) [1573 s]
+4U 1702-429            bin 6 accepted 2587030101 hard-like (ok; 23 MB) [1576 s]
+4U 1702-429            bin 7 accepted 2587030104 hard-like (ok; 22 MB) [1579 s]
+4U 1705-32             bin 0 EMPTY (excluded (2-10 keV rate 8.3 < 20.0); 3 MB) [1579 s]
+4U 1705-32             bin 1 accepted 4202170108 soft-like (ok; 6 MB) [1582 s]
+4U 1705-32             bin 2 accepted 4202170109 intermediate (ok; 9 MB) [1583 s]
+4U 1705-32             bin 3 EMPTY (excluded (2-10 keV rate 13.1 < 20.0); 1 MB) [1585 s]
+4U 1722-30             bin 0 accepted 1050140110 hard-like (ok; 2 MB) [1588 s]
+4U 1705-44             bin 0 accepted 1050120106 soft-like (ok; 15 MB) [1588 s]
+4U 1722-30             bin 1 accepted 1050140112 hard-like (ok; 2 MB) [1590 s]
+4U 1722-30             bin 2 accepted 1050140114 hard-like (ok; 3 MB) [1591 s]
+4U 1722-30             bin 3 accepted 1050140117 hard-like (ok; 9 MB) [1595 s]
+4U 1722-30             bin 4 accepted 1050140118 hard-like (ok; 7 MB) [1595 s]
+4U 1728-34             bin 0 accepted 0050150106 hard-like (ok; 10 MB) [1598 s]
+4U 1728-34             bin 2 accepted 1050150114 intermediate (ok; 8 MB) [1602 s]
+4U 1728-34             bin 3 accepted 1050150131 soft-like (ok; 6 MB) [1605 s]
+4U 1728-34             bin 1 accepted 1050150102 soft-like (ok; 56 MB) [1607 s]
+4U 1728-34             bin 5 accepted 1050150141 hard-like (ok; 4 MB) [1610 s]
+4U 1728-34             bin 4 accepted 1050150137 soft-like (ok; 32 MB) [1612 s]
+4U 1728-34             bin 6 accepted 1050150160 soft-like (ok; 16 MB) [1614 s]
+4U 1728-34             bin 7 accepted 7050150103 hard-like (ok; 6 MB) [1615 s]
+4U 1735-444            bin 1 accepted 1050500103 soft-like (ok; 52 MB) [1623 s]
+4U 1735-444            bin 0 accepted 1050500101 soft-like (ok; 142 MB) [1639 s]
+4U 1735-444            bin 2 accepted 3050500108 soft-like (ok; 35 MB) [1641 s]
+4U 1812-12             bin 0 accepted 2560010101 hard-like (ok; 4 MB) [1642 s]
+4U 1812-12             bin 1 accepted 2560010205 hard-like (ok; 5 MB) [1645 s]
+4U 1812-12             bin 2 accepted 3580010105 hard-like (ok; 10 MB) [1646 s]
+4U 1812-12             bin 4 accepted 3580010305 hard-like (ok; 1 MB) [1649 s]
+4U 1812-12             bin 3 accepted 3580010203 hard-like (ok; 24 MB) [1651 s]
+4U 1812-12             bin 5 accepted 3580010313 hard-like (ok; 1 MB) [1651 s]
+4U 1812-12             bin 6 accepted 3580010324 hard-like (ok; 2 MB) [1654 s]
+4U 1812-12             bin 7 accepted 4202290105 hard-like (ok; 3 MB) [1654 s]
+4U 1820-303            bin 0 accepted 0050300120 soft-like (ok; 58 MB) [1662 s]
+4U 1820-303            bin 2 accepted 3050300101 soft-like (ok; 54 MB) [1671 s]
+4U 1820-303            bin 1 accepted 1050300129 hard-like (ok; 106 MB) [1708 s]
+4U 1820-303            bin 3 accepted 4050300102 hard-like (ok; 319 MB) [1712 s]
+4U 1820-303            bin 4 accepted 4680010127 soft-like (ok; 64 MB) [1720 s]
+4U 1820-303            bin 6 accepted 6050300102 soft-like (ok; 36 MB) [1726 s]
+4U 1820-303            bin 7 accepted 6677020203 soft-like (ok; 155 MB) [1742 s]
+Aql X-1                bin 0 accepted 0050340109 hard-like (ok; 100 MB) [1755 s]
+Aql X-1                bin 1 accepted 3050340105 hard-like (ok; 39 MB) [1761 s]
+4U 1820-303            bin 5 accepted 5604010304 soft-like (ok; 565 MB) [1787 s]
+Aql X-1                bin 3 accepted 4050340109 hard-like (ok; 7 MB) [1791 s]
+Aql X-1                bin 2 accepted 3050340125 soft-like (ok; 424 MB) [1793 s]
+Aql X-1                bin 5 accepted 6634020125 soft-like (ok; 156 MB) [1805 s]
+Aql X-1                bin 6 accepted 7675010103 hard-like (ok; 10 MB) [1809 s]
+Aql X-1                bin 7 accepted 7050340109 soft-like (ok; 154 MB) [1836 s]
+Cen X-4                bin 0 EMPTY (missing (< 3 valid segments); 1 MB) [1843 s]
+Aql X-1                bin 4 accepted 6634020110 soft-like (ok; 470 MB) [1847 s]
+Cen X-4                bin 2 EMPTY (missing (< 3 valid segments); 2 MB) [1854 s]
+Cen X-4                bin 3 EMPTY (missing (< 3 valid segments); 0 MB) [1860 s]
+Cen X-4                bin 1 accepted 1030110105 hard-like (ok; 282 MB) [1867 s]
+Cen X-4                bin 4 EMPTY (missing (< 3 valid segments); 2 MB) [1867 s]
+Cen X-4                bin 6 EMPTY (missing (< 3 valid segments); 0 MB) [1871 s]
+Cen X-4                bin 5 EMPTY (missing (< 3 valid segments); 2 MB) [1873 s]
+Cen X-4                bin 7 EMPTY (missing (< 3 valid segments); 0 MB) [1876 s]
+Cir X-1                bin 0 accepted 1050050103 hard-like (ok; 26 MB) [1879 s]
+Cir X-1                bin 1 accepted 2050050110 soft-like (ok; 14 MB) [1880 s]
+Cir X-1                bin 2 accepted 3578011101 soft-like (ok; 44 MB) [1888 s]
+Cir X-1                bin 3 accepted 3578011502 soft-like (ok; 71 MB) [1893 s]
+Cir X-1                bin 4 accepted 5571030101 soft-like (ok; 36 MB) [1896 s]
+Cir X-1                bin 5 accepted 5571090102 soft-like (ok; 68 MB) [1907 s]
+Cir X-1                bin 6 accepted 5571170102 soft-like (ok; 104 MB) [1907 s]
+Cir X-1                bin 7 accepted 6689030201 soft-like (ok; 34 MB) [1915 s]
+Cyg X-2                bin 1 accepted 1034150119 soft-like (ok; 87 MB) [1938 s]
+Cyg X-2                bin 2 accepted 1034150131 soft-like (ok; 97 MB) [1954 s]
+Cyg X-2                bin 0 accepted 0034150105 soft-like (ok; 986 MB) [1989 s]
+Cyg X-2                bin 4 accepted 5575030102 soft-like (ok; 388 MB) [2011 s]
+Cyg X-2                bin 5 accepted 5575030105 soft-like (ok; 135 MB) [2024 s]
+Cyg X-2                bin 3 accepted 2587020103 soft-like (ok; 770 MB) [2069 s]
+Cyg X-2                bin 6 accepted 7034150107 soft-like (ok; 483 MB) [2081 s]
+EXO 0748-676           bin 0 accepted 1050030101 hard-like (ok; 6 MB) [2087 s]
+EXO 0748-676           bin 1 EMPTY (missing (< 3 valid segments); 6 MB) [2092 s]
+EXO 0748-676           bin 2 accepted 7050030105 hard-like (ok; 3 MB) [2096 s]
+EXO 0748-676           bin 3 EMPTY (excluded (2-10 keV rate 17.3 < 20.0); 3 MB) [2101 s]
+EXO 0748-676           bin 4 EMPTY (excluded (2-10 keV rate 9.3 < 20.0); 3 MB) [2107 s]
+EXO 0748-676           bin 5 EMPTY (missing (< 3 valid segments); 1 MB) [2111 s]
+EXO 0748-676           bin 6 EMPTY (missing (< 3 valid segments); 2 MB) [2116 s]
+EXO 0748-676           bin 7 EMPTY (excluded (2-10 keV rate 13.7 < 20.0); 1 MB) [2121 s]
+GRS 1747-312           bin 0 EMPTY (missing (< 3 valid segments); 0 MB) [2123 s]
+GRS 1747-312           bin 1 accepted 2050440102 soft-like (ok; 2 MB) [2126 s]
+GRS 1747-312           bin 2 accepted 2050440103 soft-like (ok; 5 MB) [2129 s]
+Cyg X-2                bin 7 accepted 7727010101 soft-like (ok; 827 MB) [2130 s]
+GRS 1747-312           bin 3 accepted 2050440105 soft-like (ok; 1 MB) [2132 s]
+GRS 1747-312           bin 4 accepted 2050440106 soft-like (ok; 1 MB) [2132 s]
+GRS 1747-312           bin 5 EMPTY (missing (< 3 valid segments); 0 MB) [2133 s]
+GRS 1747-312           bin 6 EMPTY (missing (< 3 valid segments); 0 MB) [2134 s]
+GRS 1747-312           bin 7 EMPTY (excluded (2-10 keV rate 6.1 < 20.0); 0 MB) [2136 s]
+GS 1826-24             bin 0 accepted 0050310106 soft-like (ok; 44 MB) [2143 s]
+GS 1826-24             bin 2 accepted 1050310107 hard-like (ok; 275 MB) [2163 s]
+GS 1826-24             bin 1 accepted 0050310112 soft-like (ok; 97 MB) [2168 s]
+GS 1826-24             bin 4 accepted 1050310115 hard-like (ok; 124 MB) [2179 s]
+GS 1826-24             bin 3 accepted 1050310109 hard-like (ok; 161 MB) [2190 s]
+GS 1826-24             bin 5 accepted 2050310102 soft-like (ok; 204 MB) [2195 s]
+GS 1826-24             bin 6 accepted 5050310101 soft-like (ok; 238 MB) [2211 s]
+GS 1826-24             bin 7 accepted 5050310103 soft-like (ok; 234 MB) [2215 s]
+GX 13+1                bin 1 accepted 1108020106 soft-like (ok; 25 MB) [2221 s]
+GX 13+1                bin 2 accepted 5670010103 soft-like (ok; 47 MB) [2229 s]
+GX 13+1                bin 3 accepted 5670010302 soft-like (ok; 157 MB) [2241 s]
+GX 13+1                bin 4 accepted 5670010405 soft-like (ok; 79 MB) [2250 s]
+GX 13+1                bin 0 accepted 1108020101 hard-like (ok; 151 MB) [2252 s]
+GX 13+1                bin 6 accepted 7701010102 soft-like (ok; 51 MB) [2273 s]
+GX 13+1                bin 5 accepted 5670010408 soft-like (ok; 133 MB) [2275 s]
+GX 13+1                bin 7 accepted 7108020102 soft-like (ok; 43 MB) [2282 s]
+GX 17+2                bin 0 accepted 1050410105 soft-like (ok; 56 MB) [2284 s]
+GX 17+2                bin 2 accepted 1050410116 soft-like (ok; 45 MB) [2296 s]
+GX 17+2                bin 3 accepted 1050410123 soft-like (ok; 38 MB) [2303 s]
+GX 17+2                bin 1 accepted 1050410111 intermediate (ok; 157 MB) [2313 s]
+GX 17+2                bin 4 accepted 3050410101 soft-like (ok; 83 MB) [2316 s]
+GX 17+2                bin 6 accepted 7050410102 soft-like (ok; 78 MB) [2340 s]
+GX 17+2                bin 5 accepted 3050410104 soft-like (ok; 332 MB) [2341 s]
+HETE J1900.1-2455      bin 0 EMPTY (missing (< 3 valid segments); 0 MB) [2344 s]
+IGR J17062-6143        bin 0 accepted 1034100106 hard-like (ok; 25 MB) [2355 s]
+IGR J17062-6143        bin 1 EMPTY (excluded (2-10 keV rate 6.8 < 20.0); 77 MB) [2373 s]
+IGR J17062-6143        bin 2 EMPTY (excluded (2-10 keV rate 5.3 < 20.0); 7 MB) [2382 s]
+IGR J17062-6143        bin 3 EMPTY (excluded (2-10 keV rate 5.4 < 20.0); 12 MB) [2391 s]
+GX 17+2                bin 7 accepted 7050410104 soft-like (ok; 450 MB) [2395 s]
+IGR J17062-6143        bin 4 EMPTY (excluded (2-10 keV rate 8.5 < 20.0); 41 MB) [2405 s]
+IGR J17062-6143        bin 5 EMPTY (excluded (2-10 keV rate 6.3 < 20.0); 20 MB) [2407 s]
+IGR J17062-6143        bin 7 EMPTY (excluded (2-10 keV rate 5.6 < 20.0); 7 MB) [2415 s]
+IGR J17380-3749        bin 0 EMPTY (missing (< 3 valid segments); 0 MB) [2417 s]
+IGR J17062-6143        bin 6 EMPTY (excluded (2-10 keV rate 10.2 < 20.0); 13 MB) [2418 s]
+IGR J17380-3749        bin 1 EMPTY (excluded (2-10 keV rate 12.4 < 20.0); 1 MB) [2419 s]
+IGR J17380-3749        bin 2 EMPTY (missing (< 3 valid segments); 0 MB) [2420 s]
+IGR J17380-3749        bin 3 EMPTY (missing (< 3 valid segments); 0 MB) [2421 s]
+IGR J17380-3749        bin 4 EMPTY (missing (< 3 valid segments); 0 MB) [2422 s]
+IGR J17380-3749        bin 5 EMPTY (excluded (2-10 keV rate 9.1 < 20.0); 0 MB) [2423 s]
+IGR J17380-3749        bin 6 EMPTY (missing (< 3 valid segments); 0 MB) [2424 s]
+IGR J17380-3749        bin 7 EMPTY (excluded (2-10 keV rate 6.3 < 20.0); 2 MB) [2426 s]
+IGR J17498-2921        bin 0 accepted 6560010101 hard-like (ok; 10 MB) [2428 s]
+IGR J17498-2921        bin 1 accepted 6560010102 hard-like (ok; 6 MB) [2430 s]
+IGR J17498-2921        bin 2 accepted 6560010107 intermediate (ok; 6 MB) [2432 s]
+IGR J17498-2921        bin 3 accepted 6560010110 hard-like (ok; 5 MB) [2433 s]
+IGR J17498-2921        bin 4 accepted 6560010112 intermediate (ok; 2 MB) [2434 s]
+IGR J17498-2921        bin 6 EMPTY (missing (< 3 valid segments); 0 MB) [2438 s]
+IGR J17498-2921        bin 5 EMPTY (missing (< 3 valid segments); 0 MB) [2439 s]
+IGR J17511-3057        bin 0 accepted 7050380101 hard-like (ok; 3 MB) [2442 s]
+IGR J17498-2921        bin 7 EMPTY (missing (< 3 valid segments); 2 MB) [2443 s]
+IGR J17511-3057        bin 2 accepted 7512010102 hard-like (ok; 2 MB) [2445 s]
+IGR J17511-3057        bin 1 accepted 7512010101 hard-like (ok; 6 MB) [2446 s]
+IGR J17511-3057        bin 3 EMPTY (missing (< 3 valid segments); 0 MB) [2447 s]
+IGR J17591-2342        bin 0 accepted 1200310105 hard-like (ok; 98 MB) [2457 s]
+IGR J17591-2342        bin 1 accepted 1200310109 hard-like (ok; 6 MB) [2461 s]
+IGR J17591-2342        bin 2 EMPTY (excluded (2-10 keV rate 19.1 < 20.0); 3 MB) [2463 s]
+IGR J17591-2342        bin 3 accepted 1200310117 hard-like (ok; 2 MB) [2464 s]
+IGR J17591-2342        bin 4 accepted 1200310118 hard-like (ok; 1 MB) [2465 s]
+IGR J17591-2342        bin 5 accepted 1200310122 hard-like (ok; 1 MB) [2466 s]
+IGR J17591-2342        bin 6 accepted 1200310129 hard-like (ok; 2 MB) [2468 s]
+IGR J17591-2342        bin 7 EMPTY (excluded (2-10 keV rate 19.7 < 20.0); 2 MB) [2471 s]
+M15 X-2                bin 0 accepted 1034140106 hard-like (ok; 9 MB) [2473 s]
+M15 X-2                bin 1 accepted 5034140104 soft-like (ok; 72 MB) [2481 s]
+M15 X-2                bin 3 accepted 5034140114 soft-like (ok; 122 MB) [2493 s]
+M15 X-2                bin 2 accepted 5034140108 soft-like (ok; 65 MB) [2502 s]
+M15 X-2                bin 4 accepted 5034140117 soft-like (ok; 88 MB) [2504 s]
+M15 X-2                bin 6 accepted 5034140129 soft-like (ok; 14 MB) [2508 s]
+M15 X-2                bin 5 accepted 5034140125 soft-like (ok; 29 MB) [2508 s]
+MAXI J1621-501         bin 0 accepted 1034170101 soft-like (ok; 9 MB) [2512 s]
+M15 X-2                bin 7 accepted 5034140136 soft-like (ok; 12 MB) [2514 s]
+MAXI J1807+132         bin 1 EMPTY (excluded (2-10 keV rate 0.5 < 20.0); 8 MB) [2522 s]
+MAXI J1807+132         bin 0 accepted 2200840101 hard-like (ok; 17 MB) [2522 s]
+MAXI J1807+132         bin 2 accepted 6634010101 hard-like (ok; 19 MB) [2528 s]
+MAXI J1807+132         bin 3 accepted 6634010103 hard-like (ok; 17 MB) [2530 s]
+MAXI J1807+132         bin 4 accepted 6634010105 hard-like (ok; 18 MB) [2533 s]
+MAXI J1807+132         bin 5 accepted 6634010109 hard-like (ok; 9 MB) [2534 s]
+MAXI J1807+132         bin 6 accepted 6634010111 hard-like (ok; 11 MB) [2537 s]
+MXB 1730-335           bin 0 accepted 1200100105 hard-like (ok; 4 MB) [2540 s]
+MAXI J1807+132         bin 7 EMPTY (excluded (2-10 keV rate 5.7 < 20.0); 5 MB) [2542 s]
+MXB 1730-335           bin 1 accepted 1200100107 hard-like (ok; 8 MB) [2545 s]
+MXB 1730-335           bin 3 accepted 3200100111 hard-like (ok; 2 MB) [2548 s]
+MXB 1730-335           bin 4 EMPTY (missing (< 3 valid segments); 1 MB) [2550 s]
+SAX J1712.6-3739       bin 0 accepted 1200180101 soft-like (ok; 1 MB) [2553 s]
+MXB 1730-335           bin 2 accepted 3200100104 hard-like (ok; 6 MB) [2555 s]
+SAX J1747.0-2853       bin 0 accepted 5200600101 soft-like (ok; 12 MB) [2557 s]
+SAX J1747.0-2853       bin 1 accepted 5200600102 soft-like (ok; 13 MB) [2559 s]
+SAX J1747.0-2853       bin 2 accepted 5200600103 soft-like (ok; 7 MB) [2561 s]
+SAX J1747.0-2853       bin 4 EMPTY (excluded (2-10 keV rate 11.2 < 20.0); 3 MB) [2564 s]
+SAX J1747.0-2853       bin 3 accepted 5200600104 soft-like (ok; 13 MB) [2565 s]
+SAX J1747.0-2853       bin 5 EMPTY (excluded (2-10 keV rate 5.6 < 20.0); 0 MB) [2566 s]
+SAX J1748.9-2021       bin 0 accepted 1050400101 hard-like (ok; 4 MB) [2568 s]
+SAX J1748.9-2021       bin 1 accepted 1050400102 hard-like (ok; 9 MB) [2570 s]
+SAX J1748.9-2021       bin 2 accepted 1050400103 hard-like (ok; 4 MB) [2571 s]
+SAX J1748.9-2021       bin 3 EMPTY (missing (< 3 valid segments); 0 MB) [2572 s]
+SAX J1808.4-3658       bin 0 accepted 2584010101 hard-like (ok; 6 MB) [2574 s]
+SAX J1808.4-3658       bin 1 accepted 2584010107 hard-like (ok; 65 MB) [2581 s]
+SAX J1808.4-3658       bin 2 EMPTY (excluded (2-10 keV rate 5.9 < 20.0); 6 MB) [2582 s]
+SAX J1808.4-3658       bin 4 EMPTY (excluded (2-10 keV rate 0.6 < 20.0); 2 MB) [2589 s]
+SAX J1808.4-3658       bin 3 EMPTY (excluded (2-10 keV rate 4.4 < 20.0); 10 MB) [2590 s]
+SAX J1808.4-3658       bin 5 accepted 5050260104 hard-like (ok; 61 MB) [2600 s]
+SAX J1808.4-3658       bin 7 EMPTY (excluded (2-10 keV rate 4.1 < 20.0); 5 MB) [2607 s]
+SAX J1808.4-3658       bin 6 accepted 5574010103 hard-like (ok; 81 MB) [2607 s]
+SAX J1810.8-2609       bin 0 EMPTY (missing (< 3 valid segments); 0 MB) [2609 s]
+SAX J1810.8-2609       bin 1 accepted 4200170101 hard-like (ok; 18 MB) [2612 s]
+SAX J1810.8-2609       bin 2 accepted 4200170103 hard-like (ok; 10 MB) [2613 s]
+SAX J1810.8-2609       bin 4 accepted 4200170108 hard-like (ok; 9 MB) [2618 s]
+SLX 1732-304           bin 0 accepted 3050560103 hard-like (ok; 2 MB) [2620 s]
+SAX J1810.8-2609       bin 3 accepted 4200170105 hard-like (ok; 66 MB) [2622 s]
+SLX 1732-304           bin 1 accepted 3050560107 hard-like (ok; 1 MB) [2623 s]
+SLX 1732-304           bin 2 accepted 3050560109 hard-like (ok; 2 MB) [2625 s]
+SLX 1732-304           bin 3 accepted 6050560101 soft-like (ok; 17 MB) [2628 s]
+SLX 1732-304           bin 5 accepted 6050560109 intermediate (ok; 5 MB) [2631 s]
+SLX 1732-304           bin 4 accepted 6050560103 soft-like (ok; 12 MB) [2633 s]
+SLX 1735-269           bin 0 accepted 3604020101 soft-like (ok; 2 MB) [2633 s]
+SLX 1735-269           bin 1 accepted 3604020102 hard-like (ok; 7 MB) [2637 s]
+SLX 1735-269           bin 2 accepted 3604020104 soft-like (ok; 15 MB) [2638 s]
+SLX 1735-269           bin 3 accepted 3604020105 soft-like (ok; 3 MB) [2640 s]
+Ser X-1                bin 0 accepted 0050320107 soft-like (ok; 37 MB) [2647 s]
+Ser X-1                bin 2 accepted 1050320108 soft-like (ok; 53 MB) [2655 s]
+Ser X-1                bin 1 accepted 1050320104 soft-like (ok; 99 MB) [2661 s]
+Ser X-1                bin 3 accepted 1050320114 soft-like (ok; 94 MB) [2665 s]
+Ser X-1                bin 5 accepted 1050320120 soft-like (ok; 65 MB) [2676 s]
+Ser X-1                bin 4 accepted 1050320117 hard-like (ok; 79 MB) [2678 s]
+Ser X-1                bin 7 accepted 6050320101 soft-like (ok; 13 MB) [2683 s]
+Swift J1749.4-2807     bin 0 EMPTY (excluded (2-10 keV rate 18.4 < 20.0); 9 MB) [2687 s]
+Swift J1749.4-2807     bin 1 accepted 4658010102 soft-like (ok; 23 MB) [2693 s]
+Swift J1749.4-2807     bin 2 accepted 4658010103 hard-like (ok; 13 MB) [2697 s]
+Swift J1749.4-2807     bin 3 EMPTY (excluded (2-10 keV rate 15.4 < 20.0); 3 MB) [2700 s]
+Swift J1749.4-2807     bin 4 EMPTY (excluded (2-10 keV rate 14.3 < 20.0); 6 MB) [2705 s]
+Swift J1749.4-2807     bin 5 EMPTY (excluded (2-10 keV rate 11.6 < 20.0); 5 MB) [2708 s]
+Swift J1749.4-2807     bin 6 EMPTY (excluded (2-10 keV rate 7.8 < 20.0); 2 MB) [2711 s]
+Swift J1858.6-0814     bin 0 EMPTY (excluded (2-10 keV rate 5.6 < 20.0); 10 MB) [2734 s]
+Ser X-1                bin 6 accepted 6648010102 soft-like (ok; 562 MB) [2738 s]
+Swift J1858.6-0814     bin 1 EMPTY (excluded (2-10 keV rate 5.6 < 20.0); 3 MB) [2741 s]
+Swift J1858.6-0814     bin 2 EMPTY (excluded (2-10 keV rate 6.9 < 20.0); 2 MB) [2745 s]
+Swift J1858.6-0814     bin 3 accepted 3592010502 soft-like (ok; 9 MB) [2747 s]
+Swift J1858.6-0814     bin 4 accepted 3200400121 intermediate (ok; 5 MB) [2748 s]
+Swift J1858.6-0814     bin 5 EMPTY (missing (< 3 valid segments); 0 MB) [2753 s]
+Swift J1858.6-0814     bin 6 EMPTY (missing (< 3 valid segments); 0 MB) [2754 s]
+UW CrB                 bin 0 EMPTY (missing (< 3 valid segments); 1 MB) [2757 s]
+Swift J1858.6-0814     bin 7 EMPTY (missing (< 3 valid segments); 0 MB) [2758 s]
+UW CrB                 bin 1 EMPTY (missing (< 3 valid segments); 0 MB) [2759 s]
+XB 1916-053            bin 0 accepted 1050480103 soft-like (ok; 8 MB) [2762 s]
+XB 2129+47             bin 0 EMPTY (missing (< 3 valid segments); 3 MB) [2766 s]
+XB 2129+47             bin 1 EMPTY (missing (< 3 valid segments); 3 MB) [2770 s]
+XB 2129+47             bin 2 EMPTY (missing (< 3 valid segments); 7 MB) [2774 s]
+XB 2129+47             bin 3 EMPTY (excluded (2-10 keV rate 5.5 < 20.0); 1 MB) [2777 s]
+XB 2129+47             bin 4 EMPTY (missing (< 3 valid segments); 1 MB) [2781 s]
+XB 2129+47             bin 5 EMPTY (missing (< 3 valid segments); 3 MB) [2784 s]
+XB 2129+47             bin 6 EMPTY (missing (< 3 valid segments); 2 MB) [2788 s]
+XB 2129+47             bin 7 EMPTY (missing (< 3 valid segments); 0 MB) [2789 s]
+XMMU J181227.8-181234  bin 0 accepted 3050550103 soft-like (ok; 3 MB) [2791 s]
+XMMU J181227.8-181234  bin 1 accepted 3050550108 soft-like (ok; 7 MB) [2793 s]
+XTE J1701-462          bin 1 accepted 5203390112 soft-like (ok; 84 MB) [2805 s]
+XTE J1701-462          bin 0 accepted 5203390105 soft-like (ok; 169 MB) [2811 s]
+XTE J1701-462          bin 3 accepted 5203390148 soft-like (ok; 46 MB) [2819 s]
+XTE J1701-462          bin 4 accepted 5203390151 soft-like (ok; 22 MB) [2824 s]
+XTE J1701-462          bin 2 accepted 5203390118 soft-like (ok; 155 MB) [2825 s]
+XTE J1701-462          bin 6 accepted 6203390104 soft-like (ok; 11 MB) [2829 s]
+XTE J1701-462          bin 5 accepted 5203390157 soft-like (ok; 34 MB) [2831 s]
+XTE J1701-462          bin 7 accepted 6203390110 intermediate (ok; 5 MB) [2835 s]
+XTE J1709-267          bin 0 accepted 1050130103 soft-like (ok; 14 MB) [2836 s]
+XTE J1709-267          bin 1 accepted 1050130110 hard-like (ok; 30 MB) [2841 s]
+XTE J1739-285          bin 0 accepted 2050280107 soft-like (ok; 43 MB) [2843 s]
+XTE J1739-285          bin 1 accepted 2050280131 hard-like (ok; 8 MB) [2845 s]
+XTE J1739-285          bin 2 accepted 3050280111 hard-like (ok; 14 MB) [2848 s]
+XTE J1739-285          bin 4 accepted 3050280135 soft-like (ok; 25 MB) [2854 s]
+XTE J1739-285          bin 3 EMPTY (excluded (2-10 keV rate 16.0 < 20.0); 12 MB) [2855 s]
+XTE J1739-285          bin 5 accepted 3050280147 soft-like (ok; 14 MB) [2858 s]
+XTE J1739-285          bin 6 accepted 3050280162 soft-like (ok; 10 MB) [2859 s]
+XTE J1739-285          bin 7 accepted 3050280184 hard-like (ok; 2 MB) [2861 s]
+XTE J1810-189          bin 0 accepted 3201750104 hard-like (ok; 3 MB) [2861 s]
+XTE J1810-189          bin 1 accepted 3201750107 hard-like (ok; 2 MB) [2864 s]
+XTE J1810-189          bin 2 accepted 3201750108 hard-like (ok; 2 MB) [2864 s]
+XTE J1810-189          bin 4 accepted 3201750112 hard-like (ok; 2 MB) [2867 s]
+XTE J1810-189          bin 3 accepted 3201750111 hard-like (ok; 7 MB) [2868 s]
+XTE J1810-189          bin 5 accepted 3201750115 hard-like (ok; 2 MB) [2870 s]
+XTE J1810-189          bin 6 accepted 6201750102 soft-like (ok; 10 MB) [2871 s]
+
+318 accepted of 422 bins; tried 588; streamed 39.16 GB (2871 s)
+status
+ok                                      318
+missing (< 3 valid segments)            133
+excluded (2-10 keV rate 5.6 < 20.0)       7
+excluded (2-10 keV rate 6.1 < 20.0)       5
+excluded (2-10 keV rate 0.7 < 20.0)       4
+excluded (2-10 keV rate 6.9 < 20.0)       3
+excluded (2-10 keV rate 4.0 < 20.0)       3
+excluded (2-10 keV rate 8.5 < 20.0)       3
+excluded (2-10 keV rate 6.8 < 20.0)       3
+excluded (2-10 keV rate 5.5 < 20.0)       3
+excluded (2-10 keV rate 5.8 < 20.0)       3
+excluded (2-10 keV rate 6.3 < 20.0)       3
+excluded (2-10 keV rate 2.0 < 20.0)       2
+excluded (2-10 keV rate 14.8 < 20.0)      2
+excluded (2-10 keV rate 0.6 < 20.0)       2
+excluded (2-10 keV rate 7.8 < 20.0)       2
+excluded (2-10 keV rate 8.3 < 20.0)       2
+excluded (2-10 keV rate 7.0 < 20.0)       2
+excluded (2-10 keV rate 6.0 < 20.0)       2
+excluded (2-10 keV rate 6.4 < 20.0)       2
+excluded (2-10 keV rate 5.4 < 20.0)       2
+excluded (2-10 keV rate 6.6 < 20.0)       2
+excluded (2-10 keV rate 4.6 < 20.0)       2
+excluded (2-10 keV rate 8.6 < 20.0)       2
+excluded (2-10 keV rate 11.4 < 20.0)      2
+excluded (2-10 keV rate 9.8 < 20.0)       2
+excluded (2-10 keV rate 11.2 < 20.0)      2
+excluded (2-10 keV rate 0.5 < 20.0)       2
+excluded (2-10 keV rate 6.7 < 20.0)       2
+excluded (2-10 keV rate 1.7 < 20.0)       2
+excluded (2-10 keV rate 12.8 < 20.0)      2
+excluded (2-10 keV rate 16.7 < 20.0)      1
+excluded (2-10 keV rate 12.5 < 20.0)      1
+excluded (2-10 keV rate 13.9 < 20.0)      1
+excluded (2-10 keV rate 13.4 < 20.0)      1
+excluded (2-10 keV rate 19.2 < 20.0)      1
+excluded (2-10 keV rate 19.9 < 20.0)      1
+excluded (2-10 keV rate 3.5 < 20.0)       1
+excluded (2-10 keV rate 17.8 < 20.0)      1
+excluded (2-10 keV rate 17.0 < 20.0)      1
+excluded (2-10 keV rate 11.3 < 20.0)      1
+excluded (2-10 keV rate 3.7 < 20.0)       1
+excluded (2-10 keV rate 4.9 < 20.0)       1
+excluded (2-10 keV rate 17.4 < 20.0)      1
+excluded (2-10 keV rate 15.2 < 20.0)      1
+excluded (2-10 keV rate 15.6 < 20.0)      1
+excluded (2-10 keV rate 18.1 < 20.0)      1
+excluded (2-10 keV rate 7.1 < 20.0)       1
+excluded (2-10 keV rate 15.1 < 20.0)      1
+excluded (2-10 keV rate 8.4 < 20.0)       1
+excluded (2-10 keV rate 5.0 < 20.0)       1
+excluded (2-10 keV rate 17.3 < 20.0)      1
+excluded (2-10 keV rate 13.1 < 20.0)      1
+excluded (2-10 keV rate 9.3 < 20.0)       1
+excluded (2-10 keV rate 5.2 < 20.0)       1
+excluded (2-10 keV rate 13.7 < 20.0)      1
+excluded (2-10 keV rate 9.4 < 20.0)       1
+excluded (2-10 keV rate 3.9 < 20.0)       1
+excluded (2-10 keV rate 19.4 < 20.0)      1
+excluded (2-10 keV rate 7.4 < 20.0)       1
+excluded (2-10 keV rate 14.9 < 20.0)      1
+excluded (2-10 keV rate 5.3 < 20.0)       1
+excluded (2-10 keV rate 1.4 < 20.0)       1
+excluded (2-10 keV rate 4.3 < 20.0)       1
+excluded (2-10 keV rate 6.5 < 20.0)       1
+excluded (2-10 keV rate 5.1 < 20.0)       1
+excluded (2-10 keV rate 12.4 < 20.0)      1
+excluded (2-10 keV rate 10.2 < 20.0)      1
+excluded (2-10 keV rate 6.2 < 20.0)       1
+excluded (2-10 keV rate 19.7 < 20.0)      1
+excluded (2-10 keV rate 14.4 < 20.0)      1
+excluded (2-10 keV rate 1.6 < 20.0)       1
+excluded (2-10 keV rate 3.2 < 20.0)       1
+excluded (2-10 keV rate 5.7 < 20.0)       1
+excluded (2-10 keV rate 4.5 < 20.0)       1
+excluded (2-10 keV rate 9.1 < 20.0)       1
+excluded (2-10 keV rate 19.1 < 20.0)      1
+excluded (2-10 keV rate 5.9 < 20.0)       1
+excluded (2-10 keV rate 2.3 < 20.0)       1
+excluded (2-10 keV rate 4.4 < 20.0)       1
+excluded (2-10 keV rate 10.6 < 20.0)      1
+excluded (2-10 keV rate 18.4 < 20.0)      1
+excluded (2-10 keV rate 15.4 < 20.0)      1
+excluded (2-10 keV rate 14.3 < 20.0)      1
+excluded (2-10 keV rate 4.1 < 20.0)       1
+excluded (2-10 keV rate 11.6 < 20.0)      1
+excluded (2-10 keV rate 0.2 < 20.0)       1
+excluded (2-10 keV rate 3.1 < 20.0)       1
+excluded (2-10 keV rate 0.3 < 20.0)       1
+excluded (2-10 keV rate 0.8 < 20.0)       1
+excluded (2-10 keV rate 3.3 < 20.0)       1
+excluded (2-10 keV rate 3.6 < 20.0)       1
+excluded (2-10 keV rate 16.0 < 20.0)      1
+                                                  n  src
+group                       label state                 
+never-used NICER source     NS    hard-like       7    3
+                                  soft-like       5    3
+v9 source, new observations BH    hard-like      33    9
+                                  intermediate    1    1
+                                  soft-like      26    7
+                            NS    hard-like     110   33
+                                  intermediate   11    9
+                                  soft-like     125   32
