@@ -1,0 +1,13 @@
+238 v13 NICER observations; 3C50 for 148 with 2-10 keV < 500 c/s
+25/148 done (207 s)
+50/148 done (469 s)
+75/148 done (769 s)
+100/148 done (1009 s)
+125/148 done (1299 s)
+
+3C50: 109 ok of 148 (1634 s)
+status
+ok                                          109
+failed (rc 255): FileNotFoundError: [Err     38
+failed (rc 218): FileNotFoundError: [Err      1
+f (2-10 keV) quantiles: {0.1: 0.0017, 0.5: 0.0061, 0.9: 0.0223, 0.99: 0.0645} | f > 0.20: 1

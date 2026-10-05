@@ -1,8 +1,8 @@
 #!/bin/bash
 # v12 (preregistration_v12.md sec. 2): 3C50 background for one NICER observation, run inside WSL on the native file system.
-# Usage: bash v12_bkg3c50.sh <obsid> <cl_url> <ufa_url> <outdir (/mnt/c/...)> <caldb dir (/mnt/c/...)>
+# Usage: bash v12_bkg3c50.sh <obsid> <cl_url> <ufa_url> <outdir (/mnt/c/...)> <caldb dir (/mnt/c/...)> [keep-cl dir (v13)]
 # Prints "SHA256 <file> <hash> <bytes>" for both downloads, then "DONE <exit code>". Event files are deleted afterwards.
-O=$1; CL=$2; UFA=$3; OUT=$4; CAL=$5
+O=$1; CL=$2; UFA=$3; OUT=$4; CAL=$5; KEEP=$6
 source /root/miniforge3/etc/profile.d/conda.sh
 conda activate henv
 [ -n "$HEADAS" ] && source $HEADAS/headas-init.sh > /dev/null 2>&1
@@ -21,6 +21,7 @@ if [ $ok = 1 ]; then
   cd $W/$O && nibackgen3C50 rootdir=$W obsid=$O bkgidxdir=CALDB bkglibdir=CALDB gainepoch=AUTO clobber=yes chatter=1 totspec=tot_$O bkgspec=bkg_$O > $OUT/nibackgen3C50.log 2>&1
   rc=$?
   cp -f $W/$O/tot_$O.pi $W/$O/bkg_$O.pi $OUT/ 2>/dev/null
+  if [ -n "$KEEP" ]; then mkdir -p $KEEP && gzip -c $D/ni${O}_0mpu7_cl.evt > $KEEP/ni${O}_0mpu7_cl.evt.gz; fi
 else
   rc=99
 fi

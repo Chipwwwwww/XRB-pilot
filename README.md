@@ -68,6 +68,9 @@ CCTLR 沒有勝過簡單的 H+T-LR；「同顏色下 BH 低頻變異較強」在
 以 NICER 官方 3C50 背景模型修正並篩選 v10＋v11 的 684 筆觀測（背景比例中位數 0.8%）：(v12a) 同顏色下 BH 的特徵頻率低 0.51 dex，p = 0.073（未偵測到；各種背景處理下效應都在 −0.50 到 −0.57）；
 (v12b) RF 的硬態時間增益 +0.174 [+0.071, +0.300]（有差異）。**預先設定寫於看過 v1–v11 之後；RF 為事後選定。**
 執行：`58_v12_bkg.py`（WSL HEASoft＋NICER CALDB）→ `59_v12_analysis.py`；圖 `figures/v12/v12_background.png`。
+**v13（預先登記：[reports/preregistration_v13.md](reports/preregistration_v13.md)，報告：[reports/report_v13_zh-TW.md](reports/report_v13_zh-TW.md)；分支 `v13-analysis`）**：
+第三組全新 NICER 觀測，凍結的 v12 管線（含 3C50）與**下載前選定**的 RF：(v13a) 硬態時間增益 +0.184 [+0.049, +0.337]（有差異，前瞻性確認；LR +0.182 [+0.022, +0.347]）；
+(v13b) 特徵頻率差 −0.43 dex，p = 0.21（未偵測到）。執行：`60_*`–`63_*`；圖 `figures/v13/v13_prospective.png`。
 
 ## 環境
 - Python venv：`C:\Users\User\venvs\xrb-pilot`（Python 3.12.10；放在 OneDrive 之外）
