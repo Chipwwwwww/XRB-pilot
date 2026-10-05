@@ -1,0 +1,174 @@
+
+[main: BH vs NPNS] 8 sources (4 BH), 12116 points
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+  LR [CCI] done (3 s)
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+  LR [C2D] done (6 s)
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+  LR [C1D] done (6 s)
+  RF [CCI] done (7 s)
+  RF [C2D] done (8 s)
+  RF [C1D] done (10 s)
+  KNN [CCI] done (10 s)
+  KNN [C2D] done (11 s)
+  KNN [C1D] done (11 s)
+  SVM [CCI] done (12 s)
+  SVM [C2D] done (13 s)
+  SVM [C1D] done (15 s)
+
+[secondary: BH vs PSR] 8 sources (4 BH), 8399 points
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+  LR [CCI] done (15 s)
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+  LR [C2D] done (15 s)
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+C:\Users\User\venvs\xrb-pilot\Lib\site-packages\sklearn\linear_model\_logistic.py:1135: FutureWarning: 'penalty' was deprecated in version 1.8 and will be removed in 1.10. To avoid this warning, leave 'penalty' set to its default value and use 'l1_ratio' or 'C' instead. Use l1_ratio=0 instead of penalty='l2', l1_ratio=1 instead of penalty='l1', and C=np.inf instead of penalty=None.
+  warnings.warn(
+  LR [C1D] done (16 s)
+  RF [CCI] done (17 s)
+  RF [C2D] done (19 s)
+  RF [C1D] done (20 s)
+
+metric                                                                                     obs_balanced_accuracy              source_AUC source_balanced_accuracy
+task                 comparison_set                                comparison                                                                                    
+main: BH vs NPNS     (i) CCI vs 2D colours                         KNN [C2D]              +0.455 [+0.220,+0.711]  +0.562 [+0.125,+1.000]   +0.500 [+0.125,+0.875]
+                                                                   KNN [CCI]              +0.465 [+0.331,+0.618]  +0.438 [+0.000,+0.875]   +0.625 [+0.250,+0.875]
+                                                                   KNN [CCI] - KNN [C2D]  +0.010 [-0.151,+0.197]  -0.125 [-0.500,+0.250]   +0.125 [+0.000,+0.375]
+                                                                   LR [C2D]               +0.625 [+0.388,+0.907]  +0.562 [+0.062,+1.000]   +0.500 [+0.125,+0.875]
+                                                                   LR [CCI]               +0.598 [+0.336,+0.925]  +0.562 [+0.062,+1.000]   +0.625 [+0.250,+0.875]
+                                                                   LR [CCI] - LR [C2D]    -0.026 [-0.055,+0.042]  +0.000 [+0.000,+0.000]   +0.125 [+0.000,+0.375]
+                                                                   RF [C2D]               +0.454 [+0.236,+0.704]  +0.250 [+0.000,+0.750]   +0.500 [+0.125,+0.875]
+                                                                   RF [CCI]               +0.431 [+0.253,+0.698]  +0.375 [+0.000,+0.750]   +0.625 [+0.250,+0.875]
+                                                                   RF [CCI] - RF [C2D]    -0.023 [-0.066,+0.131]  +0.125 [+0.000,+0.500]   +0.125 [+0.000,+0.375]
+                                                                   SVM [C2D]              +0.706 [+0.490,+0.853]  +0.688 [+0.250,+1.000]   +0.750 [+0.375,+1.000]
+                                                                   SVM [CCI]              +0.712 [+0.473,+0.898]  +0.688 [+0.250,+1.000]   +0.625 [+0.250,+0.875]
+                                                                   SVM [CCI] - SVM [C2D]  +0.006 [-0.031,+0.068]  +0.000 [+0.000,+0.000]   -0.125 [-0.375,+0.000]
+                     (ii) colours incl. 2-4 keV vs >= 4 keV colour KNN [C1D]              +0.236 [+0.184,+0.390]  +0.000 [+0.000,+0.000]   +0.125 [+0.000,+0.375]
+                                                                   KNN [C2D]              +0.455 [+0.220,+0.711]  +0.562 [+0.125,+1.000]   +0.500 [+0.125,+0.875]
+                                                                   KNN [C2D] - KNN [C1D]  +0.219 [+0.006,+0.339]  +0.562 [+0.125,+1.000]   +0.375 [-0.125,+0.875]
+                                                                   LR [C1D]               +0.164 [+0.050,+0.615]  +0.188 [+0.000,+0.562]   +0.375 [+0.125,+0.500]
+                                                                   LR [C2D]               +0.625 [+0.388,+0.907]  +0.562 [+0.062,+1.000]   +0.500 [+0.125,+0.875]
+                                                                   LR [C2D] - LR [C1D]    +0.460 [-0.057,+0.574]  +0.375 [-0.250,+0.875]   +0.125 [-0.250,+0.375]
+                                                                   RF [C1D]               +0.280 [+0.225,+0.443]  +0.000 [+0.000,+0.000]   +0.000 [+0.000,+0.000]
+                                                                   RF [C2D]               +0.454 [+0.236,+0.704]  +0.250 [+0.000,+0.750]   +0.500 [+0.125,+0.875]
+                                                                   RF [C2D] - RF [C1D]    +0.174 [-0.025,+0.278]  +0.250 [+0.000,+0.750]   +0.500 [+0.125,+0.875]
+                                                                   SVM [C1D]              +0.202 [+0.136,+0.471]  +0.000 [+0.000,+0.000]   +0.250 [+0.000,+0.500]
+                                                                   SVM [C2D]              +0.706 [+0.490,+0.853]  +0.688 [+0.250,+1.000]   +0.750 [+0.375,+1.000]
+                                                                   SVM [C2D] - SVM [C1D]  +0.504 [+0.067,+0.584]  +0.688 [+0.250,+1.000]   +0.500 [+0.000,+0.875]
+secondary: BH vs PSR (i) CCI vs 2D colours                         LR [C2D]               +0.570 [+0.389,+0.801]  +0.625 [+0.188,+1.000]   +0.500 [+0.250,+0.750]
+                                                                   LR [CCI]               +0.540 [+0.344,+0.787]  +0.500 [+0.061,+0.938]   +0.375 [+0.125,+0.750]
+                                                                   LR [CCI] - LR [C2D]    -0.031 [-0.068,-0.006]  -0.125 [-0.375,+0.000]   -0.125 [-0.375,+0.000]
+                                                                   RF [C2D]               +0.298 [+0.218,+0.578]  +0.438 [+0.000,+0.938]   +0.250 [+0.000,+0.500]
+                                                                   RF [CCI]               +0.401 [+0.217,+0.669]  +0.438 [+0.000,+0.875]   +0.500 [+0.125,+0.875]
+                                                                   RF [CCI] - RF [C2D]    +0.103 [-0.058,+0.232]  +0.000 [-0.375,+0.500]   +0.250 [+0.000,+0.500]
+                     (ii) colours incl. 2-4 keV vs >= 4 keV colour LR [C1D]               +0.186 [+0.104,+0.344]  +0.000 [+0.000,+0.000]   +0.125 [+0.000,+0.375]
+                                                                   LR [C2D]               +0.570 [+0.389,+0.801]  +0.625 [+0.188,+1.000]   +0.500 [+0.250,+0.750]
+                                                                   LR [C2D] - LR [C1D]    +0.384 [+0.134,+0.523]  +0.625 [+0.188,+1.000]   +0.375 [+0.000,+0.750]
+                                                                   RF [C1D]               +0.260 [+0.221,+0.386]  +0.000 [+0.000,+0.000]   +0.000 [+0.000,+0.000]
+                                                                   RF [C2D]               +0.298 [+0.218,+0.578]  +0.438 [+0.000,+0.938]   +0.250 [+0.000,+0.500]
+                                                                   RF [C2D] - RF [C1D]    +0.038 [-0.068,+0.227]  +0.438 [+0.000,+0.938]   +0.250 [+0.000,+0.500]
+
+main task, BH sources (mean score):
+model    KNN [C1D]  KNN [C2D]  KNN [CCI]  LR [C1D]  LR [C2D]  LR [CCI]  RF [C1D]  RF [C2D]  RF [CCI]  SVM [C1D]  SVM [C2D]  SVM [CCI]
+name                                                                                                                                 
+Cyg X-1       0.12       0.13       0.32      0.21      0.40      0.33      0.10      0.09      0.13       0.26       0.52       0.46
+LMC X-1       0.49       0.59       0.65      0.52      0.70      0.76      0.46      0.55      0.60       0.50       0.67       0.73
+LMC X-3       0.50       0.61       0.55      0.52      0.67      0.69      0.46      0.55      0.53       0.54       0.59       0.63
+SS 433        0.52       0.17       0.14      0.52      0.17      0.17      0.48      0.16      0.15       0.57       0.26       0.27
+
+[v7c3] 5 shared sources (3 BH): Spearman 0.700, label agreement 0.800
+       maxi_name   maxi_id     rxte_source label rxte_label            rxte_sample  rxte_score  maxi_score  sep_deg
+         LMC X-3 J0538-640           LMCX3    BH         BH v7b2 H-LR (34 sources)       0.710       0.687    0.000
+         LMC X-1 J0539-697           LMCX1    BH         BH v7b2 H-LR (34 sources)       0.903       0.757    0.000
+SAX J1747.0-2853 J1747-288 SAXJ1747.0-2853    NS         NS v4b2 H-LR (46 sources)       0.284       0.309    0.024
+    GRS 1747-312 J1750-312     GRS1747-312    NS         NS v4b2 H-LR (46 sources)       0.269       0.468    0.004
+         Cyg X-1 J1958+352           CYGX1    BH         BH v7b2 H-LR (34 sources)       0.559       0.327    0.000
+total 21 s

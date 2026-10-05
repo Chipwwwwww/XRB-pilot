@@ -1,0 +1,39 @@
+commit 488b78585e96d251063b7c6859bbeaf3d87d266c | 487 files
+Type
+Atoll      2651
+Burster    2630
+Pulsar     2290
+LMBH       2037
+HMBH        750
+[Parallel(n_jobs=16)]: Using backend LokyBackend with 16 concurrent workers.
+[Parallel(n_jobs=16)]: Done   9 tasks      | elapsed:    2.3s
+[Parallel(n_jobs=16)]: Done 164 tasks      | elapsed:    3.2s
+[Parallel(n_jobs=16)]: Done 541 tasks      | elapsed:  1.1min
+[Parallel(n_jobs=16)]: Done 824 tasks      | elapsed:  3.6min
+[Parallel(n_jobs=16)]: Done 880 out of 880 | elapsed:  4.1min finished
+
+alg  correct  of  accuracy  BH_correct  BH_of  NPNS_correct  Pulsar_correct  indeterminate  paper_total  paper_BH  reproduced
+KNN       38  44  0.863636           7     12            19              12              2           37         6        True
+SVM       36  44  0.818182           5     12            19              12              1           36         5        True
+
+SVM vs published per-source medians: {'n': 44, 'spearman_pBH': np.float64(0.9989), 'max_abs_diff_pBH': 0.0107, 'argmax_agreement': 1.0, 'pub_correct': 36}
+Empty DataFrame
+Columns: [system, true_class, p_BH, p_NPNS, p_Pulsar, blackhole_prob, non_pulsar_prob, pulsar_prob]
+Index: []
+
+per source (BH class):
+                p_BH        pred_class     
+alg              KNN    SVM        KNN  SVM
+system                                     
+4U1630         0.432  0.431        1.0  2.0
+4U1957+115     0.419  0.455        2.0  2.0
+CygX-1         0.698  0.671        1.0  1.0
+CygX-3         0.064  0.076        3.0  3.0
+GRS1739        0.241  0.239        2.0  2.0
+GRS1915        0.147  0.202        2.0  2.0
+GX339-4        0.730  0.671        1.0  1.0
+H1743          0.331  0.317        2.0  2.0
+LMCX-1         0.708  0.720        1.0  1.0
+LMCX-3         0.671  0.699        1.0  1.0
+MAXIJ1535-571  0.566  0.590        1.0  1.0
+MAXIJ1820+070  0.452  0.408        1.0  2.0

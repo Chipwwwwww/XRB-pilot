@@ -194,3 +194,63 @@ def auc_ba(y, s, w=None):
 
 def utc_to_met(mjd_utc, mjdref):
     return (Time(np.atleast_1d(mjd_utc), format='mjd', scale='utc').tt.mjd - mjdref) * 86400.0
+
+
+# ------------------------------------------------------------------ v7c2 models (importable for joblib workers)
+class C2Model:
+    """LR / RF (v2 settings), KNN (standardised, prior-corrected to equal classes), SVM (standardised, balanced, sigmoid of
+    the decision function)."""
+    def __init__(self, alg, cfg=None): self.alg, self.cfg = alg, dict(cfg or {})
+
+    def fit(self, X, y):
+        from sklearn.linear_model import LogisticRegression
+        from sklearn.ensemble import RandomForestClassifier
+        from sklearn.neighbors import KNeighborsClassifier
+        from sklearn.svm import SVC
+        from sklearn.preprocessing import StandardScaler
+        from sklearn.pipeline import make_pipeline
+        a = self.alg; self.pi = float(np.mean(y))
+        if a == 'LR': self.m = make_pipeline(StandardScaler(), LogisticRegression(**C.LR_PARAMS)).fit(X, y)
+        elif a == 'RF': self.m = RandomForestClassifier(**dict(C.RF_PARAMS, n_jobs=1)).fit(X, y)
+        elif a == 'KNN': self.m = make_pipeline(StandardScaler(), KNeighborsClassifier(n_neighbors=self.cfg['k'])).fit(X, y)
+        else: self.m = make_pipeline(StandardScaler(), SVC(C=self.cfg['C'], gamma=self.cfg['gamma'], class_weight='balanced')).fit(X, y)
+        return self
+
+    def score(self, X):
+        from scipy.special import expit
+        if self.alg == 'SVM': return expit(self.m.decision_function(X))
+        p = self.m.predict_proba(X)[:, 1]
+        if self.alg == 'KNN':
+            q1, q0 = p / self.pi, (1 - p) / (1 - self.pi); return q1 / (q1 + q0)
+        return p
+
+
+def c2_capped(df, cap, seed):
+    rng = np.random.default_rng(seed)
+    return pd.concat([d if len(d) <= cap else d.iloc[np.sort(rng.choice(len(d), cap, replace=False))] for _, d in df.groupby('source', sort=True)])
+
+
+def c2_src_auc(scores, df):
+    s = pd.DataFrame(dict(s=scores, y=df.y.values, g=df.source.values)).groupby('g').agg(s=('s', 'mean'), y=('y', 'first'))
+    y, v = s.y.values.astype(bool), s.s.values
+    if y.sum() == 0 or (~y).sum() == 0: return np.nan
+    return float((v[y][:, None] > v[~y][None, :]).mean() + 0.5 * (v[y][:, None] == v[~y][None, :]).mean())
+
+
+def c2_outer(test_src, data, alg, cols, grid, cap, seed):
+    """One outer LOSO fold; KNN/SVM hyperparameters chosen by inner LOSO source AUC on the (capped) training sources."""
+    tr = c2_capped(data[data.source != test_src], cap, seed); te = data[data.source == test_src]
+    cfg, inner = None, []
+    if alg in grid:
+        best = (-1.0, None)
+        for c in grid[alg]:
+            sc = np.full(len(tr), np.nan)
+            for s in tr.source.unique():
+                itr, ite = (tr.source != s).values, (tr.source == s).values
+                if len(np.unique(tr.y.values[itr])) < 2: continue
+                sc[ite] = C2Model(alg, c).fit(tr[cols].values[itr], tr.y.values[itr]).score(tr[cols].values[ite])
+            a = c2_src_auc(sc, tr); inner.append(dict(test_source=test_src, alg=alg, cfg=str(c), inner_source_AUC=a))
+            if a > best[0] + 1e-12: best = (a, c)
+        cfg = best[1]
+    s = C2Model(alg, cfg).fit(tr[cols].values, tr.y.values).score(te[cols].values)
+    return test_src, alg, str(cfg), s, inner

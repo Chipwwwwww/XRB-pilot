@@ -1,0 +1,17 @@
+447 MAXI sources indexed
+matched: {'NPNS': 60, 'PSR': 53, 'BH': 21} | ambiguous MAXI ids: 1
+              name  cls   maxi_id
+      GRO J1744-28  PSR J1745-290
+XMM J174457-2850.3 NPNS J1745-290
+   GRS 1741.9-2853 NPNS J1745-290
+   AX J1745.6-2901 NPNS J1745-290
+       1A 1742-289 NPNS J1745-290
+cls
+BH      [Cyg X-1, LMC X-1, SS 433, LMC X-3, SAX J1819....
+NPNS    [SAX J1747.0-2853, MAXI J1621-501, XTE J1810-1...
+PSR     [GX 1+4, XTE J1807-294, HETE J1900.1-2455, Aql...
+      sum  size
+cls            
+BH     13    21
+NPNS   48    60
+PSR    39    53
