@@ -35,7 +35,7 @@ def run(name, T, r, band, lo, hi, **kw):
     seg = L8.hf_from_events(t, p, g, kw.get('rb', 0.0)); s = L8.hf_summary(seg)
     v = s[band]; ok = lo <= v <= hi
     return dict(test=name, band=band, value=round(v, 5), lo=lo, hi=hi, z=round(s[f'{band}_var'] / s[f'{band}_se'], 2) if band != 'NULL' else round(s['NULL_z'], 2),
-                n_seg=s['n_seg'], passed=bool(ok))
+                n_seg=s['n_seg'], passed=bool(ok), mean_of_ratios=round(float(np.sign(s[f'{band}_var_mean_of_ratios']) * np.sqrt(abs(s[f'{band}_var_mean_of_ratios']))), 5))
 
 
 rows = []
@@ -44,6 +44,9 @@ rows.append(run('sinusoid 200 Hz rms 0.10', 640, 2000, 'HF2', 0.09, 0.11, f=200.
 rows.append(run('sinusoid 700 Hz rms 0.10', 640, 2000, 'HF3', 0.09, 0.11, f=700.0, a=0.10))
 rows.append(run('sinusoid 900 Hz rms 0.10 (binning correction)', 640, 2000, 'HF3', 0.09, 0.11, f=900.0, a=0.10))
 rows.append(run('sinusoid 200 Hz rms 0.10, 50% background', 640, 1000, 'HF2', 0.09, 0.11, f=200.0, a=0.10, rb=1000.0))
+# faint source on a high background (added after the IC4 diagnosis, decision_log): 4 c/s/PCU source + 25 c/s/PCU background,
+# 2 Hz sinusoid rms 0.30, 20000 s; the ratio-of-means estimator must recover it in the LC band (1-4 Hz)
+rows.append(run('faint source 4 c/s/PCU on 25 c/s/PCU background, 2 Hz rms 0.30', 20000, 4.0, 'LC', 0.24, 0.36, f=2.0, a=0.30, rb=25.0))
 # pure Poisson: unbiased (|z| < 3) in every band
 t, p, g = sim(640, 2000)
 s = L8.hf_summary(L8.hf_from_events(t, p, g, 0.0))

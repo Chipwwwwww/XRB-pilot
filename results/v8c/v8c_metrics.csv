@@ -1,0 +1,100 @@
+part,analysis,comparison,metric,point,ci2_5,ci97_5,n_valid_draws,role,verdict,frac_first_better,name
+v8c,S1-HF LOSO | S1-HF,H-LR,obs_AUC,0.7969320672023374,0.5932092106177472,0.9321961614724773,2000.0,descriptive,,,
+v8c,S1-HF LOSO | S1-HF,H-LR,obs_balanced_accuracy,0.7387387387387387,0.5744581116043865,0.8583201964421152,2000.0,descriptive,,,
+v8c,S1-HF LOSO | S1-HF,H+HF-LR,obs_AUC,0.7404431458485512,0.528085778807293,0.874437326869806,2000.0,descriptive,,,
+v8c,S1-HF LOSO | S1-HF,H+HF-LR,obs_balanced_accuracy,0.6576576576576576,0.4774487403654011,0.7873632032667877,2000.0,descriptive,,,
+v8c,S1-HF LOSO | S1-HF,H+T-LR,obs_AUC,0.9430241051862673,0.8770437719340416,0.9884779727641079,2000.0,descriptive,,,
+v8c,S1-HF LOSO | S1-HF,H+T-LR,obs_balanced_accuracy,0.8738738738738738,0.7461039875279593,0.962366601988843,2000.0,descriptive,,,
+v8c,S1-HF LOSO | S1-HF,H+T+HF-LR,obs_AUC,0.9359629900170441,0.8683501609466383,0.986992254834626,2000.0,descriptive,,,
+v8c,S1-HF LOSO | S1-HF,H+T+HF-LR,obs_balanced_accuracy,0.8558558558558558,0.7386091777744197,0.9442563510157554,2000.0,descriptive,,,
+v8c,S1-HF LOSO | S1-HF,HF-LR,obs_AUC,0.38373508643778914,0.23683014354066984,0.5100420650623825,2000.0,descriptive,,,
+v8c,S1-HF LOSO | S1-HF,HF-LR,obs_balanced_accuracy,0.4009009009009009,0.2949937206287474,0.4859447515697516,2000.0,descriptive,,,
+v8c,S1-HF LOSO | S1-HF,H-RF,obs_AUC,0.6824933041149257,0.4784017044633829,0.8282163196674467,2000.0,descriptive,,,
+v8c,S1-HF LOSO | S1-HF,H-RF,obs_balanced_accuracy,0.6081081081081081,0.4270776098901099,0.7539087540064102,2000.0,descriptive,,,
+v8c,S1-HF LOSO | S1-HF,H+HF-RF,obs_AUC,0.9262235208181154,0.8545903309914978,0.9705473945084125,2000.0,descriptive,,,
+v8c,S1-HF LOSO | S1-HF,H+HF-RF,obs_balanced_accuracy,0.8108108108108107,0.7345187366019899,0.8734900691751387,2000.0,descriptive,,,
+v8c,S1-HF LOSO | S1-HF,H+T-RF,obs_AUC,0.9203798392987582,0.8466616100323624,0.9742852132435466,2000.0,descriptive,,,
+v8c,S1-HF LOSO | S1-HF,H+T-RF,obs_balanced_accuracy,0.7972972972972974,0.6868587835727011,0.8951571212501394,2000.0,descriptive,,,
+v8c,S1-HF LOSO | S1-HF,H+T+HF-RF,obs_AUC,0.9539810080350621,0.8952849784912564,0.9905326273629844,2000.0,descriptive,,,
+v8c,S1-HF LOSO | S1-HF,H+T+HF-RF,obs_balanced_accuracy,0.8288288288288288,0.7235226888340155,0.901786525974026,2000.0,descriptive,,,
+v8c,S1-HF LOSO | S1-HF,H+HF-LR - H-LR,obs_AUC,-0.05648892135378625,-0.1543556558585114,0.01029363879199957,2000.0,PRIMARY (exploratory: IC4 failed),not detected,0.0575,
+v8c,S1-HF LOSO | S1-HF,H+HF-LR - H-LR,obs_balanced_accuracy,-0.08108108108108114,-0.20357671522556398,-0.013268564832627875,2000.0,descriptive,difference (CI excludes 0),0.0,
+v8c,S1-HF LOSO | S1-HF,H+T+HF-LR - H+T-LR,obs_AUC,-0.007061115169223253,-0.02190839119752155,0.0074058338706719734,2000.0,descriptive,not detected,0.1565,
+v8c,S1-HF LOSO | S1-HF,H+T+HF-LR - H+T-LR,obs_balanced_accuracy,-0.018018018018018056,-0.03674580627705626,0.0,2000.0,descriptive,not detected,0.0,
+v8c,S1-HF LOSO | S1-HF,H+T-LR - H-LR,obs_AUC,0.1460920379839299,0.023373840445269026,0.3312898345187701,2000.0,descriptive,difference (CI excludes 0),0.9925,
+v8c,S1-HF LOSO | S1-HF,H+T-LR - H-LR,obs_balanced_accuracy,0.1351351351351351,-0.04807613954672774,0.30693734863337535,2000.0,descriptive,not detected,0.9355,
+v8c,S1-HF LOSO | S1-HF,HF-LR - H-LR,obs_AUC,-0.4131969807645483,-0.6527336117658254,-0.14758664955070608,2000.0,descriptive,difference (CI excludes 0),0.004,
+v8c,S1-HF LOSO | S1-HF,HF-LR - H-LR,obs_balanced_accuracy,-0.33783783783783783,-0.5171840057905163,-0.13483255491950685,2000.0,descriptive,difference (CI excludes 0),0.0025,
+v8c,S1-HF LOSO | S1-HF,H+HF-RF - H-RF,obs_AUC,0.24373021670318973,0.0981070140967305,0.41106968308933106,2000.0,descriptive,difference (CI excludes 0),0.999,
+v8c,S1-HF LOSO | S1-HF,H+HF-RF - H-RF,obs_balanced_accuracy,0.20270270270270263,0.08018510577472845,0.3308680357676911,2000.0,descriptive,difference (CI excludes 0),0.999,
+v8c,S1-HF LOSO | S1-HF,H+T+HF-RF - H+T-RF,obs_AUC,0.03360116873630392,0.005138364779874192,0.07470994427028897,2000.0,descriptive,difference (CI excludes 0),0.989,
+v8c,S1-HF LOSO | S1-HF,H+T+HF-RF - H+T-RF,obs_balanced_accuracy,0.03153153153153143,-0.04862433300994404,0.09579127924716159,2000.0,descriptive,not detected,0.7855,
+v8c,S1-HF | source level (restricted OOF),H-LR,source_balanced_accuracy,0.7990196078431373,0.6029411764705883,0.9411764705882353,,descriptive,,,H-LR
+v8c,S1-HF | source level (restricted OOF),H-LR,source_AUC,0.8823529411764706,0.6764705882352942,1.0,,descriptive,,,H-LR
+v8c,S1-HF | source level (restricted OOF),H-LR,obs_balanced_accuracy,0.7387387387387387,0.5917359719792313,0.8592475698937676,,descriptive,,,H-LR
+v8c,S1-HF | source level (restricted OOF),H+HF-LR,source_balanced_accuracy,0.7401960784313726,0.5147058823529411,0.9117647058823529,,descriptive,,,H+HF-LR
+v8c,S1-HF | source level (restricted OOF),H+HF-LR,source_AUC,0.8431372549019608,0.6078431372549019,1.0,,descriptive,,,H+HF-LR
+v8c,S1-HF | source level (restricted OOF),H+HF-LR,obs_balanced_accuracy,0.6576576576576576,0.48804702831511076,0.7909206998599166,,descriptive,,,H+HF-LR
+v8c,S1-HF | source level (restricted OOF),H+T-LR,source_balanced_accuracy,0.9705882352941176,0.9117647058823529,1.0,,descriptive,,,H+T-LR
+v8c,S1-HF | source level (restricted OOF),H+T-LR,source_AUC,1.0,1.0,1.0,,descriptive,,,H+T-LR
+v8c,S1-HF | source level (restricted OOF),H+T-LR,obs_balanced_accuracy,0.8738738738738738,0.7465967000835422,0.9615995680697608,,descriptive,,,H+T-LR
+v8c,S1-HF | source level (restricted OOF),H+T+HF-LR,source_balanced_accuracy,0.9705882352941176,0.9117647058823529,1.0,,descriptive,,,H+T+HF-LR
+v8c,S1-HF | source level (restricted OOF),H+T+HF-LR,source_AUC,0.9901960784313726,0.9411764705882353,1.0,,descriptive,,,H+T+HF-LR
+v8c,S1-HF | source level (restricted OOF),H+T+HF-LR,obs_balanced_accuracy,0.8558558558558558,0.735799711707383,0.9453941490389258,,descriptive,,,H+T+HF-LR
+v8c,S1-HF | source level (restricted OOF),HF-LR,source_balanced_accuracy,0.1715686274509804,0.029411764705882353,0.36764705882352944,,descriptive,,,HF-LR
+v8c,S1-HF | source level (restricted OOF),HF-LR,source_AUC,0.08823529411764706,0.0,0.2549019607843137,,descriptive,,,HF-LR
+v8c,S1-HF | source level (restricted OOF),HF-LR,obs_balanced_accuracy,0.4009009009009009,0.2978636642156863,0.4874297181646953,,descriptive,,,HF-LR
+v8c,S1-HF | source level (restricted OOF),H+HF-LR - H-LR,source_balanced_accuracy,-0.05882352941176472,-0.1470588235294117,0.0,,descriptive,not detected,0.0,H+HF-LR
+v8c,S1-HF | source level (restricted OOF),H+HF-LR - H-LR,source_AUC,-0.039215686274509776,-0.196078431372549,0.08823529411764708,,descriptive,not detected,0.249,H+HF-LR
+v8c,S1-HF | source level (restricted OOF),H+HF-LR - H-LR,obs_balanced_accuracy,-0.08108108108108114,-0.2121602624179944,-0.013758340283569578,,descriptive,not detected,0.0,H+HF-LR
+v8c,S1-HF | source level (restricted OOF),H+T-LR - H-LR,source_balanced_accuracy,0.17156862745098034,0.0,0.36764705882352944,,descriptive,not detected,0.957,H+T-LR
+v8c,S1-HF | source level (restricted OOF),H+T-LR - H-LR,source_AUC,0.11764705882352944,0.0,0.32352941176470584,,descriptive,not detected,0.9045,H+T-LR
+v8c,S1-HF | source level (restricted OOF),H+T-LR - H-LR,obs_balanced_accuracy,0.1351351351351351,-0.04534083024369045,0.3006241230934841,,descriptive,not detected,0.935,H+T-LR
+v8c,S1-HF | source level (restricted OOF),H+T+HF-LR - H-LR,source_balanced_accuracy,0.17156862745098034,0.0,0.36764705882352944,,descriptive,not detected,0.957,H+T+HF-LR
+v8c,S1-HF | source level (restricted OOF),H+T+HF-LR - H-LR,source_AUC,0.10784313725490202,-0.02941176470588236,0.32352941176470584,,descriptive,not detected,0.871,H+T+HF-LR
+v8c,S1-HF | source level (restricted OOF),H+T+HF-LR - H-LR,obs_balanced_accuracy,0.11711711711711703,-0.05354870682773663,0.29217334603103345,,descriptive,not detected,0.9065,H+T+HF-LR
+v8c,S1-HF | source level (restricted OOF),HF-LR - H-LR,source_balanced_accuracy,-0.6274509803921569,-0.8578431372549019,-0.39705882352941174,,descriptive,not detected,0.0,HF-LR
+v8c,S1-HF | source level (restricted OOF),HF-LR - H-LR,source_AUC,-0.7941176470588235,-0.9607843137254902,-0.5882352941176471,,descriptive,not detected,0.0,HF-LR
+v8c,S1-HF | source level (restricted OOF),HF-LR - H-LR,obs_balanced_accuracy,-0.33783783783783783,-0.5147430617034618,-0.1459492947007245,,descriptive,not detected,0.0005,HF-LR
+v8c,S1-HF LOSO without AMXPs | S1-HF,H-LR [no AMXP],obs_AUC,0.8501539514197742,0.6662478633883374,0.9625070224719101,2000.0,descriptive,,,
+v8c,S1-HF LOSO without AMXPs | S1-HF,H-LR [no AMXP],obs_balanced_accuracy,0.803284296955183,0.6590818903318905,0.9061666735443539,2000.0,descriptive,,,
+v8c,S1-HF LOSO without AMXPs | S1-HF,H+HF-LR [no AMXP],obs_AUC,0.8227848101265823,0.6103798272357724,0.9406086495204141,2000.0,descriptive,,,
+v8c,S1-HF LOSO without AMXPs | S1-HF,H+HF-LR [no AMXP],obs_balanced_accuracy,0.7635990420800547,0.5755383560140475,0.8777713593260272,2000.0,descriptive,,,
+v8c,S1-HF LOSO without AMXPs | S1-HF,H+T-LR [no AMXP],obs_AUC,0.9462880602121109,0.8548160565422255,0.9988572512876118,2000.0,descriptive,,,
+v8c,S1-HF LOSO without AMXPs | S1-HF,H+T-LR [no AMXP],obs_balanced_accuracy,0.8826548067054396,0.781577288810261,0.9613295680591077,2000.0,descriptive,,,
+v8c,S1-HF LOSO without AMXPs | S1-HF,H+T+HF-LR [no AMXP],obs_AUC,0.945603831679781,0.854745281892021,1.0,2000.0,descriptive,,,
+v8c,S1-HF LOSO without AMXPs | S1-HF,H+T+HF-LR [no AMXP],obs_balanced_accuracy,0.8953130345535409,0.7985893454371715,0.9705882352941176,2000.0,descriptive,,,
+v8c,S1-HF LOSO without AMXPs | S1-HF,H+HF-LR [no AMXP] - H-LR [no AMXP],obs_AUC,-0.0273691412931919,-0.11329628271503069,0.030364720525419754,2000.0,descriptive,not detected,0.1825,
+v8c,S1-HF LOSO without AMXPs | S1-HF,H+HF-LR [no AMXP] - H-LR [no AMXP],obs_balanced_accuracy,-0.039685254875128306,-0.14301747655583966,0.03062818877551015,2000.0,descriptive,not detected,0.136,
+v8c,S1-HF LOSO without AMXPs | S1-HF,H+T+HF-LR [no AMXP] - H+T-LR [no AMXP],obs_AUC,-0.0006842285323298558,-0.02003462683150187,0.01795120320855618,2000.0,descriptive,not detected,0.4695,
+v8c,S1-HF LOSO without AMXPs | S1-HF,H+T+HF-LR [no AMXP] - H+T-LR [no AMXP],obs_balanced_accuracy,0.012658227848101333,-0.0357142857142857,0.04743980963045905,2000.0,descriptive,not detected,0.688,
+v8c,X-HF frozen (fitted on S1-HF) | X-HF,H_R-LR [S1-HF],obs_AUC,0.9970588235294118,0.9862510413481108,1.0,1833.0,descriptive,,,
+v8c,X-HF frozen (fitted on S1-HF) | X-HF,H_R-LR [S1-HF],obs_balanced_accuracy,0.9558823529411764,0.8571428571428572,1.0,1833.0,descriptive,,,
+v8c,X-HF frozen (fitted on S1-HF) | X-HF,H_R+HF-LR [S1-HF],obs_AUC,0.9764705882352941,0.9032258064516129,1.0,1833.0,descriptive,,,
+v8c,X-HF frozen (fitted on S1-HF) | X-HF,H_R+HF-LR [S1-HF],obs_balanced_accuracy,0.8676470588235294,0.7852380952380952,0.9375,1833.0,descriptive,,,
+v8c,X-HF frozen (fitted on S1-HF) | X-HF,H_R+HF-LR [S1-HF] - H_R-LR [S1-HF],obs_AUC,-0.020588235294117685,-0.08294930875576034,0.0,1833.0,descriptive,not detected,0.0,
+v8c,X-HF frozen (fitted on S1-HF) | X-HF,H_R+HF-LR [S1-HF] - H_R-LR [S1-HF],obs_balanced_accuracy,-0.08823529411764697,-0.12244897959183668,-0.03125,1833.0,descriptive,difference (CI excludes 0),0.0,
+v8c,"S1-HF LOSO, null-subtracted HF [post hoc] | S1-HF",H+HFc-LR [post hoc],obs_AUC,0.8709520331141952,0.756466883116883,0.9508612258511533,2000.0,descriptive,,,
+v8c,"S1-HF LOSO, null-subtracted HF [post hoc] | S1-HF",H+HFc-LR [post hoc],obs_balanced_accuracy,0.8153153153153153,0.6822672804169514,0.9177877235397958,2000.0,descriptive,,,
+v8c,"S1-HF LOSO, null-subtracted HF [post hoc] | S1-HF",H+HFc-RF [post hoc],obs_AUC,0.8714390065741418,0.7693744565217392,0.9468010116936014,2000.0,descriptive,,,
+v8c,"S1-HF LOSO, null-subtracted HF [post hoc] | S1-HF",H+HFc-RF [post hoc],obs_balanced_accuracy,0.7657657657657657,0.6357342478096066,0.8657015026036764,2000.0,descriptive,,,
+v8c,"S1-HF LOSO, null-subtracted HF [post hoc] | S1-HF",H+T+HFc-LR [post hoc],obs_AUC,0.9491112734355978,0.904338616144071,0.9874443493150685,2000.0,descriptive,,,
+v8c,"S1-HF LOSO, null-subtracted HF [post hoc] | S1-HF",H+T+HFc-LR [post hoc],obs_balanced_accuracy,0.882882882882883,0.764785453159182,0.9700059523809523,2000.0,descriptive,,,
+v8c,"S1-HF LOSO, null-subtracted HF [post hoc] | S1-HF",H+T+HFc-RF [post hoc],obs_AUC,0.9293888483077672,0.8556185615370953,0.9787609683732087,2000.0,descriptive,,,
+v8c,"S1-HF LOSO, null-subtracted HF [post hoc] | S1-HF",H+T+HFc-RF [post hoc],obs_balanced_accuracy,0.8198198198198199,0.7067791005291005,0.9091136363636363,2000.0,descriptive,,,
+v8c,"S1-HF LOSO, null-subtracted HF [post hoc] | S1-HF",H-LR,obs_AUC,0.7969320672023374,0.5932092106177472,0.9321961614724773,2000.0,descriptive,,,
+v8c,"S1-HF LOSO, null-subtracted HF [post hoc] | S1-HF",H-LR,obs_balanced_accuracy,0.7387387387387387,0.5744581116043865,0.8583201964421152,2000.0,descriptive,,,
+v8c,"S1-HF LOSO, null-subtracted HF [post hoc] | S1-HF",H-RF,obs_AUC,0.6824933041149257,0.4784017044633829,0.8282163196674467,2000.0,descriptive,,,
+v8c,"S1-HF LOSO, null-subtracted HF [post hoc] | S1-HF",H-RF,obs_balanced_accuracy,0.6081081081081081,0.4270776098901099,0.7539087540064102,2000.0,descriptive,,,
+v8c,"S1-HF LOSO, null-subtracted HF [post hoc] | S1-HF",H+T-LR,obs_AUC,0.9430241051862673,0.8770437719340416,0.9884779727641079,2000.0,descriptive,,,
+v8c,"S1-HF LOSO, null-subtracted HF [post hoc] | S1-HF",H+T-LR,obs_balanced_accuracy,0.8738738738738738,0.7461039875279593,0.962366601988843,2000.0,descriptive,,,
+v8c,"S1-HF LOSO, null-subtracted HF [post hoc] | S1-HF",H+T-RF,obs_AUC,0.9203798392987582,0.8466616100323624,0.9742852132435466,2000.0,descriptive,,,
+v8c,"S1-HF LOSO, null-subtracted HF [post hoc] | S1-HF",H+T-RF,obs_balanced_accuracy,0.7972972972972974,0.6868587835727011,0.8951571212501394,2000.0,descriptive,,,
+v8c,"S1-HF LOSO, null-subtracted HF [post hoc] | S1-HF",H+HFc-LR [post hoc] - H-LR,obs_AUC,0.07401996591185778,-0.023342960627443333,0.20141796008869173,2000.0,descriptive,not detected,0.927,
+v8c,"S1-HF LOSO, null-subtracted HF [post hoc] | S1-HF",H+HFc-LR [post hoc] - H-LR,obs_balanced_accuracy,0.07657657657657657,0.014717210384824073,0.14499181279277037,2000.0,descriptive,difference (CI excludes 0),0.9945,
+v8c,"S1-HF LOSO, null-subtracted HF [post hoc] | S1-HF",H+HFc-RF [post hoc] - H-RF,obs_AUC,0.18894570245921605,0.018676249737848632,0.4002708065208065,2000.0,descriptive,difference (CI excludes 0),0.9875,
+v8c,"S1-HF LOSO, null-subtracted HF [post hoc] | S1-HF",H+HFc-RF [post hoc] - H-RF,obs_balanced_accuracy,0.1576576576576576,-0.023074370407078437,0.35960257475083013,2000.0,descriptive,not detected,0.9565,
+v8c,"S1-HF LOSO, null-subtracted HF [post hoc] | S1-HF",H+T+HFc-LR [post hoc] - H+T-LR,obs_AUC,0.006087168249330421,-0.014661516705333555,0.039758522727272615,2000.0,descriptive,not detected,0.6805,
+v8c,"S1-HF LOSO, null-subtracted HF [post hoc] | S1-HF",H+T+HFc-LR [post hoc] - H+T-LR,obs_balanced_accuracy,0.009009009009009139,-0.037611244136443144,0.07517485885204334,2000.0,descriptive,not detected,0.6195,
+v8c,"S1-HF LOSO, null-subtracted HF [post hoc] | S1-HF",H+T+HFc-RF [post hoc] - H+T-RF,obs_AUC,0.009009009009009028,-0.021432389212239993,0.037541104772302825,2000.0,descriptive,not detected,0.753,
+v8c,"S1-HF LOSO, null-subtracted HF [post hoc] | S1-HF",H+T+HFc-RF [post hoc] - H+T-RF,obs_balanced_accuracy,0.022522522522522515,-0.036349895407390566,0.06350129579813012,2000.0,descriptive,not detected,0.794,

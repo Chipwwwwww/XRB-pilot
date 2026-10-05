@@ -136,8 +136,10 @@ def hf_from_events(t, p, gti, b_pcu, burst_met=()):
         X = np.fft.rfft(x, axis=1); S = X.sum(0)
         cross = (np.abs(S) ** 2 - (np.abs(X) ** 2).sum(0)) / 2.0 / SINC2_HF
         den = (sx.sum() ** 2 - (sx ** 2).sum()) / 2.0
-        r = dict(t0=s0, n_on=len(on), src_rate_per_pcu=float(sx.mean() / DT), tot_rate_per_pcu=float(x.mean() / DT))
-        for kb, (a, b) in BANDS_HF.items(): r[kb] = 2.0 / NSEG ** 2 * cross[a:b + 1].sum() / den
+        r = dict(t0=s0, n_on=len(on), src_rate_per_pcu=float(sx.mean() / DT), tot_rate_per_pcu=float(x.mean() / DT), den=den)
+        for kb, (a, b) in BANDS_HF.items():
+            r[f'num_{kb}'] = 2.0 / NSEG ** 2 * cross[a:b + 1].sum()
+            r[kb] = r[f'num_{kb}'] / den               # per-segment fractional variance (kept for the record)
         rows.append(r)
     return pd.DataFrame(rows)
 
@@ -147,10 +149,16 @@ def hf_summary(seg):
     rec = dict(n_seg=len(seg))
     if len(seg) == 0:
         rec['status'] = 'missing (0 valid segments)'; return rec
+    n = len(seg); D = float(seg.den.sum())
     for kb in BANDS_HF:
-        m, sd = float(seg[kb].mean()), float(seg[kb].std(ddof=1)) if len(seg) > 1 else np.nan
-        rec[f'{kb}_var'] = m; rec[f'{kb}_se'] = sd / np.sqrt(len(seg)) if len(seg) > 1 else np.nan
-        rec[kb] = float(np.sign(m) * np.sqrt(abs(m)))
+        # ratio of means (sum of cross powers / sum of source-rate products): the per-segment ratio is unstable when the
+        # 16-s source mean is noisy (faint sources; decision_log v8c estimator revision). SE by the delta method.
+        R = float(seg[f'num_{kb}'].sum()) / D
+        se = float(np.sqrt(((seg[f'num_{kb}'] - R * seg.den) ** 2).sum() * n / max(n - 1, 1)) / D) if n > 1 else np.nan
+        rec[f'{kb}_var'] = R; rec[f'{kb}_se'] = se
+        rec[kb] = float(np.sign(R) * np.sqrt(abs(R)))
+        m = float(seg[kb].mean()); rec[f'{kb}_var_mean_of_ratios'] = m          # pre-registered estimator (superseded)
+        rec[f'{kb}_se_mean_of_ratios'] = float(seg[kb].std(ddof=1) / np.sqrt(n)) if n > 1 else np.nan
     rec['NULL_z'] = rec['NULL_var'] / rec['NULL_se'] if rec.get('NULL_se') else np.nan
     for kb in ('HF1', 'HF2', 'HF3'): rec[f'{kb}_z'] = rec[f'{kb}_var'] / rec[f'{kb}_se'] if rec.get(f'{kb}_se') else np.nan
     rec.update(mean_n_on=float(seg.n_on.mean()), src_rate_per_pcu=float(seg.src_rate_per_pcu.mean()),
