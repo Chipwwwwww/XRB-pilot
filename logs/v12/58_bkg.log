@@ -1,0 +1,23 @@
+684 NICER observations (v10 366, v11 318); 3C50 for 503 with 2-10 keV < 500 c/s
+150/503 done (641 s)
+175/503 done (943 s)
+200/503 done (1084 s)
+225/503 done (1272 s)
+250/503 done (1548 s)
+275/503 done (1745 s)
+300/503 done (1991 s)
+325/503 done (2223 s)
+350/503 done (2544 s)
+375/503 done (2706 s)
+400/503 done (2884 s)
+425/503 done (3018 s)
+450/503 done (3227 s)
+475/503 done (3434 s)
+500/503 done (3626 s)
+
+3C50: 362 ok of 503 (3709 s)
+status
+ok                                          362
+failed (rc 255): FileNotFoundError: [Err    139
+failed (rc 218): FileNotFoundError: [Err      2
+f (2-10 keV) quantiles: {0.1: 0.0017, 0.5: 0.008, 0.9: 0.0262, 0.99: 0.3711} | f > 0.20: 9

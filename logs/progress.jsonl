@@ -94,3 +94,5 @@
 {"utc": "2026-10-05T17:44:32.632890+00:00", "stage": "v11_select", "details": "422 source-bin groups, 3075 candidates; IC3 overlap 0"}
 {"utc": "2026-10-05T18:33:27.022725+00:00", "stage": "v11_fetch", "details": "318 accepted new obs; 60 sources; 39.2 GB streamed"}
 {"utc": "2026-10-05T18:38:14.131416+00:00", "stage": "v11_analysis", "details": "v11a +0.066 [-0.095,+0.180]; v11b D -0.663 p 0.0225"}
+{"utc": "2026-10-05T20:48:57.754686+00:00", "stage": "v12_bkg", "details": "3C50 ok 362/503; f>0.2: 9"}
+{"utc": "2026-10-05T20:49:50.011925+00:00", "stage": "v12_analysis", "details": "v12a D -0.514 p 0.0729; v12b +0.174 [+0.071,+0.300]"}

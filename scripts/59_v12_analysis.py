@@ -54,6 +54,8 @@ def corrected(F, fmax, correct=True):
 
 
 P = corrected(F, C.V12_FBKG_MAX)
+P.to_csv(ROOT/'data/v12/processed/nicer_corrected_screened.csv', index=False)      # frozen training set for v13
+F.to_csv(ROOT/'data/v12/processed/nicer_v10_v11_with_bkg.csv', index=False)
 z = P[P.source.isin(C.V9_Z_SANITY)]; zf = float((z.state == 'soft-like').mean())
 ic = pd.concat([ic, pd.DataFrame([dict(check='IC3 Z sources soft-like after correction', value=zf, threshold=C.V7_SANITY_FRAC, passed=bool(zf >= C.V7_SANITY_FRAC))])])
 ic.to_csv(R12/'ic_checks.csv', index=False); print(ic.tail(1).to_string(index=False), flush=True)

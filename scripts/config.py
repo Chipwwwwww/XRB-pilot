@@ -374,5 +374,5 @@ if _os.environ.get('XRB_VERSION', 'v1').startswith('v12'):
     V12_FBKG_SENS = (0.10, 0.30)
     V12_PI_BANDS = {'A': (200, 400), 'B': (400, 600), 'C': (600, 1000), 'T': (200, 1000)}
     V12_CALDB = 'caldb'                 # under XRB_EXTERNAL_RAW/.. : NICER CALDB goodfiles_nicer_xti.tar.gz (SHA256 logged)
-    V12_N_WORKERS = 3
+    V12_N_WORKERS = 6                   # raised from 3 for speed after checking memory (decision_log; results unaffected)
     V12_IC_TOT_RATIO = (0.7, 1.3)       # 3C50 total 2-10 keV rate / pipeline rate within this range for >= 90% of observations
