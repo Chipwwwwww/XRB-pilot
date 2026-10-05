@@ -1,0 +1,14 @@
+test,value,passed
+"IC1 parser = astropy (complete synthetic file, 14 NICER columns)",50000.0,True
+IC1 truncated prefix = first rows,24986.0,True
+"IC2 sinusoids (0.05, 0.5, 2 Hz; rms 0.10 each): T1",0.0992,True
+"IC2 sinusoids (0.05, 0.5, 2 Hz; rms 0.10 each): T2",0.1016,True
+"IC2 sinusoids (0.05, 0.5, 2 Hz; rms 0.10 each): T3",0.1006,True
+"IC2 sinusoids (0.05, 0.5, 2 Hz; rms 0.10 each): STATE",0.1432,True
+IC2 pure Poisson: T1 |z| < 3,-0.55,True
+IC2 pure Poisson: T2 |z| < 3,1.32,True
+IC2 pure Poisson: T3 |z| < 3,-1.18,True
+IC2 pure Poisson: STATE |z| < 3,1.21,True
+IC2 pure Poisson: WHITE |z| < 3,0.84,True
+"IC2 nu_c of a zero-centred Lorentzian nu0 = 0.5 Hz in [0.25, 1.0]",0.551,True
+"IC2 nu_c of a zero-centred Lorentzian nu0 = 5.0 Hz in [2.5, 10.0]",4.178,True

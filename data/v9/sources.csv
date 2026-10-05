@@ -1,0 +1,141 @@
+name,label,ra,dec,evidence,pos_origin,excluded_confused,eligible,included
+M33 X-7,BH,23.39220833,30.53647222,Marcel+2026 Table 1 (dynamical BH),SIMBAD (Sesame),False,0,False
+Cyg X-1,BH,299.59031556,35.20160681,Marcel+2026 Table 1 (dynamical BH),SIMBAD (Sesame),False,97,True
+LMC X-1,BH,84.91178513,-69.74320321,Marcel+2026 Table 1 (dynamical BH),SIMBAD (Sesame),False,11,True
+SS 433,BH,287.95651987,4.98272976,Marcel+2026 Table 1 (dynamical BH),SIMBAD (Sesame),False,10,True
+LMC X-3,BH,84.73596817,-64.08425498,Marcel+2026 Table 1 (dynamical BH),SIMBAD (Sesame),False,72,True
+SAX J1819.3-2525,BH,274.84014302,-25.40718044,Marcel+2026 Table 1 (dynamical BH),SIMBAD (Sesame),False,77,True
+4U 1543-475,BH,236.78448695,-47.6695235,Marcel+2026 Table 1 (dynamical BH),SIMBAD (Sesame),False,90,True
+GRO J1655-40,BH,253.50059332,-39.84576714,Marcel+2026 Table 1 (dynamical BH),SIMBAD (Sesame),False,0,False
+GRO J0422+32,BH,65.42801145,32.9074831,Marcel+2026 Table 1 (dynamical BH),SIMBAD (Sesame),False,0,False
+GRS 1124-684,BH,171.61081732,-68.67579938,Marcel+2026 Table 1 (dynamical BH),SIMBAD (Sesame),False,0,False
+GX 339-4,BH,255.70578183,-48.78974665,Marcel+2026 Table 1 (dynamical BH),SIMBAD (Sesame),False,234,True
+GS 1354-64,BH,209.54051139,-64.73479385,Marcel+2026 Table 1 (dynamical BH),SIMBAD (Sesame),False,0,False
+Swift J1727.8-1613,BH,261.93047312,-16.20529505,Marcel+2026 Table 1 (dynamical BH),SIMBAD (Sesame),False,81,True
+XTE J1650-500,BH,252.50408333,-49.96211111,Marcel+2026 Table 1 (dynamical BH),SIMBAD (Sesame),False,0,False
+GS 2023+338,BH,306.01593627,33.86721143,Marcel+2026 Table 1 (dynamical BH),SIMBAD (Sesame),False,45,True
+MAXI J1820+070,BH,275.09142659,7.18535691,Marcel+2026 Table 1 (dynamical BH),SIMBAD (Sesame),False,201,True
+XTE J1859+226,BH,284.6728803,22.65827074,Marcel+2026 Table 1 (dynamical BH),SIMBAD (Sesame),False,2,False
+GRS 1915+105,BH,288.798149,10.945807,Marcel+2026 Table 1 (dynamical BH),SIMBAD (Sesame),False,519,True
+V616 Mon,BH,95.68559327,-0.34563624,Marcel+2026 Table 1 (dynamical BH),SIMBAD (Sesame),False,0,False
+MAXI J1305-704,BH,196.73041667,-70.45141944,Marcel+2026 Table 1 (dynamical BH),SIMBAD (Sesame),False,0,False
+H 1705-250,BH,257.06045238,-25.09171102,Marcel+2026 Table 1 (dynamical BH),SIMBAD (Sesame),False,0,False
+XTE J1550-564,BH,237.74443247,-56.47646066,Marcel+2026 Table 1 (dynamical BH),SIMBAD (Sesame),False,0,False
+GS 2000+25,BH,300.70634184,25.23628657,Marcel+2026 Table 1 (dynamical BH),SIMBAD (Sesame),False,0,False
+GRS 1009-45,BH,153.40142971,-45.07531359,Marcel+2026 Table 1 (dynamical BH),SIMBAD (Sesame),False,0,False
+XTE J1118+480,BH,169.54497101,48.03675409,Marcel+2026 Table 1 (dynamical BH),SIMBAD (Sesame),False,0,False
+1A 1742-289,NS,266.4049377441406,-29.017959594726562,MINBAR DR1 burst source (type-I bursts),MINBAR source table,True,37,False
+1A 1742-294,NS,266.52166748046875,-29.51480484008789,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+1A 1744-361,NS,267.0547790527344,-36.13250732421875,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,29,True
+1H 1715-321,NS,259.6959228515625,-32.17042922973633,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+1RXH J173523.7-354013,NS,263.8457946777344,-35.670230865478516,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+1RXS J180408.9-342058,NS,271.0348815917969,-34.34760665893555,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+2S 0918-549,NS,140.1103057861328,-55.2067985534668,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,89,True
+2S 1711-339,NS,258.5824279785156,-34.046470642089844,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+2S 1803-245,NS,271.7113342285156,-24.591278076171875,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+4U 0513-40,NS,78.5270004272461,-40.04410934448242,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,11,True
+4U 0614+09,NS,94.2806167602539,9.137066841125488,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,146,True
+4U 0836-429,NS,129.34832763671875,-42.90055465698242,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,6,True
+4U 1246-588,NS,192.4140167236328,-59.08740997314453,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,30,True
+4U 1254-69,NS,194.40480041503906,-69.28916931152344,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,55,True
+4U 1323-62,NS,201.6512908935547,-62.13608169555664,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,94,True
+4U 1543-624,NS,236.97787475585938,-62.56816864013672,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,16,True
+4U 1608-522,NS,243.17919921875,-52.42306137084961,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,108,True
+4U 1636-536,NS,250.23153686523438,-53.75144577026367,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,66,True
+4U 1702-429,NS,256.5638122558594,-43.03574752807617,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,23,True
+4U 1705-32,NS,257.22613525390625,-32.33253479003906,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,18,True
+4U 1705-44,NS,257.2269592285156,-44.10204315185547,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,9,True
+4U 1708-23,NS,257.0957946777344,-22.803329467773438,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+4U 1708-40,NS,258.09930419921875,-40.84278106689453,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+4U 1722-30,NS,261.88702392578125,-30.80230712890625,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,13,True
+4U 1728-34,NS,262.9903259277344,-33.833763122558594,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,42,True
+4U 1735-444,NS,264.7428894042969,-44.45000076293945,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,11,True
+4U 1746-37,NS,267.55303955078125,-37.051815032958984,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+4U 1812-12,NS,273.775634765625,-12.096305847167969,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,35,True
+4U 1820-303,NS,275.91876220703125,-30.361135482788086,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,159,True
+4U 1822-000,NS,276.34173583984375,-0.011944443918764591,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+4U 1850-086,NS,283.27032470703125,-8.705544471740723,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,9,True
+AX J1745.6-2901,NS,266.3976745605469,-29.025999069213867,MINBAR DR1 burst source (type-I bursts),MINBAR source table,True,37,False
+AX J1754.2-2754,NS,268.5604248046875,-27.909889221191406,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+AX J1824.5-2451,NS,276.125,-24.850000381469727,MINBAR DR1 burst source (type-I bursts),MINBAR source table,True,391,False
+Aql X-1,NS,287.8168640136719,0.584958016872406,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,191,True
+Cen X-4,NS,224.59133911132812,-31.66872215270996,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,45,True
+Cir X-1,NS,230.17030334472656,-57.16674041748047,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,85,True
+Cyg X-2,NS,326.17144775390625,38.321414947509766,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,81,True
+EXO 0748-676,NS,117.14041900634766,-67.752197265625,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,38,True
+EXO 1745-248,NS,267.02178955078125,-24.779924392700195,MINBAR DR1 burst source (type-I bursts),MINBAR source table,True,24,False
+EXO 1747-214,NS,267.6021728515625,-21.422189712524414,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+GRS 1741.9-2853,NS,266.2596740722656,-28.91377067565918,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+GRS 1747-312,NS,267.69525146484375,-31.274682998657227,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,26,True
+GS 1826-24,NS,277.36749267578125,-23.796972274780273,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,31,True
+GX 13+1,NS,273.6294860839844,-17.157249450683594,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,27,True
+GX 17+2,NS,274.00579833984375,-14.036282539367676,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,28,True
+GX 3+1,NS,266.9837341308594,-26.56370735168457,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,7,True
+HETE J1900.1-2455,NS,285.04071044921875,-24.901193618774414,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,1,False
+IGR J00291+5934,NS,7.2627081871032715,59.57191848754883,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+IGR J17062-6143,NS,256.5677185058594,-61.71125030517578,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,76,True
+IGR J17191-2821,NS,259.81304931640625,-28.299190521240234,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+IGR J17254-3257,NS,261.35626220703125,-32.95486068725586,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+IGR J17380-3749,NS,264.49505615234375,-37.77210998535156,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,32,True
+IGR J17445-2747,NS,266.1268310546875,-27.766756057739258,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,17,True
+IGR J17464-2811,NS,266.81732177734375,-28.18000030517578,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+IGR J17473-2721,NS,266.8253173828125,-27.344083786010742,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+IGR J17480-2446,NS,267.02008056640625,-24.780250549316406,MINBAR DR1 burst source (type-I bursts),MINBAR source table,True,24,False
+IGR J17498-2921,NS,267.4805908203125,-29.322139739990234,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,37,True
+IGR J17511-3057,NS,267.78607177734375,-30.961389541625977,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,4,False
+IGR J17591-2342,NS,269.76190185546875,-23.71894073486328,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,31,True
+IGR J17597-2201,NS,269.939697265625,-22.027568817138672,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+IGR J18245-2452,NS,276.1354064941406,-24.868833541870117,MINBAR DR1 burst source (type-I bursts),MINBAR source table,True,391,False
+KS 1731-260,NS,263.55609130859375,-26.088499069213867,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+KS 1741-293,NS,266.2127380371094,-29.35466957092285,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+M15 X-2,NS,322.4922180175781,12.167388916015625,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,45,True
+MAXI J1421-613,NS,215.4083709716797,-61.60691833496094,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+MAXI J1621-501,NS,245.09170532226562,-50.01988983154297,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,9,True
+MAXI J1647-227,NS,252.05133056640625,-23.014877319335938,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+MAXI J1807+132,NS,272.03143310546875,13.251500129699707,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,50,True
+MXB 1658-298,NS,255.52720642089844,-29.945646286010742,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+MXB 1730-335,NS,263.3525390625,-33.388832092285156,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,16,True
+RX J1718.4-4029,NS,259.6005859375,-40.49177932739258,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+SAX J1324.5-6313,NS,201.12625122070312,-63.23055648803711,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+SAX J1712.6-3739,NS,258.1546936035156,-37.64439010620117,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,1,False
+SAX J1747.0-2853,NS,266.7608337402344,-28.883028030395508,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,22,True
+SAX J1748.9-2021,NS,267.21734619140625,-20.35900115966797,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,4,False
+SAX J1750.8-2900,NS,267.60174560546875,-29.037609100341797,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,6,True
+SAX J1752.3-3138,NS,268.1000061035156,-31.628334045410156,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+SAX J1753.5-2349,NS,268.3829040527344,-23.8207950592041,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+SAX J1806.5-2215,NS,271.634033203125,-22.238143920898438,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+SAX J1808.4-3658,NS,272.114990234375,-36.97886276245117,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,92,True
+SAX J1810.8-2609,NS,272.685302734375,-26.150333404541016,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,13,True
+SAX J1818.7+1424,NS,274.6833190917969,14.403332710266113,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+SAX J1828.5-1037,NS,277.1415100097656,-10.616527557373047,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+SAX J2224.9+5421,NS,336.2068786621094,54.386138916015625,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+SLX 1732-304,NS,263.9469299316406,-30.482027053833008,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,14,True
+SLX 1735-269,NS,264.5713195800781,-26.994056701660156,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,4,False
+SLX 1737-282,NS,265.178466796875,-28.30233383178711,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+SLX 1744-299,NS,266.8578796386719,-30.000444412231445,MINBAR DR1 burst source (type-I bursts),MINBAR source table,True,0,False
+SLX 1744-300,NS,266.8583679199219,-30.044944763183594,MINBAR DR1 burst source (type-I bursts),MINBAR source table,True,0,False
+Ser X-1,NS,279.98980712890625,5.0359721183776855,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,24,True
+Swift J1734.5-3027,NS,263.6007385253906,-30.398056030273438,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+Swift J174805.3-244637,NS,267.0225524902344,-24.7772216796875,MINBAR DR1 burst source (type-I bursts),MINBAR source table,True,24,False
+Swift J1749.4-2807,NS,267.3822021484375,-28.13474464416504,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,27,True
+Swift J181723.1-164300,NS,274.3464660644531,-16.71672248840332,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+Swift J185003.2-005627,NS,282.5138854980469,-0.9398055672645569,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+Swift J1858.6-0814,NS,284.6455078125,-8.237774848937988,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,123,True
+Swift J1922.7-1716,NS,290.6541442871094,-17.28363037109375,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,9,True
+UW CrB,NS,241.44113159179688,25.86255645751953,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,2,False
+XB 1832-330,NS,278.931884765625,-32.99076843261719,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+XB 1905+000,NS,287.112548828125,0.16880834102630615,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+XB 1916-053,NS,289.699462890625,-5.2380805015563965,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,1,False
+XB 1940-04,NS,295.6578674316406,-3.880894422531128,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+XB 2129+47,NS,322.859130859375,47.29019546508789,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,69,True
+XMM J174457-2850.3,NS,266.2389221191406,-28.838970184326172,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+XMMU J181227.8-181234,NS,273.1158447265625,-18.209444046020508,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,10,True
+XTE J1701-407,NS,255.43470764160156,-40.858360290527344,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,7,True
+XTE J1701-462,NS,255.2435760498047,-46.18571853637695,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,38,True
+XTE J1709-267,NS,257.3766784667969,-26.655527114868164,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,12,True
+XTE J1710-281,NS,257.5522155761719,-28.13083267211914,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+XTE J1723-376,NS,260.9112548828125,-37.66166687011719,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+XTE J1739-285,NS,264.97479248046875,-28.496334075927734,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,87,True
+XTE J1810-189,NS,272.5869140625,-19.069778442382812,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,17,True
+XTE J1814-338,NS,273.41265869140625,-33.77286148071289,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False
+XTE J2123-058,NS,320.8105773925781,-5.7981109619140625,MINBAR DR1 burst source (type-I bursts),MINBAR source table,False,0,False

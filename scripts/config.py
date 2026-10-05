@@ -311,7 +311,8 @@ if _os.environ.get('XRB_VERSION', 'v1').startswith('v8'):
 if _os.environ.get('XRB_VERSION', 'v1').startswith('v9'):
     # ---- NICER/XTI selection ----
     V9_TAP_URL = 'https://heasarc.gsfc.nasa.gov/xamin/vo/tap/sync'
-    V9_ARCHIVE = 'https://heasarc.gsfc.nasa.gov/FTP/nicer/data/obs/'
+    V9_ARCHIVE = 'https://nasa-heasarc.s3.amazonaws.com/nicer/data/obs/'   # HEASARC's AWS open-data mirror (decision_log: ~10x faster, bytes identical)
+    V9_ARCHIVE_HEASARC = 'https://heasarc.gsfc.nasa.gov/FTP/nicer/data/obs/'
     V9_TOL_DEG = 0.05                   # target position within 0.05 deg (FOV ~30 arcmin^2, radius ~0.05 deg)
     V9_MIN_EXPOSURE_S = 1000.0          # nicermastr exposure
     V9_MIN_ELIGIBLE = 5

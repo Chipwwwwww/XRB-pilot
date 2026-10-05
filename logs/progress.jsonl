@@ -80,3 +80,10 @@
 {"utc": "2026-10-05T14:01:35.150730+00:00", "stage": "v8c_events", "details": "S1-HF 148 obs; IC4 rho 0.818; null QC fail 0.000"}
 {"utc": "2026-10-05T14:02:51.424123+00:00", "stage": "v8_analysis", "details": "v8a +0.264 [+0.048,+0.455]; v8b +0.064 [-0.185,+0.367]; v8c -0.056 [-0.154,+0.010]"}
 {"utc": "2026-10-05T14:04:34.844850+00:00", "stage": "v8_analysis", "details": "v8a +0.264 [+0.048,+0.455]; v8b +0.064 [-0.185,+0.367]; v8c -0.056 [-0.154,+0.010]"}
+{"utc": "2026-10-05T15:13:48.541380+00:00", "stage": "v9_select", "details": "11 BH, 55 NS sources; 3848 ranked candidates"}
+{"utc": "2026-10-05T15:31:44.924403+00:00", "stage": "v9_select", "details": "11 BH, 55 NS sources; 3848 ranked candidates"}
+{"utc": "2026-10-05T15:39:29.414680+00:00", "stage": "v9c_maxi", "details": "C4 low (softest >=4 keV): RF [C2D] - RF [C1D] +0.167 [-0.185,+0.580]; C4 middle: RF [C2D] - RF [C1D] +0.060 [-0.184,+0.264]; C4 high (hardest): RF [C2D] - RF [C1D] +0.052 [+0.007,+0.103]"}
+{"utc": "2026-10-05T15:40:59.614502+00:00", "stage": "v9c_maxi", "details": "C4 low (softest >=4 keV): RF [C2D] - RF [C1D] +0.167 [-0.185,+0.580]; C4 middle: RF [C2D] - RF [C1D] +0.060 [-0.184,+0.264]; C4 high (hardest): RF [C2D] - RF [C1D] +0.052 [+0.007,+0.103]"}
+{"utc": "2026-10-05T15:42:47.912796+00:00", "stage": "v9c_maxi", "details": "C4 low (softest >=4 keV): RF [C2D] - RF [C1D] +0.167 [-0.185,+0.580]; C4 middle: RF [C2D] - RF [C1D] +0.060 [-0.184,+0.264]; C4 high (hardest): RF [C2D] - RF [C1D] +0.052 [+0.007,+0.103]"}
+{"utc": "2026-10-05T15:54:59.420402+00:00", "stage": "v9_nicer", "details": "368 accepted obs; 63 sources; 14.18 GB"}
+{"utc": "2026-10-05T15:57:28.655973+00:00", "stage": "v9_analysis", "details": "v9a +0.112 [-0.004,+0.229]; v9b D -0.310 p 0.1360"}

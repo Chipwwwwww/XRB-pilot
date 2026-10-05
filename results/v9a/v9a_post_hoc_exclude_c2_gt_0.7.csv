@@ -1,0 +1,7 @@
+comparison,point,ci2_5,ci97_5,n_valid_draws,analysis
+H_N-LR,0.6423562412342216,0.3901103507446967,0.8454092138814284,2000,POST HOC: NICER hard-like excluding c2 > 0.7 (likely background-dominated / dipping)
+H_N+T_N-LR,0.7769985974754559,0.46811592367443433,0.9571951938670202,2000,POST HOC: NICER hard-like excluding c2 > 0.7 (likely background-dominated / dipping)
+H_N-RF,0.6949509116409537,0.48756745111717514,0.8709130591989048,2000,POST HOC: NICER hard-like excluding c2 > 0.7 (likely background-dominated / dipping)
+H_N+T_N-RF,0.9386395511921458,0.8436858319263011,0.9920143873634306,2000,POST HOC: NICER hard-like excluding c2 > 0.7 (likely background-dominated / dipping)
+H_N+T_N-LR - H_N-LR,0.13464235624123422,-0.0011586143295702045,0.27329566267066246,2000,POST HOC: NICER hard-like excluding c2 > 0.7 (likely background-dominated / dipping)
+H_N+T_N-RF - H_N-RF,0.24368863955119213,0.09966668123797866,0.3849614294328078,2000,POST HOC: NICER hard-like excluding c2 > 0.7 (likely background-dominated / dipping)

@@ -1,0 +1,199 @@
+                      n  src
+label state                 
+BH    hard-like      31    7
+      intermediate    4    3
+      soft-like      30    7
+NS    hard-like     111   32
+      intermediate   20   18
+      soft-like     172   40
+IC3: {'check': 'Cyg X-2 + GX 17+2 soft-like fraction', 'n': 16, 'value': 0.9375, 'threshold': 0.6666666666666666, 'passed': True}
+hard-like: 142 obs, 7 BH / 32 NS sources -> testable True
+
+per source x state (mean score):
+                                                    mean              size       
+name                                          H_N+T_N-LR H_N-LR H_N+T_N-LR H_N-LR
+true_label source_id             state                                           
+BH         4U 1543-475           hard-like          0.81   0.57          3      3
+                                 soft-like          0.67   0.71          2      2
+           Cyg X-1               hard-like          0.73   0.59          7      7
+                                 intermediate       0.80   0.77          1      1
+           GRS 1915+105          hard-like          0.05   0.01          4      4
+                                 soft-like          0.00   0.00          2      2
+           GX 339-4              hard-like          0.66   0.51          4      4
+                                 soft-like          0.71   0.75          4      4
+           LMC X-1               intermediate       0.68   0.68          2      2
+                                 soft-like          0.68   0.69          6      6
+           LMC X-3               hard-like          0.68   0.69          1      1
+                                 soft-like          0.54   0.66          7      7
+           MAXI J1820+070        hard-like          0.74   0.56          7      7
+           SAX J1819.3-2525      intermediate       0.32   0.58          1      1
+                                 soft-like          0.48   0.57          6      6
+           Swift J1727.8-1613    hard-like          0.65   0.60          5      5
+                                 soft-like          0.74   0.76          3      3
+NS         1A 1744-361           hard-like          0.55   0.45          1      1
+                                 intermediate       0.62   0.60          1      1
+                                 soft-like          0.40   0.49          5      5
+           2S 0918-549           hard-like          0.66   0.63          1      1
+                                 intermediate       0.46   0.61          3      3
+                                 soft-like          0.55   0.59          1      1
+           4U 0513-40            intermediate       0.41   0.57          1      1
+                                 soft-like          0.44   0.58          3      3
+           4U 0614+09            hard-like          0.61   0.63          2      2
+                                 intermediate       0.59   0.64          1      1
+                                 soft-like          0.55   0.62          5      5
+           4U 0836-429           soft-like          0.00   0.02          1      1
+           4U 1246-588           hard-like          0.15   0.22          4      4
+           4U 1254-69            intermediate       0.33   0.53          1      1
+                                 soft-like          0.37   0.52          7      7
+           4U 1323-62            hard-like          0.45   0.04          2      2
+                                 soft-like          0.01   0.04          1      1
+           4U 1543-624           hard-like          0.62   0.59          7      7
+                                 soft-like          0.47   0.54          1      1
+           4U 1608-522           hard-like          0.51   0.55          3      3
+                                 soft-like          0.35   0.45          5      5
+           4U 1636-536           hard-like          0.50   0.51          6      6
+                                 soft-like          0.52   0.62          2      2
+           4U 1702-429           hard-like          0.40   0.37          6      6
+                                 intermediate       0.29   0.40          1      1
+                                 soft-like          0.29   0.47          1      1
+           4U 1705-32            soft-like          0.31   0.51          3      3
+           4U 1705-44            soft-like          0.29   0.41          8      8
+           4U 1722-30            hard-like          0.46   0.49          6      6
+                                 intermediate       0.48   0.53          1      1
+                                 soft-like          0.37   0.42          1      1
+           4U 1728-34            hard-like          0.18   0.24          3      3
+                                 intermediate       0.24   0.32          1      1
+                                 soft-like          0.21   0.33          4      4
+           4U 1735-444           soft-like          0.39   0.50          8      8
+           4U 1812-12            hard-like          0.59   0.53          8      8
+           4U 1820-303           hard-like          0.21   0.26          2      2
+                                 intermediate       0.48   0.56          1      1
+                                 soft-like          0.45   0.57          5      5
+           4U 1850-086           hard-like          0.69   0.66          1      1
+                                 intermediate       0.42   0.65          1      1
+                                 soft-like          0.38   0.52          3      3
+           Aql X-1               hard-like          0.56   0.61          2      2
+                                 soft-like          0.48   0.56          6      6
+           Cen X-4               hard-like          0.00   0.00          1      1
+           Cir X-1               soft-like          0.21   0.29          8      8
+           Cyg X-2               soft-like          0.44   0.53          8      8
+           EXO 0748-676          hard-like          0.01   0.08          4      4
+           GRS 1747-312          soft-like          0.17   0.31          3      3
+           GS 1826-24            hard-like          0.48   0.57          2      2
+                                 soft-like          0.50   0.59          6      6
+           GX 13+1               soft-like          0.24   0.29          8      8
+           GX 17+2               hard-like          0.19   0.29          1      1
+                                 soft-like          0.20   0.29          7      7
+           GX 3+1                soft-like          0.23   0.34          7      7
+           IGR J17062-6143       intermediate       0.71   0.73          1      1
+           IGR J17380-3749       intermediate       0.00   0.02          1      1
+           IGR J17498-2921       hard-like          0.25   0.28          4      4
+                                 intermediate       0.26   0.36          1      1
+           IGR J17591-2342       hard-like          0.36   0.34          5      5
+           M15 X-2               intermediate       0.58   0.53          1      1
+                                 soft-like          0.48   0.60          6      6
+           MAXI J1621-501        intermediate       0.19   0.26          1      1
+                                 soft-like          0.16   0.25          2      2
+           MAXI J1807+132        hard-like          0.62   0.62          4      4
+                                 intermediate       0.64   0.64          1      1
+           MXB 1730-335          hard-like          0.92   0.16          3      3
+                                 soft-like          0.15   0.30          2      2
+           SAX J1747.0-2853      soft-like          0.03   0.05          5      5
+           SAX J1750.8-2900      hard-like          0.21   0.27          5      5
+           SAX J1808.4-3658      hard-like          0.82   0.65          3      3
+           SAX J1810.8-2609      hard-like          0.55   0.55          7      7
+                                 soft-like          0.56   0.63          1      1
+           SLX 1732-304          hard-like          0.58   0.48          5      5
+                                 soft-like          0.30   0.50          3      3
+           Ser X-1               intermediate       0.37   0.50          1      1
+                                 soft-like          0.41   0.52          7      7
+           Swift J1749.4-2807    intermediate       0.30   0.42          1      1
+                                 soft-like          0.18   0.42          1      1
+           Swift J1858.6-0814    soft-like          0.32   0.52          2      2
+           Swift J1922.7-1716    hard-like          0.00   0.02          1      1
+           XB 2129+47            hard-like          0.00   0.04          1      1
+           XMMU J181227.8-181234 soft-like          0.00   0.00          7      7
+           XTE J1701-407         soft-like          0.16   0.26          5      5
+           XTE J1701-462         soft-like          0.25   0.33          8      8
+           XTE J1709-267         hard-like          0.01   0.13          3      3
+           XTE J1739-285         hard-like          0.27   0.35          2      2
+                                 soft-like          0.28   0.41          5      5
+           XTE J1810-189         hard-like          0.29   0.25          6      6
+                                 soft-like          0.32   0.38          1      1
+
+metric                                                                                                                                 obs_AUC              source_AUC source_balanced_accuracy
+analysis                                                                 comparison                                                                                                            
+NICER all-state LOSO | hard-like                                         H_N+R+T_N-LR                                   +0.822 [+0.534,+0.976]                     NaN                      NaN
+                                                                         H_N+R+T_N-LR - H_N+R-LR                        +0.069 [-0.013,+0.161]                     NaN                      NaN
+                                                                         H_N+R-LR                                       +0.753 [+0.465,+0.930]                     NaN                      NaN
+                                                                         H_N+T1-LR                                      +0.731 [+0.465,+0.901]                     NaN                      NaN
+                                                                         H_N+T1-LR - H_N-LR                             +0.048 [-0.041,+0.140]                     NaN                      NaN
+                                                                         H_N+T2-LR                                      +0.826 [+0.543,+0.984]                     NaN                      NaN
+                                                                         H_N+T2-LR - H_N-LR                             +0.143 [+0.028,+0.271]                     NaN                      NaN
+                                                                         H_N+T3-LR                                      +0.798 [+0.524,+0.957]                     NaN                      NaN
+                                                                         H_N+T3-LR - H_N-LR                             +0.115 [+0.030,+0.217]                     NaN                      NaN
+                                                                         H_N+T_N-LR                                     +0.795 [+0.517,+0.958]                     NaN                      NaN
+                                                                         H_N+T_N-LR - H_N-LR                          +0.112 [-0.004,+0.229] *                     NaN                      NaN
+                                                                         H_N+T_N-RF                                     +0.939 [+0.840,+0.993]                     NaN                      NaN
+                                                                         H_N+T_N-RF - H_N-RF                            +0.236 [+0.104,+0.372]                     NaN                      NaN
+                                                                         H_N-LR                                         +0.683 [+0.432,+0.874]                     NaN                      NaN
+                                                                         H_N-RF                                         +0.703 [+0.496,+0.870]                     NaN                      NaN
+NICER all-state LOSO | intermediate                                      H_N+R+T_N-LR                                   +0.762 [+0.105,+1.000]                     NaN                      NaN
+                                                                         H_N+R+T_N-LR - H_N+R-LR                        -0.025 [-0.233,+0.095]                     NaN                      NaN
+                                                                         H_N+R-LR                                       +0.787 [+0.292,+1.000]                     NaN                      NaN
+                                                                         H_N+T1-LR                                      +0.875 [+0.525,+1.000]                     NaN                      NaN
+                                                                         H_N+T1-LR - H_N-LR                             +0.000 [+0.000,+0.000]                     NaN                      NaN
+                                                                         H_N+T2-LR                                      +0.787 [+0.188,+1.000]                     NaN                      NaN
+                                                                         H_N+T2-LR - H_N-LR                             -0.088 [-0.400,+0.000]                     NaN                      NaN
+                                                                         H_N+T3-LR                                      +0.887 [+0.591,+1.000]                     NaN                      NaN
+                                                                         H_N+T3-LR - H_N-LR                             +0.012 [+0.000,+0.073]                     NaN                      NaN
+                                                                         H_N+T_N-LR                                     +0.800 [+0.250,+1.000]                     NaN                      NaN
+                                                                         H_N+T_N-LR - H_N-LR                            -0.075 [-0.333,+0.000]                     NaN                      NaN
+                                                                         H_N+T_N-RF                                     +0.719 [+0.000,+1.000]                     NaN                      NaN
+                                                                         H_N+T_N-RF - H_N-RF                            -0.181 [-0.659,+0.000]                     NaN                      NaN
+                                                                         H_N-LR                                         +0.875 [+0.525,+1.000]                     NaN                      NaN
+                                                                         H_N-RF                                         +0.900 [+0.600,+1.000]                     NaN                      NaN
+NICER all-state LOSO | soft-like                                         H_N+R+T_N-LR                                   +0.790 [+0.574,+0.973]                     NaN                      NaN
+                                                                         H_N+R+T_N-LR - H_N+R-LR                        +0.009 [-0.044,+0.056]                     NaN                      NaN
+                                                                         H_N+R-LR                                       +0.780 [+0.554,+0.966]                     NaN                      NaN
+                                                                         H_N+T1-LR                                      +0.895 [+0.693,+0.998]                     NaN                      NaN
+                                                                         H_N+T1-LR - H_N-LR                             +0.000 [-0.005,+0.004]                     NaN                      NaN
+                                                                         H_N+T2-LR                                      +0.890 [+0.691,+0.996]                     NaN                      NaN
+                                                                         H_N+T2-LR - H_N-LR                             -0.005 [-0.025,+0.014]                     NaN                      NaN
+                                                                         H_N+T3-LR                                      +0.827 [+0.636,+0.976]                     NaN                      NaN
+                                                                         H_N+T3-LR - H_N-LR                             -0.067 [-0.149,+0.000]                     NaN                      NaN
+                                                                         H_N+T_N-LR                                     +0.881 [+0.686,+0.994]                     NaN                      NaN
+                                                                         H_N+T_N-LR - H_N-LR                            -0.013 [-0.046,+0.014]                     NaN                      NaN
+                                                                         H_N+T_N-RF                                     +0.936 [+0.825,+1.000]                     NaN                      NaN
+                                                                         H_N+T_N-RF - H_N-RF                            +0.027 [-0.008,+0.111]                     NaN                      NaN
+                                                                         H_N-LR                                         +0.894 [+0.694,+0.997]                     NaN                      NaN
+                                                                         H_N-RF                                         +0.909 [+0.729,+1.000]                     NaN                      NaN
+NICER hard-like | source level (restricted OOF)                          H_N+T_N-LR                                                        NaN  +0.804 [+0.558,+0.973]   +0.710 [+0.536,+0.844]
+                                                                         H_N+T_N-LR - H_N-LR                                               NaN  +0.121 [-0.004,+0.254]   -0.031 [-0.094,+0.031]
+                                                                         H_N-LR                                                            NaN  +0.683 [+0.415,+0.888]   +0.741 [+0.567,+0.875]
+NICER new BHs only (MAXI J1820+070, Swift J1727.8-1613) + NS | hard-like H_N+T_N-LR                                     +0.885 [+0.750,+0.981]                     NaN                      NaN
+                                                                         H_N+T_N-LR - H_N-LR                            +0.074 [-0.094,+0.252]                     NaN                      NaN
+                                                                         H_N-LR                                         +0.811 [+0.679,+0.913]                     NaN                      NaN
+NICER rate >= 100 c/s | hard-like                                        H_N+T_N-LR                                     +0.844 [+0.520,+1.000]                     NaN                      NaN
+                                                                         H_N+T_N-LR - H_N-LR                            +0.115 [-0.010,+0.241]                     NaN                      NaN
+                                                                         H_N-LR                                         +0.730 [+0.376,+0.952]                     NaN                      NaN
+NICER trained on hard-like only | hard-like                              H_N+T_N-LR [hard-only]                         +0.831 [+0.615,+0.958]                     NaN                      NaN
+                                                                         H_N+T_N-LR [hard-only] - H_N-LR [hard-only]    +0.191 [+0.039,+0.329]                     NaN                      NaN
+                                                                         H_N-LR [hard-only]                             +0.640 [+0.432,+0.819]                     NaN                      NaN
+NICER | difference in differences                                        H_N+T_N-LR gap - H_N-LR gap                    -0.125 [-0.246,-0.001]                     NaN                      NaN
+                                                                         H_N+T_N-RF gap - H_N-RF gap                    -0.209 [-0.319,-0.095]                     NaN                      NaN
+NICER | soft-like - hard-like gap                                        H_N+T_N-LR gap                                 +0.087 [-0.065,+0.287]                     NaN                      NaN
+                                                                         H_N+T_N-RF gap                                 -0.003 [-0.097,+0.079]                     NaN                      NaN
+                                                                         H_N-LR gap                                     +0.211 [+0.057,+0.387]                     NaN                      NaN
+                                                                         H_N-RF gap                                     +0.206 [+0.043,+0.354]                     NaN                      NaN
+
+[v9b]
+      feature       D      p  n_sources  n_bh  null_sd  n_obs        role  p_holm               verdict
+   log10 nu_c -0.3105 0.1360         39     7   0.2068    141     PRIMARY  0.5440          not detected
+           T1  0.0171 0.9021         39     7   0.1360    142 descriptive  0.9276          not detected
+           T2  0.0718 0.4255         39     7   0.1041    142 descriptive  0.9276          not detected
+           T3  0.0679 0.0375         39     7   0.0335    142 descriptive  0.1877 difference (p < 0.05)
+rms 0.1-10 Hz  0.1025 0.3092         39     7   0.1078    142 descriptive  0.9276          not detected
+PRIMARY v9a NICER all-state LOSO | hard-like H_N+T_N-LR - H_N-LR: +0.112 [-0.004,+0.229] -> not detected
+PRIMARY v9b log10 nu_c: D = -0.310, p = 0.1360 -> not detected
+total 35 s
