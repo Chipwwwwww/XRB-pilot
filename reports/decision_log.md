@@ -203,3 +203,9 @@
 | 時間 | 決定 / 變更 | 是否在看過結果之後 |
 |---|---|---|
 | 收尾（約 07:10） | 依使用者「直到值得做收尾就直接把他收尾掉」：v13 合併（PR #11，f416b73）後不再開新的分析版本。新增 `reports/final_summary_zh-TW.md`（v1–v13 整合：問題、資料、結果時間線、三層結論、限制、若要繼續、重現方式）、`scripts/64_final_summary_figure.py` → `figures/final/summary_across_versions.png`，以及 `results/final_timing_gain_across_versions.csv`、`results/final_nuc_difference_across_versions.csv`（全部從各版結果檔讀取）。README 與 `final_report_zh-TW.md` 開頭新增最終總結連結（只有插入，既有數字未改）。沒有新的統計檢定 | 是（彙整已完成的結果） |
+
+## 英文技術報告（report_en；2026-10-07，不是新的分析版本）
+
+| 時間 | 決定 / 變更 | 是否在看過結果之後 |
+|---|---|---|
+| 2026-10-07 22:40 +08:00 | 依使用者要求，把 v1–v14 整理成給指導教授的英文 LaTeX 技術報告（`report_en/`）。只讀取既有報告、程式與已提交的 `.npz`／`.csv`，**不重跑任何分析、不下載原始資料**。動筆前先提交大綱、圖表對照與方法清單（`report_en/PLAN_for_review.md`）等使用者確認。已發現的報告文字與 CSV／程式不一致列在該檔 §5，正文中以 `% CHECK:` 標出，以 CSV／程式為準。本機沒有 LaTeX，依使用者指示在 `~/texlive/2026` 安裝 TeX Live（scheme-small，使用者目錄，不需管理員權限） | 是（整理已完成的結果；不改任何數字） |
