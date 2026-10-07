@@ -1,1 +1,385 @@
-% stub 05_evaluation
+% =====================================================================================================
+\chapter{Evaluation and statistical inference}\label{ch:evaluation}
+% =====================================================================================================
+
+This chapter defines how every number in the result tables is produced: the cross-validation scheme, the source-level
+decision, the metrics, the source bootstrap and its paired differences, the permutation tests, conformal prediction,
+the observation-budget curves and the protocol of the frozen (prospective) tests. \Cref{tab:procedures} is a summary.
+
+\begin{table}[htbp]
+\centering\small
+\caption[Summary of inferential procedures]{Summary of the inferential procedures. ``Unit'' is what is resampled or
+permuted; all procedures keep the out-of-fold scores or the features fixed (no refitting inside the resampling).}
+\label{tab:procedures}
+\begin{tabularx}{\textwidth}{@{}p{3.6cm}p{3.3cm}p{2.2cm}X@{}}
+\toprule
+Procedure & Statistic & Unit, size & Decision rule / code \\
+\midrule
+Class-stratified source bootstrap & BA, AUC (source, observation), Brier, log loss & sources within class; 2000, seed 42 & 95\% percentile CI; paired difference ``detected'' iff its CI excludes 0 (\code{v4lib.paired\_bootstrap}) \\
+State-stratified bootstrap & observation AUC within a state & sources of the whole sample; 2000 & as above (\code{v8lib.strat\_boot}) \\
+Pooled bootstrap (v10a) & equal-weight mean of component AUC gains & union of sources; 2000 & as above (\code{v10lib.pooled\_boot}) \\
+Colour-conditional permutation & $D$ = BH $-$ NS mean residual & source labels; 20\,000, seed 42 & two-sided $p<0.05$; Holm across features (\code{v6lib.perm\_test}, \code{holm}) \\
+Pooled permutation (v10b) & mean of instrument $D$ & labels within membership strata; 20\,000 & $p<0.05$ (\code{v10lib.pooled\_perm}) \\
+Mondrian conformal (v6e) & per-class $p$-values & calibration sources & set $=\{y:p_y>\varepsilon\}$, $\varepsilon\in\{0.1,0.2\}$ (\code{v6lib.conformal\_*}) \\
+Observation budget (v6f) & source BA/AUC with $k$ obs/source & observations within source; 500 draws & median and 2.5--97.5\% (\code{v6lib.budget\_curves}) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Leave-one-source-out cross-validation}\label{sec:loso}
+% -----------------------------------------------------------------------------------------------------
+
+Folds are produced by \code{LeaveOneGroupOut} on $\gv$; fold $k$ (in the sorted order of the source names) holds out all
+observations of source $k$. The OOF score of observation $i$ is
+\begin{equation}
+\hat s_i = s\bigl(\xv_i;\ \hat\theta^{(-g_i)}\bigr),\qquad \hat\theta^{(-k)} = \mathrm{Fit}\bigl(\{(\xv_j,y_j,g_j): g_j\ne k\}\bigr), \label{eq:oof}
+\end{equation}
+where $\mathrm{Fit}$ includes every learned step of \cref{alg:buildX}. Each script asserts per fold: exactly one test
+source, disjoint training and test sources, and both classes in training (\cref{sec:leakagecontrols}).
+
+\begin{algorithm}[htbp]
+\caption{Leave-one-source-out OOF scores (\code{v3lib.run\_loso}, \code{v4lib.loso\_scores})}\label{alg:loso}
+\begin{algorithmic}[1]
+\Require $(\Xm,\yv,\gv)$, model constructor $\mathcal M$, weighting option
+\For{each source $k$ (sorted)}
+   \State $\mathcal V\gets\{i: g_i=k\}$, $\mathcal T\gets\{i:g_i\ne k\}$; assert $|\{g_i:i\in\mathcal V\}|=1$, both classes in $\mathcal T$
+   \State fill missing values with $\mathcal T$-medians + indicator (\cref{eq:fillmissing}) if needed
+   \State $\wv\gets$ balanced or source-equal weights from $(\yv_\mathcal T,\gv_\mathcal T)$
+   \State $m\gets\mathcal M.\mathrm{fit}(\Xm_\mathcal T,\yv_\mathcal T,\wv)$; $\hat s_i\gets m.\mathrm{score}(\xv_i)$ for $i\in\mathcal V$
+\EndFor
+\State \Return $\shat$ and the source scores $\bar s_k$ (\cref{eq:sourcescore})
+\end{algorithmic}
+\end{algorithm}
+
+\paragraph{Leaky observation-wise split (diagnostic only).} To show the size of the leak, v1 and v2 also ran a
+stratified 5-fold split over observations (\code{StratifiedKFold(5, shuffle=True, random\_state=42)}), in which a
+source appears in both training and test folds. It is never used for any conclusion other than the size of the
+optimism (\cref{fig:leakage}).
+
+% -----------------------------------------------------------------------------------------------------
+\section{Source-level aggregation and thresholds}\label{sec:threshold}
+% -----------------------------------------------------------------------------------------------------
+
+The source score $\bar s_k$ is the mean of the OOF scores of its observations (\cref{eq:sourcescore}); the decision uses
+$t=0.5$. In the nested procedures of v4a a threshold is chosen inside the training sources by maximising the inner
+source balanced accuracy (\code{v4lib.choose\_threshold}). With $u_1<\dots<u_q$ the distinct inner source scores and
+candidates $\mathcal C = \{u_1-10^{-9}\}\cup\{(u_r+u_{r+1})/2\}_{r=1}^{q-1}\cup\{u_q+10^{-9}\}$:
+\begin{equation}
+t^\ast = \argmin_{t\in\mathcal C^\ast}|t-0.5|,\qquad \mathcal C^\ast = \Bigl\{t\in\mathcal C:\ \BA_\mathrm{src}(t) = \max_{t'\in\mathcal C}\BA_\mathrm{src}(t')\Bigr\}, \label{eq:choosethreshold}
+\end{equation}
+i.e.\ ties are broken towards 0.5 (unit tests: separable scores $(0.1,0.2,0.6,0.7)$ give $t=0.4$). The outer scores are
+stored as $\hat s_i = \hat s^{\mathrm{raw}}_i - t^\ast_k + 0.5$ so that the common rule $\hat s\ge0.5$ applies; the
+outer \emph{source AUC} of a nested procedure is computed on these shifted scores, an approximation because different
+folds may use different models (stated in the v4 pre-registration).
+
+% -----------------------------------------------------------------------------------------------------
+\section{Metrics}\label{sec:metrics}
+% -----------------------------------------------------------------------------------------------------
+
+\paragraph{Balanced accuracy.} With BH recall (sensitivity) and NS recall (specificity),
+\begin{equation}
+\BA = \tfrac12\bigl(\mathrm{TPR}+\mathrm{TNR}\bigr). \label{eq:ba}
+\end{equation}
+\emph{Source level}: computed on $(\hat Y_k, Y_k)$ over sources; with 7 BH and 24 NS sources, ``$k$ of 31 correct'' is
+misleading (all-NS gives 24/31) and BA is the headline. \emph{Observation level}: over observations; inside the bootstrap
+it is computed from per-source counts $c_k$ (correct observations) and $n_k$ as
+$\BA_\mathrm{obs}=\tfrac12\bigl(\sum_{k\in\mathrm{BH}}c_k/\sum_{k\in\mathrm{BH}}n_k + \sum_{k\in\mathrm{NS}}c_k/\sum_{k\in\mathrm{NS}}n_k\bigr)$,
+which is the pooled recall of the resampled multiset of sources.
+
+\paragraph{ROC AUC (Mann--Whitney form, ties counted one half).} For positive scores $\{a_r\}_{r=1}^{n_1}$ and negative
+scores $\{b_q\}_{q=1}^{n_0}$,
+\begin{equation}
+\AUC = \frac{1}{n_1n_0}\sum_{r=1}^{n_1}\sum_{q=1}^{n_0}\Bigl[\indic{a_r>b_q}+\tfrac12\indic{a_r=b_q}\Bigr]. \label{eq:auc}
+\end{equation}
+\emph{Source AUC} uses $a=\{\bar s_k\}_{k\in\mathrm{BH}}$, $b=\{\bar s_k\}_{k\in\mathrm{NS}}$: the probability that a random BH
+source scores above a random NS source; it does not depend on the threshold. \emph{Observation AUC} (used inside states)
+uses all observations. With observation weights $w$ (\code{v7lib.auc\_ba}), $\AUC_w=\sum_{r,q}w_rw_q[\indic{a_r>b_q}+
+\frac12\indic{a_r=b_q}]/(\sum_rw_r\sum_qw_q)$; the reported state-stratified AUCs are unweighted.
+
+\paragraph{Proper scores (v6g).} Source-level, class-balanced, with the source score clipped to $[0.01,0.99]$
+(\code{v6lib.proper\_score\_bootstrap}):
+\begin{equation}
+\mathrm{LL} = \frac12\Bigl[\frac{1}{S_1}\sum_{k\in\mathrm{BH}}-\log\tilde s_k + \frac{1}{S_0}\sum_{k\in\mathrm{NS}}-\log(1-\tilde s_k)\Bigr],\qquad
+\mathrm{Brier} = \frac12\Bigl[\frac{1}{S_1}\sum_{k\in\mathrm{BH}}(1-\tilde s_k)^2+\frac{1}{S_0}\sum_{k\in\mathrm{NS}}\tilde s_k^2\Bigr],\label{eq:proper}
+\end{equation}
+lower is better. Unlike AUC they cannot saturate at a perfect ranking, which matters in v6a.
+
+% -----------------------------------------------------------------------------------------------------
+\section{Nested leave-one-source-out selection}\label{sec:nested}
+% -----------------------------------------------------------------------------------------------------
+
+When a hyper-parameter, a representation, an algorithm or a threshold is chosen, the choice is made inside each outer
+training set by an inner LOSO over its sources (\cref{fig:nested}). The outer test source never takes part.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\scriptsize, x=1cm, y=1cm]
+  \def\n{8}
+  % outer row
+  \foreach \i in {1,...,\n} {\filldraw[fill=boxgrey, draw=inkgrey] (\i*0.9,0) rectangle +(0.8,0.6);}
+  \filldraw[fill=yellow!35, draw=red!70!black] (5*0.9,0) rectangle +(0.8,0.6);
+  \node[anchor=east] at (0.8,0.3) {outer fold $k$:};
+  \node[red!70!black] at (5*0.9+0.4,0.95) {test source $k$};
+  \draw[decorate,decoration={brace,amplitude=4pt,mirror},thick] (0.9,-0.1) -- (4.4,-0.1);
+  \draw[decorate,decoration={brace,amplitude=4pt,mirror},thick] (5.4,-0.1) -- (8*0.9+0.8,-0.1);
+  \node at (4.4,-0.65) {outer training sources $\mathcal S\setminus\{k\}$ (30 in v4a)};
+  % inner loop
+  \foreach \j in {1,...,4} {
+     \foreach \i in {1,...,7} {\filldraw[fill=white, draw=inkgrey!70] (\i*0.9+0.45,-1.2-\j*0.55) rectangle +(0.8,0.42);}
+     \filldraw[fill=yellow!20, draw=inkgrey!70] (\j*0.9+0.45,-1.2-\j*0.55) rectangle +(0.8,0.42);
+  }
+  \node[anchor=east] at (1.25,-1.95) {inner fold 1}; \node[anchor=east] at (1.25,-3.6) {inner fold 4 \dots};
+  \node[draw=tagprim, fill=tagprim!6, rounded corners, align=left, text width=5.2cm, anchor=west] (sel) at (8.2,-2.5)
+   {for every candidate $c$ (algorithm $\times$ representation $\times$ grid): inner OOF scores on the 30 training sources
+   $\Rightarrow$ inner source AUC$_c$, inner source BA$_c$, inner threshold $t_c$ (\cref{eq:choosethreshold})};
+  \node[draw=tagprim, fill=tagprim!6, rounded corners, align=left, text width=5.2cm, anchor=west] (pick) at (8.2,-4.6)
+   {select $c^\ast$: max inner AUC; ties: inner BA, then algorithm, representation, grid order};
+  \node[draw=red!70!black, fill=yellow!15, rounded corners, align=left, text width=5.2cm, anchor=west] (out) at (8.2,-6.4)
+   {refit $c^\ast$ on all 30 training sources (500 trees for forests) and score test source $k$; store $\hat s-t^\ast+0.5$};
+  \draw[-{Stealth},thick,inkgrey] (7.9,-2.5) -- (sel.west);
+  \draw[-{Stealth},thick,inkgrey] (sel) -- (pick); \draw[-{Stealth},thick,inkgrey] (pick) -- (out);
+  \draw[-{Stealth},thick,red!70!black] (5*0.9+0.4,0) .. controls (5.5,-5.5) .. (out.west);
+\end{tikzpicture}
+\caption[Nested leave-one-source-out]{Nested LOSO as used in v4a (1d per algorithm and representation; 1e over all 140
+configurations). For each outer fold, every candidate configuration is evaluated by an inner LOSO over the outer
+training sources only; the winner and its inner-optimal threshold are refitted on the outer training sources and applied
+once to the held-out source. The bias of ``choosing the best of many'' is therefore included in the outer estimate.
+Drawn for this report.}
+\label{fig:nested}
+\end{figure}
+
+\begin{algorithm}[htbp]
+\caption{Nested automatic selection, v4a 1e (\code{v4lib.nested\_fold}, \file{16\_v4a\_algorithms.py})}\label{alg:nested}
+\begin{algorithmic}[1]
+\Require outer folds; representations $\mathcal R=$ (H, HI, B, A); algorithms $\mathcal A$ (8) with grids \code{V4\_GRID} (35 settings)
+\For{each outer fold $k$ with training rows $\mathcal T$}
+   \For{each $(r,a)\in\mathcal R\times\mathcal A$ and grid entry $c$}
+      \State inner LOSO over the sources of $\mathcal T$ (stage ``inner'': 200 trees, MLP seeds $\{0,1,2\}$) $\to$ inner source means
+      \State $\AUC_{rac}\gets$ \cref{eq:auc}; $(t_{rac},\BA_{rac})\gets$ \cref{eq:choosethreshold}
+   \EndFor
+   \State per $(r,a)$: $c^\ast(r,a)\gets\argmax$ (AUC, BA, $-$grid index); refit (stage ``outer'': 500 trees, seeds $\{0..4\}$) and score fold $k$ \Comment{1d}
+   \State $(r,a)^\ast\gets\argmax$ (AUC, BA, $-$algorithm order, $-$representation order, $-$grid index) \Comment{1e}
+   \State store $\hat s_i-t^\ast+0.5$ for $i$ in fold $k$
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\paragraph{Other nested selections.} In v7c2 (MAXI) the kNN $k$ was selected by inner LOSO source AUC; the SVM $(C,\gamma)$
+by inner \code{GroupKFold(5)} source AUC (a pre-run deviation for computing time; \cref{ch:phase4}); the first
+configuration with strictly larger AUC wins (\code{v7lib.c2\_outer}). Every other model in the project uses fixed
+hyper-parameters, so no other selection exists.
+
+% -----------------------------------------------------------------------------------------------------
+\section{Source bootstrap}\label{sec:bootstrap}
+% -----------------------------------------------------------------------------------------------------
+
+The unit of generalisation is the source, so uncertainty is estimated by resampling sources, stratified by class, while
+keeping the OOF scores fixed (\cref{fig:bootstrap}). The draws are identical in every version: BH and NS source names are
+sorted, \code{rng = numpy.random.default\_rng(42)}, and draw $b$ is
+$\mathcal D^{(b)} = (\mathrm{rng.choice}(\mathcal S_\mathrm{BH}, S_1),\ \mathrm{rng.choice}(\mathcal S_\mathrm{NS},S_0))$, with
+replacement, $b=1,\dots,2000$ (\file{09\_bootstrap\_sources.py}, \code{v3lib.bootstrap}, \code{v4lib.paired\_bootstrap},
+\code{v7lib.boot\_draws}). Every metric $M$ is recomputed on the multiset $\mathcal D^{(b)}$ (a source drawn twice
+counts twice); for AUC this means \cref{eq:auc} over the drawn BH and NS source scores. The 95\% interval is the percentile
+interval
+\begin{equation}
+\mathrm{CI}_{95}(M) = \bigl[Q_{0.025}\{M^{(b)}\},\ Q_{0.975}\{M^{(b)}\}\bigr].\label{eq:percentile}
+\end{equation}
+\textbf{Paired differences.} Two models evaluated on the same sources use the same draws:
+$\Delta^{(b)} = M_A^{(b)}-M_B^{(b)}$, point estimate $M_A-M_B$ on the original sample, CI by \cref{eq:percentile} on
+$\{\Delta^{(b)}\}$, and \code{frac\_first\_better} $=\frac{1}{2000}\sum_b\indic{\Delta^{(b)}>0}$.
+\begin{keybox}{Decision rule used throughout (pre-registered from v4 on)}
+A difference is called \textbf{detected} only if its 95\% bootstrap CI excludes 0. Otherwise it is
+\textbf{not detected under the pre-registered criterion} -- never ``no difference'', and an interval touching 0 (e.g.\
+$[0.000, +0.179]$) is \emph{not} detected. Each metric is judged separately; source BA and source AUC are the headline metrics.
+\end{keybox}
+\textbf{What the interval does and does not contain.} Models are not refitted inside the bootstrap, so the interval
+reflects which sources happen to be in the sample, not the variability of model fitting or model selection. Because
+sources of one class are treated as exchangeable, very heterogeneous NS sub-classes (Z sources, atolls, AMXPs) or unusual
+BHs (GRS 1915+105) can make the interval optimistic. With 7 BH sources the BH side of every interval is coarse: a single
+BH source changes the source BA by $1/(2\cdot7)\approx0.07$, which is why many intervals have endpoints exactly at 0.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\scriptsize, x=1cm,y=1cm]
+  \node[anchor=west] at (0,0.9) {original sample (OOF scores fixed)};
+  \foreach \i/\c in {1/bhblue,2/bhblue,3/bhblue} {\fill[\c] (\i*0.55,0) circle (0.2); \node[white,font=\tiny] at (\i*0.55,0) {B\i};}
+  \foreach \i in {1,...,6} {\fill[nsorange] (2.0+\i*0.55,0) circle (0.2); \node[white,font=\tiny] at (2.0+\i*0.55,0) {N\i};}
+  \foreach \b/\ys/\bh/\ns in {1/-1.3/{1,1,3}/{2,2,4,5,6,6}, 2/-2.2/{2,3,3}/{1,1,3,4,4,5}, 3/-3.1/{1,2,2}/{1,2,3,5,6,6}} {
+     \node[anchor=east] at (0.25,\ys) {draw $b=\b$};
+     \foreach \x [count=\j] in \bh {\fill[bhblue] (\j*0.55,\ys) circle (0.2); \node[white,font=\tiny] at (\j*0.55,\ys) {B\x};}
+     \foreach \x [count=\j] in \ns {\fill[nsorange] (2.0+\j*0.55,\ys) circle (0.2); \node[white,font=\tiny] at (2.0+\j*0.55,\ys) {N\x};}
+     \node[anchor=west] at (5.8,\ys) {$M_A^{(\b)},\ M_B^{(\b)}\ \Rightarrow\ \Delta^{(\b)}=M_A^{(\b)}-M_B^{(\b)}$};
+  }
+  \node[anchor=west] at (0.1,-3.8) {$\vdots$ \quad 2000 draws, BH and NS resampled separately, with replacement, seed 42};
+  \draw[-{Stealth},thick,inkgrey] (10.6,-3.4) -- (10.6,-4.4);
+  \node[draw=tagprim, fill=tagprim!6, rounded corners, align=center, text width=7cm] at (8.0,-4.9)
+     {95\% CI $=[Q_{2.5\%},Q_{97.5\%}]$ of $\{\Delta^{(b)}\}$; \textbf{detected} iff the CI excludes 0};
+\end{tikzpicture}
+\caption[Class-stratified source bootstrap]{Class-stratified source bootstrap with paired differences. Each draw
+resamples the BH sources and the NS sources separately, with replacement and with all observations of a drawn source;
+both models are evaluated on the same drawn multiset, so the difference $\Delta^{(b)}$ is paired. No model is refitted.
+Drawn for this report.}
+\label{fig:bootstrap}
+\end{figure}
+
+\paragraph{State-stratified variant (v7a, v8, v9a, v10a, v11a, v12b, v13a).} For observation-level metrics inside a state
+(soft-like, hard-like, \dots), sources are drawn from the whole sample (so the draws are the same as above), and the metric
+is computed on the drawn sources' observations that belong to the state (\code{v8lib.strat\_boot}). If a draw contains no
+BH or no NS observation in the state, the metric is NaN and is ignored in the percentiles (the number of valid draws is
+reported). Differences between strata (``soft $-$ hard'') and between models are paired by draw.
+
+\paragraph{Pooled variant (v10a).} Sources of RXTE and NICER are mapped to one canonical name if they lie within
+0.1$^\circ$ (\code{v10lib.canonical\_map}); draws are taken over the union of sources; in each draw each component
+(RXTE v2, RXTE external, NICER) computes its own state-stratified AUC gain on its drawn sources, and the pooled statistic is
+the equal-weight mean; draws in which any component is undefined are dropped (\code{v10lib.pooled\_boot}). A source
+present in two instruments is therefore always drawn (or not) in both.
+
+% -----------------------------------------------------------------------------------------------------
+\section{Colour-conditional source permutation tests}\label{sec:permutation}
+% -----------------------------------------------------------------------------------------------------
+
+\textbf{Question.} At matched colour, does a timing feature $F$ (e.g.\ $\log_{10}\nu_c$) differ between BH and NS sources?
+\textbf{Statistic.} With the source mean residuals $\bar r_k$ of the label-free kNN regression (\cref{eq:knnreg}):
+\begin{equation}
+D = \frac{1}{S_1}\sum_{k\in\mathcal S_\mathrm{BH}}\bar r_k - \frac{1}{S_0}\sum_{k\in\mathcal S_\mathrm{NS}}\bar r_k .\label{eq:D}
+\end{equation}
+\textbf{Null distribution.} Under $H_0$ (given colour, $F$ does not depend on the class) the source labels are exchangeable:
+$\Pi=20\,000$ random relabellings keeping the number of BH sources fixed (\code{v6lib.perm\_test}, seed 42), giving
+$D^{\ast(1)},\dots,D^{\ast(\Pi)}$, and the two-sided $p$-value
+\begin{equation}
+p = \frac{1+\#\{\pi:\ |D^{\ast(\pi)}|\ge|D|-10^{-15}\}}{1+\Pi}. \label{eq:permp}
+\end{equation}
+The source, not the observation, is permuted, so within-source correlation is respected. When several features are tested
+together (v6d: $T_1^\ast,T_2^\ast,T_3^\ast,\log_{10}\nu_c$), Holm's step-down adjustment is reported: for ordered
+$p_{(1)}\le\dots\le p_{(m)}$, $\tilde p_{(r)}=\max_{q\le r}\min\{1,(m-q+1)p_{(q)}\}$ (\code{v6lib.holm}). Decision: $p<0.05$
+(primary features); synthetic calibration: under $H_0$ the fraction of $p<0.05$ was 0.033 over 60 data sets
+(\file{logs/v6/test\_v6lib.log}).
+
+\begin{algorithm}[htbp]
+\caption{Colour-conditional source permutation test}\label{alg:perm}
+\begin{algorithmic}[1]
+\Require observation colours $\vect H$, feature $F$, sources $\gv$, source labels $Y_k$; $K=25$, $\Pi=20000$
+\State $\bar r_k\gets$ \cref{alg:knnreg}; keep sources with a finite $\bar r_k$; $D\gets$ \cref{eq:D}
+\State rng $\gets$ \code{default\_rng(42)}
+\For{$\pi=1,\dots,\Pi$} \State assign BH to a random subset of $S_1$ sources; $D^{\ast(\pi)}\gets$ \cref{eq:D} \EndFor
+\State \Return $D$ and $p$ by \cref{eq:permp}
+\end{algorithmic}
+\end{algorithm}
+
+\paragraph{Pooled permutation across instruments (v10b, also v12a pooled).} Each instrument $\iota$ has its own residuals
+and $D_\iota$; the statistic is $D=\frac{1}{|I|}\sum_\iota D_\iota$. A source keeps one label in all instruments. The
+pre-registered null permuted labels over the union of sources; a synthetic test before any v10b statistic showed that
+sources present in only one instrument then absorb BH labels and widen the null, so labels are permuted \emph{within
+strata of instrument membership} (RXTE only, NICER only, both), keeping the number of BH per stratum fixed
+(\code{v10lib.pooled\_perm}). In synthetic data this gave a fraction 0.065 of $p<0.05$ under the null (200 data sets) and
+power 0.98 at a $-1.5$\,SD BH shift (\file{logs/v10/test\_v10lib.csv}).
+
+% -----------------------------------------------------------------------------------------------------
+\section{Source-level conformal prediction (v6e)}\label{sec:conformal}
+% -----------------------------------------------------------------------------------------------------
+
+A conformal predictor returns, for a new source, a set of labels -- $\{\mathrm{BH}\}$, $\{\mathrm{NS}\}$, $\{\mathrm{BH},
+\mathrm{NS}\}$ (``cannot tell'') or $\{\}$ -- with a finite-sample coverage guarantee under exchangeability. The
+class-conditional (Mondrian) version guarantees coverage within each class separately, which matters with 7 BHs.
+\textbf{Nonconformity} of a calibration source with score $\bar s$: $\alpha=1-\bar s$ if BH, $\alpha=\bar s$ if NS.
+For a test source with score $s$ and calibration sources of class $y$ ($n_y$ of them),
+\begin{equation}
+p_\mathrm{BH}(s) = \frac{1+\#\{k\in\mathrm{cal}_\mathrm{BH}: 1-\bar s_k\ge 1-s\}}{1+n_\mathrm{BH}},\qquad
+p_\mathrm{NS}(s) = \frac{1+\#\{k\in\mathrm{cal}_\mathrm{NS}: \bar s_k\ge s\}}{1+n_\mathrm{NS}},\qquad
+\Gamma_\varepsilon(s)=\{y: p_y(s)>\varepsilon\},\label{eq:conformal}
+\end{equation}
+(\code{v6lib.conformal\_sets}). If the test source is exchangeable with the calibration sources of its class,
+$\Pr(Y\in\Gamma_\varepsilon)\ge1-\varepsilon$ for that class. \textbf{LOSO version} (S1): each source is the test point and
+the other sources' OOF scores are the calibration set (\code{conformal\_loso}). \textbf{Split version} (external set E):
+the calibration set is the S1 LOSO OOF source scores of the same (H$_R$) model and the test points are the frozen-model
+scores of the external sources. Reported: per-class coverage, mean set size, number of correct singletons and of
+ambiguous sets, at $\varepsilon\in\{0.1,0.2\}$.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\scriptsize,x=11cm,y=1cm]
+  \draw[->,thick,inkgrey] (0,0) -- (1.03,0) node[right] {source score $s$};
+  \foreach \x in {0,0.25,0.5,0.75,1} {\draw (\x,0.07)--(\x,-0.07) node[below] {\x};}
+  \foreach \x in {0.55,0.62,0.71,0.8,0.86,0.91,0.95} {\fill[bhblue] (\x,0.45) circle (2.2pt);}
+  \foreach \x in {0.05,0.08,0.12,0.15,0.2,0.22,0.26,0.3,0.33,0.38,0.41,0.47,0.58} {\fill[nsorange] (\x,0.85) circle (2.2pt);}
+  \node[anchor=east,bhblue] at (0,0.45) {BH calibration};
+  \node[anchor=east,nsorange] at (0,0.85) {NS calibration};
+  \draw[dashed,red!70!black,thick] (0.52,-0.3) -- (0.52,1.25) node[above] {test source $s=0.52$};
+  \node[align=left,anchor=north west, text width=10.5cm] at (0,-0.6) {
+   $p_\mathrm{BH}=\frac{1+\#\{\text{BH with }\bar s_k\le0.52\}}{1+7}=\frac{1}{8}=0.125$,\quad
+   $p_\mathrm{NS}=\frac{1+\#\{\text{NS with }\bar s_k\ge0.52\}}{1+13}=\frac{2}{14}=0.143$.\\[2pt]
+   $\varepsilon=0.1$: both $p>0.1$ $\Rightarrow$ $\Gamma=\{\mathrm{BH},\mathrm{NS}\}$ (cannot tell);\quad
+   $\varepsilon=0.2$: neither $p>0.2$ $\Rightarrow$ $\Gamma=\{\}$.\\[2pt]
+   A test source at $s=0.9$ would give $p_\mathrm{BH}=6/8$, $p_\mathrm{NS}=1/14$ $\Rightarrow$ $\Gamma=\{\mathrm{BH}\}$ for both $\varepsilon$.};
+\end{tikzpicture}
+\caption[Source-level Mondrian conformal sets]{Illustration (made-up calibration scores) of the class-conditional
+conformal $p$-values of \cref{eq:conformal}. A test source is compared with the calibration sources of each class
+separately; a label enters the prediction set if the test source is not too atypical for that class. Drawn for this report.}
+\label{fig:conformal}
+\end{figure}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Observation-budget curves (v6f)}\label{sec:budget}
+% -----------------------------------------------------------------------------------------------------
+
+How many pointings does a new source need? For $k\in\{1,2,3,5,8,13,21\}$ and 500 draws (seed 42), each source's score is
+the mean OOF score of $\min(k,n_s)$ of its observations drawn without replacement; source BA (threshold 0.5) and source
+AUC (rank form of \cref{eq:auc}) are computed for each draw and summarised by the median and the 2.5--97.5\% range
+(\code{v6lib.budget\_curves}; S3 OOF scores, so a source has up to 1329 observations to draw from).
+
+% -----------------------------------------------------------------------------------------------------
+\section{Agreement, bridging and reliability statistics}\label{sec:agreement}
+% -----------------------------------------------------------------------------------------------------
+\begin{itemize}
+\item \textbf{Agreement} between two models (v3a, v4): Spearman correlation of their OOF scores over common observations,
+and the fraction of identical observation-level predictions (\code{v3lib.agreement}, \code{v4lib.agreement\_vs}).
+\item \textbf{Bridge check} (v4b2): H$_R$ may replace H only if, on the v2 sample, H$_R$-LR and H-LR have paired source-BA and
+source-AUC intervals containing 0 and OOF scores with Spearman $\ge0.90$.
+\item \textbf{Split-half reliability} (v6, v8c, v10c): the feature is computed separately from odd and even rows/segments;
+the Spearman correlation $\rho_{1/2}$ between halves is stepped up to the full length with Spearman--Brown,
+$\rho_\mathrm{full}=2\rho_{1/2}/(1+\rho_{1/2})$.
+\end{itemize}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Frozen and prospective protocol}\label{sec:frozen}
+% -----------------------------------------------------------------------------------------------------
+
+Several tests were designed so that nothing about the model could adapt to the test data. \Cref{tab:frozen} lists what
+was frozen and when. Two levels of independence must be distinguished: \emph{source-level} independence (the test
+sources were never used in training: v6a, v8b, v11d) and \emph{observation-level} independence (new observations of
+sources already used: v11, v13). Only the second was achievable for NICER BHs, because every dynamically confirmed BH with
+usable RXTE or NICER timing data had already been used.
+
+\begin{table}[htbp]
+\centering\small
+\caption[What was frozen in the frozen and prospective tests]{What was frozen in the frozen and prospective tests, and when.
+``Out-of-source'' = each source's new observations are scored by the model fitted without that source.}
+\label{tab:frozen}
+\begin{tabularx}{\textwidth}{@{}p{1.3cm}XXp{3.3cm}@{}}
+\toprule
+Test & Frozen before the test data were read & Model application & Record \\
+\midrule
+v6a & H$_R$-LR, H$_R$+T-LR, CCTLR(H$_R$) fitted once on S1; imputation medians from S1 & all external sources scored by the same S1 models & pre-reg.\ v6; models refitted deterministically in v8b (IC2: max diff $1.1\times10^{-16}$) \\
+v8b & the v6 models; v7a state rule & external set X (incl.\ GS 1354$-$64, SS 433) & pre-reg.\ v8 (\texttt{a481fa0}) \\
+v11 & NICER feature pipeline (\code{v9lib.obs\_features}), state thresholds, models fitted on the v10 NICER full data, $\nu^\ast=1.3007$\,Hz & out-of-source for the 60 v9 sources; all-data model for never-used sources & pre-reg.\ \texttt{6fea016}; $\nu^\ast$ \texttt{58ded89} \\
+v13 & v12 pipeline incl.\ 3C50 correction and screening (\cref{eq:3c50}), RF selected as primary, models fitted on the 534 v12 observations, $\nu^\ast=1.3361$\,Hz & out-of-source & pre-reg.\ \texttt{42fe1d2} (with $\nu^\ast$) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Implementation checks and multiple comparisons}\label{sec:ic}
+% -----------------------------------------------------------------------------------------------------
+
+From v4 on, every version defined \emph{implementation checks} (IC) that had to pass before any result was looked at:
+reproduction of earlier OOF predictions to $\le10^{-8}$--$10^{-15}$, synthetic signals recovered by the timing estimators
+within 10\%, pure-Poisson data giving $|z|<3$, sanity checks with known sources (XTE J1118+480 hard-like, Z sources
+soft-like), and agreement with independent tools (XSPEC). A failed IC stops the sub-analysis or downgrades it to
+exploratory (v8c). Unit tests are in \file{scripts/test\_v4lib.py}--\file{test\_v11lib.py}.
+
+\textbf{Multiplicity.} Each sub-analysis declares one primary comparison; all others are descriptive and are not used to
+claim a difference. No family-wise correction is applied across descriptive comparisons; where many are made (v4a: 76
+combinations $\times$ 3 metrics $=228$ intervals; v5: 45), the report states how many intervals would exclude 0 by chance
+($\approx2.5\%$ one-sided per interval, but strongly correlated) and draws no conclusion from them. Within a permutation
+family (v6d) Holm adjustment is reported.

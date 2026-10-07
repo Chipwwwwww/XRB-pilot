@@ -1,1 +1,320 @@
-% stub 03_data_model
+% =====================================================================================================
+\chapter{Data model and machine-learning interface}\label{ch:datamodel}
+% =====================================================================================================
+
+This chapter fixes the objects that every analysis passes to a model, so that each analysis in the phase chapters can be
+re-implemented from its array table alone. The per-version tables (actual $n\times p$, column meanings, source files)
+are given in each phase chapter under ``Data structure in this phase''; this chapter defines the common notation, the
+generic recipe, the catalogue of stored arrays, and the leakage controls.
+
+% -----------------------------------------------------------------------------------------------------
+\section{Notation}\label{sec:dm-notation}
+% -----------------------------------------------------------------------------------------------------
+
+An analysis uses $n$ observations of $S$ sources.
+\begin{itemize}
+\item $\Xm\in\R^{n\times p}$: \textbf{design matrix}; row $i$ is one observation (one RXTE ObsID, one NICER ObsID, or one
+MAXI 1-day point), column $\ell$ one feature of \cref{ch:features}.
+\item $\yv\in\{0,1\}^n$: labels, $y_i=1$ for BH, inherited from the source ($y_i = Y_{g_i}$).
+\item $\gv\in\{1,\dots,S\}^n$: source (group) index of each row. $n_k = |\{i:g_i=k\}|$; $\mathcal{S}_\mathrm{BH}$ and
+$\mathcal{S}_\mathrm{NS}$ are the BH and NS source sets, $S_1=|\mathcal{S}_\mathrm{BH}|$, $S_0=|\mathcal{S}_\mathrm{NS}|$.
+\item $\vect{o}$: observation identifiers (\code{obs\_id}; \code{obsid} for NICER); all joins between tables are by this key.
+\item $\wv\in\R_{>0}^n$: sample weights used in a fit (class-balanced or source-equal; \cref{sec:weights}).
+\item $\phi:\{1,\dots,n\}\to\{1,\dots,S\}$: \textbf{fold assignment}; in leave-one-source-out (LOSO) $\phi(i)=g_i$, so fold
+$k$ tests exactly the observations of source $k$.
+\item $\shat\in[0,1]^n$: \textbf{out-of-fold (OOF) score}; $\hat s_i$ is produced by a model that was fitted without
+any observation of source $g_i$. Scores are model outputs on $[0,1]$ (``BH score''), not calibrated probabilities.
+\end{itemize}
+\textbf{Source-level score and decision.} For source $k$,
+\begin{equation}
+\bar s_k = \frac{1}{n_k}\sum_{i:\,g_i=k}\hat s_i,\qquad \hat Y_k = \indic{\bar s_k \ge t},\qquad t = 0.5, \label{eq:sourcescore}
+\end{equation}
+and the observation-level decision is $\hat y_i=\indic{\hat s_i\ge t}$. The threshold $t$ is fixed at 0.5 in every analysis
+except the nested procedures of v4a, where a fold-specific threshold $t_k$ is selected inside the training sources and the
+stored score is shifted to $\hat s_i = \hat s_i^{\mathrm{raw}} - t_k + 0.5$ so that the fixed 0.5 rule reproduces it
+(\cref{sec:threshold}). Observations of one source are never treated as independent evidence: there is no product of
+probabilities over observations.
+
+% -----------------------------------------------------------------------------------------------------
+\section{From files to matrices}\label{sec:dm-recipe}
+% -----------------------------------------------------------------------------------------------------
+
+\Cref{alg:buildX} is the generic recipe used by every analysis script. Two properties are essential: (i) every
+transformation that uses information from more than one observation (standardisation, imputation, residualisation,
+threshold choice) is computed \emph{inside} the training part of a fold; (ii) rows are matched by identifier, never by
+position, except where the code asserts that the orders are identical.
+
+\begin{algorithm}[htbp]
+\caption{Building $(\Xm,\yv,\gv)$ for one analysis (generic; concrete versions in the phase chapters)}\label{alg:buildX}
+\begin{algorithmic}[1]
+\Require spectral archive \file{data/<v>/processed/features.npz}; optional feature tables keyed by \code{obs\_id}
+\State load \code{rate}, \code{edges}, \code{F}, \code{pl2}, \code{y}, \code{source\_id}, \code{obs\_id} (one row per accepted observation)
+\State compute the per-observation representation(s) of \cref{sec:reps}: A, B, H, HI, R, H$_R$ \Comment{no cross-row information}
+\State optionally concatenate several samples (e.g.\ v2 + v4b2) by stacking rows; assert identical \code{edges}
+\State for timing / HEXTE / state columns: \code{table.reindex(obs\_id)}; non-finite $\to$ NaN
+\State $\Xm \gets$ column-stack of the chosen blocks; $\yv\gets$ \code{y}; $\gv\gets$ \code{source\_id}
+\State folds $\gets$ \code{LeaveOneGroupOut().split}$(\Xm,\yv,\gv)$; assert one test source per fold, disjoint sources, both classes in training
+\For{each fold $(\mathcal{T},\mathcal{V})$}
+   \State fill missing values with training medians + indicator (\cref{eq:fillmissing}), using $\Xm_\mathcal{T}$ only
+   \State fit the model (scaler inside the model, weights from $\yv_\mathcal{T},\gv_\mathcal{T}$) and score $\Xm_\mathcal{V}$
+\EndFor
+\State write the OOF table (\code{representation, model, fold, source\_id, obs\_id, true\_label, BH\_score, predicted\_label})
+\end{algorithmic}
+\end{algorithm}
+
+\subsection{Missing values}\label{sec:missing}
+Spectral features are never missing (observations failing the quality rules are not in the sample). Timing features can
+be missing (fewer than 3 valid rows, e.g.\ only one PCU on). For a block $\vect{T}\in(\R\cup\{\mathrm{NaN}\})^{n\times q}$
+and a fold with training rows $\mathcal T$ (\code{v5lib.fill\_missing}):
+\begin{equation}
+m_\ell = \median_{i\in\mathcal T,\ T_{i\ell}\ \mathrm{finite}} T_{i\ell}\ \ (0\ \text{if none}),\qquad
+\tilde T_{i\ell} = \begin{cases}T_{i\ell} & \text{finite}\\ m_\ell & \text{otherwise}\end{cases},\qquad
+\mu_i = \indic{\exists \ell:\ T_{i\ell}\ \text{non-finite}},\label{eq:fillmissing}
+\end{equation}
+and $[\tilde{\vect T},\vect\mu]$ (one indicator column) replaces $\vect T$ for both training and test rows. HEXTE colours
+use the same rule with one indicator per colour (\cref{sec:hexte}). The CCTLR classifier needs no imputation: its timing
+term is set to zero for a row with any missing timing value (\cref{sec:cctlr}). NICER features are never imputed;
+observations failing the NICER quality rules are excluded. For the frozen external tests (v6a, v8b), the medians are
+taken from the S1 training set and applied unchanged to the external rows.
+
+% -----------------------------------------------------------------------------------------------------
+\section{Catalogue of stored arrays}\label{sec:dm-catalogue}
+% -----------------------------------------------------------------------------------------------------
+
+\Cref{tab:arraycatalogue} lists every stored array from which a design matrix is built. Shapes and dtypes were read
+from the committed files with Python for this report.
+
+\begin{longtable}{@{}p{4.6cm}p{2.3cm}p{2.0cm}p{5.7cm}@{}}
+\caption[Catalogue of stored arrays]{Catalogue of stored arrays (committed files). Shapes are the actual shapes in the
+repository. ``c/s/keV/PCU'' = count\,s$^{-1}$\,keV$^{-1}$\,PCU$^{-1}$. Every \file{features.npz} has the same keys:
+\code{rate}, \code{err}, \code{srate}, \code{brate}, \code{pl2} ($n\times45$, float64, c/s/keV/PCU: net rate, its error,
+total rate, background rate, folded $\Gamma=2$ power law), \code{edges} (46, float64, keV), \code{obs\_id} ($n$, unicode),
+\code{source\_id} ($n$, unicode $=\gv$), \code{y} ($n$, int64 $=\yv$), \code{F} ($n$, float64, c/s/PCU).}\label{tab:arraycatalogue}\\
+\toprule
+File & key / columns & shape & content \\
+\midrule\endfirsthead
+\toprule File & key / columns & shape & content \\ \midrule\endhead
+\bottomrule\endfoot
+\file{data/processed/features.npz} & all keys & $120\times45$ & v1: 8 sources (4 BH), 60 BH rows \\
+\file{data/v2/processed/features.npz} & all keys & $456\times45$ & v2 = S1: 31 sources (7 BH), 105 BH rows \\
+\file{data/v3/processed/features\_3\_25.npz} & \code{rate}, \code{err}, \code{edges}, ids, \code{y} & $456\times50$ & v3b: 2.883--25.008\,keV grid \\
+\file{data/v3c/processed/features.npz} & all keys & $210\times45$ & 14 BH candidates (\code{y}=1, never used as label in evaluation) \\
+\file{data/v4b1/processed/features.npz} & all keys & $7949\times45$ & S3: every eligible epoch-5 pointing of the 31 sources (2369 BH rows) \\
+\file{data/v4b2/processed/features.npz} & all keys & $221\times45$ & 15 new sources (2 BH), all gain epochs \\
+\file{data/v6/processed/features.npz} & all keys & $180\times45$ & 12 external sources (2 BH; 4 are slow-pulsar stress sources) \\
+\file{data/v7b1/processed/features\_replaced.npz} & all keys & $435\times45$ & v2 with burst-contaminated observations replaced \\
+\file{data/v7b2/processed/features.npz} & all keys & $45\times45$ & Cyg X-1, LMC X-1, LMC X-3 \\
+\file{data/v8b/processed/features.npz} & all keys & $23\times45$ & GS 1354$-$64, SS 433 \\
+\file{data/v4b3/processed/hexte\_features.csv} & \code{X1}, \code{X2}, \code{status}, errors, S/N & 456 rows & HEXTE colours of the v2 observations \\
+\file{data/v5/processed/timing\_features.csv} & \code{T1,T2,T3,T\_total}, \code{status}, \code{in\_v2/v4b2/v4b1} & 8170 rows & v5 two-group estimator for S1 $\cup$ S2 $\cup$ S3 \\
+\file{data/v6/processed/timing\_v6.csv} & \code{T1s,T2s,T3s,Ts\_total}, \code{nu\_c}, \code{lb0..lb8}, split halves & 8350 rows & v6 all-pairs estimator and $\nu_c$ \\
+\file{data/v6/processed/timing\_v5\_new.csv} & as v5 & 180 rows & v5 estimator for the v6 sources \\
+\file{results/v7a/states.csv} & \code{rms}, \code{state}, \code{c1}, \code{c2} & 456 rows & v7a state of every S1 observation \\
+\file{data/v8b/processed/external\_states\_timing.csv} & \code{state}, \code{T1..T3}, \code{role} & 439 rows & state and timing of external set X (incl.\ stress sources) \\
+\file{data/v8c/processed/hf\_features.csv} & \code{LC}, \code{HF1..HF3}, \code{NULL}, \code{*\_var}, \code{*\_se}, \code{*\_z}, \code{status} & 311 rows & event-mode features (148 S1 rows pass QC) \\
+\file{data/v10/processed/rxte\_timing\_table.csv} & \code{c1R,c2R}, \code{state}, \code{nu\_c}, \code{T1s..T3s} & 895 rows & RXTE hard-state $\nu_c$ table for v10b \\
+\file{data/v7c/maxi\_points.csv} & \code{mjd}, \code{L,M,H} (+errors), \code{source}, \code{cls} & 132\,057 rows & MAXI daily points after cuts (BH, NPNS, PSR) \\
+\file{data/v8d/nh\_hi4pi.csv}; \file{tbabs\_transmission.csv} & \code{avwnh}; $t_L,t_M,t_H$ & 100; 201 rows & HI4PI $N_\mathrm{H}$; transmission table \\
+\file{data/v9/processed/nicer\_features.csv} & \code{c1,c2,T1..T3,STATE,nu\_c,lb0..lb12,rate\_2\_10,state} & 368 rows & v9 NICER (prefix) \\
+\file{data/v10/processed/nicer\_full\_features.csv} & as v9 + \code{bkg\_ratio\_12\_15}, split halves & 368 rows & v10 NICER (full files; 366 pass QC) \\
+\file{data/v11/processed/nicer\_new\_features.csv} & as v10 + \code{lb*\_se}, \code{group} & 318 rows & v11 never-used observations \\
+\file{data/v12/processed/bkg3c50.csv} & \code{T\_*}, \code{B\_*}, \code{f\_A,f\_B,f\_C,f\_T}, \code{status} & 503 rows & 3C50 band rates and fractions \\
+\file{data/v12/processed/nicer\_corrected\_screened.csv} & corrected \code{c1,c2,T1..T3,STATE}, \code{f\_used} & 534 rows & frozen v12 training set (used by v13) \\
+\file{data/v13/processed/nicer\_new\_features.csv}; \file{bkg3c50.csv} & as v11; as v12 & 238; 148 rows & v13 third observation set \\
+\end{longtable}
+
+\subsection{Worked example: the first rows of the real v2 matrices}
+\Cref{tab:examplerows} shows the first observations of \file{data/v2/processed/features.npz} (rows are stored source by
+source in the order of the source list, BH first) and the derived inputs of the representations. \Cref{tab:examplenicer}
+shows the first rows of the NICER feature table. \Cref{fig:designheat} shows the whole $456\times45$ B matrix.
+
+\begin{table}[htbp]
+\centering\scriptsize
+\caption[Example rows of the v2 design matrices]{First rows of the v2 inputs (read from
+\file{data/v2/processed/features.npz} and \file{data/v5/processed/timing\_features.csv}). $x_0,x_{44}$: net rate in the
+first (4.908--5.315\,keV) and last (24.151--25.008\,keV) grid bins [c/s/keV/PCU]; $A_0=\operatorname{asinh}(x_0/0.1)$;
+$B_0=x_0/F$; $h_1,h_2$: colours (\cref{eq:H}); $F$ in c/s/PCU. Note the slightly negative $x_{44}$ of 91702-01-22-00
+(a soft-state spectrum), kept as is.}
+\label{tab:examplerows}
+\setlength{\tabcolsep}{3.2pt}
+\begin{tabular}{@{}llr rrrr rrr rrr@{}}
+\toprule
+\code{obs\_id} & \code{source\_id} & $y$ & $F$ & $h_1$ & $h_2$ & $\log_{10}F$ & $x_0$ & $A_0$ & $B_0$ & $x_{44}$ & $T_1$ & $T_2$ \\
+\midrule
+90428-01-01-07 & GROJ1655-40 & 1 & 36.31 & 0.9495 & 0.3864 & 1.560 & 6.115 & 4.807 & 0.1684 & 0.2296 & 0.1124 & 0.1923 \\
+91702-01-02-03 & GROJ1655-40 & 1 & 607.22 & 0.4126 & 0.2450 & 2.783 & 284.152 & 8.645 & 0.4680 & 0.7872 & 0.0172 & 0.0162 \\
+91702-01-22-00 & GROJ1655-40 & 1 & 728.45 & 0.3094 & 0.0235 & 2.862 & 402.680 & 8.994 & 0.5528 & $-0.0098$ & 0.0309 & 0.0237 \\
+91702-01-22-03 & GROJ1655-40 & 1 & 793.68 & 0.3312 & 0.0310 & 2.900 & 421.505 & 9.040 & 0.5311 & 0.0034 & 0.0305 & 0.0259 \\
+\multicolumn{13}{c}{\dots\ (rows 4--104: the other BH observations) \dots}\\
+50030-02-04-00 & 4U1636-53 & 0 & 183.57 & 0.6820 & 0.1084 & 2.264 & 55.527 & 7.013 & 0.3025 & 0.0765 & & \\
+60032-01-20-000 & 4U1636-53 & 0 & 104.24 & 0.7208 & 0.1224 & 2.018 & 29.900 & 6.394 & 0.2868 & 0.0393 & & \\
+91024-01-74-00 & 4U1636-53 & 0 & 80.50 & 0.8607 & 0.3250 & 1.906 & 16.855 & 5.820 & 0.2094 & 0.3327 & & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering\scriptsize
+\caption[Example rows of the NICER feature table]{First rows of \file{data/v10/processed/nicer\_full\_features.csv}
+(NICER, full files). $c_1=C(4\text{--}6)/C(2\text{--}4)$, $c_2=C(6\text{--}10)/C(4\text{--}6)$; $T_k$ and ``rms'' are
+fractional rms (signed square roots, \cref{eq:ratioofmeans}); rms is the 0.1--10\,Hz state index; rate in c\,s$^{-1}$
+(2--10\,keV); $n_\mathrm{seg}$ = valid 128\,s segments.}
+\label{tab:examplenicer}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}llc rr rrr rr rlr@{}}
+\toprule
+\code{obsid} & source & label & $c_1$ & $c_2$ & $T_1$ & $T_2$ & $T_3$ & rms & $\nu_c$ [Hz] & rate & state & $n_\mathrm{seg}$\\
+\midrule
+0100320102 & Cyg X-1 & BH & 0.1664 & 0.2826 & 0.0661 & 0.1351 & 0.1566 & 0.2276 & 1.124 & 2920.9 & hard-like & 12 \\
+2636010102 & Cyg X-1 & BH & 0.0638 & 0.1857 & 0.0520 & 0.0645 & 0.0462 & 0.0843 & 0.378 & 3591.0 & intermediate & 10 \\
+4690020110 & Cyg X-1 & BH & 0.2544 & 0.3400 & 0.1321 & 0.2211 & 0.1509 & 0.2837 & 0.560 & 757.9 & hard-like & 18 \\
+5100320107 & Cyg X-1 & BH & 0.2517 & 0.3357 & 0.1113 & 0.2087 & 0.1589 & 0.2799 & 0.677 & 876.7 & hard-like & 20 \\
+5100320118 & Cyg X-1 & BH & 0.2013 & 0.3062 & 0.0792 & 0.2133 & 0.1744 & 0.2990 & 1.057 & 1378.4 & hard-like & 16 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/generated/G3_design_matrix.pdf}
+\caption[The real v2 design matrix]{The real v2 design matrix for representation B: 456 rows (observations) $\times$ 45
+columns (energy bins), colour = $\log_{10}B_{ij}$ (sequential scale, darker = larger). Rows are grouped by source (right
+labels; alternating grey in strip $g$), BH sources first (strip $y$: blue = 1) and NS below the black line (orange = 0).
+The steep fall of the shape with energy dominates every row; differences between sources are subtle and mostly in the
+high-energy columns, consistent with the finding that two colours capture the usable information. Generated for this
+report from \file{data/v2/processed/features.npz}.}
+\label{fig:designheat}
+\end{figure}
+
+% -----------------------------------------------------------------------------------------------------
+\section{The design matrix and the leave-one-source-out split}\label{sec:dm-diagram}
+% -----------------------------------------------------------------------------------------------------
+
+\Cref{fig:designmatrix} shows schematically what one LOSO fold sees. The test block is \emph{all} observations of one
+source; the training block is all observations of every other source. The standardisation parameters
+$(\vect\mu,\vect\sigma)$, imputation medians, sample weights and any selected hyper-parameter or threshold are computed
+from the training block only. After $S$ folds every row has exactly one OOF score.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[x=1cm,y=1cm,font=\scriptsize]
+  % matrix rows grouped by source: 5 sources, heights
+  \def\W{6.0}
+  \foreach \yo/\h/\nm/\cl/\tst/\yy in {0/1.2/{source 1 (BH)}/bhblue/0/1, -1.2/0.8/{source 2 (BH)}/bhblue/0/1, -2.0/1.4/{source $k$ (BH)}/bhblue/1/1, -3.4/1.0/{source $k{+}1$ (NS)}/nsorange/0/0, -4.4/1.6/{source $S$ (NS)}/nsorange/0/0} {
+     \ifnum\tst=1
+        \fill[yellow!25] (0,\yo) rectangle (\W,\yo-\h);
+        \draw[thick, red!70!black] (0,\yo) rectangle (\W,\yo-\h);
+        \node[anchor=west, red!70!black, font=\scriptsize\bfseries] at (\W+1.45,\yo-\h/2) {held-out (test) block $\mathcal V_k$};
+     \else
+        \fill[boxgrey] (0,\yo) rectangle (\W,\yo-\h);
+        \draw[inkgrey] (0,\yo) rectangle (\W,\yo-\h);
+     \fi
+     \node[anchor=east] at (-0.1,\yo-\h/2) {\nm};
+     \fill[\cl] (\W+0.25,\yo) rectangle (\W+0.65,\yo-\h);
+     \fill[inkgrey!40] (\W+0.85,\yo) rectangle (\W+1.25,\yo-\h);
+     \node[white,font=\tiny\bfseries] at (\W+0.45,\yo-\h/2) {\yy};
+  }
+  \node at (\W+0.45,0.3) {$\yv$}; \node at (\W+1.05,0.3) {$\gv$};
+  % column labels
+  \node[anchor=south] at (\W/2,0.05) {$\Xm\in\R^{n\times p}$ (columns = features)};
+  \draw[decorate,decoration={brace,amplitude=4pt},thick] (-1.95,-2.0) -- (-1.95,0) node[midway,left,align=right] {training\\rows $\mathcal T_k$};
+  \draw[decorate,decoration={brace,amplitude=4pt},thick] (-1.95,-6.0) -- (-1.95,-3.4) node[midway,left,align=right] {training\\rows $\mathcal T_k$};
+  % scaler and model
+  \node[draw=tagprim, rounded corners, fill=tagprim!6, align=center, text width=3.4cm] (fit) at (3.0,-7.4)
+     {fit on $\mathcal T_k$ only: $\vect\mu,\vect\sigma$ (scaler), medians, weights $\wv$, model parameters};
+  \node[draw=red!70!black, rounded corners, fill=yellow!20, align=center, text width=3.2cm] (pred) at (9.0,-7.4)
+     {predict $\Xm_{\mathcal V_k}$ $\Rightarrow$ $\hat s_i$ for $i\in\mathcal V_k$\\[1pt] source score $\bar s_k$ (\cref{eq:sourcescore})};
+  \draw[-{Stealth},thick,inkgrey] (fit) -- (pred);
+  \draw[-{Stealth},thick,inkgrey] (1.0,-6.0) -- (fit.north west);
+  \draw[-{Stealth},thick,red!70!black] (5.5,-3.4) .. controls (8,-4.5) .. (pred.north);
+  \node[align=left, anchor=north west, text width=12.5cm] at (-2.4,-8.3) {Repeat for $k=1,\dots,S$: every row is in the test block exactly once, so the OOF vector
+  $\shat\in[0,1]^n$ is complete. No observation of source $k$ influences any quantity used to score source $k$.};
+\end{tikzpicture}
+\caption[Design matrix and LOSO split]{Schematic of the design matrix and one leave-one-source-out fold. Rows are
+observations grouped by source; the $\yv$ column (blue = BH, orange = NS) and the source index $\gv$ are attached to
+$\Xm$. The yellow block is the held-out source; every learned quantity -- standardisation, imputation medians, sample
+weights, hyper-parameters, thresholds -- is estimated from the grey training rows only. Drawn for this report.}
+\label{fig:designmatrix}
+\end{figure}
+
+% -----------------------------------------------------------------------------------------------------
+\section{End-to-end data flow}\label{sec:dm-flow}
+% -----------------------------------------------------------------------------------------------------
+
+\Cref{fig:dataflow} maps raw archives to reported numbers, with the script numbers of \file{scripts/}. Appendix
+\ref{app:reproduction} gives the complete script $\to$ output table.
+
+\begin{figure}[p]
+\centering
+\begin{tikzpicture}[node distance=3.5mm and 3mm, font=\tiny,
+  src/.style={draw=inkgrey, fill=white, rounded corners=2pt, align=center, text width=2.75cm, minimum height=10mm},
+  proc/.style={draw=tagsec, fill=tagsec!6, rounded corners=2pt, align=center, text width=2.75cm, minimum height=10mm},
+  file/.style={draw=tagexp, fill=tagexp!6, align=center, text width=2.75cm, minimum height=9mm},
+  model/.style={draw=tagprim, fill=tagprim!6, rounded corners=2pt, align=center, text width=2.75cm, minimum height=10mm},
+  arr/.style={-{Stealth[length=1.6mm]}, inkgrey}]
+% row 1: raw sources
+\node[src] (r1) {\textbf{HEASARC RXTE}\\StdProd s2/b2/rsp, Std-1 FS46, event SE, HEXTE};
+\node[src, right=of r1] (r2) {\textbf{Catalogues}\\MissionLongData, \texttt{xtemaster}/\texttt{nicermastr} TAP, BlackCAT, Galloway, Marcel, MINBAR, Sesame};
+\node[src, right=of r2] (r3) {\textbf{MAXI}\\1-day light curves;\\de Beurs+2022 repo};
+\node[src, right=of r3] (r4) {\textbf{NICER} (AWS mirror)\\\texttt{cl} event files, \texttt{ufa} (3C50), CALDB};
+% row 2: selection
+\node[proc, below=of r1] (s1) {\textbf{selection}\\02, 03 (v1--v3), 20 (v4b2), 23 (v4b1), 28 (v6), 35 (v7b2), 41 (v8b)};
+\node[proc, below=of r2] (s2) {\textbf{label checks}\\13 (v3c), 20, 28, 31 (MINBAR), 38 (MAXI labels)};
+\node[proc, below=of r3] (s3) {\textbf{MAXI cuts}\\38; N$_\mathrm{H}$: 45 + \texttt{v8d\_heasoft.sh}};
+\node[proc, below=of r4] (s4) {\textbf{NICER selection}\\47 (v9), 55 (v11), 60 (v13)};
+% row 3: processing
+\node[proc, below=of s1] (p1) {\textbf{spectra}\\04, 21, 24 (Std-2 $\to$ grid), 12 (3--25 keV), 19 (HEXTE)};
+\node[proc, below=of s2] (p2) {\textbf{timing \& bursts}\\17 (bursts), 26 (v5), 29 (v6), 34 (states), 42, 43 (events), 53};
+\node[proc, below=of s3] (p3) {\textbf{MAXI features}\\SC, HC, C$_4$, RelInt in 39, 45};
+\node[proc, below=of s4] (p4) {\textbf{NICER features}\\48 (prefix), 52 (full), 56, 61 (stream); 58, 62 (3C50)};
+% row 4: files
+\node[file, below=of p1] (f1) {\texttt{features.npz}\\\texttt{observations.csv}\\\texttt{hexte\_features.csv}};
+\node[file, below=of p2] (f2) {\texttt{timing\_features.csv}, \texttt{timing\_v6.csv}, \texttt{states.csv}, \texttt{hf\_features.csv}};
+\node[file, below=of p3] (f3) {\texttt{maxi\_points.csv}\\\texttt{nh\_hi4pi.csv}};
+\node[file, below=of p4] (f4) {\texttt{nicer\_*features.csv}\\\texttt{bkg3c50.csv}\\\texttt{nicer\_corrected\_}\\\texttt{screened.csv}};
+% row 5: X,y,g
+\node[model, below=12mm of $(f2)!0.5!(f3)$, text width=9.0cm] (X) {\textbf{design matrices} $(\Xm,\yv,\gv)$: \code{v3lib.v2\_representations}, \code{reps\_R}, \code{fill\_missing}, joins by \code{obs\_id} (\cref{alg:buildX})};
+% row 6: LOSO
+\node[model, below=of X, text width=9.0cm] (L) {\textbf{LOSO / nested LOSO / frozen models}: 07, 11, 12, 14, 16, 18, 19, 22, 25, 27, 30, 33, 34, 36, 37, 39, 44, 45, 49, 54, 57, 59, 63 (libraries \file{v3lib}--\file{v11lib})};
+% row 7: OOF
+\node[file, below=of L, text width=9.0cm] (O) {\textbf{OOF tables} \texttt{results/*/oof*.csv}: one score per observation $\Rightarrow$ source scores $\bar s_k$ (\code{per\_source}, \code{src\_table})};
+% row 8: inference
+\node[model, below=of O, text width=9.0cm] (B) {\textbf{inference}: source bootstrap (09, \code{v3lib.bootstrap}, \code{v4lib.paired\_bootstrap}, \code{v8lib.strat\_boot}, \code{v10lib.pooled\_boot}); permutation (\code{v6lib.perm\_test}, \code{v10lib.pooled\_perm}); conformal, budget, proper scores (\file{v6lib})};
+% row 9: outputs
+\node[file, below=of B, text width=9.0cm] (M) {\textbf{metrics, figures, reports}: \texttt{results/*/*\_metrics.csv}, \texttt{*\_bootstrap.csv}; figures 05--08, 15, 40, 46, 51, 64; \texttt{reports/report\_v*\_zh-TW.md}};
+\foreach \a/\b in {r1/s1,r2/s2,r3/s3,r4/s4,s1/p1,s2/p2,s3/p3,s4/p4,p1/f1,p2/f2,p3/f3,p4/f4,X/L,L/O,O/B,B/M} \draw[arr] (\a)--(\b);
+\foreach \a in {f1,f2,f3,f4} \draw[arr] (\a.south) -- (X.north -| \a.south);
+\draw[arr] (r2.south west) -- (s1.north east);
+\draw[arr] (r2.south east) -- (s4.north west);
+\end{tikzpicture}
+\caption[End-to-end data flow]{End-to-end data flow of the project. Grey boxes: external archives; green: selection
+and processing scripts (numbers = \file{scripts/NN\_*.py}); amber: committed intermediate files; blue: model fitting
+and inference. Raw files (left of the green boxes) are not in git; everything from the amber row down is committed, so
+every number in this report can be traced to a file in \file{results/} or \file{data/}. Drawn for this report.}
+\label{fig:dataflow}
+\end{figure}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Leakage controls implemented in the code}\label{sec:leakagecontrols}
+% -----------------------------------------------------------------------------------------------------
+
+\begin{enumerate}
+\item \textbf{Folds by source.} \code{LeaveOneGroupOut} on $\gv$; every script asserts that each test fold contains
+exactly one source, that training and test sources are disjoint, and that both classes are present in training
+(\file{results/fold\_checks.csv}, \file{results/v2/fold\_checks.csv}).
+\item \textbf{Fixed folds across versions.} The v2 folds (\file{results/v2/folds\_loso.csv}) are re-used and asserted
+identical in v3a, v4a and v5, so paired comparisons use the same test sets.
+\item \textbf{Train-only preprocessing.} \code{StandardScaler} is part of the model object (\code{make\_pipeline} or
+\code{V4Model.fit}), imputation medians come from training rows (\cref{eq:fillmissing}), and source-equal weights are
+computed from training sources only.
+\item \textbf{Nested selection.} Hyper-parameters, representations and thresholds that are chosen at all are chosen by an
+inner LOSO over the training sources (v4a, v7c2) -- never on the test source (\cref{sec:nested}).
+\item \textbf{Label-free residualisation.} The colour-conditional permutation tests regress timing on colour with a kNN
+that never sees labels, fitted leaving the source out (\cref{sec:permutation}).
+\item \textbf{Frozen models for external and prospective tests.} External (v6a, v8b) and new-observation (v11, v13)
+tests apply models whose parameters, imputation medians and decision rules were fixed before the test data were read;
+for the same-source prospective tests each source is scored by the model fitted \emph{without} that source
+(``out-of-source'', \cref{sec:frozen}).
+\item \textbf{No position-based joins without assertion.} Feature tables are joined by \code{obs\_id}; where arrays are
+concatenated by position (e.g.\ \file{observations.csv} and \file{features.npz}) the code asserts equality of the ID order.
+\end{enumerate}

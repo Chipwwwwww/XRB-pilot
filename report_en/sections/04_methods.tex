@@ -1,1 +1,552 @@
-% stub 04_methods
+% =====================================================================================================
+\chapter{Machine-learning methods}\label{ch:methods}
+% =====================================================================================================
+
+Every model used in the project is defined here once, in the form in which it was actually run: scikit-learn 1.8.0
+(\file{requirements-lock.txt}) with the settings of \file{scripts/config.py} and the wrappers \code{V4Model}
+(\file{v4lib.py}), \code{C2Model} (\file{v7lib.py}) and the pipelines of \file{07\_train\_eval.py} and \file{v3lib.py}.
+Equations describe the scikit-learn implementation, not a generic textbook variant. \Cref{tab:modelinventory} is the
+inventory; \cref{app:hyper} collects all hyper-parameters.
+
+\begin{table}[htbp]
+\centering\small
+\caption[Inventory of models]{Inventory of the models and where they are used. Role: P = model of a pre-registered
+primary comparison; B = baseline; D/E = descriptive/exploratory only.}
+\label{tab:modelinventory}
+\begin{tabularx}{\textwidth}{@{}p{3.2cm}p{3.6cm}Xc@{}}
+\toprule
+Model & Versions & Code & Role \\
+\midrule
+Dummy (prior) & v1, v2 & \file{07\_train\_eval.py} & B \\
+Logistic Regression & v1--v13 & \file{07}, \code{v3lib.MODELS}, \code{V4Model}, \code{C2Model}, \code{CCTLR.lr} & P (v2--v11), B \\
+Random Forest & v1--v13 & as above & P (v8d, v12b, v13a), D \\
+ExtraTrees & v4a & \code{V4Model} & E \\
+HistGradientBoosting & v4a & \code{V4Model} & E \\
+RBF SVM & v4a, v7c2; v7c1 (Platt, 3-class) & \code{V4Model}, \code{C2Model}, \file{37\_v7c1\_repro.py} & E / reproduction \\
+kNN classifier & v4a, v7c2, v8d; v7c1 (3-class) & \code{V4Model}, \code{C2Model}, \file{37} & E / reproduction \\
+QDA & v4a & \code{V4Model} & E \\
+MLP (seed ensemble) & v4a & \code{V4Model} & E \\
+Nested auto-selection & v4a 1d/1e & \code{v4lib.nested\_fold} (\cref{sec:nested}) & P (v4) \\
+CCTLR & v6c & \code{v6lib.CCTLR} & D (new method) \\
+kNN regression & v6d, v9b--v13b & \code{v6lib.source\_residuals} & inside the tests \\
+Frozen $\nu^\ast$ rule & v11, v13 & \file{57\_v11\_analysis.py}, \file{63\_v13\_analysis.py} & D \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Shared components}\label{sec:shared}
+% -----------------------------------------------------------------------------------------------------
+
+\subsection{Standardisation}\label{sec:scaler}
+For the scale-sensitive models (LR, SVM, kNN, QDA, MLP, the colour part of CCTLR and the kNN regression) each feature
+is standardised with the training rows $\mathcal T$ of the current fit only (\code{StandardScaler}):
+\begin{equation}
+\mu_\ell = \frac{1}{|\mathcal T|}\sum_{i\in\mathcal T}x_{i\ell},\qquad
+\sigma_\ell = \Bigl(\frac{1}{|\mathcal T|}\sum_{i\in\mathcal T}(x_{i\ell}-\mu_\ell)^2\Bigr)^{1/2},\qquad
+z_{i\ell} = \frac{x_{i\ell}-\mu_\ell}{\sigma_\ell}\quad(\sigma_\ell=0\Rightarrow\text{scale }1),\label{eq:scaler}
+\end{equation}
+and the same $(\mu_\ell,\sigma_\ell)$ are applied to test rows. Tree models (RF, ExtraTrees, HistGB) use raw features.
+Standardisation is learned; the per-spectrum normalisations of \cref{sec:reps} (B, H, \dots) are not.
+
+\subsection{Class-balanced weights}\label{sec:weights}
+The BH:NS ratio is 7:24 sources in the main sample. With $n$ training rows of which $n_c$ are in class $c$,
+\code{class\_weight='balanced'} gives every row of class $c$ the weight
+\begin{equation}
+w^{\mathrm{bal}}_i = \frac{n}{2\,n_{y_i}},\qquad \sum_{i:y_i=c}w^{\mathrm{bal}}_i = \frac n2 .\label{eq:balanced}
+\end{equation}
+In scikit-learn these class weights multiply any sample weights inside the loss (LR, SVM, HistGB) or inside the impurity
+(trees). For QDA (no weights) the same balance is imposed through equal priors, for kNN through a prior correction of the
+output (\cref{eq:knnprior}), and for the MLP through $w^{\mathrm{bal}}$ passed as sample weights.
+
+\paragraph{Source-equal weights (v4a 1c, v4b1, v5 S3, v6 S3).} When sources contribute very different numbers of
+observations (v4b1: 6 to 1329 per source), balanced weights let the most-observed sources dominate. With $S_c$ the number
+of training sources in class $c$ and $n_k$ the training rows of source $k$ (\code{v4lib.source\_equal\_weights}):
+\begin{equation}
+w^{\mathrm{src}}_i = \frac{n}{2\,S_{y_i}\,n_{g_i}},\qquad \sum_{i:g_i=k} w^{\mathrm{src}}_i = \frac{n}{2S_{c}}\ \ (k\in\text{class }c),\qquad
+\sum_{i:y_i=c}w^{\mathrm{src}}_i=\frac n2 .\label{eq:sourceequal}
+\end{equation}
+Every source of a class has the same total weight, both classes sum to $n/2$ (the same overall scale as balanced weights),
+and $w^{\mathrm{src}}=w^{\mathrm{bal}}$ exactly when all sources have the same $n_k$ (unit test in \file{test\_v4lib.py}).
+When $\wv^{\mathrm{src}}$ is passed, \code{class\_weight} is set to \code{None}.
+
+\begin{cautionbox}{Implementation fix: scale of the source-equal weights (2026-10-01, after the v4a results)}
+The first version normalised each class to total weight 1 (total 2 per fit) instead of $n/2$. Because the LR objective
+multiplies the summed weighted loss by $C$ (\cref{eq:lrobj}), this acted like an $\approx n/2$ times stronger L2 penalty
+(scores squeezed into 0.4--0.6); the HistGB internal \code{min\_hessian\_to\_split} was also affected (RF is scale-invariant).
+The fix rescaled to $n/2$ per class; only v4a parts 1a--1c were re-run: 1a and 1b were bit-identical, 12 combinations of 1c
+changed, and no conclusion changed (pre-fix results in commit \texttt{9120afb}). v4b1 was run only with the fixed weights.
+\end{cautionbox}
+
+\subsection{Score conventions}
+Every model returns a BH score $s(\xv)\in[0,1]$: \code{predict\_proba}$[:,1]$ for LR, RF, ExtraTrees, HistGB, QDA;
+the prior-corrected vote fraction for kNN; the seed-averaged probability for the MLP; the logistic function of the
+decision value for the SVM and CCTLR. Scores are rankings and thresholdable quantities, not calibrated probabilities,
+except where proper scoring rules are explicitly evaluated (v6g).
+
+% -----------------------------------------------------------------------------------------------------
+\section{Dummy classifier}\label{sec:dummy}
+% -----------------------------------------------------------------------------------------------------
+\textbf{Role.} Baseline in v1--v2 (\file{07\_train\_eval.py}). \textbf{Definition.} \code{DummyClassifier(strategy='prior')}
+returns the training class frequencies, $s(\xv)=n_1/n$ for every $\xv$, and predicts the majority class. \textbf{Why it
+matters.} Under LOSO the majority class of the training fold depends on which source is held out: with 4 BH and 4 NS
+sources of 15 observations each (v1), leaving out a BH leaves 45 BH : 60 NS, so the held-out BH is predicted NS, and vice
+versa; the Dummy balanced accuracy is therefore 0, not 0.5. With 7 BH and 24 NS sources (v2) NS is always the majority
+and the Dummy balanced accuracy is 0.5. ``Chance level'' under LOSO is thus not a fixed number, one reason why AUC is
+also reported.
+
+\begin{algorithm}[htbp]
+\caption{Dummy (prior) classifier}\label{alg:dummy}
+\begin{algorithmic}[1]
+\Require training labels $\yv_\mathcal T$; test rows $\mathcal V$
+\State $\pi\gets\frac{1}{|\mathcal T|}\sum_{i\in\mathcal T}y_i$ \Comment{no features; only hyper-parameter \code{strategy='prior'}}
+\State \Return $s_i=\pi$ and $\hat y_i=\indic{\pi\ge0.5}$ for every $i\in\mathcal V$
+\end{algorithmic}
+\end{algorithm}
+
+
+% -----------------------------------------------------------------------------------------------------
+\section{Logistic regression}\label{sec:lr}
+% -----------------------------------------------------------------------------------------------------
+\textbf{Role.} The workhorse: H-LR (two colours + LR) is the v2 reference against which v4 tests every alternative;
+H+T-LR is the primary model of v5, v6a, v8a/b, v9a, v10a, v11a. \textbf{Model.} On standardised inputs $\vect z$,
+\begin{equation}
+s(\xv) = \sigma(\vect w^\top\vect z + b),\qquad \sigma(u)=\frac{1}{1+e^{-u}} .\label{eq:lrmodel}
+\end{equation}
+\textbf{Objective} (\code{LogisticRegression(C=1, penalty='l2', solver='lbfgs', max\_iter=5000)}):
+\begin{equation}
+(\hat{\vect w},\hat b) = \argmin_{\vect w,b}\ \frac12\|\vect w\|_2^2 + C\sum_{i\in\mathcal T} \omega_i\Bigl[-y_i\log s(\xv_i)-(1-y_i)\log\bigl(1-s(\xv_i)\bigr)\Bigr],\label{eq:lrobj}
+\end{equation}
+with $\omega_i = w^{\mathrm{bal}}_i$ (\cref{eq:balanced}) or $w^{\mathrm{src}}_i$ (\cref{eq:sourceequal}); the intercept is
+not penalised. scikit-learn minimises the equivalent $\frac{1}{\Omega}\sum_i\omega_i\ell_i + \frac{1}{2C\Omega}\|\vect w\|^2$
+($\Omega=\sum_i\omega_i$) with L-BFGS. $C=1$ means the penalty weight $1/2$ competes with a weighted log-loss summed over
+$\approx n$ rows: for $n\approx400$ and 2--6 features the penalty is weak. \textbf{Decision boundary.} In raw colours the
+0.5 boundary of H-LR is the line $\sum_\ell (w_\ell/\sigma_\ell)h_\ell + b - \sum_\ell w_\ell\mu_\ell/\sigma_\ell = 0$
+(used to draw \cref{fig:colourcolour}). \textbf{Assumptions.} Log-odds linear in the standardised features; a single
+monotone effect per feature. This is the main reason LR can use timing only as ``more variability $\Rightarrow$ more BH''
+everywhere in the colour plane (motivating CCTLR, \cref{sec:cctlr}), and it fails on MAXI where BHs lie on both sides of
+the NS colour track (\cref{ch:phase4}).
+
+\begin{algorithm}[htbp]
+\caption{LR fit and score (one fold)}\label{alg:lr}
+\begin{algorithmic}[1]
+\Require $\Xm_\mathcal{T},\yv_\mathcal{T}$, optional $\wv$; test rows $\Xm_\mathcal{V}$
+\State $(\vect\mu,\vect\sigma)\gets$ \cref{eq:scaler} on $\Xm_\mathcal{T}$; $\vect Z_\mathcal{T},\vect Z_\mathcal{V}$ standardised
+\State $\omega_i\gets w^{\mathrm{bal}}_i$ if $\wv$ is None else $w_i$
+\State $(\vect w,b)\gets$ L-BFGS minimisation of \cref{eq:lrobj} (max.\ 5000 iterations)
+\State \Return $s_i = \sigma(\vect w^\top\vect z_i+b)$ for $i\in\mathcal V$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{table}[htbp]
+\centering\small
+\caption{Logistic-regression hyper-parameters (\code{LR\_PARAMS} in \file{config.py}).}\label{tab:hp-lr}
+\begin{tabular}{@{}llll@{}}
+\toprule
+Parameter & Value & Fixed / tuned & Grid (where tuned) \\
+\midrule
+\code{C} & 1.0 & fixed (all versions) & v4a 1d/1e: $\{0.01, 0.1, 1, 10\}$ (\code{V4\_GRID['LogReg']}) \\
+\code{penalty}, \code{solver} & L2, lbfgs & fixed & -- \\
+\code{class\_weight} & balanced (or \code{None} with $\wv^\mathrm{src}$) & fixed & -- \\
+\code{max\_iter} & 5000 & fixed & -- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Random forest}\label{sec:rf}
+% -----------------------------------------------------------------------------------------------------
+\textbf{Role.} Second reference model in every version; primary model of v8d (MAXI), v12b (chosen post hoc after
+v9--v11) and v13a (chosen before the v13 data). \textbf{Model.} An average of $B$ classification trees,
+\begin{equation}
+s(\xv) = \frac1B\sum_{b=1}^{B}\hat p_b(\xv),\qquad
+\hat p_b(\xv)=\frac{\sum_{i\in\mathrm{leaf}_b(\xv)}\omega^{(b)}_i y_i}{\sum_{i\in\mathrm{leaf}_b(\xv)}\omega^{(b)}_i},\label{eq:rf}
+\end{equation}
+where $\omega^{(b)}_i = w^{\mathrm{bal}}_i\cdot m^{(b)}_i$ (or $w^{\mathrm{src}}_i m^{(b)}_i$), and $m^{(b)}_i$ is the
+number of times row $i$ is drawn in the bootstrap sample of tree $b$ ($n$ draws with replacement). The balanced class
+weights are computed once on the whole training fold, not per bootstrap sample. \textbf{Tree growth.} CART: at each node
+draw $m=\max(1,\lfloor\sqrt p\rfloor)$ candidate features without replacement and choose the split that maximises the
+weighted decrease of the Gini impurity
+\begin{equation}
+G(\mathcal N) = 1-\sum_{c\in\{0,1\}}\pi_c(\mathcal N)^2,\quad \pi_c(\mathcal N)=\frac{\sum_{i\in\mathcal N,y_i=c}\omega_i}{\sum_{i\in\mathcal N}\omega_i},\qquad
+\Delta = \Omega_\mathcal{N} G(\mathcal N) - \Omega_{L}G(L) - \Omega_{R}G(R);\label{eq:gini}
+\end{equation}
+grow without depth limit until nodes are pure or a child would have fewer than \code{min\_samples\_leaf} rows.
+With the two colours of H, $m=1$: every split uses one randomly chosen colour; with H plus three timing features and a
+missing indicator ($p=6$), $m=2$. \textbf{Determinism.} \code{random\_state=42}. \textbf{Assumptions/limitations.}
+Piecewise-constant, can follow non-monotone class regions (important for MAXI and for the timing$\times$colour
+interaction), but with $<10$ BH sources a leaf can memorise one source; scores of trees are not calibrated (v3: A-RF had
+good ranking but scores pushed below 0.5 -- a threshold problem).
+
+\begin{algorithm}[htbp]
+\caption{Random forest fit and score (one fold)}\label{alg:rf}
+\begin{algorithmic}[1]
+\Require $\Xm_\mathcal{T},\yv_\mathcal{T}$ (raw features), $\omega_i$ (balanced or source-equal), $B$, $m$, leaf size $L$
+\For{$b=1,\dots,B$} \Comment{seeded}
+  \State draw bootstrap counts $m^{(b)}\sim\mathrm{Multinomial}(n; 1/n,\dots,1/n)$; weights $\omega^{(b)}_i=\omega_i m^{(b)}_i$
+  \State grow tree $b$: recursively split nodes on the best of $m$ random features by \cref{eq:gini}, leaves $\ge L$ rows
+\EndFor
+\State \Return $s_i$ by \cref{eq:rf} for $i\in\mathcal V$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{table}[htbp]
+\centering\small
+\caption{Random-forest hyper-parameters (\code{RF\_PARAMS}, \code{V4\_INNER\_TREES}, \code{V4\_OUTER\_TREES}).}\label{tab:hp-rf}
+\begin{tabular}{@{}llll@{}}
+\toprule
+Parameter & Value & Fixed / tuned & Grid / note \\
+\midrule
+\code{n\_estimators} & 500 & fixed & v4a nested: 200 trees in the inner loop, 500 for the outer refit \\
+\code{max\_features} & \code{'sqrt'} & fixed & $m=\lfloor\sqrt p\rfloor$ \\
+\code{min\_samples\_leaf} & 2 & fixed & v4a 1d/1e: $\{1,2,5,10\}$ \\
+\code{class\_weight} & balanced (or \code{None} with $\wv^\mathrm{src}$) & fixed & -- \\
+\code{bootstrap}, \code{criterion} & True, Gini & default & -- \\
+\code{random\_state} & 42 & fixed & \code{n\_jobs}: 2 (v1--v3), 1 (\code{V4Model}) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Extremely randomised trees}\label{sec:et}
+% -----------------------------------------------------------------------------------------------------
+\textbf{Role.} Exploratory alternative in v4a. \textbf{Difference from RF.} No bootstrap ($m^{(b)}_i=1$), and at each
+node, for each of the $m$ candidate features one threshold is drawn uniformly between the feature's minimum and maximum
+in the node; the best of these random splits by \cref{eq:gini} is used. Settings: 500 trees, \code{max\_features='sqrt'},
+\code{min\_samples\_leaf=2}, balanced, \code{random\_state=42}; nested grid $\{1,2,5,10\}$ for the leaf size (200/500
+trees inner/outer). Lower variance than RF at the price of more bias; no scaling needed.
+
+\begin{algorithm}[htbp]
+\caption{ExtraTrees fit and score}\label{alg:et}
+\begin{algorithmic}[1]
+\Require raw $\Xm_\mathcal T$, $\yv_\mathcal T$, weights $\omega_i$; $B=500$ (inner 200), $m=\lfloor\sqrt p\rfloor$, leaf size $L$
+\For{$b=1,\dots,B$} \Comment{all rows, no bootstrap}
+   \State at each node: draw $m$ features, one threshold $\sim U(\min,\max)$ each; keep the split with the largest $\Delta$ (\cref{eq:gini}); stop at purity or leaf size $L$
+\EndFor
+\State \Return $s_i=\frac1B\sum_b\hat p_b(\xv_i)$ (\cref{eq:rf} with $m^{(b)}_i=1$)
+\end{algorithmic}
+\end{algorithm}
+
+\begin{table}[htbp]
+\centering\small
+\caption{ExtraTrees hyper-parameters (\code{V4\_FIXED['ExtraTrees']}, \code{V4\_GRID['ExtraTrees']}).}\label{tab:hp-et}
+\begin{tabular}{@{}llll@{}}
+\toprule
+Parameter & Value & Fixed / tuned & Grid \\
+\midrule
+\code{n\_estimators} & 500 & fixed (inner 200) & -- \\
+\code{max\_features} & \code{'sqrt'} & fixed & -- \\
+\code{min\_samples\_leaf} & 2 & tuned in 1d/1e & $\{1,2,5,10\}$ \\
+\code{class\_weight}, \code{random\_state} & balanced, 42 & fixed & -- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Histogram gradient boosting}\label{sec:histgb}
+% -----------------------------------------------------------------------------------------------------
+\textbf{Role.} Exploratory in v4a. \textbf{Model.} An additive model of $M$ regression trees on the log-odds scale,
+$F_M(\xv) = F_0 + \eta\sum_{m=1}^{M} f_m(\xv)$, $s(\xv)=\sigma(F_M(\xv))$, with $F_0$ the weighted log-odds of the
+training classes. Each tree $f_m$ is fitted to the weighted gradients and Hessians of the binary log loss at $F_{m-1}$,
+$g_i = \omega_i\,(\sigma(F_{m-1}(\xv_i))-y_i)$, $h_i=\omega_i\,\sigma(1-\sigma)$; leaf values are
+$-\sum_{i\in\mathrm{leaf}} g_i/(\sum_{i\in\mathrm{leaf}} h_i+\lambda)$ with $\lambda$ = \code{l2\_regularization} = 0; trees
+are grown best-first on features pre-binned into at most 255 quantile bins, up to \code{max\_leaf\_nodes} leaves with at
+least \code{min\_samples\_leaf} rows. Settings (\code{V4\_FIXED['HistGB']}): $\eta=0.1$, $M=200$, 15 leaves, 20 rows per
+leaf, no early stopping, balanced, \code{random\_state=42}; nested grid $\eta\in\{0.05,0.1\}\times$ leaves $\in\{7,15\}$.
+\textbf{Limitation.} With 30 training sources and 20 rows per leaf, a single source (15 rows) cannot form a leaf, which
+partly protects against memorisation; with 2 colours the model is close to a smooth version of RF.
+
+\begin{algorithm}[htbp]
+\caption{HistGradientBoosting fit and score}\label{alg:histgb}
+\begin{algorithmic}[1]
+\Require raw $\Xm_\mathcal T$, $\yv_\mathcal T$, weights $\omega_i$; $\eta$, $M$, max leaves, min leaf rows
+\State bin every feature into $\le255$ quantile bins (training rows); $F_0\gets\logit\bigl(\sum\omega_iy_i/\sum\omega_i\bigr)$
+\For{$m=1,\dots,M$}
+   \State $g_i\gets\omega_i(\sigma(F_{m-1}(\xv_i))-y_i)$, $h_i\gets\omega_i\sigma(1-\sigma)$
+   \State grow a best-first tree on $(g,h)$; leaf value $-\sum g/(\sum h+\lambda)$; $F_m\gets F_{m-1}+\eta f_m$
+\EndFor
+\State \Return $s_i=\sigma(F_M(\xv_i))$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{table}[htbp]
+\centering\small
+\caption{HistGradientBoosting hyper-parameters (\code{V4\_FIXED['HistGB']}, \code{V4\_GRID['HistGB']}).}\label{tab:hp-histgb}
+\begin{tabular}{@{}llll@{}}
+\toprule
+Parameter & Value & Fixed / tuned & Grid \\
+\midrule
+\code{learning\_rate} $\eta$ & 0.1 & tuned in 1d/1e & $\{0.05,0.1\}$ \\
+\code{max\_leaf\_nodes} & 15 & tuned in 1d/1e & $\{7,15\}$ \\
+\code{max\_iter} $M$ & 200 & fixed & -- \\
+\code{min\_samples\_leaf} & 20 & fixed & -- \\
+\code{l2\_regularization} $\lambda$ & 0 & fixed & -- \\
+\code{early\_stopping} & False & fixed & -- \\
+\code{class\_weight}, \code{random\_state} & balanced, 42 & fixed & -- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Support-vector machine with RBF kernel}\label{sec:svm}
+% -----------------------------------------------------------------------------------------------------
+\textbf{Role.} Exploratory in v4a (it was selected in 23 of 31 outer folds of the nested auto-selection) and descriptive
+in v7c2; a Platt-scaled three-class version reproduces \citet{deBeurs2022} in v7c1. \textbf{Training} (libsvm dual, labels
+$y'_i=2y_i-1$, standardised inputs $\vect z$):
+\begin{equation}
+\max_{\vect\alpha}\ \sum_i\alpha_i-\frac12\sum_{i,j}\alpha_i\alpha_jy'_iy'_jK(\vect z_i,\vect z_j)\quad
+\text{s.t. } 0\le\alpha_i\le C\,c_{y_i},\ \sum_i\alpha_iy'_i=0,\qquad K(\vect z,\vect z')=e^{-\gamma\|\vect z-\vect z'\|^2},\label{eq:svm}
+\end{equation}
+with class weights $c_y = n/(2n_y)$. \textbf{Kernel width.} \code{gamma='scale'} sets $\gamma = 1/(p\,\Var(\vect Z))$,
+where $\Var(\vect Z)$ is the variance of \emph{all} entries of the standardised training matrix ($\approx1$, so
+$\gamma\approx1/p$); in the v4a grid $\gamma = \kappa/(p\Var(\vect Z))$ with factor $\kappa\in\{0.3,1,3\}$ (code
+\code{gamma\_factor}). \textbf{Score.} The decision value $f(\vect z)=\sum_i\alpha_iy'_iK(\vect z_i,\vect z)+b$ is mapped by
+the logistic function,
+\begin{equation}
+s(\xv) = \sigma\bigl(f(\vect z)\bigr),\label{eq:svmscore}
+\end{equation}
+so $s=0.5$ is exactly the SVM decision surface; Platt scaling is deliberately not used because it runs an internal random
+cross-validation. \textbf{v7c2 variant.} $C\in\{0.1,1,10\}\times\gamma\in\{0.1,0.585,3\}$ (absolute $\gamma$),
+standardised, balanced, same score; selected by inner grouped 5-fold source AUC (\cref{sec:nested}).
+\textbf{v7c1 variant.} Three classes (BH, non-pulsing NS, pulsar), one-vs-one, $C=0.655298$, $\gamma=0.585144$ on
+training-standardised features, unweighted, Platt probabilities (\code{probability=True, random\_state=42}), exactly as
+the R/e1071 setting of \citet{deBeurs2022}.
+
+\begin{algorithm}[htbp]
+\caption{RBF-SVM fit and score (binary versions)}\label{alg:svm}
+\begin{algorithmic}[1]
+\Require $\Xm_\mathcal T$, $\yv_\mathcal T$; $C$; $\gamma$ or factor $\kappa$
+\State standardise (\cref{eq:scaler}); if \code{'scale'}: $\gamma\gets\kappa/(p\,\Var(\vect Z_\mathcal T))$ ($\kappa=1$ for the fixed model)
+\State solve the dual \cref{eq:svm} with box constraints $C\,c_{y_i}$ (libsvm SMO)
+\State \Return $s_i=\sigma(f(\vect z_i))$ (\cref{eq:svmscore})
+\end{algorithmic}
+\end{algorithm}
+
+\begin{table}[htbp]
+\centering\small
+\caption{SVM hyper-parameters (\code{V4\_FIXED['SVM\_RBF']}, \code{V4\_GRID}, \code{V7\_C2\_SVM\_GRID}, \code{V7\_DEBEURS\_SVM}).}\label{tab:hp-svm}
+\begin{tabular}{@{}llll@{}}
+\toprule
+Use & $C$ & $\gamma$ & selection \\
+\midrule
+v4a fixed (1b) & 1 & \code{'scale'} & -- \\
+v4a nested (1d/1e) & $\{0.1,1,10\}$ & $\{0.3,1,3\}\times$\code{'scale'} & inner LOSO, source AUC \\
+v7c2 (MAXI) & $\{0.1,1,10\}$ & $\{0.1,0.585,3\}$ & inner grouped 5-fold, source AUC \\
+v7c1 (reproduction) & 0.655298 & 0.585144 & fixed (from the paper), Platt, 3 classes \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\section{$k$-nearest-neighbour classifier}\label{sec:knn}
+% -----------------------------------------------------------------------------------------------------
+\textbf{Role.} Exploratory (v4a), descriptive (v7c2, v8d), reproduction (v7c1). \textbf{Model.} With $\mathcal N_k(\vect z)$
+the $k$ training rows nearest to $\vect z$ in Euclidean distance on standardised features (uniform weights),
+$\hat p(\xv)=\frac1k\sum_{i\in\mathcal N_k}y_i$. Because the training folds are imbalanced, the output is corrected to
+equal class priors with $\pi = n_1/n$ of the training fold (\code{V4Model.score}, \code{C2Model.score}):
+\begin{equation}
+s(\xv) = \frac{\hat p/\pi}{\hat p/\pi + (1-\hat p)/(1-\pi)} .\label{eq:knnprior}
+\end{equation}
+\textbf{Hyper-parameters.} $k=15$ fixed (v4a 1b); grids $\{5,15,31\}$ (v4a nested) and $\{5,15,24,35\}$ (v7c2, v8d, inner
+LOSO); $k$ is capped at the number of training rows. \textbf{v7c1.} Three classes, $k=24$, \emph{raw} (unstandardised)
+features and plain vote fractions, as \citet{deBeurs2022}. \textbf{Limitation.} A test source's nearest neighbours can
+all come from one training source of similar brightness or colour; this is exactly how the model can ``recognise'' a
+source type rather than a compact-object type.
+
+\begin{algorithm}[htbp]
+\caption{kNN classifier (binary, prior-corrected)}\label{alg:knn}
+\begin{algorithmic}[1]
+\Require $\Xm_\mathcal T$, $\yv_\mathcal T$, $k$
+\State standardise (\cref{eq:scaler}); $\pi\gets$ fraction of BH rows in $\mathcal T$; $k\gets\min(k,|\mathcal T|)$
+\For{$i\in\mathcal V$} \State $\hat p\gets$ BH fraction among the $k$ nearest training rows; $s_i\gets$ \cref{eq:knnprior} \EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\begin{table}[htbp]
+\centering\small
+\caption{kNN hyper-parameters (\code{V4\_FIXED['kNN']}, \code{V4\_GRID['kNN']}, \code{V7\_C2\_KNN\_GRID}, \code{V7\_DEBEURS\_KNN\_K}).}\label{tab:hp-knn}
+\begin{tabular}{@{}lllll@{}}
+\toprule
+Use & $k$ & scaling & output & selection \\
+\midrule
+v4a fixed & 15 & standardised & prior-corrected & -- \\
+v4a nested & $\{5,15,31\}$ & standardised & prior-corrected & inner LOSO, source AUC \\
+v7c2, v8d & $\{5,15,24,35\}$ & standardised & prior-corrected & inner LOSO, source AUC \\
+v7c1 & 24 & raw & 3-class vote fractions & fixed (paper) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Quadratic discriminant analysis}\label{sec:qda}
+% -----------------------------------------------------------------------------------------------------
+\textbf{Role.} Exploratory (v4a). \textbf{Model.} Class-conditional Gaussians on standardised features with regularised
+covariances and equal priors $\pi_0=\pi_1=\tfrac12$:
+\begin{equation}
+\hat\Sigma_c = (1-r)\,S_c + r\,\vect I,\qquad
+s(\xv) = \frac{\pi_1\,\mathcal N(\vect z;\hat{\vect\mu}_1,\hat\Sigma_1)}{\sum_{c}\pi_c\,\mathcal N(\vect z;\hat{\vect\mu}_c,\hat\Sigma_c)},\label{eq:qda}
+\end{equation}
+where $S_c$ is the unbiased sample covariance of class $c$ (scikit-learn applies the shrinkage to the squared singular
+values of the centred class data, which is equivalent). $r=0.1$ fixed; nested grid $\{0.01,0.1,0.5\}$ (\code{V4\_GRID['QDA']}).
+QDA takes no sample weights, so class balance enters only through the priors. \textbf{Note.} Three QDA combinations were
+the only v4a combinations whose source balanced-accuracy interval excluded 0 (\cref{ch:phase2}); with 76 combinations
+this is within the expected number of chance exceedances.
+
+\begin{algorithm}[htbp]
+\caption{QDA fit and score}\label{alg:qda}
+\begin{algorithmic}[1]
+\Require $\Xm_\mathcal T$, $\yv_\mathcal T$, $r$
+\State standardise; for $c\in\{0,1\}$: class mean $\hat{\vect\mu}_c$, unbiased covariance $S_c$, $\hat\Sigma_c\gets(1-r)S_c+r\vect I$
+\State \Return $s_i$ by \cref{eq:qda} with $\pi_0=\pi_1=\tfrac12$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{table}[htbp]
+\centering\small
+\caption{QDA hyper-parameters (\code{V4\_FIXED['QDA']}, \code{V4\_GRID['QDA']}).}\label{tab:hp-qda}
+\begin{tabular}{@{}llll@{}}
+\toprule
+Parameter & Value & Fixed / tuned & Grid \\
+\midrule
+\code{reg\_param} $r$ & 0.1 & tuned in 1d/1e & $\{0.01,0.1,0.5\}$ \\
+\code{priors} & $[0.5,0.5]$ & fixed & -- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Multi-layer perceptron (seed ensemble)}\label{sec:mlp}
+% -----------------------------------------------------------------------------------------------------
+\textbf{Role.} Exploratory (v4a). \textbf{Model.} One hidden layer of 32 ReLU units (grid: $(16)$ or $(32,16)$), logistic
+output, on standardised inputs. \textbf{Objective} (per minibatch $\mathcal M$; scikit-learn 1.8 with sample weights):
+\begin{equation}
+\mathcal L = \frac{\sum_{i\in\mathcal M}\omega_i\,\ell_i}{\sum_{i\in\mathcal M}\omega_i}+\frac{\alpha}{2}\,\frac{\sum_{W}\|W\|_F^2}{\sum_{i\in\mathcal M}\omega_i},\qquad \omega_i=w^\mathrm{bal}_i ,\label{eq:mlp}
+\end{equation}
+with $\ell_i$ the binary cross-entropy, $\alpha = 10^{-3}$ (grid $\{10^{-4},10^{-2}\}$); Adam (learning rate $10^{-3}$),
+batch size $\min(200,n)$, at most 500 epochs. \textbf{Early stopping.} A stratified 20\% validation split (seeded with the
+model seed) is held out; training stops when the weighted validation accuracy has not improved by $10^{-4}$ for 10 epochs,
+and the weights with the best validation accuracy are restored. \textbf{Seed ensemble.} Because a small MLP is unstable,
+the score is the mean of \code{predict\_proba} over seeds $\{0,\dots,4\}$ (outer fits) or $\{0,1,2\}$ (inner fits of the
+nested procedure): $s(\xv)=\frac{1}{|\mathcal R|}\sum_{r\in\mathcal R}s_r(\xv)$. A planned 1D-CNN on representation B was
+skipped as pre-declared because \texttt{torch} was not installed.
+
+\begin{algorithm}[htbp]
+\caption{MLP seed ensemble}\label{alg:mlp}
+\begin{algorithmic}[1]
+\Require $\Xm_\mathcal T$, $\yv_\mathcal T$; architecture, $\alpha$; seed set $\mathcal R$ (outer $\{0..4\}$, inner $\{0,1,2\}$)
+\State standardise; $\omega_i\gets w^\mathrm{bal}_i$ (\cref{eq:balanced})
+\For{$r\in\mathcal R$}
+  \State stratified 80/20 split (seed $r$); Adam on \cref{eq:mlp}; after each epoch the weighted validation accuracy; stop after 10 epochs without improvement $>10^{-4}$ (max 500); restore the best weights
+\EndFor
+\State \Return $s_i=\frac{1}{|\mathcal R|}\sum_r s_r(\xv_i)$
+\end{algorithmic}
+\end{algorithm}
+
+\begin{table}[htbp]
+\centering\small
+\caption{MLP hyper-parameters (\code{V4\_FIXED['MLP']}, \code{V4\_GRID['MLP']}, \code{V4\_MLP\_SEEDS\_*}).}\label{tab:hp-mlp}
+\begin{tabular}{@{}llll@{}}
+\toprule
+Parameter & Value & Fixed / tuned & Grid \\
+\midrule
+\code{hidden\_layer\_sizes} & $(32,)$ & tuned in 1d/1e & $\{(16,),(32,16)\}$ \\
+\code{alpha} & $10^{-3}$ & tuned in 1d/1e & $\{10^{-4},10^{-2}\}$ \\
+\code{early\_stopping}, \code{validation\_fraction} & True, 0.2 & fixed & -- \\
+\code{max\_iter} & 500 & fixed & -- \\
+activation, solver, learning rate, batch & ReLU, Adam, $10^{-3}$, $\min(200,n)$ & defaults & -- \\
+seeds & outer $\{0,\dots,4\}$, inner $\{0,1,2\}$ & fixed & -- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Colour-conditional timing likelihood-ratio classifier (CCTLR, v6c)}\label{sec:cctlr}
+% -----------------------------------------------------------------------------------------------------
+\textbf{Motivation.} In LR, a timing feature has one slope everywhere in the colour plane, although the timing information
+is expected only where the colours overlap (hard states). CCTLR adds to the colour logit a generative log-likelihood ratio
+of the timing features \emph{conditional on colour}, so that timing contributes only where the class-conditional timing
+distributions differ, and missing timing is simply ``no evidence''. It was designed for v6 and has no tunable
+hyper-parameter. \textbf{Model} (\code{v6lib.CCTLR}): with standardised colours $\vect h$ and timing vector
+$\vect T=(T_1,T_2,T_3)$,
+\begin{align}
+\ell(\xv) &= \underbrace{\vect w^\top\vect h + b}_{\text{H-LR logit}} + \Lambda(\vect T\mid\vect h),\qquad s(\xv)=\sigma(\ell(\xv)),\label{eq:cctlr}\\
+\Lambda(\vect T\mid\vect h) &= \sum_{k=1}^{3}\Bigl[\log t_4\!\bigl(T_k;\ \mu_{1k}(\vect h),\ \tau_{1k}\bigr)-\log t_4\!\bigl(T_k;\ \mu_{0k}(\vect h),\ \tau_{0k}\bigr)\Bigr],\qquad
+\mu_{ck}(\vect h) = \beta_{ck0}+\beta_{ck1}h_1+\beta_{ck2}h_2, \nonumber
+\end{align}
+where $t_4(\cdot;\mu,\tau)$ is the Student-$t$ density with 4 degrees of freedom, location $\mu$ and scale $\tau$ (robust to
+burst or dip outliers). For each class $c$ and timing feature $k$, $\vect\beta_{ck}$ is a weighted least-squares fit on
+the training rows of class $c$ with finite timing, with source-equal weights within the class
+$v_i = 1/(S_c\,n_{g_i})$ (\code{source\_equal\_within\_class}) and a ridge of $10^{-9}$; the scale is the weighted
+residual standard deviation, floored at 0.01:
+\begin{equation}
+\hat{\vect\beta}_{ck}=\bigl(\vect Z_c^\top\vect V_c\vect Z_c+10^{-9}\vect I\bigr)^{-1}\vect Z_c^\top\vect V_c\vect T_{c,k},\qquad
+\hat\tau_{ck}=\max\Bigl(0.01,\ \sqrt{\textstyle\sum_iv_ir_{ik}^2/\sum_iv_i}\Bigr),\label{eq:cctlrfit}
+\end{equation}
+with $\vect Z_c=[\vect 1,\vect h]$ of class $c$ and residuals $r_{ik}$. The LR part uses \code{LR\_PARAMS} (balanced, or the
+source-equal weights of \cref{eq:sourceequal} in S3). If any timing value of a row is missing, $\Lambda=0$ and the score
+equals the H-LR probability (unit test in \file{test\_v6lib.py}). \textbf{Limitation.} Adding a generative LR term to a
+discriminative logit double counts nothing only if timing is conditionally independent of the label given colour under
+the LR model -- an idealisation; the colour model of the class means is linear. In practice CCTLR did not beat H+T-LR
+(\cref{ch:phase3}).
+
+\begin{algorithm}[htbp]
+\caption{CCTLR fit and score}\label{alg:cctlr}
+\begin{algorithmic}[1]
+\Require training colours $\vect H$, timing $\vect T$ (may contain NaN), labels $\yv$, sources $\gv$; test $(\vect H',\vect T')$
+\State standardise $\vect H$ (\cref{eq:scaler}); fit H-LR (\cref{eq:lrobj}) on $\vect h$
+\For{$c\in\{0,1\}$ and $k\in\{1,2,3\}$}
+   \State rows: class $c$ with all timing finite; weights $v_i=1/(S_c n_{g_i})$; fit $\hat{\vect\beta}_{ck},\hat\tau_{ck}$ by \cref{eq:cctlrfit}
+\EndFor
+\For{each test row}
+   \State $\Lambda\gets0$ if any $T'_k$ missing, else the sum in \cref{eq:cctlr}
+   \State $s\gets\sigma(\vect w^\top\vect h'+b+\Lambda)$
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+% -----------------------------------------------------------------------------------------------------
+\section{$k$-nearest-neighbour regression for colour residualisation}\label{sec:knnreg}
+% -----------------------------------------------------------------------------------------------------
+\textbf{Role.} Inside every colour-conditional permutation test (v6d, v9b, v10b, v11b, v12a, v13b; \cref{sec:permutation}).
+It removes the part of a timing feature that is predictable from colour \emph{without using labels}. For a feature
+$F$ (e.g.\ $\log_{10}\nu_c$) and colours $\vect h$ standardised on the fit set (\code{v6lib.source\_residuals}):
+\begin{equation}
+\hat F_i = \frac1K\sum_{j\in\mathcal N_K(\vect h_i;\ \{j:\ g_j\ne g_i\})}F_j,\qquad r_i = F_i-\hat F_i,\qquad
+\bar r_k=\frac{1}{|\{i:g_i=k\}|}\sum_{i:g_i=k} r_i ,\label{eq:knnreg}
+\end{equation}
+with $K=25$ (\code{V6\_KNN}; capped at the number of available rows) and uniform weights; the neighbours of an observation
+are taken only from \emph{other} sources (leave-one-source-out), so a source cannot explain itself. Rows with missing $F$
+are skipped. For the v6 external replication the regression is fitted on all S1 rows and applied to the external rows.
+\textbf{Caveat} (noted in v9): when BHs cluster in one colour region, their neighbours are partly other BHs, so part of the
+class difference is absorbed into $\hat F$; the test is then conservative.
+
+\begin{algorithm}[htbp]
+\caption{Label-free colour residualisation (\code{source\_residuals})}\label{alg:knnreg}
+\begin{algorithmic}[1]
+\Require colours $\vect H$, feature $F$ (may be NaN), sources $\gv$, $K=25$
+\State standardise $\vect H$ on the fit set
+\For{each source $k$} \State fit a kNN regression ($K$ neighbours) on rows with finite $F$ and $g\ne k$; predict rows of $k$; $r_i\gets F_i-\hat F_i$ \EndFor
+\State \Return source means $\bar r_k$ (\cref{eq:knnreg})
+\end{algorithmic}
+\end{algorithm}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Frozen characteristic-frequency rule (v11, v13)}\label{sec:nurule}
+% -----------------------------------------------------------------------------------------------------
+A deliberately simple, pre-frozen decision rule: an observation is called BH if it is hard-like and
+$\nu_c<\nu^\ast$; a source is called BH if at least half of its new hard-like observations are called BH. The threshold
+is the geometric mean of the class medians of $\nu_c$ in the previous data set,
+\begin{equation}
+\nu^\ast = \sqrt{\median_{\mathrm{BH}}\nu_c\cdot\median_{\mathrm{NS}}\nu_c},\label{eq:nustar}
+\end{equation}
+frozen before any new data were read: $\nu^\ast=\sqrt{0.5917\times2.8594}=1.3007$\,Hz from v10 (32 BH and 111 NS
+hard-like observations; \file{logs/v11/nu\_star\_frozen.txt}) and $\nu^\ast=\sqrt{0.6294\times2.8362}=1.3361$\,Hz from the
+v12 corrected and screened data (62 BH, 138 NS; \file{logs/v13/nu\_star\_frozen.txt}).
+
+% -----------------------------------------------------------------------------------------------------
+\section{Models that were not used}\label{sec:notused}
+% -----------------------------------------------------------------------------------------------------
+Principal component analysis was never used: every occurrence of ``PCA'' in the code refers to the RXTE Proportional
+Counter Array. The pre-declared 1D convolutional network on representation B (v4) was skipped because \texttt{torch} was
+not available; no replacement was introduced. No probability calibration (Platt, isotonic) was used except in the
+de~Beurs reproduction (v7c1).
