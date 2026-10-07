@@ -1,0 +1,16 @@
+label,phase,n_obs,n_bh,n_ns,cand
+v1 RXTE pilot,1,120,4,4,0
+v2/v3 RXTE (S1),1,456,7,24,0
+v3c BH candidates,1,210,0,0,14
+v4b1 all epoch-5 pointings (S3),2,7949,7,24,0
+"v4b2 + v2, all gain epochs (S2)",2,677,9,37,0
+v6 external set E (frozen test),3,341,4,19,0
+v7b2 v2 + persistent BHs,4,501,10,24,0
+v7c MAXI BH vs NPNS (1-d points),4,93461,13,48,0
+v8b external set X,4,379,7,19,0
+v8c S1-HF (event mode),4,148,6,17,0
+v9 NICER (prefix),5,368,9,54,0
+v10 NICER (full files),5,366,9,54,0
+v11 NICER new obs,6,318,9,51,0
+v12 NICER 3C50 kept (v10+v11),6,534,9,49,0
+"v13 NICER third set, kept",6,198,8,27,0

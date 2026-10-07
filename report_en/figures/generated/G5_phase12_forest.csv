@@ -1,0 +1,23 @@
+label,metric,point,lo,hi
+v3a H+B − H (LR)  [primary],source_AUC,-0.0476190476190475,-0.1785714285714285,0.0476190476190476
+v3a H+B − H (LR)  [primary],source_balanced_accuracy,-0.0208333333333333,-0.0625,0.0
+v3a H+B − H (RF)  [primary],source_AUC,-0.0119047619047618,-0.0773809523809524,0.0476190476190475
+v3a H+B − H (RF)  [primary],source_balanced_accuracy,0.0,0.0,0.0
+v3a HI+A − HI (LR),source_AUC,-0.0059523809523809,-0.0773809523809523,0.0535714285714284
+v3a HI+A − HI (LR),source_balanced_accuracy,0.0,0.0,0.0
+v3a HI+A − HI (RF),source_AUC,-0.0119047619047619,-0.0833333333333332,0.0476190476190475
+v3a HI+A − HI (RF),source_balanced_accuracy,-0.1428571428571429,-0.3395089285714285,0.0208333333333333
+v3b H3 − H (LR),source_AUC,-0.0178571428571427,-0.0714285714285715,0.0
+v3b H3 − H (LR),source_balanced_accuracy,0.0,0.0,0.0
+v3b H3+B3 − H3 (RF),source_AUC,-0.0297619047619046,-0.0892857142857143,0.0
+v3b H3+B3 − H3 (RF),source_balanced_accuracy,0.0714285714285715,0.0,0.2142857142857143
+v4a nested auto-selection − H-LR  [primary],source_AUC,-0.1726190476190476,-0.3988095238095238,0.0119047619047618
+v4a nested auto-selection − H-LR  [primary],source_balanced_accuracy,-0.0625,-0.1458333333333333,0.0208333333333333
+"v4b3 H+X − H (LR, HEXTE subset)",source_AUC,-0.0476190476190476,-0.1787202380952381,0.0238095238095238
+"v4b3 H+X − H (LR, HEXTE subset)",source_balanced_accuracy,0.0,0.0,0.0
+"v4b3 H+X − H (RF, HEXTE subset)",source_AUC,0.0,-0.0357142857142858,0.0357142857142858
+"v4b3 H+X − H (RF, HEXTE subset)",source_balanced_accuracy,0.0,0.0,0.0
+v4b2 H-RF − H-LR (46 sources),source_AUC,-0.009009009009009,-0.069069069069069,0.039039039039039
+v4b2 H-RF − H-LR (46 sources),source_balanced_accuracy,0.0675675675675675,0.0135135135135134,0.1216216216216216
+"v4b1 H-LR[srcw] (7,949 obs) − v2 H-LR  [primary]",source_AUC,0.0,-0.0476190476190476,0.0357142857142858
+"v4b1 H-LR[srcw] (7,949 obs) − v2 H-LR  [primary]",source_balanced_accuracy,0.0,0.0,0.0

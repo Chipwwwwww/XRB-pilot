@@ -1,0 +1,13 @@
+# LaTeX build products (main.pdf is kept)
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.lof
+*.log
+*.lot
+*.out
+*.toc
+*.synctex.gz
+*.xdv

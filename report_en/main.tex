@@ -1,0 +1,181 @@
+% XRB-pilot: technical report (English) -- main file.
+% Compile with:  latexmk -pdf main.tex   (run inside report_en/)
+% Every number in this report is read from files committed in the repository (results/, data/, reports/);
+% comments starting with "% CHECK:" mark places where the repository text and the CSV/code disagree.
+\documentclass[11pt,a4paper]{report}
+
+% ------------------------------------------------------------------ page, fonts
+\usepackage[a4paper,margin=1in,headheight=14pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[utf8]{inputenc}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{tabularx}
+\usepackage{siunitx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+\usepackage{bm}
+\usepackage{enumitem}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage[authoryear,round,sort]{natbib}
+\usepackage[most]{tcolorbox}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,fit,calc,shapes.geometric,shapes.misc,backgrounds,decorations.pathreplacing,matrix}
+\usepackage{fancyhdr}
+\usepackage[hidelinks=false,colorlinks=true,linkcolor=blue!50!black,citecolor=green!35!black,urlcolor=blue!60!black,
+            bookmarksnumbered=true,pdftitle={XRB-pilot technical report},pdfauthor={TODO}]{hyperref}
+\usepackage{xurl}
+\usepackage[capitalise,noabbrev]{cleveref}
+
+\graphicspath{{./}}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\setlist{itemsep=0.15em,topsep=0.3em}
+\captionsetup{font=small,labelfont=bf,format=plain,justification=justified}
+\captionsetup[sub]{font=footnotesize}
+\sisetup{group-separator={,},group-minimum-digits=4}
+\DeclareSIUnit\count{count}
+\DeclareSIUnit\PCU{PCU}
+\renewcommand{\arraystretch}{1.12}
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{3}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\nouppercase{\leftmark}}
+\fancyhead[R]{\small XRB-pilot technical report}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.3pt}
+
+% ------------------------------------------------------------------ cleveref names
+\crefname{algorithm}{Algorithm}{Algorithms}
+\crefname{equation}{Eq.}{Eqs.}
+\Crefname{equation}{Equation}{Equations}
+\crefname{appendix}{Appendix}{Appendices}
+
+% ------------------------------------------------------------------ colours and tags
+\definecolor{bhblue}{HTML}{2A78D6}
+\definecolor{nsorange}{HTML}{EB6834}
+\definecolor{aqua}{HTML}{1BAF7A}
+\definecolor{inkgrey}{HTML}{52514E}
+\definecolor{boxgrey}{HTML}{F4F3EF}
+\definecolor{tagprim}{HTML}{1F4E9A}
+\definecolor{tagsec}{HTML}{3C6E3C}
+\definecolor{tagexp}{HTML}{8A5A00}
+\definecolor{tagpost}{HTML}{9B2D2D}
+\definecolor{tagdesc}{HTML}{52514E}
+
+\newcommand{\tagbox}[2]{\tcbox[on line,boxsep=0pt,left=2pt,right=2pt,top=1pt,bottom=1pt,colback=#1!8,colframe=#1,boxrule=0.4pt,arc=1pt]{\textsf{\scriptsize\color{#1}#2}}}
+\newcommand{\Primary}{\tagbox{tagprim}{PRIMARY}}
+\newcommand{\Secondary}{\tagbox{tagsec}{SECONDARY}}
+\newcommand{\Exploratory}{\tagbox{tagexp}{EXPLORATORY}}
+\newcommand{\PostHoc}{\tagbox{tagpost}{POST HOC}}
+\newcommand{\Descriptive}{\tagbox{tagdesc}{DESCRIPTIVE}}
+\newcommand{\Detected}{\textbf{detected} (95\% CI excludes 0)}
+\newcommand{\DetectedP}{\textbf{detected} ($p<0.05$)}
+\newcommand{\NotDetected}{\textbf{not detected} under the pre-registered criterion}
+
+% numbers with intervals: \ci{+0.264}{+0.048}{+0.455}
+\newcommand{\ci}[3]{$#1$~$[#2,\,#3]$}
+% file names and code identifiers: typewriter, robust in captions, line breaks allowed after "_" and "/"
+\makeatletter
+\DeclareRobustCommand{\file}[1]{\begingroup\ttfamily\def\_{\textunderscore\allowbreak}\def\slash{/\allowbreak}#1\endgroup}
+\DeclareRobustCommand{\code}[1]{\begingroup\ttfamily\def\_{\textunderscore\allowbreak}#1\endgroup}
+\makeatother
+\newcommand{\BH}{BH}
+\newcommand{\NS}{NS}
+
+% ------------------------------------------------------------------ maths
+\newcommand{\vect}[1]{\bm{#1}}
+\newcommand{\Xm}{\bm{X}}
+\newcommand{\yv}{\bm{y}}
+\newcommand{\gv}{\bm{g}}
+\newcommand{\wv}{\bm{w}}
+\newcommand{\shat}{\hat{\bm{s}}}
+\newcommand{\xv}{\bm{x}}
+\newcommand{\bv}{\bm{\beta}}
+\newcommand{\indic}[1]{\mathbb{1}\!\left[#1\right]}
+\newcommand{\R}{\mathbb{R}}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator{\BA}{BA}
+\DeclareMathOperator{\AUC}{AUC}
+\DeclareMathOperator{\sinc}{sinc}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Real}{Re}
+\DeclareMathOperator{\median}{median}
+\DeclareMathOperator{\logit}{logit}
+\DeclareMathOperator{\Var}{Var}
+
+% ------------------------------------------------------------------ boxes
+\newtcolorbox{glance}[1]{enhanced,breakable,colback=boxgrey,colframe=inkgrey,boxrule=0.5pt,arc=1.5pt,
+  title={Phase at a glance: #1},fonttitle=\bfseries\sffamily,coltitle=white,colbacktitle=inkgrey,left=6pt,right=6pt}
+\newtcolorbox{keybox}[1]{enhanced,breakable,colback=white,colframe=tagprim,boxrule=0.5pt,arc=1.5pt,
+  title={#1},fonttitle=\bfseries\sffamily\small,coltitle=tagprim,colbacktitle=tagprim!8,left=6pt,right=6pt}
+\newtcolorbox{cautionbox}[1]{enhanced,breakable,colback=tagpost!3,colframe=tagpost,boxrule=0.5pt,arc=1.5pt,
+  title={#1},fonttitle=\bfseries\sffamily\small,coltitle=tagpost,colbacktitle=tagpost!8,left=6pt,right=6pt}
+
+\algrenewcommand\algorithmicrequire{\textbf{Input:}}
+\algrenewcommand\algorithmicensure{\textbf{Output:}}
+
+% ------------------------------------------------------------------ title
+\title{\textbf{Can a single X-ray observation tell a black hole from a neutron star\\in a source never seen in training?}\\[0.6em]
+\large Leakage-safe, pre-registered tests with RXTE, MAXI and NICER\\(the XRB-pilot project, versions v1--v14)\\[0.4em]
+\normalsize Technical report}
+\author{TODO: author name \\ Advisor: TODO: advisor name}
+\date{Report compiled on \today\\[0.3em]\small Repository \url{https://github.com/Chipwwwwww/XRB-pilot}, branch \texttt{master}, analysis commit \texttt{d9730c9}}
+
+\begin{document}
+\pagenumbering{roman}
+\input{sections/00_titlepage}
+\input{sections/00_abstract}
+\input{sections/00_executive_summary}
+\tableofcontents
+\listoffigures
+\listoftables
+\input{sections/00_notation}
+\clearpage
+\pagenumbering{arabic}
+
+\input{sections/01_introduction}
+\input{sections/02_features}
+\input{sections/03_data_model}
+\input{sections/04_methods}
+\input{sections/05_evaluation}
+\input{sections/06_phase1}
+\input{sections/07_phase2}
+\input{sections/08_phase3}
+\input{sections/09_phase4}
+\input{sections/10_phase5}
+\input{sections/11_phase6}
+\input{sections/12_synthesis}
+\input{sections/13_limitations}
+\input{sections/14_future}
+\input{sections/15_questions}
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{References}
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\appendix
+\input{sections/A_hyperparameters}
+\input{sections/B_reproduction}
+\input{sections/C_preregistrations}
+\input{sections/D_decision_log}
+\input{sections/E_glossary}
+\end{document}
