@@ -286,9 +286,11 @@ class-conditional (Mondrian) version guarantees coverage within each class separ
 For a test source with score $s$ and calibration sources of class $y$ ($n_y$ of them),
 \begin{equation}
 p_\mathrm{BH}(s) = \frac{1+\#\{k\in\mathrm{cal}_\mathrm{BH}: 1-\bar s_k\ge 1-s\}}{1+n_\mathrm{BH}},\qquad
-p_\mathrm{NS}(s) = \frac{1+\#\{k\in\mathrm{cal}_\mathrm{NS}: \bar s_k\ge s\}}{1+n_\mathrm{NS}},\qquad
-\Gamma_\varepsilon(s)=\{y: p_y(s)>\varepsilon\},\label{eq:conformal}
+p_\mathrm{NS}(s) = \frac{1+\#\{k\in\mathrm{cal}_\mathrm{NS}: \bar s_k\ge s\}}{1+n_\mathrm{NS}},\label{eq:conformal}
 \end{equation}
+\begin{equation*}
+\Gamma_\varepsilon(s)=\{y: p_y(s)>\varepsilon\},
+\end{equation*}
 (\code{v6lib.conformal\_sets}). If the test source is exchangeable with the calibration sources of its class,
 $\Pr(Y\in\Gamma_\varepsilon)\ge1-\varepsilon$ for that class. \textbf{LOSO version} (S1): each source is the test point and
 the other sources' OOF scores are the calibration set (\code{conformal\_loso}). \textbf{Split version} (external set E):
@@ -298,7 +300,7 @@ ambiguous sets, at $\varepsilon\in\{0.1,0.2\}$.
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[font=\scriptsize,x=11cm,y=1cm]
+\begin{tikzpicture}[font=\scriptsize,x=9cm,y=1cm]
   \draw[->,thick,inkgrey] (0,0) -- (1.03,0) node[right] {source score $s$};
   \foreach \x in {0,0.25,0.5,0.75,1} {\draw (\x,0.07)--(\x,-0.07) node[below] {\x};}
   \foreach \x in {0.55,0.62,0.71,0.8,0.86,0.91,0.95} {\fill[bhblue] (\x,0.45) circle (2.2pt);}

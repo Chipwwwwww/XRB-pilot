@@ -141,7 +141,7 @@ the NS colour track (\cref{ch:phase4}).
 \begin{table}[htbp]
 \centering\small
 \caption{Logistic-regression hyper-parameters (\code{LR\_PARAMS} in \file{config.py}).}\label{tab:hp-lr}
-\begin{tabular}{@{}llll@{}}
+\begin{tabularx}{\textwidth}{@{}llp{3.0cm}X@{}}
 \toprule
 Parameter & Value & Fixed / tuned & Grid (where tuned) \\
 \midrule
@@ -150,7 +150,7 @@ Parameter & Value & Fixed / tuned & Grid (where tuned) \\
 \code{class\_weight} & balanced (or \code{None} with $\wv^\mathrm{src}$) & fixed & -- \\
 \code{max\_iter} & 5000 & fixed & -- \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 % -----------------------------------------------------------------------------------------------------
@@ -193,7 +193,7 @@ good ranking but scores pushed below 0.5 -- a threshold problem).
 \begin{table}[htbp]
 \centering\small
 \caption{Random-forest hyper-parameters (\code{RF\_PARAMS}, \code{V4\_INNER\_TREES}, \code{V4\_OUTER\_TREES}).}\label{tab:hp-rf}
-\begin{tabular}{@{}llll@{}}
+\begin{tabularx}{\textwidth}{@{}lp{3.6cm}lX@{}}
 \toprule
 Parameter & Value & Fixed / tuned & Grid / note \\
 \midrule
@@ -204,7 +204,7 @@ Parameter & Value & Fixed / tuned & Grid / note \\
 \code{bootstrap}, \code{criterion} & True, Gini & default & -- \\
 \code{random\_state} & 42 & fixed & \code{n\_jobs}: 2 (v1--v3), 1 (\code{V4Model}) \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 % -----------------------------------------------------------------------------------------------------
@@ -445,7 +445,7 @@ skipped as pre-declared because \texttt{torch} was not installed.
 \begin{table}[htbp]
 \centering\small
 \caption{MLP hyper-parameters (\code{V4\_FIXED['MLP']}, \code{V4\_GRID['MLP']}, \code{V4\_MLP\_SEEDS\_*}).}\label{tab:hp-mlp}
-\begin{tabular}{@{}llll@{}}
+\begin{tabularx}{\textwidth}{@{}p{4.6cm}Xll@{}}
 \toprule
 Parameter & Value & Fixed / tuned & Grid \\
 \midrule
@@ -456,7 +456,7 @@ Parameter & Value & Fixed / tuned & Grid \\
 activation, solver, learning rate, batch & ReLU, Adam, $10^{-3}$, $\min(200,n)$ & defaults & -- \\
 seeds & outer $\{0,\dots,4\}$, inner $\{0,1,2\}$ & fixed & -- \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 % -----------------------------------------------------------------------------------------------------
@@ -470,8 +470,8 @@ hyper-parameter. \textbf{Model} (\code{v6lib.CCTLR}): with standardised colours 
 $\vect T=(T_1,T_2,T_3)$,
 \begin{align}
 \ell(\xv) &= \underbrace{\vect w^\top\vect h + b}_{\text{H-LR logit}} + \Lambda(\vect T\mid\vect h),\qquad s(\xv)=\sigma(\ell(\xv)),\label{eq:cctlr}\\
-\Lambda(\vect T\mid\vect h) &= \sum_{k=1}^{3}\Bigl[\log t_4\!\bigl(T_k;\ \mu_{1k}(\vect h),\ \tau_{1k}\bigr)-\log t_4\!\bigl(T_k;\ \mu_{0k}(\vect h),\ \tau_{0k}\bigr)\Bigr],\qquad
-\mu_{ck}(\vect h) = \beta_{ck0}+\beta_{ck1}h_1+\beta_{ck2}h_2, \nonumber
+\Lambda(\vect T\mid\vect h) &= \sum_{k=1}^{3}\Bigl[\log t_4\!\bigl(T_k;\ \mu_{1k}(\vect h),\ \tau_{1k}\bigr)-\log t_4\!\bigl(T_k;\ \mu_{0k}(\vect h),\ \tau_{0k}\bigr)\Bigr], \nonumber\\
+\mu_{ck}(\vect h) &= \beta_{ck0}+\beta_{ck1}h_1+\beta_{ck2}h_2, \nonumber
 \end{align}
 where $t_4(\cdot;\mu,\tau)$ is the Student-$t$ density with 4 degrees of freedom, location $\mu$ and scale $\tau$ (robust to
 burst or dip outliers). For each class $c$ and timing feature $k$, $\vect\beta_{ck}$ is a weighted least-squares fit on

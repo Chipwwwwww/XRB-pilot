@@ -1,1 +1,163 @@
-% stub 01_introduction
+% =====================================================================================================
+\chapter{Introduction}\label{ch:intro}
+% =====================================================================================================
+
+\section{The scientific question}\label{sec:question}
+
+An accreting compact object in an X-ray binary is either a neutron star (NS) or a stellar-mass black hole (BH). The
+only direct way to tell them apart is a dynamical mass (from the companion's radial-velocity curve) above the maximum NS
+mass, or direct evidence of a solid surface (thermonuclear type-I X-ray bursts) or of a magnetosphere anchored to it
+(coherent pulsations). Most X-ray binaries -- in particular new transients -- have neither when they are discovered. The
+project asks whether a \emph{single X-ray observation} carries enough information to say which kind of compact object it
+contains, \emph{for a source that was never seen during training}.
+
+Physical reasons to expect some information exist. In soft (thermal, disc-dominated) states, an NS has a boundary layer
+or surface emission in addition to the disc, while a BH shows a cooler disc plus a power-law tail, so their count-space
+colours occupy different regions \citep[e.g.][]{DoneGierlinski2003}. In hard (Comptonisation-dominated) states the spectra
+are similar, but the variability may differ: the characteristic time-scales of the aperiodic variability are expected to
+scale with the size of the inner flow, hence with mass, and NSs show high-frequency noise above $\sim$500\,Hz that BHs lack
+\citep{SunyaevRevnivtsev2000}. The variability amplitude also tracks the state \citep{RemillardMcClintock2006,MunozDarias2011}.
+Whether these differences survive a strict test on unseen sources was the open question.
+
+\section{Why the test must be on unseen sources}\label{sec:unseen}
+
+Repeated observations of one source are strongly correlated: the same distance, absorption column, inclination,
+companion, outburst history and calibration epoch shape all of them. A classifier evaluated on a random split of
+observations can score well simply by recognising the source of an observation -- through its brightness, its absorption
+or its particular track in a colour diagram -- without having learned anything that transfers to a new object. The
+relevant population for the question is the population of \emph{sources}; the effective sample size is the number of
+sources (here 7--16 BHs), not the number of observations (hundreds to thousands). Every primary result in this report is
+therefore obtained with leave-one-source-out (LOSO) evaluation, all choices that depend on data are made inside the
+training sources (\cref{sec:nested}), and uncertainty is quantified by resampling sources (\cref{sec:bootstrap}).
+
+\section{Data leakage and how large it is here}\label{sec:leakage}
+
+\emph{Leakage} is any path through which information about the test units enters training. In this problem the main path
+is source identity: if observations of the same source are in both training and test sets, the test score measures
+re-identification. The project quantified it directly: the same representations and models were evaluated once with LOSO
+and once with a stratified 5-fold split over observations (\cref{fig:leakage}). The leaky split overstates balanced
+accuracy by $+0.04$ to $+0.20$ (largest for the Random Forest on the intensity-keeping representation A, $+0.16$ in v2 and
+$+0.20$ in v1). Published machine-learning classifications of RXTE spectra used either LOSO with sigma-clipped source
+accuracies \citep[87\%;][]{Pattnaik2021} or random 80:20 observation splits \citep[90--94\%;][]{Garg2026}; the latter cannot
+answer the question about new sources. A MAXI study \citep{deBeurs2022} used LOSO but labelled seven BH candidates as BHs; it is
+reproduced and re-examined in \cref{ch:phase4}.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.78\textwidth]{figures/generated/G4_leakage.pdf}
+\caption[Leakage: LOSO versus observation-wise splits]{Optimism of observation-wise cross-validation. For every
+representation and model of v1 (8 sources) and v2 (31 sources), observation-level balanced accuracy under
+leave-one-source-out (filled blue) and under a stratified 5-fold split over observations in which sources appear in both
+training and test folds (open orange); the number is the difference. The leaky split is optimistic in every case
+($+0.04$ to $+0.20$), most for models that can memorise intensity (A-RF). Generated for this report from
+\file{results/metrics\_observation\_level.csv}, \file{results/secondary\_observation\_split.csv} and their \file{results/v2/}
+counterparts (\file{report\_en/figures/generated/make\_figures.py}; values in \file{G4\_leakage.csv}).}
+\label{fig:leakage}
+\end{figure}
+
+\section{Labels}\label{sec:intro-labels}
+
+Only sources whose nature is established independently of their X-ray spectra and variability are used as labels:
+dynamically confirmed BHs (BlackCAT, \citealt{CorralSantana2016}; \citealt{CasaresJonker2014}; from v7 the 25-system list of
+\citealt{Marcel2026}) and NSs with type-I bursts \citep{Galloway2008,Galloway2020} or accretion-powered pulsations
+\citep{PatrunoWatts2021}. BH \emph{candidates} are never used as labels (they appear only as prediction targets and in a
+label-sensitivity analysis, v3c). This keeps the labels honest but limits the sample: across all instruments only 16
+dynamically confirmed BHs have usable RXTE or NICER data, and only 7 of them are in the main RXTE sample.
+
+\section{Design principles and their limits}\label{sec:principles}
+
+The project ran as 13 analysis versions (v1--v13) plus a wrap-up (v14), between 2026-09-29 and 2026-10-06, each with a
+written pre-registration committed before its data were downloaded or its models trained, and with a decision log
+(\file{reports/decision\_log.md}) recording every change and whether it was made before or after seeing results. The
+rules (fixed from v4 on) are: LOSO; source score = mean OOF score, threshold 0.5; 2000 class-stratified source bootstrap
+replicates (seed 42); a difference is \emph{detected} only if its 95\% interval excludes 0 (or $p<0.05$ for permutation
+tests); one (or very few) pre-declared primary comparison per sub-analysis; every selection nested inside the training
+sources.
+
+\begin{cautionbox}{Five facts that qualify every conclusion in this report}
+\begin{enumerate}[leftmargin=1.4em]
+\item \textbf{Every pre-registration was written after the results of all earlier versions had been seen.} The
+pre-registrations prevent analysis choices from adapting to the data of their own version, but the hypotheses of later
+versions were suggested by earlier results (e.g.\ the hard-state timing hypothesis of v8 came from v5's descriptive
+results). They were approved by the analyst on the user's instruction, not by an external reviewer.
+\item \textbf{The v10 pooled tests are overall evidence on all available data, not an independent confirmation}: the
+hypotheses and the pooling scheme were formulated after v5--v9.
+\item \textbf{v11--v13 are new observations of the same sources}: the prospective confirmation (v13) is at the
+observation level; nothing has yet been confirmed on new sources.
+\item \textbf{The Random Forest was chosen as primary post hoc in v12} (after seeing that its timing gain was stable in
+v9--v11 while LR's was not); \textbf{in v13 it was chosen before the data were downloaded.}
+\item \textbf{Only 16 dynamically confirmed BH sources} have usable RXTE/NICER data; per instrument the hard-like BH
+sources number 5--9. A single BH source moves a source-level balanced accuracy by $\approx0.07$.
+\end{enumerate}
+\end{cautionbox}
+
+\Cref{fig:timeline} shows how much independence each version adds; \cref{fig:samplesizes} shows the sample sizes.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[font=\scriptsize, x=0.80cm, y=0.62cm]
+  \foreach \r [count=\k] in {{new sources, frozen model}, {new sources, retrained}, new instrument, {new observations, frozen (prospective)}, {pooled over all data (not independent)}, {re-analysis of data already used}, base samples} {
+     \node[anchor=east, text width=3.7cm, align=right] at (0.4,-\k) {\r};
+     \draw[gray!30] (0.6,-\k) -- (13.6,-\k);
+  }
+  \foreach \v [count=\c] in {v1,v2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13} {\node[font=\scriptsize\bfseries] at (\c,0) {\v};}
+  \foreach \d [count=\c] in {09-29,09-29,09-30,10-01,10-01,10-01,10-05,10-05,10-06,10-06,10-06,10-06,10-06} {\node[font=\tiny, gray] at (\c,-8.0) {\d};}
+  \node[anchor=east, font=\tiny, gray] at (0.4,-8.0) {date (2026)};
+  % markers: (column,row,label)
+  \tikzset{mk/.style={circle, draw=tagprim, fill=tagprim!20, inner sep=1.4pt, font=\tiny}}
+  \foreach \c/\r/\t in {6/1/v6a, 8/1/v8b, 4/2/v4b2, 7/2/v7b2, 9/2/{2 new BHs}, 7/3/MAXI, 9/3/NICER, 11/4/new obs., 13/4/{new obs., RF pre-set}, 10/5/{RXTE+NICER}, 3/6/{v3a,b,c}, 4/6/{v4a, b3, burst}, 5/6/{S1--S3}, 6/6/{v6b--h}, 7/6/{v7a, b1}, 8/6/{v8a, c, d}, 12/6/3C50, 1/7/{8 src}, 2/7/{31 src}} {
+     \node[mk] at (\c,-\r) {}; \node[anchor=south, font=\tiny, text=inkgrey] at (\c,-\r+0.12) {\t};
+  }
+  \node[mk, fill=yellow!40, draw=red!70!black] at (13,-4) {};
+  \draw[dashed, red!70!black] (0.6,-0.45) -- (13.5,-0.45);
+  \node[anchor=west, font=\tiny, red!70!black, text width=11.5cm] at (0.6,-8.8) {Every version's pre-registration was written after all earlier results (top row read left to right). Not reached by any version: \textbf{new sources tested prospectively with a frozen model on new data}.};
+\end{tikzpicture}
+\caption[Independence of each version]{What each version adds in terms of independence from data already seen. Rows are
+ordered from most independent (top) to least; dots mark the sub-analyses of each version. External sources (v6a, v8b)
+were scored by frozen RXTE models, but few BHs were available (4--7). The NICER versions brought a new instrument and two
+BHs never used before; v10 pooled everything; v11 and v13 used never-read observations of the same sources with frozen
+pipelines, v13 with the Random Forest chosen before download (highlighted). Drawn for this report from the
+pre-registrations and \file{reports/decision\_log.md}.}
+\label{fig:timeline}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/generated/G1_sample_sizes.pdf}
+\caption[Sample sizes per version]{Sources (a) and observations (b) of every sample that enters a model. Bars in (a) are
+stacked: dynamically confirmed BH (blue), NS (orange), unlabelled BH candidates (grey, v3c only). Observations in (b) are
+on a log scale; for MAXI they are 1-day points. Shaded bands group the six phases. The number of BH sources never exceeds
+13 in any single sample (16 over all instruments). Generated for this report from the \file{features.npz} files,
+\file{data/v6/sources.csv}, \file{data/v7c/maxi\_points.csv}, \file{data/v8b/processed/external\_states\_timing.csv},
+\file{data/v8c/processed/hf\_features.csv}, the NICER feature tables and \file{results/v13/v13\_frozen\_predictions.csv}
+(values in \file{G1\_sample\_sizes.csv}).}
+\label{fig:samplesizes}
+\end{figure}
+
+\section{Reading guide}\label{sec:guide}
+
+\Cref{ch:features,ch:datamodel,ch:methods,ch:evaluation} define all inputs, data structures, models and statistical
+procedures once. The six phase chapters then report the versions in groups of related analyses
+(\cref{tab:phasemap}); each starts with a ``Phase at a glance'' box and follows the same ten sections. Each result carries
+a tag: \Primary{} (the pre-declared primary comparison of its sub-analysis), \Secondary{} (pre-declared, not primary),
+\Descriptive{} (pre-declared description without a decision rule), \Exploratory{} (pre-declared but downgraded, e.g.\ after
+a failed implementation check) or \PostHoc{} (decided after seeing results). \Cref{ch:synthesis} brings the phases
+together; \cref{ch:limitations,ch:future,ch:questions} discuss limitations, future work and questions for discussion.
+
+\begin{table}[htbp]
+\centering\small
+\caption[Map of phases, versions and questions]{Map of phases, versions and questions.}\label{tab:phasemap}
+\begin{tabularx}{\textwidth}{@{}lp{1.4cm}X@{}}
+\toprule
+Chapter & Versions & Question \\
+\midrule
+\ref{ch:phase1} Phase 1 & v1--v3 & Can 5--25\,keV RXTE spectra classify unseen sources, and where is the information? \\
+\ref{ch:phase2} Phase 2 & v4 & Is the spectral information saturated (algorithms, more data, wider band, burst contamination)? \\
+\ref{ch:phase3} Phase 3 & v5--v6 & Does 0.016--4\,Hz variability add information, and does it hold on external sources? \\
+\ref{ch:phase4} Phase 4 & v7--v8 (+v9c) & Is the hard state the problem; does timing fix it; MINBAR, persistent BHs, high frequencies, MAXI? \\
+\ref{ch:phase5} Phase 5 & v9--v10 & Does an independent instrument (NICER) reproduce it; what does pooling all data say? \\
+\ref{ch:phase6} Phase 6 & v11--v13 & Does it hold prospectively on never-used observations with frozen pipelines and background correction? \\
+\ref{ch:synthesis} & v14 & Synthesis \\
+\bottomrule
+\end{tabularx}
+\end{table}

@@ -36,7 +36,7 @@
 \usetikzlibrary{positioning,arrows.meta,fit,calc,shapes.geometric,shapes.misc,backgrounds,decorations.pathreplacing,matrix}
 \usepackage{fancyhdr}
 \usepackage[hidelinks=false,colorlinks=true,linkcolor=blue!50!black,citecolor=green!35!black,urlcolor=blue!60!black,
-            bookmarksnumbered=true,pdftitle={XRB-pilot technical report},pdfauthor={TODO}]{hyperref}
+            bookmarksnumbered=true,hypertexnames=false,pdftitle={XRB-pilot technical report},pdfauthor={TODO}]{hyperref}
 \usepackage{xurl}
 \usepackage[capitalise,noabbrev]{cleveref}
 
@@ -91,10 +91,21 @@
 % numbers with intervals: \ci{+0.264}{+0.048}{+0.455}
 \newcommand{\ci}[3]{$#1$~$[#2,\,#3]$}
 % file names and code identifiers: typewriter, robust in captions, line breaks allowed after "_" and "/"
-\makeatletter
-\DeclareRobustCommand{\file}[1]{\begingroup\ttfamily\def\_{\textunderscore\allowbreak}\def\slash{/\allowbreak}#1\endgroup}
-\DeclareRobustCommand{\code}[1]{\begingroup\ttfamily\def\_{\textunderscore\allowbreak}#1\endgroup}
-\makeatother
+\ExplSyntaxOn
+\tl_new:N \l_xrb_path_tl
+\DeclareRobustCommand{\file}[1]{\group_begin: \ttfamily
+  \tl_set:Nn \l_xrb_path_tl {#1}
+  \tl_replace_all:Nnn \l_xrb_path_tl {/} {/\allowbreak}
+  \tl_replace_all:Nnn \l_xrb_path_tl {.} {.\allowbreak}
+  \cs_set:Npn \_ {\textunderscore\allowbreak}
+  \tl_use:N \l_xrb_path_tl \group_end:}
+\DeclareRobustCommand{\code}[1]{\group_begin: \ttfamily
+  \tl_set:Nn \l_xrb_path_tl {#1}
+  \tl_replace_all:Nnn \l_xrb_path_tl {.} {.\allowbreak}
+  \tl_replace_all:Nnn \l_xrb_path_tl {,} {,\allowbreak}
+  \cs_set:Npn \_ {\textunderscore\allowbreak}
+  \tl_use:N \l_xrb_path_tl \group_end:}
+\ExplSyntaxOff
 \newcommand{\BH}{BH}
 \newcommand{\NS}{NS}
 

@@ -1,2 +1,648 @@
-% stub 06_phase1
-\chapter{Phase 1}\label{ch:phase1}
+% =====================================================================================================
+\chapter{Phase 1 (v1--v3): spectral baselines}\label{ch:phase1}
+% =====================================================================================================
+
+\begin{glance}{v1--v3}
+\textbf{Question.} Can one RXTE/PCA 5--25\,keV spectrum classify the compact object of a source never seen in training,
+and where in the spectrum is the information? \\
+\textbf{Pre-declared primaries.} v1: none formal (LOSO evaluation of A and B; leakage diagnostic); v2: paired B$-$A
+difference (source bootstrap); v3a: H+B $-$ H (``is there information beyond two colours?''), judged on observation BA,
+source BA and source AUC. \\
+\textbf{Data.} RXTE/PCA Standard-2 Standard Products, gain epoch 5 (2000--2011); v1: 8 sources (4 BH, 4 NS) $\times$ 15
+observations; v2/v3: 31 sources (7 BH, 24 NS), 456 observations, 1842\,ks; v3c: 14 BH candidates (210 observations,
+prediction only). \\
+\textbf{Verdict.} Better than chance on unseen sources (source BA 0.80--0.87, source AUC 0.88--0.95 for the balanced
+models), but \emph{the usable information is in two count-space colours}: the full shape (H+B $-$ H), 3--5\,keV and
+intensity add nothing \textbf{detectable}. Errors concentrate on hard-state BHs and hard NSs, which overlap in colour.
+\end{glance}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Motivation}
+% -----------------------------------------------------------------------------------------------------
+Published classifiers of RXTE spectra reported 87--94\% accuracy \citep{Pattnaik2021,Garg2026}, but with either
+sigma-clipped source accuracies or observation-wise random splits, and with BH candidates labelled as BHs. Neither
+published its processed spectra. Phase 1 rebuilt the data from the HEASARC Standard Products, used only confirmed labels,
+and asked the question in its strict form: how well can an \emph{unseen source} be classified, and is the information more
+than a simple hardness measure?
+
+% -----------------------------------------------------------------------------------------------------
+\section{Pre-registration}
+% -----------------------------------------------------------------------------------------------------
+\begin{table}[htbp]
+\centering\small
+\caption[Phase 1 pre-registrations]{Phase 1 pre-registrations (\file{reports/preregistration.md}, \file{\_v2.md}, \file{\_v3.md}).}
+\label{tab:p1prereg}
+\begin{tabularx}{\textwidth}{@{}p{0.8cm}p{3.0cm}XX@{}}
+\toprule
+Ver. & Written & Primary / decision rule & Secondary / descriptive \\
+\midrule
+v1 & 2026-09-29, after selection ran and during download, before any model & LOSO evaluation of A and B with Dummy, LR, RF; source rule $\bar s\ge0.5$; no formal primary comparison & leaky observation-wise 5-fold (to show the leak) \\
+v2 & 2026-09-29, after the v1 results, before any v2 download & source bootstrap (2000, seed 42) of v1 and v2; paired B$-$A difference & hardness baselines H and HI (``does the model only learn hardness?''); XSPEC cross-check \\
+v3 & 2026-09-30, after v1/v2 results and the B--H agreement statistics & v3a: H+B $-$ H (LR and RF); ``information beyond hardness'' only if the CI is entirely $>0$ & v3a: HI+A $-$ HI, source AUC for all; v3b: B3$-$B, H3$-$H, H3+B3$-$H3; v3c: candidate predictions and label sensitivity \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+All three were written before the models of their version were trained, but after the results of the earlier versions;
+the v3 document states explicitly that v3a tests a question raised by v2.
+
+% -----------------------------------------------------------------------------------------------------
+\section{Data}
+% -----------------------------------------------------------------------------------------------------
+\subsection{Instrument, mode, band and epoch}
+RXTE/PCA Standard-2 Standard Products (\cref{sec:pca}), 5--25\,keV on the 45-bin grid (v3b: 2.883--25.008\,keV), net
+count rate per keV per PCU after background subtraction and deadtime correction (v1: good-xenon lower bound; v2: full
+Standard-1 recipe). Gain epoch 5 only: MJD 51677--54094 for v1 (2000-05-13 to 2006-12-25, before PCU1 lost its propane
+layer), MJD 51677--55931 for v2/v3 (to the end of the mission).
+
+\subsection{Sources}
+v1 used 4 BlackCAT dynamical BHs and 4 Galloway+2008 bursters with $\ge30$ eligible pointings (\cref{tab:p1sourcesv1}).
+v2 applied the label rule mechanically: every BlackCAT Table-4 BH and every Galloway+2008 appendix-A burster with a
+MissionLongData catalogue and $\ge10$ eligible pointings, giving 7 BH and 24 NS (\cref{tab:p1sourcesv2}); XTE J1859+226
+(0 eligible in epoch 5) and V4641 Sgr (9) were dropped by rule. The NS set mixes atolls, two Z sources (GX 17+2, Cyg X-2),
+three accreting millisecond pulsars (SAX J1808.4$-$3658, XTE J1814$-$338, HETE J1900.1$-$2455) and globular-cluster
+sources. v3c used 14 BlackCAT BH candidates with a catalogue (\cref{tab:p1v3c}); XTE J1748$-$288 and GRS 1739$-$278 had none.
+
+\begin{table}[htbp]
+\centering\small
+\caption[v1 sources and attrition]{v1 sources and catalogue-level attrition (\file{data/sources.csv},
+\file{results/attrition\_catalog.csv}, \file{results/attrition\_download.csv}). Columns: catalogue rows, after the
+epoch window (MJD 51677--54094), exposure $\ge1000$\,s, \texttt{STD1RATE}~$\ge5$, pointing $\le0.1^\circ$ (= eligible);
+15 accepted per source, all first-ranked candidates. Exposure and median net 5--25\,keV rate of the accepted
+observations from \file{data/observations.csv}.}
+\label{tab:p1sourcesv1}
+\setlength{\tabcolsep}{4pt}\footnotesize
+\begin{tabular}{@{}llrrrrrrrr@{}}
+\toprule
+Source & label & cat. & window & exp. & rate & eligible & accepted & exp.\ [ks] & $F$ [c/s/PCU] \\
+\midrule
+GRO J1655$-$40 & BH & 593 & 512 & 477 & 440 & 440 & 15 & 43.7 & 596.4 \\
+GRS 1915+105 & BH & 1809 & 887 & 699 & 699 & 699 & 15 & 52.1 & 1151.6 \\
+XTE J1550$-$564 & BH & 414 & 138 & 99 & 79 & 63 & 15 & 50.3 & 74.4 \\
+4U 1543$-$47 & BH & 108 & 108 & 97 & 58 & 58 & 15 & 36.7 & 70.6 \\
+4U 1636$-$53 & NS & 1580 & 558 & 490 & 490 & 490 & 15 & 48.5 & 115.8 \\
+4U 1608$-$52 & NS & 1128 & 423 & 236 & 213 & 213 & 15 & 49.2 & 149.4 \\
+4U 1728$-$34 & NS & 440 & 188 & 180 & 180 & 174 & 15 & 59.1 & 221.8 \\
+Aql X-1 & NS & 602 & 270 & 248 & 226 & 226 & 15 & 61.9 & 103.7 \\
+\midrule
+Total & 4/4 & & & & & & 120 & 401.6 & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+{\footnotesize\setlength{\tabcolsep}{3.5pt}
+\begin{longtable}{@{}lllrrrrrrr@{}}
+\caption[v2 sources and attrition]{v2 sources (31 included, 2 BHs dropped by the $\ge10$ rule) and attrition
+(\file{data/v2/sources.csv}, \file{results/v2/attrition\_catalog.csv}, \file{\dots/attrition\_download.csv}). ``Galloway''
+= appendix-A section of \citet{Galloway2008}. Columns as in \cref{tab:p1sourcesv1} (window MJD 51677--55931); ``tried'' =
+candidates processed; ``acc.'' = accepted.}\label{tab:p1sourcesv2}\\
+\toprule
+Source & label & evidence & cat. & window & exp. & elig. & tried & acc. & exp.\ [ks] \\
+\midrule\endfirsthead
+\toprule Source & label & evidence & cat. & window & exp. & elig. & tried & acc. & exp.\ [ks] \\ \midrule\endhead
+\bottomrule\endfoot
+GRO J1655$-$40 & BH & BlackCAT T4 & 593 & 512 & 477 & 440 & 15 & 15 & 43.7 \\
+GRS 1915+105 & BH & BlackCAT T4 & 1809 & 1296 & 1033 & 1033 & 15 & 15 & 30.3 \\
+XTE J1550$-$564 & BH & BlackCAT T4 & 414 & 138 & 99 & 63 & 15 & 15 & 50.3 \\
+4U 1543$-$47 & BH & BlackCAT T4 & 108 & 108 & 97 & 58 & 15 & 15 & 36.7 \\
+GX 339$-$4 & BH & BlackCAT T4 & 1405 & 1315 & 692 & 652 & 15 & 15 & 27.1 \\
+XTE J1650$-$500 & BH & BlackCAT T4 & 184 & 184 & 128 & 95 & 15 & 15 & 40.8 \\
+XTE J1118+480 & BH & BlackCAT T4 & 99 & 71 & 51 & 41 & 15 & 15 & 38.7 \\
+XTE J1859+226 & BH (dropped) & BlackCAT T4 & 136 & 2 & 2 & 0 & -- & -- & -- \\
+V4641 Sgr & BH (dropped) & BlackCAT T4 & 75 & 63 & 44 & 9 & -- & -- & -- \\
+4U 1636$-$53 & NS & A.8 & 1580 & 1482 & 1332 & 1332 & 15 & 15 & 54.1 \\
+4U 1608$-$52 & NS & A.7 & 1128 & 1002 & 567 & 540 & 15 & 15 & 24.7 \\
+4U 1728$-$34 & NS & A.16 & 440 & 296 & 282 & 276 & 15 & 15 & 37.1 \\
+Aql X-1 & NS & A.44 & 602 & 462 & 432 & 400 & 15 & 15 & 40.2 \\
+EXO 0748$-$676 & NS & A.2 & 751 & 616 & 526 & 510 & 16 & 15 & 39.1 \\
+4U 1254$-$69 & NS & A.5 & 37 & 27 & 24 & 24 & 15 & 15 & 154.8 \\
+4U 1323$-$62 & NS & A.6 & 32 & 20 & 19 & 19 & 15 & 15 & 93.0 \\
+MXB 1659$-$298 & NS & A.9 & 81 & 36 & 33 & 30 & 15 & 15 & 45.4 \\
+4U 1702$-$429 & NS & A.10 & 228 & 211 & 201 & 201 & 15 & 15 & 80.7 \\
+4U 1705$-$44 & NS & A.11 & 508 & 429 & 402 & 402 & 15 & 15 & 37.4 \\
+4U 1724$-$307 & NS & A.15 & 127 & 79 & 77 & 77 & 15 & 15 & 47.8 \\
+KS 1731$-$260 & NS & A.18 & 86 & 45 & 42 & 33 & 15 & 15 & 89.9 \\
+SLX 1735$-$269 & NS & A.19 & 82 & 66 & 65 & 64 & 15 & 15 & 57.1 \\
+4U 1735$-$44 & NS & A.20 & 224 & 172 & 161 & 161 & 15 & 15 & 54.6 \\
+GX 3+1 & NS & A.28 & 108 & 77 & 75 & 75 & 15 & 15 & 61.6 \\
+4U 1746$-$37 & NS & A.32 & 62 & 45 & 43 & 43 & 15 & 15 & 86.4 \\
+SAX J1808.4$-$3658 & NS (AMXP) & A.36 & 497 & 438 & 294 & 234 & 15 & 15 & 89.8 \\
+XTE J1814$-$338 & NS (AMXP) & A.37 & 93 & 93 & 80 & 73 & 15 & 15 & 66.1 \\
+GX 17+2 & NS (Z) & A.38 & 212 & 101 & 90 & 90 & 15 & 15 & 90.4 \\
+4U 1820$-$30 & NS & A.39 & 266 & 140 & 133 & 133 & 15 & 15 & 84.7 \\
+GS 1826$-$238 & NS & A.40 & 160 & 142 & 140 & 118 & 15 & 15 & 97.2 \\
+HETE J1900.1$-$2455 & NS (AMXP) & A.43 & 358 & 358 & 349 & 344 & 15 & 15 & 42.2 \\
+4U 1916$-$053 & NS & A.45 & 54 & 12 & 11 & 11 & 11 & 6 & 50.9 \\
+Cyg X-2 & NS (Z) & A.48 & 591 & 449 & 403 & 403 & 15 & 15 & 49.2 \\
+\midrule
+Total (31 included) & 7/24 & & & & & & & 456 & 1841.8 \\
+\end{longtable}}
+
+Of the 462 candidates processed in v2, 6 were excluded: one EXO 0748$-$676 observation with a short spectrum exposure
+(replaced by the next candidate of the same time group) and five 4U 1916$-$053 ObsIDs of proposal 30066 for which the
+Standard-2 products were not found (HTTP 404), leaving 6 observations of that source in 11 time groups.
+% CHECK: 04_fetch_process.py maps proposal prefixes to AO directories only for AO4-AO16 (AO_BY_PREFIX has no '3'), so the
+% ObsIDs of proposal 30066 were never looked up under AO3/; the 404 may reflect the scan range rather than a missing
+% product (21_v4b2_fetch_process.py later added AO1-AO4). Not verified here (no network access to HEASARC was used).
+
+\subsection{Data quality}
+All integrity checks of \file{06\_dataset\_checks.py} pass (unique ObsIDs, labels consistent, all values finite, units
+\texttt{count}, BACKSCAL ratio 1, header position $\le0.045^\circ$ from the source). Non-positive net bins: 7 of 5400 in v1
+(3 observations, all above 21\,keV), 55 of 20\,520 in v2 (18 observations, high-energy end of soft spectra); kept as is.
+Minimum S/N: 34.9 (v1), 19.1 (v2). Deadtime (v2 recipe): median 1.38\%, maximum 8.8\%. Exposure: 401.6\,ks (v1);
+1841.8\,ks in v2, of which 267.6\,ks BH and 1574.2\,ks NS. \Cref{fig:p1diag,fig:p1spectra} show the per-source
+distributions of the quantities that define the sample.
+
+\begin{figure}[htbp]
+\centering
+\begin{subfigure}{\textwidth}\includegraphics[width=\textwidth]{figures/step3_dataset_diagnostics.png}\caption{v1, 8 sources}\end{subfigure}\\[4pt]
+\begin{subfigure}{\textwidth}\includegraphics[width=\textwidth]{figures/v2/step3_dataset_diagnostics.png}\caption{v2, 31 sources}\end{subfigure}
+\caption[Dataset diagnostics, v1 and v2]{Per-source diagnostics of the accepted observations (blue = BH, orange = NS):
+observations per source (accepted vs excluded candidates), spectrum exposure, net 5--25\,keV count rate per PCU, background
+fraction, net S/N and the count ratio (10--25)/(5--10)\,keV (log axes where indicated). BH and NS overlap in every
+quantity; the BHs are on average brighter in v1 (GRS 1915+105, GRO J1655$-$40), a possible intensity shortcut that
+representation A could exploit. Repo: \file{figures/step3\_dataset\_diagnostics.png}, \file{figures/v2/step3\_dataset\_diagnostics.png};
+script \file{scripts/06\_dataset\_checks.py}.}
+\label{fig:p1diag}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\begin{subfigure}{\textwidth}\includegraphics[width=\textwidth]{figures/step3_spectra_by_source.png}\caption{v1}\end{subfigure}\\[4pt]
+\begin{subfigure}{\textwidth}\includegraphics[width=\textwidth]{figures/v2/step3_spectra_by_source.png}\caption{v2}\end{subfigure}
+\caption[Net count-rate spectra per source, v1 and v2]{Net count-rate spectra of every accepted observation, one panel
+pair per source (upper: count rate per keV per PCU, log--log, non-positive bins omitted; lower: per-spectrum shape
+normalised to the 5--25\,keV rate). The spread within a source (state changes) is comparable to the spread between
+sources, which is why a single observation is a hard input. Repo: \file{figures/step3\_spectra\_by\_source.png},
+\file{figures/v2/step3\_spectra\_by\_source.png}; script \file{scripts/06\_dataset\_checks.py}.}
+\label{fig:p1spectra}
+\end{figure}
+
+\subsection{BH candidates (v3c)}
+The 16 candidates were drafted from memory, then verified against the BlackCAT web pages and \citet{CorralSantana2016}
+and frozen on 2026-09-30 03:47 +08:00 before any v3c download (all 16 kept; \file{reports/v3c\_candidate\_verification.md}):
+none is dynamically confirmed and none has NS evidence; MAXI J1659$-$152 and Swift J1753.5$-$0127 are in BlackCAT's
+``strictly speaking not dynamical but strong mass evidence'' class. The only post-freeze change was the catalogue file
+name of Swift J1753.5$-$0127 (\texttt{SWIFTJ1753.5-01}). 14 candidates had catalogues, each with $\ge16$ eligible
+pointings; 15 per source were accepted (210 in total, 561.7\,ks), header pointings within $0.035^\circ$. Five lie in the
+crowded Galactic-centre field (three with data: SLX 1746$-$331, GRS 1758$-$258, 1E 1740.7$-$2942), where other bright
+sources may contaminate the 1$^\circ$ PCA field of view. \Cref{fig:p1v3cdiag} shows their diagnostics.
+
+\begin{figure}[htbp]
+\centering
+\begin{subfigure}{0.62\textwidth}\includegraphics[width=\textwidth]{figures/v3c/step3_dataset_diagnostics.png}\caption{diagnostics}\end{subfigure}\hfill
+\begin{subfigure}{0.36\textwidth}\includegraphics[width=\textwidth]{figures/v3c/step3_response_variation.png}\caption{response check}\end{subfigure}\\[4pt]
+\begin{subfigure}{\textwidth}\includegraphics[width=\textwidth]{figures/v3c/step3_spectra_by_source.png}\caption{spectra}\end{subfigure}
+\caption[Diagnostics of the v3c BH candidates]{The 14 v3c BH candidates (all plotted in the BH colour although they are
+unlabelled): per-source diagnostics as in \cref{fig:p1diag}, the response check of \cref{fig:response}, and spectra as in
+\cref{fig:p1spectra}. XTE J1908+094 is the faintest (median 4.1\,c\,s$^{-1}$\,PCU$^{-1}$); 4U 1630$-$47 the brightest (269).
+Repo: \file{figures/v3c/step3\_*.png}; script \file{scripts/06\_dataset\_checks.py} with \texttt{XRB\_VERSION=v3c}.}
+\label{fig:p1v3cdiag}
+\end{figure}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Data structure in this phase}\label{sec:p1structure}
+% -----------------------------------------------------------------------------------------------------
+\Cref{tab:p1arrays} lists every array passed to a model in Phase 1 (\cref{ch:datamodel}). Rows of all v2 matrices are in
+the order of \file{data/v2/processed/features.npz}; folds are \code{LeaveOneGroupOut} on \code{source\_id}
+(\file{results/v2/folds\_loso.csv}, 31 folds; v1: 8 folds, \file{results/folds\_loso.csv}). In a v2 fold, the training set has
+441 rows (450 when 4U 1916$-$053 is held out); when a BH source is held out it contains 90 BH and 351 NS rows, so the
+balanced weights are $441/(2\cdot90)=2.45$ for BH and $441/(2\cdot351)=0.63$ for NS rows.
+
+\begin{table}[htbp]
+\centering\small
+\caption[Phase 1 arrays]{Arrays passed to the models in Phase 1. All float arrays are float64; $\yv$ is int64; $\gv$ is a
+unicode array of source identifiers. ``npz'' = \file{data/v2/processed/features.npz} unless stated.}
+\label{tab:p1arrays}
+\begin{tabularx}{\textwidth}{@{}p{1.6cm}p{1.9cm}p{1.6cm}Xp{3.2cm}@{}}
+\toprule
+Analysis & Array & Shape & Columns (unit) & Source \\
+\midrule
+v1 & $\Xm_A$, $\Xm_B$ & $120\times45$ & $A_{ij}$ (dimensionless), $B_{ij}$ (keV$^{-1}$), $j=0..44$ & \file{data/processed/features.npz}: \code{rate}, \code{F} \\
+ & $\yv$, $\gv$ & 120 & 60 BH; 8 sources & same: \code{y}, \code{source\_id} \\
+v2 & $\Xm_A$, $\Xm_B$ & $456\times45$ & as v1 & npz: \code{rate}, \code{F} \\
+ & $\Xm_H$ & $456\times2$ & $h_1,h_2$ (\cref{eq:H}) & npz: \code{rate}, \code{edges} \\
+ & $\Xm_{HI}$ & $456\times3$ & $h_1,h_2,\log_{10}F$ & npz \\
+ & $\yv$, $\gv$ & 456 & 105 BH; 31 sources & npz \\
+v3a & $\Xm_{H+B}$ & $456\times47$ & $h_1,h_2,B_0..B_{44}$ & npz \\
+ & $\Xm_{HI+A}$ & $456\times48$ & $h_1,h_2,\log_{10}F,A_0..A_{44}$ & npz \\
+v3b & $\Xm_{B3}$ & $456\times50$ & $x_{ij}/F^{(3)}_i$ on the 50-bin grid & \file{data/v3/processed/features\_3\_25.npz} \\
+ & $\Xm_{H3}$ & $456\times3$ & $C_0/C_1, C_2/C_1, C_4/C_3$ & same \\
+ & $\Xm_{H3+B3}$ & $456\times53$ & H3 and B3 & same \\
+v3c (1) & train $\Xm$ & $456\times p$ & A, B, H or HI of the 31 confirmed sources & npz \\
+ & predict $\Xm_c$ & $210\times p$ & same representation of the candidates & \file{data/v3c/processed/features.npz} \\
+v3c (2) & train (fold $k$) & $(456-n_k+210)\times p$ & confirmed training rows + all candidate rows, candidates with $y=1$ & both npz \\
+ & test (fold $k$) & $n_k\times p$ & held-out confirmed source & npz \\
+leaky split & $\Xm_A,\Xm_B,\Xm_H,\Xm_{HI}$ & as above & \code{StratifiedKFold(5, shuffle, 42)} over rows & npz \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Compared with v1, v2 adds rows (31 sources instead of 8; 456 instead of 120 observations) and the H/HI representations;
+v3a adds the nested concatenations, v3b five low-energy columns, v3c 210 unlabelled rows used only as extra BH training
+rows or as prediction targets.
+
+% -----------------------------------------------------------------------------------------------------
+\section{Models in this phase}
+% -----------------------------------------------------------------------------------------------------
+\begin{table}[htbp]
+\centering\small
+\caption[Phase 1 models]{Models of Phase 1 (all with fixed hyper-parameters, no tuning; \cref{ch:methods}).}\label{tab:p1models}
+\begin{tabularx}{\textwidth}{@{}lXll@{}}
+\toprule
+Model & Representations & Weights & Hyper-parameters \\
+\midrule
+Dummy (prior) & A, B, H, HI & -- & \cref{sec:dummy} \\
+LR (\cref{sec:lr}) & A, B, H, HI, H+B, HI+A, B3, H3, H3+B3 & balanced & $C=1$, L2, lbfgs \\
+RF (\cref{sec:rf}) & same & balanced & 500 trees, \code{sqrt}, leaf 2, seed 42 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Results}\label{sec:p1results}
+% -----------------------------------------------------------------------------------------------------
+
+\subsection{The pilot (v1, 8 sources)}
+\Descriptive{} With 4 BH and 4 NS sources, the observation-level BA under LOSO was 0.70 (A-LR), 0.69 (A-RF), 0.76 (B-LR)
+and 0.74 (B-RF); 6--7 of 8 sources were classified correctly, but every model had one or two sources that were mostly
+wrong, and \emph{which} sources failed changed with the representation (\cref{tab:p1v1persource}). The Dummy scored BA = 0 for
+the reason explained in \cref{sec:dummy}. The source bootstrap (added in v2) gives source BA 0.75 $[0.50,1.00]$ (A-LR),
+0.875 $[0.625,1.00]$ (A-RF), 0.75 $[0.375,1.00]$ (B-LR, B-RF), and the B$-$A observation-BA differences +0.058
+$[-0.158,+0.217]$ (LR) and +0.050 $[-0.250,+0.283]$ (RF): eight sources cannot distinguish A from B
+(\file{results/bootstrap\_source\_level.csv}). The leaky observation-wise split gave 0.80--0.89 (\cref{fig:leakage}).
+
+\begin{table}[htbp]
+\centering\small
+\caption[v1 per-source results]{v1 per-source LOSO results: source-mean BH score (fraction of the source's 15
+observations classified correctly). Bold = source misclassified by the 0.5 rule. From \file{results/per\_source\_results.csv}.}
+\label{tab:p1v1persource}
+\begin{tabular}{@{}llcccc@{}}
+\toprule
+Source & label & A-LR & A-RF & B-LR & B-RF \\
+\midrule
+GRO J1655-40 & BH & 0.73 (0.67) & 0.69 (0.80) & 0.92 (1.00) & 0.94 (1.00) \\
+GRS 1915+105 & BH & \textbf{0.48} (0.67) & 0.81 (0.87) & \textbf{0.17} (0.13) & \textbf{0.19} (0.13) \\
+XTE J1550-564 & BH & \textbf{0.36} (0.27) & 0.53 (0.33) & 0.56 (0.73) & 0.72 (0.73) \\
+4U 1543-47 & BH & 0.81 (0.87) & \textbf{0.45} (0.27) & 0.97 (1.00) & 0.90 (1.00) \\
+4U 1636-53 & NS & 0.17 (1.00) & 0.19 (1.00) & 0.09 (1.00) & 0.21 (1.00) \\
+4U 1608-52 & NS & 0.25 (0.80) & 0.30 (0.87) & 0.28 (0.73) & 0.23 (0.93) \\
+4U 1728-34 & NS & 0.27 (0.87) & 0.16 (0.87) & 0.10 (1.00) & 0.38 (0.73) \\
+Aql X-1 & NS & 0.42 (0.47) & 0.44 (0.53) & \textbf{0.50} (0.47) & \textbf{0.57} (0.40) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.95\textwidth]{figures/step4_loso_scores.png}
+\caption[v1 LOSO scores per source]{v1: out-of-fold BH scores of every observation of each held-out source (left A,
+right B; grey Dummy, purple LR, green RF), black tick = source mean, dashed line = 0.5. GRS 1915+105 is classified by its
+intensity (A) but not by its shape (B); XTE J1550$-$564 the other way round. Repo: \file{figures/step4\_loso\_scores.png};
+script \file{scripts/07\_train\_eval.py}.}
+\label{fig:p1v1scores}
+\end{figure}
+
+\subsection{How much is in two colours? (v2, v3a, v3b)}
+\textbf{Representations on 31 sources (v2).} \Cref{tab:p1v2} gives every representation and model, with source AUC from
+v3a. The balanced models reach source BA 0.77--0.87 and source AUC 0.88--0.95; the two-colour H-LR has source BA 0.795
+$[0.589,0.958]$ and source AUC 0.923 $[0.804,0.994]$ -- this is the reference against which v4 tests every alternative.
+RF on the intensity representation A fails at the 0.5 threshold (source BA 0.62, 2/7 BH correct) although its ranking is
+good (AUC 0.88).
+
+\begin{table}[htbp]
+\centering\small
+\caption[v2 representations and models]{v2/v3a LOSO results on 31 sources (456 observations). 95\% intervals: 2000
+class-stratified source bootstrap replicates. From \file{results/v3/v3a\_metrics.csv} and \file{results/v3/v3a\_bootstrap.csv}
+(v2 rows are reproduced exactly; \file{results/v2/metrics\_*.csv}).}
+\label{tab:p1v2}
+\begin{tabular}{@{}llccccc@{}}
+\toprule
+Repr. & Model & obs.\ BA & source BA & source AUC & BH ok & NS ok \\
+\midrule
+A & LR & 0.724 [0.606, 0.817] & 0.866 [0.702, 0.979] & 0.946 [0.833, 1.000] & 6/7 & 21/24 \\
+A & RF & 0.606 [0.546, 0.661] & 0.622 [0.458, 0.786] & 0.881 [0.738, 0.988] & 2/7 & 23/24 \\
+B & LR & 0.761 [0.592, 0.903] & 0.774 [0.568, 0.938] & 0.875 [0.690, 1.000] & 5/7 & 20/24 \\
+B & RF & 0.761 [0.621, 0.877] & 0.857 [0.643, 1.000] & 0.893 [0.732, 1.000] & 5/7 & 24/24 \\
+H & LR & 0.776 [0.633, 0.893] & 0.795 [0.589, 0.958] & 0.923 [0.804, 0.994] & 5/7 & 21/24 \\
+H & RF & 0.755 [0.606, 0.882] & 0.857 [0.643, 1.000] & 0.905 [0.750, 1.000] & 5/7 & 24/24 \\
+HI & LR & 0.782 [0.673, 0.881] & 0.795 [0.589, 0.958] & 0.929 [0.810, 1.000] & 5/7 & 21/24 \\
+HI & RF & 0.754 [0.609, 0.874] & 0.836 [0.643, 1.000] & 0.946 [0.839, 1.000] & 5/7 & 23/24 \\
+H+B & LR & 0.758 [0.589, 0.899] & 0.774 [0.568, 0.938] & 0.875 [0.690, 1.000] & 5/7 & 20/24 \\
+H+B & RF & 0.768 [0.625, 0.895] & 0.857 [0.643, 1.000] & 0.893 [0.732, 1.000] & 5/7 & 24/24 \\
+HI+A & LR & 0.727 [0.599, 0.832] & 0.795 [0.589, 0.958] & 0.923 [0.792, 1.000] & 5/7 & 21/24 \\
+HI+A & RF & 0.721 [0.615, 0.811] & 0.693 [0.500, 0.857] & 0.935 [0.821, 1.000] & 3/7 & 23/24 \\
+\midrule
+Dummy & -- & 0.500 & -- & -- & 0/7 & 24/24 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Paired comparisons.} \Cref{tab:p1paired} collects the paired differences. \Primary{} (v3a) H+B $-$ H: every interval
+contains 0 or lies below it (LR source AUC $-0.048$ $[-0.179,+0.048]$; RF $-0.012$ $[-0.077,+0.048]$) $\Rightarrow$
+information beyond the two colours is \NotDetected. \Secondary{} HI+A $-$ HI: adding 45 intensity bins makes LR worse at the
+observation level ($-0.055$ $[-0.100,-0.017]$, CI entirely below 0). \Primary{} (v2) B$-$A: for RF the shape beats
+intensity (+0.154 $[+0.030,+0.270]$ observation BA; +0.235 $[+0.042,+0.429]$ source BA) but not in AUC (+0.012
+$[-0.149,+0.161]$): the A-RF failure is a threshold, not a ranking, problem. \PostHoc{} B$-$H and A$-$HI were added after
+training (logged): B$-$H is within $\pm0.02$ of 0 for both models. The descriptive agreement is high: B and H give OOF
+scores with Spearman 0.91 (LR) / 0.83 (RF) and identical labels for 88\% / 93\% of observations; H+B vs H: 0.92 / 0.85 and
+88\% / 93\% (\file{results/v3/v3a\_agreement.csv}).
+
+\begin{table}[htbp]
+\centering\small
+\caption[Phase 1 paired comparisons]{Phase 1 paired differences (first minus second), 95\% source-bootstrap CI.
+``*'' = CI excludes 0. From \file{results/v3/v3a\_bootstrap.csv} and \file{results/v3/v3b\_bootstrap.csv}.}
+\label{tab:p1paired}
+\begin{tabular}{@{}llccc@{}}
+\toprule
+Comparison & Model & obs.\ BA & source BA & source AUC \\
+\midrule
+\multicolumn{5}{@{}l}{\Primary{} v3a: information beyond two colours}\\
+H+B $-$ H & LR & $-0.018$ [$-0.078$, $+0.031$] & $-0.021$ [$-0.062$, $0.000$] & $-0.048$ [$-0.179$, $+0.048$] \\
+H+B $-$ H & RF & $+0.013$ [$-0.009$, $+0.038$] & $0.000$ [$0.000$, $0.000$] & $-0.012$ [$-0.077$, $+0.048$] \\
+\multicolumn{5}{@{}l}{\Secondary{} v3a: intensity bins beyond colours + intensity}\\
+HI+A $-$ HI & LR & $-0.055$ [$-0.100$, $-0.017$]* & $0.000$ [$0.000$, $0.000$] & $-0.006$ [$-0.077$, $+0.054$] \\
+HI+A $-$ HI & RF & $-0.033$ [$-0.114$, $+0.061$] & $-0.143$ [$-0.340$, $+0.021$] & $-0.012$ [$-0.083$, $+0.048$] \\
+\multicolumn{5}{@{}l}{\Primary{} v2: shape vs intensity}\\
+B $-$ A & LR & $+0.037$ [$-0.092$, $+0.137$] & $-0.092$ [$-0.268$, $+0.021$] & $-0.071$ [$-0.238$, $+0.024$] \\
+B $-$ A & RF & $+0.154$ [$+0.030$, $+0.270$]* & $+0.235$ [$+0.042$, $+0.429$]* & $+0.012$ [$-0.149$, $+0.161$] \\
+\multicolumn{5}{@{}l}{\PostHoc{} v2: full shape vs colours; full intensity vs colours + intensity}\\
+B $-$ H & LR & $-0.015$ [$-0.076$, $+0.035$] & $-0.021$ [$-0.062$, $0.000$] & $-0.048$ [$-0.179$, $+0.048$] \\
+B $-$ H & RF & $+0.006$ [$-0.015$, $+0.026$] & $0.000$ [$0.000$, $0.000$] & $-0.012$ [$-0.077$, $+0.048$] \\
+A $-$ HI & LR & $-0.059$ [$-0.137$, $+0.018$] & $+0.071$ [$-0.042$, $+0.235$] & $+0.018$ [$-0.030$, $+0.077$] \\
+A $-$ HI & RF & $-0.148$ [$-0.254$, $-0.024$]* & $-0.214$ [$-0.408$, $-0.021$]* & $-0.065$ [$-0.173$, $+0.018$] \\
+\multicolumn{5}{@{}l}{\Secondary{} v3b: adding 3--5\,keV}\\
+B3 $-$ B & LR & $+0.013$ [$-0.011$, $+0.037$] & $+0.021$ [$0.000$, $+0.062$] & $-0.030$ [$-0.119$, $+0.018$] \\
+B3 $-$ B & RF & $-0.001$ [$-0.027$, $+0.021$] & $-0.021$ [$-0.062$, $0.000$] & $-0.060$ [$-0.202$, $+0.024$] \\
+H3 $-$ H & LR & $-0.027$ [$-0.048$, $-0.008$]* & $0.000$ [$0.000$, $0.000$] & $-0.018$ [$-0.071$, $0.000$] \\
+H3 $-$ H & RF & $-0.020$ [$-0.066$, $+0.020$] & $-0.092$ [$-0.235$, $0.000$] & $-0.054$ [$-0.161$, $+0.006$] \\
+H3+B3 $-$ H3 & LR & $+0.015$ [$-0.042$, $+0.071$] & $+0.021$ [$0.000$, $+0.062$] & $-0.065$ [$-0.214$, $+0.048$] \\
+H3+B3 $-$ H3 & RF & $+0.027$ [$-0.012$, $+0.076$] & $+0.071$ [$0.000$, $+0.214$] & $-0.030$ [$-0.089$, $0.000$] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{3--5\,keV (v3b).} The extended grid has 50 bins from 2.883\,keV; all 456 observations were re-extracted from the same
+raw files with the same deadtime factors, the 5--25\,keV part reproduces v2 to a relative difference of $6.9\times10^{-16}$,
+and no 3--5\,keV bin is non-positive (minimum $F(3\text{--}5)=1.37$\,c\,s$^{-1}$\,PCU$^{-1}$;
+\file{results/v3/v3b\_extraction\_checks.csv}). None of the three pre-declared comparisons has an interval entirely above
+0; adding a soft colour even lowers the LR observation BA ($-0.027$ $[-0.048,-0.008]$). The soft colour's highest
+per-source medians belong to three BHs (4U 1543$-$47, XTE J1650$-$500, GRO J1655$-$40), but the other four BHs lie among
+the NSs (\cref{fig:p1v3b}); differences at 3--5\,keV are expected to be dominated by the interstellar column $N_\mathrm{H}$,
+which is tied to the line of sight, not to the compact object (stated in the pre-registration; not corrected in v3).
+
+\begin{figure}[htbp]
+\centering
+\begin{subfigure}{0.62\textwidth}\includegraphics[width=\textwidth]{figures/v3/v3a_H_vs_HplusB_source_scores.png}\caption{v3a: H vs H+B source scores}\label{fig:p1v3a}\end{subfigure}\hfill
+\begin{subfigure}{0.36\textwidth}\includegraphics[width=\textwidth]{figures/v3/v3b_soft_colour_by_source.png}\caption{v3b: soft colour by source}\label{fig:p1v3b}\end{subfigure}
+\caption[v3a and v3b]{(a) Source-mean BH score with two colours (x) versus two colours plus 45 shape bins (y), LR left,
+RF right; blue BH, orange NS; dashed lines at 0.5. Points lie on the diagonal: the extra 45 columns change almost nothing.
+(b) Median and 16--84\% range of the soft colour $F(3\text{--}5)/F(5\text{--}7)$ per source (blue BH, orange NS); three BHs
+are the softest but four BHs sit among the NSs, and the ordering may reflect $N_\mathrm{H}$. Repo:
+\file{figures/v3/v3a\_H\_vs\_HplusB\_source\_scores.png} (\file{scripts/11\_v3a\_increment.py}),
+\file{figures/v3/v3b\_soft\_colour\_by\_source.png} (\file{scripts/12\_v3b\_extended\_band.py}).}
+\label{fig:p1v3}
+\end{figure}
+
+\textbf{Which sources fail.} \Cref{tab:p1v2persource} lists every source's mean score under all twelve combinations.
+XTE J1118+480 (BH, almost always in a hard state in RXTE data) is classified NS by all of them (0.14--0.41); GRS 1915+105
+(BH) is NS for every shape/colour model (0.15--0.43) and BH only with A-LR (intensity, 0.62); LR tends to call the hard
+NSs SAX J1808.4$-$3658, HETE J1900.1$-$2455 (both AMXPs) and KS 1731$-$260 BHs, while RF classifies all 24 NSs correctly with
+B and H. \Cref{fig:p1v2scores,fig:p1v2errors} show the observation-level picture: misclassified NS observations cluster at hard
+count ratios ((10--25)/(5--10)\,keV $\gtrsim0.4$) and low rates, where the hard BHs also lie; misclassified BH observations
+are either hard or the very bright, soft GRS 1915+105 observations.
+
+{\scriptsize\setlength{\tabcolsep}{2.4pt}
+\begin{longtable}{@{}llr*{12}{c}@{}}
+\caption[v2 per-source scores]{v2/v3a per-source mean OOF BH score for every representation and model (LR, RF). Bold =
+misclassified by the 0.5 rule. $n$ = observations. From \file{results/v3/v3a\_per\_source.csv}.}\label{tab:p1v2persource}\\
+\toprule
+ & & & \multicolumn{2}{c}{A} & \multicolumn{2}{c}{B} & \multicolumn{2}{c}{H} & \multicolumn{2}{c}{HI} & \multicolumn{2}{c}{H+B} & \multicolumn{2}{c}{HI+A}\\
+Source & lab. & $n$ & LR & RF & LR & RF & LR & RF & LR & RF & LR & RF & LR & RF \\
+\midrule\endfirsthead
+\toprule Source & lab. & $n$ & LR & RF & LR & RF & LR & RF & LR & RF & LR & RF & LR & RF \\ \midrule\endhead
+\bottomrule\endfoot
+GRO J1655-40 & BH & 15 & 0.68 & 0.52 & 0.92 & 0.82 & 0.82 & 0.87 & 0.85 & 0.83 & 0.92 & 0.81 & 0.74 & 0.67 \\
+GRS 1915+105 & BH & 15 & 0.62 & \textbf{0.45} & \textbf{0.18} & \textbf{0.15} & \textbf{0.41} & \textbf{0.15} & \textbf{0.43} & \textbf{0.35} & \textbf{0.17} & \textbf{0.15} & \textbf{0.34} & \textbf{0.49} \\
+XTE J1550-564 & BH & 15 & 0.61 & \textbf{0.44} & 0.75 & 0.58 & 0.55 & 0.62 & 0.62 & 0.63 & 0.74 & 0.56 & 0.67 & \textbf{0.49} \\
+4U 1543-47 & BH & 15 & 0.87 & \textbf{0.33} & 0.94 & 0.88 & 0.95 & 0.86 & 0.93 & 0.77 & 0.95 & 0.89 & 0.90 & \textbf{0.50} \\
+GX 339-4 & BH & 15 & 0.70 & \textbf{0.50} & 0.84 & 0.72 & 0.81 & 0.79 & 0.80 & 0.70 & 0.84 & 0.73 & 0.78 & 0.58 \\
+XTE J1650-500 & BH & 15 & 0.87 & 0.52 & 0.82 & 0.68 & 0.85 & 0.70 & 0.81 & 0.70 & 0.82 & 0.67 & 0.85 & 0.64 \\
+XTE J1118+480 & BH & 15 & \textbf{0.34} & \textbf{0.24} & \textbf{0.28} & \textbf{0.14} & \textbf{0.41} & \textbf{0.26} & \textbf{0.36} & \textbf{0.23} & \textbf{0.27} & \textbf{0.15} & \textbf{0.33} & \textbf{0.23} \\
+4U 1636-53 & NS & 15 & 0.25 & 0.14 & 0.09 & 0.03 & 0.22 & 0.09 & 0.22 & 0.04 & 0.10 & 0.03 & 0.21 & 0.07 \\
+4U 1608-52 & NS & 15 & 0.27 & 0.13 & 0.25 & 0.14 & 0.35 & 0.17 & 0.37 & 0.10 & 0.25 & 0.14 & 0.29 & 0.09 \\
+4U 1728-34 & NS & 15 & 0.39 & 0.29 & 0.07 & 0.03 & 0.17 & 0.17 & 0.23 & 0.17 & 0.07 & 0.04 & 0.29 & 0.27 \\
+Aql X-1 & NS & 15 & 0.37 & 0.25 & 0.36 & 0.33 & 0.41 & 0.37 & 0.38 & 0.26 & 0.36 & 0.32 & 0.37 & 0.23 \\
+EXO 0748-676 & NS & 15 & 0.22 & 0.20 & 0.32 & 0.23 & 0.28 & 0.25 & 0.22 & 0.26 & 0.31 & 0.22 & 0.21 & 0.20 \\
+4U 1254-69 & NS & 15 & 0.16 & 0.05 & 0.06 & 0.02 & 0.11 & 0.03 & 0.06 & 0.02 & 0.06 & 0.02 & 0.08 & 0.05 \\
+4U 1323-62 & NS & 15 & 0.21 & 0.34 & 0.41 & 0.30 & 0.32 & 0.15 & 0.24 & 0.26 & 0.40 & 0.28 & 0.20 & 0.34 \\
+MXB 1659-298 & NS & 15 & 0.33 & 0.15 & 0.16 & 0.14 & 0.29 & 0.12 & 0.18 & 0.13 & 0.16 & 0.14 & 0.21 & 0.14 \\
+4U 1702-429 & NS & 15 & 0.28 & 0.09 & 0.16 & 0.10 & 0.28 & 0.06 & 0.27 & 0.02 & 0.17 & 0.09 & 0.26 & 0.05 \\
+4U 1705-44 & NS & 15 & 0.16 & 0.05 & 0.12 & 0.03 & 0.18 & 0.05 & 0.19 & 0.02 & 0.12 & 0.02 & 0.15 & 0.03 \\
+4U 1724-307 & NS & 15 & 0.32 & 0.24 & 0.19 & 0.07 & 0.37 & 0.17 & 0.34 & 0.09 & 0.20 & 0.07 & 0.30 & 0.17 \\
+KS 1731-260 & NS & 15 & \textbf{0.61} & 0.45 & \textbf{0.55} & 0.31 & \textbf{0.60} & 0.36 & \textbf{0.64} & 0.19 & \textbf{0.56} & 0.32 & \textbf{0.65} & 0.35 \\
+SLX 1735-269 & NS & 15 & 0.37 & 0.17 & 0.21 & 0.15 & 0.40 & 0.06 & 0.32 & 0.07 & 0.22 & 0.15 & 0.33 & 0.13 \\
+4U 1735-44 & NS & 15 & 0.03 & 0.02 & 0.00 & 0.00 & 0.03 & 0.01 & 0.03 & 0.01 & 0.00 & 0.00 & 0.01 & 0.01 \\
+GX 3+1 & NS & 15 & 0.03 & 0.04 & 0.08 & 0.14 & 0.09 & 0.07 & 0.11 & 0.04 & 0.08 & 0.13 & 0.03 & 0.02 \\
+4U 1746-37 & NS & 15 & 0.12 & 0.02 & 0.01 & 0.00 & 0.08 & 0.05 & 0.05 & 0.01 & 0.01 & 0.01 & 0.07 & 0.01 \\
+SAX J1808.4-3658 & NS & 15 & \textbf{0.63} & 0.40 & \textbf{0.59} & 0.36 & \textbf{0.72} & 0.28 & \textbf{0.64} & 0.28 & \textbf{0.63} & 0.35 & \textbf{0.64} & 0.37 \\
+XTE J1814-338 & NS & 15 & 0.34 & 0.35 & \textbf{0.51} & 0.42 & 0.47 & 0.41 & 0.40 & \textbf{0.51} & \textbf{0.51} & 0.42 & 0.37 & 0.47 \\
+GX 17+2 & NS & 15 & 0.17 & \textbf{0.60} & 0.04 & 0.01 & 0.09 & 0.07 & 0.16 & 0.40 & 0.04 & 0.00 & 0.10 & \textbf{0.58} \\
+4U 1820-30 & NS & 15 & 0.11 & 0.04 & 0.01 & 0.02 & 0.04 & 0.03 & 0.06 & 0.05 & 0.01 & 0.02 & 0.06 & 0.03 \\
+GS 1826-238 & NS & 15 & \textbf{0.51} & 0.19 & 0.30 & 0.14 & 0.32 & 0.05 & 0.39 & 0.15 & 0.29 & 0.12 & 0.47 & 0.19 \\
+HETE J1900.1-2455 & NS & 15 & 0.48 & 0.33 & \textbf{0.52} & 0.27 & \textbf{0.61} & 0.35 & \textbf{0.57} & 0.22 & \textbf{0.54} & 0.26 & \textbf{0.53} & 0.28 \\
+4U 1916-053 & NS & 6 & 0.24 & 0.11 & 0.14 & 0.05 & 0.29 & 0.11 & 0.22 & 0.08 & 0.14 & 0.06 & 0.21 & 0.09 \\
+Cyg X-2 & NS & 15 & 0.08 & 0.10 & 0.44 & 0.39 & 0.21 & 0.41 & 0.25 & 0.35 & 0.45 & 0.39 & 0.09 & 0.20 \\
+\end{longtable}}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.88\textwidth]{figures/v2/step4_loso_scores.png}
+\caption[v2 LOSO scores per source]{v2: out-of-fold BH score of every observation of each held-out source (left: A,
+right: B; grey Dummy, purple LR, green RF), black tick = source mean, dashed = 0.5. The BH sources (bottom seven) are
+spread over the whole score range; XTE J1118+480 and GRS 1915+105 are below 0.5 for B. Repo:
+\file{figures/v2/step4\_loso\_scores.png}; script \file{scripts/07\_train\_eval.py} (\texttt{XRB\_VERSION=v2}).}
+\label{fig:p1v2scores}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\begin{subfigure}{0.49\textwidth}\includegraphics[width=\textwidth]{figures/v2/step5_hid_errors_LogReg.png}\caption{v2, LR}\end{subfigure}
+\begin{subfigure}{0.49\textwidth}\includegraphics[width=\textwidth]{figures/v2/step5_hid_errors_RandomForest.png}\caption{v2, RF}\end{subfigure}\\
+\begin{subfigure}{0.49\textwidth}\includegraphics[width=\textwidth]{figures/step5_hid_errors_LogReg.png}\caption{v1, LR}\end{subfigure}
+\begin{subfigure}{0.49\textwidth}\includegraphics[width=\textwidth]{figures/step5_hid_errors_RandomForest.png}\caption{v1, RF}\end{subfigure}
+\caption[Hardness--intensity diagrams of the errors]{Hardness--intensity diagrams in count space: count ratio
+(10--25)/(5--10)\,keV (x, log) versus net 5--25\,keV rate (y, log), each panel pair for A (left) and B (right); filled =
+correct, hollow = misclassified under LOSO; circles BH, squares NS. Misclassified NSs cluster at hard ratios
+($\gtrsim0.4$) and low rates where hard BHs also lie; misclassified BHs are hard observations or the very bright soft
+GRS 1915+105 observations (top left). Repo: \file{figures/step5\_hid\_errors\_*.png}, \file{figures/v2/step5\_hid\_errors\_*.png}; script
+\file{scripts/08\_error\_analysis.py}.}
+\label{fig:p1v2errors}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\begin{subfigure}{0.49\textwidth}\includegraphics[width=\textwidth]{figures/step5_per_source_A_vs_B.png}\caption{v1}\end{subfigure}
+\begin{subfigure}{0.49\textwidth}\includegraphics[width=\textwidth]{figures/v2/step5_per_source_A_vs_B.png}\caption{v2}\end{subfigure}\\
+\begin{subfigure}{0.49\textwidth}\includegraphics[width=\textwidth]{figures/step5_score_vs_rate.png}\caption{v1}\end{subfigure}
+\begin{subfigure}{0.49\textwidth}\includegraphics[width=\textwidth]{figures/v2/step5_score_vs_rate.png}\caption{v2}\end{subfigure}
+\caption[Per-source accuracy A vs B and score vs rate]{Top: fraction of each source's held-out observations classified
+correctly with A (blue) and B (green), for LR and RF; dashed = 0.5. Bottom: RF OOF score versus net count rate for A and B
+(blue BH, orange NS). With A the RF score depends on brightness in a non-monotone way: the faintest ($\lesssim10$) and
+the brightest ($\gtrsim500$\,c\,s$^{-1}$\,PCU$^{-1}$) observations of \emph{both} classes tend to get high BH scores and many
+BH observations at intermediate rates get low ones -- the forest partly learned brightness ranges of the training sources
+(possible explanation, not verified); with B the BH and NS scores separate at every rate. Repo: \file{figures/step5\_per\_source\_A\_vs\_B.png},
+\file{figures/step5\_score\_vs\_rate.png} and their \file{figures/v2/} versions; script \file{scripts/08\_error\_analysis.py}.}
+\label{fig:p1v2avb}
+\end{figure}
+
+\subsection{Label sensitivity: BH candidates (v3c)}
+\Descriptive{} \textbf{Predictions only} (models trained on all 31 confirmed sources; candidates have no verified label, so
+no accuracy is computed): with H, 12/14 candidates have mean score $\ge0.5$ for LR and 10/14 for RF
+(\cref{tab:p1v3c}); Swift J1753.5$-$0127, which stayed hard during RXTE, is below 0.5 for both, mirroring the confirmed
+hard-state BH XTE J1118+480. 1E 1740.7$-$2942, GRS 1758$-$258 and IGR J17091$-$3624 are near the threshold and model-dependent.
+\Secondary{} \textbf{Candidates added to training as BHs} (LOSO only over confirmed sources, so the test labels remain
+confirmed): \cref{tab:p1v3cadd}. Only A-RF improves clearly (source BA $+0.244$ $[+0.051,+0.429]$, observation BA $+0.111$
+$[+0.035,+0.182]$): adding 210 BH rows (105 $\to$ 315) fixes its threshold problem. The balanced H and B models hardly change.
+
+\begin{table}[htbp]
+\centering\scriptsize
+\caption[v3c candidate predictions]{v3c: mean predicted BH score of each candidate (models trained on the 31 confirmed
+sources) for H, B, A, HI with LR and RF, and the fraction of its 15 observations $\ge0.5$ for H. ``elig.'' = eligible
+pointings; $F$ = median net 5--25\,keV rate [c\,s$^{-1}$\,PCU$^{-1}$]. Predictions, not accuracies. From
+\file{results/v3/v3c\_candidate\_predictions.csv}, \file{data/v3c/sources.csv}, \file{data/v3c/observations.csv}.}
+\label{tab:p1v3c}
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}lrr cccccccc cc@{}}
+\toprule
+ & & & \multicolumn{2}{c}{H} & \multicolumn{2}{c}{B} & \multicolumn{2}{c}{A} & \multicolumn{2}{c}{HI} & \multicolumn{2}{c}{H: frac.\ $\ge0.5$}\\
+Candidate & elig. & $F$ & LR & RF & LR & RF & LR & RF & LR & RF & LR & RF \\
+\midrule
+XTE J1817-330 & 131 & 60.2 & 0.96 & 0.93 & 0.99 & 0.93 & 0.95 & 0.60 & 0.95 & 0.88 & 1.00 & 1.00 \\
+XTE J1652-453 & 41 & 33.2 & 0.93 & 0.76 & 0.94 & 0.74 & 0.75 & 0.24 & 0.92 & 0.60 & 1.00 & 0.80 \\
+XTE J1720-318 & 88 & 20.3 & 0.91 & 0.80 & 0.89 & 0.81 & 0.82 & 0.52 & 0.88 & 0.73 & 1.00 & 0.80 \\
+4U 1630-47 & 607 & 269.1 & 0.84 & 0.85 & 0.96 & 0.86 & 0.91 & 0.49 & 0.84 & 0.79 & 1.00 & 0.93 \\
+XTE J1908+094 & 16 & 4.1 & 0.82 & 0.51 & 0.81 & 0.57 & 0.71 & 0.67 & 0.71 & 0.56 & 1.00 & 0.53 \\
+SLX 1746-331 & 57 & 47.1 & 0.81 & 0.84 & 0.91 & 0.79 & 0.83 & 0.53 & 0.78 & 0.76 & 0.87 & 0.93 \\
+MAXI J1659-152 & 55 & 246.1 & 0.77 & 0.67 & 0.60 & 0.74 & 0.78 & 0.41 & 0.82 & 0.48 & 0.87 & 0.87 \\
+4U 1957+11 & 89 & 29.8 & 0.76 & 0.87 & 0.99 & 0.83 & 0.98 & 0.51 & 0.61 & 0.77 & 0.93 & 1.00 \\
+H1743-322 & 434 & 61.6 & 0.73 & 0.67 & 0.66 & 0.67 & 0.74 & 0.43 & 0.69 & 0.58 & 0.80 & 0.73 \\
+XTE J1752-223 & 160 & 69.6 & 0.71 & 0.84 & 0.87 & 0.76 & 0.77 & 0.59 & 0.78 & 0.84 & 0.67 & 0.87 \\
+GRS 1758-258 & 590 & 23.3 & 0.63 & 0.52 & 0.62 & 0.51 & 0.47 & 0.37 & 0.57 & 0.46 & 0.93 & 0.53 \\
+IGR J17091-3624 & 185 & 49.9 & 0.60 & 0.53 & 0.69 & 0.62 & 0.60 & 0.09 & 0.51 & 0.30 & 0.73 & 0.47 \\
+1E 1740.7-2942 & 572 & 26.4 & 0.58 & 0.37 & 0.55 & 0.44 & 0.41 & 0.26 & 0.51 & 0.26 & 0.73 & 0.33 \\
+Swift J1753.5-0127 & 332 & 58.3 & 0.47 & 0.19 & 0.43 & 0.28 & 0.49 & 0.58 & 0.52 & 0.47 & 0.20 & 0.07 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering\small
+\caption[v3c: candidates added to training]{v3c: effect of adding the 210 candidate observations (labelled BH) to every
+training fold, evaluated on the 31 confirmed sources and paired with v2 (same folds and test observations). From
+\file{results/v3/v3c\_metrics.csv} and \file{results/v3/v3c\_bootstrap.csv}.}
+\label{tab:p1v3cadd}
+\begin{tabular}{@{}llccc@{}}
+\toprule
+Repr. & Model & source BA (v2 $\to$ +cand) & source AUC (v2 $\to$ +cand) & $\Delta$ source BA [95\% CI] \\
+\midrule
+A & LR & 0.866 $\to$ 0.887 & 0.946 $\to$ 0.964 & $+0.021$ [$0.000$, $+0.062$] \\
+A & RF & 0.622 $\to$ 0.866 & 0.881 $\to$ 0.964 & $+0.244$ [$+0.051$, $+0.429$]* \\
+B & LR & 0.774 $\to$ 0.815 & 0.875 $\to$ 0.929 & $+0.042$ [$0.000$, $+0.104$] \\
+B & RF & 0.857 $\to$ 0.836 & 0.893 $\to$ 0.940 & $-0.021$ [$-0.062$, $0.000$] \\
+H & LR & 0.795 $\to$ 0.795 & 0.923 $\to$ 0.935 & $0.000$ [$0.000$, $0.000$] \\
+H & RF & 0.857 $\to$ 0.845 & 0.905 $\to$ 0.940 & $-0.012$ [$-0.146$, $+0.152$] \\
+HI & LR & 0.795 $\to$ 0.795 & 0.929 $\to$ 0.935 & $0.000$ [$0.000$, $0.000$] \\
+HI & RF & 0.836 $\to$ 0.958 & 0.946 $\to$ 0.982 & $+0.122$ [$-0.021$, $+0.315$] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.75\textwidth]{figures/v3/v3c_candidate_scores.png}
+\caption[v3c candidate scores]{v3c with H: source-mean BH score of the 14 candidates (grey, predicted, top block) next to
+the LOSO source means of the 31 confirmed sources (blue BH, orange NS, bottom block), LR left, RF right; dashed = 0.5. Most
+candidates sit with the confirmed BHs; Swift J1753.5$-$0127 sits with the NSs. Repo: \file{figures/v3/v3c\_candidate\_scores.png};
+script \file{scripts/14\_v3c\_candidates.py}.}
+\label{fig:p1v3cscores}
+\end{figure}
+
+\subsection{What the classifier looks like}
+\Descriptive{} \Cref{fig:colourcolour} draws the two colours of all 456 confirmed observations with the 0.5 boundaries of LR
+and RF fitted on all 31 sources (for visualisation only; every reported number is LOSO). NSs form one track from lower
+left to upper right; soft-state BHs (4U 1543$-$47, XTE J1650$-$500, GRO J1655$-$40) lie to the upper left, far from it; the
+medians of GX 339$-$4, XTE J1118+480 and XTE J1550$-$564 sit at the dense upper-right end of the NS track, and GRS 1915+105
+near the boundary. The fitted LR boundary in raw colours is printed by \file{scripts/15\_colour\_colour.py}
+(\file{logs/final/15\_colour\_colour.log}).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/final/colour_colour_decision_boundary.png}
+\caption[Colour--colour diagram with decision boundaries]{The two count-space colours of H: soft $F(7\text{--}10)/F(5\text{--}7)$
+(x) and hard $F(16\text{--}25)/F(10\text{--}16)$ (y). Left: 456 observations of the 31 confirmed sources (orange NS, blue
+BH; open circles = BH source medians), the LR 0.5 boundary (solid) and the RF 0.5 contour (dashed), both fitted on all
+sources for illustration only. Right: the 14 v3c candidates (median and 16--84\% range) on the confirmed observations
+(grey). Look at the upper-right end of the NS track: hard BHs and hard NSs overlap there, which is where every
+spectral model errs and where Phases 3--6 look for timing information. Repo:
+\file{figures/final/colour\_colour\_decision\_boundary.png}; script \file{scripts/15\_colour\_colour.py}.}
+\label{fig:colourcolour}
+\end{figure}
+
+\subsection{XSPEC cross-check}
+\Descriptive{} For the 12 observations of \cref{sec:xspec}, the Python net rates and errors equal the XSPEC values to
+$\le3\times10^{-10}$ relative (e.g.\ 4U 1820$-$30 92030-02-12-00: 953.94154 vs 953.94154\,c\,s$^{-1}$;
+\file{results/v2/xspec\_crosscheck.csv}).
+
+% -----------------------------------------------------------------------------------------------------
+\section{Interpretation}
+% -----------------------------------------------------------------------------------------------------
+\textbf{Statistically.} On 31 sources the spectral classifiers are far better than chance, but every comparison that asks
+whether \emph{more} spectral information helps is not detected: the full shape adds nothing to two colours, 3--5\,keV
+adds nothing, and 45 intensity bins add nothing to one intensity number. The intervals are wide because only 7 BH sources
+exist, so ``not detected'' is not ``absent''; but the point estimates are themselves near zero or negative, and the B and
+H models agree on 88--93\% of individual observations. The leaky split would have reported 0.77--0.88 BA.
+
+\textbf{Physically.} In soft states the BH disc is cool and accompanied by a power-law tail, so the soft colour is low
+and the hard colour relatively high; NS soft states have a boundary-layer/surface component that cuts off at 10--20\,keV.
+These two populations separate in the colour plane, as in \citet{DoneGierlinski2003} (whose colours were response-corrected
+and defined differently; no formal comparison was made). In hard states both are Comptonisation-dominated and their
+5--25\,keV shapes are similar, so the colours overlap -- the errors are the hard-state BHs (XTE J1118+480, the hard
+observations of GX 339$-$4, XTE J1550$-$564) and hard NSs (AMXPs, KS 1731$-$260). GRS 1915+105, long near Eddington with a
+curved soft spectrum, resembles Z/atoll soft states in shape. The \citet{Pattnaik2021} LOSO result (87\%) is of the same
+order as this project's; the new finding is that two hardness ratios reproduce it, which suggests that their Random Forest
+also learned hardness (not tested directly).
+
+% -----------------------------------------------------------------------------------------------------
+\section{Deviations and caveats}
+% -----------------------------------------------------------------------------------------------------
+\begin{itemize}
+\item \textbf{H colours linear instead of $\log_{10}$} (before any v2 training; two BH spectra with slightly negative
+16--25\,keV sums).
+\item \PostHoc{} \textbf{B$-$H and A$-$HI paired differences} added after the v2 results (they answer the pre-declared
+question ``does the model only learn hardness?'').
+\item \textbf{Output-path bug}: \file{08\_error\_analysis.py} overwrote two v1 figures during the v2 run; restored from git and fixed (no effect on numbers).
+\item \textbf{XSPEC invocation}: commands are passed as a script file because inline passing through \texttt{wsl.exe}
+expanded \texttt{\$xspec\_tclout} to an empty string (fixed before the comparison).
+\item \textbf{v3c}: candidate list drafted from memory, verified and frozen before download; one catalogue-name fix; two
+candidates without catalogues skipped by rule.
+\item \textbf{v2 source rule executed incompletely} (found in v4b2): 13 further Galloway+2008 NSs had catalogues and
+$\ge10$ eligible pointings but were missed; the v1--v3 numbers were kept and describe a smaller NS sample (\cref{ch:phase2}).
+\item \textbf{Reproducibility}: v3a re-ran the v2 models exactly (\file{results/v3/v3a\_reproduction\_check.csv}: maximum
+score difference $1.1\times10^{-16}$ for LR and $2.2\times10^{-16}$ for RF, 0 label changes); a second machine (macOS) reproduced
+\file{features.npz} to $\le10^{-16}$ and RF source means to $\le0.001$.
+% CHECK: report_v3_zh-TW.md says the LR reproduction difference was <= 8e-10; that number refers to the cloud-sandbox
+% run (decision_log: sandbox vs local 7.8e-10). The committed results/v3/v3a_reproduction_check.csv (local re-run vs v2)
+% shows 1.1e-16.
+\item \textbf{Caveats}: count space (no response unfolding; PCU-combination tilt of $\pm10\%$ at 25\,keV); background-model
+systematics not included; Standard Products use generic screening; no per-observation state labels in this phase;
+bootstrap intervals do not include refitting variability.
+\end{itemize}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Takeaway}
+% -----------------------------------------------------------------------------------------------------
+A single 5--25\,keV RXTE spectrum classifies unseen sources better than chance, but what it offers is captured by two
+count-space colours; the failures are hard-state BHs and hard NSs that overlap in those colours. Phase 2 asks whether this
+ceiling is a property of the models or of the data: more flexible algorithms, more observations, more sources and a wider
+energy band are tested against the two-colour LR.

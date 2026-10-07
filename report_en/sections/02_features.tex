@@ -137,7 +137,7 @@ NICER: \file{47\_v9\_select.py}, \file{55\_v11\_select.py}, \file{60\_v13\_selec
 \caption[Sampling seeds and limits]{Sampling parameters. ``position'' is the 1-based position of the source in the
 source list processed by the script. The global seed is \code{SEED = 42} (\file{config.py}).}
 \label{tab:seeds}
-\begin{tabular}{@{}llll@{}}
+\begin{tabularx}{\textwidth}{@{}p{4.2cm}Xp{4.2cm}l@{}}
 \toprule
 Sample & groups $K$ & seed $\sigma$ & max.\ tries $M$ \\
 \midrule
@@ -148,7 +148,7 @@ NICER v9 & 8 & \code{SEED + position} & 3 \\
 NICER v11 & 8 & \code{SEED + 1000 + position} & 3 \\
 NICER v13 & 8 & \code{SEED + 2000 + position} & 3 \\
 \bottomrule
-\end{tabular}
+\end{tabularx}
 \end{table}
 
 % -----------------------------------------------------------------------------------------------------
@@ -502,8 +502,10 @@ level has to be modelled. $f_\mathcal{B}$ is the fractional variance (rms$^2$ no
 $\mathcal B$. Per observation, the \emph{median} over valid rows is taken (robust to rare rows with flares or bursts);
 fewer than 3 valid rows $\Rightarrow$ missing. Features are signed square roots,
 \begin{equation}
-T_k = \sgn\!\bigl(\median_r f_{k,r}\bigr)\sqrt{\bigl|\median_r f_{k,r}\bigr|},\qquad k\in\{1,2,3\},\qquad
-T_\mathrm{tot} = \sgn(F)\sqrt{|F|},\ F=\textstyle\sum_k \median_r f_{k,r}, \label{eq:signedsqrt}
+\begin{split}
+T_k &= \sgn\!\bigl(\median_r f_{k,r}\bigr)\sqrt{\bigl|\median_r f_{k,r}\bigr|},\qquad k\in\{1,2,3\},\\
+T_\mathrm{tot} &= \sgn(F)\sqrt{|F|},\qquad F=\textstyle\sum_k \median_r f_{k,r},
+\end{split}\label{eq:signedsqrt}
 \end{equation}
 (fractional rms, which may be slightly negative because of noise). The bands are listed in \cref{tab:timingbands}.
 As an implementation check the conventional auto-power estimator $(|Z_j|^2 - N\bar z)/\sinc^2(j/N)$ of $z=x+y$
@@ -741,7 +743,7 @@ Feature & Unit & Definition & Code & Non-positive / missing \\
 \midrule\endfirsthead
 \toprule Feature & Unit & Definition & Code & Non-positive / missing \\ \midrule\endhead
 \bottomrule\endfoot
-$x_{ij}$ (\code{rate}) & c\,s$^{-1}$\,keV$^{-1}$\,PCU$^{-1}$ & \cref{eq:rebin} & \file{04\_fetch\_process.py} & kept as is \\
+$x_{ij}$ (\code{rate}) & c/s/keV/PCU & \cref{eq:rebin} & \file{04\_fetch\_process.py} & kept as is \\
 $A_{ij}$ & -- & \cref{eq:A} & \code{v2\_representations} & asinh defined for $<0$ \\
 $B_{ij}$ & keV$^{-1}$ & \cref{eq:B} & same & $F>0$ guaranteed \\
 $h_1,h_2$ & -- & \cref{eq:H} & same & denominators $>0$; numerators kept \\
