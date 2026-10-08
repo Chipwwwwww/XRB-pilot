@@ -13,6 +13,8 @@ Outputs (next to this script):
                            (same points; labels placed without overlap)
   G7_v7c3_rxte_maxi.pdf    redraw of figures/v7c/v7c3_rxte_vs_maxi.png from results/v7c/v7c3_rxte_vs_maxi.csv
                            (same points; labels placed without overlap; y axis zoomed to the data)
+  G8_v4a_forest.pdf        redraw of figures/v4/v4a_forest_source_auc.png from results/v4/v4a_bootstrap.csv
+                           (same rows, order, colours and intervals; short row labels and part bands for legibility)
 Style: the repository plot style (scripts/plotstyle.py; BH blue, NS orange, validated categorical order)."""
 import sys
 from pathlib import Path
@@ -341,5 +343,47 @@ def g7_v7c3():
     save(fig, 'G7_v7c3_rxte_maxi.pdf')
 
 
+# --------------------------------------------------------------------------------------------- G8
+def g8_v4a_forest():
+    """Same rows, order, colours and intervals as scripts/16_v4a_algorithms.py (figure v4a_forest_source_auc.png)."""
+    bs = pd.read_csv(ROOT / 'results/v4/v4a_bootstrap.csv'); REF = 'H_colours|LogReg'
+    part_of = bs.groupby('name', sort=False).part.first().to_dict()
+    S = bs[bs.metric == 'source_AUC']; pt = S[~S.comparison.str.contains(' - ')].set_index('name')
+    B_ = bs[(bs.metric == 'source_balanced_accuracy') & bs.comparison.str.contains(' - ')].set_index('name')
+    order = [REF] + [n for p in ['1e_primary', '1d_nested_per_algorithm', '1b_fixed', '1c_source_weighted'] for n in pt.index if part_of[n] == p]
+    colp = {'reference_v2': INK, '1e_primary': '#c2410c', '1d_nested_per_algorithm': '#4a3aa7', '1b_fixed': '#2a78d6', '1c_source_weighted': '#1baf7a'}
+    plab = {'reference_v2': 'reference', '1e_primary': 'PRIMARY 1e', '1d_nested_per_algorithm': '1d: nested, per algorithm',
+            '1b_fixed': '1b: fixed settings', '1c_source_weighted': '1c: source-equal weights'}
+    rs = {'H_colours': 'H', 'HI_colours_intensity': 'HI', 'B_shape': 'B', 'A_intensity': 'A', 'auto': 'auto'}
+    ms = {'LogReg': 'LR', 'RandomForest': 'RF', 'ExtraTrees': 'ExtraTrees', 'HistGB': 'HistGB', 'SVM_RBF': 'SVM-RBF', 'kNN': 'kNN',
+          'QDA': 'QDA', 'MLP': 'MLP', 'auto': 'automatic selection'}
+
+    def short(n):
+        r, m = n.split('|'); m = m.replace('nested:', '').replace('[srcw]', '')
+        return f'{rs[r]} · {ms[m]}' + ('  (v2 baseline)' if n == REF else '')
+    fig, axes = plt.subplots(1, 2, figsize=(6.4, 8.3), sharey=True, gridspec_kw=dict(width_ratios=[1, 1], wspace=0.06))
+    yy = np.arange(len(order))
+    for i, n in enumerate(order):
+        c = colp[part_of[n]]; lw = 1.6 if part_of[n] in ('1e_primary', 'reference_v2') else 1.0
+        axes[0].plot([pt.loc[n, 'ci2_5'], pt.loc[n, 'ci97_5']], [i, i], color=c, lw=lw); axes[0].plot(pt.loc[n, 'point'], i, 'o', color=c, ms=3)
+        if n != REF:
+            axes[1].plot([B_.loc[n, 'ci2_5'], B_.loc[n, 'ci97_5']], [i, i], color=c, lw=lw); axes[1].plot(B_.loc[n, 'point'], i, 'o', color=c, ms=3)
+    parts = [part_of[n] for n in order]
+    for k, p in enumerate(dict.fromkeys(parts)):
+        idx = [i for i, q in enumerate(parts) if q == p]
+        for ax in axes:
+            if k % 2 == 1: ax.axhspan(min(idx) - .5, max(idx) + .5, color=GRID, alpha=.45, lw=0, zorder=0)
+        axes[1].text(1.02, (min(idx) + max(idx)) / 2, plab[p], transform=axes[1].get_yaxis_transform(), rotation=-90 if len(idx) > 3 else 0,
+                     ha='left', va='center', fontsize=7, color=colp[p])
+    axes[0].axvline(pt.loc[REF, 'point'], color=INK2, ls='--', lw=.8); axes[1].axvline(0, color=INK2, ls='--', lw=.8)
+    axes[0].set_yticks(yy); axes[0].set_yticklabels([short(n) for n in order], fontsize=6.4); axes[0].set_ylim(len(order) - .5, -.5)
+    for t, n in zip(axes[0].get_yticklabels(), order): t.set_color(colp[part_of[n]])
+    for ax in axes: ax.grid(axis='y', visible=False); ax.tick_params(axis='y', length=0)
+    axes[0].set_xlabel('source AUC (95% source bootstrap)'); axes[1].set_xlabel('source BA minus H-LR (paired, 95%)')
+    axes[0].set_title('(a) source AUC; dashed = H-LR', loc='left'); axes[1].set_title('(b) source BA difference', loc='left')
+    fig.subplots_adjust(left=0.17, right=0.93, top=0.965, bottom=0.06)
+    save(fig, 'G8_v4a_forest.pdf')
+
+
 if __name__ == '__main__':
-    g1_sample_sizes(); g2_spectra(); g3_design_matrix(); g4_leakage(); g5_forest(); g6_v6a_external(); g7_v7c3()
+    g1_sample_sizes(); g2_spectra(); g3_design_matrix(); g4_leakage(); g5_forest(); g6_v6a_external(); g7_v7c3(); g8_v4a_forest()

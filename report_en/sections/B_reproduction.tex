@@ -98,8 +98,8 @@ the NICER CALDB (v12, v13).
 \item Figures: repository figures copied unchanged to \file{report\_en/figures/} with their original sub-paths; new data figures G1--G5 are
 produced read-only from committed files by \file{report\_en/figures/generated/make\_figures.py} (for G1, G4 and G5 it also writes the
 plotted values as CSV next to the PDF). G6 and G7 are redraws of two repository scatter plots whose source labels overlapped
-(\cref{fig:p3external,fig:p4rxtemaxi}): same committed CSVs, same points, labels placed without overlap; the original PNGs remain in
-\file{report\_en/figures/}. The very wide summary figures of v7--v9 are printed on landscape pages. Method diagrams are TikZ code
+(\cref{fig:p3external,fig:p4rxtemaxi}) and G8 of the v4a forest plot whose row labels were unreadable (\cref{fig:p2forest}): same
+committed CSVs, same points and intervals; the original PNGs remain in \file{report\_en/figures/}. The very wide summary figures of v7--v9 are printed on landscape pages. Method diagrams are TikZ code
 inside the chapters.
 \item Build: \verb|latexmk -pdf main.tex| in \file{report\_en/} (TeX Live 2026; packages listed in the preamble).
 \item Tables of per-source scores were generated from the committed CSV files by small read-only scripts; no model was refitted and no

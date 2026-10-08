@@ -497,13 +497,15 @@ Part & Rep. & Model & src BA & src AUC & $\Delta$ src BA [95\% CI] & $\Delta$ sr
 
 \begin{figure}[p]
 \centering
-\includegraphics[width=0.86\textwidth]{figures/v4/v4a_forest_source_auc.png}
+\includegraphics[width=\textwidth]{figures/generated/G8_v4a_forest.pdf}
 \caption[v4a forest plot]{All v4a combinations. Left: source-level AUC with 95\% source-bootstrap interval (dashed line =
 H-LR, 0.923); right: paired difference in source balanced accuracy against H-LR. Orange = the primary nested automatic
 selection (1e), purple = nested per algorithm (1d), blue = fixed settings (1b), green = source-equal weights (1c), black =
 the H-LR baseline. The primary is the lowest-AUC entry except HI-MLP (nested); the three source-BA intervals above 0 are
-A-QDA (fixed), HI-QDA and A-QDA (nested). Repo: \file{figures/v4/v4a\_forest\_source\_auc.png},
-\file{scripts/16\_v4a\_algorithms.py}.}
+A-QDA (fixed), HI-QDA and A-QDA (nested). Redrawn for this report from \file{results/v4/v4a\_bootstrap.csv} with the
+same rows, order, colours and intervals as the repository figure \file{figures/v4/v4a\_forest\_source\_auc.png} of
+\file{scripts/16\_v4a\_algorithms.py}, whose 77 row labels are unreadable at page size; rows are labelled
+representation\,$\cdot$\,algorithm and grouped by sub-analysis (right margin).}
 \label{fig:p2forest}
 \end{figure}
 
