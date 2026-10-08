@@ -1,1 +1,960 @@
-\chapter{Phase 2}\label{ch:phase2}
+% =====================================================================================================
+\chapter{Phase 2 (v4): is the spectral information saturated?}\label{ch:phase2}
+% =====================================================================================================
+
+\begin{glance}{v4 (v4a, burst check, v4b3, v4b2, v4b1)}
+\textbf{Question.} Phase 1 found that two count-space colours carry all the detectable information in a 5--25\,keV
+spectrum. Is that a limit of the \emph{models} (more flexible algorithms), of the \emph{data quality} (type-I burst
+contamination), of the \emph{band} (HEXTE 25--60\,keV) or of the \emph{sample} (more sources from earlier gain epochs;
+all observations of each source)? \\
+\textbf{Single baseline.} The v2 two-colour logistic regression H-LR (source BA 0.795 [0.589, 0.958], source AUC 0.923
+[0.804, 0.994], observation BA 0.776). ``Improvement'' $\Leftrightarrow$ the paired 95\% interval lies entirely above 0. \\
+\textbf{Pre-declared primary.} v4a part 1e: a fully nested procedure that chooses algorithm, representation,
+hyper-parameters and threshold inside the training sources, compared with H-LR. Each v4b sub-phase and the burst check
+also had one pre-declared main comparison. \\
+\textbf{Data.} v4a, burst check: the v2 sample (31 sources, 456 observations); v4b3: the 396 observations with HEXTE
+cluster-B products; v4b2: 46 sources (9 BH, 37 NS), 677 observations, gain epochs 2--5; v4b1: all 7,949 eligible epoch-5
+observations of the 31 v2 sources. \\
+\textbf{Verdict.} Every primary comparison: \textbf{not detected}. Nested automatic selection was \emph{worse} in point
+estimate (source BA $-0.062$, source AUC $-0.173$); bursts, HEXTE colours and 17$\times$ more observations changed
+nothing. The only detected difference is a threshold effect on the extended 46-source sample (RF source BA
+$+0.068$ [$+0.014$, $+0.122$] over the same-sample H-LR, source AUC not different). \textbf{The v4 pre-registration
+was written after all v1--v3 results were known.}
+\end{glance}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Motivation}
+% -----------------------------------------------------------------------------------------------------
+Phase 1 left one negative result that could have several causes. ``The full spectral shape adds nothing to two colours''
+(H+B $-$ H not detected, \cref{sec:p1results}) can mean that the 5--25\,keV spectrum really contains no further
+source-transferable information, or that the classifiers were too rigid (LR, RF with fixed settings), that observations
+were contaminated by thermonuclear bursts (whose spectra are not those of the persistent emission), that the
+informative part of the spectrum lies above 25\,keV (high-energy cut-off of NS Comptonisation versus the unbroken BH
+power law), or that 31 sources (7 BH) are simply too few. Phase 2 tests each explanation separately against the same
+fixed baseline, H-LR, so that its answer is ``the ceiling is (or is not) a property of the data''. The analyses are
+grouped by theme below: \emph{flexible algorithms} (v4a), \emph{data quality} (burst check), \emph{wider band} (v4b3)
+and \emph{more data} (v4b2: more sources and earlier epochs; v4b1: all observations of the same sources).
+
+% -----------------------------------------------------------------------------------------------------
+\section{Pre-registration}
+% -----------------------------------------------------------------------------------------------------
+\file{reports/preregistration\_v4.md} was written on 2026-09-30, before any v4 model was trained and before any v4
+download, \emph{after all v1--v3 results were known}; every v4 question is an extension aimed at a known result, and the
+document says so. Common rules (\cref{tab:p2prereg}): LOSO on the v2 folds (or on the extended source set), source score
+= mean OOF BH score, threshold 0.5 except where a threshold is explicitly chosen inside the training sources, headline
+metrics source BA and source AUC plus observation BA, class-stratified source bootstrap (2000, seed 42, fixed OOF
+predictions) with all comparisons to H-LR \emph{paired} on the same resamples, ``improvement'' only if the interval is
+entirely $>0$, each metric judged separately.
+
+\begin{table}[htbp]
+\centering\small
+\caption[Phase 2 pre-registration]{Phase 2 pre-registration (\file{reports/preregistration\_v4.md}, 2026-09-30, written after all v1--v3
+results). Baseline everywhere: H-LR. Status tags as used in the Results section.}
+\label{tab:p2prereg}
+\begin{tabularx}{\textwidth}{@{}p{1.7cm}p{3.6cm}X@{}}
+\toprule
+Part & Main comparison (status) & Descriptive / secondary \\
+\midrule
+v4a 1a & reproduction of v2 LR/RF OOF scores (gate: LR $\le10^{-8}$, RF $\le0.01$, 0 label changes) & -- \\
+v4a 1e & \Primary{} nested automatic selection over 8 algorithms $\times$ 4 representations $\times$ grids (140 configurations) $-$ H-LR; source BA and source AUC & observation BA difference; selected configuration per fold; agreement with H-LR (1f) \\
+v4a 1b--1d & -- & \Descriptive{} 1b: six new algorithms with fixed settings; 1c: source-equal weights for LR, RF, HistGB; 1d: nested LOSO per algorithm $\times$ representation (32 procedures). 76 combinations; the best of them is \emph{not} to be taken as the conclusion \\
+burst check & \Secondary{} H-LR (and H-RF, B-LR, B-RF) after excluding observations with an automatically detected type-I burst, paired with the original OOF on the kept observations; v2 (B$-$H) and v3a (H+B$-$H) comparisons recomputed & visual set as sensitivity analysis \\
+v4b3 & \Secondary{} H+X $-$ H on the HEXTE subset (LR and RF) & colour-overlap box (defined after seeing the v2 colour plot: \PostHoc{} definition) \\
+v4b2 & gate: bridge check H$_R$-LR vs H-LR on the 456 v2 observations (both CIs contain 0, Spearman $\ge0.90$); then \Secondary{} extended-sample models vs the same-sample H-LR and vs v2 H-LR & gain epoch as diagnostic only, never a feature \\
+v4b1 & \Secondary{} source-equal-weight H-LR on all observations $-$ v2 H-LR & 16 combinations (H, B, A, HI $\times$ LR, RF $\times$ two weightings); restriction to the 456 v2 observations \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Data}
+% -----------------------------------------------------------------------------------------------------
+\Cref{tab:p2samples} summarises the five samples. Only v4b1, v4b2 and v4b3 downloaded new files; v4a and the burst
+check reuse the committed v2 feature file and the Standard-1 files already on disk for the 456 v2 observations.
+
+\begin{table}[htbp]
+\centering\small
+\caption[Phase 2 samples]{Samples of Phase 2. Sources and observation counts from \file{results/v4*/} OOF files and
+\file{data/v4b*/}; ``epochs'' = PCA gain epochs (\cref{sec:pca}).}
+\label{tab:p2samples}
+\begin{tabularx}{\textwidth}{@{}p{2.2cm}rrrp{1.4cm}X@{}}
+\toprule
+Analysis & BH src & NS src & obs.\ (BH) & epochs & Notes \\
+\midrule
+v4a & 7 & 24 & 456 (105) & 5 & identical to v2 (\file{data/v2/processed/features.npz}), same 31 folds \\
+burst, auto set & 7 & 24 & 395 & 5 & 61 observations removed (12 of them BH) \\
+burst, visual set & 7 & 24 & 398 & 5 & 58 observations removed (all NS) \\
+v4b3 HEXTE & 7 & 24 & 396 (99) & 5 & observations before MJD 55179.6736 with cluster-B source and background spectra \\
+v4b2 extended & 9 & 37 & 677 (131) & 2--5 & v2 sample unchanged + 221 observations of 15 new sources \\
+v4b1 all obs. & 7 & 24 & 7,949 (2,369) & 5 & every eligible pointing of the 31 v2 sources \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Type-I burst screening}\label{sec:p2bursts}
+The detector is defined in \cref{sec:bursts}: Standard-1 good-xenon counts summed over PCUs, 1-s bins inside the spectral
+GTIs, candidates $>4\sigma$ above the observation mean (after \citealp{Galloway2008}), merged within 30\,s, and an
+automatic shape rule (peak $\ge1.5\times$ persistent, rise $\le10$\,s, half-decay 3--300\,s, $\ge3$ adjacent bins above
+25\% amplitude). Every candidate was plotted and inspected (\cref{fig:p2bursts}).
+
+\begin{itemize}
+\item 187 of the 456 observations had at least one candidate (410 candidates in total); the automatic rule flagged 61
+observations (\file{results/v4/burst\_flags.csv}).
+\item Visual inspection (\file{results/v4/burst\_visual.csv}): of the 61 automatic flags, \textbf{12 are BH observations}
+(the periodic flares of GRS 1915+105 and second-scale flares of hard-state BHs: GRS 1915+105 2, GX 339$-$4 2,
+XTE J1118+480 4, XTE J1550$-$564 4) and one is NS noise, so 48 are real bursts; the rule missed 10 further observations
+(8 clear bursts with GTI truncation, rise $>10$\,s or half-decay $<3$\,s, and 2 ``possible''). The visual set has 58
+observations, all NS (3 marked ``possible'').
+\item As pre-registered, the \emph{automatic} set defines the main exclusion (395 observations kept) and the visual set is
+the sensitivity analysis (398 kept). No source was removed; 4U 1916$-$053 kept 4 of its 6 observations (below the
+pre-declared 5, kept and recorded) and the dipper 4U 1323$-$619 lost 9 of 15 (\file{results/v4/burst\_exclusion\_counts.csv}).
+\end{itemize}
+
+\begin{figure}[htbp]
+\centering
+\begin{subfigure}[t]{0.49\textwidth}\centering
+\includegraphics[width=\linewidth]{figures/v4/burst_candidates/4U1636-53_50030-02-04-00.png}
+\caption{4U 1636$-$53, 50030-02-04-00: automatic and visual burst (fast rise, exponential decay).}\label{fig:p2burst-a}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.49\textwidth}\centering
+\includegraphics[width=\linewidth]{figures/v4/burst_candidates/4U1728-34_50030-03-05-03.png}
+\caption{4U 1728$-$34, 50030-03-05-03: automatic and visual burst.}\label{fig:p2burst-b}
+\end{subfigure}\\[0.4em]
+\begin{subfigure}[t]{0.49\textwidth}\centering
+\includegraphics[width=\linewidth]{figures/v4/burst_candidates/GRS1915+105_50703-01-11-00.png}
+\caption{GRS 1915+105, 50703-01-11-00 (BH): flagged by the automatic rule (peak $\times3.6$, rise 5\,s, decay 3\,s),
+rejected visually -- periodic flaring, not a type-I burst.}\label{fig:p2burst-c}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.49\textwidth}\centering
+\includegraphics[width=\linewidth]{figures/v4/burst_candidates/KS1731-260_50031-02-03-01.png}
+\caption{KS 1731$-$260, 50031-02-03-01: long burst (rise 43\,s) missed by the automatic rule (rise $\le10$\,s required);
+burst by visual inspection.}\label{fig:p2burst-e}
+\end{subfigure}\\[0.4em]
+\begin{subfigure}[t]{\textwidth}\centering
+\includegraphics[width=0.9\linewidth]{figures/v4/burst_candidates/XTEJ1118+480_50407-01-09-00.png}
+\caption{XTE J1118+480, 50407-01-09-00 (hard-state BH): three candidates, one passing the automatic rule; rejected visually
+(BH variability).}\label{fig:p2burst-d}
+\end{subfigure}\\[0.4em]
+\begin{subfigure}[t]{\textwidth}\centering
+\includegraphics[width=0.9\linewidth]{figures/v4/burst_candidates/GROJ1655-40_90428-01-01-07.png}
+\caption{GRO J1655$-$40, 90428-01-01-07 (BH): three $4\sigma$ candidates, none passing the shape rule; visual: noise or
+variability.}\label{fig:p2burst-f}
+\end{subfigure}
+\caption[Burst-candidate light curves]{Six of the burst-candidate plots, chosen to show each outcome (true positive, BH
+false positive, missed long burst, rejected candidates). Each plot: left, the whole 1-s Standard-1 light curve of the
+observation (counts\,s$^{-1}$ summed over the PCUs on; GTI gaps joined by lines; red marks = candidates); then one zoom
+per candidate with the persistent level (dotted) and the automatic verdict (peak ratio, rise and half-decay times) in its
+title. Repo: \file{figures/v4/burst\_candidates/} (one PNG per observation with candidates), produced by
+\file{scripts/17\_v4\_burst\_detect.py}; verdicts in \file{results/v4/burst\_visual.csv}.}
+\label{fig:p2bursts}
+\end{figure}
+
+\subsection{HEXTE cluster B (v4b3)}
+The HEXTE Standard Products contain source and background spectra of both clusters and their responses (\cref{sec:hexte}).
+Cluster A has no background products after July 2006, and cluster B stopped rocking on 2009-12-14 (MJD 55179.6736), so
+the pre-registered rule used cluster B only (net = \code{s1} $-$ \code{b1}, scaled by exposure and \code{BACKSCAL}) and
+gave no HEXTE features to observations after that date: 60 of the 456 v2 observations (6 BH, 54 NS, 18 sources). The
+remaining 396 observations all had products; every header has \code{DEADAPP = T} (deadtime already applied) and every
+spectrum uses \file{xh97mar20c\_pwb013.rmf}. The two colours are
+\begin{equation}
+X_1=\frac{F_\mathrm{HEXTE}(25\text{--}40)}{F_\mathrm{PCA}(16\text{--}25)},\qquad
+X_2=\frac{F_\mathrm{HEXTE}(40\text{--}60)}{F_\mathrm{HEXTE}(25\text{--}40)}
+\label{eq:p2hexte}
+\end{equation}
+(count space; $X_1$ is a cross-instrument ratio used only as a feature). A colour whose denominator has $S/N<3$ is set
+missing: $X_1$ in 3 observations (2 BH, 1 NS), $X_2$ in 144 (23 BH, 121 NS); one observation (92023-03-37-00) had zero
+background exposure. Missing values are replaced by the training-fold median and flagged by a 0/1 indicator
+(\cref{sec:missing}). The class distributions (\cref{fig:p2hexte}) overlap almost completely.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\textwidth]{figures/v4b3/v4b3_hexte_colours.png}
+\caption[HEXTE colours]{HEXTE cluster-B colours (\cref{eq:p2hexte}) of the v2 observations with valid values, BH blue,
+NS orange. Left: $X_1$ (393 observations: 97 BH, 296 NS); right: $X_2$ (252 observations: 76 BH, 176 NS). The NS
+$X_1$ distribution is bimodal (soft states near 0, hard states near 0.5); the BHs lie mostly in the hard NS mode, and
+the $X_2$ distributions overlap. Repo: \file{figures/v4b3/v4b3\_hexte\_colours.png}, \file{scripts/19\_v4b3\_hexte.py};
+values in \file{data/v4b3/processed/hexte\_features.csv}.}
+\label{fig:p2hexte}
+\end{figure}
+
+\subsection{Source-list verification and earlier gain epochs (v4b2)}
+The v4b2 selection (\file{scripts/20\_v4b2\_select.py}) matched every \citet{Galloway2008} burster (48) and every BlackCAT
+dynamical BH (18) to the 291 RXTE MissionLongData catalogues by \emph{position}: CDS Sesame/SIMBAD coordinates against the
+median pointing of each catalogue, accepted within $0.1^\circ$ (\file{data/v4b2/source\_verification.csv}). Results:
+\begin{itemize}
+\item 46 of the 66 objects have a matching catalogue; 20 do not (9 BHs, e.g.\ GRS 1009$-$45, A 0620$-$00, V404 Cyg, and
+11 NSs, including the Rapid Burster and IGR J17473$-$2721, whose catalogues exist but point $>0.1^\circ$ away).
+\item \textbf{The v2 source rule had been executed incompletely}: 13 NSs have catalogues and $\ge10$ eligible pointings but
+were not in the v2 list (4U 0513$-$40, 4U 0919$-$54, XTE J1709$-$267, XTE J1710$-$281, SAX J1747.0$-$2853, 1A 1744$-$361,
+SAX J1748.9$-$2021 in NGC 6440, EXO 1745$-$248 in Terzan 5, SAX J1750.8$-$2900, GRS 1747$-$312, XTE J1759$-$220, Ser X-1,
+4U 2129+12 in M15). The v2 results were not changed; this is a limitation of Phases 1--2 (\cref{sec:p2caveats}).
+\item With all gain epochs allowed (MJD $<55931$; epoch boundaries MJD 50163.7729, 50188.9618, 51259.7340, 51677.0000 from
+the HEASARC energy--channel table), two BHs become eligible: XTE J1859+226 (112 eligible pointings, all in epoch 4) and
+V4641 Sgr (11, epochs 4--5).
+\end{itemize}
+The 456 v2 observations were kept unchanged; each of the 15 new sources contributed 15 observations (V4641 Sgr: 11) drawn
+with the v2 time-stratified rule over the whole mission. All 221 new observations passed the quality rules
+(\file{results/v4b2/attrition\_download.csv}), giving 46 sources (9 BH, 37 NS) and 677 observations (131 BH).
+\Cref{tab:p2v4b2new} lists the new sources with their epochs. The new representation R divides each bin by the expected
+counts of a $\Gamma=2$, $N_\mathrm{H}=0$ power law folded through the observation's response (\code{pl2},
+\cref{sec:pl2}); H$_R$ are the colours of R (\cref{eq:HR}).
+
+\subsection{All observations of the same sources (v4b1)}
+For the 31 v2 sources, every eligible epoch-5 pointing was processed with the v2 rules: 7,975 candidates, 7,949 accepted
+(2,369 BH, 5,580 NS); 26 excluded (14 without Standard-2 products at HEASARC, 7 high deadtime, 5 short exposure;
+\file{data/v4b1/observations.csv}). Per source the counts range from 6 (4U 1916$-$053) to 1,329 (4U 1636$-$53);
+GRS 1915+105 has 1,031 (\cref{tab:p2v4b1persource}). The raw files ($\approx2$\,GB, $\approx30{,}000$ files) were stored
+outside the repository (\code{XRB\_EXTERNAL\_RAW}); download threads were raised from 4 to 6. \textbf{The effective sample
+size is still 31 sources (7 BH)}: the number of observations grows $17\times$, but the source-level power hardly changes.
+
+% -----------------------------------------------------------------------------------------------------
+\section{Data structure in this phase}\label{sec:p2structure}
+% -----------------------------------------------------------------------------------------------------
+\Cref{tab:p2arrays} lists the arrays. The v4a and burst analyses use the v2 rows and folds
+(\file{results/v4/folds\_loso.csv} equals \file{results/v2/folds\_loso.csv}); v4b3 uses the 396-row subset and its own
+31 LOSO folds; v4b2 uses 46 folds (\file{results/v4b2/folds\_loso.csv}); v4b1 uses 31 folds over 7,949 rows
+(\file{results/v4b1/folds\_loso.csv}). In the nested procedures (1d, 1e) each outer training set (30 sources) is itself split
+by LOSO into 30 inner folds (\cref{fig:nested}); for 1e the inner OOF scores of all 140 configurations are computed once per
+outer fold and shared with 1d.
+
+\begin{table}[htbp]
+\centering\small
+\caption[Phase 2 arrays]{Arrays passed to the models in Phase 2 (float64 features, int64 labels, string groups).
+$n_k$ = rows of the held-out source.}
+\label{tab:p2arrays}
+\begin{tabularx}{\textwidth}{@{}p{1.3cm}p{1.9cm}p{2.75cm}Xp{2.75cm}@{}}
+\toprule
+Analysis & Array & Shape & Columns & Source \\
+\midrule
+v4a & $\Xm_H$, $\Xm_{HI}$, $\Xm_B$, $\Xm_A$ & $456\times\{2,3,45,45\}$ & as in \cref{tab:p1arrays} (\code{v3lib.v2\_representations}) & \file{data/v2/processed/features.npz} \\
+ & $\yv,\gv$ & 456 & 105 BH; 31 sources & same \\
+ & inner (1d/1e) & $(456-n_k)\times p$, 30 groups & per outer fold $k$; inner LOSO over the 30 training sources & same \\
+ & $\wv$ (1c) & $456-n_k$ & source-equal weights, \cref{eq:sourceequal} & computed per fold \\
+burst & $\Xm$ & $395\times p$ / $398\times p$ & H, B, H+B after removing flagged observations & same + \file{results/v4/burst\_flags.csv} \\
+v4b3 & $\Xm_H$ & $396\times2$ & $h_1,h_2$ & \file{data/v2/processed/features.npz} (subset) \\
+ & $\Xm_{H+X}$ & $396\times6$ & $h_1,h_2,\tilde X_1,\tilde X_2,m_1,m_2$; $\tilde X$ = median-imputed in the training fold, $m$ = missing indicators & + \file{data/v4b3/processed/hexte\_features.csv} \\
+v4b2 & $\Xm_H,\Xm_{H_R}$ & $677\times2$ & count-space colours; power-law-normalised colours & \file{data/v2/\dots/features.npz} + \file{data/v4b2/processed/features.npz} (221 rows) \\
+ & $\Xm_R$ & $677\times45$ & $x_{ij}/\mathrm{pl2}_{ij}$ & \code{rate}, \code{pl2} \\
+ & $\yv,\gv$ & 677 & 131 BH; 46 sources & both npz \\
+v4b1 & $\Xm_H$, $\Xm_{HI}$, $\Xm_B$, $\Xm_A$ & $7949\times\{2,3,45,45\}$ & as v2 & \file{data/v4b1/processed/features.npz} \\
+ & $\yv,\gv$ & 7,949 & 2,369 BH; 31 sources & same \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Models in this phase}
+% -----------------------------------------------------------------------------------------------------
+Phase 2 introduces six algorithms (\cref{tab:p2models}); their decision functions, objectives and pseudo-code are in
+\cref{ch:methods}. Every algorithm has a pre-declared way of handling the class imbalance. The 1d/1e grids are in
+\cref{tab:p2grid}. A 1D convolutional network on B was pre-declared as optional and skipped because the environment has no
+\texttt{torch} (stated in the pre-registration).
+
+\begin{table}[htbp]
+\centering\small
+\caption[Phase 2 models]{Models of Phase 2 with their fixed (1b) settings, imbalance handling and score
+(\file{scripts/v4lib.py}, \file{scripts/config.py}, v4 block).}
+\label{tab:p2models}
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{2.7cm}>{\raggedright\arraybackslash}p{2.9cm}@{}}
+\toprule
+Model & Fixed settings (1b) & Imbalance & Score \\
+\midrule
+LR (\S\ref{sec:lr}) & scaler + $C=1$, L2, lbfgs, \code{max\_iter}=5000 & balanced; srcw (1c, v4b1) & \code{predict\_proba} \\
+RF (\S\ref{sec:rf}) & 500 trees, \code{sqrt}, leaf 2, seed 42 & balanced; srcw & \code{predict\_proba} \\
+ExtraTrees (\S\ref{sec:et}) & 500 trees, \code{sqrt}, leaf 2, seed 42 & balanced & \code{predict\_proba} \\
+HistGB (\S\ref{sec:histgb}) & lr 0.1, 200 iterations, 15 leaves, leaf 20, $\ell_2=0$, no early stopping, seed 42 & balanced; srcw (1c) & \code{predict\_proba} \\
+SVM-RBF (\S\ref{sec:svm}) & scaler + $C=1$, $\gamma$=\code{'scale'} & balanced & $\sigma(f(\xv))$, no Platt (\cref{eq:svmscore}) \\
+kNN (\S\ref{sec:knn}) & scaler + $k=15$, uniform & prior correction (\cref{eq:knnprior}) & corrected probability \\
+QDA (\S\ref{sec:qda}) & scaler + \code{reg\_param}=0.1 & priors $(0.5,0.5)$ & \code{predict\_proba} \\
+MLP (\S\ref{sec:mlp}) & scaler + hidden (32,), $\alpha=10^{-3}$, early stopping (20\%), 500 iterations; seeds 0--4 & equal class weights (\code{sample\_weight}) & mean of 5 seeds \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\begin{table}[htbp]
+\centering\small
+\caption[Nested-selection grids]{Grids of the nested procedures 1d (per algorithm and representation) and 1e (all 35 grid
+points $\times$ 4 representations = 140 configurations). Other settings as in \cref{tab:p2models}. Selection uses inner
+source AUC, then inner source BA at the chosen threshold, then the order algorithm $\to$ representation $\to$ grid
+(\cref{alg:nested}); threshold by \cref{eq:choosethreshold}.}
+\label{tab:p2grid}
+\begin{tabularx}{\textwidth}{@{}lXr@{}}
+\toprule
+Algorithm & Grid & points \\
+\midrule
+LR & $C\in\{0.01,0.1,1,10\}$ & 4 \\
+RF & \code{min\_samples\_leaf} $\in\{1,2,5,10\}$; 200 trees inside, 500 when refitted & 4 \\
+ExtraTrees & \code{min\_samples\_leaf} $\in\{1,2,5,10\}$; 200/500 trees & 4 \\
+HistGB & learning rate $\in\{0.05,0.1\}\times$ \code{max\_leaf\_nodes} $\in\{7,15\}$ & 4 \\
+SVM-RBF & $C\in\{0.1,1,10\}\times$ $\gamma$-factor $\in\{0.3,1,3\}$ (multiplying the \code{'scale'} value) & 9 \\
+kNN & $k\in\{5,15,31\}$ & 3 \\
+QDA & \code{reg\_param} $\in\{0.01,0.1,0.5\}$ & 3 \\
+MLP & hidden $\in\{(16,),(32,16)\}\times\alpha\in\{10^{-4},10^{-2}\}$; seeds 0--2 inside, 0--4 outside & 4 \\
+\midrule
+Total & & 35 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Results}\label{sec:p2results}
+% -----------------------------------------------------------------------------------------------------
+All intervals are 95\% class-stratified source-bootstrap intervals (2000 resamples, seed 42, fixed OOF predictions, no
+refitting; \cref{sec:bootstrap}); every difference is paired with the baseline on the same resamples.
+
+\subsection{Flexible algorithms (v4a)}\label{sec:p2v4a}
+
+\textbf{Reproduction (1a).} The v4 code reproduced the v2 OOF scores of LR and RF on all four representations: maximum
+absolute difference $1.1\times10^{-16}$ (RF on H: $2.2\times10^{-16}$), 0 label changes
+(\file{results/v4/v4a\_reproduction\_check.csv}); the v4 paired bootstrap also reproduces the v3a intervals bit for bit
+(\file{scripts/test\_v4lib.py}).
+
+\textbf{Primary (1e).} \Primary{} \Cref{tab:p2primary} gives the result: nested automatic selection reached source BA
+0.732 and source AUC 0.750, \emph{below} H-LR in both point estimates; the differences are \NotDetected{} (both intervals
+contain 0, and both lie mostly below 0). Its OOF scores correlate with those of H-LR at Spearman 0.673 and agree in
+label on 75.7\% of observations (\file{results/v4/v4a\_agreement.csv}).
+
+\begin{table}[htbp]
+\centering\small
+\caption[v4a primary result]{\Primary{} v4a 1e: nested automatic selection vs the v2 H-LR baseline (456 observations, 31
+sources; \file{results/v4/v4a\_bootstrap.csv}, rows \code{part = 1e\_primary}).}
+\label{tab:p2primary}
+\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+ & source BA & source AUC & observation BA \\
+\midrule
+H-LR (v2 baseline) & 0.795 [0.589, 0.958] & 0.923 [0.804, 0.994] & 0.776 [0.633, 0.893] \\
+nested automatic selection & 0.732 [0.527, 0.896] & 0.750 [0.464, 0.976] & 0.691 [0.529, 0.822] \\
+difference & $-0.062$ [$-0.146$, $+0.021$] & $-0.173$ [$-0.399$, $+0.012$] & $-0.084$ [$-0.175$, $+0.004$] \\
+verdict & not detected & not detected & not detected \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{What the nested procedure chose.} \Cref{tab:p2nested} lists the configuration selected in every outer fold. In 23
+of 31 folds the inner LOSO chose \textbf{SVM-RBF on the intensity representation A} ($C=10$; $\gamma$-factor 1 in 20
+folds, 0.3 in 3); the others chose HistGB (on HI 3 times, on H once), LR on A ($C=0.1$, twice), an MLP on A and ExtraTrees
+on HI. The intensity representations (A, HI) were chosen in 30 of 31 folds. The inner source AUC of the chosen
+configuration was 0.958--1.000 in every fold, while the outer source AUC is 0.750: the gap is the optimism of picking the
+best of 140 models on 30 sources, which the nested design is meant to expose. Since folds use different models, the outer
+source AUC is computed on the shifted scores $\bar s-t_k+0.5$ (\cref{sec:nested}) and is an approximation (stated in the
+pre-registration). Eleven sources were called BH: 5 of the 7 BHs (GRS 1915+105 and XTE J1118+480 were missed, as by H-LR) and 6 of the
+24 NSs (4U 1728$-$34, GS 1826$-$238, GX 17+2, HETE J1900.1$-$2455, SAX J1808.4$-$3658, XTE J1814$-$338), i.e.\ source BA
+$(5/7+18/24)/2=0.732$.
+
+{\scriptsize\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}llllp{3.6cm}rrrrl@{}}
+\caption[v4a nested selection per fold]{v4a 1e: configuration chosen by the inner LOSO in each outer fold (one fold per
+held-out source). $t_k$ = threshold chosen on the inner source scores; inner AUC/BA = inner source-level AUC and balanced
+accuracy of the chosen configuration on the 30 training sources; $\bar s$ = mean raw score of the held-out source;
+prediction BH iff $\bar s\ge t_k$; \textbf{bold} = wrong. Sorted by label and name. From
+\file{results/v4/v4a\_nested\_selection.csv}.}\label{tab:p2nested}\\
+\toprule
+Held-out source & label & algorithm & rep. & configuration & $t_k$ & inner AUC & inner BA & $\bar s$ & pred. \\
+\midrule\endfirsthead
+\toprule Held-out source & label & algorithm & rep. & configuration & $t_k$ & inner AUC & inner BA & $\bar s$ & pred. \\ \midrule\endhead
+\bottomrule\endfoot
+4U 1543$-$47 & BH & SVM-RBF & A & C=10.0, $\gamma$-factor=0.3 & 0.588 & 0.972 & 0.917 & 0.702 & BH \\
+GRO J1655$-$40 & BH & SVM-RBF & A & C=10.0, $\gamma$-factor=1.0 & 0.401 & 0.958 & 0.917 & 0.868 & BH \\
+GRS 1915+105 & BH & HistGB & H & lr=0.05, leaves=15 & 0.355 & 0.993 & 0.979 & 0.081 & \textbf{NS} \\
+GX 339$-$4 & BH & SVM-RBF & A & C=10.0, $\gamma$-factor=1.0 & 0.399 & 0.958 & 0.917 & 0.719 & BH \\
+XTE J1118+480 & BH & ET & HI & leaf=1 & 0.419 & 1.000 & 1.000 & 0.176 & \textbf{NS} \\
+XTE J1550$-$564 & BH & HistGB & HI & lr=0.05, leaves=15 & 0.255 & 0.958 & 0.938 & 0.632 & BH \\
+XTE J1650$-$500 & BH & MLP & A & hidden=(32, 16), $\alpha$=0.0001 & 0.446 & 0.979 & 0.979 & 0.675 & BH \\
+4U 1254$-$69 & NS & SVM-RBF & A & C=10.0, $\gamma$-factor=1.0 & 0.406 & 0.969 & 0.913 & 0.104 & NS \\
+4U 1323$-$62 & NS & SVM-RBF & A & C=10.0, $\gamma$-factor=1.0 & 0.430 & 0.975 & 0.935 & 0.347 & NS \\
+4U 1608$-$52 & NS & SVM-RBF & A & C=10.0, $\gamma$-factor=1.0 & 0.440 & 0.975 & 0.935 & 0.224 & NS \\
+4U 1636$-$53 & NS & SVM-RBF & A & C=10.0, $\gamma$-factor=1.0 & 0.417 & 0.969 & 0.913 & 0.150 & NS \\
+4U 1702$-$429 & NS & SVM-RBF & A & C=10.0, $\gamma$-factor=1.0 & 0.440 & 0.975 & 0.935 & 0.221 & NS \\
+4U 1705$-$44 & NS & SVM-RBF & A & C=10.0, $\gamma$-factor=1.0 & 0.410 & 0.969 & 0.913 & 0.130 & NS \\
+4U 1724$-$307 & NS & SVM-RBF & A & C=10.0, $\gamma$-factor=1.0 & 0.408 & 0.969 & 0.913 & 0.308 & NS \\
+4U 1728$-$34 & NS & LR & A & C=0.1 & 0.385 & 0.969 & 0.913 & 0.424 & \textbf{BH} \\
+4U 1735$-$44 & NS & HistGB & HI & lr=0.1, leaves=15 & 0.177 & 0.969 & 0.935 & 0.000 & NS \\
+4U 1746$-$37 & NS & SVM-RBF & A & C=10.0, $\gamma$-factor=1.0 & 0.406 & 0.969 & 0.913 & 0.089 & NS \\
+4U 1820$-$30 & NS & SVM-RBF & A & C=10.0, $\gamma$-factor=1.0 & 0.406 & 0.969 & 0.913 & 0.038 & NS \\
+4U 1916$-$053 & NS & SVM-RBF & A & C=10.0, $\gamma$-factor=1.0 & 0.407 & 0.969 & 0.913 & 0.164 & NS \\
+Aql X-1 & NS & SVM-RBF & A & C=10.0, $\gamma$-factor=1.0 & 0.437 & 0.975 & 0.935 & 0.366 & NS \\
+Cyg X-2 & NS & SVM-RBF & A & C=10.0, $\gamma$-factor=1.0 & 0.408 & 0.969 & 0.913 & 0.280 & NS \\
+EXO 0748$-$676 & NS & SVM-RBF & A & C=10.0, $\gamma$-factor=1.0 & 0.430 & 0.969 & 0.913 & 0.283 & NS \\
+GS 1826$-$238 & NS & SVM-RBF & A & C=10.0, $\gamma$-factor=0.3 & 0.407 & 0.981 & 0.935 & 0.502 & \textbf{BH} \\
+GX 17+2 & NS & SVM-RBF & A & C=10.0, $\gamma$-factor=1.0 & 0.409 & 0.981 & 0.935 & 0.495 & \textbf{BH} \\
+GX 3+1 & NS & SVM-RBF & A & C=10.0, $\gamma$-factor=1.0 & 0.406 & 0.969 & 0.913 & 0.063 & NS \\
+HETE J1900.1$-$2455 & NS & SVM-RBF & A & C=10.0, $\gamma$-factor=1.0 & 0.434 & 0.975 & 0.935 & 0.443 & \textbf{BH} \\
+KS 1731$-$260 & NS & LR & A & C=0.1 & 0.590 & 0.975 & 0.929 & 0.590 & NS \\
+MXB 1659$-$298 & NS & SVM-RBF & A & C=10.0, $\gamma$-factor=0.3 & 0.398 & 0.969 & 0.913 & 0.215 & NS \\
+SAX J1808.4$-$3658 & NS & SVM-RBF & A & C=10.0, $\gamma$-factor=1.0 & 0.455 & 0.994 & 0.978 & 0.570 & \textbf{BH} \\
+SLX 1735$-$269 & NS & SVM-RBF & A & C=10.0, $\gamma$-factor=1.0 & 0.410 & 0.969 & 0.913 & 0.217 & NS \\
+XTE J1814$-$338 & NS & HistGB & HI & lr=0.1, leaves=15 & 0.275 & 0.994 & 0.978 & 0.704 & \textbf{BH} \\
+\end{longtable}}
+
+\textbf{Descriptive combinations (1b--1d).} \Descriptive{} \Cref{tab:p2v4aall} lists all 76 descriptive combinations
+(31 fixed-setting rows of 1b -- the H-LR row of 1b is the baseline itself and is omitted --, 12 source-equal-weight rows
+of 1c, 32 per-algorithm nested rows of 1d, plus the 1e row for reference) and \cref{fig:p2forest} plots them.
+\begin{itemize}
+\item Three source-BA intervals lie entirely above 0, all involving QDA: A-QDA (fixed), A-QDA (nested) and HI-QDA
+(nested), each 0.929, $+0.134$ [$+0.021$, $+0.298$], misclassifying only XTE J1118+480. Their source-AUC differences
+($+0.024$, $+0.060$, $+0.036$) all have intervals containing 0.
+\item No source-AUC interval lies entirely above 0. Two nested combinations are \emph{detectably worse} than H-LR on both
+source metrics: H-QDA (source BA $-0.155$ [$-0.318$, $-0.021$], AUC $-0.101$ [$-0.238$, $-0.012$]) and HI-MLP (source BA
+$-0.301$ [$-0.557$, $-0.024$], AUC $-0.315$ [$-0.583$, $-0.089$]).
+\item Many tree models on H and B (RF, ExtraTrees, HistGB, fixed or source-weighted) give source BA $+0.062$ [0.000, $+0.125$]:
+they classify all 24 NSs correctly but still miss 2 BHs; the lower limit is exactly 0, so by the rule this is not an
+improvement.
+\item With 76 combinations $\times$ 3 metrics = 228 comparisons, about 5--6 one-sided 2.5\% exceedances are expected even if
+nothing differs. The three QDA results are strongly dependent (same algorithm, related representations), and the 1e
+procedure never chose QDA in its inner loop. They are therefore not interpreted.
+\end{itemize}
+
+{\scriptsize\setlength{\tabcolsep}{3.5pt}
+\begin{longtable}{@{}lllrrll@{}}
+\caption[v4a all combinations]{\Descriptive{} All v4a combinations against H-LR (456 observations, 31 sources). Part 1b =
+fixed settings, 1c = source-equal weights (\code{[srcw]}), 1d = nested per algorithm and representation, 1e = primary.
+Differences are paired source-bootstrap differences with 95\% intervals; $^*$ = interval excludes 0 (in either direction).
+From \file{results/v4/v4a\_metrics.csv} and \file{results/v4/v4a\_bootstrap.csv}.}\label{tab:p2v4aall}\\
+\toprule
+Part & Rep. & Model & src BA & src AUC & $\Delta$ src BA [95\% CI] & $\Delta$ src AUC [95\% CI] \\
+\midrule\endfirsthead
+\toprule Part & Rep. & Model & src BA & src AUC & $\Delta$ src BA [95\% CI] & $\Delta$ src AUC [95\% CI] \\ \midrule\endhead
+\bottomrule\endfoot
+1b & H & RandomForest & 0.857 & 0.905 & $+0.062$ [$+0.000$, $+0.125$] & $-0.018$ [$-0.113$, $+0.060$] \\
+1b & H & ExtraTrees & 0.815 & 0.899 & $+0.021$ [$-0.042$, $+0.083$] & $-0.024$ [$-0.143$, $+0.060$] \\
+1b & H & HistGB & 0.857 & 0.899 & $+0.062$ [$+0.000$, $+0.125$] & $-0.024$ [$-0.131$, $+0.060$] \\
+1b & H & SVM\_RBF & 0.815 & 0.857 & $+0.021$ [$+0.000$, $+0.062$] & $-0.065$ [$-0.214$, $+0.048$] \\
+1b & H & kNN & 0.815 & 0.875 & $+0.021$ [$-0.042$, $+0.083$] & $-0.048$ [$-0.214$, $+0.060$] \\
+1b & H & QDA & 0.786 & 0.905 & $-0.009$ [$-0.173$, $+0.104$] & $-0.018$ [$-0.089$, $+0.036$] \\
+1b & H & MLP & 0.812 & 0.917 & $+0.018$ [$-0.158$, $+0.223$] & $-0.006$ [$-0.107$, $+0.089$] \\
+1b & HI & LogReg & 0.795 & 0.929 & $+0.000$ [$+0.000$, $+0.000$] & $+0.006$ [$-0.048$, $+0.060$] \\
+1b & HI & RandomForest & 0.836 & 0.946 & $+0.042$ [$-0.042$, $+0.125$] & $+0.024$ [$-0.060$, $+0.119$] \\
+1b & HI & ExtraTrees & 0.836 & 0.958 & $+0.042$ [$-0.042$, $+0.125$] & $+0.036$ [$-0.036$, $+0.137$] \\
+1b & HI & HistGB & 0.765 & 0.929 & $-0.030$ [$-0.193$, $+0.104$] & $+0.006$ [$-0.077$, $+0.101$] \\
+1b & HI & SVM\_RBF & 0.866 & 0.946 & $+0.071$ [$-0.083$, $+0.256$] & $+0.024$ [$-0.065$, $+0.125$] \\
+1b & HI & kNN & 0.836 & 0.952 & $+0.042$ [$-0.042$, $+0.125$] & $+0.030$ [$-0.048$, $+0.131$] \\
+1b & HI & QDA & 0.857 & 0.952 & $+0.062$ [$-0.152$, $+0.277$] & $+0.030$ [$-0.060$, $+0.137$] \\
+1b & HI & MLP & 0.661 & 0.869 & $-0.134$ [$-0.310$, $+0.000$] & $-0.054$ [$-0.161$, $+0.012$] \\
+1b & B & LogReg & 0.774 & 0.875 & $-0.021$ [$-0.062$, $+0.000$] & $-0.048$ [$-0.179$, $+0.048$] \\
+1b & B & RandomForest & 0.857 & 0.893 & $+0.062$ [$+0.000$, $+0.125$] & $-0.030$ [$-0.131$, $+0.054$] \\
+1b & B & ExtraTrees & 0.857 & 0.881 & $+0.062$ [$+0.000$, $+0.125$] & $-0.042$ [$-0.161$, $+0.048$] \\
+1b & B & HistGB & 0.857 & 0.893 & $+0.062$ [$+0.000$, $+0.125$] & $-0.030$ [$-0.143$, $+0.054$] \\
+1b & B & SVM\_RBF & 0.836 & 0.881 & $+0.042$ [$-0.042$, $+0.125$] & $-0.042$ [$-0.161$, $+0.048$] \\
+1b & B & kNN & 0.836 & 0.798 & $+0.042$ [$-0.042$, $+0.125$] & $-0.125$ [$-0.339$, $+0.036$] \\
+1b & B & QDA & 0.786 & 0.923 & $-0.009$ [$-0.173$, $+0.104$] & $+0.000$ [$-0.083$, $+0.077$] \\
+1b & B & MLP & 0.783 & 0.881 & $-0.012$ [$-0.146$, $+0.152$] & $-0.042$ [$-0.137$, $+0.024$] \\
+1b & A & LogReg & 0.866 & 0.946 & $+0.071$ [$-0.042$, $+0.235$] & $+0.024$ [$-0.048$, $+0.113$] \\
+1b & A & RandomForest & 0.622 & 0.881 & $-0.173$ [$-0.387$, $+0.033$] & $-0.042$ [$-0.179$, $+0.077$] \\
+1b & A & ExtraTrees & 0.765 & 0.899 & $-0.030$ [$-0.286$, $+0.226$] & $-0.024$ [$-0.155$, $+0.101$] \\
+1b & A & HistGB & 0.908 & 0.940 & $+0.113$ [$-0.021$, $+0.289$] & $+0.018$ [$-0.107$, $+0.143$] \\
+1b & A & SVM\_RBF & 0.795 & 0.917 & $+0.000$ [$-0.223$, $+0.226$] & $-0.006$ [$-0.089$, $+0.083$] \\
+1b & A & kNN & 0.815 & 0.893 & $+0.021$ [$-0.193$, $+0.235$] & $-0.030$ [$-0.167$, $+0.095$] \\
+1b & A & QDA & 0.929 & 0.946 & $+0.134$ [$+0.021$, $+0.298$]* & $+0.024$ [$-0.071$, $+0.131$] \\
+1b & A & MLP & 0.792 & 0.839 & $-0.003$ [$-0.187$, $+0.202$] & $-0.083$ [$-0.232$, $+0.042$] \\
+1c & H & LogReg[srcw] & 0.795 & 0.923 & $+0.000$ [$+0.000$, $+0.000$] & $+0.000$ [$+0.000$, $+0.000$] \\
+1c & H & RandomForest[srcw] & 0.857 & 0.905 & $+0.062$ [$+0.000$, $+0.125$] & $-0.018$ [$-0.113$, $+0.060$] \\
+1c & H & HistGB[srcw] & 0.857 & 0.899 & $+0.062$ [$+0.000$, $+0.125$] & $-0.024$ [$-0.137$, $+0.060$] \\
+1c & HI & LogReg[srcw] & 0.795 & 0.929 & $+0.000$ [$+0.000$, $+0.000$] & $+0.006$ [$-0.048$, $+0.060$] \\
+1c & HI & RandomForest[srcw] & 0.836 & 0.940 & $+0.042$ [$-0.042$, $+0.125$] & $+0.018$ [$-0.071$, $+0.119$] \\
+1c & HI & HistGB[srcw] & 0.744 & 0.917 & $-0.051$ [$-0.223$, $+0.083$] & $-0.006$ [$-0.095$, $+0.095$] \\
+1c & B & LogReg[srcw] & 0.774 & 0.875 & $-0.021$ [$-0.062$, $+0.000$] & $-0.048$ [$-0.179$, $+0.048$] \\
+1c & B & RandomForest[srcw] & 0.857 & 0.893 & $+0.062$ [$+0.000$, $+0.125$] & $-0.030$ [$-0.131$, $+0.054$] \\
+1c & B & HistGB[srcw] & 0.857 & 0.911 & $+0.062$ [$+0.000$, $+0.125$] & $-0.012$ [$-0.095$, $+0.060$] \\
+1c & A & LogReg[srcw] & 0.866 & 0.952 & $+0.071$ [$-0.042$, $+0.235$] & $+0.030$ [$-0.048$, $+0.131$] \\
+1c & A & RandomForest[srcw] & 0.622 & 0.881 & $-0.173$ [$-0.387$, $+0.033$] & $-0.042$ [$-0.185$, $+0.083$] \\
+1c & A & HistGB[srcw] & 0.765 & 0.940 & $-0.030$ [$-0.286$, $+0.226$] & $+0.018$ [$-0.107$, $+0.143$] \\
+1d & H & LogReg & 0.824 & 0.923 & $+0.030$ [$-0.083$, $+0.193$] & $+0.000$ [$-0.036$, $+0.030$] \\
+1d & H & RandomForest & 0.836 & 0.952 & $+0.042$ [$-0.042$, $+0.125$] & $+0.030$ [$-0.030$, $+0.125$] \\
+1d & H & ExtraTrees & 0.836 & 0.940 & $+0.042$ [$-0.042$, $+0.125$] & $+0.018$ [$-0.060$, $+0.119$] \\
+1d & H & HistGB & 0.723 & 0.905 & $-0.071$ [$-0.235$, $+0.062$] & $-0.018$ [$-0.095$, $+0.048$] \\
+1d & H & SVM\_RBF & 0.836 & 0.774 & $+0.042$ [$-0.042$, $+0.125$] & $-0.149$ [$-0.393$, $+0.024$] \\
+1d & H & kNN & 0.815 & 0.911 & $+0.021$ [$-0.042$, $+0.083$] & $-0.012$ [$-0.083$, $+0.060$] \\
+1d & H & QDA & 0.640 & 0.821 & $-0.155$ [$-0.318$, $-0.021$]* & $-0.101$ [$-0.238$, $-0.012$]* \\
+1d & H & MLP & 0.765 & 0.887 & $-0.030$ [$-0.193$, $+0.083$] & $-0.036$ [$-0.137$, $+0.054$] \\
+1d & HI & LogReg & 0.783 & 0.905 & $-0.012$ [$-0.146$, $+0.152$] & $-0.018$ [$-0.083$, $+0.042$] \\
+1d & HI & RandomForest & 0.774 & 0.875 & $-0.021$ [$-0.125$, $+0.083$] & $-0.048$ [$-0.190$, $+0.054$] \\
+1d & HI & ExtraTrees & 0.774 & 0.810 & $-0.021$ [$-0.104$, $+0.062$] & $-0.113$ [$-0.327$, $+0.036$] \\
+1d & HI & HistGB & 0.824 & 0.893 & $+0.030$ [$-0.104$, $+0.206$] & $-0.030$ [$-0.179$, $+0.089$] \\
+1d & HI & SVM\_RBF & 0.774 & 0.887 & $-0.021$ [$-0.125$, $+0.083$] & $-0.036$ [$-0.143$, $+0.065$] \\
+1d & HI & kNN & 0.795 & 0.893 & $+0.000$ [$-0.104$, $+0.104$] & $-0.030$ [$-0.119$, $+0.060$] \\
+1d & HI & QDA & 0.929 & 0.958 & $+0.134$ [$+0.021$, $+0.298$]* & $+0.036$ [$-0.054$, $+0.143$] \\
+1d & HI & MLP & 0.494 & 0.607 & $-0.301$ [$-0.557$, $-0.024$]* & $-0.315$ [$-0.583$, $-0.089$]* \\
+1d & B & LogReg & 0.857 & 0.905 & $+0.062$ [$+0.000$, $+0.125$] & $-0.018$ [$-0.113$, $+0.060$] \\
+1d & B & RandomForest & 0.857 & 0.911 & $+0.062$ [$+0.000$, $+0.125$] & $-0.012$ [$-0.089$, $+0.060$] \\
+1d & B & ExtraTrees & 0.857 & 0.911 & $+0.062$ [$+0.000$, $+0.125$] & $-0.012$ [$-0.107$, $+0.078$] \\
+1d & B & HistGB & 0.753 & 0.845 & $-0.042$ [$-0.104$, $+0.000$] & $-0.077$ [$-0.232$, $+0.030$] \\
+1d & B & SVM\_RBF & 0.857 & 0.881 & $+0.062$ [$+0.000$, $+0.125$] & $-0.042$ [$-0.161$, $+0.048$] \\
+1d & B & kNN & 0.857 & 0.869 & $+0.062$ [$+0.000$, $+0.125$] & $-0.054$ [$-0.196$, $+0.048$] \\
+1d & B & QDA & 0.804 & 0.875 & $+0.009$ [$-0.146$, $+0.193$] & $-0.048$ [$-0.214$, $+0.071$] \\
+1d & B & MLP & 0.702 & 0.833 & $-0.092$ [$-0.277$, $+0.042$] & $-0.089$ [$-0.226$, $+0.000$] \\
+1d & A & LogReg & 0.866 & 0.923 & $+0.071$ [$-0.062$, $+0.247$] & $+0.000$ [$-0.083$, $+0.095$] \\
+1d & A & RandomForest & 0.732 & 0.839 & $-0.062$ [$-0.280$, $+0.152$] & $-0.083$ [$-0.244$, $+0.054$] \\
+1d & A & ExtraTrees & 0.744 & 0.935 & $-0.051$ [$-0.307$, $+0.205$] & $+0.012$ [$-0.089$, $+0.125$] \\
+1d & A & HistGB & 0.866 & 0.911 & $+0.071$ [$-0.062$, $+0.244$] & $-0.012$ [$-0.143$, $+0.113$] \\
+1d & A & SVM\_RBF & 0.732 & 0.911 & $-0.062$ [$-0.280$, $+0.164$] & $-0.012$ [$-0.113$, $+0.083$] \\
+1d & A & kNN & 0.732 & 0.899 & $-0.062$ [$-0.277$, $+0.164$] & $-0.024$ [$-0.143$, $+0.089$] \\
+1d & A & QDA & 0.929 & 0.982 & $+0.134$ [$+0.021$, $+0.298$]* & $+0.060$ [$-0.006$, $+0.173$] \\
+1d & A & MLP & 0.670 & 0.810 & $-0.125$ [$-0.351$, $+0.089$] & $-0.113$ [$-0.315$, $+0.042$] \\
+1e & auto & auto & 0.732 & 0.750 & $-0.062$ [$-0.146$, $+0.021$] & $-0.173$ [$-0.399$, $+0.012$] \\
+\end{longtable}}
+
+\begin{figure}[p]
+\centering
+\includegraphics[width=0.86\textwidth]{figures/v4/v4a_forest_source_auc.png}
+\caption[v4a forest plot]{All v4a combinations. Left: source-level AUC with 95\% source-bootstrap interval (dashed line =
+H-LR, 0.923); right: paired difference in source balanced accuracy against H-LR. Orange = the primary nested automatic
+selection (1e), purple = nested per algorithm (1d), blue = fixed settings (1b), green = source-equal weights (1c), black =
+the H-LR baseline. The primary is the lowest-AUC entry except HI-MLP (nested); the three source-BA intervals above 0 are
+A-QDA (fixed), HI-QDA and A-QDA (nested). Repo: \file{figures/v4/v4a\_forest\_source\_auc.png},
+\file{scripts/16\_v4a\_algorithms.py}.}
+\label{fig:p2forest}
+\end{figure}
+
+\textbf{What the algorithms learn in the colour plane.} \Cref{fig:p2boundaries} draws the 0.5 decision boundaries of five
+algorithms fitted on all 456 observations (visualisation only; no evaluation uses it). LR draws one oblique line; RF and
+HistGB carve axis-parallel boxes around the training points, kNN draws islands and SVM-RBF a curved boundary. All of them
+agree on the two well-separated populations (soft BHs at low soft colour, soft NSs at low hard colour) and differ only in
+the region where hard BHs and hard NSs overlap -- exactly where no algorithm has information to transfer to unseen sources.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.78\textwidth]{figures/v4/v4a_colour_boundaries.png}
+\caption[v4a decision boundaries]{0.5 decision boundaries in the H colour plane (soft colour $F(7\text{--}10)/F(5\text{--}7)$, hard
+colour $F(16\text{--}25)/F(10\text{--}16)$, count space) of LR, RF, SVM-RBF, kNN and HistGB fitted on all 456 v2
+observations (blue BH, orange NS). Visualisation only; all accuracies in this chapter are LOSO. Repo:
+\file{figures/v4/v4a\_colour\_boundaries.png}, \file{scripts/16\_v4a\_algorithms.py}.}
+\label{fig:p2boundaries}
+\end{figure}
+
+\subsection{Data quality: type-I bursts}\label{sec:p2burstres}
+\Secondary{} Removing the 61 automatically flagged observations changes nothing at the source level
+(\cref{tab:p2burst}): the 31 H-LR source decisions are identical (source BA 0.795, source AUC 0.917 on the kept
+observations, differences $0.000$ [0, 0]) and the observation BA moves by $-0.012$ [$-0.062$, $+0.017$]. The Phase 1
+conclusions also survive: after exclusion, B $-$ H and H+B $-$ H are still not detected for LR and RF. In the visual-set
+sensitivity analysis two \emph{observation-level} RF differences have intervals above 0 (B $-$ H $+0.027$
+[$+0.004$, $+0.049$]; H+B $-$ H $+0.029$ [$+0.005$, $+0.051$]), with source-level differences of 0; the visual-set
+H-RF itself lost a little observation BA relative to the original ($-0.009$ [$-0.017$, $-0.002$]). These are small,
+observation-level and confined to the sensitivity analysis.
+
+\begin{table}[htbp]
+\centering\small
+\caption[Burst exclusion]{\Secondary{} Effect of excluding observations with type-I bursts (auto set: 395 kept; visual
+set: 398 kept). ``excl.\ $-$ orig.'' compares the re-trained model with the original v2/v3a OOF scores on the
+\emph{same} kept observations; ``B $-$ H'' etc.\ are recomputed after exclusion (original 456-observation values in
+\cref{tab:p1paired}). From \file{results/v4/burst\_exclusion\_bootstrap.csv}.}
+\label{tab:p2burst}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lllll@{}}
+\toprule
+Set & Comparison & $\Delta$ source BA & $\Delta$ source AUC & $\Delta$ obs.\ BA \\
+\midrule
+auto & H-LR excl.\ $-$ orig. & $0.000$ [0, 0] & $0.000$ [0, 0] & $-0.012$ [$-0.062$, $+0.017$] \\
+auto & H-RF excl.\ $-$ orig. & $0.000$ [0, 0] & $+0.006$ [0, $+0.036$] & $-0.010$ [$-0.024$, $+0.002$] \\
+auto & B $-$ H (LR) & $-0.042$ [$-0.104$, 0] & $-0.048$ [$-0.179$, $+0.048$] & $+0.028$ [$-0.032$, $+0.088$] \\
+auto & B $-$ H (RF) & $-0.071$ [$-0.214$, 0] & $-0.036$ [$-0.131$, $+0.024$] & $+0.014$ [$-0.011$, $+0.041$] \\
+auto & H+B $-$ H (LR) & $-0.042$ [$-0.104$, 0] & $-0.048$ [$-0.179$, $+0.048$] & $+0.022$ [$-0.045$, $+0.093$] \\
+auto & H+B $-$ H (RF) & $-0.071$ [$-0.214$, 0] & $-0.030$ [$-0.113$, $+0.024$] & $+0.005$ [$-0.018$, $+0.028$] \\
+\midrule
+visual & H-LR excl.\ $-$ orig. & $0.000$ [0, 0] & $0.000$ [0, 0] & $-0.002$ [$-0.010$, $+0.005$] \\
+visual & H-RF excl.\ $-$ orig. & $0.000$ [0, 0] & $-0.012$ [$-0.048$, 0] & $-0.009$ [$-0.017$, $-0.002$]$^*$ \\
+visual & B $-$ H (LR) & $-0.042$ [$-0.104$, 0] & $-0.060$ [$-0.208$, $+0.048$] & $0.000$ [$-0.062$, $+0.053$] \\
+visual & B $-$ H (RF) & $0.000$ [0, 0] & $-0.018$ [$-0.095$, $+0.048$] & $+0.027$ [$+0.004$, $+0.049$]$^*$ \\
+visual & H+B $-$ H (LR) & $-0.042$ [$-0.104$, 0] & $-0.060$ [$-0.208$, $+0.048$] & $+0.002$ [$-0.060$, $+0.054$] \\
+visual & H+B $-$ H (RF) & $0.000$ [0, 0] & $-0.006$ [$-0.071$, $+0.060$] & $+0.029$ [$+0.005$, $+0.051$]$^*$ \\
+\bottomrule
+\multicolumn{5}{@{}l}{\footnotesize $^*$ interval excludes 0.}
+\end{tabular}
+\end{table}
+
+\subsection{Wider band: HEXTE 25--60\,keV (v4b3)}\label{sec:p2hexteres}
+\Secondary{} On the 396-observation HEXTE subset (31 sources, 99 BH observations), adding the two HEXTE colours
+does not change a single source decision (\cref{tab:p2hexteres}): source BA differences $0.000$ [0, 0] for LR and RF,
+source AUC $-0.048$ [$-0.179$, $+0.024$] for LR and $0.000$ [$-0.036$, $+0.036$] for RF. In the colour-overlap box
+(soft colour $\ge0.70$ and hard colour $\ge0.20$, sources with $\ge3$ box observations: 24 sources, 203 observations) --
+the region where HEXTE should help if it helps anywhere -- nothing is detected either. The box was defined after seeing the
+v2 colour plot (\PostHoc{} definition). All \NotDetected.
+
+\begin{table}[htbp]
+\centering\small
+\caption[HEXTE results]{\Secondary{} v4b3: H vs H+X (H + HEXTE colours + missing indicators), LOSO on the HEXTE subset;
+the overlap box uses the same OOF scores restricted to box observations of sources with $\ge3$ of them. From
+\file{results/v4b3/v4b3\_bootstrap.csv}.}
+\label{tab:p2hexteres}
+\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}llccc@{}}
+\toprule
+Subset & Model & source BA & source AUC & obs.\ BA \\
+\midrule
+HEXTE (396 obs.) & H-LR & 0.795 [0.589, 0.958] & 0.923 [0.804, 0.994] & 0.776 \\
+ & H+X-LR & 0.795 [0.589, 0.958] & 0.875 [0.690, 0.994] & 0.779 \\
+ & \quad difference & $0.000$ [0, 0] & $-0.048$ [$-0.179$, $+0.024$] & $+0.003$ [$-0.078$, $+0.097$] \\
+ & H-RF & 0.857 [0.643, 1.000] & 0.911 [0.762, 1.000] & 0.744 \\
+ & H+X-RF & 0.857 [0.643, 1.000] & 0.911 [0.762, 1.000] & 0.751 \\
+ & \quad difference & $0.000$ [0, 0] & $0.000$ [$-0.036$, $+0.036$] & $+0.007$ [$-0.027$, $+0.041$] \\
+\midrule
+overlap box & H-LR & 0.651 & 0.748 & 0.629 \\
+(24 src, 203 obs.) & H+X-LR & 0.681 & 0.739 & 0.659 \\
+ & \quad difference & $+0.029$ [0, $+0.088$] & $-0.008$ [$-0.210$, $+0.160$] & $+0.030$ [$-0.099$, $+0.147$] \\
+ & H-RF & 0.756 & 0.815 & 0.625 \\
+ & H+X-RF & 0.685 & 0.798 & 0.635 \\
+ & \quad difference & $-0.071$ [$-0.214$, 0] & $-0.017$ [$-0.092$, $+0.059$] & $+0.010$ [$-0.057$, $+0.077$] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{More sources and earlier epochs (v4b2)}\label{sec:p2v4b2}
+\textbf{Bridge check (gate).} On the 456 v2 observations, H$_R$-LR and H-LR give OOF scores with Spearman
+$\rho=0.994$, source BA difference $0.000$ [0, 0] and source AUC difference $-0.018$ [$-0.065$, 0]
+(\file{results/v4b2/v4b2\_bridge\_check.csv}): both intervals contain 0 and $\rho\ge0.90$, so the gate was passed and
+the power-law normalisation can be used across gain epochs.
+
+\textbf{Extended sample.} \Secondary{} \Cref{tab:p2v4b2} gives the six models on the 46-source sample and
+\cref{tab:p2v4b2diff} the paired differences. The analysis script compared every model with the same-sample H$_R$-LR (the
+reference named in the v4b2 rules); against it, H-RF and H$_R$-RF gain $+0.123$ [$+0.027$, $+0.248$] in source BA. Against the
+H-LR recomputed on the same sample (the baseline required by \S0 of the pre-registration), H-RF and H$_R$-RF gain source BA $+0.068$ [$+0.014$, $+0.122$] -- \Detected{} by the
+pre-declared rule -- but their source AUC differences ($-0.009$ and $-0.012$) are not. The gain comes entirely from
+classifying all 37 NSs correctly (H-LR: 32/37) while missing the same 2 BHs, i.e.\ from the position of the threshold,
+not from a better ranking of sources. Evaluated on the original 456 v2 observations (models trained on the extended
+sample), no combination beats the v2 H-LR (H-RF and H$_R$-RF: $+0.062$ [0, $+0.125$]). The same-sample H-LR comparison was
+required by the pre-registration (\S0) but had been omitted from the analysis script; it was added after the v4b2 results
+were seen.
+
+\begin{table}[htbp]
+\centering\small
+\caption[v4b2 extended sample]{\Secondary{} v4b2: 46 sources (9 BH, 37 NS), 677 observations, LOSO, with 95\%
+source-bootstrap intervals. ``Correct'' = sources on the right side of 0.5. From \file{results/v4b2/v4b2\_bootstrap.csv}.}
+\label{tab:p2v4b2}
+\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Model & source BA & source AUC & obs.\ BA & BH / NS correct \\
+\midrule
+H-LR & 0.821 [0.668, 0.946] & 0.946 [0.868, 0.997] & 0.792 [0.674, 0.893] & 7/9, 32/37 \\
+H-RF & 0.889 [0.722, 1.000] & 0.937 [0.832, 1.000] & 0.779 [0.665, 0.878] & 7/9, 37/37 \\
+H$_R$-LR & 0.766 [0.599, 0.917] & 0.928 [0.832, 0.991] & 0.765 [0.646, 0.874] & 6/9, 32/37 \\
+H$_R$-RF & 0.889 [0.722, 1.000] & 0.934 [0.826, 1.000] & 0.770 [0.653, 0.869] & 7/9, 37/37 \\
+R-LR & 0.862 [0.709, 0.986] & 0.883 [0.667, 1.000] & 0.749 [0.643, 0.839] & 7/9, 35/37 \\
+R-RF & 0.709 [0.542, 0.875] & 0.922 [0.808, 0.994] & 0.662 [0.590, 0.728] & 4/9, 36/37 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering\small
+\caption[v4b2 paired differences]{v4b2 paired differences. Upper block: against the H-LR recomputed on the 46-source
+sample (pre-registration \S0; added after the v4b2 results were seen). Middle: against the same-sample H$_R$-LR (the
+reference computed by the analysis script). Lower: models trained on the extended sample, evaluated on the 456 v2
+observations, against the v2 H-LR. $^*$ = interval excludes 0; $^\dagger$ = entirely above 0 (``improvement'').
+From \file{results/v4b2/v4b2\_bootstrap.csv}.}
+\label{tab:p2v4b2diff}
+\footnotesize\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Comparison & $\Delta$ source BA & $\Delta$ source AUC & $\Delta$ obs.\ BA \\
+\midrule
+H-RF $-$ H-LR & $+0.068$ [$+0.014$, $+0.122$]$^\dagger$ & $-0.009$ [$-0.069$, $+0.039$] & $-0.013$ [$-0.062$, $+0.038$] \\
+H$_R$-LR $-$ H-LR & $-0.056$ [$-0.167$, 0] & $-0.018$ [$-0.057$, 0] & $-0.028$ [$-0.072$, $+0.005$] \\
+H$_R$-RF $-$ H-LR & $+0.068$ [$+0.014$, $+0.122$]$^\dagger$ & $-0.012$ [$-0.072$, $+0.036$] & $-0.022$ [$-0.073$, $+0.030$] \\
+R-LR $-$ H-LR & $+0.041$ [$-0.014$, $+0.095$] & $-0.063$ [$-0.243$, $+0.045$] & $-0.044$ [$-0.116$, $+0.032$] \\
+R-RF $-$ H-LR & $-0.113$ [$-0.293$, $+0.053$] & $-0.024$ [$-0.123$, $+0.063$] & $-0.130$ [$-0.217$, $-0.035$]$^*$ \\
+\midrule
+H-LR $-$ H$_R$-LR & $+0.056$ [0, $+0.167$] & $+0.018$ [0, $+0.057$] & $+0.028$ [$-0.005$, $+0.072$] \\
+H-RF $-$ H$_R$-LR & $+0.123$ [$+0.027$, $+0.248$]$^\dagger$ & $+0.009$ [$-0.045$, $+0.066$] & $+0.015$ [$-0.051$, $+0.085$] \\
+H$_R$-RF $-$ H$_R$-LR & $+0.123$ [$+0.027$, $+0.248$]$^\dagger$ & $+0.006$ [$-0.042$, $+0.060$] & $+0.005$ [$-0.062$, $+0.078$] \\
+R-LR $-$ H$_R$-LR & $+0.096$ [0, $+0.233$] & $-0.045$ [$-0.231$, $+0.078$] & $-0.016$ [$-0.103$, $+0.080$] \\
+R-RF $-$ H$_R$-LR & $-0.057$ [$-0.210$, $+0.081$] & $-0.006$ [$-0.096$, $+0.078$] & $-0.103$ [$-0.181$, $-0.018$]$^*$ \\
+\midrule
+on v2 obs.: H-LR $-$ v2 H-LR & $0.000$ [0, 0] & $0.000$ [$-0.030$, $+0.030$] & $-0.004$ [$-0.025$, $+0.016$] \\
+on v2 obs.: H-RF $-$ v2 H-LR & $+0.062$ [0, $+0.125$] & $-0.024$ [$-0.131$, $+0.060$] & $-0.024$ [$-0.095$, $+0.049$] \\
+on v2 obs.: H$_R$-LR $-$ v2 H-LR & $-0.071$ [$-0.214$, 0] & $-0.018$ [$-0.065$, 0] & $-0.040$ [$-0.106$, $+0.006$] \\
+on v2 obs.: H$_R$-RF $-$ v2 H-LR & $+0.062$ [0, $+0.125$] & $-0.030$ [$-0.131$, $+0.054$] & $-0.027$ [$-0.103$, $+0.052$] \\
+on v2 obs.: R-LR $-$ v2 H-LR & $+0.021$ [$-0.042$, $+0.083$] & $-0.077$ [$-0.304$, $+0.060$] & $-0.066$ [$-0.159$, $+0.027$] \\
+on v2 obs.: R-RF $-$ v2 H-LR & $-0.173$ [$-0.387$, $+0.033$] & $-0.042$ [$-0.179$, $+0.083$] & $-0.152$ [$-0.268$, $-0.030$]$^*$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{The new sources.} \Cref{tab:p2v4b2new} shows how the 15 sources that were never part of any earlier training set
+were scored. Both new BHs are called BH by every H and H$_R$ model (XTE J1859+226 0.84--0.94, V4641 Sgr 0.63--0.93). Among
+the 13 new NSs, the two LR models call 4U 2129+12 (in M15) and XTE J1710$-$281 BH (scores 0.52--0.54); RF classifies all of
+them correctly.
+
+{\footnotesize\setlength{\tabcolsep}{3.5pt}
+\begin{longtable}{@{}llrrlcccccc@{}}
+\caption[v4b2 new sources]{v4b2 new sources: eligible pointings over all gain epochs, sampled observations, observations
+per epoch (epoch:count), and LOSO source mean scores; \textbf{bold} = wrong side of 0.5. From
+\file{data/v4b2/sources.csv}, \file{results/v4b2/v4b2\_sample\_by\_epoch.csv}, \file{results/v4b2/v4b2\_oof\_predictions.csv}.}\label{tab:p2v4b2new}\\
+\toprule
+Source & label & elig. & obs. & epochs & H-LR & H-RF & H$_R$-LR & H$_R$-RF & R-LR & R-RF \\
+\midrule\endfirsthead
+\toprule Source & label & elig. & obs. & epochs & H-LR & H-RF & H$_R$-LR & H$_R$-RF & R-LR & R-RF \\ \midrule\endhead
+\bottomrule\endfoot
+V4641 Sgr & BH & 11 & 11 & 4:2, 5:9 & 0.93 & 0.63 & 0.93 & 0.68 & 0.65 & 0.60 \\
+XTE J1859+226 & BH & 112 & 15 & 4:15 & 0.94 & 0.85 & 0.93 & 0.84 & 0.75 & 0.56 \\
+1A 1744$-$361 & NS & 42 & 15 & 5:15 & 0.15 & 0.01 & 0.17 & 0.05 & 0.22 & 0.04 \\
+4U 0513$-$40 & NS & 592 & 15 & 3:1, 4:1, 5:13 & 0.17 & 0.07 & 0.18 & 0.10 & 0.28 & 0.23 \\
+4U 0919$-$54 & NS & 167 & 15 & 3:1, 5:14 & 0.33 & 0.07 & 0.35 & 0.07 & 0.30 & 0.11 \\
+4U 2129+12 & NS & 58 & 15 & 2:2, 3:2, 5:11 & \textbf{0.54} & 0.33 & \textbf{0.52} & 0.34 & 0.33 & 0.07 \\
+EXO 1745$-$248 & NS & 91 & 15 & 5:15 & 0.12 & 0.05 & 0.13 & 0.05 & 0.18 & 0.20 \\
+GRS 1747$-$312 & NS & 102 & 15 & 4:3, 5:12 & 0.27 & 0.11 & 0.27 & 0.11 & 0.26 & 0.15 \\
+SAX J1747.0$-$2853 & NS & 40 & 15 & 4:2, 5:13 & 0.28 & 0.05 & 0.30 & 0.07 & 0.34 & 0.14 \\
+SAX J1748.9$-$2021 & NS & 82 & 15 & 5:15 & 0.24 & 0.10 & 0.26 & 0.10 & 0.22 & 0.11 \\
+SAX J1750.8$-$2900 & NS & 90 & 15 & 5:15 & 0.36 & 0.10 & 0.38 & 0.11 & 0.29 & 0.09 \\
+Ser X-1 & NS & 83 & 15 & 3:2, 4:1, 5:12 & 0.08 & 0.03 & 0.08 & 0.05 & 0.11 & 0.04 \\
+XTE J1709$-$267 & NS & 37 & 15 & 3:2, 5:13 & 0.25 & 0.08 & 0.24 & 0.07 & 0.25 & 0.11 \\
+XTE J1710$-$281 & NS & 103 & 15 & 3:1, 5:14 & \textbf{0.52} & 0.39 & \textbf{0.54} & 0.43 & 0.32 & 0.40 \\
+XTE J1759$-$220 & NS & 39 & 15 & 5:15 & 0.24 & 0.09 & 0.25 & 0.12 & 0.30 & 0.08 \\
+\end{longtable}}
+
+\textbf{Gain epoch (diagnostic only).} BH scores correlate negatively with the epoch (Spearman $\approx-0.27$ to $-0.30$
+for the H and H$_R$ models, $-0.10$ to $-0.12$ for R), NS scores not at all ($|\rho|\le0.04$;
+\file{results/v4b2/v4b2\_epoch\_score\_correlation.csv}). Almost all epoch-4 BH observations belong to XTE J1859+226, so this
+reflects source identity, not a response effect (\cref{fig:p2epoch}).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\textwidth]{figures/v4b2/v4b2_scores_by_epoch.png}
+\caption[Scores by gain epoch]{LOSO BH scores of the 677 v4b2 observations by PCA gain epoch (diagnostic only; BH blue
+right of each epoch, NS orange left, black bar = mean). Left: H$_R$-LR; right: R-LR. The epoch-4 BH points are almost all
+XTE J1859+226; epochs 2--3 contain only a few NS observations of the new sources. Repo:
+\file{figures/v4b2/v4b2\_scores\_by\_epoch.png}, \file{scripts/22\_v4b2\_analysis.py}.}
+\label{fig:p2epoch}
+\end{figure}
+
+\subsection{All observations of each source (v4b1)}\label{sec:p2v4b1}
+\Secondary{} The pre-declared main comparison is the source-equal-weight H-LR trained on all 7,949 observations against
+the v2 H-LR (15 observations per source). It is \NotDetected{}: source BA difference $0.000$ [0, 0], source AUC $0.000$
+[$-0.048$, $+0.036$], observation BA $-0.009$ [$-0.114$, $+0.123$] (\cref{tab:p2v4b1}). The 31 source decisions are
+\emph{identical} to v2 (wrong: the BHs GRS 1915+105 and XTE J1118+480, the NSs HETE J1900.1$-$2455, KS 1731$-$260 and
+SAX J1808.4$-$3658), and on the 456 shared observations the two models' scores have Spearman 0.999 and agree in label
+on 99.1\% (\cref{tab:p2v4b1agree}). The source means lie on the diagonal (\cref{fig:p2v4b1}): the LR boundary in the
+colour plane is the same whether it is fitted on 15 or on up to 1,329 observations per source.
+
+Without source-equal weights (\code{class\_weight=balanced}, i.e.\ each observation weighted equally within its class)
+H-LR is worse (source BA 0.744; XTE J1550$-$564 drops to 0.49), presumably because the sources with the most observations
+(4U 1636$-$53, GRS 1915+105) then dominate the boundary.
+
+\Descriptive{} Of the 16 combinations, four have source-BA intervals entirely above 0 -- A-RF with both weightings,
+HI-LR (balanced) and HI-RF (source weights) -- all at 0.929, $+0.134$ [$+0.021$, $+0.298$], misclassifying only
+XTE J1118+480; none has a source-AUC interval above 0 (closest: A-RF balanced $+0.060$ [$-0.006$, $+0.167$]). All four
+include intensity (A or HI). The same models with 15 observations per source (v4a 1b) did not show this (A-RF 0.622, HI-RF
+0.836, HI-LR 0.795), and in v4a the nested selection's preference for intensity models failed on unseen sources; the
+transferability of intensity is therefore unclear. With 48 comparisons (plus 48 on the shared observations) and four
+dependent results with identical point estimates and the same single error, these are not interpreted.
+
+\begin{table}[htbp]
+\centering\small
+\caption[v4b1 results]{v4b1: all 7,949 eligible observations of the 31 v2 sources. srcw = source-equal weights
+(\cref{eq:sourceequal}), bal = \code{class\_weight=balanced}. Differences are paired with the v2 H-LR (456 observations)
+by source. Only the main comparison and the combinations mentioned in the text are shown; all 16 are in
+\file{results/v4b1/v4b1\_bootstrap.csv}.}
+\label{tab:p2v4b1}
+\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Model (7,949 obs.) & source BA & source AUC & obs.\ BA & $\Delta$ source BA & $\Delta$ source AUC \\
+\midrule
+v2 H-LR (456 obs.) & 0.795 & 0.923 & 0.776 & -- & -- \\
+H-LR [srcw] (main) & 0.795 & 0.923 & 0.766 & $0.000$ [0, 0] & $0.000$ [$-0.048$, $+0.036$] \\
+H-LR [bal] & 0.744 & 0.917 & 0.692 & $-0.051$ [$-0.214$, $+0.062$] & $-0.006$ [$-0.083$, $+0.071$] \\
+H-RF [srcw] & 0.857 & 0.929 & 0.727 & $+0.062$ [0, $+0.125$] & $+0.006$ [$-0.083$, $+0.095$] \\
+HI-LR [bal] & 0.929 & 0.964 & 0.791 & $+0.134$ [$+0.021$, $+0.298$]$^*$ & $+0.042$ [$-0.036$, $+0.143$] \\
+HI-RF [srcw] & 0.929 & 0.952 & 0.874 & $+0.134$ [$+0.021$, $+0.298$]$^*$ & $+0.030$ [$-0.071$, $+0.143$] \\
+A-RF [srcw] & 0.929 & 0.976 & 0.855 & $+0.134$ [$+0.021$, $+0.298$]$^*$ & $+0.054$ [$-0.024$, $+0.161$] \\
+A-RF [bal] & 0.929 & 0.982 & 0.864 & $+0.134$ [$+0.021$, $+0.298$]$^*$ & $+0.060$ [$-0.006$, $+0.167$] \\
+\bottomrule
+\multicolumn{6}{@{}l}{\footnotesize $^*$ interval entirely above 0 (descriptive combination; not interpreted).}
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering\small
+\caption[v4b1 on the v2 observations]{\Descriptive{} v4b1 models restricted to the 456 v2 observations: agreement with
+the v2 H-LR and paired differences (\file{results/v4b1/v4b1\_agreement\_on\_v2\_obs.csv},
+\file{results/v4b1/v4b1\_bootstrap\_on\_v2\_obs.csv}).}
+\label{tab:p2v4b1agree}
+\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Model & Spearman & label agreement & $\Delta$ source BA & $\Delta$ obs.\ BA \\
+\midrule
+H-LR [srcw] & 0.999 & 0.991 & $0.000$ [0, 0] & $-0.013$ [$-0.026$, $-0.0005$]$^*$ \\
+H-LR [bal] & 0.968 & 0.928 & $-0.071$ [$-0.214$, 0] & $-0.072$ [$-0.150$, $-0.005$]$^*$ \\
+H-RF [srcw] & 0.729 & 0.781 & $+0.062$ [0, $+0.125$] & $-0.029$ [$-0.095$, $+0.046$] \\
+HI-LR [bal] & 0.844 & 0.846 & $+0.134$ [$+0.021$, $+0.298$]$^*$ & $-0.007$ [$-0.074$, $+0.077$] \\
+HI-RF [srcw] & 0.641 & 0.785 & $+0.134$ [$+0.021$, $+0.298$]$^*$ & $+0.027$ [$-0.054$, $+0.114$] \\
+HI-RF [bal] & 0.586 & 0.783 & $+0.134$ [$+0.021$, $+0.298$]$^*$ & $+0.007$ [$-0.065$, $+0.082$] \\
+A-RF [srcw] & 0.655 & 0.763 & $+0.134$ [$+0.021$, $+0.298$]$^*$ & $+0.027$ [$-0.065$, $+0.142$] \\
+A-RF [bal] & 0.616 & 0.763 & $+0.134$ [$+0.021$, $+0.298$]$^*$ & $+0.017$ [$-0.085$, $+0.137$] \\
+\bottomrule
+\multicolumn{5}{@{}l}{\footnotesize $^*$ interval excludes 0 (for the observation-level rows: entirely below 0).}
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.92\textwidth]{figures/v4b1/v4b1_source_scores.png}
+\caption[v4b1 source scores]{Per-source LOSO mean scores with all eligible observations (v4b1, vertical) against the v2
+H-LR with 15 observations per source (horizontal); marker size $\propto\sqrt{n}$, BH blue, NS orange, dashed lines at 0.5.
+Left: H-LR with source-equal weights -- every source stays on the diagonal and in the same quadrant. Right: H-RF with
+source-equal weights -- the forest pushes most NSs to lower scores and moves the NSs that H-LR misclassifies below 0.5,
+but GRS 1915+105 (large blue circle near 0.23) and XTE J1118+480 stay below 0.5. Repo:
+\file{figures/v4b1/v4b1\_source\_scores.png}, \file{scripts/25\_v4b1\_analysis.py}.}
+\label{fig:p2v4b1}
+\end{figure}
+
+{\scriptsize\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}lrr*{8}{c}@{}}
+\caption[v4b1 per-source scores]{v4b1 per-source LOSO mean scores ($n$ = all eligible observations). ``v2'' = v2 H-LR
+with 15 observations (6 for 4U 1916$-$053). s = source-equal weights, b = balanced. \textbf{Bold} = wrong side of 0.5.
+From \file{results/v4b1/v4b1\_per\_source.csv}.}\label{tab:p2v4b1persource}\\
+\toprule
+Source & label & $n$ & v2 & H-LR s & H-LR b & H-RF s & HI-LR b & HI-RF s & A-RF s & A-RF b \\
+\midrule\endfirsthead
+\toprule Source & label & $n$ & v2 & H-LR s & H-LR b & H-RF s & HI-LR b & HI-RF s & A-RF s & A-RF b \\ \midrule\endhead
+\bottomrule\endfoot
+GRS 1915+105 & BH & 1,031 & \textbf{0.41} & \textbf{0.47} & \textbf{0.48} & \textbf{0.23} & 0.58 & 0.56 & 0.69 & 0.69 \\
+GX 339$-$4 & BH & 648 & 0.81 & 0.78 & 0.63 & 0.87 & 0.68 & 0.83 & 0.64 & 0.66 \\
+GRO J1655$-$40 & BH & 433 & 0.82 & 0.87 & 0.92 & 0.90 & 0.89 & 0.88 & 0.77 & 0.84 \\
+XTE J1650$-$500 & BH & 95 & 0.85 & 0.89 & 0.88 & 0.71 & 0.81 & 0.80 & 0.71 & 0.71 \\
+XTE J1550$-$564 & BH & 63 & 0.55 & 0.58 & \textbf{0.49} & 0.79 & 0.59 & 0.83 & 0.77 & 0.76 \\
+4U 1543$-$47 & BH & 58 & 0.95 & 0.94 & 0.93 & 0.88 & 0.87 & 0.87 & 0.75 & 0.76 \\
+XTE J1118+480 & BH & 41 & \textbf{0.41} & \textbf{0.38} & \textbf{0.36} & \textbf{0.11} & \textbf{0.26} & \textbf{0.08} & \textbf{0.19} & \textbf{0.18} \\
+4U 1636$-$53 & NS & 1,329 & 0.22 & 0.14 & 0.14 & 0.06 & 0.08 & 0.01 & 0.03 & 0.02 \\
+4U 1608$-$52 & NS & 540 & 0.35 & 0.41 & 0.41 & 0.15 & 0.36 & 0.05 & 0.08 & 0.08 \\
+EXO 0748$-$676 & NS & 509 & 0.28 & 0.22 & 0.16 & 0.19 & 0.04 & 0.27 & 0.33 & 0.35 \\
+4U 1705$-$44 & NS & 402 & 0.18 & 0.14 & 0.15 & 0.03 & 0.09 & 0.01 & 0.01 & 0.01 \\
+Cyg X-2 & NS & 402 & 0.21 & 0.19 & 0.37 & 0.45 & 0.31 & 0.33 & 0.19 & 0.17 \\
+Aql X-1 & NS & 400 & 0.41 & 0.44 & 0.48 & 0.35 & 0.36 & 0.15 & 0.15 & 0.14 \\
+HETE J1900.1$-$2455 & NS & 344 & \textbf{0.61} & \textbf{0.67} & \textbf{0.68} & 0.17 & 0.48 & 0.05 & 0.11 & 0.10 \\
+4U 1728$-$34 & NS & 276 & 0.17 & 0.15 & 0.13 & 0.05 & 0.16 & 0.05 & 0.11 & 0.11 \\
+SAX J1808.4$-$3658 & NS & 234 & \textbf{0.72} & \textbf{0.71} & \textbf{0.72} & 0.18 & 0.46 & 0.14 & 0.17 & 0.15 \\
+4U 1702$-$429 & NS & 201 & 0.28 & 0.17 & 0.17 & 0.04 & 0.11 & 0.00 & 0.01 & 0.01 \\
+4U 1735$-$44 & NS & 161 & 0.03 & 0.01 & 0.01 & 0.01 & 0.01 & 0.00 & 0.00 & 0.00 \\
+4U 1820$-$30 & NS & 130 & 0.04 & 0.03 & 0.02 & 0.02 & 0.03 & 0.02 & 0.01 & 0.01 \\
+GS 1826$-$238 & NS & 118 & 0.32 & 0.26 & 0.16 & 0.05 & 0.23 & 0.08 & 0.10 & 0.10 \\
+GX 17+2 & NS & 90 & 0.09 & 0.07 & 0.10 & 0.03 & 0.17 & 0.33 & 0.38 & 0.41 \\
+4U 1724$-$307 & NS & 77 & 0.37 & 0.34 & 0.30 & 0.06 & 0.16 & 0.02 & 0.02 & 0.01 \\
+GX 3+1 & NS & 75 & 0.09 & 0.06 & 0.10 & 0.02 & 0.06 & 0.00 & 0.00 & 0.00 \\
+XTE J1814$-$338 & NS & 73 & 0.47 & 0.47 & 0.36 & 0.38 & 0.15 & 0.44 & 0.25 & 0.21 \\
+SLX 1735$-$269 & NS & 64 & 0.40 & 0.46 & 0.46 & 0.09 & 0.15 & 0.02 & 0.09 & 0.07 \\
+4U 1746$-$37 & NS & 43 & 0.08 & 0.04 & 0.04 & 0.02 & 0.01 & 0.00 & 0.01 & 0.01 \\
+KS 1731$-$260 & NS & 33 & \textbf{0.60} & \textbf{0.55} & 0.48 & 0.21 & 0.47 & 0.06 & 0.10 & 0.08 \\
+MXB 1659$-$298 & NS & 30 & 0.29 & 0.27 & 0.33 & 0.15 & 0.05 & 0.09 & 0.11 & 0.12 \\
+4U 1254$-$69 & NS & 24 & 0.11 & 0.08 & 0.12 & 0.03 & 0.01 & 0.00 & 0.00 & 0.01 \\
+4U 1323$-$62 & NS & 19 & 0.32 & 0.28 & 0.18 & 0.07 & 0.04 & 0.11 & 0.16 & 0.15 \\
+4U 1916$-$053 & NS & 6 & 0.29 & 0.28 & 0.27 & 0.08 & 0.06 & 0.02 & 0.03 & 0.02 \\
+\end{longtable}}
+
+\subsection{Phase 1--2 comparisons at a glance}
+\Cref{fig:p2summary} collects the main paired differences of Phases 1 and 2 on one scale. Every source-AUC interval
+contains 0 and most point estimates are at or below 0; the only source-BA interval entirely above 0 among them is the
+v4b2 threshold effect.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/generated/G5_phase12_forest.pdf}
+\caption[Phase 1--2 paired differences]{Main paired differences of Phases 1--2 against their two-colour baselines with 95\%
+source-bootstrap intervals: (a) source AUC, (b) source balanced accuracy. Rows marked [primary] were the pre-declared
+primary comparisons of v3a, v4a and v4b1 (the v4b1 main comparison was pre-declared as its main comparison; the
+pre-registration calls only v4a 1e ``primary''). Generated for this report from \file{results/v3/v3a\_bootstrap.csv},
+\file{results/v3/v3b\_bootstrap.csv}, \file{results/v4/v4a\_bootstrap.csv}, \file{results/v4b3/v4b3\_bootstrap.csv},
+\file{results/v4b2/v4b2\_bootstrap.csv} and \file{results/v4b1/v4b1\_bootstrap.csv} by
+\file{report\_en/figures/generated/make\_figures.py}; plotted values in \file{G5\_phase12\_forest.csv}.}
+\label{fig:p2summary}
+\end{figure}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Interpretation}
+% -----------------------------------------------------------------------------------------------------
+\textbf{What the data support directly.}
+\begin{enumerate}
+\item On the 31 confirmed sources, no pre-declared comparison beats H-LR: not algorithm choice (v4a 1e), not HEXTE
+colours (v4b3), not the extended sample evaluated on the original observations (v4b2), and not 17 times more
+observations per source (v4b1, whose 31 source decisions are identical to those of v2).
+\item Letting the training data choose the algorithm, representation and threshold made the outer result \emph{worse}
+in point estimate ($-0.06$ in source BA, $-0.17$ in source AUC). The inner AUC of 0.96--1.00 against an outer 0.75 shows
+how large the selection optimism is with 30 training sources.
+\item Type-I burst contamination does not drive the Phase 1 conclusions. An automatic Standard-1 burst detector confuses BH
+variability with bursts (12 of 61 flags) and misses slow bursts, so visual confirmation is necessary.
+\item HEXTE cluster B adds nothing detectable to the two PCA colours on this sample.
+\item On 46 sources, RF beats the same-sample H-LR in source BA but not in source AUC: it places the threshold better
+for the larger NS population (37/37 against 32/37) without ranking sources better.
+\item Four descriptive v4b1 combinations with intensity reach source BA 0.929 (only XTE J1118+480 wrong) without a
+source-AUC difference; the same models with 15 observations per source did not.
+\end{enumerate}
+
+\textbf{Possible explanations (not verified).}
+\begin{itemize}
+\item The two colours already compress what is source-transferable in 5--25\,keV; flexible models add variance, not
+information, on 31 sources.
+\item SVM-RBF on intensity A won the inner selection probably because intensity is tied to source identity (distance,
+luminosity, RXTE target selection), so inside 30 training sources it can ``recognise'' groups of sources, which does not
+transfer to a new source.
+\item HEXTE cluster B has a small effective area; 40--60\,keV is below $S/N=3$ in 144 of 396 observations. A
+high-energy cut-off difference between hard-state BHs and NSs may need much higher $S/N$ (stacking, or NuSTAR).
+\item The extended-sample RF advantage agrees with the ``threshold problem'' seen in v3: when many more NSs enter, LR gives
+NSs near the boundary scores slightly above 0.5.
+\item The v4b1 intensity result may arise because more observations per source cover each source's count-rate range more
+completely; this is a selection property of the sample, not necessarily spectral information. v4a points the other way
+(intensity models chosen inside, failing outside), so the transferability of intensity is open.
+\item Observation-weighted (balanced) H-LR is worse probably because sources with very many observations
+(4U 1636$-$53, GRS 1915+105) dominate the boundary; source-equal weights avoid this.
+\end{itemize}
+
+\textbf{Hypotheses that need more data.} More dynamically confirmed BHs (v4b2 added only two); a pre-defined spectral-state
+split (do BH and NS separate within the hard state? -- taken up in Phase 4); stacked HEXTE or NuSTAR spectra above
+25\,keV; intensity on an independent source sample with a different distance distribution and instrument (taken up with
+MAXI in Phase 4).
+
+\textbf{Physically.} The decision boundaries (\cref{fig:p2boundaries}) agree wherever the populations are separated and
+disagree only in the hard-colour region where hard-state BHs and hard NSs (atolls in the island state, AMXPs) overlap.
+Both are dominated there by thermal Comptonisation with similar electron temperatures in 5--25\,keV; the difference
+expected from the literature -- on average lower Comptonisation temperatures (lower cut-off energies) in NSs, attributed
+to the additional seed photons from the surface \citep{Burke2017} -- lies mostly above 25\,keV, which is why HEXTE was tried; at HEXTE's sensitivity it is not visible in single observations. The
+quantity that differs fundamentally (a surface or not) is not imprinted on a single PCA spectrum strongly enough to be
+learned from 7--9 BH sources, which motivates the turn to timing in Phase 3.
+
+% -----------------------------------------------------------------------------------------------------
+\section{Deviations and caveats}\label{sec:p2caveats}
+% -----------------------------------------------------------------------------------------------------
+\begin{itemize}
+\item \textbf{Written after v1--v3}: the v4 pre-registration was written after all earlier results; every question
+targets a known result.
+\item \PostHoc{} \textbf{Source-equal-weight scale bug} (found after the v4a results): the first
+\code{source\_equal\_weights} made each class sum to 1 instead of $n/2$ as for balanced weights, so LR's effective
+regularisation was $\approx n/2$ times stronger (HistGB was also affected). Fixed to the balanced scale (relative weights
+unchanged, \cref{sec:weights}); only 1a--1c were re-run: 1b identical, 12 rows of 1c changed, conclusion unchanged
+(pre-fix results in commit \texttt{9120afb}). v4b1 ran after the fix.
+\item \textbf{1e tie-break}: the pre-registration only said ``first in the grid''; the implementation fixed the full order
+(algorithm, representation, grid) before the run.
+\item \textbf{1D-CNN skipped} as pre-declared (no \texttt{torch}).
+\item \textbf{v4b2}: a duplicate source (XB 1254$-$690 = 4U 1254$-$69) was fixed in the matching code before download; the
+13 additional NSs result from executing the same rule correctly, not from a rule change; the download script
+\file{21\_v4b2\_fetch\_process.py} is a copy of \file{04\_fetch\_process.py} that also scans AO1--AO4. The same-sample H-LR
+comparison was added after the v4b2 results were seen (required by \S0 but missing in the script).
+\item \textbf{v4b1}: raw files outside the repository, 6 download threads instead of 4; processing unchanged. Two descriptive
+analyses (restriction to the v2 observations; per-source score plot) were decided before the v4b1 results.
+\item \textbf{Approval}: the user approved v4 with ``start and finish full if no big problem'', so no stop was made before
+the v4b1--v4b3 downloads, although the pre-registration foresaw one per sub-phase.
+\item \textbf{Bootstrap} intervals keep the OOF predictions fixed and do not include the variability of model fitting or of
+the nested selection; the nested source AUC is an approximation (shifted scores).
+\item \textbf{Multiplicity}: 76 descriptive v4a combinations and 16 (+16) v4b1 combinations, uncorrected; the intervals above
+0 (QDA; intensity models) are not interpreted.
+\item \textbf{Bursts}: the automatic rule has false positives and misses; the visual verdicts were made by one person.
+\item \textbf{HEXTE}: cluster B only; no features after 2009-12-14; $X_1$ is a cross-instrument count ratio; the overlap box is
+a post hoc definition.
+\item \textbf{v4b2}: many new NSs lie in the Galactic-centre region or in globular clusters (Terzan 5, Terzan 6, NGC 6440,
+M15, NGC 1851), where the $\approx1^\circ$ PCA field may contain other sources; gain epoch and source identity are
+confounded (XTE J1859+226 is entirely in epoch 4), so an epoch effect cannot be estimated.
+\item \textbf{v2 source rule}: executed incompletely (13 NSs missed); the v1--v3 numbers were not changed and describe a
+smaller NS sample.
+\item \textbf{v4b1}: observation-level metrics are dominated by the sources with most observations (4U 1636$-$53: 1,329;
+GRS 1915+105: 1,031); observations of the same source are strongly correlated.
+\end{itemize}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Takeaway}
+% -----------------------------------------------------------------------------------------------------
+The two-colour ceiling is a property of the data, not of the models: more flexible algorithms (with honest nested
+selection), burst cleaning, a 25--60\,keV extension and 17 times more observations all leave the classification of unseen
+sources where H-LR put it. Adding sources helps only through the threshold. Single-spectrum information appears
+exhausted at about source BA 0.8 and source AUC 0.92 on these sources, with hard-state BHs and hard NSs inseparable.
+Phase 3 therefore turns to a different physical observable: fast X-ray variability.

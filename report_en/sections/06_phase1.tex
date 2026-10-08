@@ -233,7 +233,7 @@ v3c (1) & train $\Xm$ & $456\times p$ & A, B, H or HI of the 31 confirmed source
  & predict $\Xm_c$ & $210\times p$ & same representation of the candidates & \file{data/v3c/processed/features.npz} \\
 v3c (2) & train (fold $k$) & $(456-n_k+210)\times p$ & confirmed training rows + all candidate rows, candidates with $y=1$ & both npz \\
  & test (fold $k$) & $n_k\times p$ & held-out confirmed source & npz \\
-leaky split & $\Xm_A,\Xm_B,\Xm_H,\Xm_{HI}$ & as above & \code{StratifiedKFold(5, shuffle, 42)} over rows & npz \\
+leaky split & $\Xm_A$, $\Xm_B$, $\Xm_H$, $\Xm_{HI}$ & as above & \code{StratifiedKFold(5, shuffle, 42)} over rows & npz \\
 \bottomrule
 \end{tabularx}
 \end{table}
