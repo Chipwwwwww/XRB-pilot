@@ -1,1 +1,997 @@
-\chapter{Phase 4}\label{ch:phase4}
+% =====================================================================================================
+\chapter{Phase 4 (v7--v8): where the colours fail, and why}\label{ch:phase4}
+% =====================================================================================================
+
+\begin{glance}{v7--v8 (+ v9c MAXI strata)}
+\textbf{Question.} Phases 1--3 suggested that two colours separate BHs from NSs in soft states but not in hard states,
+and that low-frequency variability fills the gap. Phase 4 makes this explicit and tests the alternatives: is the failure
+a hard-state failure (variability-defined states)? Is any of it burst contamination (official MINBAR catalogue)? Do more
+BHs (persistent HMXBs), higher frequencies (event mode, 4--1024\,Hz) or a different instrument (MAXI/GSC, 2--20\,keV)
+change the picture? \\
+\textbf{Pre-declared primaries} (one per sub-analysis, $\bigstar$ in the repository reports): v7b1 burst exclusion; v7a
+soft-like $-$ hard-like AUC; v7b2 adding three persistent BHs; v7c1 reproduction of \citet{deBeurs2022}; v7c2 two LR
+comparisons on MAXI; v8a timing inside the hard-like state; v8b the same on external sources; v8c event-mode
+frequencies (exploratory after a failed gate); v8d MAXI 2--4\,keV gain after $N_\mathrm{H}$ correction. \\
+\textbf{Data.} RXTE S1 (456 observations) with variability states; MINBAR DR1; Cyg X-1, LMC X-1, LMC X-3 (45 observations),
+GS 1354$-$64 and SS 433 (23); 201 event-mode files (2.44\,GB); MAXI/GSC one-day light curves of 13 BHs, 48 non-pulsing
+NSs and 39 pulsars. \\
+\textbf{Verdict.} \textbf{Detected}: colours work in soft-like observations (AUC 0.954) and fail in hard-like ones (0.646;
+difference $+0.309$ [$+0.099$, $+0.510]$); inside the hard-like state, low-frequency timing raises the AUC to 0.910
+($+0.264$ [$+0.048$, $+0.455$]); on MAXI the 2--4\,keV colour survives an $N_\mathrm{H}$ correction ($+0.377$
+[$+0.160$, $+0.595$]). \textbf{Not detected}: any effect of burst contamination; any effect of adding persistent BHs; the
+hard-state timing gain on external sources ($+0.064$ [$-0.185$, $+0.367$]); the two LR comparisons on MAXI. Event-mode
+high frequencies are exploratory and add nothing beyond Standard-1 timing. Both pre-registrations were written after all
+earlier results; v8a was predictable from v5.
+\end{glance}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Motivation}
+% -----------------------------------------------------------------------------------------------------
+By the end of Phase 3 three statements were supported only indirectly: the colour classifier fails in the hard state,
+timing helps precisely there, and type-I bursts do not matter. Each could be tested directly. Spectral states can be
+assigned from variability alone (fractional rms; \citealp{RemillardMcClintock2006}), independently of the colours used
+for classification; the official MINBAR burst catalogue \citep{Galloway2020} provides an independent burst record; the
+persistent HMXB BHs add hard-state BHs (Cyg X-1) and soft-state BHs (LMC X-1, LMC X-3) that are not transients; event-mode
+data reach the 500--1000\,Hz range where \citet{SunyaevRevnivtsev2000} found NS power and no BH power; and MAXI offers
+long-term colours of many more sources from a different instrument, with a published machine-learning result
+\citep{deBeurs2022} to reproduce. The analyses are grouped below by theme: data quality, states, timing within the hard
+state, more BHs, higher frequencies, and an independent instrument (including the v9c MAXI strata, which were run with
+Phase 5 but belong to this theme).
+
+% -----------------------------------------------------------------------------------------------------
+\section{Pre-registration}
+% -----------------------------------------------------------------------------------------------------
+\file{reports/preregistration\_v7.md} was written on 2026-10-05 after all v1--v6 results and approved by the user at 07:23
+(in Chinese, ``do it your way and continue to the end'', adopting the three pending recommendations). \file{reports/preregistration\_v8.md} was written
+on 2026-10-05 ($\approx$21:30) after all v1--v7 results, committed and pushed (\texttt{a481fa0}) before any v8 download and
+self-approved under the user's instruction to ``go directly to the next step''. The v9c strata were specified in \file{reports/preregistration\_v9.md} \S6
+as descriptive. Decision rule throughout: ``difference'' iff the 95\% class-stratified source-bootstrap interval excludes 0
+(2000 resamples, seed 42, fixed predictions).
+
+\begin{table}[htbp]
+\centering\footnotesize
+\caption[Phase 4 pre-registered comparisons]{Phase 4 pre-declared comparisons (one primary per sub-analysis) and the main
+descriptive ones. Observation-level AUCs within a state are computed on the pooled observations of the resampled sources
+(\cref{sec:p4states}).}
+\label{tab:p4prereg}
+\begin{tabularx}{\textwidth}{@{}p{1.2cm}>{\raggedright\arraybackslash}p{5.6cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Part & Primary & Descriptive / sensitivity \\
+\midrule
+v7b1 & H-LR retrained without MINBAR-contaminated observations $-$ v2 H-LR (source BA, source AUC) & literal rule; MINBAR $\cup$ v4 visual; same-segment replacement; H-RF, B-LR, B-RF; B$-$H within sets \\
+v7a & H-LR observation AUC, soft-like $-$ hard-like (testable if each stratum has $\ge3$ BH sources) & other models; colour-overlap box; hard-like-only retraining (exploratory) \\
+v7b2 & H-LR trained on 34 sources, evaluated on the 31 v2 sources $-$ v2 H-LR & 34-source performance; +LMC X-3 only; colour positions \\
+v7c1 & reproduction of \citet{deBeurs2022}: total correct within 2 sources and BH correct within 1 of the paper & per-source comparison with their published SVM medians \\
+v7c2 & LR on MAXI: (i) CCI $-$ C2D (intensity increment); (ii) C2D $-$ C1D (2--4\,keV increment), source AUC and BA & RF, kNN, SVM; secondary task BH vs pulsars \\
+v7c3 & -- & RXTE vs MAXI scores of common sources \\
+v8a & S1 hard-like observation AUC: H+T-LR $-$ H-LR (existing OOF) & H+T$^*$, RF, H+N(+T), bands, state gap and difference-in-differences, burst-excluded, hard-only retraining, source level \\
+v8b & external set X, hard-like observations: frozen H$_R$+T-LR $-$ H$_R$-LR & soft-like, all states, source level \\
+v8c & S1-HF: H+HF-LR $-$ H-LR (only if IC4 passes; otherwise exploratory) & H+T+HF, RF, HF alone, without AMXPs, external X-HF, SR2000-type rule \\
+v8d & MAXI: RF[C2D\textsubscript{NH}] $-$ RF[C1D\textsubscript{NH}] source AUC & LR, kNN; difference-in-differences; $\log N_\mathrm{H}$ as a feature and alone \\
+v9c & -- (descriptive) & MAXI 2--4\,keV gain within C4 tertiles \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Data}
+% -----------------------------------------------------------------------------------------------------
+\subsection{Variability states (v7a)}\label{sec:p4states}
+The state index (\cref{sec:state}) is the 0.1--4\,Hz fractional rms from the all-pairs Standard-1 cospectrum in 128-s rows
+inside the spectral GTIs with $\ge2$ PCUs, after removing burst rows (MINBAR intervals in the field of view and v4
+candidates from 20\,s before the burst; 143 rows), as the median over rows ($\ge3$ rows, otherwise ``unknown''). Following
+Table~2 of \citet{RemillardMcClintock2006}, rms $>0.10$ is \emph{hard-like}, rms $<0.075$ \emph{soft-like}, otherwise
+\emph{intermediate}. The band stops at 4\,Hz (RM06 use 0.1--10\,Hz), so the rms is lower and the hard-like assignment
+conservative; the BH thresholds are applied to NSs as well. The pre-declared sanity check passed: XTE J1118+480 15/15
+hard-like and the Z sources Cyg X-2 and GX 17+2 27/28 (96\%) soft-like (\file{results/v7a/sanity\_check.csv},
+\cref{fig:p4rms}). The thresholds were not tuned.
+
+\begin{table}[htbp]
+\centering\small
+\caption[State counts]{Variability states of the 456 S1 observations (\file{results/v7a/state\_counts.csv}) and the
+fraction of each BH source's observations per state (\file{results/v7a/bh\_state\_fractions.csv}).}
+\label{tab:p4states}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+State & BH obs.\ (sources) & NS obs.\ (sources) & total \\
+\midrule
+soft-like (rms $<0.075$) & 38 (5) & 183 (22) & 221 \\
+intermediate & 1 (1) & 20 (11) & 21 \\
+hard-like (rms $>0.10$) & 59 (7) & 121 (17) & 180 \\
+unknown ($<3$ rows) & 7 (2) & 27 (12) & 34 \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.6em}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+BH source & hard-like & intermediate & soft-like & unknown \\
+\midrule
+4U 1543$-$47 & 0.33 & 0 & 0.67 & 0 \\
+GRO J1655$-$40 & 0.20 & 0 & 0.80 & 0 \\
+GRS 1915+105 & 0.40 & 0.07 & 0.27 & 0.27 \\
+GX 339$-$4 & 0.53 & 0 & 0.27 & 0.20 \\
+XTE J1118+480 & 1.00 & 0 & 0 & 0 \\
+XTE J1550$-$564 & 1.00 & 0 & 0 & 0 \\
+XTE J1650$-$500 & 0.47 & 0 & 0.53 & 0 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/v7a/v7a_rms_vs_colour_by_source.png}
+\caption[rms vs hard colour per source]{The state index (0.1--4\,Hz fractional rms, all-pairs cospectrum) against the hard
+colour for every S1 source (BH blue, NS orange; dashed 0.10 = hard-like threshold, dotted 0.075 = soft-like threshold,
+RM06 Table~2). XTE J1118+480 and XTE J1550$-$564 are hard-like throughout; the Z sources Cyg X-2 and GX 17+2 are soft-like;
+in most sources rms rises with the hard colour. Repo: \file{figures/v7a/v7a\_rms\_vs\_colour\_by\_source.png},
+\file{scripts/34\_v7a\_states.py}.}
+\label{fig:p4rms}
+\end{figure}
+
+\subsection{Burst contamination from MINBAR (v7b1)}
+MINBAR DR1 \citep{Galloway2020} was downloaded from Monash Bridges (CC BY 4.0; 7111 bursts, 2288 from RXTE/PCA; md5
+checked; SHA256 in \file{logs/downloads.jsonl}). The spectral GTIs (\code{STDGTI}, MET in TT) were converted to UTC MJD
+(TT$-$UTC = 64.18\,s; round trip $<1$\,ms); the v4 burst peaks lie 1--9\,s after the MINBAR start times, confirming the
+time systems agree. A burst interval is [start, start + duration] (duration missing $\Rightarrow$ 300\,s). \textbf{Primary rule
+(revised after the matching, before any classification result)}: the interval overlaps a GTI \emph{and} the burst was
+recorded in the same ObsID or originated within $1^\circ$ (the PCA field of view) of the target. The pre-registered literal
+rule (any origin) also counts bursts seen by WFC/JEM-X 8--58$^\circ$ away (9 observations, 3 of them BH) and is kept as a
+sensitivity set.
+
+58 of the 456 observations are contaminated (all NS, 19 sources; 4U 1323$-$62 10, GS 1826$-$24 7, MXB 1658$-$298 6); the
+literal rule gives 67. \Cref{tab:p4minbaragree} compares MINBAR with the v4 Standard-1 detector: agreement 99.1\% with the v4
+visual verdicts and 94.5\% with the automatic rule. Each source misses bursts the other finds (\cref{fig:p4minbar}), so
+neither alone is complete. Of the 58 contaminated time bins, 37 could be replaced by a clean observation from the same
+bin; 21 had none (mostly frequent bursters with few eligible pointings).
+
+\begin{table}[htbp]
+\centering\small
+\caption[MINBAR vs Standard-1 bursts]{Observations with a burst according to MINBAR (primary rule) and to the v4
+Standard-1 detector (\file{results/v7b1/minbar\_vs\_std1\_agreement.csv}).}
+\label{tab:p4minbaragree}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Standard-1 set & both & MINBAR only & Std1 only & neither & agreement \\
+\midrule
+v4 automatic & 47 & 11 & 14 & 384 & 94.5\% \\
+v4 visual & 56 & 2 & 2 & 396 & 99.1\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\begin{subfigure}[t]{0.49\textwidth}\centering
+\includegraphics[width=\linewidth]{figures/v7b1/agree_4U1728-34_50030-03-05-03.png}
+\caption{4U 1728$-$34: MINBAR and v4 agree.}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.49\textwidth}\centering
+\includegraphics[width=\linewidth]{figures/v7b1/agree_GS1826-238_91017-01-02-03.png}
+\caption{GS 1826$-$238: MINBAR and v4 agree.}
+\end{subfigure}\\[0.4em]
+\begin{subfigure}[t]{0.49\textwidth}\centering
+\includegraphics[width=\linewidth]{figures/v7b1/disagree_4U1323-619_96405-01-05-01.png}
+\caption{4U 1323$-$62: MINBAR only (burst at a GTI break, missed by v4).}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.49\textwidth}\centering
+\includegraphics[width=\linewidth]{figures/v7b1/disagree_EXO0748-676_50045-06-05-00.png}
+\caption{EXO 0748$-$676: MINBAR only (burst after an eclipse, missed by v4).}
+\end{subfigure}\\[0.4em]
+\begin{subfigure}[t]{0.49\textwidth}\centering
+\includegraphics[width=\linewidth]{figures/v7b1/disagree_4U1746-371_90044-01-04-00.png}
+\caption{4U 1746$-$37: Standard-1 only (clear burst not in MINBAR).}
+\end{subfigure}\hfill
+\begin{subfigure}[t]{0.49\textwidth}\centering
+\includegraphics[width=\linewidth]{figures/v7b1/disagree_KS1731-260_50031-02-03-01.png}
+\caption{KS 1731$-$260: Standard-1 only (the long burst of \cref{fig:p2bursts}).}
+\end{subfigure}
+\caption[MINBAR vs Standard-1 bursts]{MINBAR versus the v4 Standard-1 burst detector: 1-s Standard-1 light curves
+(counts\,s$^{-1}$, time since the first bin; gaps are outside the GTIs) with MINBAR burst intervals shaded; the title states
+the MINBAR match and the v4 automatic and visual verdicts. Repo: \file{figures/v7b1/} (one PNG per agreeing or disagreeing
+observation), \file{scripts/31\_v7b1\_minbar.py}.}
+\label{fig:p4minbar}
+\end{figure}
+
+\subsection{Persistent and additional BHs (v7b2, v8b)}
+\citet{Marcel2026} (Table~1) list Cyg X-1 (21.2\,$M_\odot$, O9.7\,Iab companion), LMC X-1 (10.9\,$M_\odot$, O8(f)p) and LMC X-3
+(7.0\,$M_\odot$, B2.5\,Ve) as dynamically confirmed. With the v2 rules (epoch 5, exposure $\ge1000$\,s, \code{STD1RATE}
+$\ge5$, $\ge10$ eligible, 15 time-stratified observations) and pointings within $0.1^\circ$ of the SIMBAD position (the
+approved rule), Cyg X-1 has 1,205, LMC X-1 31 and LMC X-3 830 eligible pointings; all 45 sampled observations passed
+(\cref{tab:p4attrition}). The catalogue median pointing of LMC X-1 is $0.263^\circ$ from the source, so a
+catalogue-median rule would have given 450 eligible pointings. Median deadtime fractions are 2.3\% (Cyg X-1, maximum 3.8\%),
+1.1\% (LMC X-1) and 1.3\% (LMC X-3); no observation is MINBAR-contaminated. v8b searched the HEASARC TAP \code{xtemaster}
+table for the Table~1 BHs not yet used: only GS 1354$-$64 (1997--98, gain epoch 3; 11 eligible, 8 accepted, 3 without
+Standard Products) and SS 433 (108 eligible, 15 accepted) were available, with the minimum-eligible rule relaxed to 3.
+% CHECK: reports/preregistration_v7.md quotes 419 eligible pointings for LMC X-1 under the catalogue-median rule; the
+% committed results/v7b2/attrition_catalog.csv and the v7 report give 450.
+
+\begin{table}[htbp]
+\centering\small
+\caption[Persistent-BH attrition]{Catalogue-level attrition of the additional BHs (\file{results/v7b2/attrition\_catalog.csv},
+\file{results/v8b/attrition\_catalog.csv}, \file{\dots/attrition\_download.csv}). ``sep'' = separation of the catalogue
+median pointing from SIMBAD.}
+\label{tab:p4attrition}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lrrrrrrr@{}}
+\toprule
+Source & rows & sep [$^\circ$] & window & exposure & \code{STD1RATE} & pointing & accepted \\
+\midrule
+Cyg X-1 & 1,740 & 0.001 & 1,370 & 1,205 & 1,205 & 1,205 & 15/15 \\
+LMC X-1 & 557 & 0.263 & 501 & 450 & 450 & 31 & 15/15 \\
+LMC X-3 & 1,273 & 0.001 & 1,102 & 951 & 830 & 830 & 15/15 \\
+GS 1354$-$64 & 12 & -- & 12 & 11 & 11 & 11 & 8/11 \\
+SS 433 & 131 & -- & 131 & 109 & 108 & 108 & 15/15 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+States of the new observations: Cyg X-1 14 hard-like and 1 unknown; LMC X-3 9 soft-like and 6 unknown; LMC X-1 mixed
+(3 hard-like, 5 intermediate, 4 soft-like, 3 unknown); SS 433 15 soft-like. The external set of v8b, X, is E (23 sources)
+plus LMC X-1, GS 1354$-$64 and SS 433: 26 sources (7 BH, 19 NS), 379 observations; its hard-like stratum has 99 observations
+of 5 BHs (Cyg X-1 14, GS 1354$-$64 7, V4641 Sgr 5, LMC X-1 3, XTE J1859+226 1) and 15 NSs. The four slow pulsars stay a
+stress set outside X.
+
+\subsection{Event-mode data (v8c)}
+Archival event files (\code{SE*.evt.gz}, processed in 2012) contain a \code{PCUID} column, so cross-PCU cospectra can be
+formed at high frequency. File headers were inventoried by HTTP range requests (\file{results/v8c/event\_survey.csv}, 483
+files). A file qualifies if its \code{DATAMODE} matches \verb|^E_\d+us_\d+M_0_\d+s$| (all channels), \code{TDDES2} contains
+all six xenon layers and \code{TIMEDEL} $\le2^{-12}$\,s. Of the 311 hard-like observations of S1 and X, 201 had a qualifying
+file (2.44\,GB; modes \code{E\_125us\_64M\_0\_1s} 327 files, \code{E\_125us\_64M\_0\_8s} 5, \code{E\_16us\_64M\_0\_8s} 5,
+\code{E\_250us\_128M\_0\_1s} 4); the hard-like observations of GRS 1915+105 have only binned modes. The estimator
+(\cref{sec:eventmode}) uses $2^{-12}$-s bins, 16-s segments inside the GTIs and away from bursts, all-pairs cospectra and
+bands LC 1--4\,Hz, HF1 4--64\,Hz, HF2 64--512\,Hz, HF3 512--1024\,Hz and a null band 1536--2048\,Hz; quality cuts $\ge10$
+segments and $|z_\mathrm{null}|\le5$ (0 of 148 S1 observations removed). S1-HF has 148 observations of 23 sources (6 BH);
+X-HF 44 observations (2 BH, 11 NS).
+
+\textbf{Gate IC4 failed.} The event-mode 1--4\,Hz rms should agree with the Standard-1 T$^*_3$ at Spearman $\ge0.90$; it gave
+0.813 (0.818 after the estimator change below). The diagnosis (\file{results/v8c/ic4\_diagnosis.csv}), made before any v8c
+model, is a noise ceiling rather than a bias: within the hard-like state the 1--4\,Hz rms spans a narrow range (IQR
+0.11--0.14); T$^*_3$ itself has split-half Spearman 0.563 (Spearman--Brown full-data reliability 0.72), and two Standard-1
+estimators agree only at 0.896; in the high-$S/N$ half the event and Standard-1 values agree at 0.978 with unit slope (median
+ratio 0.94). Following the pre-registration, \textbf{all v8c results are exploratory}. The diagnosis also showed that the
+pre-registered per-observation mean of per-segment ratios is unstable for faint sources (one Aql X-1 segment at 3.6\,c\,s$^{-1}$
+\,PCU$^{-1}$ on 25\,c\,s$^{-1}$\,PCU$^{-1}$ background gave $-195$); it was replaced by the ratio of means (\cref{eq:ratioofmeans}),
+with the old values kept in \code{*\_mean\_of\_ratios} columns.
+
+\subsection{MAXI/GSC (v7c, v8d, v9c)}
+\textbf{Reproduction input (v7c1).} The processed data of \citet{deBeurs2022} from their GitHub repository (pinned at commit
+\texttt{488b785}, MIT licence): 44 systems, ten 20\% subsamples D1--D10 of their MAXI on-demand colours (CC1 = SC, CC2 = HC,
+CC3 = RelInt), three classes (BH including 7 candidates, non-pulsing NS, pulsar).
+
+\textbf{Strict pipeline (v7c2).} Labels were frozen before the light curves were downloaded: BH = dynamically confirmed
+systems of \citet[Table 1]{Marcel2026}; non-pulsing NS (NPNS) = type-I bursters of the MINBAR source table minus those
+within $0.1^\circ$ of an accretion-powered pulsar; pulsars (PSR, secondary task) = HMXBs with a pulse period in
+\citet{Liu2006} plus \citet[Table 1]{PatrunoWatts2021}. MAXI source names were resolved with Sesame and matched within
+$0.1^\circ$; blended light curves (``with'' in the name) and ambiguous identifications were excluded. Data are the MAXI/GSC
+standard one-day light curves in 2--4 (L), 4--10 (M) and 10--20\,keV (H), with the cuts of \citet{deBeurs2022}: every band
+$\ge\sqrt3\,\sigma$ with positive errors, points with total $\ge$ mean + 10 std removed, $\ge100$ points per source. Passing:
+\textbf{13 BHs} (Cyg X-1, GRO J1655$-$40, GRS 1915+105, GS 1354$-$64, GX 339$-$4, LMC X-1, LMC X-3, MAXI J1305$-$704,
+MAXI J1820+070, V4641 Sgr, SS 433, Swift J1727.8$-$1613, XTE J1650$-$500), \textbf{48 NPNS} and \textbf{39 PSR}; 93,461 points in
+the main task. Features (\cref{eq:maxi}): SC $=(M-L)/(M+L)$, HC $=(H-L)/(H+L)$, RelInt = total / the source's 99.99th
+percentile, C4 $=(H-M)/(H+M)$; sets CCI = [SC, HC, RelInt], C2D = [SC, HC], C1D = [C4] (no 2--4\,keV information).
+
+\textbf{Absorption control (v8d).} HI4PI \citep{HI4PI2016} Galactic $N_\mathrm{H}$ from HEASoft \code{nh} (weighted average
+within $0.1^\circ$); transmissions $t_b(N_\mathrm{H})$ of the three bands for \code{tbabs} \citep{Wilms2000} $\times$ a
+$\Gamma=2$ power law, tabulated on $N_\mathrm{H}\in\{0\}\cup\log$-grid $10^{19}$--$10^{23.5}$ (200 points) and interpolated in
+$\log N_\mathrm{H}$; corrected fluxes $L'=L/t_L$ etc.\ and recomputed SC$'$, HC$'$, C4$'$, RelInt$'$. Gate IC5 passed
+($t=0.864/0.979/0.997$ at $10^{22}$\,cm$^{-2}$, monotone); IC6 (uncorrected models reproduce v7c2) passed with maximum
+difference $1.1\times10^{-16}$. Median $N_\mathrm{H}$: BH 0.39, NPNS 0.46 $\times10^{22}$\,cm$^{-2}$.
+
+\textbf{Strata (v9c).} The main-task points split into tertiles of C4 (cuts $-0.671$ and $-0.445$; 31,154 / 31,153 / 31,154
+points).
+
+% -----------------------------------------------------------------------------------------------------
+\section{Data structure in this phase}\label{sec:p4structure}
+% -----------------------------------------------------------------------------------------------------
+Most RXTE analyses of this phase do not build new design matrices: they attach a state label or a burst mask to the
+existing LOSO OOF scores of Phases 1--3 and recompute metrics within strata (\cref{tab:p4arrays}). New matrices are the
+burst-excluded and extended RXTE samples, the event-mode features and the MAXI point tables, where each row is one MAXI day
+and the group is the source.
+
+\begin{table}[htbp]
+\centering\small
+\caption[Phase 4 arrays]{Arrays of Phase 4. Most RXTE analyses re-use existing OOF scores and only add a stratum label
+or a mask; new design matrices are listed with their shapes.}
+\label{tab:p4arrays}
+\begin{tabularx}{\textwidth}{@{}p{1.5cm}p{2.4cm}p{2.4cm}X@{}}
+\toprule
+Analysis & Array & Shape & Content \\
+\midrule
+v7a, v8a & state $\bm\sigma$ & 456 & soft-like / intermediate / hard-like / unknown (\file{results/v7a/states.csv}) \\
+ & OOF scores & $456\times K$ & v2 (H, B; LR, RF), v5 (H+T), v6 (H+T$^*$, H+N(+T), H+T$_k$) \\
+ & hard-only $\Xm_H$, $\Xm_{H+T}$ & $180\times2$, $180\times6$ & retraining on hard-like observations, 24 groups \\
+v7b1 & $\Xm_H$, $\Xm_B$ & $398\times2$, $398\times45$ & MINBAR set (389 literal, 396 union, 435 replaced) \\
+v7b2 & $\Xm_H$, $\Xm_B$ & $501\times2$, $501\times45$ & v2 + 45 observations; 34 groups (10 BH) \\
+v8b & $\Xm_{H_R}$, $\Xm_{H_R+T}$ & $379\times2$, $379\times6$ & external X, frozen S1 models; hard-like rows 99 \\
+v8c & $\Xm_{H+HF}$ & $148\times5$ & $h_1,h_2,\mathrm{HF}_1,\mathrm{HF}_2,\mathrm{HF}_3$ (signed $\sqrt{R}$, \cref{eq:ratioofmeans}); also H+T+HF ($148\times9$) \\
+v7c1 & per subsample & $\sim$rows $\times3$ & CC1, CC2, CC3 of 44 systems; 3 classes \\
+v7c2, v8d & $\Xm_\mathrm{CCI}$, $\Xm_\mathrm{C2D}$, $\Xm_\mathrm{C1D}$ & $93461\times\{3,2,1\}$ & one row per MAXI day; training $\le200$ random points per source (seed 42); 61 groups \\
+ & N$_\mathrm{H}$ variants & same & primed features; $+\log N_\mathrm{H}$ column \\
+v9c & stratum & 93,461 & C4 tertile of each point \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Models in this phase}
+% -----------------------------------------------------------------------------------------------------
+The RXTE analyses use the fixed v2 LR and RF; only the MAXI analyses select hyper-parameters (kNN, SVM), always inside the
+training sources (\cref{tab:p4models}). Within-state metrics use the stratified bootstrap of \cref{sec:bootstrap}: sources are
+drawn as usual and the observations of the drawn sources that fall in the stratum are pooled.
+
+\begin{table}[htbp]
+\centering\small
+\caption[Phase 4 models]{Models of Phase 4.}
+\label{tab:p4models}
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{5.2cm}@{}}
+\toprule
+Model & Where & Settings \\
+\midrule
+LR, RF (\S\ref{sec:lr}, \S\ref{sec:rf}) & all RXTE analyses; MAXI & v2 fixed settings \\
+kNN (\S\ref{sec:knn}) & v7c1 & $k=24$ on raw features, vote fractions (as \citealp{deBeurs2022}) \\
+ & v7c2, v8d & standardised, $k\in\{5,15,24,35\}$ chosen by inner LOSO source AUC, prior correction \\
+SVM-RBF (\S\ref{sec:svm}) & v7c1 & $C=0.655298$, $\gamma=0.585144$, standardised, Platt probabilities (seed 42), 3 classes \\
+ & v7c2 & standardised, balanced, $\sigma(f)$; $C\in\{0.1,1,10\}\times\gamma\in\{0.1,0.585,3\}$ by inner \code{GroupKFold(5)} source AUC \\
+stratified bootstrap (\S\ref{sec:bootstrap}) & v7a, v8a, v8b, v9c & draws over all sources; observations of the drawn sources pooled within a stratum; AUC undefined if a class is absent \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Results}\label{sec:p4results}
+% -----------------------------------------------------------------------------------------------------
+
+\subsection{Data quality: burst contamination from MINBAR (v7b1)}\label{sec:p4minbar}
+\Primary{} Retraining H-LR without the 58 MINBAR-contaminated observations leaves all 31 source decisions unchanged
+(\cref{tab:p4minbar}): source BA difference $0.000$ [0, 0], source AUC $-0.006$ [$-0.036$, 0.000] -- \NotDetected. The
+other exclusion sets agree. Other models change source BA by $-0.021$ to 0 and source AUC by $-0.036$ to 0. The
+observation BA of H-LR drops slightly ($-0.021$ [$-0.037$, $-0.007$]) because the removed observations are mostly correctly
+classified NS observations of bursting sources -- a change of composition, not a worse model. Within every set the
+Phase 1 conclusion stands: B $-$ H changes source BA by $-0.042$ to 0 and source AUC by $-0.060$ to $-0.012$; as in v4, the
+RF observation-level B $-$ H is $+0.025$ to $+0.030$ (interval above 0) in the MINBAR, literal and union sets.
+
+\begin{table}[htbp]
+\centering\small
+\caption[MINBAR exclusion]{\Primary{} v7b1: H-LR retrained (LOSO) on the observations kept by each burst set, paired by
+source with the v2 H-LR (456 observations). From \file{results/v7b1/exclusion\_bootstrap.csv} and
+\file{results/v7b1/exclusion\_counts.csv}.}
+\label{tab:p4minbar}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lrccc@{}}
+\toprule
+Set & obs. & $\Delta$ source BA & $\Delta$ source AUC & $\Delta$ obs.\ BA \\
+\midrule
+$\bigstar$ MINBAR (primary rule) & 398 & $0.000$ [0, 0] & $-0.006$ [$-0.036$, 0.000] & $-0.021$ [$-0.037$, $-0.007$] \\
+literal rule (any origin) & 389 & $0.000$ [0, 0] & $0.000$ [0, 0] & $-0.023$ [$-0.040$, $-0.008$] \\
+MINBAR $\cup$ v4 visual & 396 & $0.000$ [0, 0] & $-0.012$ [$-0.054$, 0.000] & $-0.015$ [$-0.032$, $+0.002$] \\
+same-bin replacement & 435 & $0.000$ [0, 0] & $0.000$ [0, 0] & $-0.026$ [$-0.044$, $-0.009$] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{States: soft-like separable, hard-like not (v7a)}\label{sec:p4v7a}
+\Primary{} \Cref{tab:p4state,fig:p4aucstate} show the central result of the phase. The v2 H-LR has an observation-level AUC
+of 0.954 [0.801, 1.000] on soft-like observations and 0.646 [0.445, 0.841] on hard-like observations; the difference
+$+0.309$ [$+0.099$, $+0.510$] is \Detected{} (both strata contain $\ge3$ BH sources: 5 and 7). All four models agree, the
+observation-BA differences are $+0.29$ to $+0.32$, and with the MINBAR-excluded OOF scores the H-LR difference is $+0.389$
+[$+0.160$, $+0.592$]. The intermediate stratum has a single BH source (one observation) and is only described.
+
+\begin{table}[htbp]
+\centering\small
+\caption[AUC by state]{\Primary{} v7a: observation-level AUC of the v2 LOSO OOF scores within variability states, with the
+soft-like $-$ hard-like difference. Observations (BH/NS): soft-like 38/183, intermediate 1/20, hard-like 59/121,
+unknown 7/27. From \file{results/v7a/state\_stratified\_metrics.csv}.}
+\label{tab:p4state}
+\footnotesize\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Model & soft-like & intermediate & hard-like & unknown & soft-like $-$ hard-like \\
+\midrule
+H-LR & 0.954 [0.801, 1.000] & 0.450 & 0.646 [0.445, 0.841] & 0.672 & $\bigstar$ $+0.309$ [$+0.099$, $+0.510$] \\
+H-RF & 0.947 & 0.350 & 0.693 & 0.696 & $+0.254$ [$+0.113$, $+0.393$] \\
+B-LR & 0.946 & 0.350 & 0.653 & 0.656 & $+0.293$ [$+0.079$, $+0.530$] \\
+B-RF & 0.946 & 0.600 & 0.633 & 0.619 & $+0.314$ [$+0.091$, $+0.545$] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.8\textwidth]{figures/v7a/v7a_auc_by_state.png}
+\caption[AUC by variability state]{Observation-level AUC of the v2 LOSO OOF scores within each variability state (95\%
+source-bootstrap intervals; H-LR, H-RF, B-LR, B-RF). Repo: \file{figures/v7a/v7a\_auc\_by\_state.png},
+\file{scripts/34\_v7a\_states.py}.}
+\label{fig:p4aucstate}
+\end{figure}
+
+Descriptively, the colour-overlap box of v4 (defined from the classification features themselves) gives the same picture:
+H-LR AUC 0.637 inside and 0.954 outside. Retraining only on hard-like observations (exploratory; 180 observations, 24
+sources, 7 BH) gives H-LR source AUC 0.681 [0.412, 0.916] and H-RF 0.807 [0.597, 0.958]; the differences from the v2 OOF
+on the same observations all include 0 (\file{results/v7a/hard\_only\_bootstrap.csv}): the hard state has some ranking
+information in colour, but not enough to measure a gain.
+
+\subsection{Timing inside the hard state (v8a, v8b)}\label{sec:p4v8a}
+\Primary{} \textbf{v8a.} Within the S1 hard-like stratum, the existing v5 H+T-LR OOF scores reach AUC 0.910 [0.803, 0.975]
+against 0.646 for H-LR: $+0.264$ [$+0.048$, $+0.455$], \Detected{} (\cref{tab:p4v8a}). The gate IC1 (recomputing the v7a
+value with the v8 code: 0.6456 [0.4446, 0.8414]) passed. The result holds for RF, for the all-pairs features, after
+controlling the nuisance variables, after excluding bursts and when training only on hard-like observations. The
+information is in T1 and T2; T3 adds nothing. The state gap shrinks from 0.309 to 0.080 [0.014, 0.181] (difference in
+differences $-0.229$ [$-0.420$, $-0.005$]; RF $-0.207$ [$-0.354$, $-0.056$]). At source level (hard-like observations only,
+24 sources) the AUC difference is $+0.185$ [$+0.008$, $+0.403$] and the BA difference $+0.147$ [$-0.084$, $+0.391$]. This
+direction was predictable from v5's overlap-box result; it is not a blind test.
+
+\begin{table}[htbp]
+\centering\small
+\caption[Timing in the hard-like state]{v8a: observation-level AUC within the S1 states (existing LOSO OOF unless stated);
+differences against the colour-only counterpart. From \file{results/v8a/v8a\_metrics.csv}.}
+\label{tab:p4v8a}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Model & soft-like AUC & hard-like AUC & hard-like difference \\
+\midrule
+H-LR (v2) & 0.954 & 0.646 [0.445, 0.841] & -- \\
+\textbf{H+T-LR (v5)} & 0.990 & 0.910 [0.803, 0.975] & $\bigstar$ $+0.264$ [$+0.048$, $+0.455$] \\
+H+T$^*$-LR (v6) & 0.993 & 0.916 & $+0.270$ [$+0.059$, $+0.457$] \\
+H-RF $\to$ H+T-RF & 0.947 $\to$ 0.970 & 0.693 $\to$ 0.923 & $+0.230$ [$+0.074$, $+0.408$] \\
+H+N-LR $\to$ H+N+T-LR & 0.995 $\to$ 0.999 & 0.748 $\to$ 0.949 & $+0.201$ [$+0.019$, $+0.418$] \\
+H+T1-LR & 0.989 & 0.926 & $+0.280$ [$+0.059$, $+0.481$] \\
+H+T2-LR & 0.982 & 0.874 & $+0.228$ [$+0.042$, $+0.411$] \\
+H+T3-LR & 0.961 & 0.654 & $+0.008$ [$-0.029$, $+0.060$] \\
+burst-excluded (395 obs.): H $\to$ H+T & -- & 0.595 $\to$ 0.875 & $+0.280$ [$+0.055$, $+0.484$] \\
+hard-only retrained: H $\to$ H+T & -- & 0.620 $\to$ 0.887 & $+0.267$ [$+0.060$, $+0.460$] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Per source (\cref{tab:p4v8asrc}; mean hard-like scores, H-LR $\to$ H+T-LR): the BHs XTE J1118+480 0.41 $\to$ 0.94,
+XTE J1550$-$564 0.55 $\to$ 0.87, GX 339$-$4 0.75 $\to$ 0.91 and 4U 1543$-$47 0.85 $\to$ 0.91 rise, while GRO J1655$-$40 (3 observations)
+0.59 $\to$ 0.40 and GRS 1915+105 0.49 $\to$ 0.43 fall; most NSs fall (4U 1608$-$52 0.64 $\to$ 0.23, 4U 1702$-$429 0.54 $\to$ 0.15,
+SAX J1808.4$-$3658 0.71 $\to$ 0.42, Aql X-1 0.69 $\to$ 0.41) and 4U 1724$-$307 rises from 0.42 to 0.66.
+
+{\footnotesize
+\begin{longtable}{@{}llrcc@{}}
+\caption[Hard-like scores per source]{v8a: mean LOSO scores of the hard-like S1 observations per source (computed for this
+report from \file{results/v2/oof\_predictions\_loso.csv}, \file{results/v5/v5\_oof\_predictions.csv} and
+\file{results/v7a/states.csv}; \textbf{bold} = wrong side of 0.5).}\label{tab:p4v8asrc}\\
+\toprule
+Source & label & hard-like obs. & H-LR & H+T-LR \\
+\midrule\endfirsthead
+\toprule Source & label & hard-like obs. & H-LR & H+T-LR \\ \midrule\endhead
+\bottomrule\endfoot
+4U 1543$-$47 & BH & 5 & 0.85 & 0.91 \\
+GRO J1655$-$40 & BH & 3 & 0.59 & \textbf{0.40} \\
+GRS 1915+105 & BH & 6 & \textbf{0.49} & \textbf{0.43} \\
+GX 339$-$4 & BH & 8 & 0.75 & 0.91 \\
+XTE J1118+480 & BH & 15 & \textbf{0.41} & 0.94 \\
+XTE J1550$-$564 & BH & 15 & 0.55 & 0.87 \\
+XTE J1650$-$500 & BH & 7 & 0.68 & 0.72 \\
+4U 1323$-$62 & NS & 12 & 0.34 & 0.10 \\
+4U 1608$-$52 & NS & 4 & \textbf{0.64} & 0.23 \\
+4U 1636$-$53 & NS & 1 & \textbf{0.52} & 0.06 \\
+4U 1702$-$429 & NS & 6 & \textbf{0.54} & 0.15 \\
+4U 1705$-$44 & NS & 3 & 0.44 & 0.12 \\
+4U 1724$-$307 & NS & 12 & 0.42 & \textbf{0.66} \\
+4U 1728$-$34 & NS & 4 & 0.30 & 0.05 \\
+4U 1820$-$30 & NS & 1 & 0.19 & 0.02 \\
+Aql X-1 & NS & 5 & \textbf{0.69} & 0.41 \\
+EXO 0748$-$676 & NS & 6 & 0.24 & 0.04 \\
+GS 1826$-$238 & NS & 15 & 0.32 & 0.13 \\
+HETE J1900.1$-$2455 & NS & 11 & \textbf{0.66} & 0.46 \\
+KS 1731$-$260 & NS & 10 & 0.48 & 0.11 \\
+MXB 1659$-$298 & NS & 3 & 0.32 & 0.26 \\
+SAX J1808.4$-$3658 & NS & 10 & \textbf{0.71} & 0.42 \\
+SLX 1735$-$269 & NS & 6 & \textbf{0.65} & \textbf{0.58} \\
+XTE J1814$-$338 & NS & 12 & 0.49 & 0.11 \\
+\end{longtable}}
+
+\Primary{} \textbf{v8b.} On the external set X the frozen v6 models do \emph{not} confirm the hard-state gain
+(\cref{tab:p4v8b}): hard-like AUC 0.817 $\to$ 0.882, difference $+0.064$ [$-0.185$, $+0.367$], \NotDetected. Gate IC2 (the
+frozen models reproduce the v6a scores on 401 observations, maximum difference $1.1\times10^{-16}$) passed. In the soft-like
+stratum timing lowers the AUC ($-0.118$ [$-0.337$, $+0.055$]). \Cref{tab:p4v8bsrc} lists the hard-like sources: the new
+BH GS 1354$-$64 moves from 0.54 to 0.97, LMC X-1 (3 observations, rms 0.101--0.113, at the threshold) from 0.82 to 0.99, and
+three AMXPs are corrected (XTE J0929$-$314, XTE J1807$-$294, IGR J17511$-$3057), but the AMXP IGR J00291+5934 moves from 0.45
+to 0.89 and EXO 1745$-$248 from 0.32 to 0.73. SS 433 is soft-like in all 15 observations and is called NS by both models
+(0.31 $\to$ 0.02); its X-rays are jet-dominated, so it is a poor test of accretion-state classification but is kept by rule.
+
+\begin{table}[htbp]
+\centering\small
+\caption[External hard-like stratum]{\Primary{} v8b: frozen models on the external set X (26 sources) by state; the hard-like
+stratum has 99 observations of 5 BH and 15 NS sources. From
+\file{results/v8b/v8b\_metrics.csv}.}
+\label{tab:p4v8b}
+\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Stratum (X, frozen) & H$_R$-LR & H$_R$+T-LR & difference \\
+\midrule
+hard-like (99 obs.) & 0.817 [0.595, 0.981] & 0.882 [0.710, 0.993] & $\bigstar$ $+0.064$ [$-0.185$, $+0.367$] \\
+soft-like & 0.828 & 0.710 & $-0.118$ [$-0.337$, $+0.055$] \\
+all states & 0.817 & 0.799 & $-0.019$ [$-0.144$, $+0.093$] \\
+hard-like, source AUC & 0.880 & 0.960 & $+0.080$ [$-0.093$, $+0.307$] \\
+hard-like, source BA & 0.733 & 0.867 & $+0.133$ [$-0.033$, $+0.300$] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+{\footnotesize
+\begin{longtable}{@{}lllrcc@{}}
+\caption[External hard-like sources]{v8b hard-like observations of the external set X: mean frozen-model scores per source
+(\textbf{bold} = wrong side of 0.5). From \file{results/v8b/v8b\_per\_source\_state.csv}.}\label{tab:p4v8bsrc}\\
+\toprule
+Source & label & origin & hard-like obs. & H$_R$-LR & H$_R$+T-LR \\
+\midrule\endfirsthead
+\toprule Source & label & origin & hard-like obs. & H$_R$-LR & H$_R$+T-LR \\ \midrule\endhead
+\bottomrule\endfoot
+Cyg X-1 & BH & E\textsubscript{new} & 14 & 0.74 & 0.80 \\
+GS 1354$-$64 & BH & v8b & 7 & 0.54 & 0.97 \\
+LMC X-1 & BH & v7b2 & 3 & 0.82 & 0.99 \\
+V4641 Sgr & BH & v4b2 & 5 & 0.91 & 0.95 \\
+XTE J1859+226 & BH & v4b2 & 1 & 0.76 & 0.60 \\
+4U 0513$-$40 & NS & v4b2 & 3 & 0.25 & 0.23 \\
+4U 0919$-$54 & NS & v4b2 & 2 & 0.38 & 0.02 \\
+4U 2129+12 & NS & v4b2 & 1 & 0.33 & 0.12 \\
+EXO 1745$-$248 & NS & v4b2 & 2 & 0.32 & \textbf{0.73} \\
+IGR J00291+5934 & NS & E\textsubscript{new} & 9 & 0.45 & \textbf{0.89} \\
+IGR J17498$-$2921 & NS & E\textsubscript{new} & 6 & 0.49 & 0.14 \\
+IGR J17511$-$3057 & NS & E\textsubscript{new} & 4 & \textbf{0.51} & 0.06 \\
+SAX J1748.9$-$2021 & NS & v4b2 & 2 & \textbf{0.69} & \textbf{0.59} \\
+SAX J1750.8$-$2900 & NS & v4b2 & 1 & \textbf{0.66} & 0.20 \\
+XTE J0929$-$314 & NS & E\textsubscript{new} & 14 & \textbf{0.59} & 0.27 \\
+XTE J1709$-$267 & NS & v4b2 & 1 & \textbf{0.68} & 0.44 \\
+XTE J1710$-$281 & NS & v4b2 & 4 & \textbf{0.85} & \textbf{0.59} \\
+XTE J1751$-$305 & NS & E\textsubscript{new} & 11 & \textbf{0.52} & 0.35 \\
+XTE J1759$-$220 & NS & v4b2 & 2 & 0.45 & 0.03 \\
+XTE J1807$-$294 & NS & E\textsubscript{new} & 7 & \textbf{0.65} & 0.31 \\
+\end{longtable}}
+
+\subsection{More BHs: the persistent systems (v7b2)}\label{sec:p4v7b2}
+\Primary{} Training H-LR on 34 sources (adding Cyg X-1, LMC X-1, LMC X-3) and evaluating on the original 31 gives source BA
+difference $0.000$ [$-0.214$, $+0.214$] and AUC $-0.048$ [$-0.167$, $+0.048$] -- \NotDetected{} (\cref{tab:p4v7b2}). The zero
+BA difference hides two opposite changes: GRS 1915+105 moves from 0.41 to 0.52 (corrected) and XTE J1550$-$564 from 0.55 to 0.36
+(now wrong). Held out, the new BHs are called BH by all four models (LMC X-1 0.90--1.00, LMC X-3 0.71--0.99, Cyg X-1
+0.56--0.73), Cyg X-1 -- hard-like in 14 of 15 observations -- being closest to the threshold. In the colour plane
+(\cref{fig:p4v7b2}) the LMC BHs sit with the soft BHs on the left, and Cyg X-1 in the overlap region at the upper end of the
+NS track.
+
+\begin{table}[htbp]
+\centering\small
+\caption[Adding persistent BHs]{\Primary{} v7b2: (i) models trained on 34 sources evaluated on the 31 v2 sources, paired
+with the v2 models; (ii) performance on all 34 sources. From \file{results/v7b2/v7b2\_bootstrap.csv}.}
+\label{tab:p4v7b2}
+\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Comparison & source BA & source AUC & obs.\ BA \\
+\midrule
+$\bigstar$ (i) H-LR $-$ v2 & $0.000$ [$-0.214$, $+0.214$] & $-0.048$ [$-0.167$, $+0.048$] & $-0.080$ [$-0.214$, $+0.032$] \\
+(i) H-RF $-$ v2 & $0.000$ [0, 0] & $-0.012$ [$-0.042$, 0.000] & $+0.013$ [$-0.011$, $+0.053$] \\
+(i) B-LR $-$ v2 & $+0.042$ [0, $+0.104$] & $+0.012$ [0, $+0.042$] & $+0.022$ [$+0.009$, $+0.037$] \\
+(ii) H-LR, 34 sources (10 BH) & 0.838 [0.688, 0.958] & 0.908 [0.771, 0.996] & 0.725 \\
+(ii) H-RF, 34 sources & 0.900 [0.750, 1.000] & 0.925 [0.796, 1.000] & 0.811 \\
++LMC X-3 only, (i) H-LR & $+0.021$ [$-0.193$, $+0.235$] & $-0.054$ [$-0.190$, $+0.071$] & $-0.082$ [$-0.217$, $+0.032$] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\PostHoc{} After adding the persistent BHs the H-LR scores of NSs rose generally (Cyg X-2 0.21 $\to$ 0.40). Two faint LMC X-3
+observations (92095-03-12-11, 93113-01-54-00) have hard colours of about $-0.9$ to $-1.0$ (negative net counts at 16--25\,keV,
+kept by the v2 rule) and therefore high leverage on the LR. Removing them (descriptive) brings the NS scores back close to v2
+(Cyg X-2 0.24) and gives a source-AUC difference of $+0.006$ [$-0.036$, $+0.054$]; RF is unaffected.
+% CHECK: the post hoc output is labelled "w/o 3 outliers" in results/v7b2/posthoc_HLR_without_colour_outliers_bootstrap.csv,
+% but its OOF file has 499 rows, i.e. exactly the two LMC X-3 observations named in the decision log were removed.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.66\textwidth]{figures/v7b2/v7b2_colour_positions.png}
+\caption[Persistent BHs in the colour plane]{The 45 observations of the persistent BHs (open symbols: star Cyg X-1, diamond
+LMC X-1, square LMC X-3) on the v2 colour plane (dots: v2 BH blue, NS orange). The two LMC X-3 points near hard colour $-1$ are
+the high-leverage faint observations. Repo: \file{figures/v7b2/v7b2\_colour\_positions.png}, \file{scripts/36\_v7b2\_analysis.py}.}
+\label{fig:p4v7b2}
+\end{figure}
+
+\subsection{Above 4\,Hz: event-mode frequencies (v8c, exploratory)}\label{sec:p4v8c}
+\Exploratory{} Because IC4 failed, none of these results is confirmatory (\cref{tab:p4v8c}). The pre-declared comparison
+H+HF-LR $-$ H-LR is $-0.056$ [$-0.154$, $+0.010$]; adding HF to H+T changes nothing ($-0.007$ [$-0.022$, $+0.007$]); HF alone is
+worse than chance-level ranking (0.384). For RF, HF helps on top of H ($+0.244$ [$+0.098$, $+0.411$]) and slightly on top of
+H+T ($+0.034$ [$+0.005$, $+0.075$]). Without the three AMXPs the LR differences are $-0.027$ and $-0.001$. On the external X-HF
+(44 observations), the frozen H$_R$+HF-LR reaches 0.976 against 0.997 for H$_R$-LR.
+
+\begin{table}[htbp]
+\centering\small
+\caption[Event-mode high frequencies]{\Exploratory{} v8c: observation-level AUC on S1-HF (148 observations, 23 sources,
+6 BH; LOSO within S1-HF). From \file{results/v8c/v8c\_metrics.csv}.}
+\label{tab:p4v8c}
+\footnotesize
+\begin{tabular}{@{}lccl@{}}
+\toprule
+Model & obs.\ AUC & difference & against \\
+\midrule
+H-LR & 0.797 & -- & \\
+H+HF-LR & 0.740 & $-0.056$ [$-0.154$, $+0.010$] & H-LR (pre-declared) \\
+H+T-LR & 0.943 & $+0.146$ [$+0.023$, $+0.331$] & H-LR \\
+H+T+HF-LR & 0.936 & $-0.007$ [$-0.022$, $+0.007$] & H+T-LR \\
+HF-LR & 0.384 & $-0.413$ [$-0.653$, $-0.148$] & H-LR \\
+H+HF-RF & 0.926 & $+0.244$ [$+0.098$, $+0.411$] & H-RF (0.682) \\
+H+T+HF-RF & 0.954 & $+0.034$ [$+0.005$, $+0.075$] & H+T-RF (0.920) \\
+H+HF$_c$-LR (post hoc) & 0.871 & $+0.074$ [$-0.023$, $+0.201$] & H-LR \\
+H+HF$_c$-RF (post hoc) & 0.871 & $+0.189$ [$+0.019$, $+0.400$] & H-RF \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{A cross-PCU white component (post hoc).} In 4U 1323$-$619 the null band (1536--2048\,Hz) carries more power than
+512--1024\,Hz (0.096 vs 0.072), and in GS 1826$-$238 they are comparable, revealing a frequency-independent component that is
+correlated between PCUs -- plausibly particle events hitting several PCUs at once, amplified for faint sources by the source-rate
+normalisation (not verified). Subtracting ``null band $\times$ bandwidth ratio'' from each band (post hoc) changes the
+\citet{SunyaevRevnivtsev2000}-type rule ``512--1024\,Hz power above $3\sigma$ $\Rightarrow$ NS'' from 6/17 NSs to \textbf{1/17}
+(SAX J1808.4$-$3658, $z=3.3$), with all 6 BHs at $|z|<1.5$ (\cref{tab:p4sr2000}). At single-observation RXTE sensitivity the
+kHz criterion is essentially undetectable in this sample.
+
+{\footnotesize\setlength{\tabcolsep}{3.5pt}
+\begin{longtable}{@{}llrrrlrrl@{}}
+\caption[SR2000-type rule per source]{SR2000-type rule on S1-HF: per-source 512--1024\,Hz fractional rms, its $z$-value and the
+call (NS if $z>3$), as pre-registered (left) and after null-band subtraction (right, post hoc). Negative ``rms'' values are signed
+square roots of negative variance estimates. From \file{results/v8c/v8c\_sr2000\_rule\_S1.csv} and
+\file{results/v8c/v8c\_sr2000\_rule\_null\_subtracted.csv}.}\label{tab:p4sr2000}\\
+\toprule
+ & & & \multicolumn{3}{c}{pre-registered} & \multicolumn{3}{c}{null-subtracted (post hoc)} \\
+\cmidrule(lr){4-6}\cmidrule(lr){7-9}
+Source & label & obs. & rms & $z$ & call & rms & $z$ & call \\
+\midrule\endfirsthead
+\toprule Source & label & obs. & rms & $z$ & call & rms & $z$ & call \\ \midrule\endhead
+\bottomrule\endfoot
+4U 1543$-$47 & BH & 4 & 0.076 & +2.0 & BH & -0.035 & -0.2 & BH \\
+GRO J1655$-$40 & BH & 1 & 0.107 & +2.0 & BH & -0.086 & -0.6 & BH \\
+GX 339$-$4 & BH & 6 & -0.013 & -0.4 & BH & +0.012 & +0.2 & BH \\
+XTE J1118+480 & BH & 6 & 0.057 & +0.9 & BH & -0.078 & -0.9 & BH \\
+XTE J1550$-$564 & BH & 13 & 0.021 & +0.9 & BH & +0.028 & +0.8 & BH \\
+XTE J1650$-$500 & BH & 7 & 0.013 & +1.1 & BH & +0.018 & +1.0 & BH \\
+4U 1323$-$62 & NS & 12 & 0.267 & +5.1 & NS & -0.165 & -1.0 & BH \\
+4U 1608$-$52 & NS & 4 & 0.085 & +1.7 & BH & +0.145 & +2.6 & BH \\
+4U 1636$-$53 & NS & 1 & 0.133 & +1.4 & BH & +0.248 & +2.2 & BH \\
+4U 1702$-$429 & NS & 6 & 0.082 & +5.4 & NS & +0.076 & +2.3 & BH \\
+4U 1705$-$44 & NS & 3 & 0.032 & +0.5 & BH & -0.087 & -1.9 & BH \\
+4U 1724$-$307 & NS & 9 & 0.089 & +2.8 & BH & +0.047 & +0.4 & BH \\
+4U 1728$-$34 & NS & 4 & 0.059 & +3.2 & NS & +0.064 & +1.8 & BH \\
+4U 1820$-$30 & NS & 1 & 0.056 & +1.0 & BH & +0.060 & +0.6 & BH \\
+Aql X-1 & NS & 4 & 0.050 & +0.9 & BH & -0.086 & -1.4 & BH \\
+EXO 0748$-$676 & NS & 3 & 0.078 & +0.4 & BH & -0.178 & -1.1 & BH \\
+GS 1826$-$238 & NS & 15 & 0.040 & +2.9 & BH & -0.023 & -0.4 & BH \\
+HETE J1900.1$-$2455 & NS & 11 & 0.086 & +2.9 & BH & -0.014 & -0.0 & BH \\
+KS 1731$-$260 & NS & 10 & 0.038 & +3.2 & NS & +0.025 & +0.7 & BH \\
+MXB 1659$-$298 & NS & 1 & 0.120 & +1.0 & BH & +0.128 & +0.5 & BH \\
+SAX J1808.4$-$3658 & NS & 10 & 0.073 & +7.9 & NS & +0.068 & +3.3 & NS \\
+SLX 1735$-$269 & NS & 6 & 0.159 & +3.1 & NS & +0.152 & +1.4 & BH \\
+XTE J1814$-$338 & NS & 11 & 0.089 & +2.4 & BH & -0.030 & -0.1 & BH \\
+\end{longtable}}
+
+\subsection{An independent instrument: MAXI/GSC (v7c, v8d, v9c)}\label{sec:p4maxi}
+\textbf{Reproduction (v7c1).} With the published inputs of \citet{deBeurs2022} the reproduction succeeded exactly
+(\cref{tab:p4repro}): SVM 36/44 (BH 5/12) as in the paper, kNN 38/44 (BH 7/12; paper 37/44 and 6/12), both within the
+pre-declared tolerance. Against their published per-source SVM medians: Spearman 0.9989, maximum BH-probability difference
+0.011, 100\% class agreement on the 44 systems. Of the five systems in their BH class that this project treats as dynamically
+confirmed, LMC X-3, LMC X-1, GX 339$-$4 and Cyg X-1 are correct and GRS 1915+105 is called NS by both methods; Cyg X-3 is called a
+pulsar. Their high overall accuracy comes mostly from the two NS classes; BHs are about half right.
+% CHECK: MAXI J1820+070 appears in the de Beurs BH class and in the Marcel+2026 list used by v7c2; report_v7 counts only five
+% dynamically confirmed BHs in the de Beurs BH class (LMC X-3, LMC X-1, GX 339-4, Cyg X-1, GRS 1915+105). Verify how MAXI J1820+070
+% was classified (confirmed vs candidate) in the reproduction.
+
+\begin{table}[htbp]
+\centering\small
+\caption[de Beurs reproduction]{v7c1 reproduction of \citet{deBeurs2022} (\file{results/v7c/v7c1\_reproduction.csv},
+\file{results/v7c/v7c1\_vs\_published\_svm.csv}).}
+\label{tab:p4repro}
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+Method & correct & BH & NPNS & pulsar & paper (total / BH) & within tolerance \\
+\midrule
+SVM & 36/44 & 5/12 & 19/20 & 12/12 & 36 / 5 & yes \\
+kNN & 38/44 & 7/12 & 19/20 & 12/12 & 37 / 6 & yes \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\Primary{} \textbf{Strict pipeline (v7c2).} With dynamically confirmed BHs, MAXI standard products and LOSO, LR has almost no
+discriminating power (source AUC 0.45--0.59), and both pre-declared LR comparisons are \NotDetected{} (\cref{tab:p4maxi}):
+(i) adding intensity, CCI $-$ C2D, $-0.029$ [$-0.066$, $+0.002$]; (ii) the 2--4\,keV colour, C2D $-$ C1D, $+0.139$
+[$-0.032$, $+0.306$]. Non-linear models do better with two colours (kNN 0.800, RF 0.774), and descriptively all three
+non-linear models show a 2--4\,keV gain with intervals above 0, while intensity does not help (SVM: $-0.119$ [$-0.212$,
+$-0.040$]). Per source (\cref{tab:p4maxibh}), GRS 1915+105 is called NS by every model (0.05--0.42); LR calls only half of the
+NPNS correctly (24/48), RF calls all 48 NPNS NS but most BHs too. In the secondary task (BH vs pulsars, LR and RF only) LR with two
+colours reaches source AUC 0.815 [0.679, 0.931], (ii) $+0.308$ [$+0.099$, $+0.511$] and (i) 0.000.
+
+\begin{table}[htbp]
+\centering\small
+\caption[MAXI strict pipeline]{\Primary{} v7c2: MAXI main task (13 BH vs 48 NPNS, LOSO over sources), source BA / source
+AUC, and the paired differences. From \file{results/v7c/v7c2\_bootstrap.csv}.}
+\label{tab:p4maxi}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Model & CCI & C2D (2 colours) & C1D ($\ge4$\,keV colour) \\
+\midrule
+LR & 0.519 / 0.561 & 0.596 / 0.590 & 0.498 / 0.450 \\
+RF & 0.538 / 0.729 & 0.577 / 0.774 & 0.500 / 0.364 \\
+kNN & 0.668 / 0.736 & 0.738 / 0.800 & 0.397 / 0.428 \\
+SVM & 0.591 / 0.623 & 0.574 / 0.742 & 0.397 / 0.446 \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.6em}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Comparison & $\Delta$ source BA & $\Delta$ source AUC \\
+\midrule
+$\bigstar$ (i) LR: CCI $-$ C2D & $-0.077$ [$-0.192$, $+0.010$] & $-0.029$ [$-0.066$, $+0.002$] \\
+$\bigstar$ (ii) LR: C2D $-$ C1D & $+0.098$ [$-0.087$, $+0.280$] & $+0.139$ [$-0.032$, $+0.306$] \\
+(i) RF / kNN / SVM & $-0.038$ / $-0.070$ / $+0.018$ & $-0.045$ / $-0.064$ / $-0.119$ [$-0.212$, $-0.040$] \\
+(ii) RF & $+0.077$ [0, $+0.192$] & $+0.410$ [$+0.229$, $+0.591$] \\
+(ii) kNN & $+0.341$ [$+0.135$, $+0.550$] & $+0.372$ [$+0.184$, $+0.566$] \\
+(ii) SVM & $+0.176$ [$-0.047$, $+0.410$] & $+0.296$ [$+0.096$, $+0.514$] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+{\footnotesize\setlength{\tabcolsep}{3.5pt}
+\begin{longtable}{@{}lr*{7}{c}@{}}
+\caption[MAXI BH scores]{v7c2 LOSO source scores of the 13 MAXI BHs ($n$ = one-day points; \textbf{bold} = below 0.5). From
+\file{results/v7c/v7c2\_per\_source.csv}; SAX J1819.3$-$2525 = V4641 Sgr.}\label{tab:p4maxibh}\\
+\toprule
+Source & $n$ & LR CCI & LR C2D & LR C1D & RF C2D & RF C1D & kNN C2D & SVM C2D \\
+\midrule\endfirsthead
+\toprule Source & $n$ & LR CCI & LR C2D & LR C1D & RF C2D & RF C1D & kNN C2D & SVM C2D \\ \midrule\endhead
+\bottomrule\endfoot
+Cyg X-1 & 3,965 & 0.50 & 0.50 & \textbf{0.44} & 0.51 & \textbf{0.22} & 0.63 & \textbf{0.49} \\
+GRO J1655$-$40 & 162 & \textbf{0.49} & \textbf{0.49} & 0.52 & \textbf{0.25} & \textbf{0.28} & \textbf{0.44} & \textbf{0.39} \\
+GRS 1915+105 & 3,272 & \textbf{0.28} & \textbf{0.28} & \textbf{0.42} & \textbf{0.05} & \textbf{0.17} & \textbf{0.08} & \textbf{0.24} \\
+GS 1354$-$64 & 251 & \textbf{0.50} & \textbf{0.50} & \textbf{0.50} & \textbf{0.30} & \textbf{0.30} & 0.51 & \textbf{0.46} \\
+GX 339$-$4 & 846 & 0.51 & 0.51 & \textbf{0.49} & \textbf{0.40} & \textbf{0.25} & 0.58 & \textbf{0.49} \\
+LMC X-1 & 599 & 0.57 & 0.60 & 0.51 & \textbf{0.40} & \textbf{0.26} & 0.60 & 0.60 \\
+LMC X-3 & 440 & 0.59 & 0.59 & 0.52 & \textbf{0.36} & \textbf{0.29} & 0.57 & 0.53 \\
+MAXI J1305$-$704 & 100 & 0.55 & 0.55 & 0.52 & \textbf{0.28} & \textbf{0.22} & \textbf{0.43} & \textbf{0.40} \\
+MAXI J1820+070 & 146 & 0.51 & 0.51 & \textbf{0.47} & \textbf{0.41} & \textbf{0.32} & 0.56 & \textbf{0.44} \\
+SAX J1819.3$-$2525 & 308 & \textbf{0.50} & 0.51 & 0.52 & \textbf{0.27} & \textbf{0.28} & \textbf{0.42} & \textbf{0.45} \\
+SS 433 & 429 & \textbf{0.45} & \textbf{0.45} & 0.52 & \textbf{0.22} & \textbf{0.26} & \textbf{0.40} & \textbf{0.34} \\
+Swift J1727.8$-$1613 & 205 & 0.54 & 0.54 & \textbf{0.47} & 0.50 & \textbf{0.28} & 0.66 & 0.57 \\
+XTE J1650$-$500 & 105 & \textbf{0.50} & 0.51 & 0.53 & \textbf{0.32} & \textbf{0.28} & \textbf{0.43} & \textbf{0.50} \\
+\end{longtable}}
+
+\textbf{Same sources, two instruments (v7c3).} \Descriptive{} Thirty sources (8 BH, 22 NS) are in both the RXTE and the MAXI
+main samples. Their RXTE H-LR and MAXI LR (CCI) LOSO source scores correlate at Spearman 0.63 and agree in label for 22/30 (73\%)
+(\cref{fig:p4rxtemaxi,tab:p4rxtemaxi}). The MAXI LR scores are compressed into 0.28--0.59; disagreements are mostly NSs pushed
+just above 0.5 by MAXI (2S 0918$-$549, 4U 1323$-$62, SLX 1735$-$269, GRS 1747$-$312, XB 1916$-$053) or BHs just below
+(XTE J1650$-$500, GRO J1655$-$40, V4641 Sgr); GRS 1915+105 (RXTE 0.41, MAXI 0.28) and M15 X-2 / 4U 2129+12 (0.54, 0.55) are wrong on
+both. The instruments differ in epoch (RXTE 1996--2011, MAXI from 2009), band and burst handling, so this is descriptive only.
+
+{\footnotesize
+\begin{longtable}{@{}lllccc@{}}
+\caption[RXTE vs MAXI]{v7c3: RXTE (H-LR, LOSO; sample of origin) and MAXI (LR CCI, LOSO) source scores of the 30 common sources
+(\textbf{bold} = wrong side of 0.5). From \file{results/v7c/v7c3\_rxte\_vs\_maxi.csv}.}\label{tab:p4rxtemaxi}\\
+\toprule
+MAXI name & MAXI id & label & RXTE sample & RXTE & MAXI \\
+\midrule\endfirsthead
+\toprule MAXI name & MAXI id & label & RXTE sample & RXTE & MAXI \\ \midrule\endhead
+\bottomrule\endfoot
+Cyg X-1 & J1958+352 & BH & v7b2 & 0.56 & 0.50 \\
+GRO J1655$-$40 & J1654-398 & BH & v2 & 0.82 & \textbf{0.49} \\
+GRS 1915+105 & J1915+109 & BH & v2 & \textbf{0.41} & \textbf{0.28} \\
+GX 339$-$4 & J1702-487 & BH & v2 & 0.81 & 0.51 \\
+LMC X-1 & J0539-697 & BH & v7b2 & 0.90 & 0.57 \\
+LMC X-3 & J0538-640 & BH & v7b2 & 0.71 & 0.59 \\
+SAX J1819.3$-$2525 & J1819-254 & BH & v4b2 & 0.93 & \textbf{0.50} \\
+XTE J1650$-$500 & J1650-499 & BH & v2 & 0.85 & \textbf{0.50} \\
+2S 0918$-$549 & J0920-552 & NS & v4b2 & 0.33 & \textbf{0.56} \\
+4U 1254$-$69 & J1257-692 & NS & v2 & 0.11 & 0.45 \\
+4U 1323$-$62 & J1326-621 & NS & v2 & 0.32 & \textbf{0.53} \\
+4U 1608$-$522 & J1612-524 & NS & v2 & 0.35 & 0.47 \\
+4U 1636$-$536 & J1640-537 & NS & v2 & 0.22 & 0.47 \\
+4U 1705$-$44 & J1708-441 & NS & v2 & 0.18 & 0.39 \\
+4U 1722$-$30 & J1727-308 & NS & v2 & 0.37 & 0.49 \\
+4U 1735$-$444 & J1738-444 & NS & v2 & 0.03 & 0.42 \\
+4U 1746$-$37 & J1750-370 & NS & v2 & 0.08 & 0.48 \\
+4U 1820$-$303 & J1823-303 & NS & v2 & 0.04 & 0.43 \\
+Cyg X-2 & J2144+383 & NS & v2 & 0.21 & 0.44 \\
+GRS 1747$-$312 & J1750-312 & NS & v4b2 & 0.27 & \textbf{0.52} \\
+GS 1826$-$24 & J1829-237 & NS & v2 & 0.32 & 0.46 \\
+GX 17+2 & J1816-140 & NS & v2 & 0.09 & 0.38 \\
+GX 3+1 & J1747-265 & NS & v2 & 0.09 & 0.40 \\
+M15 X-2 & J2129+121 & NS & v4b2 & \textbf{0.54} & \textbf{0.55} \\
+SAX J1747.0$-$2853 & J1747-288 & NS & v4b2 & 0.28 & 0.37 \\
+SLX 1735$-$269 & J1738-269 & NS & v2 & 0.40 & \textbf{0.52} \\
+Ser X-1 & J1839+050 & NS & v4b2 & 0.08 & 0.44 \\
+XB 1916$-$053 & J1918-052 & NS & v2 & 0.29 & \textbf{0.51} \\
+XTE J1709$-$267 & J1709-266 & NS & v4b2 & 0.25 & 0.47 \\
+XTE J1710$-$281 & J1710-281 & NS & v4b2 & \textbf{0.52} & \textbf{0.52} \\
+\end{longtable}}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.6\textwidth]{figures/v7c/v7c3_rxte_vs_maxi.png}
+\caption[RXTE vs MAXI scores]{RXTE/PCA H-LR source score (horizontal) against MAXI/GSC LR (CCI) source score (vertical) for the 30
+common sources (BH blue, NS orange; dashed lines at 0.5). Repo: \file{figures/v7c/v7c3\_rxte\_vs\_maxi.png},
+\file{scripts/39\_v7c2\_analysis.py}.}
+\label{fig:p4rxtemaxi}
+\end{figure}
+
+\Primary{} \textbf{Absorption control (v8d).} If the 2--4\,keV gain merely encoded Galactic absorption (tied to sky position and
+hence to source identity), correcting for $N_\mathrm{H}$ should remove it. It does not (\cref{tab:p4v8d,fig:p4nh}): after the
+HI4PI correction the RF two-colour model still beats the $\ge4$\,keV colour by $+0.377$ [$+0.160$, $+0.595$] in source AUC --
+\Detected{} -- against $+0.410$ uncorrected (difference in differences $-0.034$ [$-0.223$, $+0.130$]). $\log N_\mathrm{H}$ alone does
+not separate the classes (AUC 0.410 [0.244, 0.588]), and with $\log N_\mathrm{H}$ as an extra feature the gain remains
+($+0.147$ [$+0.059$, $+0.240$]). The softest 2--4\,keV colours belong to BHs (LMC X-1, LMC X-3, Swift J1727.8$-$1613, Cyg X-1). Two
+caveats are stated in the repository: choosing RF as the primary was made after seeing v7, and RF on C1D alone has AUC below 0.5,
+so part of the gain is relative to a worse-than-random baseline.
+
+\begin{table}[htbp]
+\centering\small
+\caption[MAXI after N\_H correction]{\Primary{} v8d: MAXI main task, source AUC before and after the HI4PI $N_\mathrm{H}$
+correction. From \file{results/v8d/v8d\_bootstrap.csv}.}
+\label{tab:p4v8d}
+\footnotesize
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Model / difference & uncorrected & $N_\mathrm{H}$-corrected \\
+\midrule
+RF, $\ge4$\,keV colour (C1D) & 0.364 [0.216, 0.532] & 0.361 [0.204, 0.534] \\
+RF, two colours (C2D) & 0.774 [0.590, 0.934] & 0.737 [0.550, 0.907] \\
+RF C2D $-$ C1D & $+0.410$ [$+0.229$, $+0.591$] & $\bigstar$ $+0.377$ [$+0.160$, $+0.595$] \\
+kNN C2D $-$ C1D & $+0.372$ [$+0.184$, $+0.566$] & $+0.268$ [$+0.082$, $+0.470$] \\
+LR C2D $-$ C1D & $+0.139$ [$-0.032$, $+0.306$] & $+0.123$ [$-0.026$, $+0.269$] \\
+$\log N_\mathrm{H}$ alone & -- & 0.410 [0.244, 0.588] \\
+RF [C2D + $\log N_\mathrm{H}$] $-$ RF [C1D + $\log N_\mathrm{H}$] & -- & $+0.147$ [$+0.059$, $+0.240$] \\
+difference in differences, RF & \multicolumn{2}{c}{$-0.034$ [$-0.223$, $+0.130$]} \\
+difference in differences, kNN & \multicolumn{2}{c}{$-0.104$ [$-0.231$, $+0.006$]} \\
+difference in differences, LR & \multicolumn{2}{c}{$-0.016$ [$-0.059$, $+0.021$]} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/v8d/v8d_nh_control.png}
+\caption[MAXI N\_H control]{v8d: (a) cumulative HI4PI $\log N_\mathrm{H}$ of the 13 BHs and 48 NPNS (AUC of $\log N_\mathrm{H}$ alone
+0.41); (b) per-source median soft colour SC before and after the correction; (c) source AUC of all model/feature combinations
+(95\% source-bootstrap intervals). Repo: \file{figures/v8d/v8d\_nh\_control.png}, \file{scripts/45\_v8d\_nh.py}.}
+\label{fig:p4nh}
+\end{figure}
+
+\Descriptive{} \textbf{Strata (v9c).} Is the 2--4\,keV gain confined to soft (thermal) states? The pre-declared point-level AUCs are
+near 0.5 in every C4 tertile (RF C2D 0.49--0.56) because the point-level metric is dominated by sources with thousands of points
+(Cyg X-1 has 3,965); the C2D $-$ C1D point-level difference is $+0.167$ [$-0.185$, $+0.580$], $+0.060$ [$-0.184$, $+0.264$] and
+$+0.052$ [$+0.007$, $+0.103$] (softest to hardest). The \PostHoc{} source-level version (\cref{tab:p4v9c}) shows a gain of about
+$+0.27$ to $+0.40$ in every tertile, before and after the $N_\mathrm{H}$ correction: the 2--4\,keV information is not confined to
+thermal states.
+
+\begin{table}[htbp]
+\centering\small
+\caption[MAXI gain by C4 tertile]{v9c: RF C2D $-$ C1D within tertiles of the $\ge4$\,keV colour C4. Point-level AUC differences
+are pre-declared (descriptive); source-level ones are post hoc. From \file{results/v9c/v9c\_maxi\_c4\_strata.csv} and
+\file{results/v9c/v9c\_maxi\_c4\_strata\_source\_level\_post\_hoc.csv}.}
+\label{tab:p4v9c}
+\footnotesize\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+C4 tertile (BH / NS sources) & point AUC $\Delta$ & source AUC $\Delta$ (post hoc) & source AUC $\Delta$, $N_\mathrm{H}$-corr. \\
+\midrule
+low, softest (8 / 38) & $+0.167$ [$-0.185$, $+0.580$] & $+0.388$ [$+0.151$, $+0.628$] & $+0.257$ [$+0.003$, $+0.543$] \\
+middle (11 / 44) & $+0.060$ [$-0.184$, $+0.264$] & $+0.269$ [$-0.048$, $+0.570$] & $+0.399$ [$+0.159$, $+0.647$] \\
+high, hardest (13 / 48) & $+0.052$ [$+0.007$, $+0.103$] & $+0.388$ [$+0.160$, $+0.603$] & $+0.361$ [$+0.122$, $+0.601$] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Phase summaries}
+\Cref{fig:p4v7summary,fig:p4v8summary} reproduce the repository's summary figures of v7 and v8.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/v7/v7_summary.png}
+\caption[v7 summary]{v7 summary: (a) AUC by variability state for four models; (b) source AUC of H-LR and H-RF with 31 sources,
+with 34 sources evaluated on the 31, and on all 34; (c) MAXI source AUC of all models and feature sets (dashed: RXTE v2 H-LR); (d)
+RXTE vs MAXI source scores of the 30 common sources. Repo: \file{figures/v7/v7\_summary.png}, \file{scripts/40\_v7\_summary\_figure.py}.}
+\label{fig:p4v7summary}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/v8/v8_summary.png}
+\caption[v8 summary]{v8 summary: (a) S1 AUC by state for colour-only and timing models (hard-like squares); (b) external X with
+frozen models by state; (c) per-source null-subtracted 512--1024\,Hz $z$ against 4--64\,Hz rms (post hoc; only SAX J1808.4$-$3658
+above $3\sigma$); (d) S1-HF observation AUCs (exploratory); (e) MAXI RF source AUC before and after the $N_\mathrm{H}$ correction.
+Repo: \file{figures/v8/v8\_summary.png}, \file{scripts/46\_v8\_summary\_figure.py}.}
+\label{fig:p4v8summary}
+\end{figure}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Interpretation}
+% -----------------------------------------------------------------------------------------------------
+\textbf{What the data support directly.}
+\begin{enumerate}
+\item The two-colour classifier depends strongly on the state: AUC $\approx0.95$ on soft-like observations and $\approx0.65$ on
+hard-like ones, difference $+0.31$ [$+0.10$, $+0.51$]; consistent across four models and after burst exclusion. The Phase 1
+inference ``hard BHs and hard NSs overlap in colour'' is now a number with an interval.
+\item Type-I burst contamination does not affect the Phase 1 conclusions: with the official MINBAR catalogue the 31 H-LR source
+decisions are unchanged. MINBAR and the independent Standard-1 detector agree on 99.1\% of observations; each misses 2 bursts the
+other finds.
+\item Inside the hard-like state of S1, low-frequency timing raises the AUC from 0.65 to 0.91 (interval excludes 0), robustly across
+models, estimators, nuisance control, burst exclusion and hard-only training; the information is in 0.016--1\,Hz, and the state gap
+shrinks from 0.31 to 0.08. This is where the v5/v6 gain came from.
+\item On external sources the hard-state gain is \emph{not} confirmed: the point estimate is positive (source-level BA $+0.13$) but the
+interval is wide and one AMXP is pushed strongly towards BH.
+\item Adding three persistent BHs does not change performance on the original 31 sources; all three are recognised as BHs when held
+out, Cyg X-1 (hard-like) closest to the threshold.
+\item At single-observation RXTE sensitivity, after null-band subtraction, broad-band 512--1024\,Hz power is detected in none of 6 BHs and
+in 1 of 17 NSs; high frequencies add essentially nothing beyond the low-frequency features (exploratory).
+\item The de Beurs et al.\ result reproduces exactly from their published inputs. With confirmed labels, standard MAXI products and
+LOSO, LR has hardly any discriminating power; non-linear models reach $\approx0.8$ with two colours; the 2--4\,keV colour adds
+information that survives a Galactic $N_\mathrm{H}$ correction and is present in every C4 tertile.
+\end{enumerate}
+
+\textbf{Possible explanations (not verified).}
+\begin{itemize}
+\item In soft states the disc dominates and the BH colours lie outside the NS track; in hard states both classes are dominated by
+Comptonisation with similar 5--25\,keV shapes.
+\item At equal hard colour, BHs show stronger $<1$\,Hz variability, consistent with lower characteristic frequencies (the $\nu_c$ test of
+v6 was significant on S1 but not externally); amplitude and frequency are not separated here (taken up with Lorentzian fits in
+Phase 6).
+\item The external failure may reflect the BH composition (an HMXB, a gain-epoch-3 transient, an LMC source at the state threshold),
+the AMXP-dominated NS sample (IGR J00291+5934 has strong low-frequency noise), and less room for improvement (external colour-only
+hard-like AUC already 0.82 vs 0.65 on S1).
+\item The SR2000 criterion may fail here because the sample is post-2000 (fewer PCUs, gain epoch 5), single observations last 1--3\,ks
+while \citet{SunyaevRevnivtsev2000} combined observations with all five PCUs, and a broad 512--1024\,Hz band dilutes narrow kHz QPOs.
+\item The MAXI 2--4\,keV information may reflect the disc temperature (cooler BH discs in thermal states, NS boundary-layer emission
+harder; cf.\ \citealp{DoneGierlinski2003}); since the gain appears in all C4 tertiles it is not limited to thermal states. LR may
+fail on MAXI because BHs lie on both sides of the NS distribution in the colour plane (soft and hard states), which is not linearly
+separable.
+\end{itemize}
+
+\textbf{Hypotheses that need more data.} A prospective confirmation of the frozen H+T model on more \emph{hard-state} confirmed BHs
+-- the RXTE era is exhausted, so this needs NICER, Insight-HXMT, AstroSat or XRISM and a recalibrated timing feature (Phase 5); fits of
+Lorentzian characteristic frequencies (Phase 6); stacked kHz searches with a model of the cross-PCU white component; state-resolved
+MAXI analyses.
+
+% -----------------------------------------------------------------------------------------------------
+\section{Deviations and caveats}\label{sec:p4caveats}
+% -----------------------------------------------------------------------------------------------------
+\begin{itemize}
+\item \textbf{Written after earlier results}: v7 after v1--v6 (user-approved), v8 after v1--v7 (self-approved); the state analysis tests
+inferences already drawn, and v8a was predictable from v5.
+\item \textbf{v7b1}: the primary burst rule (same ObsID or origin within $1^\circ$) replaced the literal rule after seeing the matching and
+before any classification result; the MINBAR $\cup$ visual set was added after the cross-check; the comparison ``paired with v2 on
+common sources'' was implemented as pairing with the 456-observation v2 OOF by source (same-observation comparisons also reported).
+\item \textbf{v7b2}: post hoc check of the two high-leverage LMC X-3 observations (main analysis unchanged).
+\item \textbf{v7c2 labels} (fixed before any C2 model): Liu+2007 LMXB pulse periods include burst oscillations, so LMXB pulsars come only
+from \citet{PatrunoWatts2021}; HMXB pulsars from \citet{Liu2006} were added (the pre-registration named only Patruno \& Watts);
+MAXI matching changed to Sesame-resolved names within $0.1^\circ$ (the J-name position within $0.35^\circ$ had mismatched
+IGR J16358$-$4726 and 4U 1630$-$47); blends excluded; name fixes (V616 Mon, IGR J17480$-$2446, IGR J16358$-$4726).
+\item \textbf{v7c2 computation}: secondary task only with LR and RF; the SVM inner selection uses grouped 5-fold instead of LOSO (estimated
+$>6$\,h), decided before any SVM result; kNN used inner LOSO as pre-declared. Unspecified details fixed in code: standardisation of
+kNN/SVM inputs, equal-prior kNN probabilities, SVM score $\sigma(f)$ with balanced weights.
+\item \textbf{v8 gates and estimator}: the IC3 criterion ``squared HF $<0.01^2$ under pure Poisson'' was unattainable and replaced by
+$|z|<3$, and a hand-computed segment-test expectation corrected (before models); IC4 failed $\Rightarrow$ v8c exploratory; the estimator
+changed from mean of ratios to ratio of means after IC4 and before any v8c model; the null-band subtraction is post hoc.
+\item \textbf{v8 tooling}: downloads switched from \texttt{urllib} ($\approx0.1$\,MB/s) to \texttt{curl} with the same logging; HTTP retries
+added after one inventory connection error; a trailing \verb|\r| from a Windows CSV read in bash fixed in v8d before results. Only
+two of the planned v8 figures were produced; the other results are in CSV files.
+\item \textbf{States}: the index stops at 4\,Hz, uses BH thresholds for NSs and is an operational variability class, not a full state
+assignment (no disc fraction, no photon index); 34 S1 observations (7 BH) are ``unknown''; external states use MINBAR-only burst
+removal; the state of the faint LMC X-1 is uncertain.
+\item \textbf{Small samples}: 7 BH sources in the S1 hard-like stratum (6 in S1-HF), 5 in the external hard-like stratum.
+\item \textbf{MAXI}: standard products (2--4/4--10/10--20\,keV photon fluxes) instead of on-demand bands; one-day averages mix states;
+globular-cluster light curves may blend sources; HI4PI gives only the Galactic atomic column (no molecular or intrinsic absorption, e.g.\
+LMC X-1); RF as the v8d primary was chosen after v7; epochs differ between RXTE and MAXI.
+\item \textbf{SS 433} is jet-dominated and a poor test of accretion-state classification (kept by rule and listed separately); SR2000 sources
+overlap with this sample, so v8c is not an independent test of their criterion.
+\item \textbf{Bootstrap} intervals keep predictions fixed.
+\end{itemize}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Takeaway}
+% -----------------------------------------------------------------------------------------------------
+The failure of the colour classifier is a hard-state failure, and in the hard state of the training sources low-frequency
+variability repairs most of it -- but that repair is not confirmed on external sources, the persistent BHs and higher frequencies add
+nothing measurable, and bursts never mattered. On MAXI, with strict labels, linear colour models fail while the 2--4\,keV colour
+carries information that is not absorption. The hard-state timing claim therefore needs a test on genuinely new observations with a
+different instrument: Phase 5 takes it to NICER.
