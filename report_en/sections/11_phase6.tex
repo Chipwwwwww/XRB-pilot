@@ -1,1 +1,327 @@
-\chapter{Phase 6}\label{ch:phase6}
+% =====================================================================================================
+\chapter{Phase 6 (v11--v13): prospective tests on new observations}\label{ch:phase6}
+% =====================================================================================================
+
+\begin{glance}{v11--v13}
+\textbf{Question.} Do the two timing claims survive a \emph{prospective} test -- pipeline, thresholds, models and decision rule
+frozen and committed before any new data are seen -- on NICER observations never downloaded before? And are they an artefact of
+the (so far uncorrected) NICER background? \\
+\textbf{Pre-declared primaries.} v11a: frozen out-of-source H$_N$+T$_N$-LR $-$ H$_N$-LR on new hard-like observations; v11b:
+colour-conditional $\log_{10}\nu_c$ difference on the new observations; v12a: the same after 3C50 background correction and
+screening of the v10+v11 observations; v12b: RF hard-state gain after correction (RF chosen \emph{post hoc}); v13a: frozen RF
+hard-state gain on a third, disjoint set of new observations (RF chosen \emph{before} download); v13b: $\nu_c$ difference on that set. \\
+\textbf{Data.} The same 66 NICER sources; 318 new observations in v11 (39.2\,GB streamed), 3C50 for 503 faint observations in v12,
+238 new observations in v13 (198 after correction and screening). \\
+\textbf{Verdict.} The \textbf{RF hard-state timing gain} is detected after background correction (v12b $+0.174$ [$+0.071$, $+0.300]$) and
+\textbf{prospectively} on new observations with a pre-chosen RF (v13a $+0.184$ [$+0.049$, $+0.337$]); the LR gain is not detected in v11
+($+0.066$). The \textbf{$\nu_c$ difference} is detected in v11 ($-0.663$, $p=0.023$) but depends on a few very hard faint observations,
+and is not detected after correction (v12a $-0.514$, $p=0.073$) or prospectively (v13b $-0.427$, $p=0.21$); its size is stable at
+$-0.4$ to $-0.6$\,dex. These are \textbf{observation-level} prospective tests on the \emph{same sources}, not new sources; only 16
+dynamically confirmed BHs exist in the whole project.
+\end{glance}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Motivation}
+% -----------------------------------------------------------------------------------------------------
+Phase 5 measured the overall strength of the evidence but could not confirm it, because the hypotheses and pooling followed
+the component results. The cleanest remaining test is prospective: freeze everything, then look at data never seen. New
+dynamically confirmed BHs were exhausted (16 of the 25 BHs of \citet{Marcel2026} had been used across RXTE and NICER), and batch
+access to Insight-HXMT or AstroSat data could not be verified, so the maximum independence available was \emph{new observations
+of the same NICER sources}. v11 did this; its $\nu_c$ result raised the suspicion of background-dominated faint observations, so
+v12 applied the official 3C50 background model \citep{Remillard2022}; v13 repeated the prospective test with the v12 pipeline and a
+model (RF) chosen before the download. v14 then stopped the series (\cref{ch:synthesis}).
+
+% -----------------------------------------------------------------------------------------------------
+\section{Pre-registration}
+% -----------------------------------------------------------------------------------------------------
+\begin{table}[htbp]
+\centering\footnotesize
+\caption[Phase 6 pre-registrations]{Phase 6 pre-registrations (\file{reports/preregistration\_v11.md}, \file{\_v12.md}, \file{\_v13.md}),
+all written and self-approved after all earlier results (user instructions: ``merge and continue v11 at 1:40 am'', ``merge and
+continue'', and, for v13 onwards, in Chinese, ``when it finishes continue to the next step (v13, 14, \dots) until it is worth
+wrapping up, then wrap up'').}
+\label{tab:p6prereg}
+\begin{tabularx}{\textwidth}{@{}p{0.8cm}p{3.2cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+Ver. & Written & Primary & Frozen before new data \\
+\midrule
+v11 & 2026-10-06 ($\approx$01:50), after v1--v10; commit \texttt{6fea016} & v11a: hard-like obs.\ AUC, frozen out-of-source H$_N$+T$_N$-LR $-$ H$_N$-LR; v11b: colour-conditional $D(\log_{10}\nu_c)$ & v9 feature pipeline and state thresholds; v10 fold models (each source predicted by the model trained without it); rule $\nu^*=1.3007$\,Hz committed in \texttt{58ded89} \\
+v12 & 2026-10-06 ($\approx$03:20), after v1--v11; commit \texttt{2126e9d} & v12a: $D(\log_{10}\nu_c)$ after 3C50 correction and screening ($f\le0.20$); v12b: RF hard-like gain after correction (\PostHoc{} choice of RF, after v9--v11) & 3C50 settings, correction formulae, screening threshold \\
+v13 & 2026-10-06 ($\approx$05:00), after v1--v12; commit \texttt{42fe1d2} & v13a: frozen out-of-source RF hard-like gain on a third set of new observations; v13b: $D(\log_{10}\nu_c)$ & the full v12 pipeline (incl.\ 3C50 and screening); models fitted on the 534 corrected v12 observations; RF chosen before download; $\nu^*=1.3361$\,Hz \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The frozen rule (\cref{sec:nurule}) is $\nu^*=\sqrt{\tilde\nu_\mathrm{BH}\,\tilde\nu_\mathrm{NS}}$, the geometric mean of the BH and NS median
+$\nu_c$ of the hard-like observations of the reference data: v10 NICER full observations ($\tilde\nu_\mathrm{BH}=0.5917$\,Hz, 32 observations;
+$\tilde\nu_\mathrm{NS}=2.8594$\,Hz, 111) $\Rightarrow\nu^*=1.3007$\,Hz for v11; v12 corrected and screened data (0.6294\,Hz, 62; 2.8362\,Hz, 138)
+$\Rightarrow\nu^*=1.3361$\,Hz for v13. Observation rule: hard-like and $\nu_c<\nu^*\Rightarrow$ BH; source rule: BH if at least half of its new
+hard-like observations are BH.
+
+% -----------------------------------------------------------------------------------------------------
+\section{Data}
+% -----------------------------------------------------------------------------------------------------
+\subsection{New NICER observations (v11, v13)}
+\textbf{v11.} For each of the 66 v9 sources, eligible observations not among the 792 tried in v9 were split into 8 time bins and tried in a
+random order (\code{default\_rng(SEED + 1000 + position)}, up to 3 per bin); sources never used before with only 1--4 eligible observations
+contributed all of them (7 NS and XTE J1859+226; 19 observations). 422 source--bin combinations, 588 tries, \textbf{318 accepted}; 39.2\,GB
+were streamed (raw bytes not stored; URLs and SHA256 in \file{logs/downloads.jsonl}). New hard-like observations: 33 of 9 BH sources (Cyg X-1 8,
+MAXI J1820+070 6, Swift J1727.8$-$1613 5, GRS 1915+105 4, 4U 1543$-$47 3, GX 339$-$4 3, LMC X-1 2, LMC X-3 1, V4641 Sgr 1) and 110 of 33 NS sources.
+Of the never-used sources, 3 NSs have hard-like observations (7); XTE J1859+226 had none that qualified. Gates: IC1 LOSO refit on the v10 data
+reproduces the v10 OOF scores (maximum difference $\le1.6\times10^{-15}$); IC2 Z sources soft-like 15/16; IC3 no overlap with the v9 obsids; IC4
+synthetic Lorentzians of 0.3 and 5\,Hz recovered as 0.302 and 5.10\,Hz (two-component low frequency 0.101); streamed parsing equals the v10
+prefix+tail parsing (6403520101, 729,479 events).
+
+\textbf{v13.} Eligible observations of the v9 sources not tried in v9 (792) or v11 (588), same scheme (\code{default\_rng(SEED + 2000 + position)}):
+291 groups, \textbf{238 accepted}; 3C50 for the 148 faint ones (109 ok, 39 failed: 38 old gain calibration, 1 other; median $f=0.006$, one
+with $f>0.20$); 198 kept after correction and screening. Hard-like: 29 observations of 8 BH sources, 45 of 19 NS sources (74). Gates: Z sources
+15/16 soft-like; disjoint from v9 and v11.
+
+\subsection{Background: 3C50 (v12)}
+The 3C50 model \citep{Remillard2022} was run with HEASoft 6.37.1 \code{nibackgen3C50} (CALDB background library and index, \code{gainepoch=AUTO},
+default \code{hbgcut}=0.5, \code{s0cut}=30; CALDB tarball 112,180,364 bytes, SHA256 \texttt{572954c8\dots}). A feasibility run on 3657027601 gave a
+3C50 total rate of 58.0\,c\,s$^{-1}$ against 61.3 from the pipeline and a background of 0.67\,c\,s$^{-1}$. For the 503 observations of v10+v11 with
+2--10\,keV $<500$\,c\,s$^{-1}$ the cleaned and unfiltered event files were downloaded, processed and deleted (spectra kept outside the repository):
+362 succeeded, 141 failed -- 139 because \code{nibackgen3C50} rejects data processed with the original gain calibration
+(\code{nixtiflightpi20170601v001}; recorded as return code 255, missing total spectrum, in \file{data/v12/processed/bkg3c50.csv}) and 2 with return
+code 218. The background fraction $f$ (2--10\,keV) has median 0.008, 90th percentile 0.026 and 99th percentile 0.37; 9 observations exceed 0.20
+(\cref{fig:p6bkg}a). Gates: IC1 3C50/pipeline total-rate ratio within [0.7, 1.3] for 93.4\% (median 0.961); IC2 all $f\in[0,1]$; IC3 Z sources 15/16
+soft-like after correction.
+
+\textbf{Correction} (\cref{sec:3c50}): fractional rms features and the state rms are multiplied by $1/(1-f_T)$; colours are recomputed from the
+band counts scaled by $(1-f_A)$, $(1-f_B)$, $(1-f_C)$ (PI 200--400, 400--600, 600--1000); $\nu_c$ is not corrected; bright observations
+($\ge500$\,c\,s$^{-1}$) get $f=0$. \textbf{Screening}: $f>0.20$ and 3C50 failures are excluded, leaving \textbf{534 of 684} observations; 3 change state.
+
+% -----------------------------------------------------------------------------------------------------
+\section{Data structure in this phase}\label{sec:p6structure}
+% -----------------------------------------------------------------------------------------------------
+\begin{table}[htbp]
+\centering\small
+\caption[Phase 6 arrays]{Arrays of Phase 6 (NICER features as in \cref{tab:p5arrays}: $H_N=[c_1,c_2]$, $T_N=[T_1,T_2,T_3]$).}
+\label{tab:p6arrays}
+\begin{tabularx}{\textwidth}{@{}p{1.3cm}p{3.2cm}p{2.2cm}X@{}}
+\toprule
+Analysis & Array & Shape & Content \\
+\midrule
+v11 & training (frozen) & $(366-n_s)\times\{2,5\}$ & v10 NICER full observations without source $s$; models LR, RF on $H_N$, $H_N+T_N$ \\
+ & test & $318\times\{2,5\}$ & new observations (\file{data/v11/processed/nicer\_new\_features.csv}); never-used sources predicted by the model fitted on all 366 \\
+ & $\nu_c$, Lorentz fits & 142 hard-like & $\log_{10}\nu_c$; $\nu_L$ from 13 octave bins (\file{results/v11/v11c\_lorentz\_fits.csv}) \\
+v12 & corrected features & $534\times\{2,5\}$ & v10+v11 after 3C50 correction and screening (\file{data/v12/processed/nicer\_corrected\_screened.csv}); LOSO \\
+ & $f_A,f_B,f_C,f_T$ & 503 & 3C50 background fractions (\file{data/v12/processed/bkg3c50.csv}) \\
+v13 & training (frozen) & $(534-n_s)\times\{2,5\}$ & v12 corrected data without source $s$ \\
+ & test & $198\times\{2,5\}$ & new, corrected, screened (\file{data/v13/processed/nicer\_new\_features.csv}); 74 hard-like \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Models in this phase}
+% -----------------------------------------------------------------------------------------------------
+LR and RF with the fixed v2 settings (\S\ref{sec:lr}, \S\ref{sec:rf}), always \emph{out-of-source}: a new observation of source $s$ is scored by
+the reference-data model trained without $s$, so no source contributes to the model that scores it. The permutation test, the
+Lorentzian fits (\cref{eq:lorentz}: one or two zero-centred Lorentzians integrated over each octave bin, weighted least squares on
+log-parameters with multiple starts, the second component kept if $\mathrm{BIC}_1-\mathrm{BIC}_2>6$, $\nu_L$ = lowest width) and the
+frozen $\nu^*$ rule are defined in \cref{ch:features,ch:methods,ch:evaluation}.
+
+% -----------------------------------------------------------------------------------------------------
+\section{Results}\label{sec:p6results}
+% -----------------------------------------------------------------------------------------------------
+
+\subsection{Hard-state timing gain on new observations}\label{sec:p6gain}
+\Primary{} \textbf{v11a.} On the 143 new hard-like observations (9 BH / 33 NS sources) the frozen LR gain is $+0.066$ [$-0.095$, $+0.180$]
+(0.660 $\to$ 0.726): \NotDetected{} (\cref{tab:p6gain}). The LR gain of v8a, v9a and v10a is therefore \emph{not} prospectively
+confirmed. Leaving out one BH at a time gives $+0.044$ to $+0.110$ (\file{results/v11/v11a\_influence.csv}); at source level the LR AUC
+falls slightly (0.724 $\to$ 0.710). The RF gain, descriptive in v11, is $+0.247$ [$+0.128$, $+0.384$].
+
+\Primary{} \textbf{v12b.} After 3C50 correction and screening (LOSO on the 534 observations), the RF gain is $+0.174$ [$+0.071$, $+0.300$]
+(0.750 $\to$ 0.924): \Detected; RF was chosen as primary after seeing v9--v11 (\PostHoc{} choice). LR: $+0.090$ [$-0.056$, $+0.243$].
+Source-level RF AUC 0.853 $\to$ 0.926 ($+0.074$ [$-0.033$, $+0.206$]).
+
+\Primary{} \textbf{v13a.} With everything frozen before the download -- the v12 pipeline including 3C50, the models fitted on the 534
+corrected observations, and the choice of RF -- the gain on the 74 new hard-like observations (8 BH / 19 NS sources) is $+0.184$
+[$+0.049$, $+0.337$] (0.680 $\to$ 0.864): \Detected{} \emph{prospectively}. LR is $+0.182$ [$+0.022$, $+0.347$] this time; leaving out one
+BH gives RF gains of $+0.146$ to $+0.212$ (\file{results/v13/v13a\_influence.csv}); recomputing the faint observations' features on the
+3C50-filtered time intervals gives $+0.190$ [$+0.065$, $+0.330$]; source-level RF AUC 0.717 $\to$ 0.842 ($+0.125$ [$-0.053$, $+0.303$]).
+
+\begin{table}[htbp]
+\centering\small
+\caption[Hard-state gain, prospective]{Hard-like observation-level AUC with and without timing on new or corrected NICER observations
+(frozen out-of-source models in v11 and v13; LOSO in v12). From \file{results/v11/v11a\_metrics.csv}, \file{results/v12/v12b\_gain.csv},
+\file{results/v13/v13a\_gain.csv}.}
+\label{tab:p6gain}
+\footnotesize\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}llccc@{}}
+\toprule
+Set & Model & soft-like AUC & hard-like AUC & hard-like gain \\
+\midrule
+v11 new (143 hard-like) & LR & 0.826 $\to$ 0.801 & 0.660 $\to$ 0.726 & $\bigstar$ $+0.066$ [$-0.095$, $+0.180$] \\
+ & RF & 0.896 $\to$ 0.899 & 0.665 $\to$ 0.912 & $+0.247$ [$+0.128$, $+0.384$] \\
+v12 corrected (534 obs.) & RF$^\dagger$ & 0.949 $\to$ 0.945 & 0.750 $\to$ 0.924 & $\bigstar$ $+0.174$ [$+0.071$, $+0.300$] \\
+ & LR & 0.871 $\to$ 0.861 & 0.641 $\to$ 0.730 & $+0.090$ [$-0.056$, $+0.243$] \\
+v13 new (74 hard-like) & RF & 0.938 $\to$ 0.943 & 0.680 $\to$ 0.864 & $\bigstar$ $+0.184$ [$+0.049$, $+0.337$] \\
+ & LR & 0.870 $\to$ 0.843 & 0.503 $\to$ 0.685 & $+0.182$ [$+0.022$, $+0.347$] \\
+ & RF, 3C50 GTIs & -- & -- & $+0.190$ [$+0.065$, $+0.330$] \\
+\bottomrule
+\multicolumn{5}{@{}l}{\footnotesize $^\dagger$ RF chosen as the v12 primary after seeing v9--v11 (post hoc choice).}
+\end{tabular}
+\end{table}
+
+Across the NICER analyses the RF gain is remarkably stable: $+0.236$ (v9 prefixes), $+0.219$ (v10 full), $+0.247$ (v11 new), $+0.174$
+(v12 corrected), $+0.184$ (v13 new); the LR gain is smaller and less stable ($+0.112$, $+0.107$, $+0.066$, $+0.090$, $+0.182$).
+
+\subsection{Characteristic frequency on new observations}\label{sec:p6nuc}
+\Primary{} \textbf{v11b.} On the new hard-like observations (42 sources, 9 BH) the colour-conditional difference is $D=-0.663$, $p=0.0225$:
+\DetectedP{} (\cref{tab:p6nuc}). Adding the log count rate as a brightness control gives $-0.709$ ($p=0.018$; on the v10 data $-0.459$,
+$p=0.046$); the lowest Lorentzian width $\nu_L$ gives the same picture (median BH 0.148\,Hz, NS 0.618\,Hz; $D=-0.670$, $p=0.023$; 142 fits,
+58\% with two components, 12 at the lower bound $1/128$\,Hz). Leaving out one BH gives $-0.51$ (without LMC X-1) to $-0.74$. \PostHoc{}
+However, the new ``hard-like'' observations of LMC X-1, LMC X-3 and V4641 Sgr are very hard ($c_2$ 0.5--1.0) with very low $\nu_c$ (0.02--0.09\,Hz),
+like background-dominated faint observations; excluding observations above the frozen v10 background-proxy threshold gives $-0.604$
+($p=0.058$), and additionally excluding $c_2>0.7$ gives $-0.458$ ($p=0.19$, 7 BHs) (\file{results/v11/v11b\_post\_hoc\_screens.csv}).
+
+\Primary{} \textbf{v12a.} After 3C50 correction and screening, $D=-0.514$, $p=0.073$: \NotDetected. Across every background treatment the
+effect size is $-0.50$ to $-0.57$\,dex and only the sample size changes $p$ (\cref{tab:p6nuc}); the 141 observations that 3C50 could not
+process (2017--2019, including early LMC X-1, LMC X-3 and V4641 Sgr data) are the main loss. The very hard observations suspected in v11 are
+mostly not background-dominated by 3C50: of the 45 hard-like observations with $c_2>0.7$, the 15 with a 3C50 result have median $f=0.125$
+(0.008--0.91); the NSs EXO 0748$-$676, 4U 1246$-$588 and 4U 1323$-$62 have $f>0.2$, while the BH observations (LMC X-3 two, GRS 1915+105 one) have
+$f$ of 1--2\% (\file{results/v12/v12\_very\_hard\_obs.csv}). \PostHoc{} 3C50 filters high-background intervals for its own spectra, whereas the
+timing features use all GTIs, so $f$ may underestimate the background in the timing data -- the motivation for the GTI-restricted check
+in v13.
+
+\Primary{} \textbf{v13b.} Prospectively, $D=-0.427$, $p=0.209$ (27 sources, 8 BH): \NotDetected{}; without screening or correction $-0.520$
+($p=0.081$); with features recomputed on the 3C50 intervals $-0.300$ ($p=0.41$); leaving out one BH $-0.31$ to $-0.50$.
+
+\begin{table}[htbp]
+\centering\small
+\caption[Characteristic frequency, prospective]{Colour-conditional $\log_{10}\nu_c$ difference (BH $-$ NS) on hard-like NICER observations.
+From \file{results/v11/v11b\_nuc.csv}, \file{\dots/v11b\_post\_hoc\_screens.csv}, \file{results/v12/v12a\_nuc.csv},
+\file{results/v13/v13b\_nuc.csv}.}
+\label{tab:p6nuc}
+\footnotesize\setlength{\tabcolsep}{3.5pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{7.0cm}cccc@{}}
+\toprule
+Analysis & obs. & sources (BH) & $D$ [dex] & $p$ \\
+\midrule
+$\bigstar$ v11b new observations & 142 & 42 (9) & $-0.663$ & 0.0225 \\
+\quad + log count rate & 142 & 42 (9) & $-0.709$ & 0.018 \\
+\quad v11c lowest Lorentzian width $\nu_L$ & 142 & 42 (9) & $-0.670$ & 0.023 \\
+\quad post hoc: background proxy $\le0.2687$ & 134 & 38 (9) & $-0.604$ & 0.058 \\
+\quad post hoc: + $c_2\le0.7$ & 122 & 34 (7) & $-0.458$ & 0.19 \\
+$\bigstar$ v12a corrected + screened ($f\le0.20$), v10+v11 & 200 & 42 (8) & $-0.514$ & 0.073 \\
+\quad $f\le0.10$ / $f\le0.30$ & 196 / 203 & 42 (8) & $-0.509$ / $-0.497$ & 0.079 / 0.086 \\
+\quad screened only, no correction & 199 & 42 (8) & $-0.523$ & 0.075 \\
+\quad no screening, no correction & 292 & 51 (9) & $-0.564$ & 0.021 \\
+\quad 3C50 failures included uncorrected & 288 & 51 (9) & $-0.571$ & 0.022 \\
+\quad v10 / v11 observations only & 99 / 101 & 32 (7) / 35 (7) & $-0.515$ / $-0.472$ & 0.036 / 0.24 \\
+\quad pooled with RXTE ($f\le0.20$) & 294 & 55 (15) & $-0.310$ & 0.029 \\
+$\bigstar$ v13b new observations, frozen v12 pipeline & 74 & 27 (8) & $-0.427$ & 0.209 \\
+\quad no screening, no correction & 91 & 31 (8) & $-0.520$ & 0.081 \\
+\quad 3C50-GTI-restricted features & 73 & 26 (7) & $-0.300$ & 0.41 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{The frozen rule and never-used sources}\label{sec:p6rule}
+\Descriptive{} The simple rule ``hard-like and $\nu_c<\nu^*\Rightarrow$ BH'' (\cref{tab:p6rule}) finds BH sources reliably but NSs only about half
+to two thirds of the time: it is not usable as a classifier on its own. On the never-used sources of v11 (IGR J17511$-$3057,
+SAX J1748.9$-$2021, SLX 1735$-$269, SAX J1712.6$-$3739, XB 1916$-$053; 11 observations with $\nu_c$), the frozen RF scores every
+observation below 0.5 (all correct), the frozen LR puts 8 of 11 in 0.51--0.60 (wrong: a threshold drift between epochs), and the rule calls
+one observation (IGR J17511$-$3057, 1.16\,Hz) BH (\file{results/v11/v11d\_never\_used\_sources.csv}).
+% CHECK: data/v11/processed/nicer_new_features.csv has 12 accepted observations of never-used sources; v11d lists 11 because
+% pandas pivot_table drops the SLX 1735-269 observation 3604020101 whose nu_c is undefined (soft-like, NaN index value).
+
+\begin{table}[htbp]
+\centering\small
+\caption[Frozen nu* rule]{Frozen $\nu^*$ rule on new observations (\file{results/v11/v11\_frozen\_rule.csv},
+\file{results/v13/v13\_frozen\_rule.csv}).}
+\label{tab:p6rule}
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+Set & $\nu^*$ [Hz] & obs.\ sensitivity & obs.\ specificity & BH sources & NS sources & source specificity \\
+\midrule
+v11 & 1.3007 & 0.79 (33 BH obs.) & 0.71 (110 NS obs.) & 9/9 & 18/33 & 0.55 \\
+v13 & 1.3361 & 0.79 & 0.76 & 7/8 & 13/19 & 0.68 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/v11/v11_prospective.png}
+\caption[v11 prospective test]{v11 on new observations: (a) observation-level AUC by state of the frozen models; (b) $\nu_c$ against $c_2$ for the
+new hard-like observations (BH blue, 9 sources; NS orange, 33) with the frozen $\nu^*=1.30$\,Hz; note the very hard ($c_2>0.5$), very
+low-$\nu_c$ points discussed in the text; (c) lowest Lorentzian width $\nu_L$ against $\nu_c$ (v11c). Repo: \file{figures/v11/v11\_prospective.png},
+\file{scripts/57\_v11\_analysis.py}.}
+\label{fig:p6v11}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/v12/v12_background.png}
+\caption[v12 background correction]{v12: (a) 3C50 background fractions of the faint ($<500$\,c\,s$^{-1}$) observations with the $f=0.20$ screen; (b)
+$\nu_c$ against the corrected $c_2$ (8 BH, 34 NS sources); (c) AUC by state after correction and screening. Repo:
+\file{figures/v12/v12\_background.png}, \file{scripts/59\_v12\_analysis.py}.}
+\label{fig:p6bkg}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/v13/v13_prospective.png}
+\caption[v13 prospective test]{v13 on a third set of new observations with the frozen v12 pipeline: (a) AUC by state of the frozen out-of-source
+models; (b) $\nu_c$ against the corrected $c_2$ with $\nu^*=1.3361$\,Hz -- at $c_2\approx0.3$ the BHs lie mostly below the NSs. Repo:
+\file{figures/v13/v13\_prospective.png}, \file{scripts/63\_v13\_analysis.py}.}
+\label{fig:p6v13}
+\end{figure}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Interpretation}
+% -----------------------------------------------------------------------------------------------------
+\textbf{What the data support directly.}
+\begin{enumerate}
+\item With pipeline, background treatment, models and model type frozen and the observations new, timing raises the hard-state BH/NS
+separation by $\approx0.18$ in observation-level AUC with an interval excluding 0 (v13a). The RF gain has been stable across five NICER
+analyses (+0.17 to +0.25).
+\item The LR gain was not confirmed prospectively in v11; it was detected in v13. LR's calibration drifts between epochs (never-used NSs
+at 0.51--0.60), RF's does not.
+\item The colour-conditional $\nu_c$ difference keeps its sign and size ($-0.3$ to $-0.7$\,dex) in every NICER analysis, but it is detected only
+once (v11, where it depends on a few very hard faint observations) and not after background correction (v12) or prospectively (v13).
+\item NICER backgrounds are mostly small (median $f\approx0.8\%$); background correction does not change the size of either effect.
+\item The frozen $\nu^*$ rule identifies BH sources (16/17 over v11 and v13) but has poor NS specificity.
+\end{enumerate}
+
+\textbf{Possible explanations (not verified).} The timing information acts non-linearly with colour (e.g.\ strong low-frequency variability
+is BH-like only in a certain colour range), which RF captures and LR captures unstably. The label-free colour residualisation is
+conservative when BHs cluster in colour; with 8 BH sources the $\nu_c$ test has little power. The RF gain may use combinations of
+$T_1$--$T_3$ beyond $\nu_c$.
+
+\textbf{What would be needed.} New BH sources -- future transients or other missions -- tested with the same frozen procedure; that would
+be a source-level confirmation, which this project could not make.
+
+% -----------------------------------------------------------------------------------------------------
+\section{Deviations and caveats}\label{sec:p6caveats}
+% -----------------------------------------------------------------------------------------------------
+\begin{itemize}
+\item \textbf{Written after earlier results, self-approved}; in v12 the choice of RF as primary was made after v9--v11.
+\item \textbf{Same sources}: the prospective tests are independent at the observation level only; new and old observations of a source may
+belong to the same outburst.
+\item \textbf{v11}: observation-level parallelism reduced from 3 to 2 (memory), six concurrent 64-MB range requests per file; $\nu^*$ computed and
+committed before any new data, as pre-registered; the background/very-hard sensitivity analysis of v11b is post hoc and does not change
+the verdict; raw bytes not stored (re-downloadable with the logged URLs and SHA256).
+\item \textbf{v12}: 3C50 cannot process data with the original gain calibration; a 2018 gain-epoch fallback did not work and was removed, the
+failures excluded as pre-registered, and an ``include uncorrected'' sensitivity added before modelling; 3C50 jobs 3 $\to$ 6 (speed only); 3C50
+estimates a mean background, does not model its time variation, uses its own GTI filtering, and its library does not cover data after
+May 2023.
+\item \textbf{v13}: no analytical deviation; after an interruption the analyst wrongly believed the faint observations' event files had been
+deleted (they were kept; recorded in the decision log).
+\item \textbf{No Eddington-ratio control}: the MINBAR source table has no distances; the count rate is the only brightness proxy.
+\item \textbf{Lorentzian fits}: only 13 octave bins; 12 widths at the lower bound.
+\item \textbf{Bootstrap and permutation} keep predictions and features fixed.
+\end{itemize}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Takeaway}
+% -----------------------------------------------------------------------------------------------------
+On genuinely new NICER observations, with everything frozen in advance, low-frequency variability adds BH/NS information inside the hard
+state ($+0.18$ in AUC, RF, prospectively detected); this is the most robust positive result of the project, but it is an observation-level
+confirmation on the same 16 dynamically confirmed BHs. The lower characteristic frequency of BHs at fixed colour is consistent in size
+but not robustly significant once backgrounds are treated and data are new. The series stopped here because further versions could only
+re-use the same sources (\cref{ch:synthesis}).
