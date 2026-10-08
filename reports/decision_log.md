@@ -209,3 +209,4 @@
 | 時間 | 決定 / 變更 | 是否在看過結果之後 |
 |---|---|---|
 | 2026-10-07 22:40 +08:00 | 依使用者要求，把 v1–v14 整理成給指導教授的英文 LaTeX 技術報告（`report_en/`）。只讀取既有報告、程式與已提交的 `.npz`／`.csv`，**不重跑任何分析、不下載原始資料**。動筆前先提交大綱、圖表對照與方法清單（`report_en/PLAN_for_review.md`）等使用者確認。已發現的報告文字與 CSV／程式不一致列在該檔 §5，正文中以 `% CHECK:` 標出，以 CSV／程式為準。本機沒有 LaTeX，依使用者指示在 `~/texlive/2026` 安裝 TeX Live（scheme-small，使用者目錄，不需管理員權限） | 是（整理已完成的結果；不改任何數字） |
+| 2026-10-08 | report_en 進度：使用者確認大綱（相近分析放同一 phase、各 phase 自帶 array 表、G1–G5 全做）。已完成並提交：Ch1–5（緒論、特徵數學、資料→矩陣、ML 方法、評估）、Phase 1–4（Ch6–9；v9c MAXI 分層併入 Phase 4 的 MAXI 主題）。待做：Phase 5（v9–v10）、Phase 6（v11–v13）、Ch12 綜合、Ch13–15、摘要／執行摘要／符號表、附錄 A–E、references.bib、最後全文編譯與 overfull 清理。表格逐源資料由 scratchpad 腳本從已提交的 CSV 讀出（唯讀）；v8a 硬態類逐源平均分數是本報告從 v2／v5 OOF 與 v7a 能態檔重算（唯讀），已在表註說明。新增 CHECK：LMC X-1 合格數（prereg 419 vs CSV 450）、v7b2 事後檔名「3 outliers」實為 2 筆、de Beurs 重現中 MAXI J1820+070 的歸類 | 是（整理結果；不改數字） |
