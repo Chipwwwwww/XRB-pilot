@@ -2,16 +2,23 @@
 `XRB_VERSION=v3c python scripts/03_select_observations.py` and `... 04_fetch_process.py`.
 Analysis 1: train on all 31 confirmed v2 sources, PREDICT candidates (no accuracy is computed).
 Analysis 2: LOSO over the 31 confirmed sources only; candidates (labelled BH) are always added to training.
-            Paired with the v2 OOF predictions (same test observations/folds)."""
-import sys
+            Paired with the v2 OOF predictions (same test observations/folds).
+--plot-only: only redraw figures/v3/v3c_candidate_scores.png from the saved CSVs (v3c_plot.py; no features, training,
+             bootstrap or downloads)."""
+import sys, argparse
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from common import ROOT, progress
 from v3lib import *
-from plotstyle import plt, INK2, CLASS_COLOR
+from plotstyle import plt
+from v3c_plot import plot_candidate_scores, load_inputs, OUT_PNG
 
 R3, FG3 = ROOT/'results/v3', ROOT/'figures/v3'
 for p in (R3, FG3): p.mkdir(parents=True, exist_ok=True)
+ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+ap.add_argument('--plot-only', action='store_true', help='redraw the candidate-score figure from the saved CSVs only')
+if ap.parse_args().plot_only:
+    plt.close(plot_candidate_scores(*load_inputs())); print(f'redrawn {OUT_PNG.relative_to(ROOT)}'); sys.exit()
 pd.set_option('display.width', 220)
 zc2 = np.load(ROOT/'data/v2/processed/features.npz'); zc3 = np.load(ROOT/'data/v3c/processed/features.npz')
 assert np.allclose(zc2['edges'], zc3['edges']), 'candidate grid differs from v2 grid'
@@ -55,18 +62,6 @@ bs = bootstrap(both, [(r + '+cand', r) for r in conf]); bs.to_csv(R3/'v3c_bootst
 print('\n' + bs[bs.comparison.str.contains(' - ')].round(3).to_string(index=False))
 
 # ---- figure: candidate source-mean scores next to confirmed LOSO source means (H colours, both models) ----
-fig, axes = plt.subplots(1, 2, figsize=(11, 0.25 * (len(set(gc)) + 31) + 1.5), sharey=True)
-for a, m in zip(axes, MODELS):
-    c = pred[(pred.representation == 'H_colours') & (pred.model == m)].groupby('source_id').BH_score.mean()
-    f = ps[(ps.representation == 'H_colours') & (ps.model == m)].set_index('source_id').mean_BH_score
-    lab = ps[(ps.representation == 'H_colours') & (ps.model == m)].set_index('source_id').true_label
-    order = list(c.sort_values().index) + list(f.sort_values().index)
-    for i, s in enumerate(order):
-        v, col = (c[s], '#9e9d98') if s in c.index else (f[s], CLASS_COLOR[lab[s]])
-        a.plot(v, i, 'o', color=col, ms=5)
-    a.axvline(.5, color=INK2, ls='--', lw=.8); a.axhline(len(c) - .5, color=INK2, lw=.6)
-    a.set_yticks(range(len(order))); a.set_yticklabels(order, fontsize=6.5); a.set_xlim(-.02, 1.02)
-    a.set_xlabel('source-mean BH score (H colours; not a calibrated probability)'); a.set_title(m, loc='left')
-fig.suptitle('v3c: grey = BH candidates (predicted, unlabelled); blue/orange = confirmed BH/NS (LOSO, v2)', x=.01, ha='left')
-fig.savefig(FG3/'v3c_candidate_scores.png'); plt.close(fig)
+# One shared source order for both panels (v3c_plot.py); confirmed scores are the original v2 LOSO, not '+cand'.
+plt.close(plot_candidate_scores(pred, v2))
 progress('v3c_candidates', 'results/v3/v3c_* written')

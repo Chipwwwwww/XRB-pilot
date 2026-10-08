@@ -211,3 +211,9 @@
 | 2026-10-07 22:40 +08:00 | 依使用者要求，把 v1–v14 整理成給指導教授的英文 LaTeX 技術報告（`report_en/`）。只讀取既有報告、程式與已提交的 `.npz`／`.csv`，**不重跑任何分析、不下載原始資料**。動筆前先提交大綱、圖表對照與方法清單（`report_en/PLAN_for_review.md`）等使用者確認。已發現的報告文字與 CSV／程式不一致列在該檔 §5，正文中以 `% CHECK:` 標出，以 CSV／程式為準。本機沒有 LaTeX，依使用者指示在 `~/texlive/2026` 安裝 TeX Live（scheme-small，使用者目錄，不需管理員權限） | 是（整理已完成的結果；不改任何數字） |
 | 2026-10-08 | report_en 進度：使用者確認大綱（相近分析放同一 phase、各 phase 自帶 array 表、G1–G5 全做）。已完成並提交：Ch1–5（緒論、特徵數學、資料→矩陣、ML 方法、評估）、Phase 1–4（Ch6–9；v9c MAXI 分層併入 Phase 4 的 MAXI 主題）。待做：Phase 5（v9–v10）、Phase 6（v11–v13）、Ch12 綜合、Ch13–15、摘要／執行摘要／符號表、附錄 A–E、references.bib、最後全文編譯與 overfull 清理。表格逐源資料由 scratchpad 腳本從已提交的 CSV 讀出（唯讀）；v8a 硬態類逐源平均分數是本報告從 v2／v5 OOF 與 v7a 能態檔重算（唯讀），已在表註說明。新增 CHECK：LMC X-1 合格數（prereg 419 vs CSV 450）、v7b2 事後檔名「3 outliers」實為 2 筆、de Beurs 重現中 MAXI J1820+070 的歸類 | 是（整理結果；不改數字） |
 | 2026-10-08 | report_en 完成：Ch1–15、摘要、執行摘要、符號表、附錄 A–E、references.bib 全部寫完；`latexmk -pdf` 編譯 191 頁，0 個未定義的參照與引用，剩餘 overfull 都 ≤ 3.6 pt。所有圖表都有 \cref；repo 圖 60 張＋新圖 G1–G5（`report_en/figures/generated/make_figures.py`）＋ 7 張 TikZ 方法圖。% CHECK 共 12 處（見交付摘要）；作者／指導教授姓名與 19 個書目欄位標為 TODO 待確認。本報告只讀取已提交檔案，未重跑分析；唯讀重算兩項描述量（Phase 4 硬態類逐源平均分數、v9b 事後 Mann–Whitney 檢查），已在正文註明 | 是（整理結果；不改數字） |
+
+## 圖表修正（2026-10-08，不是新的分析版本）
+
+| 時間 | 決定 / 變更 | 是否在看過結果之後 |
+|---|---|---|
+| 2026-10-08 | 修正 `figures/v3/v3c_candidate_scores.png` 的天體名稱錯位：原程式在 `sharey=True` 的兩個面板中各自依該模型分數排序、各自 `set_yticklabels`，共用 y 軸的標籤被 RandomForest 的順序覆寫，左側 LogReg 面板的點與顏色對到別的天體名稱（確認與候選兩區都受影響）。改為兩面板共用同一順序與 `source_id → y` 映射（上方 31 個確認天體、下方 14 個候選，各區依 RandomForest 的 H_colours 天體平均 BH 分數遞減，同分依 `source_id`），y 軸只反轉一次。繪圖移到 `scripts/v3c_plot.py`，`14_v3c_candidates.py` 的完整流程與新增的 `--plot-only`（只讀既有 CSV）呼叫同一函式；確認天體分數直接取自原始 v2 LOSO（`results/v2/oof_predictions_loso.csv`），不含 `+cand`。**預測數值與評估結果未改變**（`results/` 下全部檔案 SHA-256 不變）。`report_en` 中同一張圖與圖說（原誤寫候選在上方）一併更新；`report_en/main.pdf` 尚未重新編譯（本機 MiKTeX 缺 `CJKutf8`，需在 TeX Live 環境執行 `latexmk -pdf`） | 與結果無關（繪圖錯誤；只改圖） |

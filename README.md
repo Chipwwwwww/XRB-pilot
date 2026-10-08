@@ -24,7 +24,7 @@ XSPEC 交叉檢查需要 WSL Ubuntu-22.04 與 conda 環境 `henv`（安裝：`ws
 v3a 巢狀比較（完整能譜在兩個顏色之外有無增量）＋來源層級 AUC、v3b 3–25 keV、v3c BH candidates——**全部已完成**（分支 `v3-analysis`）。
 結論：兩個硬度比已包含可測到的 BH/NS 資訊；3–5 keV 與完整形狀都沒有增量；加入 candidates 只改善門檻失準的設定。
 候選名單查證：[reports/v3c_candidate_verification.md](reports/v3c_candidate_verification.md)。
-執行：`.\run_v3.ps1 -a`、`-b`、`-c`（或 `./run_v3.sh a b c`）；v3a 重新訓練加 `--retrain`。共用模組 `scripts/v3lib.py`。
+執行：`.\run_v3.ps1 -a`、`-b`、`-c`（或 `./run_v3.sh a b c`）；v3a 重新訓練加 `--retrain`。共用模組 `scripts/v3lib.py`。只重畫 v3c 候選分數圖（只讀既有 CSV，不重新訓練）：`python scripts/14_v3c_candidates.py --plot-only`。
 輸出在 `results/v3/`、`figures/v3/`、`data/v3/`；v3c 選樣／處理輸出在 `data/v3c/`、`results/v3c/`、`figures/v3c/`，log 在 `logs/v3/`、`logs/v3c/`。
 v3c 原始 FITS 在 `data/raw/`（不進 git），以 `XRB_VERSION=v3c` 執行 `04_fetch_process.py` 重新下載（`logs/downloads.jsonl` 有 SHA256）。
 
