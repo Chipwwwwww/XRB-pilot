@@ -1,1 +1,37 @@
+% =====================================================================================================
 \chapter{Future work}\label{ch:future}
+% =====================================================================================================
+The repository's final summary (\file{reports/final\_summary\_zh-TW.md}, \S6) and the ``hypotheses that need more data'' of the version
+reports point to a small number of next steps. They are listed in order of how directly they address the main limitation -- the lack of a
+source-level test.
+
+\section{A source-level prospective test}
+Freeze the v13 classifier (RF on colours + 0.016--4\,Hz rms, the v12 NICER pipeline including 3C50 and screening) and the $\nu^*$ rule, commit
+them, and apply them unchanged to \emph{new} dynamically confirmed BH transients and to NSs not used so far, as they become available (NICER,
+or missions whose data can be retrieved by script: Insight-HXMT, AstroSat, XRISM). The decision rule, the metrics (including a proper scoring
+rule, which does not saturate) and the minimum number of new BH sources should be fixed in advance. This would turn the observation-level
+confirmation of v13 into a source-level one.
+
+\section{Physical normalisation}
+Collect distances and masses for the sources (BH masses from \citealt{Marcel2026} and \citealt{CorralSantana2016}; NS distances, e.g.\ from
+photospheric-radius-expansion bursts) to compute Eddington ratios, and test whether the colour-conditional $\nu_c$ difference scales with
+compact-object mass at fixed accretion state. Replace the $\nu P_\nu$ centroid by fitted Lorentzian characteristic frequencies (begun in
+v11c) as the primary frequency measure.
+
+\section{Data improvements}
+\begin{itemize}
+\item NICER: reprocess the 2017--2018 observations with the current gain calibration (or use the SCORPEON background model) to recover the
+$\approx28\%$ of faint observations excluded by 3C50; model the time variation of the background.
+\item RXTE: response-unfolded colours or fluxes instead of count space; a model of the cross-PCU white component before any kHz search; stacked,
+narrow-band searches for kHz QPOs as a better test of the \citet{SunyaevRevnivtsev2000} criterion.
+\item MAXI: state-resolved (or hardness-resolved) analyses with dynamically confirmed BHs; source-level rather than point-level metrics as
+the pre-declared ones.
+\end{itemize}
+
+\section{Methods}
+\begin{itemize}
+\item A pre-registered, matched-design alternative to the label-free kNN residualisation, which is conservative when BHs cluster in colour.
+\item A formal source-level meta-analysis across instruments, with the pooling rule fixed before any component is seen.
+\item A reproducible classification tool built on the RF timing gain, with source-level conformal prediction sets (v6e) so that an
+astronomer obtains \{BH\}, \{NS\} or ``cannot tell'' with a stated coverage.
+\end{itemize}

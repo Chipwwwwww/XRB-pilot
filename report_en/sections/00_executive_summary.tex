@@ -1,1 +1,59 @@
-% stub 00_executive_summary
+% =====================================================================================================
+\chapter*{Executive summary}\addcontentsline{toc}{chapter}{Executive summary}
+% =====================================================================================================
+\textbf{Question.} Can one X-ray observation classify the compact object (BH or NS) of a source that was never used for training?
+\textbf{Design.} Dynamically confirmed BHs only; leave-one-source-out evaluation; source-level balanced accuracy and AUC with a
+2000-draw class-stratified source bootstrap; a pre-registered primary comparison per sub-analysis, ``detected'' only if its 95\% interval
+excludes 0 (or $p<0.05$ for permutation tests); frozen models and rules for every test on new data. \textbf{Each pre-registration was written
+after the results of all earlier versions}; from v5 on they were designed and approved by the analyst under the user's standing
+instruction.
+
+\begin{keybox}{Supported by the data}
+\begin{enumerate}
+\item Two count-space hardness ratios capture essentially all BH/NS information in a 5--25\,keV RXTE spectrum: source BA 0.80, source AUC 0.92
+for the two-colour logistic regression on 31 sources; nothing tested beyond them (full shape, intensity, 3--5 and 25--60\,keV, eight
+algorithms with nested selection, all 7,949 observations, 15 more sources) improves the ranking of unseen sources (\cref{ch:phase1,ch:phase2}).
+\item The colours work in soft states and fail in hard states: AUC 0.954 vs 0.646, difference $+0.309$ [$+0.099$, $+0.510$] (\cref{ch:phase4}).
+\item Inside the hard state, 0.016--4\,Hz variability adds information: $+0.264$ [$+0.048$, $+0.455$] on the RXTE sample; $+0.145$ [$+0.028$, $+0.257$]
+pooled over RXTE and NICER; $+0.184$ [$+0.049$, $+0.337$] prospectively on new NICER observations with a frozen pipeline and a pre-chosen
+random forest (\cref{ch:phase4,ch:phase5,ch:phase6}).
+\item Type-I bursts do not affect the spectral conclusions (v4 detector, MINBAR catalogue).
+\end{enumerate}
+\end{keybox}
+
+\begin{keybox}{Consistent in direction, marginal in significance}
+\begin{enumerate}
+\item At fixed colour, BH variability has a lower characteristic frequency, by 0.3--0.6\,dex in every data set but the four-BH external RXTE
+set; pooled $p=0.0012$, but $p=0.07$--0.21 in the background-corrected and prospective NICER tests; no Eddington-ratio control.
+\item The timing gain is stable for random forests ($+0.17$ to $+0.25$) and unstable for logistic regression ($+0.07$ to $+0.26$).
+\item On MAXI/GSC the 2--4\,keV colour carries information beyond the $\ge4$\,keV colour that survives a Galactic $N_\mathrm{H}$ correction.
+\end{enumerate}
+\end{keybox}
+
+\begin{cautionbox}{Not supported, and the main caveat}
+\begin{enumerate}
+\item Flexible models do not beat two colours; nested automatic selection is worse (inner AUC 0.96--1.00, outer 0.75).
+\item A broad 512--1024\,Hz ``NS noise'' criterion is not detectable at single-observation sensitivity (exploratory).
+\item Linear colour models on MAXI with confirmed BHs have almost no discriminating power; a published high accuracy reproduces exactly but rests
+mainly on the NS classes.
+\item \textbf{All confirmations are at the observation level on the same 16 dynamically confirmed BHs}; v10 pooling is overall evidence, not
+an independent confirmation; v11--v13 are new observations of the same sources, not new sources; RF was chosen post hoc in v12 and
+pre-specified in v13.
+\end{enumerate}
+\end{cautionbox}
+
+{\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}p{1.2cm}>{\raggedright\arraybackslash}p{3.2cm}>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}p{4.4cm}>{\raggedright\arraybackslash}p{2.3cm}@{}}
+\caption[Cross-phase summary]{Cross-phase summary (Table ES1). Primary results with 95\% source-bootstrap intervals or permutation $p$.}\label{tab:es1}\\
+\toprule
+Phase & Question & Data & Primary result(s) & Verdict \\
+\midrule\endfirsthead
+\toprule Phase & Question & Data & Primary result(s) & Verdict \\ \midrule\endhead
+\bottomrule\endfoot
+1 (v1--v3), \cref{ch:phase1} & Does a spectrum classify unseen sources, and where is the information? & RXTE/PCA, 8 then 31 sources (7 BH), 456 obs.; 14 BH candidates & H+B $-$ H: LR AUC $-0.048$ [$-0.179$, $+0.048$], RF $-0.012$ [$-0.077$, $+0.048$]; B$-$A RF source BA $+0.235$ [$+0.042$, $+0.429$] & better than chance; information in two colours \\
+2 (v4), \cref{ch:phase2} & Is the spectral information saturated? & v2 sample; HEXTE; 46 sources; 7,949 obs. & nested selection $-$ H-LR: BA $-0.062$ [$-0.146$, $+0.021$], AUC $-0.173$ [$-0.399$, $+0.012$]; all other main comparisons n.d. & saturated at two colours \\
+3 (v5--v6), \cref{ch:phase3} & Does fast variability add information? Does it hold on unseen sources? & Standard-1 timing; 23 external sources (frozen) & v5 AUC $+0.065$ [0.000, $+0.179$]; v6a AUC 0.000 (saturated), BA $+0.105$ [0.000, $+0.237$]; log loss $-0.127$ [$-0.217$, $-0.044$] & n.d.\ (direction positive; calibration better) \\
+4 (v7--v8), \cref{ch:phase4} & Where do colours fail? Bursts, more BHs, kHz, MAXI & states; MINBAR; persistent BHs; event mode; MAXI & soft $-$ hard AUC $+0.309$ [$+0.099$, $+0.510$]; hard-state timing $+0.264$ [$+0.048$, $+0.455$]; external $+0.064$ [$-0.185$, $+0.367$]; MAXI 2--4\,keV $+0.377$ [$+0.160$, $+0.595$] & hard state is the problem; timing helps there \\
+5 (v9--v10), \cref{ch:phase5} & Another instrument; pooled evidence & NICER 368 obs.\ (9 BH sources); union 86 sources (16 BH) & NICER $+0.112$ [$-0.004$, $+0.229$], $D=-0.31$ ($p=0.136$); pooled $+0.145$ [$+0.028$, $+0.257$], $D=-0.368$ ($p=0.0012$) & replicated in size; pooled detected (not independent) \\
+6 (v11--v13), \cref{ch:phase6} & Prospective tests on new observations; background & 318 + 238 new NICER obs.; 3C50 & LR $+0.066$ [$-0.095$, $+0.180$]; $D=-0.663$ ($p=0.023$); corrected RF $+0.174$ [$+0.071$, $+0.300$], $D=-0.514$ ($p=0.073$); prospective RF $+0.184$ [$+0.049$, $+0.337$], $D=-0.427$ ($p=0.21$) & RF timing gain confirmed prospectively (observation level) \\
+\end{longtable}}

@@ -140,7 +140,7 @@ the NS colour track (\cref{ch:phase4}).
 
 \begin{table}[htbp]
 \centering\small
-\caption{Logistic-regression hyper-parameters (\code{LR\_PARAMS} in \file{config.py}).}\label{tab:hp-lr}
+\caption[Logistic-regression hyper-parameters]{Logistic-regression hyper-parameters (\code{LR\_PARAMS} in \file{config.py}).}\label{tab:hp-lr}
 \begin{tabularx}{\textwidth}{@{}llp{3.0cm}X@{}}
 \toprule
 Parameter & Value & Fixed / tuned & Grid (where tuned) \\
@@ -192,7 +192,7 @@ good ranking but scores pushed below 0.5 -- a threshold problem).
 
 \begin{table}[htbp]
 \centering\small
-\caption{Random-forest hyper-parameters (\code{RF\_PARAMS}, \code{V4\_INNER\_TREES}, \code{V4\_OUTER\_TREES}).}\label{tab:hp-rf}
+\caption[Random-forest hyper-parameters]{Random-forest hyper-parameters (\code{RF\_PARAMS}, \code{V4\_INNER\_TREES}, \code{V4\_OUTER\_TREES}).}\label{tab:hp-rf}
 \begin{tabularx}{\textwidth}{@{}lp{3.6cm}lX@{}}
 \toprule
 Parameter & Value & Fixed / tuned & Grid / note \\
@@ -229,7 +229,7 @@ trees inner/outer). Lower variance than RF at the price of more bias; no scaling
 
 \begin{table}[htbp]
 \centering\small
-\caption{ExtraTrees hyper-parameters (\code{V4\_FIXED['ExtraTrees']}, \code{V4\_GRID['ExtraTrees']}).}\label{tab:hp-et}
+\caption[ExtraTrees hyper-parameters]{ExtraTrees hyper-parameters (\code{V4\_FIXED['ExtraTrees']}, \code{V4\_GRID['ExtraTrees']}).}\label{tab:hp-et}
 \begin{tabular}{@{}llll@{}}
 \toprule
 Parameter & Value & Fixed / tuned & Grid \\
@@ -271,7 +271,7 @@ partly protects against memorisation; with 2 colours the model is close to a smo
 
 \begin{table}[htbp]
 \centering\small
-\caption{HistGradientBoosting hyper-parameters (\code{V4\_FIXED['HistGB']}, \code{V4\_GRID['HistGB']}).}\label{tab:hp-histgb}
+\caption[HistGradientBoosting hyper-parameters]{HistGradientBoosting hyper-parameters (\code{V4\_FIXED['HistGB']}, \code{V4\_GRID['HistGB']}).}\label{tab:hp-histgb}
 \begin{tabular}{@{}llll@{}}
 \toprule
 Parameter & Value & Fixed / tuned & Grid \\
@@ -324,7 +324,7 @@ the R/e1071 setting of \citet{deBeurs2022}.
 
 \begin{table}[htbp]
 \centering\small
-\caption{SVM hyper-parameters (\code{V4\_FIXED['SVM\_RBF']}, \code{V4\_GRID}, \code{V7\_C2\_SVM\_GRID}, \code{V7\_DEBEURS\_SVM}).}\label{tab:hp-svm}
+\caption[SVM hyper-parameters]{SVM hyper-parameters (\code{V4\_FIXED['SVM\_RBF']}, \code{V4\_GRID}, \code{V7\_C2\_SVM\_GRID}, \code{V7\_DEBEURS\_SVM}).}\label{tab:hp-svm}
 \begin{tabular}{@{}llll@{}}
 \toprule
 Use & $C$ & $\gamma$ & selection \\
@@ -364,7 +364,7 @@ source type rather than a compact-object type.
 
 \begin{table}[htbp]
 \centering\small
-\caption{kNN hyper-parameters (\code{V4\_FIXED['kNN']}, \code{V4\_GRID['kNN']}, \code{V7\_C2\_KNN\_GRID}, \code{V7\_DEBEURS\_KNN\_K}).}\label{tab:hp-knn}
+\caption[kNN hyper-parameters]{kNN hyper-parameters (\code{V4\_FIXED['kNN']}, \code{V4\_GRID['kNN']}, \code{V7\_C2\_KNN\_GRID}, \code{V7\_DEBEURS\_KNN\_K}).}\label{tab:hp-knn}
 \begin{tabular}{@{}lllll@{}}
 \toprule
 Use & $k$ & scaling & output & selection \\
@@ -403,7 +403,7 @@ this is within the expected number of chance exceedances.
 
 \begin{table}[htbp]
 \centering\small
-\caption{QDA hyper-parameters (\code{V4\_FIXED['QDA']}, \code{V4\_GRID['QDA']}).}\label{tab:hp-qda}
+\caption[QDA hyper-parameters]{QDA hyper-parameters (\code{V4\_FIXED['QDA']}, \code{V4\_GRID['QDA']}).}\label{tab:hp-qda}
 \begin{tabular}{@{}llll@{}}
 \toprule
 Parameter & Value & Fixed / tuned & Grid \\
@@ -444,7 +444,7 @@ skipped as pre-declared because \texttt{torch} was not installed.
 
 \begin{table}[htbp]
 \centering\small
-\caption{MLP hyper-parameters (\code{V4\_FIXED['MLP']}, \code{V4\_GRID['MLP']}, \code{V4\_MLP\_SEEDS\_*}).}\label{tab:hp-mlp}
+\caption[MLP hyper-parameters]{MLP hyper-parameters (\code{V4\_FIXED['MLP']}, \code{V4\_GRID['MLP']}, \code{V4\_MLP\_SEEDS\_*}).}\label{tab:hp-mlp}
 \begin{tabularx}{\textwidth}{@{}p{4.6cm}Xll@{}}
 \toprule
 Parameter & Value & Fixed / tuned & Grid \\

@@ -1,1 +1,71 @@
+% =====================================================================================================
 \chapter{Limitations}\label{ch:limitations}
+% =====================================================================================================
+The phase chapters list the caveats of each version. This chapter collects those that limit the project as a whole, ordered by
+how much they constrain the conclusions.
+
+\section{Sample size and labels}
+\begin{itemize}
+\item \textbf{Sixteen dynamically confirmed BHs.} Across RXTE and NICER only 16 dynamically confirmed BHs have usable data, and 7--9 of
+them per instrument have hard-state observations. One source changes a source-level balanced accuracy by $\approx0.07$
+(e.g.\ XTE J1118+480), and every bootstrap interval is wide because it resamples these few sources. The remaining BHs of
+\citet{Marcel2026} have no usable RXTE or NICER timing data.
+\item \textbf{Label definitions.} BHs are dynamically confirmed (BlackCAT, then \citealt{Marcel2026}); NSs are type-I bursters
+(\citealt{Galloway2008}, MINBAR) and pulsars. The NS class mixes atolls, Z sources, AMXPs and globular-cluster sources, whose hard
+states differ; BH candidates are used only in sensitivity analyses (v3c). The v2 source rule was executed incompletely (13 NSs missed,
+found in v4b2), so the v1--v3 numbers describe a smaller NS sample than the rule implies.
+\item \textbf{Population differences between samples.} Training BHs are LMXB transients; external sets add HMXBs (Cyg X-1, LMC X-1, LMC X-3)
+and SS 433, external NSs are mostly AMXPs; this complicates the external comparisons in either direction.
+\end{itemize}
+
+\section{Independence and pre-registration}
+\begin{itemize}
+\item \textbf{Every pre-registration was written after the results of all earlier versions}, and from v5 onwards each was designed and
+approved by the analyst under a standing instruction of the user, without external review. Later hypotheses were therefore guided by
+earlier data (\cref{tab:synthladder}).
+\item \textbf{The strongest tests are observation-level.} v11 and v13 used observations never downloaded before, with frozen pipelines and
+rules, but of the same sources. v10 pooled all data but chose its hypotheses and pooling after the components. No test is
+source-level independent.
+\item \textbf{Post hoc elements} are labelled throughout (e.g.\ the source-equal-weight scale fix, the MINBAR matching rule, the v8c estimator
+change and null-band subtraction, the v12 choice of RF), and none of them is used as a primary conclusion except the v12 RF choice, which
+v13 then tested with RF pre-chosen.
+\item \textbf{Multiplicity.} Descriptive comparisons were many (76 in v4a, 45 in v5, 16+16 in v4b1, dozens in v7--v9) and uncorrected; they are
+reported but not interpreted individually.
+\end{itemize}
+
+\section{Measurement}
+\begin{itemize}
+\item \textbf{Count space.} RXTE spectral features are net count rates on a fixed channel-energy grid, not response-unfolded fluxes; the
+power-law-normalised R and H$_R$ only partly remove response differences; PCU-combination tilts of $\approx\pm10\%$ at 25\,keV remain.
+\item \textbf{Backgrounds.} RXTE uses the Standard-Products background model without systematic errors; NICER timing is not background-subtracted
+before v12; 3C50 models only the mean background, uses its own GTI filtering, cannot process data with the original gain calibration
+(139 + 38 faint observations excluded) and does not cover data after May 2023.
+\item \textbf{Timing.} Standard-1 has no energy resolution and stops at 4\,Hz; the RXTE state index therefore omits 4--10\,Hz and uses BH
+thresholds for NSs; event-mode estimates failed their consistency gate (v8c); NICER v9 used only file prefixes. The two $\nu_c$
+definitions (Standard-1 and NICER) differ in band and bin weighting, so their $D$ values are not strictly comparable.
+\item \textbf{States} are operational variability classes (rms thresholds), not full spectral-state assignments.
+\item \textbf{No physical normalisation.} Eddington ratio, distance, mass and inclination are not controlled; brightness enters only as a count
+rate. The $\nu_c$ result cannot be attributed to mass rather than accretion state.
+\end{itemize}
+
+\section{Statistics}
+\begin{itemize}
+\item \textbf{Fixed-prediction resampling.} All bootstrap intervals and permutation tests keep the out-of-fold predictions or features fixed; they
+do not include the variability of model fitting or of nested model selection. Nested source AUCs are approximations (shifted scores).
+\item \textbf{Observation-level metrics within states} pool the observations of the drawn sources and are dominated by sources with many
+observations; the source-level versions are reported alongside but have even less power.
+\item \textbf{Saturation.} Headline metrics saturated on the external set of v6 (AUC 1.000), which the decision rule did not anticipate.
+\item \textbf{The colour-conditional permutation test} residualises with a label-free kNN; when BHs cluster in colour they become each other's
+neighbours, which makes the test conservative.
+\end{itemize}
+
+\section{Process and reproducibility}
+\begin{itemize}
+\item Visual verdicts (burst candidates, figure checks) were made by one person.
+\item Raw data are not in the repository (by design); they can be re-downloaded with the scripts, and every file's URL, size and SHA256 is in
+\file{logs/downloads.jsonl}. Some NICER raw bytes were streamed and not stored (v11).
+\item Analyses ran on Windows (Python 3.12.10) and, for some re-checks, macOS (Python 3.12.14); feature files reproduced to $\le10^{-16}$ and RF source
+means to $\le0.001$ across machines. HEASoft steps (XSPEC, \code{nh}, \code{nibackgen3C50}) ran in WSL.
+\item This report re-ran no analysis; all numbers are read from committed files, and a small number of descriptive quantities (per-source
+hard-like means in Phase 4, the v9b Mann--Whitney check) were recomputed read-only from committed CSVs, as stated where they appear.
+\end{itemize}

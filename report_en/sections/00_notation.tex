@@ -1,1 +1,82 @@
-% stub 00_notation
+% =====================================================================================================
+\chapter*{Notation and abbreviations}\addcontentsline{toc}{chapter}{Notation and abbreviations}
+% =====================================================================================================
+Vectors and matrices are bold. Equation numbers refer to the defining equation.
+
+{\small\setlength{\tabcolsep}{4pt}
+\begin{longtable}{@{}p{2.4cm}>{\raggedright\arraybackslash}p{9.0cm}>{\raggedleft\arraybackslash}p{2.3cm}@{}}
+\caption*{\textbf{Symbols}}\\
+\toprule
+Symbol & Meaning & Def. \\
+\midrule\endfirsthead
+\toprule Symbol & Meaning & Def. \\ \midrule\endhead
+\bottomrule\endfoot
+\multicolumn{3}{@{}l}{\emph{Data and evaluation}}\\
+$n$, $p$, $S$ & number of observations (rows), features (columns), sources (groups) & \S\ref{sec:dm-notation} \\
+$\Xm\in\R^{n\times p}$ & design matrix; row = one observation (RXTE/NICER ObsID or MAXI day) & \S\ref{sec:dm-notation} \\
+$\yv\in\{0,1\}^n$ & labels, $y_i=1$ for BH & \S\ref{sec:dm-notation} \\
+$\gv$, $g_i$ & source (group) index of each row; $n_k$ rows of source $k$ & \S\ref{sec:dm-notation} \\
+$S_1$, $S_0$ & numbers of BH and NS sources & \S\ref{sec:dm-notation} \\
+$\wv$ & sample weights (balanced or source-equal) & \cref{eq:balanced,eq:sourceequal} \\
+$\phi$ & fold assignment (LOSO: $\phi(i)=g_i$) & \S\ref{sec:dm-notation} \\
+$\hat s_i$, $\shat$ & out-of-fold BH score of observation $i$ & \cref{eq:oof} \\
+$\bar s_k$, $\hat Y_k$ & source score (mean OOF score) and source decision & \cref{eq:sourcescore} \\
+$t$, $t_k$ & decision threshold (0.5; fold-specific in nested v4a) & \cref{eq:choosethreshold} \\
+$\BA$, $\AUC$ & balanced accuracy, area under the ROC curve (Mann--Whitney) & \cref{eq:ba,eq:auc} \\
+$\Delta$ & paired difference of a metric between two models on the same resamples & \S\ref{sec:bootstrap} \\
+$B=2000$ & bootstrap resamples (class-stratified over sources, seed 42) & \cref{eq:percentile} \\
+$D$, $p$ & permutation statistic (BH $-$ NS mean source residual) and $p$-value & \cref{eq:D,eq:permp} \\
+$\varepsilon$ & conformal miscoverage level (0.1, 0.2) & \cref{eq:conformal} \\
+\multicolumn{3}{@{}l}{\emph{RXTE spectral features}}\\
+$x_{ij}$ & net (background-subtracted, deadtime-corrected) count rate of observation $i$ in grid bin $j$, c\,s$^{-1}$\,keV$^{-1}$\,PCU$^{-1}$ & \cref{eq:net} \\
+$F_i$ & net 5--25\,keV count rate (sum over the 45-bin grid) & \cref{eq:F} \\
+$A_{ij}$, $B_{ij}$ & intensity representation $\operatorname{asinh}(x_{ij}/0.1)$; shape representation $x_{ij}/F_i$ & \cref{eq:A,eq:B} \\
+$h_1$, $h_2$ (H) & soft colour $F(7\text{--}10)/F(5\text{--}7)$, hard colour $F(16\text{--}25)/F(10\text{--}16)$ (count space) & \cref{eq:H} \\
+HI & $[h_1,h_2,\log_{10}F]$ & \S\ref{sec:reps} \\
+$\mathrm{pl2}_{ij}$; R, H$_R$ & expected counts of a folded $\Gamma=2$ power law; $x_{ij}/\mathrm{pl2}_{ij}$ and its colours & \cref{eq:pl2,eq:HR} \\
+$X_1$, $X_2$ & HEXTE colours $F_\mathrm{HEXTE}(25\text{--}40)/F_\mathrm{PCA}(16\text{--}25)$, $F_\mathrm{HEXTE}(40\text{--}60)/F_\mathrm{HEXTE}(25\text{--}40)$ & \cref{eq:hexte} \\
+\multicolumn{3}{@{}l}{\emph{Timing features}}\\
+$T_1$, $T_2$, $T_3$ & fractional rms (signed square root of the cospectral variance) in 0.016--0.094, 0.10--1.0, 1.0--4.0\,Hz & \cref{eq:v5cross,eq:signedsqrt} \\
+$T^*_k$ & the same with the all-pairs estimator and single-PCU fallback (v6) & \cref{eq:allpairs} \\
+$\nu_c$ & $\nu P_\nu$-weighted centroid frequency of the variability & \cref{eq:nuc} \\
+$\nu_L$ & width of the lowest-frequency Lorentzian (v11c) & \cref{eq:lorentz} \\
+$\nu^*$ & frozen rule threshold $\sqrt{\tilde\nu_\mathrm{BH}\tilde\nu_\mathrm{NS}}$ (1.3007 and 1.3361\,Hz) & \cref{eq:nustar} \\
+rms (state) & 0.1--4\,Hz (RXTE) or 0.1--10\,Hz (NICER) fractional rms; hard-like $>0.10$, soft-like $<0.075$ & \cref{eq:state} \\
+HF$_1$--HF$_3$ & event-mode fractional rms in 4--64, 64--512, 512--1024\,Hz (ratio of means) & \cref{eq:ratioofmeans} \\
+$c_1$, $c_2$ (H$_N$) & NICER colours $C(4\text{--}6)/C(2\text{--}4)$, $C(6\text{--}10)/C(4\text{--}6)$ & \S\ref{sec:nicer} \\
+$f$, $f_T$ & 3C50 background fraction (2--10\,keV) & \cref{eq:3c50} \\
+\multicolumn{3}{@{}l}{\emph{MAXI features}}\\
+$L$, $M$, $H$ & photon fluxes in 2--4, 4--10, 10--20\,keV & \cref{eq:maxi} \\
+SC, HC, C4, RelInt & $(M-L)/(M+L)$, $(H-L)/(H+L)$, $(H-M)/(H+M)$, total / 99.99th percentile & \cref{eq:maxi} \\
+$N_\mathrm{H}$, $t_b$ & Galactic hydrogen column (HI4PI) and band transmission of \code{tbabs}$\times$power law & \S\ref{sec:maxi} \\
+\multicolumn{3}{@{}l}{\emph{Models}}\\
+$\bv$, $C$ & logistic-regression coefficients and inverse regularisation strength & \cref{eq:lrmodel,eq:lrobj} \\
+$\Lambda(\bm T\mid\bm h)$ & CCTLR timing log-likelihood ratio & \cref{eq:cctlr} \\
+$k$ & neighbours (kNN classification, kNN residualisation with $k=25$) & \S\ref{sec:knn}, \S\ref{sec:knnreg} \\
+\end{longtable}}
+
+{\small\setlength{\tabcolsep}{4pt}
+\begin{longtable}{@{}p{2.6cm}>{\raggedright\arraybackslash}p{11.2cm}@{}}
+\caption*{\textbf{Abbreviations}}\\
+\toprule
+Abbreviation & Meaning \\
+\midrule\endfirsthead
+\toprule Abbreviation & Meaning \\ \midrule\endhead
+\bottomrule\endfoot
+BH, NS & black hole, neutron star \\
+LMXB, HMXB, AMXP & low-/high-mass X-ray binary; accreting millisecond X-ray pulsar \\
+NPNS, PSR & non-pulsing NS (burster without accretion-powered pulsations); pulsar (MAXI analyses) \\
+RXTE, PCA, PCU, HEXTE & Rossi X-ray Timing Explorer; its Proportional Counter Array, Proportional Counter Unit, High Energy X-ray Timing Experiment \\
+NICER, XTI, MPU, FPM & Neutron star Interior Composition Explorer; X-ray Timing Instrument; Measurement/Power Unit; Focal Plane Module \\
+MAXI, GSC & Monitor of All-sky X-ray Image; Gas Slit Camera \\
+GTI, ObsID & good time interval; observation identifier \\
+LOSO, OOF & leave-one-source-out; out-of-fold \\
+LR, RF, ET, HistGB & logistic regression, random forest, extremely randomised trees, histogram gradient boosting \\
+SVM-RBF, kNN, QDA, MLP & support-vector machine with RBF kernel, $k$-nearest neighbours, quadratic discriminant analysis, multilayer perceptron \\
+CCTLR & colour-conditional timing likelihood-ratio classifier (v6c) \\
+BA, AUC, CI & balanced accuracy, area under the ROC curve, confidence (percentile) interval \\
+srcw & source-equal sample weights \\
+IC$n$ & pre-declared implementation check (gate) $n$ \\
+RM06, SR2000 & \citet{RemillardMcClintock2006}; \citet{SunyaevRevnivtsev2000} \\
+det., n.d. & detected (interval excludes 0 or $p<0.05$); not detected under the pre-registered criterion \\
+\end{longtable}}

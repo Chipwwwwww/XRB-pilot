@@ -1,1 +1,24 @@
-% stub 00_abstract
+% =====================================================================================================
+\chapter*{Abstract}\addcontentsline{toc}{chapter}{Abstract}
+% =====================================================================================================
+Can a single X-ray observation tell whether an accreting compact object is a black hole (BH) or a neutron star (NS), for a source
+that the classifier has never seen? The XRB-pilot project (versions v1--v14) answered this question with a strict design:
+dynamically confirmed BHs and burst- or pulse-confirmed NSs only; leave-one-source-out evaluation; source-level metrics with a
+class-stratified source bootstrap; one or a few pre-registered primary comparisons per version, judged by whether the 95\%
+interval excludes zero; and frozen models, rules and pipelines for every test on new data.
+
+Using RXTE/PCA spectra of 31 sources (7 BH, 24 NS), a single 5--25\,keV spectrum classifies unseen sources well above chance
+(source balanced accuracy 0.80--0.87, source AUC 0.88--0.95), but essentially all of the information is in two count-space
+hardness ratios: the full spectral shape, intensity, 3--5 and 25--60\,keV bands, flexible algorithms with nested selection, 17 times
+more observations per source and 15 additional sources add nothing detectable to the ranking of unseen sources. Variability-defined states show why: the colour
+classifier separates BHs from NSs in soft states (observation-level AUC 0.954) but not in hard states (0.646; difference
+$+0.31$ [$+0.10$, $+0.51$]). Inside the hard state, 0.016--4\,Hz variability measured with cross-detector cospectra adds
+information: $+0.26$ [$+0.05$, $+0.46$] in AUC on the RXTE sample, consistently positive on NICER, $+0.15$ [$+0.03$, $+0.26$] when
+RXTE and NICER are pooled (86 sources, 16 dynamically confirmed BHs; not an independent confirmation), and $+0.18$
+[$+0.05$, $+0.34$] in a prospective test with a frozen pipeline and a pre-chosen random forest on new NICER observations. At fixed
+colour the characteristic frequency of BH variability is lower by 0.3--0.6\,dex in every data set but one, with pooled $p=0.0012$
+but non-significant single prospective tests. A burst catalogue, persistent BHs, event-mode frequencies up to 1\,kHz and MAXI/GSC
+light curves (including an exact reproduction of a published classifier) qualify these results. All prospective confirmations are
+at the observation level on the same 16 BHs; a source-level test on new BH transients is the necessary next step. This report
+documents every phase, the full mathematics of features, models and statistics, and the mapping from the archived data to the
+machine-learning matrices; it re-runs no analysis and every number is read from files committed in the repository.
