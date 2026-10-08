@@ -200,42 +200,44 @@ from the training block only. After $S$ folds every row has exactly one OOF scor
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[x=1cm,y=1cm,font=\scriptsize]
-  % matrix rows grouped by source: 5 sources, heights
+  % matrix rows grouped by source (heights differ: sources have different numbers of observations)
   \def\W{6.0}
-  \foreach \yo/\h/\nm/\cl/\tst/\yy in {0/1.2/{source 1 (BH)}/bhblue/0/1, -1.2/0.8/{source 2 (BH)}/bhblue/0/1, -2.0/1.4/{source $k$ (BH)}/bhblue/1/1, -3.4/1.0/{source $k{+}1$ (NS)}/nsorange/0/0, -4.4/1.6/{source $S$ (NS)}/nsorange/0/0} {
+  \foreach \yo/\h/\nm/\cl/\tst/\yy/\gg in {0/1.2/{source 1 (BH)}/bhblue/0/1/1, -1.2/0.8/{source 2 (BH)}/bhblue/0/1/2, -2.0/1.4/{source $k$ (BH): test}/bhblue/1/1/k, -3.4/1.0/{source $k{+}1$ (NS)}/nsorange/0/0/{k{+}1}, -4.4/1.6/{source $S$ (NS)}/nsorange/0/0/S} {
      \ifnum\tst=1
         \fill[yellow!25] (0,\yo) rectangle (\W,\yo-\h);
         \draw[thick, red!70!black] (0,\yo) rectangle (\W,\yo-\h);
-        \node[anchor=west, red!70!black, font=\scriptsize\bfseries] at (\W+1.45,\yo-\h/2) {held-out (test) block $\mathcal V_k$};
+        \coordinate (testE) at (\W+1.35,\yo-\h/2);
      \else
         \fill[boxgrey] (0,\yo) rectangle (\W,\yo-\h);
         \draw[inkgrey] (0,\yo) rectangle (\W,\yo-\h);
      \fi
-     \node[anchor=east] at (-0.1,\yo-\h/2) {\nm};
+     \node[anchor=west, text=inkgrey] at (0.15,\yo-\h/2) {\nm};
      \fill[\cl] (\W+0.25,\yo) rectangle (\W+0.65,\yo-\h);
      \fill[inkgrey!40] (\W+0.85,\yo) rectangle (\W+1.25,\yo-\h);
      \node[white,font=\tiny\bfseries] at (\W+0.45,\yo-\h/2) {\yy};
+     \node[font=\tiny] at (\W+1.05,\yo-\h/2) {$\gg$};
   }
   \node at (\W+0.45,0.3) {$\yv$}; \node at (\W+1.05,0.3) {$\gv$};
-  % column labels
-  \node[anchor=south] at (\W/2,0.05) {$\Xm\in\R^{n\times p}$ (columns = features)};
-  \draw[decorate,decoration={brace,amplitude=4pt},thick] (-1.95,-2.0) -- (-1.95,0) node[midway,left,align=right] {training\\rows $\mathcal T_k$};
-  \draw[decorate,decoration={brace,amplitude=4pt},thick] (-1.95,-6.0) -- (-1.95,-3.4) node[midway,left,align=right] {training\\rows $\mathcal T_k$};
-  % scaler and model
-  \node[draw=tagprim, rounded corners, fill=tagprim!6, align=center, text width=3.4cm] (fit) at (3.0,-7.4)
-     {fit on $\mathcal T_k$ only: $\vect\mu,\vect\sigma$ (scaler), medians, weights $\wv$, model parameters};
-  \node[draw=red!70!black, rounded corners, fill=yellow!20, align=center, text width=3.2cm] (pred) at (9.0,-7.4)
-     {predict $\Xm_{\mathcal V_k}$ $\Rightarrow$ $\hat s_i$ for $i\in\mathcal V_k$\\[1pt] source score $\bar s_k$ (\cref{eq:sourcescore})};
-  \draw[-{Stealth},thick,inkgrey] (fit) -- (pred);
-  \draw[-{Stealth},thick,inkgrey] (1.0,-6.0) -- (fit.north west);
-  \draw[-{Stealth},thick,red!70!black] (5.5,-3.4) .. controls (8,-4.5) .. (pred.north);
-  \node[align=left, anchor=north west, text width=12.5cm] at (-2.4,-8.3) {Repeat for $k=1,\dots,S$: every row is in the test block exactly once, so the OOF vector
-  $\shat\in[0,1]^n$ is complete. No observation of source $k$ influences any quantity used to score source $k$.};
+  \node[anchor=south] at (\W/2,0.05) {$\Xm\in\R^{n\times p}$: one row per observation};
+  % training braces on the left
+  \draw[decorate,decoration={brace,amplitude=4pt},thick] (-0.2,-2.0) -- (-0.2,0) node[midway,left=4pt,align=right] {training\\rows $\mathcal T_k$};
+  \draw[decorate,decoration={brace,amplitude=4pt},thick] (-0.2,-6.0) -- (-0.2,-3.4) node[midway,left=4pt,align=right] {training\\rows $\mathcal T_k$};
+  % fit on the training rows, apply to the test block
+  \node[draw=tagprim, rounded corners, fill=tagprim!6, align=center, text width=4.3cm] (fit) at (3.0,-7.3)
+     {\textbf{fit on $\mathcal T_k$ only}\\ scaler $\vect\mu,\vect\sigma$; imputation medians;\\ weights $\wv$; model parameters};
+  \node[draw=red!70!black, rounded corners, fill=yellow!20, align=center, text width=3.4cm] (pred) at (9.05,-7.3)
+     {\textbf{score $\Xm_{\mathcal V_k}$}\\ OOF scores $\hat s_i$, $i\in\mathcal V_k$;\\ source score $\bar s_k$ (\cref{eq:sourcescore})};
+  \draw[-{Stealth},thick,inkgrey] (3.0,-6.0) -- (fit.north);
+  \draw[-{Stealth},thick,inkgrey] (fit) -- node[above, font=\tiny] {fitted model} (pred);
+  \draw[-{Stealth},thick,red!70!black] (testE) -| node[pos=0, anchor=south west, font=\scriptsize\bfseries, xshift=2pt]
+     {held-out (test) block $\mathcal V_k$} (pred.north);
 \end{tikzpicture}
 \caption[Design matrix and LOSO split]{Schematic of the design matrix and one leave-one-source-out fold. Rows are
 observations grouped by source; the $\yv$ column (blue = BH, orange = NS) and the source index $\gv$ are attached to
 $\Xm$. The yellow block is the held-out source; every learned quantity -- standardisation, imputation medians, sample
-weights, hyper-parameters, thresholds -- is estimated from the grey training rows only. Drawn for this report.}
+weights, hyper-parameters, thresholds -- is estimated from the grey training rows only. Repeating this for $k=1,\dots,S$
+puts every row in the test block exactly once, so the OOF vector $\shat\in[0,1]^n$ is complete and no observation of source
+$k$ influences any quantity used to score source $k$. Drawn for this report.}
 \label{fig:designmatrix}
 \end{figure}
 
@@ -248,51 +250,56 @@ weights, hyper-parameters, thresholds -- is estimated from the grey training row
 
 \begin{figure}[p]
 \centering
-\begin{tikzpicture}[node distance=3.5mm and 3mm, font=\tiny,
-  src/.style={draw=inkgrey, fill=white, rounded corners=2pt, align=center, text width=2.75cm, minimum height=10mm},
-  proc/.style={draw=tagsec, fill=tagsec!6, rounded corners=2pt, align=center, text width=2.75cm, minimum height=10mm},
-  file/.style={draw=tagexp, fill=tagexp!6, align=center, text width=2.75cm, minimum height=9mm},
-  model/.style={draw=tagprim, fill=tagprim!6, rounded corners=2pt, align=center, text width=2.75cm, minimum height=10mm},
-  arr/.style={-{Stealth[length=1.6mm]}, inkgrey}]
-% row 1: raw sources
-\node[src] (r1) {\textbf{HEASARC RXTE}\\StdProd s2/b2/rsp, Std-1 FS46, event SE, HEXTE};
-\node[src, right=of r1] (r2) {\textbf{Catalogues}\\MissionLongData, \texttt{xtemaster}/\texttt{nicermastr} TAP, BlackCAT, Galloway, Marcel, MINBAR, Sesame};
-\node[src, right=of r2] (r3) {\textbf{MAXI}\\1-day light curves;\\de Beurs+2022 repo};
-\node[src, right=of r3] (r4) {\textbf{NICER} (AWS mirror)\\\texttt{cl} event files, \texttt{ufa} (3C50), CALDB};
+\begin{tikzpicture}[font=\scriptsize, node distance=4.5mm,
+  base/.style={rounded corners=2pt, align=center, text width=3.3cm, anchor=north, inner sep=2.5pt,
+               execute at begin node={\hyphenpenalty=10000\relax}},
+  src/.style={base, draw=inkgrey, fill=white, minimum height=21mm},
+  proc/.style={base, draw=tagsec, fill=tagsec!6, minimum height=16mm},
+  file/.style={base, rounded corners=0pt, draw=tagexp, fill=tagexp!6, minimum height=13mm},
+  model/.style={draw=tagprim, fill=tagprim!6, rounded corners=2pt, align=center, text width=15.0cm, minimum height=9mm},
+  wfile/.style={model, rounded corners=0pt, draw=tagexp, fill=tagexp!6},
+  arr/.style={-{Stealth[length=1.8mm]}, inkgrey, thick}]
+% four columns (RXTE, catalogues, NICER, MAXI) at fixed x; every row has a fixed top y, so boxes in a row line up
+\def\ya{0}\def\yb{-2.95}\def\yc{-5.05}\def\yd{-7.15}
+% row 1: archives and catalogues
+\node[src] (r1) at (0,\ya)    {\textbf{HEASARC RXTE}\\ StdProd s2/b2/rsp, Std-1 FS46, event SE, HEXTE};
+\node[src] (r2) at (3.95,\ya) {\textbf{catalogues}\\ MissionLongData; TAP \texttt{xtemaster}, \texttt{nicermastr}; BlackCAT, Galloway, Marcel, MINBAR, Sesame};
+\node[src] (r3) at (7.9,\ya)  {\textbf{NICER} (AWS mirror)\\ \texttt{cl} event files, \texttt{ufa} (3C50), CALDB};
+\node[src] (r4) at (11.85,\ya){\textbf{MAXI}\\ 1-day light curves; de~Beurs et~al.\ repository};
 % row 2: selection
-\node[proc, below=of r1] (s1) {\textbf{selection}\\02, 03 (v1--v3), 20 (v4b2), 23 (v4b1), 28 (v6), 35 (v7b2), 41 (v8b)};
-\node[proc, below=of r2] (s2) {\textbf{label checks}\\13 (v3c), 20, 28, 31 (MINBAR), 38 (MAXI labels)};
-\node[proc, below=of r3] (s3) {\textbf{MAXI cuts}\\38; N$_\mathrm{H}$: 45 + \texttt{v8d\_heasoft.sh}};
-\node[proc, below=of r4] (s4) {\textbf{NICER selection}\\47 (v9), 55 (v11), 60 (v13)};
+\node[proc] (s1) at (0,\yb)    {\textbf{RXTE selection}\\ 02, 03 (v1--v3), 20 (v4b2), 23 (v4b1), 28 (v6), 35 (v7b2), 41 (v8b)};
+\node[proc] (s2) at (3.95,\yb) {\textbf{label checks}\\ 13 (v3c), 20, 28, 31 (MINBAR), 38 (MAXI labels)};
+\node[proc] (s3) at (7.9,\yb)  {\textbf{NICER selection}\\ 47 (v9), 55 (v11), 60 (v13)};
+\node[proc] (s4) at (11.85,\yb){\textbf{MAXI cuts}\\ 38; $N_\mathrm{H}$: 45 and \texttt{v8d\_heasoft.sh}};
 % row 3: processing
-\node[proc, below=of s1] (p1) {\textbf{spectra}\\04, 21, 24 (Std-2 $\to$ grid), 12 (3--25 keV), 19 (HEXTE)};
-\node[proc, below=of s2] (p2) {\textbf{timing \& bursts}\\17 (bursts), 26 (v5), 29 (v6), 34 (states), 42, 43 (events), 53};
-\node[proc, below=of s3] (p3) {\textbf{MAXI features}\\SC, HC, C$_4$, RelInt in 39, 45};
-\node[proc, below=of s4] (p4) {\textbf{NICER features}\\48 (prefix), 52 (full), 56, 61 (stream); 58, 62 (3C50)};
-% row 4: files
-\node[file, below=of p1] (f1) {\texttt{features.npz}\\\texttt{observations.csv}\\\texttt{hexte\_features.csv}};
-\node[file, below=of p2] (f2) {\texttt{timing\_features.csv}, \texttt{timing\_v6.csv}, \texttt{states.csv}, \texttt{hf\_features.csv}};
-\node[file, below=of p3] (f3) {\texttt{maxi\_points.csv}\\\texttt{nh\_hi4pi.csv}};
-\node[file, below=of p4] (f4) {\texttt{nicer\_*features.csv}\\\texttt{bkg3c50.csv}\\\texttt{nicer\_corrected\_}\\\texttt{screened.csv}};
-% row 5: X,y,g
-\node[model, below=12mm of $(f2)!0.5!(f3)$, text width=9.0cm] (X) {\textbf{design matrices} $(\Xm,\yv,\gv)$: \code{v3lib.v2\_representations}, \code{reps\_R}, \code{fill\_missing}, joins by \code{obs\_id} (\cref{alg:buildX})};
-% row 6: LOSO
-\node[model, below=of X, text width=9.0cm] (L) {\textbf{LOSO / nested LOSO / frozen models}: 07, 11, 12, 14, 16, 18, 19, 22, 25, 27, 30, 33, 34, 36, 37, 39, 44, 45, 49, 54, 57, 59, 63 (libraries \file{v3lib}--\file{v11lib})};
-% row 7: OOF
-\node[file, below=of L, text width=9.0cm] (O) {\textbf{OOF tables} \texttt{results/*/oof*.csv}: one score per observation $\Rightarrow$ source scores $\bar s_k$ (\code{per\_source}, \code{src\_table})};
-% row 8: inference
-\node[model, below=of O, text width=9.0cm] (B) {\textbf{inference}: source bootstrap (09, \code{v3lib.bootstrap}, \code{v4lib.paired\_bootstrap}, \code{v8lib.strat\_boot}, \code{v10lib.pooled\_boot}); permutation (\code{v6lib.perm\_test}, \code{v10lib.pooled\_perm}); conformal, budget, proper scores (\file{v6lib})};
-% row 9: outputs
-\node[file, below=of B, text width=9.0cm] (M) {\textbf{metrics, figures, reports}: \texttt{results/*/*\_metrics.csv}, \texttt{*\_bootstrap.csv}; figures 05--08, 15, 40, 46, 51, 64; \texttt{reports/report\_v*\_zh-TW.md}};
-\foreach \a/\b in {r1/s1,r2/s2,r3/s3,r4/s4,s1/p1,s2/p2,s3/p3,s4/p4,p1/f1,p2/f2,p3/f3,p4/f4,X/L,L/O,O/B,B/M} \draw[arr] (\a)--(\b);
-\foreach \a in {f1,f2,f3,f4} \draw[arr] (\a.south) -- (X.north -| \a.south);
-\draw[arr] (r2.south west) -- (s1.north east);
-\draw[arr] (r2.south east) -- (s4.north west);
+\node[proc] (p1) at (0,\yc)    {\textbf{spectra}\\ 04, 21, 24 (Std-2 $\to$ grid), 12 (\mbox{3--25\,keV}), 19 (HEXTE)};
+\node[proc] (p2) at (3.95,\yc) {\textbf{timing \& bursts}\\ 17 (bursts), 26 (v5), 29 (v6), 34 (states), 42, 43 (events), 53};
+\node[proc] (p3) at (7.9,\yc)  {\textbf{NICER features}\\ 48 (prefix), 52 (full), 56, 61 (stream); 58, 62 (3C50)};
+\node[proc] (p4) at (11.85,\yc){\textbf{MAXI features}\\ SC, HC, $C_4$, RelInt (39, 45)};
+% row 4: committed intermediate files
+\node[file] (f1) at (0,\yd)    {\texttt{features.npz}\\ \texttt{observations.csv}\\ \texttt{hexte\_features.csv}};
+\node[file] (f2) at (3.95,\yd) {\texttt{timing\_features.csv}\\ \texttt{timing\_v6.csv}, \texttt{states.csv}\\ \texttt{hf\_features.csv}};
+\node[file] (f3) at (7.9,\yd)  {\texttt{nicer\_*features.csv}\\ \texttt{bkg3c50.csv}\\ {\tiny\texttt{nicer\_corrected\_screened.csv}}};
+\node[file] (f4) at (11.85,\yd){\texttt{maxi\_points.csv}\\ \texttt{nh\_hi4pi.csv}};
+% full-width rows
+\node[model, anchor=north] (X) at (5.925,-9.2) {\textbf{design matrices} $(\Xm,\yv,\gv)$: \code{v3lib.v2\_representations}, \code{reps\_R}, \code{fill\_missing}; joins by \code{obs\_id} (\cref{alg:buildX})};
+\node[model, below=of X] (L) {\textbf{LOSO / nested LOSO / frozen models}: scripts 07, 11, 12, 14, 16, 18, 19, 22, 25, 27, 30, 33, 34, 36, 37, 39, 44, 45, 49, 54, 57, 59, 63 (libraries \file{v3lib}--\file{v11lib})};
+\node[wfile, below=of L] (O) {\textbf{OOF tables} \texttt{results/*/oof*.csv}: one score per observation $\Rightarrow$ source scores $\bar s_k$ (\code{per\_source}, \code{src\_table})};
+\node[model, below=of O] (B) {\textbf{inference}: source bootstrap (09, \code{v3lib.bootstrap}, \code{v4lib.paired\_bootstrap}, \code{v8lib.strat\_boot}, \code{v10lib.pooled\_boot}); permutation (\code{v6lib.perm\_test}, \code{v10lib.pooled\_perm}); conformal, budget, proper scores (\file{v6lib})};
+\node[wfile, below=of B] (M) {\textbf{metrics, figures, reports}: \texttt{results/*/*\_metrics.csv}, \texttt{*\_bootstrap.csv}; figure scripts 05--08, 15, 40, 46, 51, 64; \texttt{reports/report\_v*\_zh-TW.md}};
+% straight arrows down each column and down the stack
+\foreach \a/\b in {r1/s1,r2/s2,r3/s3,r4/s4,s1/p1,s2/p2,s3/p3,s4/p4,p1/f1,p2/f2,p3/f3,p4/f4} \draw[arr] (\a.south)--(\b.north);
+\foreach \a in {f1,f2,f3,f4} \draw[arr] (\a.south) -- (\a.south |- X.north);
+\foreach \a/\b in {X/L,L/O,O/B,B/M} \draw[arr] (\a)--(\b);
+% catalogues also feed the RXTE and NICER selections: elbow arrows in the gap between rows 1 and 2
+\draw[arr] ([xshift=-9mm]r2.south) -- ++(0,-3.5mm) -| ([xshift=9mm]s1.north);
+\draw[arr] ([xshift=9mm]r2.south)  -- ++(0,-3.5mm) -| ([xshift=-9mm]s3.north);
 \end{tikzpicture}
-\caption[End-to-end data flow]{End-to-end data flow of the project. Grey boxes: external archives; green: selection
-and processing scripts (numbers = \file{scripts/NN\_*.py}); amber: committed intermediate files; blue: model fitting
-and inference. Raw files (left of the green boxes) are not in git; everything from the amber row down is committed, so
-every number in this report can be traced to a file in \file{results/} or \file{data/}. Drawn for this report.}
+\caption[End-to-end data flow]{End-to-end data flow of the project. Top row (white): external archives and catalogues;
+green: selection and processing scripts (numbers = \file{scripts/NN\_*.py}); amber: committed intermediate files; blue: model fitting
+and inference. Raw files downloaded from the top-row archives are not in git; everything from the amber row down is committed, so
+every number in this report can be traced to a file in \file{results/} or \file{data/}. The catalogues feed the RXTE and
+NICER selections and the label checks (which also define the MAXI labels in script 38). Drawn for this report.}
 \label{fig:dataflow}
 \end{figure}
 

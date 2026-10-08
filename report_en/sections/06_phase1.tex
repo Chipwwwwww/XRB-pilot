@@ -509,8 +509,10 @@ BH observations at intermediate rates get low ones -- the forest partly learned 
 
 \subsection{Label sensitivity: BH candidates (v3c)}
 \Descriptive{} \textbf{Predictions only} (models trained on all 31 confirmed sources; candidates have no verified label, so
-no accuracy is computed): with H, 12/14 candidates have mean score $\ge0.5$ for LR and 10/14 for RF
-(\cref{tab:p1v3c}); Swift J1753.5$-$0127, which stayed hard during RXTE, is below 0.5 for both, mirroring the confirmed
+no accuracy is computed): with H, 13/14 candidates have a source-mean score $\ge0.5$ for LR and 12/14 for RF
+(\cref{tab:p1v3c});
+% CHECK: report_v3_zh-TW.md (sec. 4.3) and final_report_zh-TW.md say 12/14 (LR) and 10/14 (RF); its own table and
+% results/v3/v3c_candidate_source_summary.csv give 13/14 and 12/14 source means >= 0.5 (CSV wins). Swift J1753.5$-$0127, which stayed hard during RXTE, is below 0.5 for both, mirroring the confirmed
 hard-state BH XTE J1118+480. 1E 1740.7$-$2942, GRS 1758$-$258 and IGR J17091$-$3624 are near the threshold and model-dependent.
 \Secondary{} \textbf{Candidates added to training as BHs} (LOSO only over confirmed sources, so the test labels remain
 confirmed): \cref{tab:p1v3cadd}. Only A-RF improves clearly (source BA $+0.244$ $[+0.051,+0.429]$, observation BA $+0.111$

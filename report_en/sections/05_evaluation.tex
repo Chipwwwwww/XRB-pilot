@@ -114,32 +114,38 @@ training set by an inner LOSO over its sources (\cref{fig:nested}). The outer te
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[font=\scriptsize, x=1cm, y=1cm]
-  \def\n{8}
-  % outer row
-  \foreach \i in {1,...,\n} {\filldraw[fill=boxgrey, draw=inkgrey] (\i*0.9,0) rectangle +(0.8,0.6);}
-  \filldraw[fill=yellow!35, draw=red!70!black] (5*0.9,0) rectangle +(0.8,0.6);
-  \node[anchor=east] at (0.8,0.3) {outer fold $k$:};
-  \node[red!70!black] at (5*0.9+0.4,0.95) {test source $k$};
-  \draw[decorate,decoration={brace,amplitude=4pt,mirror},thick] (0.9,-0.1) -- (4.4,-0.1);
-  \draw[decorate,decoration={brace,amplitude=4pt,mirror},thick] (5.4,-0.1) -- (8*0.9+0.8,-0.1);
-  \node at (4.4,-0.65) {outer training sources $\mathcal S\setminus\{k\}$ (30 in v4a)};
-  % inner loop
-  \foreach \j in {1,...,4} {
-     \foreach \i in {1,...,7} {\filldraw[fill=white, draw=inkgrey!70] (\i*0.9+0.45,-1.2-\j*0.55) rectangle +(0.8,0.42);}
-     \filldraw[fill=yellow!20, draw=inkgrey!70] (\j*0.9+0.45,-1.2-\j*0.55) rectangle +(0.8,0.42);
+\begin{tikzpicture}[font=\scriptsize, x=1cm, y=1cm,
+  chip/.style={draw=inkgrey, fill=boxgrey, minimum width=0.75cm, minimum height=0.5cm, inner sep=0pt, anchor=south west},
+  ichip/.style={draw=inkgrey!70, fill=white, minimum width=0.75cm, minimum height=0.42cm, inner sep=0pt, anchor=south west},
+  nstep/.style={draw=tagprim, fill=tagprim!6, rounded corners, align=left, text width=5.6cm, inner sep=4pt, execute at begin node={\hyphenpenalty=10000\relax}},
+  arr/.style={-{Stealth[length=2mm]}, thick, inkgrey}]
+  % outer fold: the 30 training sources (drawn as 7 chips) and the held-out test source at the right
+  \foreach \i in {0,...,6} \node[chip] at (\i*0.85,0) {};
+  \node[anchor=east] at (-0.1,0.25) {outer fold $k$:};
+  \node[chip, fill=yellow!35, draw=red!70!black, line width=0.6pt, anchor=center] (test) at (9.92,0.25) {};
+  \node[red!70!black, anchor=south] at (test.north) {test source $k$ (held out)};
+  \draw[decorate,decoration={brace,amplitude=4pt,mirror},thick] (0,-0.1) -- (5.85,-0.1);
+  \node[anchor=north] at (2.925,-0.25) {outer training sources $\mathcal S\setminus\{k\}$ (30 in v4a)};
+  % inner LOSO inside the 30 outer training sources; the pale chip is the inner validation source
+  \foreach \lab/\y/\h in {{inner fold 1}/-1.45/0, {inner fold 2}/-2.0/1, {inner fold 3}/-2.55/2, {inner fold 30}/-3.55/6} {
+     \foreach \i in {0,...,6} \node[ichip] at (\i*0.85,\y) {};
+     \node[ichip, fill=yellow!25] at (\h*0.85,\y) {};
+     \node[anchor=east] at (-0.1,\y+0.21) {\lab};
   }
-  \node[anchor=east] at (1.25,-1.95) {inner fold 1}; \node[anchor=east] at (1.25,-3.6) {inner fold 4 \dots};
-  \node[draw=tagprim, fill=tagprim!6, rounded corners, align=left, text width=5.2cm, anchor=west] (sel) at (8.2,-2.5)
+  \node at (2.925,-2.85) {$\vdots$}; \node[anchor=east] at (-0.1,-2.85) {$\vdots$\ \ };
+  \node[ichip, fill=yellow!25, anchor=west] (leg) at (0,-4.15) {};
+  \node[anchor=west, text width=5.0cm, align=left] at (leg.east) {inner validation source; each of the 30 training sources is held out once};
+  % the three steps
+  \node[nstep, anchor=north west] (sel) at (7.0,-1.2)
    {for every candidate $c$ (algorithm $\times$ representation $\times$ grid): inner OOF scores on the 30 training sources
    $\Rightarrow$ inner source AUC$_c$, inner source BA$_c$, inner threshold $t_c$ (\cref{eq:choosethreshold})};
-  \node[draw=tagprim, fill=tagprim!6, rounded corners, align=left, text width=5.2cm, anchor=west] (pick) at (8.2,-4.6)
-   {select $c^\ast$: max inner AUC; ties: inner BA, then algorithm, representation, grid order};
-  \node[draw=red!70!black, fill=yellow!15, rounded corners, align=left, text width=5.2cm, anchor=west] (out) at (8.2,-6.4)
+  \node[nstep, below=5mm of sel] (pick) {select $c^\ast$: max inner AUC; ties: inner BA, then algorithm, representation, grid order};
+  \node[nstep, draw=red!70!black, fill=yellow!15, below=5mm of pick] (fit)
    {refit $c^\ast$ on all 30 training sources (500 trees for forests) and score test source $k$; store $\hat s-t^\ast+0.5$};
-  \draw[-{Stealth},thick,inkgrey] (7.9,-2.5) -- (sel.west);
-  \draw[-{Stealth},thick,inkgrey] (sel) -- (pick); \draw[-{Stealth},thick,inkgrey] (pick) -- (out);
-  \draw[-{Stealth},thick,red!70!black] (5*0.9+0.4,0) .. controls (5.5,-5.5) .. (out.west);
+  \draw[arr] (6.05,0 |- sel.west) -- (sel.west);
+  \draw[arr] (sel) -- (pick); \draw[arr] (pick) -- (fit);
+  % the test source is used only in the last step: routed along the right margin
+  \draw[-{Stealth[length=2mm]}, thick, red!70!black] (test.east) -- (13.3,0.25) |- (fit.east);
 \end{tikzpicture}
 \caption[Nested leave-one-source-out]{Nested LOSO as used in v4a (1d per algorithm and representation; 1e over all 140
 configurations). For each outer fold, every candidate configuration is evaluated by an inner LOSO over the outer
@@ -202,19 +208,26 @@ BH source changes the source BA by $1/(2\cdot7)\approx0.07$, which is why many i
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[font=\scriptsize, x=1cm,y=1cm]
-  \node[anchor=west] at (0,0.9) {original sample (OOF scores fixed)};
+  \node[anchor=east] at (0.25,0) {original sample};
   \foreach \i/\c in {1/bhblue,2/bhblue,3/bhblue} {\fill[\c] (\i*0.55,0) circle (0.2); \node[white,font=\tiny] at (\i*0.55,0) {B\i};}
   \foreach \i in {1,...,6} {\fill[nsorange] (2.0+\i*0.55,0) circle (0.2); \node[white,font=\tiny] at (2.0+\i*0.55,0) {N\i};}
+  \node[anchor=west, text=inkgrey] at (5.8,0) {OOF scores fixed (here 3 BH and 6 NS sources)};
+  \draw[gray!40] (-1.5,-0.65) -- (10.9,-0.65);
   \foreach \b/\ys/\bh/\ns in {1/-1.3/{1,1,3}/{2,2,4,5,6,6}, 2/-2.2/{2,3,3}/{1,1,3,4,4,5}, 3/-3.1/{1,2,2}/{1,2,3,5,6,6}} {
      \node[anchor=east] at (0.25,\ys) {draw $b=\b$};
      \foreach \x [count=\j] in \bh {\fill[bhblue] (\j*0.55,\ys) circle (0.2); \node[white,font=\tiny] at (\j*0.55,\ys) {B\x};}
      \foreach \x [count=\j] in \ns {\fill[nsorange] (2.0+\j*0.55,\ys) circle (0.2); \node[white,font=\tiny] at (2.0+\j*0.55,\ys) {N\x};}
      \node[anchor=west] at (5.8,\ys) {$M_A^{(\b)},\ M_B^{(\b)}\ \Rightarrow\ \Delta^{(\b)}=M_A^{(\b)}-M_B^{(\b)}$};
   }
-  \node[anchor=west] at (0.1,-3.8) {$\vdots$ \quad 2000 draws, BH and NS resampled separately, with replacement, seed 42};
-  \draw[-{Stealth},thick,inkgrey] (10.6,-3.4) -- (10.6,-4.4);
-  \node[draw=tagprim, fill=tagprim!6, rounded corners, align=center, text width=7cm] at (8.0,-4.9)
-     {95\% CI $=[Q_{2.5\%},Q_{97.5\%}]$ of $\{\Delta^{(b)}\}$; \textbf{detected} iff the CI excludes 0};
+  \foreach \x in {1.1,3.925,8.3} \node at (\x,-3.75) {$\vdots$};
+  % collect the 2000 differences and turn them into the interval
+  \draw[decorate,decoration={brace,amplitude=5pt,mirror},thick] (5.85,-4.15) -- (10.8,-4.15);
+  \draw[-{Stealth},thick,inkgrey] (8.325,-4.45) -- node[right] {2000 values $\Delta^{(b)}$} (8.325,-5.1);
+  \node[draw=tagprim, fill=tagprim!6, rounded corners, align=center, text width=5.2cm, anchor=north] at (8.325,-5.15)
+     {95\% CI $=[Q_{2.5\%},Q_{97.5\%}]$ of $\{\Delta^{(b)}\}$;\\ \textbf{detected} iff the CI excludes 0};
+  \node[anchor=north west, text width=6.4cm, align=left] at (-1.5,-4.3)
+     {2000 draws (seed 42); BH and NS sources resampled separately, with replacement; every drawn source brings all its
+     observations.};
 \end{tikzpicture}
 \caption[Class-stratified source bootstrap]{Class-stratified source bootstrap with paired differences. Each draw
 resamples the BH sources and the NS sources separately, with replacement and with all observations of a drawn source;
@@ -307,15 +320,15 @@ ambiguous sets, at $\varepsilon\in\{0.1,0.2\}$.
   \foreach \x in {0,0.25,0.5,0.75,1} {\draw (\x,0.07)--(\x,-0.07) node[below] {\x};}
   \foreach \x in {0.55,0.62,0.71,0.8,0.86,0.91,0.95} {\fill[bhblue] (\x,0.45) circle (2.2pt);}
   \foreach \x in {0.05,0.08,0.12,0.15,0.2,0.22,0.26,0.3,0.33,0.38,0.41,0.47,0.58} {\fill[nsorange] (\x,0.85) circle (2.2pt);}
-  \node[anchor=east,bhblue] at (0,0.45) {BH calibration};
-  \node[anchor=east,nsorange] at (0,0.85) {NS calibration};
-  \draw[dashed,red!70!black,thick] (0.52,-0.3) -- (0.52,1.25) node[above] {test source $s=0.52$};
-  \node[align=left,anchor=north west, text width=10.5cm] at (0,-0.6) {
-   $p_\mathrm{BH}=\frac{1+\#\{\text{BH with }\bar s_k\le0.52\}}{1+7}=\frac{1}{8}=0.125$,\quad
-   $p_\mathrm{NS}=\frac{1+\#\{\text{NS with }\bar s_k\ge0.52\}}{1+13}=\frac{2}{14}=0.143$.\\[2pt]
-   $\varepsilon=0.1$: both $p>0.1$ $\Rightarrow$ $\Gamma=\{\mathrm{BH},\mathrm{NS}\}$ (cannot tell);\quad
-   $\varepsilon=0.2$: neither $p>0.2$ $\Rightarrow$ $\Gamma=\{\}$.\\[2pt]
-   A test source at $s=0.9$ would give $p_\mathrm{BH}=6/8$, $p_\mathrm{NS}=1/14$ $\Rightarrow$ $\Gamma=\{\mathrm{BH}\}$ for both $\varepsilon$.};
+  \node[anchor=east,bhblue] at (-0.02,0.45) {BH calibration (7 sources)};
+  \node[anchor=east,nsorange] at (-0.02,0.85) {NS calibration (13 sources)};
+  \draw[dashed,red!70!black,thick] (0.52,0) -- (0.52,1.25) node[above] {test source, $s=0.52$};
+  \node[anchor=north, align=left, font=\footnotesize] at (0.45,-0.55) {%
+   $\displaystyle p_\mathrm{BH}=\frac{1+\#\{\text{BH with }\bar s_k\le0.52\}}{1+7}=\frac{1}{8}=0.125,\qquad
+    p_\mathrm{NS}=\frac{1+\#\{\text{NS with }\bar s_k\ge0.52\}}{1+13}=\frac{2}{14}=0.143$\\[8pt]
+   $\varepsilon=0.1$: both $p>0.1$ $\Rightarrow$ $\Gamma=\{\mathrm{BH},\mathrm{NS}\}$ (cannot tell);\qquad
+   $\varepsilon=0.2$: neither $p>0.2$ $\Rightarrow$ $\Gamma=\emptyset$ (no label).\\[3pt]
+   A test source at $s=0.9$ would give $p_\mathrm{BH}=6/8$, $p_\mathrm{NS}=1/14$ $\Rightarrow$ $\Gamma=\{\mathrm{BH}\}$ for both values of $\varepsilon$.};
 \end{tikzpicture}
 \caption[Source-level Mondrian conformal sets]{Illustration (made-up calibration scores) of the class-conditional
 conformal $p$-values of \cref{eq:conformal}. A test source is compared with the calibration sources of each class

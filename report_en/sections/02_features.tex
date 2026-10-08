@@ -455,19 +455,22 @@ overlaps $[t_\mathrm{start}-20\,\mathrm{s},\,t_\mathrm{end}+200\,\mathrm{s}]$ of
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[node distance=4mm and 6mm, every node/.style={font=\scriptsize},
-  box/.style={draw=inkgrey, rounded corners=2pt, fill=boxgrey, align=center, minimum height=11mm, text width=2.35cm},
+\begin{tikzpicture}[every node/.style={font=\scriptsize},
+  box/.style={draw=inkgrey, rounded corners=2pt, fill=boxgrey, align=center, minimum height=15mm, text width=3.45cm, inner sep=2.5pt, execute at begin node={\hyphenpenalty=10000\relax}},
+  outbox/.style={box, fill=tagprim!8, draw=tagprim},
   arr/.style={-{Stealth[length=2mm]}, thick, inkgrey}]
-\node[box] (lc) {light curves per detector\\$c_{p,n}$, $\Delta t$\\(Std-1: 0.125\,s;\\ NICER: 1/256\,s)};
-\node[box, right=of lc] (seg) {rows / segments\\$N$ bins inside GTI;\\detector-on rule;\\burst rows removed};
-\node[box, right=of seg] (fft) {DFT per detector\\$X_{p,j}$, $j=0..N/2$\\background-corrected\\means $s_p$};
-\node[box, right=of fft] (cross) {all-pairs\\cospectrum\\$\frac{|\sum X_p|^2-\sum|X_p|^2}{2}$\\$\div\,\mathrm{sinc}^2(j/N)$};
-\node[box, below=9mm of cross] (band) {band variance\\$\frac{2}{N^2}\sum_{j\in\mathcal B}(\cdot)$\\$\div\sum_{p<q}s_ps_q$};
-\node[box, left=of band] (agg) {combine rows\\median (Std-1)\\or ratio of means\\(event, NICER)};
-\node[box, left=of agg] (feat) {features\\$T_k=\sgn(f)\sqrt{|f|}$\\state rms\\(0.1--4 / 0.1--10 Hz)};
-\node[box, left=of feat] (nuc) {$\nu P_\nu$ log bins\\$\to$ centroid $\nu_c$\\(and Lorentzian\\width $\nu_L$, v11c)};
+% row 1: left to right
+\node[box] (lc)    at (0,0)    {\textbf{light curves}\\ counts $c_{p,n}$, detector $p$\\ $\Delta t$ = 0.125\,s (Std-1),\\ $2^{-12}$\,s (event),\\ $1/256$\,s (NICER)};
+\node[box] (seg)   at (3.95,0) {\textbf{rows / segments}\\ $N$ bins inside one GTI;\\ detector-on rule;\\ bursts removed};
+\node[box] (fft)   at (7.9,0)  {\textbf{DFT per detector}\\ $X_{p,j}$, $j=0,\dots,N/2$;\\ background-corrected\\ mean counts $s_p$};
+\node[box, text width=3.6cm] (cross) at (11.85,0){\textbf{all-pairs cospectrum}\\ \mbox{$C_j=\sum_{p<q}\Real\bigl(X_{p,j}X^{*}_{q,j}\bigr)$}\\ $\div\,\mathrm{sinc}^2(j/N)$\\ (closed form, \cref{eq:allpairs})};
+% row 2: right to left
+\node[box] (band)  at (11.85,-2.4) {\textbf{band variance}\\ per row: $\frac{2}{N^2}\sum_{j\in\mathcal B}(\cdot)$\\ $\div\sum_{p<q}s_ps_q$\\ (fractional variance $f$)};
+\node[box] (agg)   at (7.9,-2.4)   {\textbf{combine rows}\\ median (Std-1, v5--v7)\\ or ratio of means\\ (event mode, NICER)};
+\node[box] (feat)  at (3.95,-2.4)  {\textbf{features}\\ $T_k=\sgn(f)\sqrt{|f|}$ per band;\\ state rms; $\nu_c$ from log\\ bins; $\nu_L$ (v11c)};
+\node[outbox] (dm)    at (0,-2.4)     {\textbf{design-matrix columns}\\ $T_1,T_2,T_3$ (+ missing\\ indicator); state label;\\ $\log_{10}\nu_c$ (tests)};
 \draw[arr] (lc)--(seg); \draw[arr] (seg)--(fft); \draw[arr] (fft)--(cross); \draw[arr] (cross)--(band);
-\draw[arr] (band)--(agg); \draw[arr] (agg)--(feat); \draw[arr] (feat)--(nuc);
+\draw[arr] (band)--(agg); \draw[arr] (agg)--(feat); \draw[arr] (feat)--(dm);
 \end{tikzpicture}
 \caption[Timing-feature pipeline]{Timing-feature pipeline shared by RXTE Standard-1 (v5--v10), RXTE event mode (v8c) and
 NICER (v9--v13). Differences between the instruments are in the bin width, the segment length, the ``detector'' (PCU or

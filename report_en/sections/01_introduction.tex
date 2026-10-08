@@ -95,29 +95,38 @@ sources number 5--9. A single BH source moves a source-level balanced accuracy b
 
 \begin{figure}[htbp]
 \centering
-\begin{tikzpicture}[font=\scriptsize, x=0.80cm, y=0.62cm]
-  \foreach \r [count=\k] in {{new sources, frozen model}, {new sources, retrained}, new instrument, {new observations, frozen (prospective)}, {pooled over all data (not independent)}, {re-analysis of data already used}, base samples} {
-     \node[anchor=east, text width=3.7cm, align=right] at (0.4,-\k) {\r};
-     \draw[gray!30] (0.6,-\k) -- (13.6,-\k);
+\begin{tikzpicture}[font=\scriptsize, x=0.92cm, y=0.95cm,
+  chip/.style={draw=tagprim, fill=tagprim!12, rounded corners=1.5pt, text width=0.78cm, align=center,
+               inner sep=1.2pt, font=\tiny, minimum height=0.42cm},
+  star/.style={chip, draw=red!70!black, fill=yellow!35, line width=0.6pt}]
+  % row labels and guide lines
+  \foreach \r [count=\k] in {{new sources,\\ frozen model}, {new sources,\\ retrained}, {new instrument}, {new observations,\\ frozen (prospective)}, {pooled over all data\\ (not independent)}, {re-analysis of\\ data already used}, {base samples}} {
+     \node[anchor=east, text width=3.1cm, align=right, font=\scriptsize] at (0.35,-\k) {\r};
+     \draw[gray!25] (0.5,-\k) -- (13.5,-\k);
   }
-  \foreach \v [count=\c] in {v1,v2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13} {\node[font=\scriptsize\bfseries] at (\c,0) {\v};}
-  \foreach \d [count=\c] in {09-29,09-29,09-30,10-01,10-01,10-01,10-05,10-05,10-06,10-06,10-06,10-06,10-06} {\node[font=\tiny, gray] at (\c,-8.0) {\d};}
-  \node[anchor=east, font=\tiny, gray] at (0.4,-8.0) {date (2026)};
-  % markers: (column,row,label)
-  \tikzset{mk/.style={circle, draw=tagprim, fill=tagprim!20, inner sep=1.4pt, font=\tiny}}
-  \foreach \c/\r/\t in {6/1/v6a, 8/1/v8b, 4/2/v4b2, 7/2/v7b2, 9/2/{2 new BHs}, 7/3/MAXI, 9/3/NICER, 11/4/new obs., 13/4/{new obs., RF pre-set}, 10/5/{RXTE+NICER}, 3/6/{v3a,b,c}, 4/6/{v4a, b3, burst}, 5/6/{S1--S3}, 6/6/{v6b--h}, 7/6/{v7a, b1}, 8/6/{v8a, c, d}, 12/6/3C50, 1/7/{8 src}, 2/7/{31 src}} {
-     \node[mk] at (\c,-\r) {}; \node[anchor=south, font=\tiny, text=inkgrey] at (\c,-\r+0.12) {\t};
+  % column headers, separators and dates
+  \foreach \v [count=\c] in {v1,v2,v3,v4,v5,v6,v7,v8,v9,v10,v11,v12,v13} {
+     \node[font=\scriptsize\bfseries] at (\c,-0.25) {\v};
+     \draw[gray!15] (\c,-0.5) -- (\c,-7.45);
   }
-  \node[mk, fill=yellow!40, draw=red!70!black] at (13,-4) {};
-  \draw[dashed, red!70!black] (0.6,-0.45) -- (13.5,-0.45);
-  \node[anchor=west, font=\tiny, red!70!black, text width=11.5cm] at (0.6,-8.8) {Every version's pre-registration was written after all earlier results (top row read left to right). Not reached by any version: \textbf{new sources tested prospectively with a frozen model on new data}.};
+  \foreach \d [count=\c] in {09-29,09-29,09-30,10-01,10-01,10-01,10-05,10-05,10-06,10-06,10-06,10-06,10-06} {\node[font=\tiny, gray] at (\c,-7.75) {\d};}
+  \node[anchor=east, font=\tiny, gray] at (0.35,-7.75) {date (2026)};
+  \draw[dashed, red!70!black] (0.5,-0.5) -- (13.5,-0.5);
+  % one chip per sub-analysis: (column, row, text)
+  \foreach \c/\r/\t in {6/1/v6a, 8/1/v8b, 4/2/v4b2, 7/2/v7b2, 9/2/{2 new\\ BHs}, 7/3/MAXI, 9/3/NICER, 11/4/{new\\ obs.}, 10/5/{RXTE\\ + NICER},
+                        3/6/{v3a--c}, 4/6/{v4a,\\ b3, burst}, 5/6/{S1--S3}, 6/6/{v6b--h}, 7/6/{v7a,\\ b1}, 8/6/{v8a,\\ c, d}, 12/6/3C50, 1/7/{8 src}, 2/7/{31 src}} {
+     \node[chip] at (\c,-\r) {\t};
+  }
+  \node[star] at (13,-4) {new obs.,\\ RF\\ pre-set};
 \end{tikzpicture}
 \caption[Independence of each version]{What each version adds in terms of independence from data already seen. Rows are
-ordered from most independent (top) to least; dots mark the sub-analyses of each version. External sources (v6a, v8b)
+ordered from most independent (top) to least; each box is a sub-analysis of the version in its column. External sources (v6a, v8b)
 were scored by frozen RXTE models, but few BHs were available (4--7). The NICER versions brought a new instrument and two
 BHs never used before; v10 pooled everything; v11 and v13 used never-read observations of the same sources with frozen
-pipelines, v13 with the Random Forest chosen before download (highlighted). Drawn for this report from the
-pre-registrations and \file{reports/decision\_log.md}.}
+pipelines, v13 with the Random Forest chosen before download (highlighted). Every version's pre-registration was written
+after all earlier results, so each column knew the results of every column to its left. Not reached by any version: new
+sources tested prospectively with a frozen model on new data. Drawn for this report from the pre-registrations and
+\file{reports/decision\_log.md}.}
 \label{fig:timeline}
 \end{figure}
 
