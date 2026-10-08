@@ -1,1 +1,34 @@
-\chapter{Pre-registrations}\label{app:prereg}
+% =====================================================================================================
+\chapter{Pre-registration summary}\label{app:prereg}
+% =====================================================================================================
+\Cref{tab:appprereg} summarises the thirteen pre-registrations (\file{reports/preregistration*.md}). The column ``after'' states which
+results were already known when the document was written; ``approval'' states who approved it. The primary comparisons and their
+verdicts are listed in \cref{tab:synthprimaries}.
+
+{\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}p{0.8cm}p{2.5cm}p{1.6cm}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}p{6.0cm}@{}}
+\caption[Pre-registrations]{Pre-registration documents, timing and approval.}\label{tab:appprereg}\\
+\toprule
+Ver. & Written & After & Approval & Content (primary in bold) \\
+\midrule\endfirsthead
+\toprule Ver. & Written & After & Approval & Content (primary in bold) \\ \midrule\endhead
+\bottomrule\endfoot
+v1 & 2026-09-29, before any model (during download) & -- & user-directed project & sources (4 BH, 4 NS), selection and quality rules, A/B representations, Dummy/LR/RF, \textbf{LOSO evaluation}, leaky split as a demonstration \\
+v2 & 2026-09-29, before any v2 download & v1 & user (``run the suggested next step'') & mechanical source rule (31 sources), Standard-1 deadtime, \textbf{source bootstrap; B$-$A}, H and HI baselines, XSPEC check \\
+v3 & 2026-09-30, before any v3 model & v1, v2 (+ two descriptive statistics) & not stated in the decision log & \textbf{v3a H+B $-$ H}; HI+A; v3b 3--5\,keV; v3c BH candidates \\
+v4 & 2026-09-30, before any v4 model or download & v1--v3 & user (``start and finish full if no big problem'') & \textbf{v4a nested automatic selection}; 1b--1d descriptive; burst check; v4b3 HEXTE; v4b2 earlier epochs (bridge gate); v4b1 all observations \\
+v5 & 2026-10-01, before any v5 feature & v1--v4 & analyst, under the user's instruction to design and run v5 & Standard-1 timing T; \textbf{S1 H+T-LR $-$ H-LR}; gates IC (synthetic, cross-check, plausibility) \\
+v6 & 2026-10-01 ($\approx$03:00), before any v6 download & v1--v5 & analyst (``deep think \dots innovations'') & \textbf{v6a frozen external test}; all-pairs estimator, $\nu_c$; CCTLR; permutation test; conformal; budget; proper scores; nuisance control \\
+v7 & 2026-10-05, before any v7 download & v1--v6 & user, 07:23 (three pending items adopted) & one primary each: \textbf{v7b1 MINBAR}, \textbf{v7a states}, \textbf{v7b2 persistent BHs}, \textbf{v7c1 reproduction}, \textbf{v7c2 MAXI (two LR comparisons)} \\
+v8 & 2026-10-05 ($\approx$21:30), pushed \texttt{a481fa0} before download & v1--v7 & analyst (``go directly to the next step'') & \textbf{v8a S1 hard-like}, \textbf{v8b external hard-like}, \textbf{v8c event mode (gate IC4)}, \textbf{v8d MAXI N$_\mathrm{H}$} \\
+v9 & 2026-10-05 ($\approx$23:00), pushed \texttt{ee4b7db} before NICER download & v1--v8 & analyst (``merge and pull and get on to next step'') & NICER pipeline; \textbf{v9a hard-like gain}; \textbf{v9b $\nu_c$ permutation}; v9c MAXI strata (descriptive) \\
+v10 & 2026-10-06, pushed \texttt{aeedac7} before download and pooled statistics & v1--v9 & analyst (``commit everything and start v10'') & declared not an independent confirmation; \textbf{v10a pooled gain}, \textbf{v10b pooled $\nu_c$}; v10c full NICER observations \\
+v11 & 2026-10-06 ($\approx$01:50), \texttt{6fea016}; $\nu^*$ committed in \texttt{58ded89} before new data & v1--v10 & analyst (``merge and continue v11'') & frozen pipeline and fold models; \textbf{v11a LR gain}, \textbf{v11b $\nu_c$}; Lorentzian widths; never-used sources \\
+v12 & 2026-10-06 ($\approx$03:20), \texttt{2126e9d} & v1--v11 & analyst (``merge and continue'') & 3C50 correction and screening; \textbf{v12a $\nu_c$}, \textbf{v12b RF gain} (RF chosen after v9--v11) \\
+v13 & 2026-10-06 ($\approx$05:00), \texttt{42fe1d2} with $\nu^*=1.3361$\,Hz & v1--v12 & analyst (``continue until it is worth wrapping up'') & third disjoint new set; frozen v12 pipeline and models; \textbf{v13a RF gain (pre-chosen)}, \textbf{v13b $\nu_c$} \\
+\end{longtable}}
+
+Common rules, unchanged from v4 on: LOSO over sources; source score = mean OOF score; threshold 0.5 unless chosen inside the training
+sources; class-stratified source bootstrap with 2000 resamples and seed 42, paired across models; ``improvement/difference'' only if the 95\%
+interval lies entirely on one side of 0 (one-sided ``improvement'' wording in v4--v6); every change recorded in
+\file{reports/decision\_log.md} with a flag saying whether it was made after seeing results.

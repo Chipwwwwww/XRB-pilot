@@ -1,1 +1,52 @@
-\chapter{Decision log}\label{app:decisionlog}
+% =====================================================================================================
+\chapter{Decision-log summary}\label{app:decisionlog}
+% =====================================================================================================
+\file{reports/decision\_log.md} records every change to data, code or analysis with a flag stating whether it was made after seeing
+results. \Cref{tab:appdecisions} summarises the entries that affect the interpretation; purely technical entries (paths, logging,
+parallelism, performance) are omitted unless they touch the numbers. ``After results?'' copies the flag of the log; ``post hoc'' entries are
+labelled as such wherever their results appear in this report.
+
+{\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}p{1.0cm}>{\raggedright\arraybackslash}p{9.4cm}>{\raggedright\arraybackslash}p{3.4cm}@{}}
+\caption[Decision-log summary]{Decisions and deviations that matter for interpretation (from \file{reports/decision\_log.md} and the
+``deviations'' sections of the version reports).}\label{tab:appdecisions}\\
+\toprule
+Ver. & Decision / change & After results? \\
+\midrule\endfirsthead
+\toprule Ver. & Decision / change & After results? \\ \midrule\endhead
+\bottomrule\endfoot
+v1 & catalogue rows with NaN coordinates broke the pointing check; fixed with \code{nanmedian} (before any spectrum) & no \\
+v1 & deadtime applied to the net rate as $\mathrm{DCOR}\times(r_s-r_b)$ (before download) & no \\
+v2 & H colours kept linear instead of $\log_{10}$ (two BH spectra with slightly negative 16--25\,keV sums) & no (before v2 training) \\
+v2 & paired B$-$H and A$-$HI differences added to the bootstrap (same pre-declared question ``only hardness?'') & yes (comparison added, labelled) \\
+v2 & output-path bug in \file{08\_error\_analysis.py} overwrote two v1 figures; restored and fixed & no effect on numbers \\
+v3 & v3a run in a cloud sandbox (pandas 3.0.2); reproduction of v2 OOF to $\le8\times10^{-10}$ (LR); vectorised bootstrap identical bit for bit & reproduction only \\
+v3 & v3c candidate list drafted from memory, verified against BlackCAT and frozen before download; one catalogue-name fix & no \\
+v3 & wrap-up colour--colour figure and integrated v1--v3 report (descriptive only) & yes (documentation) \\
+v4 & 1e cross-algorithm tie-break completed (algorithm, representation, grid order) & no (before the run) \\
+v4 & \textbf{source-equal weights scale bug} (classes summed to 1 instead of $n/2$; LR regularisation $\approx n/2$ stronger); fixed, 1a--1c re-run, conclusion unchanged; pre-fix results in commit \texttt{9120afb} & yes (found after v4a results) \\
+v4 & v4b2: duplicate source (XB 1254$-$690 = 4U 1254$-$69) fixed before download; 13 additional NSs from executing the v2 rule correctly & no \\
+v4 & v4b2: comparison with the same-sample H-LR added (required by \S0, omitted in the script) & yes \\
+v4 & v4b1 raw files outside the repository; download threads 4 $\to$ 6 & no \\
+v5 & unit-test case ``PCU off within a row'' corrected before any real feature (rule unchanged) & no \\
+v6 & figure annotation fixed before the first run & no \\
+v7 & v7b1 primary burst rule changed from ``any origin'' to ``same ObsID or within $1^\circ$''; literal rule kept as sensitivity; MINBAR $\cup$ visual set added & yes (after matching, before any classification) \\
+v7 & v7b2 post hoc check of two high-leverage LMC X-3 observations (descriptive) & yes \\
+v7 & v7c2 labels and matching fixed (burst oscillations in Liu+2007 periods; HMXB pulsars added; Sesame names within $0.1^\circ$; blends excluded; name fixes) & yes (after first matching, before any model) \\
+v7 & v7c2 SVM inner selection by grouped 5-fold instead of LOSO (compute) & no (before any SVM result) \\
+v8 & IC3 criterion reformulated ($|z|<3$); segment-test expectation corrected & no (before models) \\
+v8 & IC4 failed $\Rightarrow$ v8c exploratory; estimator changed to ratio of means & yes (after IC4, before models) \\
+v8 & null-band subtraction for the HF bands (post hoc) & yes \\
+v8 & downloads switched to curl; one inventory connection error recovered; \verb|\r| from a Windows CSV fixed in v8d & no \\
+v9 & HEASARC AWS mirror (byte-identical) and raw files outside the repository & no (before models) \\
+v9 & colour-window $\nu_c$ comparison, $c_2>0.7$ exclusion, source-level v9c (post hoc, descriptive) & yes \\
+v10 & permutation changed from union-wide to within instrument-membership strata (synthetic power test) & no (before any v10b statistic) \\
+v10 & single-instrument stratum bug fixed; jitter seed via \code{crc32}; parallelism 4 $\to$ 2 & no effect on statistics \\
+v11 & $\nu^*$ computed and committed before new data; parallelism 3 $\to$ 2, six concurrent range requests & no \\
+v11 & v11b background / very-hard sensitivity (post hoc, descriptive) & yes \\
+v12 & 3C50 rejects original gain calibration (2018 fallback removed); failures excluded as pre-registered; ``include uncorrected'' sensitivity added & no (before any v12 result) \\
+v12 & RF chosen as the v12b primary (stated in the pre-registration as chosen after v9--v11) & yes \\
+v13 & resumed after an interruption; the faint cleaned files had been kept (an earlier note wrongly said otherwise) & no \\
+v14 & stop after v13: further versions could only re-use the same sources & yes (decided after v13) \\
+report & English report: no analysis re-run, no raw download; discrepancies marked \% CHECK & documentation only \\
+\end{longtable}}

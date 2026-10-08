@@ -9,6 +9,7 @@
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
 \usepackage[utf8]{inputenc}
+\usepackage{CJKutf8}  % Traditional Chinese terms in the glossary (bsmi font)
 \usepackage{microtype}
 \usepackage{xcolor}
 \usepackage{graphicx}
@@ -106,6 +107,7 @@
   \cs_set:Npn \_ {\textunderscore\allowbreak}
   \tl_use:N \l_xrb_path_tl \group_end:}
 \ExplSyntaxOff
+\newcommand{\zh}[1]{\begin{CJK}{UTF8}{bsmi}#1\end{CJK}}
 \newcommand{\BH}{BH}
 \newcommand{\NS}{NS}
 

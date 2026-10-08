@@ -1,1 +1,51 @@
+% =====================================================================================================
 \chapter{Glossary}\label{app:glossary}
+% =====================================================================================================
+The repository reports are written in Traditional Chinese. \Cref{tab:glossary} gives the English terms used in this report for the
+recurring Chinese ones, with a short definition.
+
+{\small\setlength{\tabcolsep}{4pt}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{3.0cm}>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}p{7.2cm}@{}}
+\caption[Glossary]{Chinese terms of the repository reports, the English terms of this report, and their meaning.}\label{tab:glossary}\\
+\toprule
+Report term & This report & Meaning \\
+\midrule\endfirsthead
+\toprule Report term & This report & Meaning \\ \midrule\endhead
+\bottomrule\endfoot
+\zh{硬度比}, \zh{顏色} & hardness ratio, (X-ray) colour & ratio of net counts in two energy bands (count space unless stated) \\
+\zh{軟態}, \zh{硬態} & soft state, hard state & spectral states; in this project defined operationally by variability \\
+\zh{軟態類}, \zh{硬態類}, \zh{中間}, \zh{無法判定} & soft-like, hard-like, intermediate, unknown & variability classes: rms $<0.075$, $>0.10$, in between, too few rows \\
+\zh{硬態類觀測} & hard-like observations & observations whose state index exceeds 0.10 \\
+\zh{天體}, \zh{來源} & source & one astrophysical object (all its observations share a label and a fold) \\
+\zh{來源層級}, \zh{觀測層級} & source-level, observation-level & metrics on source mean scores vs on individual observations \\
+\zh{預先設定}, \zh{預先登記} & pre-registration & analysis plan written and committed before the data or models of a version \\
+\zh{主要} ($\bigstar$) & primary & the pre-declared comparison that decides the version's verdict \\
+\zh{描述性}, \zh{探索性} & descriptive, exploratory & reported without a confirmatory claim \\
+\zh{事後} & post hoc & decided after seeing the corresponding results \\
+\zh{凍結} & frozen & fixed and committed before new data are seen (models, rules, pipelines) \\
+\zh{前瞻性檢驗} & prospective test & test of frozen procedures on data not seen before \\
+\zh{有差異}, \zh{有提升} & detected & the 95\% source-bootstrap interval excludes 0 (or $p<0.05$) \\
+\zh{未偵測到} & not detected & not detected under the pre-registered criterion (not ``absent'') \\
+\zh{動力學確認} BH & dynamically confirmed BH & BH with a dynamical mass measurement (BlackCAT; \citealt{Marcel2026}) \\
+\zh{候選者} & BH candidate & BH classified by X-ray behaviour only; never used as a training label \\
+type-I \zh{爆發}, \zh{爆發源} & type-I X-ray burst, burster & thermonuclear burst on an NS surface; proof of an NS \\
+\zh{脈衝星} & pulsar & NS with coherent pulsations (AMXP or slow pulsar) \\
+\zh{持續黑洞}, \zh{暫現源} & persistent BH, transient & BHs in HMXBs (Cyg X-1, LMC X-1, LMC X-3) vs outbursting LMXBs \\
+\zh{特徵頻率} $\nu_c$ & characteristic frequency & $\nu P_\nu$-weighted centroid frequency of the variability \\
+\zh{洩漏} & leakage & information from the test source reaching the training set (e.g.\ observation-wise splits) \\
+\zh{設計矩陣} & design matrix & $\Xm$, one row per observation, one column per feature \\
+out-of-fold \zh{分數} & out-of-fold (OOF) score & score from a model that never saw the observation's source \\
+\zh{天體等權重} & source-equal weights & sample weights giving every training source the same total weight \\
+\zh{顏色重疊區} & colour-overlap box & $h_1\ge0.70$, $h_2\ge0.20$ in the count-space colour plane (post hoc definition) \\
+\zh{橋接檢查} & bridge check & gate showing that a new representation reproduces the old one on the old sample \\
+\zh{實作檢查} & implementation check (gate) & pre-declared synthetic or consistency test that must pass before modelling \\
+\zh{外部天體}, \zh{從未用過} & external sources, never used & sources or observations not used in any training or analysis before \\
+\zh{壓力測試} & stress test & slow pulsars used to test whether coherent pulses mimic BH-like noise \\
+\zh{敏感度分析} & sensitivity analysis & re-analysis under an alternative rule \\
+\zh{置換檢定} & permutation test & test with labels permuted among sources \\
+\zh{差中差} & difference in differences & change of a state gap between two models \\
+\zh{背景比例}, \zh{篩選}, \zh{修正} & background fraction, screening, correction & 3C50 $f$; exclusion of $f>0.20$; scaling by $1/(1-f)$ \\
+\zh{增益} & gain & paired metric difference (model with $-$ without a feature block) \\
+\zh{門檻}, \zh{校準} & threshold, calibration & decision cut (0.5); agreement of scores with frequencies \\
+\zh{信度} & reliability & split-half agreement of a feature (Spearman--Brown corrected) \\
+\end{longtable}}

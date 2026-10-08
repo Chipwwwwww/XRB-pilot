@@ -82,6 +82,9 @@ byte for byte after re-download.
 \item Python 3.12.10 (Windows, \file{logs/environment.txt}; re-checks on macOS with Python 3.12.14), with the versions pinned in
 \file{requirements-lock.txt}: numpy 2.4.4, pandas 2.3.3, scipy 1.17.1, scikit-learn 1.8.0, astropy 7.2.0, matplotlib 3.10.9, joblib 1.6.0,
 requests 2.33.1 (plus their dependencies).
+\item Second-machine check (decision log, 2026-09-30): on macOS the 2,689 v1--v2 raw files were re-downloaded from the URLs in
+\file{logs/downloads.jsonl} with all SHA256 values matching; \file{features.npz} agreed with the Windows file to $\le10^{-16}$, LR scores were
+identical, single RF scores differed by $\le0.006$ (source means $\le0.001$), and all predicted labels and accuracies were identical.
 \item HEASoft 6.37.1 in WSL Ubuntu 22.04 for the XSPEC cross-check (v2), \code{nh} and XSPEC \code{tbabs} (v8d) and \code{nibackgen3C50} with
 the NICER CALDB (v12, v13).
 \end{itemize}
