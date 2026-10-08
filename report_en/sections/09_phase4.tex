@@ -198,13 +198,15 @@ observation), \file{scripts/31\_v7b1\_minbar.py}.}
 (7.0\,$M_\odot$, B2.5\,Ve) as dynamically confirmed. With the v2 rules (epoch 5, exposure $\ge1000$\,s, \code{STD1RATE}
 $\ge5$, $\ge10$ eligible, 15 time-stratified observations) and pointings within $0.1^\circ$ of the SIMBAD position (the
 approved rule), Cyg X-1 has 1,205, LMC X-1 31 and LMC X-3 830 eligible pointings; all 45 sampled observations passed
-(\cref{tab:p4attrition}). The catalogue median pointing of LMC X-1 is $0.263^\circ$ from the source, so a
-catalogue-median rule would have given 450 eligible pointings. Median deadtime fractions are 2.3\% (Cyg X-1, maximum 3.8\%),
+(\cref{tab:p4attrition}). The catalogue median pointing of LMC X-1 is $0.263^\circ$ from the source: 450 of its
+pointings pass the epoch, exposure and \code{STD1RATE} cuts, but only 31 lie within $0.1^\circ$ of the SIMBAD position (the v7 report
+quotes 450 for a catalogue-median rule). Median deadtime fractions are 2.3\% (Cyg X-1, maximum 3.8\%),
 1.1\% (LMC X-1) and 1.3\% (LMC X-3); no observation is MINBAR-contaminated. v8b searched the HEASARC TAP \code{xtemaster}
 table for the Table~1 BHs not yet used: only GS 1354$-$64 (1997--98, gain epoch 3; 11 eligible, 8 accepted, 3 without
 Standard Products) and SS 433 (108 eligible, 15 accepted) were available, with the minimum-eligible rule relaxed to 3.
-% CHECK: reports/preregistration_v7.md quotes 419 eligible pointings for LMC X-1 under the catalogue-median rule; the
-% committed results/v7b2/attrition_catalog.csv and the v7 report give 450.
+% CHECK: reports/preregistration_v7.md quotes 419 eligible pointings for LMC X-1 under the catalogue-median rule; the v7
+% report says 450; results/v7b2/attrition_catalog.csv records 450 after the STD1RATE cut and before the pointing cut, and the
+% catalogue-median count itself is not stored.
 
 \begin{table}[htbp]
 \centering\small
@@ -263,7 +265,10 @@ CC3 = RelInt), three classes (BH including 7 candidates, non-pulsing NS, pulsar)
 systems of \citet[Table 1]{Marcel2026}; non-pulsing NS (NPNS) = type-I bursters of the MINBAR source table minus those
 within $0.1^\circ$ of an accretion-powered pulsar; pulsars (PSR, secondary task) = HMXBs with a pulse period in
 \citet{Liu2006} plus \citet[Table 1]{PatrunoWatts2021}. MAXI source names were resolved with Sesame and matched within
-$0.1^\circ$; blended light curves (``with'' in the name) and ambiguous identifications were excluded. Data are the MAXI/GSC
+$0.1^\circ$ (J-name position within $0.3^\circ$ as fallback when Sesame fails);
+% CHECK: the docstring of scripts/38_v7c2_select.py still describes matching on J-name positions within 0.35 deg; the code
+% and the decision log use Sesame positions within 0.1 deg (0.3 deg fallback). Code wins.
+blended light curves (``with'' in the name) and ambiguous identifications were excluded. Data are the MAXI/GSC
 standard one-day light curves in 2--4 (L), 4--10 (M) and 10--20\,keV (H), with the cuts of \citet{deBeurs2022}: every band
 $\ge\sqrt3\,\sigma$ with positive errors, points with total $\ge$ mean + 10 std removed, $\ge100$ points per source. Passing:
 \textbf{13 BHs} (Cyg X-1, GRO J1655$-$40, GRS 1915+105, GS 1354$-$64, GX 339$-$4, LMC X-1, LMC X-3, MAXI J1305$-$704,

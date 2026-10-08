@@ -81,9 +81,9 @@ All-pairs cross-MPU cospectra, ratio of means and signed square root (the v8 les
 20\,c\,s$^{-1}$). Colours $H_N=[c_1,c_2]$ with $c_1=C(4\text{--}6)/C(2\text{--}4)$ and $c_2=C(6\text{--}10)/C(4\text{--}6)$; timing
 $T_N$ = fractional rms in the v5 bands (0.016--0.094, 0.10--1.0, 1.0--4.0\,Hz); state from the 0.1--10\,Hz rms with the RM06
 thresholds; $\nu_c$ from 13 octave bins over $1/128$--64\,Hz (\cref{eq:nuc}).
-% CHECK: in v9 (scripts/v9lib.py) the nu_c weights are max(P_b,0) without division by the logarithmic bin width (the octave bins
-% have nearly equal width in ln nu), whereas v6 (Standard-1, 9 bins) divides by Delta ln nu. Both follow their own
-% pre-registration; the two nu_c are therefore not identically defined (cf. sections sec:nuc and sec:nicer of Ch. 2).
+% CHECK: reports/preregistration_v9.md says nu_c uses the v6 definition, but scripts/v9lib.py weights the 13 octave bins by
+% max(P_b,0) without dividing by Delta ln nu (v6 divides). For octave bins Delta ln nu is ~ln 2 for all but the lowest bins
+% (j in [1,1] gives ln 3), so the two definitions differ only through the lowest bins. Code wins: the report states the code.
 
 \textbf{Gates.} IC1: the streaming parser equals \texttt{astropy} on complete and truncated synthetic files; IC2: synthetic events
 recover sinusoids at 0.05, 0.5 and 2\,Hz as 0.099--0.102 (true 0.1), the 0.1--10\,Hz rms as 0.143 (true 0.141), pure Poisson

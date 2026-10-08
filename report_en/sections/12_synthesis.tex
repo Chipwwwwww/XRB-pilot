@@ -1,1 +1,195 @@
-\chapter{Synthesis}\label{ch:synthesis}
+% =====================================================================================================
+\chapter{Synthesis across phases (v14)}\label{ch:synthesis}
+% =====================================================================================================
+Version v14 (2026-10-06) ran no new test. It collected the results of v1--v13 into a final summary, two tables and one figure, and
+decided to stop the series because any further version could only re-use the same sources. The files are
+\file{reports/final\_summary\_zh-TW.md}, \file{results/final\_timing\_gain\_across\_versions.csv},
+\file{results/final\_nuc\_difference\_across\_versions.csv} and \file{figures/final/summary\_across\_versions.png} (made by
+\file{scripts/64\_final\_summary\_figure.py}). This chapter puts all pre-declared primary comparisons side by side,
+shows the two timing results across samples and instruments, and states the conclusions in three tiers together with the degree of
+independence behind each.
+
+% -----------------------------------------------------------------------------------------------------
+\section{Every primary comparison}\label{sec:synthprimaries}
+% -----------------------------------------------------------------------------------------------------
+\Cref{tab:synthprimaries} lists each pre-declared primary comparison of v1--v13 with its result and verdict under the rule that was
+written down before the comparison. It is the shortest honest summary of the project.
+
+{\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}p{1.1cm}>{\raggedright\arraybackslash}p{5.5cm}>{\raggedright\arraybackslash}p{4.6cm}>{\raggedright\arraybackslash}p{2.5cm}l@{}}
+\caption[All primary comparisons]{All pre-declared primary comparisons, v1--v13 (``det.''\ = detected: 95\% interval excludes 0 or
+$p<0.05$; ``n.d.''\ = not detected under the pre-registered criterion). Each pre-registration was written after the results of all
+earlier versions. Sources: the results tables of \cref{ch:phase1,ch:phase2,ch:phase3,ch:phase4,ch:phase5,ch:phase6}.}\label{tab:synthprimaries}\\
+\toprule
+Ver. & Comparison (sample) & Result & Verdict & Ch. \\
+\midrule\endfirsthead
+\toprule Ver. & Comparison (sample) & Result & Verdict & Ch. \\ \midrule\endhead
+\bottomrule\endfoot
+v1 & none formal: LOSO evaluation of A and B (8 sources) & source BA 0.50--0.88 by combination & descriptive & \ref{ch:phase1} \\
+v2 & B $-$ A, LR (31 sources), source BA & $-0.092$ [$-0.268$, $+0.021$] & n.d. & \ref{ch:phase1} \\
+v2 & B $-$ A, RF, source BA & $+0.235$ [$+0.042$, $+0.429$] & det.\ (shape beats raw intensity for RF) & \ref{ch:phase1} \\
+v3a & H+B $-$ H, LR, source AUC & $-0.048$ [$-0.179$, $+0.048$] & n.d. & \ref{ch:phase1} \\
+v3a & H+B $-$ H, RF, source AUC & $-0.012$ [$-0.077$, $+0.048$] & n.d. & \ref{ch:phase1} \\
+v4a & nested automatic selection $-$ H-LR, source BA / AUC & $-0.062$ [$-0.146$, $+0.021$] / $-0.173$ [$-0.399$, $+0.012$] & n.d. & \ref{ch:phase2} \\
+v5 & H+T-LR $-$ H-LR (S1), source BA / AUC & $+0.113$ [$-0.021$, $+0.277$] / $+0.065$ [0.000, $+0.179$] & n.d. & \ref{ch:phase3} \\
+v6a & frozen H$_R$+T-LR $-$ H$_R$-LR (external E), source BA / AUC & $+0.105$ [0.000, $+0.237$] / 0.000 [0, 0] & n.d.\ (AUC saturated) & \ref{ch:phase3} \\
+v7b1 & H-LR without MINBAR bursts $-$ v2, source BA / AUC & 0.000 [0, 0] / $-0.006$ [$-0.036$, 0.000] & n.d.\ (no burst effect) & \ref{ch:phase4} \\
+v7a & H-LR observation AUC, soft-like $-$ hard-like & $+0.309$ [$+0.099$, $+0.510$] & \textbf{det.} & \ref{ch:phase4} \\
+v7b2 & + 3 persistent BHs, H-LR on the 31, source BA / AUC & 0.000 [$-0.214$, $+0.214$] / $-0.048$ [$-0.167$, $+0.048$] & n.d. & \ref{ch:phase4} \\
+v7c1 & reproduction of \citet{deBeurs2022} & SVM 36/44, kNN 38/44 & reproduced & \ref{ch:phase4} \\
+v7c2 & MAXI LR: CCI $-$ C2D / C2D $-$ C1D, source AUC & $-0.029$ [$-0.066$, $+0.002$] / $+0.139$ [$-0.032$, $+0.306$] & n.d.\ / n.d. & \ref{ch:phase4} \\
+v8a & S1 hard-like AUC, H+T-LR $-$ H-LR & $+0.264$ [$+0.048$, $+0.455$] & \textbf{det.} & \ref{ch:phase4} \\
+v8b & external X hard-like AUC, frozen H$_R$+T-LR $-$ H$_R$-LR & $+0.064$ [$-0.185$, $+0.367$] & n.d. & \ref{ch:phase4} \\
+v8c & S1-HF AUC, H+HF-LR $-$ H-LR & $-0.056$ [$-0.154$, $+0.010$] & exploratory (IC4 failed) & \ref{ch:phase4} \\
+v8d & MAXI RF C2D$_\mathrm{NH}$ $-$ C1D$_\mathrm{NH}$, source AUC & $+0.377$ [$+0.160$, $+0.595$] & \textbf{det.} & \ref{ch:phase4} \\
+v9a & NICER hard-like AUC, H$_N$+T$_N$-LR $-$ H$_N$-LR & $+0.112$ [$-0.004$, $+0.229$] & n.d. & \ref{ch:phase5} \\
+v9b & NICER hard-like $D(\log_{10}\nu_c)$ & $-0.310$, $p=0.136$ & n.d. & \ref{ch:phase5} \\
+v10a & pooled hard-state gain (equal weights) & $+0.145$ [$+0.028$, $+0.257$] & \textbf{det.}\ (not independent) & \ref{ch:phase5} \\
+v10b & pooled $D(\log_{10}\nu_c)$ & $-0.368$, $p=0.0012$ & \textbf{det.}\ (not independent) & \ref{ch:phase5} \\
+v11a & new obs., frozen LR hard-like gain & $+0.066$ [$-0.095$, $+0.180$] & n.d. & \ref{ch:phase6} \\
+v11b & new obs., $D(\log_{10}\nu_c)$ & $-0.663$, $p=0.0225$ & \textbf{det.}\ (background-sensitive) & \ref{ch:phase6} \\
+v12a & 3C50-corrected $D(\log_{10}\nu_c)$ & $-0.514$, $p=0.073$ & n.d. & \ref{ch:phase6} \\
+v12b & 3C50-corrected RF hard-like gain (RF chosen post hoc) & $+0.174$ [$+0.071$, $+0.300$] & \textbf{det.} & \ref{ch:phase6} \\
+v13a & third new set, frozen RF hard-like gain (RF pre-chosen) & $+0.184$ [$+0.049$, $+0.337$] & \textbf{det.}\ (prospective) & \ref{ch:phase6} \\
+v13b & third new set, $D(\log_{10}\nu_c)$ & $-0.427$, $p=0.209$ & n.d. & \ref{ch:phase6} \\
+\end{longtable}}
+
+Excluding v1 (no formal primary), the v7c1 reproduction and the exploratory v8c, and counting the two models of v2 and v3a and the
+two comparisons of v7c2 separately, the table contains 25 primary comparisons, of which 9 were detected: v2-RF (shape beats raw
+intensity, an early question unrelated to the later hypotheses), v7a (state dependence), v8a, v10a, v12b and v13a (hard-state timing
+gain), v10b and v11b (characteristic frequency) and v8d (MAXI 2--4\,keV colour). Every primary that asked whether \emph{more spectral
+information} helps was not detected.
+
+% -----------------------------------------------------------------------------------------------------
+\section{The two timing results across samples and instruments}\label{sec:synthtiming}
+% -----------------------------------------------------------------------------------------------------
+\Cref{tab:synthgain,tab:synthnuc,fig:synthsummary} collect the two results that Phases 3--6 tested repeatedly.
+
+\begin{table}[htbp]
+\centering\small
+\caption[Hard-state timing gain across versions]{Hard-like observation-level AUC gain from the low-frequency timing features (H+T $-$ H)
+across samples, instruments and models, with 95\% source-bootstrap intervals; $\bigstar$ = pre-declared primary. From
+\file{results/final\_timing\_gain\_across\_versions.csv}.}
+\label{tab:synthgain}
+\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}llll@{}}
+\toprule
+Analysis & Instrument & LR & RF \\
+\midrule
+v8a RXTE v2 sample & RXTE & $\bigstar$ $+0.264$ [$+0.048$, $+0.455$] & $+0.230$ [$+0.074$, $+0.408$] \\
+v8b RXTE external (frozen) & RXTE & $\bigstar$ $+0.064$ [$-0.185$, $+0.367$] & -- \\
+v9a NICER prefixes & NICER & $\bigstar$ $+0.112$ [$-0.004$, $+0.229$] & $+0.236$ [$+0.104$, $+0.372$] \\
+v10a pooled RXTE + NICER & both & $\bigstar$ $+0.145$ [$+0.028$, $+0.257$] & -- \\
+v10 NICER full observations & NICER & -- & $+0.219$ [$+0.100$, $+0.337$] \\
+v11 NICER new observations (frozen) & NICER & $\bigstar$ $+0.066$ [$-0.095$, $+0.180$] & $+0.247$ [$+0.128$, $+0.384$] \\
+v12 NICER 3C50-corrected & NICER & $+0.090$ [$-0.056$, $+0.243$] & $\bigstar$ $+0.174$ [$+0.071$, $+0.300$] \\
+v13 NICER third set (frozen) & NICER & $+0.182$ [$+0.022$, $+0.347$] & $\bigstar$ $+0.184$ [$+0.049$, $+0.337$] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{table}[htbp]
+\centering\small
+\caption[Characteristic-frequency difference across versions]{Colour-conditional difference of $\log_{10}\nu_c$ (BH $-$ NS, dex) and
+permutation $p$; $\bigstar$ = pre-declared primary. From \file{results/final\_nuc\_difference\_across\_versions.csv}.}
+\label{tab:synthnuc}
+\begin{tabular}{@{}lcc@{}}
+\toprule
+Analysis & $D$ [dex] & $p$ \\
+\midrule
+v6d RXTE v2 (all states) & $-0.313$ & 0.0037 \\
+v6d RXTE external (all states) & $-0.037$ & 0.783 \\
+$\bigstar$ v9b NICER prefixes (hard-like) & $-0.310$ & 0.136 \\
+v10b RXTE hard-like & $-0.265$ & 0.0018 \\
+v10b NICER full (hard-like) & $-0.471$ & 0.033 \\
+$\bigstar$ v10b pooled RXTE + NICER & $-0.368$ & 0.0012 \\
+$\bigstar$ v11b NICER new observations & $-0.663$ & 0.0225 \\
+$\bigstar$ v12a NICER 3C50-corrected & $-0.514$ & 0.073 \\
+$\bigstar$ v13b NICER third set & $-0.427$ & 0.209 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/final/summary_across_versions.png}
+\caption[Timing results across versions]{The two timing results of v5--v13. (a) Hard-state AUC gain from the 0.016--4\,Hz timing features
+with 95\% source-bootstrap intervals (blue LR, orange RF; filled squares = pre-declared primaries). (b) Colour-conditional
+$\log_{10}\nu_c$ difference BH $-$ NS (green: $p<0.05$; squares: primaries). Every RF interval lies above 0; the LR intervals of the
+external and new-observation sets include 0; every $D$ except the four-BH external RXTE set is between $-0.27$ and $-0.66$\,dex.
+Repo: \file{figures/final/summary\_across\_versions.png}, \file{scripts/64\_final\_summary\_figure.py}; values in the two
+\file{results/final\_*.csv} files.}
+\label{fig:synthsummary}
+\end{figure}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Conclusions in three tiers}\label{sec:synthtiers}
+% -----------------------------------------------------------------------------------------------------
+\begin{keybox}{Supported by the data}
+\begin{enumerate}
+\item Two count-space hardness ratios capture essentially all the BH/NS information in a single 3--25\,keV RXTE spectrum: neither the full
+shape, nor intensity, nor 3--5\,keV, nor 25--60\,keV, nor flexible algorithms, nor 17$\times$ more observations add anything detectable
+(Phases 1--2).
+\item The colour information works in soft states and fails in hard states: observation-level AUC 0.954 (soft-like) vs 0.646 (hard-like) on
+RXTE, difference $+0.31$ [$+0.10$, $+0.51$]; colour-only hard-state AUC 0.50--0.75 on NICER (Phase 4--6).
+\item Inside the hard state, 0.016--4\,Hz variability raises the BH/NS separation, consistently on RXTE, on three disjoint NICER observation
+sets, in the cross-instrument pool, after background correction, and prospectively with a frozen pipeline and a pre-chosen RF on new
+observations (v13: $+0.18$ [$+0.05$, $+0.34$]).
+\item Type-I burst contamination does not drive any of the spectral conclusions (v4, v7b1).
+\end{enumerate}
+\end{keybox}
+
+\begin{keybox}{Consistent in direction, marginal in significance}
+\begin{enumerate}
+\item At the same colour, the characteristic frequency of BH variability is lower than that of NSs by 0.3--0.6\,dex in every data set except
+the four-BH external RXTE set; pooled $p=0.0012$ (v10b), but single NICER data sets give $p$ between 0.02 and 0.21. No Eddington-ratio
+control was possible, so mass and accretion state cannot be separated.
+\item The timing gain is stable for the non-linear RF ($+0.17$ to $+0.25$) and unstable for LR ($+0.07$ to $+0.26$).
+\item On MAXI, the 2--4\,keV colour carries BH/NS information beyond the $\ge4$\,keV colour that is not explained by Galactic absorption
+(v8d detected; v9c post hoc in all C4 tertiles).
+\end{enumerate}
+\end{keybox}
+
+\begin{cautionbox}{Not supported}
+\begin{enumerate}
+\item A broad-band 512--1024\,Hz criterion in the style of \citet{SunyaevRevnivtsev2000}: after removing a cross-PCU white component it is
+essentially undetectable at single-observation sensitivity (v8c, exploratory).
+\item High accuracy of linear colour models on MAXI with confirmed BHs: LR has source AUC 0.45--0.59 (v7c2); the high accuracy of
+\citet{deBeurs2022} comes mostly from the two NS classes.
+\item More flexible models, nested model selection, wider bands or more observations per source as a route beyond two colours (v4).
+\end{enumerate}
+\end{cautionbox}
+
+% -----------------------------------------------------------------------------------------------------
+\section{How independent is each piece of evidence?}\label{sec:synthladder}
+% -----------------------------------------------------------------------------------------------------
+\Cref{tab:synthladder} places the timing results on an ``independence ladder''. Every pre-registration was written after the results of all
+earlier versions, so later hypotheses were increasingly guided by earlier data; the project compensated by freezing pipelines and rules
+before new data (v6, v8b, v11, v13). No step reaches source-level independence: the BH side always consists of the same 16 dynamically
+confirmed BHs (7--9 in the hard state per instrument).
+
+\begin{table}[htbp]
+\centering\small
+\caption[Independence ladder]{Levels of independence behind the timing claims.}
+\label{tab:synthladder}
+\begin{tabularx}{\textwidth}{@{}p{3.6cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{4.2cm}@{}}
+\toprule
+Level & Analyses & What is independent / what is not \\
+\midrule
+Same observations, LOSO & v5, v8a, v9a, v10c & sources held out in turn; features and hypotheses chosen with knowledge of earlier results \\
+Frozen model, other sources & v6a, v8b & new sources (23--26), but only 4--5 BHs; v4b2 sources had been seen in other models \\
+Other instrument, same design & v9, v10 NICER & new instrument and epoch; design repeated, not transferred; 2 never-used BHs \\
+Pooled evidence & v10a, v10b & all data; hypotheses and pooling chosen after the components (not a confirmation) \\
+Prospective, new observations & v11, v13 & pipeline, rules and (v13) model type frozen before download; same sources \\
+Prospective, new sources & -- & not achieved: no further dynamically confirmed BHs with usable RXTE/NICER timing \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Why the series stopped}\label{sec:synthstop}
+% -----------------------------------------------------------------------------------------------------
+The decision log records the v14 decision to stop after v13: 16 of the 25 dynamically confirmed BHs of \citet{Marcel2026} had been used,
+the remaining ones have no usable RXTE or NICER timing data, and batch access to other missions could not be verified. A further version
+could only add new observations of the same sources, which would not change the level of independence. The natural next step is a
+source-level prospective test on new BH transients (\cref{ch:future}).
