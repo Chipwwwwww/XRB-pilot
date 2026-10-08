@@ -157,27 +157,40 @@ distributions of the quantities that define the sample.
 
 \begin{figure}[htbp]
 \centering
-\begin{subfigure}{\textwidth}\includegraphics[width=\textwidth]{figures/step3_dataset_diagnostics.png}\caption{v1, 8 sources}\end{subfigure}\\[4pt]
-\begin{subfigure}{\textwidth}\includegraphics[width=\textwidth]{figures/v2/step3_dataset_diagnostics.png}\caption{v2, 31 sources}\end{subfigure}
+\begin{subfigure}{\textwidth}\includegraphics[width=\textwidth]{figures/step3_dataset_diagnostics.png}\caption{v1, 8 sources}\end{subfigure}
 \caption[Dataset diagnostics, v1 and v2]{Per-source diagnostics of the accepted observations (blue = BH, orange = NS):
 observations per source (accepted vs excluded candidates), spectrum exposure, net 5--25\,keV count rate per PCU, background
 fraction, net S/N and the count ratio (10--25)/(5--10)\,keV (log axes where indicated). BH and NS overlap in every
 quantity; the BHs are on average brighter in v1 (GRS 1915+105, GRO J1655$-$40), a possible intensity shortcut that
 representation A could exploit. Repo: \file{figures/step3\_dataset\_diagnostics.png}, \file{figures/v2/step3\_dataset\_diagnostics.png};
-script \file{scripts/06\_dataset\_checks.py}.}
+script \file{scripts/06\_dataset\_checks.py}. Panel (b), v2, is in the continuation of this figure.}
 \label{fig:p1diag}
 \end{figure}
 
 \begin{figure}[htbp]
+\ContinuedFloat
 \centering
-\begin{subfigure}{\textwidth}\includegraphics[width=\textwidth]{figures/step3_spectra_by_source.png}\caption{v1}\end{subfigure}\\[4pt]
-\begin{subfigure}{\textwidth}\includegraphics[width=\textwidth]{figures/v2/step3_spectra_by_source.png}\caption{v2}\end{subfigure}
+\begin{subfigure}{\textwidth}\includegraphics[width=\textwidth]{figures/v2/step3_dataset_diagnostics.png}\caption{v2, 31 sources}\end{subfigure}
+\caption[]{(continued) Per-source diagnostics of the v2 sample (31 sources); panels as in (a).}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\begin{subfigure}{\textwidth}\includegraphics[width=\textwidth]{figures/step3_spectra_by_source.png}\caption{v1}\end{subfigure}
 \caption[Net count-rate spectra per source, v1 and v2]{Net count-rate spectra of every accepted observation, one panel
 pair per source (upper: count rate per keV per PCU, log--log, non-positive bins omitted; lower: per-spectrum shape
 normalised to the 5--25\,keV rate). The spread within a source (state changes) is comparable to the spread between
 sources, which is why a single observation is a hard input. Repo: \file{figures/step3\_spectra\_by\_source.png},
-\file{figures/v2/step3\_spectra\_by\_source.png}; script \file{scripts/06\_dataset\_checks.py}.}
+\file{figures/v2/step3\_spectra\_by\_source.png}; script \file{scripts/06\_dataset\_checks.py}. Panel (b), v2, is in the
+continuation of this figure.}
 \label{fig:p1spectra}
+\end{figure}
+
+\begin{figure}[htbp]
+\ContinuedFloat
+\centering
+\begin{subfigure}{\textwidth}\includegraphics[width=\textwidth]{figures/v2/step3_spectra_by_source.png}\caption{v2}\end{subfigure}
+\caption[]{(continued) Net count-rate spectra of the v2 sample, one panel pair per source as in (a).}
 \end{figure}
 
 \subsection{BH candidates (v3c)}

@@ -817,10 +817,12 @@ XTE J1710$-$281 & J1710-281 & NS & v4b2 & \textbf{0.52} & \textbf{0.52} \\
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.6\textwidth]{figures/v7c/v7c3_rxte_vs_maxi.png}
+\includegraphics[width=0.88\textwidth]{figures/generated/G7_v7c3_rxte_maxi.pdf}
 \caption[RXTE vs MAXI scores]{RXTE/PCA H-LR source score (horizontal) against MAXI/GSC LR (CCI) source score (vertical) for the 30
-common sources (BH blue, NS orange; dashed lines at 0.5). Repo: \file{figures/v7c/v7c3\_rxte\_vs\_maxi.png},
-\file{scripts/39\_v7c2\_analysis.py}.}
+common sources (BH blue, NS orange; dashed lines at 0.5; solid line $y=x$). The vertical axis is limited to 0.22--0.66, the
+range of the MAXI scores. Redrawn for this report from \file{results/v7c/v7c3\_rxte\_vs\_maxi.csv} (same points as the
+repository figure \file{figures/v7c/v7c3\_rxte\_vs\_maxi.png} of \file{scripts/39\_v7c2\_analysis.py}, whose labels overlap;
+Spearman $\rho$ and agreement recomputed from the CSV and identical to the repository values).}
 \label{fig:p4rxtemaxi}
 \end{figure}
 
@@ -906,24 +908,26 @@ dominated by the sources with most points, which is why all values are near 0.5;
 \subsection{Phase summaries}
 \Cref{fig:p4v7summary,fig:p4v8summary} reproduce the repository's summary figures of v7 and v8.
 
-\begin{figure}[htbp]
+% v7 and v8 summaries (aspect 4.1 and 4.9) on one landscape page so their panel text is ~1.5x larger; files unchanged.
+\afterpage{%
+\begin{landscape}
+\begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{figures/v7/v7_summary.png}
+\includegraphics[width=\linewidth]{figures/v7/v7_summary.png}
 \caption[v7 summary]{v7 summary: (a) AUC by variability state for four models; (b) source AUC of H-LR and H-RF with 31 sources,
 with 34 sources evaluated on the 31, and on all 34; (c) MAXI source AUC of all models and feature sets (dashed: RXTE v2 H-LR); (d)
 RXTE vs MAXI source scores of the 30 common sources. Repo: \file{figures/v7/v7\_summary.png}, \file{scripts/40\_v7\_summary\_figure.py}.}
 \label{fig:p4v7summary}
-\end{figure}
 
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=\textwidth]{figures/v8/v8_summary.png}
+\vspace{8mm}
+\includegraphics[width=\linewidth]{figures/v8/v8_summary.png}
 \caption[v8 summary]{v8 summary: (a) S1 AUC by state for colour-only and timing models (hard-like squares); (b) external X with
 frozen models by state; (c) per-source null-subtracted 512--1024\,Hz $z$ against 4--64\,Hz rms (post hoc; only SAX J1808.4$-$3658
 above $3\sigma$); (d) S1-HF observation AUCs (exploratory); (e) MAXI RF source AUC before and after the $N_\mathrm{H}$ correction.
 Repo: \file{figures/v8/v8\_summary.png}, \file{scripts/46\_v8\_summary\_figure.py}.}
 \label{fig:p4v8summary}
 \end{figure}
+\end{landscape}}
 
 % -----------------------------------------------------------------------------------------------------
 \section{Interpretation}

@@ -314,26 +314,28 @@ T3 (1.0--4.0\,Hz) & $+0.068$ & 0.033 & 0.038 & 0.188 & \\
 
 \Cref{fig:p5nicer} shows the NICER hard-like observations in the timing and $\nu_c$ planes.
 
-\begin{figure}[htbp]
+\Cref{fig:p5v9summary} reproduces the repository's v9 summary figure.
+
+% v9 NICER and v9 summary figures (aspect 3.4 and 4.3) on one landscape page; files unchanged.
+\afterpage{%
+\begin{landscape}
+\begin{figure}[H]
 \centering
-\includegraphics[width=\textwidth]{figures/v9/v9_nicer.png}
+\includegraphics[width=0.93\linewidth]{figures/v9/v9_nicer.png}
 \caption[NICER hard-like observations]{NICER hard-like observations (BH blue, 7 sources; NS orange, 32 sources): (a) T1 rms against
 the colour $c_2=C(6\text{--}10)/C(4\text{--}6)$; (b) $\nu_c$ against $c_2$ -- at $c_2\approx0.2$--0.4 the BHs lie at lower $\nu_c$, and the
 very hard NS observations ($c_2>0.7$) have very low $\nu_c$; (c) observation-level AUC by state for the v9a models. Repo:
 \file{figures/v9/v9\_nicer.png}, \file{scripts/49\_v9\_analysis.py}.}
 \label{fig:p5nicer}
-\end{figure}
 
-\Cref{fig:p5v9summary} reproduces the repository's v9 summary figure.
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=\textwidth]{figures/v9/v9_summary.png}
+\vspace{3mm}
+\includegraphics[width=0.93\linewidth]{figures/v9/v9_summary.png}
 \caption[v9 summary]{v9 summary: (a) NICER AUC by state; (b) per-source mean hard-like scores, colour only (bars) and with timing
 (circles); (c) $\nu_c$ against $c_2$; (d) MAXI 2--4\,keV source-level gain by C4 tertile (v9c, post hoc; \cref{tab:p4v9c}). Repo:
 \file{figures/v9/v9\_summary.png}, \file{scripts/51\_v9\_summary\_figure.py}.}
 \label{fig:p5v9summary}
 \end{figure}
+\end{landscape}}
 
 \subsection{Pooled: the hard-state timing gain (v10a)}\label{sec:p5v10a}
 \Primary{} \Cref{tab:p5v10a} shows the three components and the pooled value. The equal-weight mean is $+0.145$ [$+0.028$, $+0.257$]:

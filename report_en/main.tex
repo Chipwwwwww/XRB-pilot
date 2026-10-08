@@ -27,6 +27,8 @@
 \usepackage{enumitem}
 \usepackage{float}
 \usepackage{placeins}
+\usepackage{pdflscape}  % landscape pages (rotated in the PDF viewer) for very wide repository figures
+\usepackage{afterpage}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage[authoryear,round,sort]{natbib}
@@ -57,8 +59,8 @@
 
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[L]{\small\nouppercase{\leftmark}}
-\fancyhead[R]{\small XRB-pilot technical report}
+\fancyhead[L]{\small\nouppercase{\leftmark}}   % full header width for the chapter title (long titles collided with a right header)
+\fancyfoot[L]{\footnotesize\color{gray}XRB-pilot technical report}
 \fancyfoot[C]{\thepage}
 \renewcommand{\headrulewidth}{0.3pt}
 

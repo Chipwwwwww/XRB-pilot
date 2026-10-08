@@ -9,6 +9,10 @@ Outputs (next to this script):
   G3_design_matrix.pdf     the real v2 B-shape design matrix (456 x 45), rows grouped by source, with y and g strips
   G4_leakage.pdf           LOSO vs leaky observation-wise 5-fold balanced accuracy (v1, v2)
   G5_phase12_forest.pdf    Phase 1-2 paired differences against two-colour baselines (source AUC, source BA)
+  G6_v6a_external.pdf      redraw of figures/v6/v6a_external_sources.png from results/v6/v6a_external_per_source.csv
+                           (same points; labels placed without overlap)
+  G7_v7c3_rxte_maxi.pdf    redraw of figures/v7c/v7c3_rxte_vs_maxi.png from results/v7c/v7c3_rxte_vs_maxi.csv
+                           (same points; labels placed without overlap; y axis zoomed to the data)
 Style: the repository plot style (scripts/plotstyle.py; BH blue, NS orange, validated categorical order)."""
 import sys
 from pathlib import Path
@@ -20,7 +24,8 @@ ROOT = HERE.parents[2]
 sys.path.insert(0, str(ROOT / 'scripts'))
 from plotstyle import plt, CLASS_COLOR, INK, INK2, GRID, SERIES   # noqa: E402
 
-plt.rcParams.update({'savefig.dpi': 200, 'font.size': 8.5, 'axes.titlesize': 9})
+# Figures are drawn at close to their printed width (\textwidth = 6.27 in), so the font sizes below are the printed sizes.
+plt.rcParams.update({'savefig.dpi': 200, 'font.size': 8.5, 'axes.titlesize': 9, 'axes.axisbelow': True})
 CAND = '#9e9d98'          # neutral grey for unlabelled BH candidates
 CANDCOL = SERIES[2]       # aqua (third validated slot) where a third identity is needed
 
@@ -74,28 +79,29 @@ def g1_sample_sizes():
     d = pd.DataFrame(rows)
     d.to_csv(HERE / 'G1_sample_sizes.csv', index=False)
 
-    fig, (a, b) = plt.subplots(1, 2, figsize=(9.2, 5.6), sharey=True, gridspec_kw=dict(width_ratios=[1.15, 1]))
+    fig, (a, b) = plt.subplots(1, 2, figsize=(7.0, 5.5), sharey=True, gridspec_kw=dict(width_ratios=[1.25, 1]))
     yy = np.arange(len(d))[::-1]
     a.barh(yy, d.n_bh, color=CLASS_COLOR['BH'], height=.62, label='BH sources (dynamically confirmed)')
     a.barh(yy, d.n_ns, left=d.n_bh, color=CLASS_COLOR['NS'], height=.62, label='NS sources')
     a.barh(yy, d.cand, left=d.n_bh + d.n_ns, color=CAND, height=.62, label='BH candidates (unlabelled)')
     for v, (nb, nn, nc) in zip(yy, zip(d.n_bh, d.n_ns, d.cand)):
         txt = f'{nb} BH / {nn} NS' if nc == 0 else f'{nc} candidates'
-        a.text(nb + nn + nc + 1.2, v, txt, va='center', fontsize=7, color=INK2)
-    a.set_yticks(yy); a.set_yticklabels(d.label, fontsize=7.5); a.set_xlabel('number of sources')
-    a.set_xlim(0, (d.n_bh + d.n_ns + d.cand).max() * 1.35)
-    a.legend(loc='upper right', fontsize=7)
+        a.text(nb + nn + nc + 1.2, v, txt, va='center', fontsize=7.5, color=INK2)
+    a.set_yticks(yy); a.set_yticklabels(d.label, fontsize=8); a.set_xlabel('number of sources')
+    a.set_xlim(0, (d.n_bh + d.n_ns + d.cand).max() * 1.4)
+    fig.legend(*a.get_legend_handles_labels(), loc='lower center', ncol=3, fontsize=8, bbox_to_anchor=(0.5, 0.0))
     a.set_title('(a) sources per sample', loc='left')
     b.barh(yy, d.n_obs, color=INK2, height=.62)
     for v, n in zip(yy, d.n_obs):
-        b.text(n * 1.08, v, f'{n:,}', va='center', fontsize=7, color=INK2)
-    b.set_xscale('log'); b.set_xlim(50, d.n_obs.max() * 6); b.set_xlabel('number of observations (log scale; MAXI: 1-day points)')
+        b.text(n * 1.08, v, f'{n:,}', va='center', fontsize=7.5, color=INK2)
+    b.set_xscale('log'); b.set_xlim(50, d.n_obs.max() * 8); b.set_xlabel('observations (log; MAXI: 1-day points)')
     b.set_title('(b) observations per sample', loc='left')
     for ax in (a, b):
         for k, ph in enumerate(sorted(d.phase.unique())):
             idx = yy[d.phase.values == ph]
             if k % 2 == 0: ax.axhspan(idx.min() - .5, idx.max() + .5, color=GRID, alpha=.35, lw=0, zorder=0)
-    fig.tight_layout()
+        ax.grid(axis='y', visible=False)
+    fig.tight_layout(rect=[0, 0.045, 1, 1])
     save(fig, 'G1_sample_sizes.pdf')
 
 
@@ -107,26 +113,26 @@ def g2_spectra():
     z = npz('data/v2/processed/features.npz')
     rate, F, y, e = z['rate'], z['F'], z['y'], z['edges']
     ec = np.sqrt(e[:-1] * e[1:]); B = rate / F[:, None]
-    fig, axes = plt.subplots(1, 2, figsize=(9.2, 3.5))
+    fig, axes = plt.subplots(1, 2, figsize=(7.0, 3.1))
     for ax, M, lab in ((axes[0], rate, 'net count rate  [count s$^{-1}$ keV$^{-1}$ PCU$^{-1}$]'),
-                       (axes[1], B, 'shape  rate / F(5–25 keV)  [keV$^{-1}$]')):
+                       (axes[1], B, 'shape: rate / F(5–25 keV)  [keV$^{-1}$]')):
         for k, (lo, hi, nm) in enumerate(BANDS):
             m = (ec >= lo) & (ec < hi)
             ax.axvspan(e[:-1][m].min(), e[1:][m].max(), color=GRID if k % 2 == 0 else '#f1f0ec', lw=0, zorder=0)
             ax.text(np.sqrt(e[:-1][m].min() * e[1:][m].max()), 0.97, nm, transform=ax.get_xaxis_transform(),
-                    ha='center', va='top', fontsize=7.5, color=INK2)
+                    ha='center', va='top', fontsize=8, color=INK2)
         for cls, yv in (('NS', 0), ('BH', 1)):
             Mc = M[y == yv]
             Mc = np.where(Mc > 0, Mc, np.nan)
             q16, q50, q84 = np.nanpercentile(Mc, [16, 50, 84], axis=0)
             ax.fill_between(ec, q16, q84, color=CLASS_COLOR[cls], alpha=.18, lw=0)
             ax.plot(ec, q50, color=CLASS_COLOR[cls], lw=1.8, label=f'{cls}: median, 16–84% ({int((y == yv).sum())} obs)')
-        ax.set_xscale('log'); ax.set_yscale('log'); ax.set_xlabel('energy  [keV]  (channel geometric centre)')
+        ax.set_xscale('log'); ax.set_yscale('log'); ax.set_xlabel('energy [keV] (channel geometric centre)')
         ax.set_xticks([5, 7, 10, 16, 25]); ax.set_xticklabels(['5', '7', '10', '16', '25']); ax.minorticks_off()
         ax.set_ylabel(lab, fontsize=7.5)
-    axes[0].set_title('(a) representation A before asinh (intensity kept)', loc='left')
-    axes[1].set_title('(b) representation B (per-spectrum shape)', loc='left')
-    axes[1].legend(loc='lower left', fontsize=7)
+    axes[0].set_title('(a) A before asinh (intensity kept)', loc='left')
+    axes[1].set_title('(b) B (per-spectrum shape)', loc='left')
+    axes[1].legend(loc='lower left', fontsize=7.5)
     fig.tight_layout()
     save(fig, 'G2_mean_spectra.pdf')
 
@@ -139,8 +145,8 @@ def g3_design_matrix():
     order = sorted(range(len(y)), key=lambda i: (-y[i], g[i]))
     Bo, yo, go = B[order], y[order], g[order]
     L = np.log10(np.clip(Bo, 1e-5, None))
-    fig = plt.figure(figsize=(8.4, 6.2))
-    gs = fig.add_gridspec(1, 3, width_ratios=[0.035, 0.035, 1], wspace=0.04)
+    fig = plt.figure(figsize=(6.6, 6.4))
+    gs = fig.add_gridspec(1, 3, width_ratios=[0.045, 0.045, 1], wspace=0.05)
     ay, ag, am = fig.add_subplot(gs[0]), fig.add_subplot(gs[1]), fig.add_subplot(gs[2])
     ay.imshow(yo[:, None], aspect='auto', cmap=plt.matplotlib.colors.ListedColormap([CLASS_COLOR['NS'], CLASS_COLOR['BH']]), interpolation='nearest')
     codes = pd.factorize(go)[0]
@@ -151,17 +157,25 @@ def g3_design_matrix():
         a_.set_xticks([]); a_.set_yticks([]); a_.set_title(t, fontsize=8)
     bounds = np.r_[0, np.where(np.diff(codes) != 0)[0] + 1, len(codes)]
     mids = (bounds[:-1] + bounds[1:]) / 2
-    am.set_yticks(mids - .5); am.set_yticklabels([go[int(b)] for b in bounds[:-1]], fontsize=5.2)
-    am.yaxis.tick_right()
+    # source names on the right; where two blocks are too close, the second name moves to a second column
+    am.set_yticks([]); col, last = 0, -1e9
+    for m_, b_ in zip(mids, bounds[:-1]):
+        col = 1 - col if m_ - last < 9 else 0; last = m_
+        am.annotate(go[int(b_)], xy=(1.0, m_ - .5), xycoords=('axes fraction', 'data'), xytext=(3 + 62 * col, 0),
+                    textcoords='offset points', va='center', fontsize=6.5, color=INK2,
+                    arrowprops=dict(arrowstyle='-', color=GRID, lw=.6) if col else None)
+    nb = int((y == 1).sum())
+    ay.text(0, nb / 2, 'BH', rotation=90, ha='center', va='center', color='white', fontsize=7.5, fontweight='bold')
+    ay.text(0, (nb + len(y)) / 2, 'NS', rotation=90, ha='center', va='center', color='white', fontsize=7.5, fontweight='bold')
     for b in bounds[1:-1]:
         am.axhline(b - .5, color='white', lw=.5)
-    nb = int((y == 1).sum())
     am.axhline(nb - .5, color=INK, lw=1.2)
     ticks = [0, 4, 11, 26, 44]
-    am.set_xticks(ticks); am.set_xticklabels([f'{k}\n{e[k]:.2f}' for k in ticks], fontsize=7)
+    am.set_xticks(ticks); am.set_xticklabels([f'{k}\n{e[k]:.2f}' for k in ticks], fontsize=7.5)
     am.set_xlabel('column j (energy bin index) and its lower edge [keV]')
-    am.set_title('B-shape design matrix, log$_{10}$(rate / F)  —  456 rows (105 BH above the black line, 351 NS below) × 45 columns', loc='left', fontsize=8)
-    cax = am.inset_axes([1.24, 0.0, 0.03, 1.0]); cb = fig.colorbar(im, cax=cax); cb.set_label('log$_{10}$ B$_{ij}$  [keV$^{-1}$]', fontsize=7.5)
+    am.set_title('B-shape design matrix log$_{10}$(rate / F): 456 rows (105 BH above the black line,\n351 NS below) × 45 columns', loc='left', fontsize=8.5)
+    cax = am.inset_axes([0.0, -0.17, 0.45, 0.022]); cb = fig.colorbar(im, cax=cax, orientation='horizontal')
+    cb.set_label('log$_{10}$ B$_{ij}$  [keV$^{-1}$]', fontsize=7.5); cb.ax.tick_params(labelsize=7)
     save(fig, 'G3_design_matrix.pdf')
 
 
@@ -179,17 +193,18 @@ def g4_leakage():
     d.to_csv(HERE / 'G4_leakage.csv', index=False)
     short = {'A_intensity': 'A', 'B_shape': 'B', 'H_colours': 'H', 'HI_colours_intensity': 'HI', 'LogReg': 'LR', 'RandomForest': 'RF'}
     d['lab'] = d.version.str.slice(0, 2) + '  ' + d.rep.map(short) + '-' + d.model.map(short)
-    fig, ax = plt.subplots(figsize=(6.4, 4.2))
+    fig, ax = plt.subplots(figsize=(5.2, 4.0))
     yy = np.arange(len(d))[::-1]
     for v, r in zip(yy, d.itertuples()):
         ax.plot([r.loso, r.leaky], [v, v], color=INK2, lw=1.2, zorder=1)
-        ax.text(r.leaky + .006, v, f'+{r.gap:.3f}', va='center', fontsize=7, color=INK2)
+        ax.text(r.leaky + .006, v, f'+{r.gap:.3f}', va='center', fontsize=7.5, color=INK2)
     ax.scatter(d.loso, yy, s=36, color=SERIES[0], zorder=2, label='leave-one-source-out (sources never shared)')
     ax.scatter(d.leaky, yy, s=36, facecolor='white', edgecolor=SERIES[1], lw=1.6, zorder=2, label='observation-wise 5-fold (leaky)')
-    ax.set_yticks(yy); ax.set_yticklabels(d.lab, fontsize=7.5)
-    ax.set_xlabel('observation-level balanced accuracy'); ax.set_xlim(0.55, 0.95)
-    ax.legend(loc='lower left', fontsize=7)
-    ax.set_title('Optimistic bias of observation-wise splits (number = leaky − LOSO)', loc='left')
+    ax.set_yticks(yy); ax.set_yticklabels(d.lab, fontsize=8)
+    ax.axhline(yy[d.version.str.startswith('v1').values].min() - .5, color=INK2, lw=.6)
+    ax.set_xlabel('observation-level balanced accuracy'); ax.set_xlim(0.58, 0.95)
+    ax.legend(loc='upper center', bbox_to_anchor=(0.42, -0.13), ncol=1, fontsize=8)
+    ax.set_title('Optimistic bias of observation-wise splits\n(number = leaky − LOSO)', loc='left')
     fig.tight_layout()
     save(fig, 'G4_leakage.pdf')
 
@@ -227,23 +242,104 @@ def g5_forest():
             take(lab, df, comp, metric, model, extra)
     d = pd.DataFrame(sel); d.to_csv(HERE / 'G5_phase12_forest.csv', index=False)
     labels = [i[0] for i in items]
-    fig, axes = plt.subplots(1, 2, figsize=(9.2, 4.4), sharey=True)
+    fig, axes = plt.subplots(1, 2, figsize=(7.0, 4.4), sharey=True)
     yy = np.arange(len(labels))[::-1]
-    for ax, metric, ttl in ((axes[0], 'source_AUC', '(a) source-level AUC difference'),
-                            (axes[1], 'source_balanced_accuracy', '(b) source-level balanced-accuracy difference')):
+    for ax, metric, ttl in ((axes[0], 'source_AUC', '(a) source AUC difference'),
+                            (axes[1], 'source_balanced_accuracy', '(b) source BA difference')):
         q = d[d.metric == metric].set_index('label').loc[labels]
         for v, r in zip(yy, q.itertuples()):
             col = SERIES[1] if r.lo > 0 else (SERIES[0] if r.hi < 0 else INK2)
             prim = '[primary]' in r.Index
             ax.plot([r.lo, r.hi], [v, v], color=col, lw=1.6)
             ax.plot(r.point, v, 's' if prim else 'o', color=col, mfc=col if prim else 'white', ms=5.5, mew=1.4)
-        ax.axvline(0, color=INK2, lw=.8, ls='--'); ax.set_title(ttl, loc='left'); ax.set_xlabel('paired difference (95% source bootstrap)')
-    axes[0].set_yticks(yy); axes[0].set_yticklabels(labels, fontsize=7.2)
+        ax.axvline(0, color=INK2, lw=.8, ls='--'); ax.set_title(ttl, loc='left'); ax.set_xlabel('paired difference, 95% CI')
+    axes[0].set_yticks(yy); axes[0].set_yticklabels(labels, fontsize=7.5)
     fig.text(0.01, 0.005, 'Squares = pre-registered primary. Orange = 95% CI entirely > 0; blue = entirely < 0; grey = includes 0.',
-             fontsize=7, color=INK2)
-    fig.tight_layout(rect=[0, 0.03, 1, 1])
+             fontsize=7.5, color=INK2)
+    fig.tight_layout(rect=[0, 0.035, 1, 1])
     save(fig, 'G5_phase12_forest.pdf')
 
 
+def place_labels(ax, x, y, names, fs=6.5, color=None):
+    """Greedy, deterministic label placement: for every point (most crowded first) try offsets on rings of growing
+    radius and keep the first position whose text box overlaps no other label, no data point and stays inside the axes.
+    Labels not directly next to their marker get a thin leader line."""
+    fig = ax.figure; fig.canvas.draw(); R = fig.canvas.get_renderer(); pt = fig.dpi / 72
+    P = ax.transData.transform(np.c_[x, y]); axbb = ax.get_window_extent(R)
+    size = []
+    for nm in names:
+        t = ax.text(0, 0, nm, fontsize=fs); bb = t.get_window_extent(R); size.append((bb.width, bb.height)); t.remove()
+    crowd = np.array([(np.hypot(*(P - p).T) < 40 * pt).sum() for p in P])
+    pr = 3.2 * pt                                   # marker half-size used as an obstacle
+    pts_boxes = [(px - pr, py - pr, px + pr, py + pr) for px, py in P]
+    placed = []
+
+    def hits(b, boxes, pad=1.0 * pt):
+        return sum(1 for c in boxes if not (b[2] + pad < c[0] or c[2] + pad < b[0] or b[3] + pad < c[1] or c[3] + pad < b[1]))
+    angles = np.deg2rad([45, 135, -45, -135, 0, 180, 90, -90, 22.5, 157.5, -22.5, -157.5, 67.5, 112.5, -67.5, -112.5])
+    for i in sorted(range(len(P)), key=lambda k: (-crowd[k], k)):
+        (px, py), (w, h) = P[i], size[i]
+        best = None
+        for r in (4, 8, 13, 19, 26, 34, 44, 56):
+            for a in angles:
+                c, s_ = np.cos(a), np.sin(a)
+                ax_, ay_ = px + r * pt * c, py + r * pt * s_
+                l = ax_ if c > .25 else (ax_ - w if c < -.25 else ax_ - w / 2)
+                b = ay_ if s_ > .25 else (ay_ - h if s_ < -.25 else ay_ - h / 2)
+                box = (l, b, l + w, b + h)
+                inside = box[0] >= axbb.x0 and box[2] <= axbb.x1 and box[1] >= axbb.y0 and box[3] <= axbb.y1
+                own = [pb for j, pb in enumerate(pts_boxes) if j != i]
+                cost = hits(box, placed) * 10 + hits(box, own) + (0 if inside else 100)
+                if best is None or cost < best[0]: best = (cost, r, a, box)
+                if cost == 0: break
+            if best[0] == 0: break
+        cost, r, a, box = best; placed.append(box)
+        c, s_ = np.cos(a), np.sin(a)
+        ax.annotate(names[i], (x[i], y[i]), xytext=(r * c, r * s_), textcoords='offset points', fontsize=fs,
+                    ha='left' if c > .25 else ('right' if c < -.25 else 'center'),
+                    va='bottom' if s_ > .25 else ('top' if s_ < -.25 else 'center'), color=color or INK,
+                    arrowprops=dict(arrowstyle='-', lw=.4, color=INK2, shrinkA=0, shrinkB=2.5) if r >= 8 else None)
+
+
+# --------------------------------------------------------------------------------------------- G6
+def g6_v6a_external():
+    """Same data and encoding as scripts/30_v6_analysis.py (figure v6a_external_sources.png)."""
+    perE = pd.read_csv(ROOT / 'results/v6/v6a_external_per_source.csv')
+    pe = perE.pivot_table(index=['source_id', 'true_label', 'role'], columns='name', values='score').reset_index()
+    mk = {'E_v4b2': 'o', 'E_new': 's', 'stress_slow_pulsar': '^'}
+    rl = {'E_v4b2': 'external (v4b2 sources)', 'E_new': 'external (new sources)', 'stress_slow_pulsar': 'slow-pulsar stress set'}
+    fig, axes = plt.subplots(2, 1, figsize=(6.4, 9.0))
+    for a, m in zip(axes, ['H_R+T-LR', 'CCTLR (H_R)']):
+        for (lab, role), d in pe.groupby(['true_label', 'role']):
+            a.scatter(d['H_R-LR'], d[m], marker=mk[role], s=34, color=CLASS_COLOR[lab], alpha=.85, zorder=3,
+                      label=f'{lab}, {rl[role]}')
+        a.plot([0, 1], [0, 1], color=INK2, lw=.6); a.axhline(.5, color=INK2, ls='--', lw=.6); a.axvline(.5, color=INK2, ls='--', lw=.6)
+        a.set_xlim(-0.04, 1.04); a.set_ylim(-0.1, 1.0)
+        a.set_xlabel('frozen H_R-LR source score'); a.set_ylabel(f'frozen {m} source score'); a.set_title(m, loc='left')
+        place_labels(a, pe['H_R-LR'].values, pe[m].values, list(pe.source_id), fs=6.3)
+    axes[0].legend(fontsize=7, loc='upper left')
+    fig.tight_layout()
+    save(fig, 'G6_v6a_external.pdf')
+
+
+# --------------------------------------------------------------------------------------------- G7
+def g7_v7c3():
+    """Same data and encoding as scripts/39_v7c2_analysis.py (figure v7c3_rxte_vs_maxi.png)."""
+    from scipy.stats import spearmanr
+    pr = pd.read_csv(ROOT / 'results/v7c/v7c3_rxte_vs_maxi.csv')
+    agree = float(((pr.rxte_score >= .5) == (pr.maxi_score >= .5)).mean()); rho = spearmanr(pr.rxte_score, pr.maxi_score)[0]
+    fig, a = plt.subplots(figsize=(6.0, 4.6))
+    for lab in ('NS', 'BH'):
+        d = pr[pr.label == lab]; a.scatter(d.rxte_score, d.maxi_score, s=26, color=CLASS_COLOR[lab], label=lab, zorder=3)
+    a.axhline(.5, color=INK2, ls='--', lw=.6); a.axvline(.5, color=INK2, ls='--', lw=.6); a.plot([0, 1], [0, 1], color=INK2, lw=.5)
+    a.set_xlim(-0.02, 1.0); a.set_ylim(0.22, 0.66)
+    a.set_xlabel('RXTE/PCA source score (H-LR, LOSO)'); a.set_ylabel('MAXI/GSC source score (LR, CCI, LOSO)')
+    a.legend(fontsize=7.5, loc='upper left')
+    a.set_title(f'v7c3: {len(pr)} sources seen by both instruments (Spearman rho = {rho:.2f}, agreement {agree:.2f})', loc='left', fontsize=8.5)
+    place_labels(a, pr.rxte_score.values, pr.maxi_score.values, list(pr.rxte_source), fs=6.3)
+    fig.tight_layout()
+    save(fig, 'G7_v7c3_rxte_maxi.pdf')
+
+
 if __name__ == '__main__':
-    g1_sample_sizes(); g2_spectra(); g3_design_matrix(); g4_leakage(); g5_forest()
+    g1_sample_sizes(); g2_spectra(); g3_design_matrix(); g4_leakage(); g5_forest(); g6_v6a_external(); g7_v7c3()
