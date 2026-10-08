@@ -1,1 +1,459 @@
-\chapter{Phase 5}\label{ch:phase5}
+% =====================================================================================================
+\chapter{Phase 5 (v9--v10): a second instrument, and the pooled evidence}\label{ch:phase5}
+% =====================================================================================================
+
+\begin{glance}{v9--v10}
+\textbf{Question.} Do the two timing claims of Phases 3--4 -- (1) inside the hard state, low-frequency variability adds
+BH/NS information to colour; (2) at fixed colour, BHs have a lower characteristic frequency $\nu_c$ -- reappear on a
+different instrument (NICER/XTI, 2017 onwards, 2--10\,keV), and how strong is the evidence when all usable sources of RXTE
+and NICER are combined? \\
+\textbf{Pre-declared primaries.} v9a: NICER hard-like observation AUC, H$_N$+T$_N$-LR $-$ H$_N$-LR; v9b: colour-conditional
+source permutation test of $\log_{10}\nu_c$ in NICER hard-like observations; v10a: equal-weight mean of the hard-state
+timing gains of three subsamples (RXTE v2, RXTE external, NICER full observations); v10b: pooled colour-conditional
+$\log_{10}\nu_c$ difference over both instruments with a joint permutation. \\
+\textbf{Data.} NICER: 368 observations of 63 sources (9 BH, 54 NS), first $\approx6$ segments per observation (14.2\,GB) in v9,
+full observations (further 24.2\,GB) in v10; the RXTE samples of Phases 3--4. Union of sources: 86 (16 dynamically
+confirmed BHs). \\
+\textbf{Verdict.} NICER reproduces both effects in direction and size (hard-like AUC 0.68 $\to$ 0.80; $\Delta\log_{10}\nu_c=-0.31$),
+but both v9 primaries are \textbf{not detected} by a small margin (v9a $+0.112$ [$-0.004$, $+0.229$], v9b $p=0.136$). Pooled,
+both v10 primaries are \textbf{detected}: $+0.145$ [$+0.028$, $+0.257$] and $D=-0.368$\,dex, $p=0.0012$, robust to leaving out
+any single BH. \textbf{v10 is the overall strength of the evidence, not an independent confirmation}: the hypotheses and the
+pooling were specified after v5--v9, and two of the three subsamples had been seen.
+\end{glance}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Motivation}
+% -----------------------------------------------------------------------------------------------------
+At the end of Phase 4 the hard-state timing gain was detected on the RXTE v2 sources but not on external RXTE sources, and
+the RXTE archive offered no further confirmed BHs. NICER is independent in instrument, band ($\approx0.5$--12\,keV; 2--10\,keV
+used here), epoch (2017 onwards) and source mix; it covers two dynamically confirmed BHs never used before in this project
+(MAXI J1820+070, Swift J1727.8$-$1613) with many hard-state observations, and its time resolution reaches the full 0.1--10\,Hz
+band of \citet{RemillardMcClintock2006} and beyond. The RXTE models are not transferred (bands and responses differ): the same
+pre-declared design is repeated on NICER. v10 then asks the question that the single-instrument tests could not settle
+because each was at the edge of significance: what do all usable sources say together?
+
+% -----------------------------------------------------------------------------------------------------
+\section{Pre-registration}
+% -----------------------------------------------------------------------------------------------------
+\begin{table}[htbp]
+\centering\footnotesize
+\caption[Phase 5 pre-registrations]{Phase 5 pre-registrations (\file{reports/preregistration\_v9.md},
+\file{reports/preregistration\_v10.md}), both written and self-approved by the analyst under the user's instructions (``merge and
+pull and get on to next step''; for v10, in Chinese, ``commit everything to git and start v10'').}
+\label{tab:p5prereg}
+\begin{tabularx}{\textwidth}{@{}p{0.8cm}p{3.0cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X@{}}
+\toprule
+Ver. & Written & Primary & Descriptive \\
+\midrule
+v9 & 2026-10-05 ($\approx$23:00), after all v1--v8 results; pushed (\texttt{ee4b7db}) before any NICER download & v9a: NICER hard-like observation AUC, H$_N$+T$_N$-LR $-$ H$_N$-LR (LOSO on all states); v9b: permutation test of $\log_{10}\nu_c$ in hard-like observations & RF, rate control, bands, state gap, hard-only training, source level, new BHs only, bright observations; T$_k$ and rms permutation tests; v9c MAXI strata (reported in \cref{ch:phase4}) \\
+v10 & 2026-10-06, after all v1--v9 results; pushed (\texttt{aeedac7}) before any v10 download or pooled statistic & v10a: equal-weight mean of three hard-state gains, bootstrap over the union of sources; v10b: mean over instruments of the colour-conditional $\log_{10}\nu_c$ difference, permutation within instrument-membership strata & components; BH-weighted mean; RF; background-screened NICER; colour-window version of v10b; leave-one-BH-out; v10c NICER full-observation quality \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Section 0 of the v10 pre-registration states its position explicitly: ``v10's hypotheses and pooling were proposed after seeing
+the v5--v9 results: the v10 results represent the overall strength of evidence with all data, not an independent
+confirmation; the report must say so'' (translated). Decision rules as before: bootstrap 2000, seed 42, class-stratified;
+``difference'' iff the interval excludes 0 or $p<0.05$; one primary per sub-analysis.
+
+% -----------------------------------------------------------------------------------------------------
+\section{Data}
+% -----------------------------------------------------------------------------------------------------
+\subsection{NICER sources and observations (v9)}
+\textbf{Sources.} BH: the 25 dynamically confirmed systems of \citet[Table 1]{Marcel2026}; NS: the 115 burster entries of the
+MINBAR source table, minus 9 that have another entry within $0.05^\circ$ (unresolvable in the NICER field of view, radius
+$\approx0.05^\circ$). Observations were found in the \code{nicermastr} table (target within $0.05^\circ$, exposure $\ge1$\,ks);
+sources with $\ge5$ such observations: 11 BH and 55 NS (\file{results/v9/attrition\_catalog.csv}).
+
+\textbf{Sampling.} Each source's observations were split into 8 time bins; within a bin candidates were tried in a random order
+(\code{default\_rng(SEED + position)}) up to 3 times: 522 bins, 792 tries, \textbf{368 accepted} (BH 9 sources, NS 54). Rejections:
+2--10\,keV rate $<20$\,c\,s$^{-1}$ (239) and fewer than 3 valid segments (185) (\file{data/v9/observations.csv}). SS 433 and
+GS 2023+338 (V404 Cyg) had no qualifying observation.
+
+\textbf{Download.} Cleaned event files (\code{ni<obsid>\_0mpu7\_cl.evt.gz}) were read as a stream through the HEASARC AWS mirror
+(byte-identical, $\approx3.5$\,MB\,s$^{-1}$ instead of 0.1--0.4\,MB\,s$^{-1}$), with 16\,MB HTTP range requests, stopping after six
+gap-free 128-s segments, at the end of the file or at 300\,MB (14.2\,GB in total, stored outside the repository).
+
+\textbf{Features} (\cref{sec:nicer}; all pre-declared): 2--10\,keV events (PI 200--999), 128-s segments of $1/256$-s bins
+($N=32768$, Nyquist 128\,Hz) cut from the good intervals (gap $>1$\,s ends an interval), burst segments removed with the v4 rules
+on the 1-s 2--10\,keV light curve ([start $-20$\,s, end $+200$\,s]); an MPU is on if all eight 16-s blocks have counts; $\ge2$ MPUs.
+All-pairs cross-MPU cospectra, ratio of means and signed square root (the v8 lesson); no background subtraction (rate cut
+20\,c\,s$^{-1}$). Colours $H_N=[c_1,c_2]$ with $c_1=C(4\text{--}6)/C(2\text{--}4)$ and $c_2=C(6\text{--}10)/C(4\text{--}6)$; timing
+$T_N$ = fractional rms in the v5 bands (0.016--0.094, 0.10--1.0, 1.0--4.0\,Hz); state from the 0.1--10\,Hz rms with the RM06
+thresholds; $\nu_c$ from 13 octave bins over $1/128$--64\,Hz (\cref{eq:nuc}).
+% CHECK: in v9 (scripts/v9lib.py) the nu_c weights are max(P_b,0) without division by the logarithmic bin width (the octave bins
+% have nearly equal width in ln nu), whereas v6 (Standard-1, 9 bins) divides by Delta ln nu. Both follow their own
+% pre-registration; the two nu_c are therefore not identically defined (cf. sections sec:nuc and sec:nicer of Ch. 2).
+
+\textbf{Gates.} IC1: the streaming parser equals \texttt{astropy} on complete and truncated synthetic files; IC2: synthetic events
+recover sinusoids at 0.05, 0.5 and 2\,Hz as 0.099--0.102 (true 0.1), the 0.1--10\,Hz rms as 0.143 (true 0.141), pure Poisson
+$|z|\le1.3$, and Lorentzians with $\nu_0=0.5$ and 5\,Hz give $\nu_c=0.55$ and 4.18\,Hz; IC3: Cyg X-2 and GX 17+2 are soft-like in
+15/16 observations (0.94). All passed.
+
+\textbf{States.} \Cref{tab:p5states} gives the NICER states. The hard-like stratum has 31 BH observations of 7 sources (MAXI
+J1820+070 7, Cyg X-1 7, Swift J1727.8$-$1613 5, GX 339$-$4 4, GRS 1915+105 4, 4U 1543$-$47 3, LMC X-3 1) and 111 NS observations of
+32 sources.
+
+\begin{table}[htbp]
+\centering\small
+\caption[NICER states]{States of the 368 NICER observations (0.1--10\,Hz rms; \file{data/v9/processed/nicer\_features.csv}).}
+\label{tab:p5states}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+State & BH obs. & NS obs. & total \\
+\midrule
+soft-like & 30 & 172 & 202 \\
+intermediate & 4 & 20 & 24 \\
+hard-like & 31 (7 sources) & 111 (32 sources) & 142 \\
+\midrule
+total & 65 (9 sources) & 303 (54 sources) & 368 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Full NICER observations (v10c)}
+For the same 368 observations the files were downloaded beyond the v9 prefix up to 1\,GB compressed (24.2\,GB; 180 observations to
+the end of file, 12 truncated at 1\,GB); prefix and tail are parsed as one gzip stream (IC1: one-shot and concatenated reads of
+6403520101 agree, 16,982,648 bytes, 729,479 events). 366/368 observations remain usable (two at 19.2 and 19.8\,c\,s$^{-1}$, just below
+20); the median number of 128-s segments rises from 9 to 16; 9 observations change state; IC4 (Z sources soft-like) gives 15/16.
+\Cref{tab:p5full} shows that the full-observation features agree with the prefix values and are reliable in split halves. A
+background proxy, the 12--15\,keV to 2--10\,keV count ratio, flags 13 observations above the 99th percentile of the bright
+($\ge500$\,c\,s$^{-1}$) observations (threshold 0.2687).
+
+\begin{table}[htbp]
+\centering\small
+\caption[NICER full-observation quality]{v10c: agreement of full-observation features with the v9 prefix values, and split-half
+reliability of the full observations (odd vs even segments; Spearman--Brown corrected). From \file{results/v10c/prefix\_vs\_full.csv}
+and \file{results/v10c/split\_half.csv}.}
+\label{tab:p5full}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Feature & prefix vs full ($n$) & split-half $\rho$ ($n$) & Spearman--Brown \\
+\midrule
+T1 & 0.915 (366) & 0.681 (350) & 0.810 \\
+T2 & 0.948 (366) & 0.796 (350) & 0.886 \\
+T3 & 0.961 (366) & 0.674 (350) & 0.806 \\
+0.1--10\,Hz rms & 0.968 (366) & 0.760 (350) & 0.864 \\
+$\nu_c$ & 0.932 (238) & 0.805 (195) & 0.892 \\
+$c_1$, $c_2$ & 0.969, 0.948 (366) & -- & -- \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Source identity across instruments (v10)}
+RXTE sources (from the v2, v4b2, v6, v7b2 and v8b source lists) and NICER sources within $0.1^\circ$ are the same object; the NICER
+name is canonical. 34 pairs matched with no label conflict (\file{results/v10a/source\_identity.csv}); the union used by the pooled
+statistics has \textbf{86 sources, 16 of them BHs} (\file{logs/v10/54\_pooled.log}; the slow-pulsar stress set is excluded). All
+pooled resampling and permutation is done on this union, so a source observed by both instruments is drawn, or relabelled, once.
+
+% -----------------------------------------------------------------------------------------------------
+\section{Data structure in this phase}\label{sec:p5structure}
+% -----------------------------------------------------------------------------------------------------
+\begin{table}[htbp]
+\centering\small
+\caption[Phase 5 arrays]{Arrays of Phase 5. NICER rows from \file{data/v9/processed/nicer\_features.csv} (v9) and
+\file{data/v10/processed/nicer\_full\_features.csv} (v10); RXTE timing table \file{data/v10/processed/rxte\_timing\_table.csv}.}
+\label{tab:p5arrays}
+\begin{tabularx}{\textwidth}{@{}p{1.5cm}p{2.3cm}p{2.0cm}X@{}}
+\toprule
+Analysis & Array & Shape & Columns / content \\
+\midrule
+v9a & $\Xm_{H_N}$ & $368\times2$ & $c_1,c_2$ \\
+ & $\Xm_{H_N+T_N}$ & $368\times5$ & $c_1,c_2,T_1,T_2,T_3$ (no missing values: $\ge3$ segments required) \\
+ & $\Xm_{H_N+R(+T_N)}$ & $368\times3$ ($\times6$) & adds $\log_{10}$ rate (2--10\,keV) \\
+ & $\yv,\gv$ & 368 & 65 BH; 63 sources; LOSO over sources, metrics on hard-like rows \\
+v9b & per-source residuals & 39 sources & $\log_{10}\nu_c$, $T_k$, rms after label-free kNN on standardised $(c_1,c_2)$ ($k=25$), hard-like rows (141--142) \\
+v10a & three gain components & 180 / 99 / 144 hard-like obs. & RXTE v2 (v5 vs v2 OOF), RXTE X (frozen v6), NICER full (LOSO, $366\times5$) \\
+ & union labels & 86 & BH/NS of each canonical source; bootstrap draws over the union \\
+v10b & per-instrument residuals & 44 (RXTE), 39 (NICER) & hard-like source-mean residuals of $\log_{10}\nu_c$; strata: RXTE only / NICER only / both \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Models and statistics in this phase}
+% -----------------------------------------------------------------------------------------------------
+Models are the fixed LR and RF (\S\ref{sec:lr}, \S\ref{sec:rf}); there is no selection. The new statistics are the pooled bootstrap
+and the pooled permutation test (\cref{sec:bootstrap,sec:permutation}):
+\begin{itemize}
+\item \textbf{Pooled gain} (v10a). For a bootstrap draw $b$ of the source union (BH and NS resampled separately, sorted names,
+\code{default\_rng(42)}), each component $m$ computes the hard-like AUC difference on the observations of its drawn sources
+(with multiplicity), $\Delta_m^{(b)}$; the pooled value is $\bar\Delta^{(b)}=\frac13\sum_m\Delta_m^{(b)}$ (draws where a component is
+undefined are dropped). The interval is the 2.5--97.5\% percentile range.
+\item \textbf{Pooled $\nu_c$ difference} (v10b). For instrument $i$, $D_i$ = mean residual of BH sources minus mean residual of NS
+sources (label-free kNN residualisation on the instrument's colours, leave-one-source-out); $D=\frac12(D_\mathrm{RXTE}+D_\mathrm{NICER})$.
+The null permutes labels within the three membership strata (RXTE only, NICER only, both) with the number of BHs per stratum
+fixed and the same label on both instruments for shared sources; 20,000 permutations, seed 42, $p=(1+\#\{|D_\pi|\ge|D|\})/(1+20000)$.
+Synthetic calibration: null rejection rate 0.065 (200 simulations), power 0.98 for a BH shift of $-1.5$\,SD (50 simulations).
+\end{itemize}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Results}\label{sec:p5results}
+% -----------------------------------------------------------------------------------------------------
+
+\subsection{NICER alone: hard-state timing (v9a)}\label{sec:p5v9a}
+\Primary{} On NICER, colour alone gives a hard-like AUC of 0.683 -- close to RXTE's 0.646 -- and a soft-like AUC of 0.894; adding the
+timing features raises the hard-like AUC to 0.795 (\cref{tab:p5v9a}). The difference $+0.112$ [$-0.004$, $+0.229$] is
+\NotDetected{}, its lower limit just below 0. Descriptively, the RF gain ($+0.236$ [$+0.104$, $+0.372$]), the hard-only LR
+($+0.191$ [$+0.039$, $+0.329$]) and the T2 and T3 bands have intervals above 0, and the state gap shrinks (difference in
+differences $-0.125$ [$-0.246$, $-0.001$]; RF $-0.209$ [$-0.319$, $-0.095$]). Controlling for count rate reduces the LR gain to
+$+0.069$ [$-0.013$, $+0.161$]; using only the two never-before-used BHs (MAXI J1820+070, Swift J1727.8$-$1613) and all NSs gives
+$+0.074$ [$-0.094$, $+0.252$]; observations brighter than 100\,c\,s$^{-1}$ give $+0.115$ [$-0.010$, $+0.241$]. At source level the
+hard-like AUC rises from 0.683 to 0.804 ($+0.121$ [$-0.004$, $+0.254$]) while the BA falls slightly (0.741 $\to$ 0.710).
+
+\begin{table}[htbp]
+\centering\small
+\caption[NICER hard-state timing]{\Primary{} v9a: NICER observation-level AUC by state (LOSO over 63 sources trained on all states;
+hard-like stratum 7 BH / 32 NS sources). From \file{results/v9a/v9a\_metrics.csv}.}
+\label{tab:p5v9a}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Model & soft-like AUC & hard-like AUC & hard-like difference \\
+\midrule
+H$_N$-LR & 0.894 & 0.683 [0.432, 0.874] & -- \\
+\textbf{H$_N$+T$_N$-LR} & 0.881 & 0.795 [0.517, 0.958] & $\bigstar$ $+0.112$ [$-0.004$, $+0.229$] \\
+H$_N$-RF $\to$ H$_N$+T$_N$-RF & 0.909 $\to$ 0.936 & 0.703 $\to$ 0.939 & $+0.236$ [$+0.104$, $+0.372$] \\
+H$_N$+R-LR $\to$ H$_N$+R+T$_N$-LR & 0.780 $\to$ 0.790 & 0.753 $\to$ 0.822 & $+0.069$ [$-0.013$, $+0.161$] \\
+H$_N$+T1-LR & 0.895 & 0.731 & $+0.048$ [$-0.041$, $+0.140$] \\
+H$_N$+T2-LR & 0.890 & 0.826 & $+0.143$ [$+0.028$, $+0.271$] \\
+H$_N$+T3-LR & 0.827 & 0.798 & $+0.115$ [$+0.030$, $+0.217$] \\
+hard-only training: H$_N$ $\to$ H$_N$+T$_N$ & -- & 0.640 $\to$ 0.831 & $+0.191$ [$+0.039$, $+0.329$] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\Cref{tab:p5v9asrc} lists the hard-like sources. The BHs MAXI J1820+070 (0.56 $\to$ 0.74), Cyg X-1 (0.59 $\to$ 0.73), 4U 1543$-$47
+(0.57 $\to$ 0.81), GX 339$-$4 (0.51 $\to$ 0.66) and Swift J1727.8$-$1613 (0.60 $\to$ 0.65) rise; GRS 1915+105 stays at 0.01--0.05 (in
+the NICER era it is in an obscured/low state whose colours and timing resemble an NS). Most NSs fall or stay, but the Rapid Burster
+MXB 1730$-$335 (0.16 $\to$ 0.92), SAX J1808.4$-$3658 (0.65 $\to$ 0.82) and the dipper 4U 1323$-$62 (0.04 $\to$ 0.45) move towards BH.
+\PostHoc{} Excluding the very hard NS observations ($c_2>0.7$, likely background-dominated or dipping; 11 NS sources) gives
+$+0.135$ [$-0.001$, $+0.273$] for LR and $+0.244$ [$+0.100$, $+0.385$] for RF (\file{results/v9a/v9a\_post\_hoc\_exclude\_c2\_gt\_0.7.csv}).
+
+{\footnotesize
+\begin{longtable}{@{}llrcc@{}}
+\caption[NICER hard-like scores per source]{v9a: mean LOSO scores of the NICER hard-like observations per source (\textbf{bold} =
+wrong side of 0.5). From \file{results/v9a/v9a\_per\_source\_state.csv}.}\label{tab:p5v9asrc}\\
+\toprule
+Source & label & hard-like obs. & H$_N$-LR & H$_N$+T$_N$-LR \\
+\midrule\endfirsthead
+\toprule Source & label & hard-like obs. & H$_N$-LR & H$_N$+T$_N$-LR \\ \midrule\endhead
+\bottomrule\endfoot
+4U 1543$-$475 & BH & 3 & 0.57 & 0.81 \\
+Cyg X-1 & BH & 7 & 0.59 & 0.73 \\
+GRS 1915+105 & BH & 4 & \textbf{0.01} & \textbf{0.05} \\
+GX 339$-$4 & BH & 4 & 0.51 & 0.66 \\
+LMC X-3 & BH & 1 & 0.69 & 0.68 \\
+MAXI J1820+070 & BH & 7 & 0.56 & 0.74 \\
+Swift J1727.8$-$1613 & BH & 5 & 0.60 & 0.65 \\
+1A 1744$-$361 & NS & 1 & 0.45 & \textbf{0.55} \\
+2S 0918$-$549 & NS & 1 & \textbf{0.63} & \textbf{0.66} \\
+4U 0614+09 & NS & 2 & \textbf{0.63} & \textbf{0.61} \\
+4U 1246$-$588 & NS & 4 & 0.22 & 0.15 \\
+4U 1323$-$62 & NS & 2 & 0.04 & 0.45 \\
+4U 1543$-$624 & NS & 7 & \textbf{0.59} & \textbf{0.62} \\
+4U 1608$-$522 & NS & 3 & \textbf{0.55} & \textbf{0.51} \\
+4U 1636$-$536 & NS & 6 & \textbf{0.51} & \textbf{0.50} \\
+4U 1702$-$429 & NS & 6 & 0.37 & 0.40 \\
+4U 1722$-$30 & NS & 6 & 0.49 & 0.46 \\
+4U 1728$-$34 & NS & 3 & 0.24 & 0.18 \\
+4U 1812$-$12 & NS & 8 & \textbf{0.53} & \textbf{0.59} \\
+4U 1820$-$303 & NS & 2 & 0.26 & 0.21 \\
+4U 1850$-$086 & NS & 1 & \textbf{0.66} & \textbf{0.69} \\
+Aql X-1 & NS & 2 & \textbf{0.61} & \textbf{0.56} \\
+Cen X-4 & NS & 1 & 0.00 & 0.00 \\
+EXO 0748$-$676 & NS & 4 & 0.08 & 0.01 \\
+GS 1826$-$24 & NS & 2 & \textbf{0.57} & 0.48 \\
+GX 17+2 & NS & 1 & 0.29 & 0.19 \\
+IGR J17498$-$2921 & NS & 4 & 0.28 & 0.25 \\
+IGR J17591$-$2342 & NS & 5 & 0.34 & 0.36 \\
+MAXI J1807+132 & NS & 4 & \textbf{0.62} & \textbf{0.62} \\
+MXB 1730$-$335 & NS & 3 & 0.16 & \textbf{0.92} \\
+SAX J1750.8$-$2900 & NS & 5 & 0.27 & 0.21 \\
+SAX J1808.4$-$3658 & NS & 3 & \textbf{0.65} & \textbf{0.82} \\
+SAX J1810.8$-$2609 & NS & 7 & \textbf{0.55} & \textbf{0.55} \\
+SLX 1732$-$304 & NS & 5 & 0.48 & \textbf{0.58} \\
+Swift J1922.7$-$1716 & NS & 1 & 0.02 & 0.00 \\
+XB 2129+47 & NS & 1 & 0.04 & 0.00 \\
+XTE J1709$-$267 & NS & 3 & 0.13 & 0.01 \\
+XTE J1739$-$285 & NS & 2 & 0.35 & 0.27 \\
+XTE J1810$-$189 & NS & 6 & 0.25 & 0.29 \\
+\end{longtable}}
+
+\subsection{NICER alone: the characteristic frequency (v9b)}\label{sec:p5v9b}
+\Primary{} At fixed colour, NICER BHs have $\log_{10}\nu_c$ lower by $D=-0.310$ (a factor $\approx2$), the same size as on the RXTE v2
+sources ($-0.31$, v6d), but with 7 BH sources the permutation $p$ is 0.136 (Holm over five features 0.544): \NotDetected{}
+(\cref{tab:p5v9b}). \PostHoc{} Restricting to the colour window occupied by the hard-like BHs ($c_2\approx0.11$--0.40) and comparing
+sources directly, the median $\nu_c$ is 0.90\,Hz for 7 BHs and 4.25\,Hz for 25 NSs (Mann--Whitney two-sided $p=0.013$, AUC 0.81);
+exceptions are LMC X-3 (one hard-like observation, 11.7\,Hz) and the NSs MXB 1730$-$335 (0.07\,Hz) and XTE J1739$-$285 (0.8\,Hz).
+The pre-declared label-free residualisation is conservative when BHs cluster in colour (they become each other's neighbours).
+% CHECK: the post hoc Mann-Whitney test is not computed in the committed scripts (scripts/49_v9_analysis.py writes only the per-source
+% table results/v9b/v9b_nuc_colour_window_post_hoc.csv). Recomputed for this report from that CSV with scipy.stats.mannwhitneyu
+% (two-sided): U = 34, p = 0.0132, AUC = 1 - 34/(7*25) = 0.806 -- consistent with the report_v9 values.
+
+\begin{table}[htbp]
+\centering\small
+\caption[NICER characteristic frequency test]{\Primary{} v9b: colour-conditional source permutation test on the NICER hard-like
+observations (39 sources, 7 BH; 20,000 permutations; Holm over the five features). From
+\file{results/v9b/v9b\_permutation\_test.csv}.}
+\label{tab:p5v9b}
+\begin{tabular}{@{}lccccc@{}}
+\toprule
+Feature & $D$ (BH $-$ NS) & null SD & $p$ & $p_\mathrm{Holm}$ & role \\
+\midrule
+$\log_{10}\nu_c$ & $-0.310$ & 0.207 & 0.136 & 0.544 & $\bigstar$ \\
+T1 (0.016--0.094\,Hz) & $+0.017$ & 0.136 & 0.902 & 0.928 & \\
+T2 (0.10--1.0\,Hz) & $+0.072$ & 0.104 & 0.425 & 0.928 & \\
+T3 (1.0--4.0\,Hz) & $+0.068$ & 0.033 & 0.038 & 0.188 & \\
+0.1--10\,Hz rms & $+0.102$ & 0.108 & 0.309 & 0.928 & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/v9/v9_nicer.png}
+\caption[NICER hard-like observations]{NICER hard-like observations (BH blue, 7 sources; NS orange, 32 sources): (a) T1 rms against
+the colour $c_2=C(6\text{--}10)/C(4\text{--}6)$; (b) $\nu_c$ against $c_2$ -- at $c_2\approx0.2$--0.4 the BHs lie at lower $\nu_c$, and the
+very hard NS observations ($c_2>0.7$) have very low $\nu_c$; (c) observation-level AUC by state for the v9a models. Repo:
+\file{figures/v9/v9\_nicer.png}, \file{scripts/49\_v9\_analysis.py}.}
+\label{fig:p5nicer}
+\end{figure}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/v9/v9_summary.png}
+\caption[v9 summary]{v9 summary: (a) NICER AUC by state; (b) per-source mean hard-like scores, colour only (bars) and with timing
+(circles); (c) $\nu_c$ against $c_2$; (d) MAXI 2--4\,keV source-level gain by C4 tertile (v9c, post hoc; \cref{tab:p4v9c}). Repo:
+\file{figures/v9/v9\_summary.png}, \file{scripts/51\_v9\_summary\_figure.py}.}
+\label{fig:p5v9summary}
+\end{figure}
+
+\subsection{Pooled: the hard-state timing gain (v10a)}\label{sec:p5v10a}
+\Primary{} \Cref{tab:p5v10a} shows the three components and the pooled value. The equal-weight mean is $+0.145$ [$+0.028$, $+0.257$]:
+\Detected. Weighting by the number of BH sources ($+0.154$ [$+0.041$, $+0.260$]), using RF ($+0.224$ [$+0.108$, $+0.333$] from the RXTE v2
+and NICER components) and removing the 13 background-suspect NICER observations ($+0.152$ [$+0.036$, $+0.263$]) agree. Gate IC2a passed:
+with only the RXTE v2 component the pooled bootstrap reproduces v8a exactly ($+0.2643$ [$+0.0484$, $+0.4549$]). Leaving out one BH at a
+time (\cref{fig:p5v10}) the pooled gain ranges from $+0.110$ (without XTE J1118+480, which v5 moved from 0.41 to 0.94) and $+0.118$
+(without GS 1354$-$64) to $+0.158$ (without Cyg X-1) (\file{results/v10a/v10a\_influence.csv}). The NICER component with full
+observations ($+0.107$) is nearly the same as with prefixes in v9 ($+0.112$) and on its own still touches 0.
+
+\begin{table}[htbp]
+\centering\small
+\caption[Pooled hard-state timing gain]{\Primary{} v10a: hard-like observation-level AUC gain from timing (H+T-LR $-$ H-LR) per
+component and pooled over the union of 86 sources (16 BH). From \file{results/v10a/v10a\_pooled\_gain.csv}.}
+\label{tab:p5v10a}
+\footnotesize\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{5.2cm}ccc@{}}
+\toprule
+Component & hard-like obs. & BH / NS sources & gain \\
+\midrule
+RXTE v2 (v8a) & 180 & 7 / 17 & $+0.264$ [$+0.044$, $+0.469$] \\
+RXTE external X (v8b, frozen) & 99 & 5 / 15 & $+0.064$ [$-0.171$, $+0.341$] \\
+NICER full observations & 144 & 7 / 32 & $+0.107$ [$-0.010$, $+0.224$] \\
+\midrule
+$\bigstar$ pooled, equal weights & & 16 BH in the union & $+0.145$ [$+0.028$, $+0.257$] \\
+pooled, weighted by BH sources & & & $+0.154$ [$+0.041$, $+0.260$] \\
+RF, RXTE v2 + NICER & & & $+0.224$ [$+0.108$, $+0.333$] \\
+NICER component, background-screened (13 obs.\ removed) & & & $+0.127$ [$+0.016$, $+0.242$] \\
+pooled with screened NICER & & & $+0.152$ [$+0.036$, $+0.263$] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Pooled: the characteristic frequency (v10b)}\label{sec:p5v10b}
+\Primary{} \Cref{tab:p5v10b} gives the pooled colour-conditional difference: $D=-0.368$\,dex (BH $\nu_c$ lower by a factor
+$10^{0.368}\approx2.3$), $p=0.0012$ -- \Detected. Each instrument alone is negative (RXTE $-0.265$, $p=0.0018$; NICER full
+$-0.471$, $p=0.033$; with full observations NICER moved from $p=0.136$ to 0.033). Gate IC2b passed: the single-instrument $D$
+values equal those of \code{v6lib.perm\_test}. Leaving out one BH at a time, $D$ ranges from $-0.329$ (without GRS 1915+105) to
+$-0.420$ (without 4U 1543$-$47). The pre-declared descriptive colour-window version gives $-0.381$, $p=0.015$.
+
+\begin{table}[htbp]
+\centering\small
+\caption[Pooled characteristic frequency]{\Primary{} v10b: colour-conditional $\log_{10}\nu_c$ difference (BH $-$ NS, hard-like
+observations) per instrument and pooled; permutation within instrument-membership strata. From
+\file{results/v10b/v10b\_pooled\_nuc.csv}.}
+\label{tab:p5v10b}
+\footnotesize
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{6.0cm}ccc@{}}
+\toprule
+Analysis & sources (BH) & $D$ [dex] & $p$ \\
+\midrule
+RXTE hard-like (v2 + X; Standard-1 $\nu_c$, $1/128$--4\,Hz) & 44 (12) & $-0.265$ & 0.0018 \\
+NICER hard-like (full observations, $1/128$--64\,Hz) & 39 (7) & $-0.471$ & 0.033 \\
+$\bigstar$ pooled (mean of instruments, joint permutation) & 64 (15) & $-0.368$ & 0.0012 \\
+colour window, RXTE (descriptive) & 44 (12) & $-0.368$ & 0.0001 \\
+colour window, NICER (descriptive) & 36 (7) & $-0.394$ & 0.182 \\
+colour window, pooled (descriptive) & 61 (15) & $-0.381$ & 0.015 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/v10/v10_pooled.png}
+\caption[Pooled tests]{v10 pooled tests: (a) hard-like timing gain per component and pooled (red); (b) source-mean residuals of
+$\log_{10}\nu_c$ at fixed colour per instrument (BH blue, NS orange); (c) pooled gain with each BH source left out (dashed: all
+sources). Repo: \file{figures/v10/v10\_pooled.png}, \file{scripts/54\_v10\_pooled.py}.}
+\label{fig:p5v10}
+\end{figure}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Interpretation}
+% -----------------------------------------------------------------------------------------------------
+\textbf{What the data support directly.}
+\begin{enumerate}
+\item On an independent instrument and epoch the colour-only hard-like AUC is 0.68 (RXTE 0.65) and the soft/hard gap reappears;
+timing raises the hard-like AUC by $+0.11$ (LR) to $+0.24$ (RF), but the pre-declared LR interval touches 0.
+\item At fixed colour the NICER BHs have $\nu_c$ lower by $\approx2$ (same size as on RXTE), with $p=0.136$ in v9 and $p=0.033$ with full
+observations.
+\item Pooling all usable sources of both instruments (86, 16 BH), both effects are detected -- hard-state gain $+0.145$ [$+0.028$,
+$+0.257$], $\Delta\log_{10}\nu_c=-0.37$\,dex, $p=0.0012$ -- and neither depends on any single BH.
+\item RF gains more than LR, so timing and colour interact non-linearly.
+\item NICER timing features are reliable (split-half 0.8--0.9).
+\end{enumerate}
+
+\textbf{What the data do not support.} The pooled results are not an independent confirmation: both hypotheses and the pooling rule
+were written after v5--v9, and the RXTE v2, RXTE external and NICER prefix results were known; only the NICER full-observation
+measurement was new (on the same observations). The 16 BHs are the only dynamically confirmed BHs in the analyses.
+
+\textbf{Possible explanations (not verified).} A lower characteristic frequency fits the picture of time scales growing with the
+compact-object mass or inner disc radius (BHs $\approx5$--20\,$M_\odot$, NSs $\approx1.4\,M_\odot$), but the factor $\approx2.3$ is smaller than the
+mass ratio and may also reflect accretion rate/luminosity, which is not controlled (no Eddington ratios). On NICER the information sits
+in 0.1--4\,Hz (T2, T3), on RXTE in 0.016--1\,Hz (T1, T2), plausibly because NICER prefixes are short (T1 noisy) and its band softer.
+GRS 1915+105's obscured NICER-era state is the main BH error. Some NS ``hard-like'' NICER observations may be dips, eclipses or
+background-dominated. The external RXTE component is smallest, perhaps because the external NSs are mostly AMXPs with strong
+low-frequency noise (IGR J00291+5934).
+
+\textbf{Hypotheses that need more data.} A genuinely independent, prospective test with frozen features and rules on sources and
+instruments never used (Insight-HXMT, AstroSat, future NICER transients) -- this is Phase 6; control of the Eddington ratio; Lorentzian
+fits instead of the $\nu P_\nu$ centroid; a usable rule such as ``hard-like and $\nu_c<1$\,Hz $\Rightarrow$ BH-like''.
+
+% -----------------------------------------------------------------------------------------------------
+\section{Deviations and caveats}\label{sec:p5caveats}
+% -----------------------------------------------------------------------------------------------------
+\begin{itemize}
+\item \textbf{Written after earlier results, self-approved}; v10 explicitly not an independent confirmation.
+\item \textbf{v9 download} (before any model): HEASARC AWS mirror instead of the main site (byte-identical), curl range requests;
+raw files outside the repository (14\,GB).
+\item \textbf{v9 post hoc}: colour-window $\nu_c$ comparison, the source-level v9c version and the $c_2>0.7$ exclusion were decided after the
+results.
+\item \textbf{v10 permutation} (before any v10b statistic): union-wide permutation replaced by permutation within instrument-membership
+strata, motivated by a synthetic power test; a bug with single-instrument strata (object array of equal-length tuples) was fixed without
+changing the statistics; scatter jitter seeded by \code{crc32}.
+\item \textbf{v10 resources}: feature parallelism reduced from 4 to 2 workers (OneDrive used $\approx10$\,GB RAM); results unaffected.
+\item \textbf{Sample sizes}: 7 BH sources in each instrument's hard-like stratum (GRS 1915+105 anomalous, LMC X-3 one observation); only
+two BHs had never been used before.
+\item \textbf{Measurement}: NICER prefixes in v9 (T1 noisy); no NICER background subtraction (only a 20\,c\,s$^{-1}$ cut and a background
+sensitivity analysis); 12 bright observations truncated at 1\,GB; RXTE and NICER bands and $\nu_c$ ranges differ, so their $D$ values are
+not strictly comparable; the two $\nu_c$ definitions differ in their bin weights (see the CHECK in the data section).
+\item \textbf{Bootstrap and permutation} keep the predictions and features fixed.
+\end{itemize}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Takeaway}
+% -----------------------------------------------------------------------------------------------------
+NICER repeats both timing effects with the same size as RXTE, each just short of the pre-declared threshold on its own; pooled over
+86 sources and 16 dynamically confirmed BHs, both are detected and robust to dropping any BH. Because the hypotheses and the pooling
+were chosen after the component results, Phase 5 measures the overall strength of the evidence rather than confirming it. Phase 6
+therefore freezes a rule and tests it prospectively on new observations.
