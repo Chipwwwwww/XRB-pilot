@@ -34,6 +34,9 @@ Frozen $\nu^\ast$ rule & v11, v13 & \file{57\_v11\_analysis.py}, \file{63\_v13\_
 \end{tabularx}
 \end{table}
 
+The hyper-parameters of each model, with the \file{config.py} names, are listed in \cref{tab:hp-lr,tab:hp-rf,tab:hp-et,tab:hp-histgb,tab:hp-svm,tab:hp-knn,tab:hp-qda,tab:hp-mlp}.
+
+
 % -----------------------------------------------------------------------------------------------------
 \section{Shared components}\label{sec:shared}
 % -----------------------------------------------------------------------------------------------------
@@ -87,7 +90,7 @@ except where proper scoring rules are explicitly evaluated (v6g).
 % -----------------------------------------------------------------------------------------------------
 \section{Dummy classifier}\label{sec:dummy}
 % -----------------------------------------------------------------------------------------------------
-\textbf{Role.} Baseline in v1--v2 (\file{07\_train\_eval.py}). \textbf{Definition.} \code{DummyClassifier(strategy='prior')}
+\textbf{Role.} Baseline in v1--v2 (\file{07\_train\_eval.py}). \textbf{Definition.} \code{DummyClassifier} with \code{strategy='prior'}
 returns the training class frequencies, $s(\xv)=n_1/n$ for every $\xv$, and predicts the majority class. \textbf{Why it
 matters.} Under LOSO the majority class of the training fold depends on which source is held out: with 4 BH and 4 NS
 sources of 15 observations each (v1), leaving out a BH leaves 45 BH : 60 NS, so the held-out BH is predicted NS, and vice
@@ -294,8 +297,11 @@ Parameter & Value & Fixed / tuned & Grid \\
 in v7c2; a Platt-scaled three-class version reproduces \citet{deBeurs2022} in v7c1. \textbf{Training} (libsvm dual, labels
 $y'_i=2y_i-1$, standardised inputs $\vect z$):
 \begin{equation}
-\max_{\vect\alpha}\ \sum_i\alpha_i-\frac12\sum_{i,j}\alpha_i\alpha_jy'_iy'_jK(\vect z_i,\vect z_j)\quad
-\text{s.t. } 0\le\alpha_i\le C\,c_{y_i},\ \sum_i\alpha_iy'_i=0,\qquad K(\vect z,\vect z')=e^{-\gamma\|\vect z-\vect z'\|^2},\label{eq:svm}
+\begin{split}
+&\max_{\vect\alpha}\ \sum_i\alpha_i-\frac12\sum_{i,j}\alpha_i\alpha_jy'_iy'_jK(\vect z_i,\vect z_j)\quad
+\text{s.t. } 0\le\alpha_i\le C\,c_{y_i},\ \sum_i\alpha_iy'_i=0,\\
+&K(\vect z,\vect z')=e^{-\gamma\|\vect z-\vect z'\|^2},
+\end{split}\label{eq:svm}
 \end{equation}
 with class weights $c_y = n/(2n_y)$. \textbf{Kernel width.} \code{gamma='scale'} sets $\gamma = 1/(p\,\Var(\vect Z))$,
 where $\Var(\vect Z)$ is the variance of \emph{all} entries of the standardised training matrix ($\approx1$, so
@@ -460,7 +466,7 @@ seeds & outer $\{0,\dots,4\}$, inner $\{0,1,2\}$ & fixed & -- \\
 \end{table}
 
 % -----------------------------------------------------------------------------------------------------
-\section{Colour-conditional timing likelihood-ratio classifier (CCTLR, v6c)}\label{sec:cctlr}
+\section{Colour-conditional timing likelihood ratio (CCTLR, v6c)}\label{sec:cctlr}
 % -----------------------------------------------------------------------------------------------------
 \textbf{Motivation.} In LR, a timing feature has one slope everywhere in the colour plane, although the timing information
 is expected only where the colours overlap (hard states). CCTLR adds to the colour logit a generative log-likelihood ratio

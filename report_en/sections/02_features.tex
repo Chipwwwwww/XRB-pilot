@@ -46,7 +46,7 @@ MAXI/GSC standard products, 1-day light curves & v7c, v8d, v9c & Photon fluxes i
 \file{38\_v7c2\_select.py} \\
 de Beurs et al.\ (2022) processed data (GitHub, commit \texttt{488b785}) & v7c1 & Their 44 sources, ten 20\% subsamples,
 features $(\mathrm{RelInt},\mathrm{SC},\mathrm{HC})$ & \file{37\_v7c1\_repro.py} \\
-NICER/XTI cleaned events (\texttt{ni*\_0mpu7\_cl.evt.gz}); HEASARC TAP \texttt{nicermastr} & v9--v13 & Events with
+NICER/XTI cleaned events (\file{ni*\_0mpu7\_cl.evt.gz}); HEASARC TAP \texttt{nicermastr} & v9--v13 & Events with
 \texttt{TIME}, \texttt{PI}, \texttt{DET\_ID}; 2--10\,keV; $1/256$\,s bins, 128\,s segments & \file{v9lib.py},
 \file{v10lib.py}, \file{v11lib.py} \\
 NICER unfiltered events (\texttt{\_ufa}), NICER CALDB 3C50 library & v12, v13 & Input of HEASoft
@@ -207,8 +207,10 @@ inside the spectrum's good time intervals (GTIs) are computed from all 0.125\,s 
 (propane), $\mathrm{Rem}$ (coincident events) and $\mathrm{VLE}$ (very large events). With $N_\mathrm{on}$ the number of
 PCUs with $\mathrm{Xe}_p > 1$\,c\,s$^{-1}$ (\code{spectra.std1\_dtf}):
 \begin{equation}
-\mathrm{DTF}_p = 10^{-5}\left(\mathrm{Xe}_p + \frac{\mathrm{Vp}+\mathrm{Rem}}{N_\mathrm{on}}\right) + 6\times10^{-5}\,\frac{\mathrm{VLE}}{N_\mathrm{on}},
-\qquad \mathrm{DTF} = \frac{1}{|\mathcal P|}\sum_{p\in\mathcal P}\mathrm{DTF}_p,\qquad D = \frac{1}{1-\mathrm{DTF}},\label{eq:dtf}
+\begin{split}
+\mathrm{DTF}_p &= 10^{-5}\left(\mathrm{Xe}_p + \frac{\mathrm{Vp}+\mathrm{Rem}}{N_\mathrm{on}}\right) + 6\times10^{-5}\,\frac{\mathrm{VLE}}{N_\mathrm{on}},\\
+\mathrm{DTF} &= \frac{1}{|\mathcal P|}\sum_{p\in\mathcal P}\mathrm{DTF}_p,\qquad D = \frac{1}{1-\mathrm{DTF}},
+\end{split}\label{eq:dtf}
 \end{equation}
 with rates in count\,s$^{-1}$ and $\mathcal{P}$ the PCUs of the spectrum. A version with $1.5\times 10^{-4}$\,s per VLE
 event (quoted elsewhere on the same GOF page) was stored only as a sensitivity number (\code{dtf\_std1\_vle150us}).
@@ -279,8 +281,8 @@ source position; all values finite. $F_i>0$ is guaranteed by the S/N rule, so th
 (\cref{eq:B}) is always defined.
 
 \subsection{Response check and response-normalised spectra}\label{sec:pl2}
-A fixed photon spectrum $N(E)=E^{-2}$ (photon index $\Gamma=2$, no absorption, norm 1\,ph\,cm$^{-2}$\,s$^{-1}$\,keV$^{-1}$
-at 1\,keV) is folded through each observation's response matrix $R(E,c)$ (\code{spectra.powerlaw\_folded}) and rebinned
+A fixed photon spectrum $N(E)=E^{-2}$ (photon index $\Gamma=2$, no absorption, normalised to
+1\,ph\,cm$^{-2}$\,s$^{-1}$\,keV$^{-1}$ at 1\,keV) is folded through each observation's response matrix $R(E,c)$ (\code{spectra.powerlaw\_folded}) and rebinned
 like the data:
 \begin{equation}
 P_{ic} = \sum_{\ell} R_i(E_\ell,c)\int_{E^{\mathrm{lo}}_\ell}^{E^{\mathrm{hi}}_\ell} E^{-2}\,dE,\qquad
@@ -379,6 +381,8 @@ $b_0$ (v3b) & $[2.8,5)$ & 5 bins of the 50-bin grid & 5 & 2.883--4.908 \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+\Cref{fig:meanspectra} shows the class-averaged spectra in the A, B and H representations.
 
 \begin{figure}[htbp]
 \centering
@@ -718,8 +722,8 @@ errors, then points with $L+M+H \ge \overline{(L+M+H)}+10\,\mathrm{sd}$ are drop
 \mathrm{SC}=\frac{M-L}{M+L},\quad \mathrm{HC}=\frac{H-L}{H+L},\quad C_4=\frac{H-M}{H+M},\quad
 \mathrm{RelInt}=\frac{L+M+H}{Q_{99.99}(L+M+H)} ,\label{eq:maxi}
 \end{equation}
-where $Q_{99.99}$ is the 99.99th percentile over that source's points. Feature sets: CCI $=(\mathrm{SC},\mathrm{HC},
-\mathrm{RelInt})$, C2D $=(\mathrm{SC},\mathrm{HC})$, C1D $=(C_4)$ (the only colour without 2--4\,keV).
+where $Q_{99.99}$ is the 99.99th percentile over that source's points. Feature sets: CCI = (SC, HC, RelInt), C2D = (SC, HC)
+and C1D = ($C_4$), the only colour without 2--4\,keV.
 
 \paragraph{$N_\mathrm{H}$ correction (v8d; \file{45\_v8d\_nh.py}, \file{v8d\_heasoft.sh}).} The Galactic HI column
 $N_\mathrm{H}$ at each source position is the HI4PI \citep{HI4PI2016} weighted average within 0.1$^\circ$ (HEASoft
@@ -734,6 +738,8 @@ fluxes $L'=L/t_L$, $M'=M/t_M$, $H'=H/t_H$ give $\mathrm{SC}'$, $\mathrm{HC}'$, $
 \section{Feature summary}\label{sec:featsummary}
 % -----------------------------------------------------------------------------------------------------
 
+\Cref{tab:featsummary} summarises all features, their units, defining equations and producing scripts.
+
 \begin{longtable}{@{}p{2.3cm}p{1.6cm}p{2.8cm}p{4.3cm}p{3.3cm}@{}}
 \caption[Summary of all features]{Summary of every feature that enters a model or test. Missing-value rule:
 ``excluded'' = the observation does not enter; ``median+ind.'' = training-fold median and 0/1 indicator
@@ -743,7 +749,7 @@ Feature & Unit & Definition & Code & Non-positive / missing \\
 \midrule\endfirsthead
 \toprule Feature & Unit & Definition & Code & Non-positive / missing \\ \midrule\endhead
 \bottomrule\endfoot
-$x_{ij}$ (\code{rate}) & c/s/keV/PCU & \cref{eq:rebin} & \file{04\_fetch\_process.py} & kept as is \\
+$x_{ij}$ (\code{rate}) & c/s/keV/\allowbreak PCU & \cref{eq:rebin} & \file{04\_fetch\_process.py} & kept as is \\
 $A_{ij}$ & -- & \cref{eq:A} & \code{v2\_representations} & asinh defined for $<0$ \\
 $B_{ij}$ & keV$^{-1}$ & \cref{eq:B} & same & $F>0$ guaranteed \\
 $h_1,h_2$ & -- & \cref{eq:H} & same & denominators $>0$; numerators kept \\

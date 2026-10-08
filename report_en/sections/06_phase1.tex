@@ -28,6 +28,8 @@ than a simple hardness measure?
 % -----------------------------------------------------------------------------------------------------
 \section{Pre-registration}
 % -----------------------------------------------------------------------------------------------------
+\Cref{tab:p1prereg} summarises the three pre-registrations of this phase.
+
 \begin{table}[htbp]
 \centering\small
 \caption[Phase 1 pre-registrations]{Phase 1 pre-registrations (\file{reports/preregistration.md}, \file{\_v2.md}, \file{\_v3.md}).}
@@ -245,6 +247,8 @@ rows or as prediction targets.
 % -----------------------------------------------------------------------------------------------------
 \section{Models in this phase}
 % -----------------------------------------------------------------------------------------------------
+\Cref{tab:p1models} lists the models.
+
 \begin{table}[htbp]
 \centering\small
 \caption[Phase 1 models]{Models of Phase 1 (all with fixed hyper-parameters, no tuning; \cref{ch:methods}).}\label{tab:p1models}
@@ -292,6 +296,8 @@ Aql X-1 & NS & 0.42 (0.47) & 0.44 (0.53) & \textbf{0.50} (0.47) & \textbf{0.57} 
 \bottomrule
 \end{tabular}
 \end{table}
+
+\Cref{fig:p1v1scores} shows the v1 LOSO scores per observation and source.
 
 \begin{figure}[htbp]
 \centering
@@ -353,6 +359,7 @@ scores with Spearman 0.91 (LR) / 0.83 (RF) and identical labels for 88\% / 93\% 
 \caption[Phase 1 paired comparisons]{Phase 1 paired differences (first minus second), 95\% source-bootstrap CI.
 ``*'' = CI excludes 0. From \file{results/v3/v3a\_bootstrap.csv} and \file{results/v3/v3b\_bootstrap.csv}.}
 \label{tab:p1paired}
+\setlength{\tabcolsep}{4pt}
 \begin{tabular}{@{}llccc@{}}
 \toprule
 Comparison & Model & obs.\ BA & source BA & source AUC \\
@@ -390,6 +397,8 @@ and no 3--5\,keV bin is non-positive (minimum $F(3\text{--}5)=1.37$\,c\,s$^{-1}$
 per-source medians belong to three BHs (4U 1543$-$47, XTE J1650$-$500, GRO J1655$-$40), but the other four BHs lie among
 the NSs (\cref{fig:p1v3b}); differences at 3--5\,keV are expected to be dominated by the interstellar column $N_\mathrm{H}$,
 which is tied to the line of sight, not to the compact object (stated in the pre-registration; not corrected in v3).
+
+\Cref{fig:p1v3} shows how closely the H+B and H models agree, source by source and observation by observation.
 
 \begin{figure}[htbp]
 \centering
@@ -480,6 +489,8 @@ GRS 1915+105 observations (top left). Repo: \file{figures/step5\_hid\_errors\_*.
 \label{fig:p1v2errors}
 \end{figure}
 
+\Cref{fig:p1v2avb} compares the per-source scores of the intensity (A) and shape (B) representations.
+
 \begin{figure}[htbp]
 \centering
 \begin{subfigure}{0.49\textwidth}\includegraphics[width=\textwidth]{figures/step5_per_source_A_vs_B.png}\caption{v1}\end{subfigure}
@@ -557,6 +568,8 @@ HI & RF & 0.836 $\to$ 0.958 & 0.946 $\to$ 0.982 & $+0.122$ [$-0.021$, $+0.315$] 
 \bottomrule
 \end{tabular}
 \end{table}
+
+\Cref{fig:p1v3cscores} shows the candidate scores.
 
 \begin{figure}[htbp]
 \centering

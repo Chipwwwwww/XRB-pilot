@@ -67,9 +67,11 @@ Spectral features are never missing (observations failing the quality rules are 
 be missing (fewer than 3 valid rows, e.g.\ only one PCU on). For a block $\vect{T}\in(\R\cup\{\mathrm{NaN}\})^{n\times q}$
 and a fold with training rows $\mathcal T$ (\code{v5lib.fill\_missing}):
 \begin{equation}
-m_\ell = \median_{i\in\mathcal T,\ T_{i\ell}\ \mathrm{finite}} T_{i\ell}\ \ (0\ \text{if none}),\qquad
-\tilde T_{i\ell} = \begin{cases}T_{i\ell} & \text{finite}\\ m_\ell & \text{otherwise}\end{cases},\qquad
-\mu_i = \indic{\exists \ell:\ T_{i\ell}\ \text{non-finite}},\label{eq:fillmissing}
+\begin{split}
+m_\ell &= \median_{i\in\mathcal T,\ T_{i\ell}\ \mathrm{finite}} T_{i\ell}\ \ (0\ \text{if none}),\qquad
+\tilde T_{i\ell} = \begin{cases}T_{i\ell} & \text{finite}\\ m_\ell & \text{otherwise},\end{cases}\\
+\mu_i &= \indic{\exists \ell:\ T_{i\ell}\ \text{non-finite}},
+\end{split}\label{eq:fillmissing}
 \end{equation}
 and $[\tilde{\vect T},\vect\mu]$ (one indicator column) replaces $\vect T$ for both training and test rows. HEXTE colours
 use the same rule with one indicator per colour (\cref{sec:hexte}). The CCTLR classifier needs no imputation: its timing
@@ -106,7 +108,7 @@ File & key / columns & shape & content \\
 \file{data/v7b2/processed/features.npz} & all keys & $45\times45$ & Cyg X-1, LMC X-1, LMC X-3 \\
 \file{data/v8b/processed/features.npz} & all keys & $23\times45$ & GS 1354$-$64, SS 433 \\
 \file{data/v4b3/processed/hexte\_features.csv} & \code{X1}, \code{X2}, \code{status}, errors, S/N & 456 rows & HEXTE colours of the v2 observations \\
-\file{data/v5/processed/timing\_features.csv} & \code{T1,T2,T3,T\_total}, \code{status}, \code{in\_v2/v4b2/v4b1} & 8170 rows & v5 two-group estimator for S1 $\cup$ S2 $\cup$ S3 \\
+\file{data/v5/processed/timing\_features.csv} & \code{T1,T2,T3,T\_total}, \code{status}, \file{in\_v2/v4b2/v4b1} & 8170 rows & v5 two-group estimator for S1 $\cup$ S2 $\cup$ S3 \\
 \file{data/v6/processed/timing\_v6.csv} & \code{T1s,T2s,T3s,Ts\_total}, \code{nu\_c}, \code{lb0..lb8}, split halves & 8350 rows & v6 all-pairs estimator and $\nu_c$ \\
 \file{data/v6/processed/timing\_v5\_new.csv} & as v5 & 180 rows & v5 estimator for the v6 sources \\
 \file{results/v7a/states.csv} & \code{rms}, \code{state}, \code{c1}, \code{c2} & 456 rows & v7a state of every S1 observation \\
