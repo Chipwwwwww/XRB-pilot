@@ -1,1 +1,99 @@
+% =====================================================================================================
 \chapter{Reproduction}\label{app:reproduction}
+% =====================================================================================================
+
+\section{Run scripts}
+Each version has a PowerShell and a Bash driver in the repository root that runs its unit tests (gates) first and then the analysis
+scripts in order: \file{run\_all.ps1}/\file{.sh} (v1--v2), \file{run\_v3} \dots{} \file{run\_v13} (\file{.ps1} and \file{.sh}). The
+version reports end with a ``re-run'' section listing the exact order, durations and download volumes; for example
+\verb|./run_v4.sh test a burst b3 b2 b1| runs the v4 parts selectively. Scripts select their configuration block through the
+environment variable \code{XRB\_VERSION} (\file{scripts/config.py}). Raw data outside the repository are found through
+\code{XRB\_EXTERNAL\_RAW} (default \file{\textasciitilde/xrb-pilot-data/raw}).
+
+\section{Scripts and their outputs}
+{\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}p{3.6cm}>{\raggedright\arraybackslash}p{4.6cm}>{\raggedright\arraybackslash}p{5.6cm}@{}}
+\caption[Script to output map]{Analysis scripts (\file{scripts/}) with their purpose (first line of the docstring, shortened) and main
+outputs.}\label{tab:scriptmap}\\
+\toprule
+Script & Purpose & Main outputs \\
+\midrule\endfirsthead
+\toprule Script & Purpose & Main outputs \\ \midrule\endhead
+\bottomrule\endfoot
+\file{01\_inspect\_archive.py} & official index products; inspect two spectral triplets & \file{data/cache/} (not in git) \\
+\file{02\_catalogs.py} & MissionLongData catalogues of the sources & \file{data/raw/catalogs/} (not in git), \file{data/catalog\_observations.csv} \\
+\file{03\_select\_observations.py} & source table and time-stratified candidate list & \file{data/sources.csv}, \file{data/observation\_candidates.csv}, \file{results/attrition\_catalog.csv} \\
+\file{04\_fetch\_process.py} & download Std2 products, quality rules, features & \file{data/processed/features.npz}, \file{data/observations.csv}, \file{results/attrition\_download.csv} \\
+\file{05\_two\_source\_check.py} & data-flow validation on one BH and one NS & \file{figures/step2\_*} \\
+\file{06\_dataset\_checks.py} & integrity checks and diagnostics & \file{results/data\_checks.md}, \file{figures/step3\_*} \\
+\file{07\_train\_eval.py} & LOSO (Dummy, LR, RF), leaky split & \file{results/oof\_predictions\_loso.csv}, \file{metrics\_*.csv}, \file{folds\_loso.csv} \\
+\file{08\_error\_analysis.py} & error analysis, A vs B & \file{results/error\_analysis.md}, \file{per\_source\_results.csv} \\
+\file{09\_bootstrap\_sources.py} & source bootstrap & \file{results/bootstrap\_source\_level.csv} \\
+\file{10\_xspec\_crosscheck.py} & XSPEC check of background subtraction (WSL) & \file{results/v2/xspec\_crosscheck.csv} \\
+\file{11\_v3a\_increment.py}, \file{12\_v3b\_extended\_band.py} & v3a, v3b & \file{results/v3/} \\
+\file{13\_v3c\_resolve\_catalogs.py}, \file{14\_v3c\_candidates.py} & v3c candidates & \file{data/v3c/}, \file{results/v3c/} \\
+\file{15\_colour\_colour.py} & colour--colour wrap-up figure & \file{figures/final/colour\_colour\_decision\_boundary.png}, \file{results/final/colour\_colour\_source\_medians.csv} \\
+\file{16\_v4a\_algorithms.py} & v4a 1a--1g & \file{results/v4/v4a\_*}, \file{figures/v4/v4a\_*} \\
+\file{17\_v4\_burst\_detect.py}, \file{18\_v4\_burst\_exclusion.py} & burst detection and exclusion & \file{results/v4/burst\_*}, \file{figures/v4/burst\_candidates/} \\
+\file{19\_v4b3\_hexte.py} & HEXTE colours & \file{data/v4b3/processed/hexte\_features.csv}, \file{results/v4b3/} \\
+\file{20}--\file{22\_v4b2\_*} & source verification, download, analysis & \file{data/v4b2/}, \file{results/v4b2/}, \file{figures/v4b2/} \\
+\file{23}--\file{25\_v4b1\_*} & all epoch-5 pointings & \file{data/v4b1/}, \file{results/v4b1/}, \file{figures/v4b1/} \\
+\file{26\_v5\_timing\_features.py}, \file{27\_v5\_analysis.py} & Standard-1 timing features and v5 analysis & \file{data/v5/processed/timing\_features.csv}, \file{results/v5/}, \file{figures/v5/} \\
+\file{28}--\file{30\_v6\_*} & external sources, T$^*$, $\nu_c$, v6a--h & \file{data/v6/}, \file{results/v6/}, \file{figures/v6/} \\
+\file{31}--\file{33\_v7b1\_*} & MINBAR matching, replacement, exclusion & \file{results/v7b1/}, \file{figures/v7b1/} \\
+\file{34\_v7a\_states.py} & variability states & \file{results/v7a/}, \file{figures/v7a/} \\
+\file{35}, \file{36\_v7b2\_*} & persistent BHs & \file{results/v7b2/}, \file{figures/v7b2/} \\
+\file{37\_v7c1\_repro.py} & de Beurs reproduction & \file{results/v7c/v7c1\_*} \\
+\file{38}, \file{39\_v7c2\_*} & MAXI strict pipeline, RXTE vs MAXI & \file{data/v7c/}, \file{results/v7c/v7c2\_*}, \file{v7c3\_*}, \file{figures/v7c/} \\
+\file{40\_v7\_summary\_figure.py} & v7 summary & \file{figures/v7/v7\_summary.png} \\
+\file{41\_v8b\_select.py}, \file{42\_v8\_states\_timing.py} & new BHs; external states and timing & \file{data/v8b/}, \file{results/v8b/} \\
+\file{43\_v8c\_events.py} & event-mode features (exit 3 if IC4 fails) & \file{data/v8c/processed/}, \file{results/v8c/ic4\_*}, \file{results/v8c/event\_survey.csv} \\
+\file{44\_v8\_analysis.py} & v8a--c analysis & \file{results/v8a/}, \file{results/v8b/}, \file{results/v8c/} \\
+\file{45\_v8d\_nh.py} & HI4PI $N_\mathrm{H}$, \code{tbabs} transmissions, v8d (WSL) & \file{data/v8d/}, \file{results/v8d/}, \file{figures/v8d/} \\
+\file{46\_v8\_summary\_figure.py} & v8 summary & \file{figures/v8/v8\_summary.png} \\
+\file{47}, \file{48\_v9\_*} & NICER selection and prefix features & \file{data/v9/}, \file{results/v9/attrition\_catalog.csv} \\
+\file{49\_v9\_analysis.py} & v9a, v9b & \file{results/v9a/}, \file{results/v9b/}, \file{figures/v9/v9\_nicer.png} \\
+\file{50\_v9c\_maxi\_strata.py}, \file{51\_v9\_summary\_figure.py} & v9c; summary & \file{results/v9c/}, \file{figures/v9/} \\
+\file{52\_v10\_nicer\_full.py}, \file{53\_v10\_rxte\_nuc.py}, \file{54\_v10\_pooled.py} & full NICER observations; RXTE $\nu_c$ table; pooled tests & \file{data/v10/}, \file{results/v10a/}, \file{results/v10b/}, \file{results/v10c/}, \file{figures/v10/} \\
+\file{55}--\file{57\_v11\_*} & new observations, frozen tests & \file{data/v11/}, \file{results/v11/}, \file{figures/v11/} \\
+\file{58\_v12\_bkg.py}, \file{59\_v12\_analysis.py} & 3C50 (WSL), corrected analysis & \file{data/v12/}, \file{results/v12/}, \file{figures/v12/} \\
+\file{60}--\file{63\_v13\_*} & third new set, frozen v12 pipeline & \file{data/v13/}, \file{results/v13/}, \file{figures/v13/} \\
+\file{64\_final\_summary\_figure.py} & v14 wrap-up & \file{figures/final/summary\_across\_versions.png}, \file{results/final\_*\_across\_versions.csv} \\
+\file{common.py}, \file{spectra.py}, \file{config.py}, \file{plotstyle.py} & shared I/O, Std2 reader without HEASoft, pre-registered settings, plot style & -- \\
+\file{v3lib.py} \dots{} \file{v11lib.py} & version helpers (representations, bootstrap, models, timing estimators, NICER streaming) & -- \\
+\file{test\_v4lib.py} \dots{} \file{test\_v11lib.py} & pre-declared implementation checks (gates) & \file{logs/v*/test\_*.log} \\
+\end{longtable}}
+
+\section{Data locations}
+\begin{itemize}
+\item \textbf{In git}: source tables, observation lists with every exclusion reason (\file{data/*/observations.csv}), processed feature
+files (\file{features.npz}, \file{*\_features.csv}), all result tables (\file{results/}), figures and logs.
+\item \textbf{Not in git} (\file{.gitignore}): raw RXTE products in \file{data/raw/} (v1--v3, v8 events), raw files of v4b1 and NICER prefixes,
+tails and v13 cleaned files under \file{\textasciitilde/xrb-pilot-data/raw/}, 3C50 spectra under
+\file{\textasciitilde/xrb-pilot-data/nicer\_bkg\_spectra/}, the NICER CALDB under \file{\textasciitilde/xrb-pilot-data/caldb/}. All can be
+re-downloaded with the scripts; v11 streamed $\approx39$\,GB without storing the bytes.
+\item \textbf{Download log}: \file{logs/downloads.jsonl} has one JSON record per downloaded or streamed file (50,777 lines at commit
+\texttt{d9730c9}) with the fields \code{url}, \code{path}, \code{bytes}, \code{sha256} and \code{utc}, so every input can be verified
+byte for byte after re-download.
+\end{itemize}
+
+\section{Environment}
+\begin{itemize}
+\item Python 3.12.10 (Windows, \file{logs/environment.txt}; re-checks on macOS with Python 3.12.14), with the versions pinned in
+\file{requirements-lock.txt}: numpy 2.4.4, pandas 2.3.3, scipy 1.17.1, scikit-learn 1.8.0, astropy 7.2.0, matplotlib 3.10.9, joblib 1.6.0,
+requests 2.33.1 (plus their dependencies).
+\item HEASoft 6.37.1 in WSL Ubuntu 22.04 for the XSPEC cross-check (v2), \code{nh} and XSPEC \code{tbabs} (v8d) and \code{nibackgen3C50} with
+the NICER CALDB (v12, v13).
+\end{itemize}
+
+\section{This report}
+\begin{itemize}
+\item Sources: \file{report\_en/main.tex} and \file{report\_en/sections/*.tex}; bibliography \file{report\_en/references.bib}.
+\item Figures: repository figures copied unchanged to \file{report\_en/figures/} with their original sub-paths; new data figures G1--G5 are
+produced read-only from committed files by \file{report\_en/figures/generated/make\_figures.py} (which also writes the plotted values as
+CSV next to each PDF); method diagrams are TikZ code inside the chapters.
+\item Build: \verb|latexmk -pdf main.tex| in \file{report\_en/} (TeX Live 2026; packages listed in the preamble).
+\item Tables of per-source scores were generated from the committed CSV files by small read-only scripts; no model was refitted and no
+statistic recomputed except where explicitly stated in the text (hard-like per-source means in \cref{tab:p4v8asrc}; the Mann--Whitney
+check in \cref{sec:p5v9b}).
+\end{itemize}
