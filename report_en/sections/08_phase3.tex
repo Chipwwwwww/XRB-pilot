@@ -1,1 +1,715 @@
-\chapter{Phase 3}\label{ch:phase3}
+% =====================================================================================================
+\chapter{Phase 3 (v5--v6): fast variability as a second axis}\label{ch:phase3}
+% =====================================================================================================
+
+\begin{glance}{v5--v6}
+\textbf{Question.} Phase 2 showed that a single 5--25\,keV spectrum is exhausted at two colours, with hard-state BHs and
+hard NSs inseparable. Does the aperiodic variability between $1/128$ and 4\,Hz, measured from the same RXTE
+observations, add information \emph{at fixed colour}, and does that hold for sources the model has never seen? \\
+\textbf{Pre-declared primaries.} v5: H+T-LR $-$ H-LR on the 31 v2 sources (S1, LOSO); v6a: a model \emph{frozen} after
+training on S1, H$_R$+T-LR $-$ H$_R$-LR, evaluated on 23 external sources (E: 4 BH, 19 NS) never used in training.
+Both judged on source BA and source AUC. \\
+\textbf{Data.} RXTE/PCA Standard-1 (0.125\,s, no energy resolution), no new download for v5; v6 adds 12 sources
+(2 HMXB BHs, 6 AMXPs, 4 slow pulsars as a stress set; 180 observations). \\
+\textbf{Verdict.} Both primaries \textbf{not detected} under the strict rule, for different reasons: in v5 the
+intervals touch 0 (source BA $+0.113$ [$-0.021$, $+0.277$], AUC $+0.065$ [0.000, $+0.179$]); in v6a both models already
+reach source AUC 1.000 on E and the BA gain $+0.105$ has lower limit 0.000. Every non-saturating metric points the same
+way (v6a: Brier $-0.059$ [$-0.093$, $-0.027$], log loss $-0.127$ [$-0.217$, $-0.044$]). The colour-conditional
+permutation test is significant on the 31 v2 sources (T1$^*$ Holm $p=0.0024$) but \textbf{does not replicate} on E.
+The new classifier CCTLR does not beat the linear H+T-LR. Both pre-registrations were written after all earlier results
+and self-approved under the user's standing instruction.
+\end{glance}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Motivation}
+% -----------------------------------------------------------------------------------------------------
+The Phase 1--2 errors are hard-state sources whose colours overlap. In the hard state both BHs and NSs show strong
+band-limited noise, but at a given colour the amplitude and the characteristic frequencies need not be the same: the
+characteristic frequencies of the broad-band noise scale with the size of the emitting region and therefore, at fixed
+state, are expected to be lower for more massive compact objects (a possible explanation, not tested here). The
+well-known high-frequency difference (NS power persisting above $\sim500$\,Hz while BH power falls off above
+10--50\,Hz; \citealp{SunyaevRevnivtsev2000}) is not accessible with Standard-1 data. The PCA Standard-1 mode, however, is
+available for every observation already processed: 128-s rows of 1024 counts in 0.125-s bins per PCU, giving
+frequencies from $1/128$ to 4\,Hz. The rms of BH transients changes with state \citep{MunozDarias2011}; whether
+$<4$\,Hz variability separates BHs from NSs \emph{beyond} colour had no clear literature answer, so v5 was declared
+exploratory. v6 then asked the confirmatory question with frozen models on new sources and added better estimators,
+a structured classifier, correct inference for clustered data and usable outputs (conformal sets, observation budgets).
+
+% -----------------------------------------------------------------------------------------------------
+\section{Pre-registration}
+% -----------------------------------------------------------------------------------------------------
+\begin{table}[htbp]
+\centering\small
+\caption[Phase 3 pre-registrations]{Phase 3 pre-registrations (\file{reports/preregistration\_v5.md},
+\file{reports/preregistration\_v6.md}). Both were written and approved by the analyst under the user's standing
+instruction (``if v4 is finish, come up with v5 and run it yourself''; for v6: ``deep think and come up with some
+innovations''), without external review.}
+\label{tab:p3prereg}
+\begin{tabularx}{\textwidth}{@{}p{0.8cm}p{2.9cm}XX@{}}
+\toprule
+Ver. & Written & Primary / decision rule & Secondary / descriptive \\
+\midrule
+v5 & 2026-10-01, after all v1--v4 results, before any v5 feature & \Primary{} S1: H+T-LR $-$ v2 H-LR, source BA and source AUC, interval entirely $>0$; implementation checks as gate (synthetic recovery $<10\%$, cospectrum vs auto-power $\rho\ge0.90$, within-BH rms--hardness median $\ge0$) & T-LR, T-RF; H+T-RF $-$ H-RF; overlap box; burst-excluded; S2 (46 sources) and S3 (7,949 observations); $\approx12\times3$ comparisons \\
+v6 & 2026-10-01 ($\approx$03:00), after all v1--v5 results, before any v6 download or feature & \Primary{} v6a: frozen H$_R$+T-LR $-$ frozen H$_R$-LR on external E; no judgement if E has $<3$ BHs; transparency: E\textsubscript{new} (never-seen sources) sensitivity & v6b all-pairs estimator and $\nu_c$; v6c CCTLR; v6d colour-conditional source permutation test (4 features, Holm); v6e conformal sets; v6f budget curves; v6g proper scores; v6h nuisance control and band ablation; stress set of slow pulsars \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Common rules are those of v4 (LOSO, source mean score, threshold 0.5, class-stratified source bootstrap with 2000
+resamples and seed 42, paired differences, ``improvement'' only if the interval is entirely above 0). All models use the
+fixed v2 hyper-parameters; there is no selection step and hence no nested loop. The v6 document states that the analyst
+had seen results of other models on the 15 v4b2 sources in E, which is why E\textsubscript{new} is reported separately.
+
+% -----------------------------------------------------------------------------------------------------
+\section{Data}
+% -----------------------------------------------------------------------------------------------------
+\subsection{Timing inputs and coverage}
+The timing features are defined in \cref{sec:std1timing}: v5 uses the A/B cospectrum (\cref{eq:v5cross}) in three bands
+T1 (0.016--0.094\,Hz, $j=2$--12), T2 (0.102--1.00\,Hz, $j=13$--128), T3 (1.01--3.99\,Hz, $j=129$--511), each the signed
+square root of the median fractional variance over valid 128-s rows (\cref{eq:signedsqrt}); v6 uses the all-pairs
+estimator T$^*$ with a single-PCU auto-power fallback (\cref{sec:allpairs}) and the $\nu P_\nu$ centroid frequency
+$\nu_c$ on 9 logarithmic bins (\cref{sec:nuc}). No new download was needed for v5: the Standard-1 files had been fetched
+with the spectra of v2, v4b2 and v4b1 (SHA256 recorded).
+
+\begin{table}[htbp]
+\centering\small
+\caption[Timing-feature coverage]{Coverage of the timing features (observation missing if $<3$ valid 128-s rows; most
+missing observations have only one PCU on). From \file{data/v5/processed/timing\_features.csv} and
+\file{data/v6/processed/timing\_v6.csv}.}
+\label{tab:p3coverage}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Sample & obs. & v5 T missing & v6 T$^*$ missing & $\nu_c$ available \\
+\midrule
+S1 = v2 (31 sources) & 456 & 34 (7 BH, 27 NS) & 8 & 250 \\
+v4b2 new sources (15) & 221 & 34 & 2 & 81 \\
+S2 = S1 + v4b2 (46 sources) & 677 & 68 & 10 & 331 \\
+S3 = v4b1 (31 sources) & 7,949 & 908 (323 BH, 585 NS) & 338 & 4,126 \\
+v6 new sources (12) & 180 & 25 & 1 & 150 \\
+\midrule
+all distinct observations & 8,350 & 942 of 8,170 (v5) & 341 & 4,357 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{External sources (v6a)}
+The v6 selection (\file{scripts/28\_v6\_select.py}, \file{data/v6/source\_verification.csv}) took dynamical BHs in
+high-mass X-ray binaries from \citet[\S3, Table 2]{CasaresJonker2014} and accreting millisecond pulsars (pulsation-confirmed
+NSs) and slow pulsars from \citet[Table 1]{PatrunoWatts2021}, resolved positions with CDS Sesame and matched them to the
+RXTE catalogues within $0.1^\circ$; eligibility and the 15-observation time-stratified sampling are those of v4b2 (all
+gain epochs). \Cref{tab:p3verify} lists every candidate and the decision. All 12 included sources had 15 accepted
+observations (\file{results/v6/attrition\_download.csv}).
+
+\begin{table}[htbp]
+\centering\footnotesize
+\caption[v6 external-source verification]{v6 candidate sources and decisions (\file{data/v6/source\_verification.csv}).
+``elig.'' = eligible pointings over all gain epochs. The pointing offsets of LMC X-1 and Swift J1756.9$-$2508 (catalogue
+median pointing $0.26$--$0.31^\circ$ from the source) are quoted from \file{reports/report\_v6\_zh-TW.md}.}
+\label{tab:p3verify}
+\setlength{\tabcolsep}{4pt}
+\begin{tabularx}{\textwidth}{@{}llllrX@{}}
+\toprule
+Source & label & role & catalogue & elig. & decision \\
+\midrule
+Cyg X-1 & BH & E\textsubscript{new} & CYGX1 & 1,540 & included (HMXB) \\
+LMC X-3 & BH & E\textsubscript{new} & LMCX3 & 943 & included (HMXB) \\
+LMC X-1 & BH & E\textsubscript{new} & -- & -- & excluded: no catalogue within $0.1^\circ$ \\
+M33 X-7 & BH & E\textsubscript{new} & -- & -- & excluded: no catalogue \\
+XTE J1751$-$305 & NS & E\textsubscript{new} & XTEJ1751-305 & 51 & included (AMXP) \\
+XTE J0929$-$314 & NS & E\textsubscript{new} & XTEJ0929-314 & 23 & included (AMXP) \\
+XTE J1807$-$294 & NS & E\textsubscript{new} & XTEJ1807-294 & 104 & included (AMXP) \\
+IGR J00291+5934 & NS & E\textsubscript{new} & IGRJ00291+5934 & 89 & included (AMXP) \\
+IGR J17511$-$3057 & NS & E\textsubscript{new} & IGRJ17511-3057 & 74 & included (AMXP) \\
+IGR J17498$-$2921 & NS & E\textsubscript{new} & IGRJ17498-2921 & 34 & included (AMXP) \\
+Swift J1756.9$-$2508 & NS & E\textsubscript{new} & -- & -- & excluded: no catalogue within $0.1^\circ$ \\
+Swift J1749.4$-$2807 & NS & E\textsubscript{new} & -- & -- & excluded: no catalogue \\
+NGC 6440 X-2 & NS & E\textsubscript{new} & -- & -- & excluded: name not resolved by Sesame \\
+IGR J18245$-$2452 & NS & E\textsubscript{new} & PSRB1821-24 & 0 & excluded: 0 eligible pointings \\
+2A 1822$-$371 & NS & stress & 4U1822-371 & 94 & included (slow pulsar) \\
+4U 1626$-$67 & NS & stress & 4U1626-67 & 55 & included (slow pulsar, 0.13\,Hz spin) \\
+GRO J1744$-$28 & NS & stress & GROJ1744-28 & 306 & included (slow pulsar) \\
+Her X-1 & NS & stress & HERX1 & 388 & included (slow pulsar) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The external set E is the union of the 15 v4b2 sources (221 observations; never used to train the frozen models) and
+the 8 new E\textsubscript{new} sources: 23 sources (4 BH: Cyg X-1, LMC X-3, XTE J1859+226, V4641 Sgr; 19 NS),
+341 observations. The four slow pulsars (60 observations) form a stress set outside E: their spin frequencies
+(0.13--2.1\,Hz) lie inside the timing bands, so they test whether coherent pulsations are mistaken for BH-like
+broad-band noise.
+
+\subsection{Implementation checks}
+All pre-declared gates passed before any model was trained (\file{logs/v5/test\_v5lib.log},
+\file{logs/v6/test\_v6lib.log}, \file{results/v5/v5\_implementation\_checks.csv}):
+\begin{itemize}
+\item \textbf{Synthetic recovery (v5).} A common sinusoid of fractional rms 0.2 at 0.05, 0.5 and 3\,Hz was recovered in
+T1, T2, T3 as 0.198, 0.198, 0.199 (cospectrum) and 0.199, 0.198, 0.198 (auto-power); pure Poisson gives median $|T|<0.02$
+in every band ($-0.006$, $-0.008$, $-0.016$); with 50\% background the T2 rms is 0.199.
+\item \textbf{Cross-check on real data.} For the 276 S1 observations with 20--500\,c\,s$^{-1}$\,PCU$^{-1}$, the cospectrum T2
+and the classical auto-power-minus-Poisson T2 agree with Spearman $\rho=0.970$ (gate 0.90).
+\item \textbf{Plausibility.} Within each of the 7 BH sources, the total rms correlates positively with the hard colour
+(Spearman 0.18 for GRO J1655$-$40 to 0.88 for XTE J1550$-$564, median 0.61; \file{results/v5/v5\_check\_bh\_rms\_hardness.csv}),
+as expected from higher rms in the hard state.
+\item \textbf{All-pairs estimator (v6b).} Under pure Poisson noise the all-pairs estimator is unbiased and its variance is
+31\%, 33\% and 41\% lower than that of the A/B split for 3, 4 and 5 PCUs. For equal count rates the expected reduction
+is $1-n_An_B/\binom{n}{2}$, i.e.\ 33\%, 33\% and 40\% (the A/B variance scales as $1/(n_An_B)$, the all-pairs
+variance as $1/\binom n2$ because distinct pairs are uncorrelated under independent Poisson noise). A sinusoid of rms 0.2 is
+recovered as 0.188--0.199 with 1 or 4 PCUs; $\nu_c$ of a 0.05, 0.5 and 3\,Hz sinusoid is 0.045, 0.705 and 2.81\,Hz (within
+one logarithmic bin). On real data T$^*$ agrees with the v5 T (Spearman 0.977, 0.977, 0.968 for T1--T3, 7,228 observations)
+and is more reliable in odd/even-row split halves (\cref{tab:p3reliab}). Missing values drop from 942 to 341.
+\item \textbf{Permutation test calibration.} Under a synthetic null the fraction of $p<0.05$ was 0.033 (gate $\le0.12$); under
+a synthetic alternative $p<0.01$. Conformal LOSO coverage at $\varepsilon=0.2$ was 0.816 (gate $\ge0.78$).
+\end{itemize}
+
+\begin{table}[htbp]
+\centering\small
+\caption[Split-half reliability]{Split-half reliability of the timing features on S1 (odd vs even 128-s rows; 422
+observations with both halves): Spearman correlation between halves and median absolute half-difference. From
+\file{results/v6/v6\_estimator\_reliability.csv}.}
+\label{tab:p3reliab}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Band & $\rho$ all-pairs (T$^*$) & $\rho$ v5 A/B (T) & MAD all-pairs & MAD v5 A/B \\
+\midrule
+T1 & 0.890 & 0.854 & 0.0036 & 0.0035 \\
+T2 & 0.873 & 0.867 & 0.0042 & 0.0046 \\
+T3 & 0.736 & 0.709 & 0.0065 & 0.0077 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Data structure in this phase}\label{sec:p3structure}
+% -----------------------------------------------------------------------------------------------------
+\Cref{tab:p3arrays} lists the arrays. The timing block is always $[T_1,T_2,T_3,m]$, where missing $T_k$ are replaced by
+the training-fold median of that column and $m$ is a single 0/1 indicator ``any timing feature missing'' (\cref{eq:fillmissing});
+for the frozen v6a models the medians are those of S1. Rows, labels and groups are those of the corresponding Phase 1--2
+sample, so S1, S2 and S3 reuse the v2, v4b2 and v4b1 folds.
+
+\begin{table}[htbp]
+\centering\small
+\caption[Phase 3 arrays]{Arrays passed to the models in Phase 3. $h_1,h_2$ = count-space colours (\cref{eq:H}); $h^R_1,h^R_2$ =
+power-law-normalised colours (\cref{eq:HR}); $T_k$ = v5 timing features, $T^*_k$ = v6 all-pairs features, $m$ = missing
+indicator. Timing columns from \file{data/v5/processed/timing\_features.csv} (v6 new sources:
+\file{data/v6/processed/timing\_v5\_new.csv}) or \file{data/v6/processed/timing\_v6.csv}, joined on \code{obs\_id}.}
+\label{tab:p3arrays}
+\begin{tabularx}{\textwidth}{@{}p{2.2cm}p{2.0cm}p{2.0cm}X@{}}
+\toprule
+Analysis & Array & Shape & Columns \\
+\midrule
+v5 S1 & $\Xm_{H+T}$ & $456\times6$ & $h_1,h_2,T_1,T_2,T_3,m$ \\
+ & $\Xm_T$ & $456\times4$ & $T_1,T_2,T_3,m$ \\
+v5 S2 & $\Xm_{H+T}$ & $677\times6$ & as S1; 46 groups \\
+v5 S3 & $\Xm_{H+T}$, $\wv$ & $7949\times6$ & as S1; source-equal weights \\
+v6a train (S1) & $\Xm_{H_R}$, $\Xm_{H_R+T}$ & $456\times2$, $456\times6$ & $h^R_1,h^R_2$ (+ $T_1,T_2,T_3,m$); fitted once, frozen \\
+v6a test (E) & same & $341\times2$, $341\times6$ & 23 external sources; S1 medians for missing $T$ \\
+stress set & same & $60\times6$ & 4 slow pulsars \\
+v6c CCTLR & $(\bm h,\bm T)$ & $n\times2$, $n\times3$ & logit of H-LR plus $\Lambda(\bm T\mid\bm h)$, missing $T$ $\Rightarrow\Lambda=0$ (\cref{eq:cctlr}) \\
+v6d & residual table & 31 (E: 23) sources & per-source mean residual of $T^*_1,T^*_2,T^*_3,\log_{10}\nu_c$ after label-free kNN regression on $(h^R_1,h^R_2)$ \\
+v6e & source scores & 31 / 23 & LOSO OOF source scores (calibration) and test scores \\
+v6f & draws & $500\times7$ & $k\in\{1,2,3,5,8,13,21\}$ random observations per source from the S3 OOF scores \\
+v6h & $\Xm_{H+N}$, $\Xm_{H+N+T}$ & $456\times6$, $456\times10$ & $N$ = $\log_{10}F$, PCUs on, background fraction, year \\
+ & $\Xm_{H+T_k}$ & $456\times4$ & band ablation $h_1,h_2,T_k,m$; also $\Xm_{H+T^*}$ ($456\times6$) \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Models in this phase}
+% -----------------------------------------------------------------------------------------------------
+\begin{table}[htbp]
+\centering\small
+\caption[Phase 3 models]{Models and procedures of Phase 3. No hyper-parameter or threshold is selected anywhere.}
+\label{tab:p3models}
+\begin{tabularx}{\textwidth}{@{}l>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{4.2cm}@{}}
+\toprule
+Model / procedure & Inputs & Settings \\
+\midrule
+LR (\S\ref{sec:lr}) & H, H+T, T, H$_R$, H$_R$+T, H+N(+T), H+T$_k$, H+T$^*$ & $C=1$, balanced; srcw on S3 \\
+RF (\S\ref{sec:rf}) & H+T, T (S1, S2, S3) & 500 trees, \code{sqrt}, leaf 2, seed 42 \\
+CCTLR (\S\ref{sec:cctlr}) & H (H$_R$ on E) and T & Student-$t_4$, WLS with source-equal weights, $\sigma\ge0.01$ \\
+kNN regression (\S\ref{sec:knnreg}) & standardised H$_R$ & $k=25$, uniform, leave-one-source-out, labels not used \\
+permutation test (\S\ref{sec:permutation}) & source mean residuals & 20,000 source-level permutations, seed 42, Holm over 4 \\
+Mondrian conformal (\S\ref{sec:conformal}) & source scores & $\varepsilon\in\{0.1,0.2\}$ \\
+budget curves (\S\ref{sec:budget}) & S3 OOF scores & 500 draws, seed 42 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+The frozen v6a H$_R$+T-LR has the standardised-feature coefficients $c_1$ $-3.05$, $c_2$ $+1.62$, $T_1$ $+1.76$, $T_2$ $+0.45$,
+$T_3$ $+0.16$, missing indicator $+0.34$ (\file{logs/v6/30\_v6\_analysis.log}): after the colours, the lowest band
+carries the largest weight, and its sign (more low-frequency rms $\Rightarrow$ more BH-like) is the one v5 suggested.
+
+% -----------------------------------------------------------------------------------------------------
+\section{Results}\label{sec:p3results}
+% -----------------------------------------------------------------------------------------------------
+
+\subsection{Timing as a new axis on the v2 sources (v5)}\label{sec:p3v5}
+\Primary{} On S1, adding the three timing features to the two colours raises every point estimate (\cref{tab:p3v5}):
+source BA 0.795 $\to$ 0.908, source AUC 0.923 $\to$ 0.988, observation BA 0.776 $\to$ 0.878. By the pre-declared rule
+the result is \NotDetected{}: the source-BA difference $+0.113$ [$-0.021$, $+0.277$] (positive in 92.2\% of resamples)
+and the source-AUC difference $+0.065$ [0.000, $+0.179$] (96.4\%) both include 0. The reported observation-BA difference,
+$+0.102$ [$+0.001$, $+0.249$], lies above 0. The AUC lower limit of exactly 0 is a ceiling effect: in resamples where
+both models rank all sources perfectly the difference cannot be positive. Timing alone is much weaker than colour
+(T-LR source AUC 0.744): it complements colour, it does not replace it.
+
+\begin{table}[htbp]
+\centering\small
+\caption[v5 primary result]{\Primary{} v5 on S1 (456 observations, 31 sources, LOSO, v2 folds); 95\% source-bootstrap
+intervals. ``$>0$'' = fraction of resamples with a positive difference. From \file{results/v5/v5\_bootstrap.csv}.}
+\label{tab:p3v5}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Model & source BA & source AUC & obs.\ BA \\
+\midrule
+H-LR (v2 baseline) & 0.795 [0.589, 0.958] & 0.923 [0.804, 0.994] & 0.776 [0.633, 0.893] \\
+\textbf{H+T-LR} (primary) & 0.908 [0.744, 1.000] & 0.988 [0.940, 1.000] & 0.878 [0.780, 0.947] \\
+H-RF (v2) & 0.857 [0.643, 1.000] & 0.905 [0.750, 1.000] & 0.755 [0.606, 0.882] \\
+H+T-RF & 0.929 [0.786, 1.000] & 0.976 [0.905, 1.000] & 0.852 [0.741, 0.933] \\
+T-LR & 0.693 [0.529, 0.908] & 0.744 [0.518, 0.929] & 0.661 [0.543, 0.799] \\
+T-RF & 0.622 [0.467, 0.786] & 0.845 [0.667, 0.970] & 0.677 [0.576, 0.789] \\
+\midrule
+H+T-LR $-$ H-LR & $+0.113$ [$-0.021$, $+0.277$] & $+0.065$ [0.000, $+0.179$] & $+0.102$ [$+0.001$, $+0.249$] \\
+\quad $>0$ & 0.922 & 0.964 & 0.977 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Which sources change.} \Cref{tab:p3v5persource} gives every S1 source. From H-LR to H+T-LR the hard BH
+XTE J1118+480 moves from 0.41 to 0.94, and the three hard NSs that H-LR called BH move below 0.5 (HETE J1900.1$-$2455
+0.61 $\to$ 0.42, KS 1731$-$260 0.60 $\to$ 0.20, SAX J1808.4$-$3658 0.72 $\to$ 0.38); XTE J1550$-$564 rises from 0.55 to 0.87.
+One NS becomes wrong: 4U 1724$-$307 (in Terzan 2), 0.37 $\to$ 0.53. GRS 1915+105 stays wrong (0.41 $\to$ 0.40).
+\Cref{fig:p3timingcolour} shows why: at hard colour 0.3--0.45, where the classes overlap in colour, BHs have much larger
+T1 than NSs, while in T3 the classes are similar.
+
+{\footnotesize\setlength{\tabcolsep}{3.5pt}
+\begin{longtable}{@{}llrr*{6}{c}@{}}
+\caption[v5 per-source scores]{v5 per-source LOSO mean scores on S1. ``miss'' = observations with missing timing
+features (imputed). \textbf{Bold} = wrong side of 0.5. From \file{results/v5/v5\_per\_source\_S1.csv}.}\label{tab:p3v5persource}\\
+\toprule
+Source & label & $n$ & miss & H-LR & H+T-LR & H-RF & H+T-RF & T-LR & T-RF \\
+\midrule\endfirsthead
+\toprule Source & label & $n$ & miss & H-LR & H+T-LR & H-RF & H+T-RF & T-LR & T-RF \\ \midrule\endhead
+\bottomrule\endfoot
+4U 1543$-$47 & BH & 15 & 0 & 0.95 & 0.97 & 0.86 & 0.85 & \textbf{0.37} & \textbf{0.32} \\
+GRO J1655$-$40 & BH & 15 & 0 & 0.82 & 0.86 & 0.87 & 0.74 & \textbf{0.40} & \textbf{0.21} \\
+GRS 1915+105 & BH & 15 & 4 & \textbf{0.41} & \textbf{0.40} & \textbf{0.15} & \textbf{0.27} & \textbf{0.43} & \textbf{0.36} \\
+GX 339$-$4 & BH & 15 & 3 & 0.81 & 0.83 & 0.79 & 0.74 & 0.58 & \textbf{0.47} \\
+XTE J1118+480 & BH & 15 & 0 & \textbf{0.41} & 0.94 & \textbf{0.26} & 0.77 & 0.89 & 0.86 \\
+XTE J1550$-$564 & BH & 15 & 0 & 0.55 & 0.87 & 0.62 & 0.84 & 0.86 & 0.89 \\
+XTE J1650$-$500 & BH & 15 & 0 & 0.85 & 0.86 & 0.70 & 0.72 & \textbf{0.45} & \textbf{0.40} \\
+4U 1254$-$69 & NS & 15 & 1 & 0.11 & 0.09 & 0.03 & 0.03 & 0.41 & 0.20 \\
+4U 1323$-$62 & NS & 15 & 0 & 0.32 & 0.10 & 0.15 & 0.13 & 0.45 & 0.20 \\
+4U 1608$-$52 & NS & 15 & 4 & 0.35 & 0.19 & 0.17 & 0.03 & 0.41 & 0.23 \\
+4U 1636$-$53 & NS & 15 & 3 & 0.22 & 0.07 & 0.09 & 0.05 & 0.36 & 0.24 \\
+4U 1702$-$429 & NS & 15 & 0 & 0.28 & 0.07 & 0.06 & 0.02 & 0.37 & 0.04 \\
+4U 1705$-$44 & NS & 15 & 1 & 0.18 & 0.08 & 0.05 & 0.01 & 0.37 & 0.11 \\
+4U 1724$-$307 & NS & 15 & 0 & 0.37 & \textbf{0.53} & 0.17 & 0.44 & \textbf{0.60} & \textbf{0.62} \\
+4U 1728$-$34 & NS & 15 & 1 & 0.17 & 0.03 & 0.17 & 0.02 & 0.34 & 0.18 \\
+4U 1735$-$44 & NS & 15 & 3 & 0.03 & 0.01 & 0.01 & 0.02 & 0.40 & 0.15 \\
+4U 1746$-$37 & NS & 15 & 0 & 0.08 & 0.02 & 0.05 & 0.01 & 0.39 & 0.11 \\
+4U 1820$-$30 & NS & 15 & 0 & 0.04 & 0.01 & 0.03 & 0.01 & 0.37 & 0.18 \\
+4U 1916$-$053 & NS & 6 & 0 & 0.29 & 0.09 & 0.11 & 0.04 & 0.41 & 0.14 \\
+Aql X-1 & NS & 15 & 4 & 0.41 & 0.31 & 0.37 & 0.15 & 0.47 & 0.33 \\
+Cyg X-2 & NS & 15 & 2 & 0.21 & 0.25 & 0.41 & 0.40 & 0.38 & 0.17 \\
+EXO 0748$-$676 & NS & 15 & 1 & 0.28 & 0.04 & 0.25 & 0.13 & 0.41 & 0.20 \\
+GS 1826$-$238 & NS & 15 & 0 & 0.32 & 0.13 & 0.05 & 0.12 & 0.49 & 0.22 \\
+GX 17+2 & NS & 15 & 0 & 0.09 & 0.03 & 0.07 & 0.02 & 0.34 & 0.47 \\
+GX 3+1 & NS & 15 & 0 & 0.09 & 0.07 & 0.07 & 0.03 & 0.41 & 0.35 \\
+HETE J1900.1$-$2455 & NS & 15 & 2 & \textbf{0.61} & 0.42 & 0.35 & 0.24 & 0.45 & 0.27 \\
+KS 1731$-$260 & NS & 15 & 0 & \textbf{0.60} & 0.20 & 0.36 & 0.06 & 0.37 & 0.17 \\
+MXB 1659$-$298 & NS & 15 & 0 & 0.29 & 0.28 & 0.12 & 0.32 & 0.48 & 0.37 \\
+SAX J1808.4$-$3658 & NS & 15 & 2 & \textbf{0.72} & 0.38 & 0.28 & 0.31 & 0.34 & 0.31 \\
+SLX 1735$-$269 & NS & 15 & 3 & 0.40 & 0.32 & 0.06 & 0.22 & 0.49 & 0.41 \\
+XTE J1814$-$338 & NS & 15 & 0 & 0.47 & 0.10 & 0.41 & 0.06 & 0.41 & 0.12 \\
+\end{longtable}}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/v5/v5_timing_vs_colour.png}
+\caption[Timing vs hard colour]{v5 timing features against the hard colour $F(16\text{--}25)/F(10\text{--}16)$ for the 422
+S1 observations with timing (BH blue, NS orange; fractional rms = signed square root of the cospectral variance). Panels:
+T1 (0.016--0.094\,Hz), T2 (0.10--1.0\,Hz), T3 (1.0--4.0\,Hz), T\textsubscript{total}. At hard colour $\gtrsim0.3$ the BH T1 values
+(0.1--0.3) lie well above most NS values ($\lesssim0.1$); in T3 the classes overlap. Repo:
+\file{figures/v5/v5\_timing\_vs\_colour.png}, \file{scripts/27\_v5\_analysis.py}.}
+\label{fig:p3timingcolour}
+\end{figure}
+
+\textbf{Consistency across subsets and samples.} \Descriptive{} \Cref{tab:p3v5desc} lists the 15 descriptive
+comparisons (45 differences). Every H+T comparison has a positive point estimate and every T-only comparison a negative
+one; 15 of the 45 intervals lie entirely above 0, against about one expected by chance if timing carried no information.
+These comparisons share sources and features, however, and are not 15 independent pieces of evidence; S2 and S3 contain
+the S1 sources and are \emph{not} independent confirmations.
+
+\begin{table}[htbp]
+\centering\footnotesize
+\caption[v5 descriptive comparisons]{\Descriptive{} v5 descriptive comparisons (paired source bootstrap). Overlap box =
+soft colour $\ge0.70$ and hard colour $\ge0.20$ (234 observations, 24 sources incl.\ 7 BH; sources with $\ge3$ box
+observations). $^\dagger$ = interval entirely above 0. From \file{results/v5/v5\_bootstrap.csv}.}
+\label{tab:p3v5desc}
+\scriptsize\setlength{\tabcolsep}{3pt}
+\begin{tabular}{@{}llccc@{}}
+\toprule
+Sample & Comparison & $\Delta$ source BA & $\Delta$ source AUC & $\Delta$ obs.\ BA \\
+\midrule
+S1 & H+T-RF $-$ H-LR & $+0.134$ [$+0.021$, $+0.298$]$^\dagger$ & $+0.054$ [$-0.024$, $+0.167$] & $+0.076$ [$-0.038$, $+0.227$] \\
+S1 & T-LR $-$ H-LR & $-0.101$ [$-0.348$, $+0.176$] & $-0.179$ [$-0.441$, $+0.060$] & $-0.114$ [$-0.305$, $+0.133$] \\
+S1 & T-RF $-$ H-LR & $-0.173$ [$-0.417$, $+0.134$] & $-0.077$ [$-0.286$, $+0.119$] & $-0.099$ [$-0.276$, $+0.121$] \\
+S1 & H+T-RF $-$ H-RF & $+0.071$ [0, $+0.214$] & $+0.071$ [0, $+0.202$] & $+0.097$ [$-0.002$, $+0.229$] \\
+box & H+T-LR $-$ H-LR & $+0.118$ [$-0.113$, $+0.349$] & $+0.185$ [$+0.008$, $+0.403$]$^\dagger$ & $+0.191$ [$-0.038$, $+0.406$] \\
+box & H+T-RF $-$ H-RF & $+0.172$ [0, $+0.357$] & $+0.193$ [0, $+0.445$] & $+0.175$ [$-0.014$, $+0.342$] \\
+burst-excl. & H+T-LR $-$ H-LR & $+0.113$ [$-0.021$, $+0.277$] & $+0.065$ [0, $+0.173$] & $+0.118$ [$+0.015$, $+0.261$]$^\dagger$ \\
+burst-excl. & H+T-RF $-$ H-RF & $+0.051$ [$-0.042$, $+0.214$] & $+0.077$ [0, $+0.214$] & $+0.092$ [$+0.005$, $+0.208$]$^\dagger$ \\
+S2 & H+T-LR $-$ H-LR (S2) & $+0.123$ [$+0.027$, $+0.261$]$^\dagger$ & $+0.042$ [0, $+0.108$] & $+0.089$ [$+0.001$, $+0.214$]$^\dagger$ \\
+S2 & H+T-RF $-$ H-LR (S2) & $+0.123$ [$+0.027$, $+0.261$]$^\dagger$ & $+0.045$ [0, $+0.120$] & $+0.041$ [$-0.058$, $+0.162$] \\
+S3 & H+T-LR[srcw] $-$ v2 H-LR & $+0.205$ [$+0.042$, $+0.411$]$^\dagger$ & $+0.077$ [$+0.006$, $+0.196$]$^\dagger$ & $+0.060$ [$-0.041$, $+0.223$] \\
+S3 & H+T-RF[srcw] $-$ v2 H-LR & $+0.134$ [$+0.021$, $+0.298$]$^\dagger$ & $+0.077$ [$+0.006$, $+0.196$]$^\dagger$ & $+0.023$ [$-0.106$, $+0.230$] \\
+S3 & H+T-LR[srcw] $-$ H-LR[srcw] & $+0.205$ [$+0.042$, $+0.411$]$^\dagger$ & $+0.077$ [0, $+0.196$] & $+0.069$ [$+0.015$, $+0.148$]$^\dagger$ \\
+S3 & H+T-RF[srcw] $-$ H-LR[srcw] & $+0.134$ [$+0.021$, $+0.298$]$^\dagger$ & $+0.077$ [0, $+0.196$] & $+0.032$ [$-0.054$, $+0.163$] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+In the colour-overlap box the H+T-LR source AUC is 0.916 against 0.731 for H-LR (RF: 0.992 against 0.798); excluding
+the 61 burst-flagged observations leaves the result unchanged, so it is not produced by bursts. On S3 (all observations,
+source-equal weights) H+T-LR classifies all 31 sources correctly (source BA 1.000, AUC 1.000, observation BA 0.835).
+
+\subsection{Confirmation on unseen sources with frozen models (v6a)}\label{sec:p3v6a}
+\Primary{} \Cref{tab:p3v6a} gives the result on the 23 external sources. Both frozen models rank every external BH
+above every external NS (source AUC 1.000), so the AUC difference is $0.000$ [0, 0]; the source-BA difference is
+$+0.105$ [0.000, $+0.237$]. The primary is therefore \NotDetected{} -- a saturation of the headline metrics on E that was
+not anticipated when the rule was written. What the timing features change is the \emph{threshold calibration}: with
+colour only, five NSs score 0.56--0.67 (XTE J1807$-$294 0.67, XTE J0929$-$314 and XTE J1751$-$305 0.57, 4U 2129+12 and
+XTE J1710$-$281 0.56); with timing they fall to 0.25--0.34, while one NS, the AMXP IGR J00291+5934, rises from 0.48 to 0.59
+(\cref{tab:p3v6persource,fig:p3external}). The non-saturating metrics all improve with intervals excluding 0 (pre-declared
+as descriptive): observation BA $+0.080$ [$+0.003$, $+0.162$], source Brier $-0.059$ [$-0.093$, $-0.027$], source log
+loss $-0.127$ [$-0.217$, $-0.044$].
+
+\begin{table}[htbp]
+\centering\small
+\caption[v6a external validation]{\Primary{} v6a: models trained once on S1 and frozen, evaluated on the external set E
+(23 sources: 4 BH, 19 NS; 341 observations) and on E\textsubscript{new} (8 never-seen sources: 2 BH, 6 NS). Proper scores
+are class-balanced source-level log loss and Brier (lower is better; \cref{eq:proper}). Upper block: point values; lower
+block: paired differences with 95\% source-bootstrap intervals. From \file{results/v6/v6\_bootstrap.csv} and
+\file{results/v6/v6\_proper\_scores.csv}.}
+\label{tab:p3v6a}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}llccccc@{}}
+\toprule
+Set & Model & source BA & source AUC & obs.\ BA & log loss & Brier \\
+\midrule
+E & H$_R$-LR & 0.868 & 1.000 & 0.798 & 0.358 & 0.107 \\
+ & \textbf{H$_R$+T-LR} & 0.974 & 1.000 & 0.878 & 0.231 & 0.048 \\
+ & CCTLR (H$_R$) & 0.974 & 0.987 & 0.825 & 0.230 & 0.052 \\
+E\textsubscript{new} & H$_R$-LR & 0.750 & 1.000 & 0.661 & 0.559 & 0.187 \\
+ & H$_R$+T-LR & 0.917 & 1.000 & 0.856 & 0.297 & 0.074 \\
+ & CCTLR (H$_R$) & 0.917 & 0.917 & 0.756 & 0.329 & 0.091 \\
+\bottomrule
+\end{tabular}
+
+\vspace{0.8em}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Difference & E: H$_R$+T $-$ H$_R$ (\textbf{primary}) & E: CCTLR $-$ H$_R$ & E\textsubscript{new}: H$_R$+T $-$ H$_R$ \\
+\midrule
+source BA & $+0.105$ [0.000, $+0.237$] & $+0.105$ [0.000, $+0.237$] & $+0.167$ [$-0.167$, $+0.417$] \\
+source AUC & $0.000$ [0.000, 0.000] & $-0.013$ [$-0.079$, 0.000] & $0.000$ [0.000, 0.000] \\
+obs.\ BA & $+0.080$ [$+0.003$, $+0.162$] & $+0.027$ [$-0.051$, $+0.096$] & $+0.194$ [$+0.056$, $+0.322$] \\
+log loss & $-0.127$ [$-0.217$, $-0.044$] & $-0.129$ [$-0.221$, $-0.037$] & $-0.262$ [$-0.389$, $-0.118$] \\
+Brier & $-0.059$ [$-0.093$, $-0.027$] & $-0.055$ [$-0.091$, $-0.018$] & $-0.113$ [$-0.173$, $-0.046$] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The four external BHs are all called BH (Cyg X-1 0.76, LMC X-3 0.84, XTE J1859+226 0.80, V4641 Sgr 0.82), but the two
+transients score lower with timing than with colour alone (0.94 and 0.93). On E\textsubscript{new} -- sources about which
+the analyst had seen no result of any kind -- source BA rises from 0.750 to 0.917 and observation BA by $+0.194$
+[$+0.056$, $+0.322$]. In the stress set all four slow pulsars stay NS, but 4U 1626$-$67, whose 0.13\,Hz spin falls in the
+T2 band, rises from 0.15 to 0.40.
+
+{\footnotesize\setlength{\tabcolsep}{3.5pt}
+\begin{longtable}{@{}lllrrccc@{}}
+\caption[v6a per-source scores]{v6a per-source mean scores of the frozen models on the external and stress sources.
+``miss'' = observations without v5 timing features (S1 median imputed). \textbf{Bold} = wrong side of 0.5. From
+\file{results/v6/v6a\_external\_per\_source.csv}.}\label{tab:p3v6persource}\\
+\toprule
+Source & label & set & $n$ & miss & H$_R$-LR & H$_R$+T-LR & CCTLR \\
+\midrule\endfirsthead
+\toprule Source & label & set & $n$ & miss & H$_R$-LR & H$_R$+T-LR & CCTLR \\ \midrule\endhead
+\bottomrule\endfoot
+Cyg X-1 & BH & E\textsubscript{new} & 15 & 1 & 0.73 & 0.76 & 0.86 \\
+LMC X-3 & BH & E\textsubscript{new} & 15 & 6 & 0.70 & 0.84 & 0.65 \\
+IGR J00291+5934 & NS & E\textsubscript{new} & 15 & 4 & 0.48 & \textbf{0.59} & \textbf{0.67} \\
+IGR J17498$-$2921 & NS & E\textsubscript{new} & 15 & 3 & 0.42 & 0.16 & 0.08 \\
+IGR J17511$-$3057 & NS & E\textsubscript{new} & 15 & 8 & 0.50 & 0.13 & 0.26 \\
+XTE J0929$-$314 & NS & E\textsubscript{new} & 15 & 0 & \textbf{0.57} & 0.25 & 0.16 \\
+XTE J1751$-$305 & NS & E\textsubscript{new} & 15 & 0 & \textbf{0.57} & 0.34 & 0.30 \\
+XTE J1807$-$294 & NS & E\textsubscript{new} & 15 & 0 & \textbf{0.67} & 0.25 & 0.18 \\
+V4641 Sgr & BH & v4b2 & 11 & 1 & 0.93 & 0.82 & 0.76 \\
+XTE J1859+226 & BH & v4b2 & 15 & 0 & 0.94 & 0.80 & 0.85 \\
+1A 1744$-$361 & NS & v4b2 & 15 & 3 & 0.20 & 0.14 & 0.09 \\
+4U 0513$-$40 & NS & v4b2 & 15 & 5 & 0.20 & 0.08 & 0.12 \\
+4U 0919$-$54 & NS & v4b2 & 15 & 5 & 0.38 & 0.20 & 0.22 \\
+4U 2129+12 & NS & v4b2 & 15 & 1 & \textbf{0.56} & 0.31 & 0.16 \\
+EXO 1745$-$248 & NS & v4b2 & 15 & 2 & 0.14 & 0.15 & 0.14 \\
+GRS 1747$-$312 & NS & v4b2 & 15 & 1 & 0.29 & 0.16 & 0.20 \\
+SAX J1747.0$-$2853 & NS & v4b2 & 15 & 1 & 0.35 & 0.16 & 0.04 \\
+SAX J1748.9$-$2021 & NS & v4b2 & 15 & 1 & 0.29 & 0.15 & 0.12 \\
+SAX J1750.8$-$2900 & NS & v4b2 & 15 & 10 & 0.41 & 0.26 & 0.27 \\
+Ser X-1 & NS & v4b2 & 15 & 1 & 0.10 & 0.08 & 0.01 \\
+XTE J1709$-$267 & NS & v4b2 & 15 & 0 & 0.27 & 0.13 & 0.03 \\
+XTE J1710$-$281 & NS & v4b2 & 15 & 1 & \textbf{0.56} & 0.28 & 0.14 \\
+XTE J1759$-$220 & NS & v4b2 & 15 & 2 & 0.28 & 0.08 & 0.03 \\
+2A 1822$-$371 & NS & stress & 15 & 0 & 0.05 & 0.01 & 0.00 \\
+4U 1626$-$67 & NS & stress & 15 & 2 & 0.15 & 0.40 & 0.44 \\
+GRO J1744$-$28 & NS & stress & 15 & 0 & 0.19 & 0.11 & 0.15 \\
+Her X-1 & NS & stress & 15 & 1 & 0.27 & 0.07 & 0.07 \\
+\end{longtable}}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/v6/v6a_external_sources.png}
+\caption[External sources, frozen models]{Source scores of the frozen models on sources never used in training:
+horizontal, colour-only H$_R$-LR; vertical, H$_R$+T-LR (left) and CCTLR (right). Squares = E\textsubscript{new}, circles =
+v4b2 sources, triangles = slow-pulsar stress set; BH blue, NS orange; dashed lines at 0.5. Points in the lower-right
+quadrant are NSs misclassified by colour and corrected by timing; IGR J00291+5934 moves the other way, and 4U 1626$-$67 is
+pushed up by its coherent 0.13\,Hz pulsation. Repo: \file{figures/v6/v6a\_external\_sources.png},
+\file{scripts/30\_v6\_analysis.py}.}
+\label{fig:p3external}
+\end{figure}
+
+\subsection{A structured classifier: CCTLR (v6c)}\label{sec:p3cctlr}
+\Descriptive{} The colour-conditional timing likelihood-ratio classifier (\cref{sec:cctlr}) adds to the H-LR logit a
+generative log-likelihood ratio of the timing features given colour and class, so timing can only act where the two
+class-conditional distributions differ at that colour, and missing timing gives zero evidence. \Cref{tab:p3cctlr}
+compares it with H-LR and H+T-LR. It improves on H-LR about as much as H+T-LR does (S1 log loss $-0.192$
+[$-0.344$, $-0.054$]) but does \emph{not} beat H+T-LR: on S1 the differences are source BA 0.000 [0, 0], source AUC
+$-0.012$ [$-0.048$, 0], observation BA $-0.032$ [$-0.081$, $+0.010$], log loss $+0.003$ [$-0.044$, $+0.053$]; on S3 it misclassifies two sources (source BA 0.908 = (6/7 + 23/24)/2)
+where H+T-LR misclassifies none.
+
+\begin{table}[htbp]
+\centering\small
+\caption[CCTLR results]{\Descriptive{} Source BA / source AUC of H-LR, H+T-LR and CCTLR (S1--S3: LOSO; E: frozen models
+with H$_R$ colours, H$_R$-LR as the colour-only model). From \file{results/v6/v6\_bootstrap.csv}.}
+\label{tab:p3cctlr}
+\begin{tabular}{@{}lccc@{}}
+\toprule
+Sample & H-LR & H+T-LR & CCTLR \\
+\midrule
+S1 (31 sources) & 0.795 / 0.923 & 0.908 / 0.988 & 0.908 / 0.976 \\
+S2 (46 sources) & 0.821 / 0.946 & 0.944 / 0.988 & 0.931 / 0.991 \\
+S3 (7,949 obs., srcw) & 0.795 / 0.923 & 1.000 / 1.000 & 0.908 / 0.994 \\
+E (frozen, H$_R$) & 0.868 / 1.000 & 0.974 / 1.000 & 0.974 / 0.987 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.72\textwidth]{figures/v6/v6c_timing_evidence_map.png}
+\caption[CCTLR timing evidence map]{Where the timing features carry evidence: each S1 observation in the colour plane,
+coloured by its out-of-fold CCTLR timing log-likelihood ratio $\Lambda=\log p(\bm T\mid\bm h,\mathrm{BH})/p(\bm T\mid\bm h,\mathrm{NS})$
+(red BH-like, blue NS-like, clipped at $\pm6$); $\times$ = BH, $+$ = NS markers, grey open circles = timing missing
+($\Lambda=0$). The hard-state corner (hard colour $\gtrsim0.35$) and the soft BH region at low soft colour are red; the NS
+banana branch at hard colour $\approx0.1$ is blue. Repo: \file{figures/v6/v6c\_timing\_evidence\_map.png},
+\file{scripts/30\_v6\_analysis.py}.}
+\label{fig:p3evidence}
+\end{figure}
+
+\subsection{Is the timing difference a class difference? (v6d)}\label{sec:p3perm}
+\Secondary{} The colour-conditional source permutation test (\cref{sec:permutation}) removes the colour dependence of
+each timing feature by label-free kNN regression ($k=25$, leave-one-source-out), averages residuals per source and
+compares the BH and NS source means; the null distribution permutes labels among sources (20,000 permutations).
+\Cref{tab:p3perm} shows that on S1 all four features differ between the classes at fixed colour (Holm-adjusted
+$p=0.0024$ to $0.037$): BHs have more low-frequency rms and a $\nu P_\nu$ centroid lower by a factor $10^{0.31}\approx2$.
+On the external set the same test, with the kNN fitted on all S1 observations and labels permuted among the 23 E
+sources, finds \textbf{no difference} (Holm $p\ge0.64$). The mechanism claim does not replicate.
+
+\begin{table}[htbp]
+\centering\small
+\caption[Colour-conditional permutation test]{\Secondary{} v6d colour-conditional source permutation test. $D$ = mean
+source residual of BH sources minus that of NS sources; two-sided $p=(1+\#\{|D_\pi|\ge|D|\})/(1+20000)$; Holm over the four
+features within each sample. $\nu_c$ is defined for 27 S1 and 21 E sources. From
+\file{results/v6/v6d\_permutation\_test.csv}.}
+\label{tab:p3perm}
+\begin{tabular}{@{}lcccccc@{}}
+\toprule
+ & \multicolumn{3}{c}{S1 (31 sources, 7 BH)} & \multicolumn{3}{c}{E (23 sources, 4 BH)} \\
+\cmidrule(lr){2-4}\cmidrule(lr){5-7}
+Feature & $D$ & $p$ & $p_\mathrm{Holm}$ & $D$ & $p$ & $p_\mathrm{Holm}$ \\
+\midrule
+T$^*_1$ (0.016--0.094\,Hz) & $+0.057$ & 0.0006 & 0.0024 & $+0.004$ & 0.746 & 1.000 \\
+T$^*_2$ (0.10--1.0\,Hz) & $+0.044$ & 0.0021 & 0.0063 & $+0.001$ & 0.939 & 1.000 \\
+T$^*_3$ (1.0--4.0\,Hz) & $+0.020$ & 0.0371 & 0.0371 & $+0.020$ & 0.159 & 0.636 \\
+$\log_{10}\nu_c$ & $-0.313$ & 0.0037 & 0.0075 & $-0.037$ & 0.783 & 1.000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Usable outputs: conformal sets and observation budgets (v6e, v6f)}\label{sec:p3usable}
+\Descriptive{} \textbf{Conformal sets.} Source-level Mondrian conformal prediction (\cref{sec:conformal}) returns
+\{BH\}, \{NS\}, \{BH, NS\} (``cannot tell'') or the empty set. \Cref{tab:p3conformal} summarises it. On S1 at
+$\varepsilon=0.2$, H+T-LR gives 26 correct singletons and no ambiguous set (3 empty sets), against 24 correct singletons
+and 2 ambiguous sets (Aql X-1, XTE J1118+480) for H-LR. On E, calibrated on the S1 OOF scores, the colour-only model's
+NS coverage collapses to 0.632 (7 of the 19 NSs get a wrong \{BH\} set): the calibration does not transfer. With timing it is
+0.895, with BH coverage 1.000 and 21 of 23 correct singletons.
+
+\begin{table}[htbp]
+\centering\small
+\caption[Conformal prediction sets]{\Descriptive{} Source-level Mondrian conformal sets. Coverage = fraction of sources
+of a class whose set contains the true label; ``correct'' = singleton sets equal to the true label. S1: LOSO calibration;
+E: split conformal with the S1 OOF scores as calibration and the frozen-model scores as test. From
+\file{results/v6/v6e\_conformal\_summary.csv}.}
+\label{tab:p3conformal}
+\setlength{\tabcolsep}{4pt}
+\begin{tabular}{@{}llccccccc@{}}
+\toprule
+Sample & Model & $\varepsilon$ & cov.\ BH & cov.\ NS & mean size & correct & ambiguous & empty \\
+\midrule
+S1 & H-LR & 0.1 & 1.000 & 0.917 & 1.81 & 4 & 25 & 0 \\
+ & H-LR & 0.2 & 0.857 & 0.833 & 1.06 & 24 & 2 & 0 \\
+ & H+T-LR & 0.1 & 1.000 & 0.917 & 1.74 & 6 & 23 & 0 \\
+ & H+T-LR & 0.2 & 0.857 & 0.833 & 0.90 & 26 & 0 & 3 \\
+ & CCTLR & 0.2 & 0.857 & 0.833 & 0.94 & 26 & 0 & 2 \\
+\midrule
+E & H$_R$-LR & 0.1 & 1.000 & 0.947 & 1.78 & 4 & 18 & 0 \\
+ & H$_R$-LR & 0.2 & 1.000 & 0.632 & 1.09 & 14 & 2 & 0 \\
+ & H$_R$+T-LR & 0.1 & 1.000 & 0.947 & 1.78 & 4 & 18 & 0 \\
+ & H$_R$+T-LR & 0.2 & 1.000 & 0.895 & 0.96 & 21 & 0 & 1 \\
+ & CCTLR (H$_R$) & 0.2 & 1.000 & 0.684 & 0.78 & 17 & 0 & 5 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{Observation budgets.} On S3, drawing $k$ random observations per source from the OOF scores (500 draws,
+\cref{fig:p3budget}), one observation per source already gives H+T-LR a median source AUC of 0.970 [0.896, 1.000]
+against 0.866 [0.756, 0.946] for H-LR; H+T-LR reaches a median AUC of 1.000 at $k=5$, while H-LR saturates at 0.917--0.923
+(the value obtained with all observations). The median source BA with one observation is 0.908 for H+T-LR and 0.774 for
+H-LR (\file{results/v6/v6f\_budget\_curves.csv}).
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=\textwidth]{figures/v6/v6f_budget_curves.png}
+\caption[Observation-budget curves]{Observation-budget curves on S3: source balanced accuracy (left) and source AUC
+(right) when each source is represented by $k$ randomly drawn observations (LOSO OOF scores of the source-equal-weight
+models; median and central 95\% of 500 draws). Black H-LR, blue H+T-LR, red CCTLR. Repo:
+\file{figures/v6/v6f\_budget\_curves.png}, \file{scripts/30\_v6\_analysis.py}.}
+\label{fig:p3budget}
+\end{figure}
+
+\subsection{Robustness: nuisance variables and frequency bands (v6h)}\label{sec:p3robust}
+\Descriptive{} Timing amplitudes depend on brightness (Poisson noise), the number of PCUs, the background fraction and the
+epoch. Adding these nuisance variables $N$ to the colours does not help detectably (H+N $-$ H log loss $-0.063$
+[$-0.151$, $+0.018$]), whereas adding timing on top of them does (\cref{tab:p3robust}): the timing information is not a
+proxy for $N$. The band ablation places the information in T1 and T2; T3 (1--4\,Hz) adds nothing (log loss $-0.004$
+[$-0.017$, $+0.007$]). Replacing the v5 features by the all-pairs T$^*$ gives source BA 0.929 ($+0.134$ [$+0.021$, $+0.298$]
+over H-LR) and source AUC 0.976.
+
+\begin{table}[htbp]
+\centering\footnotesize
+\caption[v6h robustness]{\Descriptive{} v6h on S1 (LOSO). Differences against H-LR unless stated; $^\dagger$ = interval
+entirely above 0 (BA, AUC) or entirely below 0 (log loss). From \file{results/v6/v6\_bootstrap.csv} and
+\file{results/v6/v6\_proper\_scores.csv}.}
+\label{tab:p3robust}
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{@{}lcccc@{}}
+\toprule
+Model & src BA / AUC & $\Delta$ source BA & $\Delta$ obs.\ BA & $\Delta$ log loss \\
+\midrule
+H+N-LR & 0.887 / 0.952 & $+0.092$ [0, $+0.256$] & $+0.020$ [$-0.046$, $+0.094$] & $-0.063$ [$-0.151$, $+0.018$] \\
+H+N+T-LR & 1.000 / 1.000 & $+0.205$ [$+0.042$, $+0.411$]$^\dagger$ & $+0.155$ [$+0.036$, $+0.299$]$^\dagger$ & $-0.268$ [$-0.394$, $-0.154$]$^\dagger$ \\
+H+N+T $-$ H+N & & $+0.113$ [0, $+0.277$] & $+0.135$ [$+0.034$, $+0.268$]$^\dagger$ & $-0.204$ [$-0.347$, $-0.103$]$^\dagger$ \\
+H+T1-LR & 0.929 / 0.988 & $+0.134$ [$+0.021$, $+0.298$]$^\dagger$ & $+0.103$ [$-0.000$, $+0.251$] & $-0.195$ [$-0.323$, $-0.086$]$^\dagger$ \\
+H+T2-LR & 0.887 / 0.988 & $+0.092$ [$-0.021$, $+0.256$] & $+0.092$ [$+0.007$, $+0.207$]$^\dagger$ & $-0.165$ [$-0.252$, $-0.086$]$^\dagger$ \\
+H+T3-LR & 0.795 / 0.929 & $0.000$ [0, 0] & $-0.016$ [$-0.045$, $+0.011$] & $-0.004$ [$-0.017$, $+0.007$] \\
+H+T$^*$-LR & 0.929 / 0.976 & $+0.134$ [$+0.021$, $+0.298$]$^\dagger$ & $+0.105$ [$-0.004$, $+0.252$] & $-0.193$ [$-0.323$, $-0.075$]$^\dagger$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Interpretation}
+% -----------------------------------------------------------------------------------------------------
+\textbf{What the data support directly.}
+\begin{enumerate}
+\item Both pre-declared primaries are \textbf{not detected}: in v5 because the intervals touch 0, in v6a because both models
+already reach source AUC 1.000 on the external sources and the BA interval has lower limit 0.
+\item On external sources the timing features correct the \emph{threshold miscalibration} of the colour-only model: five
+NSs at 0.56--0.67 move to 0.25--0.34 (one NS moves the other way), and the non-saturating metrics -- observation BA, Brier
+score and log loss -- all improve with intervals excluding 0.
+\item The timing information sits at 0.016--1\,Hz (T1, T2); 1--4\,Hz adds nothing. It survives control for brightness,
+number of PCUs, background fraction and year.
+\item ``At fixed colour, BHs have stronger low-frequency variability and a lower characteristic frequency'' holds on the 31
+v2 sources (Holm $p=0.002$--$0.04$) but \textbf{does not replicate} on the 23 external sources.
+\item The all-pairs estimator is more precise and reduces missing values from 942 to 341; the new CCTLR classifier does not
+beat the simple linear H+T-LR.
+\item With timing, source-level conformal sets keep their nominal coverage on external sources; with colour only they do not.
+\end{enumerate}
+
+\textbf{Possible explanations (not verified).}
+\begin{itemize}
+\item The BH part of E differs from the training BHs: two are high-mass X-ray binaries (Cyg X-1; LMC X-3, mostly in the soft
+state), XTE J1859+226 is entirely in gain epoch 4. With 4 BHs the permutation test has little power, so ``not replicated''
+may be lack of power; the S1 effect may also be driven by a few sources (XTE J1118+480, GX 339$-$4).
+\item On E the timing features mainly pull NSs down while slightly lowering the BH scores, which is consistent with weaker
+low-frequency variability of NSs at a given colour but suggests that the BH side of the relation is unstable.
+\item CCTLR's class-conditional model (linear in colour, Student-$t$ residuals) may be mis-specified for 31 sources; a
+linear LR is more stable at this sample size.
+\item 4U 1626$-$67 rises because its coherent 0.13\,Hz pulsation is counted as broad-band variability; for strongly pulsating
+sources the pulse frequency would have to be removed first.
+\end{itemize}
+
+\textbf{Physically.} The direction found on S1 -- more variability at 0.016--1\,Hz and a centroid frequency lower by a
+factor $\approx2$ for BHs at the same colour -- is what one expects if the characteristic frequencies of the broad-band
+noise scale inversely with the mass of the compact object, but the frequencies probed here (below 4\,Hz) are far below
+those of the canonical BH/NS timing differences, and the effect did not replicate. The robust part of the result is
+practical rather than physical: timing calibrates the colour classifier on new sources.
+
+\textbf{Hypotheses that need more data.} More external confirmed BHs (especially hard-state LMXB transients); an
+explicit spectral-state split and higher frequencies from event-mode data (taken up in Phase 4); another instrument with
+new observations (NICER, Phase 5); full power-spectrum fits with Lorentzian characteristic frequencies (Phase 6); a
+confirmation in which a proper scoring rule is the pre-declared primary.
+
+% -----------------------------------------------------------------------------------------------------
+\section{Deviations and caveats}\label{sec:p3caveats}
+% -----------------------------------------------------------------------------------------------------
+\begin{itemize}
+\item \textbf{Written after earlier results, self-approved}: v5 after v1--v4, v6 after v1--v5, both designed and approved by
+the analyst under the user's standing instruction, without external review; timing was proposed to address the known
+colour overlap.
+\item \textbf{v5 unit test}: the ``PCU switched off within a row'' test case was wrong (switch-off at bin 900 leaves counts in
+the last 128-bin block, so by the rule the PCU is still on); the test was corrected before any real feature was computed.
+The rule itself did not change.
+\item \textbf{v5 reporting}: \code{frac\_first\_better} (fraction of resamples with a positive difference) is reported; it was
+already an output of \code{v4lib.paired\_bootstrap}, not a new analysis.
+\item \textbf{v6}: no change of source list, bands, estimators, models or decision rules; all exclusions followed the rules
+(\file{data/v6/source\_verification.csv}). A figure-annotation bug was fixed before the first run; \file{run\_v6.ps1} clears
+\code{XRB\_VERSION} with \code{\$env:XRB\_VERSION = \$null} (same effect).
+\item \textbf{Saturation}: the headline metrics saturated on E (AUC = 1), which the design did not anticipate; the proper-score
+improvements are descriptive.
+\item \textbf{Small BH samples}: 7 BHs in S1, 9 in S2, 4 in E (2 in E\textsubscript{new}); one source such as XTE J1118+480 changes the source BA
+by about 0.07.
+\item \textbf{Not independent}: S2 and S3 share the S1 sources; the 15 v4b2 sources in E had been seen by the analyst in other
+models' results (hence E\textsubscript{new}).
+\item \textbf{Instrument}: Standard-1 has no energy resolution (rms over $\approx$2--60\,keV, colours in 5--25\,keV) and a 4\,Hz
+upper limit; the background is assumed equal for all PCUs and taken from the Standard-2 background model; the cospectrum
+amplitude is not deadtime-corrected (a few per cent at high rates); 34 S1 observations (7 BH) with one PCU are imputed.
+\item \textbf{Population differences}: training BHs are all LMXB transients, two external BHs are HMXBs; the external NSs
+are mostly AMXPs; XTE J1751$-$305, IGR J17511$-$3057 and IGR J17498$-$2921 lie 0.3--0.7$^\circ$ from each other or from v4b2
+sources and may contaminate each other in the $\approx1^\circ$ PCA field.
+\item \textbf{Bootstrap} intervals keep the predictions fixed and do not include fitting variability.
+\end{itemize}
+
+% -----------------------------------------------------------------------------------------------------
+\section{Takeaway}
+% -----------------------------------------------------------------------------------------------------
+Low-frequency variability is the first quantity in this project that adds to the two colours: every point estimate moves
+in its favour, on the 31 training sources and, with frozen models, on 23 unseen ones. By the strict pre-declared rule
+neither primary is detected -- in v6a because the headline metrics saturate -- and the colour-conditional mechanism
+(lower characteristic frequency for BHs) does not replicate externally. What does hold externally is calibration: timing
+moves the colour-only classifier's misplaced NSs back below the threshold and keeps conformal coverage. Phase 4 makes the
+state dependence explicit (does the BH/NS separation fail precisely in the hard state?), adds event-mode frequencies above
+4\,Hz, rechecks burst contamination against the MINBAR catalogue, and tests long-term colours on an independent all-sky
+instrument (MAXI).
