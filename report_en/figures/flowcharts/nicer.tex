@@ -1,0 +1,30 @@
+% NICER/XTI pipeline (v9--v13) and the version that added each step. Styles: main.tex (fc ...).
+% Row 1 left to right, row 2 right to left.
+\begin{tikzpicture}[x=1cm, y=1cm,
+  st/.style={fc proc, text width=2.62cm, minimum height=16mm},
+  badge/.style={fc ver, anchor=south west}]
+  % row 1: events to per-segment cospectra
+  \node[fc data, text width=2.62cm, minimum height=16mm] (ev) at (1.45,0) {cleaned event files \texttt{ni<obs>\_0mpu7\_cl}, HEASARC AWS mirror};
+  \node[st] (rd)  at (4.62,0)  {streaming parser: v9 prefix ($\ge6$ segments); v10 + tail to 1\,GB; v11, v13 whole files};
+  \node[st] (seg) at (7.79,0)  {good intervals (gap $>1$\,s); 128-s segments, 2--10\,keV, 1/256-s bins, $\ge2$ MPUs};
+  \node[st] (bst) at (10.96,0) {segments near a type-I burst removed ($-20$\,s, $+200$\,s)};
+  \node[st] (cos) at (14.13,0) {all-pairs cross-MPU cospectrum per segment};
+  \foreach \a/\b in {ev/rd,rd/seg,seg/bst,bst/cos} \draw[fc arr] (\a) -- (\b);
+  % row 2: observation features, quality, background
+  \node[st, text width=2.62cm] (of) at (14.13,-2.4) {ratio of means: $T_1$--$T_3$, 0.1--10\,Hz state, $\nu_c$ (13 octave bins); colours $c_1,c_2$};
+  \node[fc gate, text width=2.62cm, minimum height=16mm] (qg) at (10.96,-2.4) {quality: $\ge3$ segments and $\ge20$\,c\,s$^{-1}$ (2--10\,keV)};
+  \node[st] (bp)  at (7.79,-2.4) {background proxy $\beta$ = 12--15 / 2--10\,keV counts; threshold 0.2687};
+  \node[st] (c50) at (4.62,-2.4) {3C50 background $f$ ($<500$\,c\,s$^{-1}$): correction $1/(1-f)$, screening $f\le0.20$};
+  \node[fc, draw=inkgrey, fill=boxgrey, text width=2.62cm, minimum height=16mm] (tab) at (1.45,-2.4) {feature table of the version (\file{data/v9}--\file{v13/processed})};
+  \draw[fc arr] (cos) -- (of);
+  \foreach \a/\b in {of/qg,qg/bp,bp/c50,c50/tab} \draw[fc arr] (\a) -- (\b);
+  % side branch: Lorentzian fits
+  \node[st, minimum height=11mm] (lz) at (14.13,-4.55) {one or two Lorentzians on the octave bins: $\nu_L$};
+  \draw[fc arr] (of) -- (lz);
+  \node[fc note, text width=7.6cm, anchor=west] at (1.45-1.38,-4.55)
+     {v13 also recomputed the faint observations' features inside the 3C50 good-time intervals only (descriptive).
+      $\nu_c$ is not changed by the 3C50 correction; colours and rms are.};
+  % version badges
+  \foreach \n/\v in {ev/v9, rd/{v9, v10, v11}, seg/v9, bst/v9, cos/v9, of/v9, qg/v9, bp/v10, c50/{v12, v13}, lz/v11c}
+     \node[badge] at ([xshift=2pt, yshift=-0.4pt]\n.north west) {\v};
+\end{tikzpicture}

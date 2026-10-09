@@ -1,0 +1,45 @@
+% How a comparison receives its status tag and its verdict (definitions of the Reading guide, Sec. 1.6).
+\begin{tikzpicture}[x=1cm, y=1cm,
+  dq/.style={fc dec, aspect=2.2, text width=2.15cm, font=\scriptsize},
+  oc/.style={fc, text width=3.4cm, minimum height=9mm},
+  lab/.style={font=\tiny, text=inkgrey, inner sep=1pt}]
+  % decision spine
+  \node[dq] (d1) at (1.6,0)     {written in the pre-registration?};
+  \node[dq] (d2) at (1.6,-1.65) {gates passed?};
+  \node[dq] (d3) at (1.6,-3.3)  {primary?};
+  \node[dq] (d4) at (1.6,-4.95) {decision rule declared?};
+  % outcomes
+  \node[oc, draw=tagpost, line width=0.6pt, fill=tagpost!6, anchor=west] (oh) at (3.85,0)
+     {\fcH\\ decided after seeing results; reported, never used for a claim};
+  \node[oc, draw=tagexp, dashed, fill=white, anchor=west] (ox) at (3.85,-1.65)
+     {\fcX\\ pre-declared, downgraded (e.g.\ v8c after a failed implementation check)};
+  \node[oc, fc prim, anchor=west] (op) at (3.85,-3.3)
+     {\fcP\\ decides the verdict of its sub-analysis (one per sub-analysis)};
+  \node[oc, fc sec, anchor=west] (os) at (3.85,-4.95)
+     {\fcS\\ pre-declared, judged by the same rule, does not decide the verdict};
+  \node[oc, fc descr, anchor=north] (od) at (1.6,-6.0)
+     {\fcD\\ pre-declared description: no decision rule, no claim};
+  % the decision rule and the two verdicts
+  \node[fc dec, aspect=1.7, text width=1.95cm, font=\scriptsize] (rule) at (9.6,-4.125)
+     {95\% interval excludes 0 (or $p<0.05$)?};
+  \node[oc, fc yes, text width=2.45cm, anchor=west] (yes) at (12.25,-3.3) {\textbf{detected}};
+  \node[oc, fc no, text width=2.45cm, anchor=west]  (no)  at (12.25,-4.95) {\textbf{not detected} (not ``absent'')};
+  % arrows
+  \draw[fc arr] (d1) -- node[lab, right] {yes} (d2);
+  \draw[fc arr] (d2) -- node[lab, right] {yes} (d3);
+  \draw[fc arr] (d3) -- node[lab, right] {no} (d4);
+  \draw[fc arr] (d4) -- node[lab, right] {no} (od);
+  \draw[fc arr] (d1) -- node[lab, above] {no} (oh);
+  \draw[fc arr] (d2) -- node[lab, above] {no} (ox);
+  \draw[fc arr] (d3) -- node[lab, above] {yes} (op);
+  \draw[fc arr] (d4) -- node[lab, above] {yes} (os);
+  \draw[fc arr] (op.east) -| (rule.north);
+  \draw[fc arr] (os.east) -| (rule.south);
+  \draw[fc arr] (rule.east) -- ++(0.35,0) |- node[lab, pos=0.75, above] {yes} (yes.west);
+  \draw[fc arr] (rule.east) -- ++(0.35,0) |- node[lab, pos=0.75, below] {no} (no.west);
+  % note on post hoc choices inside a pre-declared comparison
+  \node[fc note, text width=10.6cm, anchor=north west] at (3.85,-6.0)
+     {A post hoc choice inside a pre-declared comparison is flagged as well: v12b is \mbox{\fcP}, \mbox{\fcH} because the Random
+      Forest was made the primary model after v9--v11 had been seen. Detected secondary results are reported as such but
+      never replace a primary.};
+\end{tikzpicture}

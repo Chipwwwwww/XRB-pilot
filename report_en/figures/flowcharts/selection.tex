@@ -1,0 +1,26 @@
+% Source labelling, eligibility and time-stratified sampling (Algorithm 1). Styles: main.tex (fc ...).
+\begin{tikzpicture}[x=1cm, y=1cm,
+  st/.style={fc proc, text width=2.62cm, minimum height=15mm},
+  lab/.style={font=\tiny, text=inkgrey, inner sep=1pt}]
+  % row 1: sources and eligible pointings
+  \node[fc data, text width=2.62cm, minimum height=15mm] (lb) at (1.45,0) {label lists of the version (\cref{tab:labelrules})};
+  \node[st] (mt) at (4.62,0) {positions matched to RXTE catalogues ($\le0.1^\circ$) or \texttt{nicermastr} ($\le0.05^\circ$)};
+  \node[st] (el) at (7.79,0) {eligible pointings: exposure $\ge1$\,ks, rate, epoch; source needs a minimum number};
+  \node[st] (gr) at (10.96,0) {sorted by time and split into $K$ groups (RXTE 15, NICER 8)};
+  \node[st] (rk) at (14.13,0) {within a group: random order from a seeded generator};
+  \foreach \a/\b in {lb/mt,mt/el,el/gr,gr/rk} \draw[fc arr] (\a) -- (\b);
+  % row 2: the try-and-accept loop (right to left)
+  \node[fc data, text width=2.62cm, minimum height=15mm] (dl) at (14.13,-2.5) {download and process the next candidate};
+  \node[fc dec, text width=1.7cm, aspect=1.6] (q) at (10.6,-2.5) {quality rules pass?};
+  \node[fc, draw=inkgrey, fill=boxgrey, text width=2.62cm, minimum height=15mm] (ok) at (6.95,-2.5) {accept; go to the next group};
+  \node[fc dec, text width=1.55cm, aspect=1.6] (mx) at (10.6,-4.75) {tries left (${\le}M$)?};
+  \node[fc, draw=inkgrey, fill=white, dashed, text width=2.62cm, minimum height=11mm] (gv) at (6.95,-4.75) {group left empty};
+  \draw[fc arr] (rk) -- (dl);
+  \draw[fc arr] (dl) -- (q);
+  \draw[fc arr] (q) -- node[lab, above] {yes} (ok);
+  \draw[fc arr] (q) -- node[lab, right] {no} (mx);
+  \draw[fc arr] (mx.east) -| node[lab, pos=0.25, below] {yes} (dl.south);
+  \draw[fc arr] (mx) -- node[lab, above] {no} (gv);
+  \node[fc note, text width=5.2cm, anchor=north west] at (0.15,-1.85)
+     {$M$ = 6 tries per group for RXTE, 3 for NICER; seeds \code{SEED + position} (v11: $+1000$, v13: $+2000$; \cref{tab:seeds}). v4b1 used every eligible pointing instead.};
+\end{tikzpicture}

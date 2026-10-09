@@ -1,0 +1,48 @@
+% Phase 1 (v1--v3): what each version added and what it tested. Styles: main.tex (fc ...).
+% Columns: data/sample | processing/features | model/evaluation | pre-declared comparison | verdict.
+% Solid boxes are new in the row's version; dashed boxes are reused from an earlier version.
+\begin{tikzpicture}[x=1cm, y=1cm, cell/.style={text width=2.76cm, minimum height=12mm}]
+  \def\cA{1.46}\def\cB{4.69}\def\cC{7.92}\def\cD{11.15}\def\cE{14.38}
+  \foreach \x/\t in {\cA/{data / sample}, \cB/{processing / features}, \cC/{model / evaluation}, \cD/{pre-declared comparison}, \cE/{verdict}}
+     \node[fc head, text width=2.76cm, anchor=south] at (\x,0.78) {\t};
+  \begin{scope}[on background layer]
+    \fill[boxgrey] (0,-0.80) rectangle (15.84,-2.32);   % v2
+  \end{scope}
+  % ---- v1
+  \node[fc data, cell]  (r1a) at (\cA,0) {RXTE/PCA Std-2, epoch 5; 8 sources (4 BH, 4 NS), 120 obs.};
+  \node[fc proc, cell]  (r1b) at (\cB,0) {45-bin 5--25\,keV net spectra; A (intensity), B (shape)};
+  \node[fc model, cell] (r1c) at (\cC,0) {Dummy, LR, RF; LOSO (8 folds) and a leaky 5-fold split};
+  \node[fc descr, cell] (r1d) at (\cD,0) {\fcD\\ no formal primary};
+  \node[fc none, cell]  (r1e) at (\cE,0) {obs.\ BA 0.69--0.76 (LOSO), 0.80--0.89 (leaky)};
+  % ---- v2
+  \node[fc data, cell]  (r2a) at (\cA,-1.55) {31 sources (7 BH, 24 NS), 456 obs., epoch 5 to 2011};
+  \node[fc proc, cell]  (r2b) at (\cB,-1.55) {Std-1 deadtime; H (two colours), HI; XSPEC check};
+  \node[fc old, cell]   (r2c) at (\cC,-1.55) {same models; LOSO, 31 folds};
+  \node[fc prim, cell]  (r2d) at (\cD,-1.55) {\fcP\\ B $-$ A, with the new paired source bootstrap};
+  \node[fc part, cell]  (r2e) at (\cE,-1.55) {RF: BA detected (a threshold effect); AUC and LR: not};
+  % ---- v3a
+  \node[fc old, cell]   (r3a) at (\cA,-3.10) {v2 sample, 456 obs.};
+  \node[fc proc, cell]  (r3b) at (\cB,-3.10) {H+B (47 columns), HI+A (48 columns)};
+  \node[fc old, cell]   (r3c) at (\cC,-3.10) {LR, RF; LOSO};
+  \node[fc prim, cell]  (r3d) at (\cD,-3.10) {\fcP\\ H+B $-$ H: anything beyond two colours?};
+  \node[fc no, cell]    (r3e) at (\cE,-3.10) {not detected (HI+A $-$ HI: LR worse)};
+  % ---- v3b
+  \node[fc data, cell]  (r4a) at (\cA,-4.65) {same obs.\ re-extracted on 3--25\,keV (50 bins)};
+  \node[fc proc, cell]  (r4b) at (\cB,-4.65) {B3, H3 (adds a soft colour), H3+B3};
+  \node[fc old, cell]   (r4c) at (\cC,-4.65) {LR, RF; LOSO};
+  \node[fc sec, cell]   (r4d) at (\cD,-4.65) {\fcS\\ B3 $-$ B, H3 $-$ H, H3+B3 $-$ H3};
+  \node[fc no, cell]    (r4e) at (\cE,-4.65) {not detected: 3--5\,keV adds nothing};
+  % ---- v3c
+  \node[fc data, cell]  (r5a) at (\cA,-6.20) {14 BH candidates, 210 obs.; never used as labels};
+  \node[fc old, cell]   (r5b) at (\cB,-6.20) {A, B, H, HI};
+  \node[fc model, cell] (r5c) at (\cC,-6.20) {(1) prediction only; (2) added as BH training rows};
+  \node[fc sec, cell]   (r5d) at (\cD,-6.20) {\fcD\ (1), \fcS\ (2)\\ (2) with $-$ without candidates};
+  \node[fc part, cell]  (r5e) at (\cE,-6.20) {(1) 13/14 (LR), 12/14 (RF) $\ge0.5$ with H; (2) only A-RF gains};
+  % version badges and arrows along every row
+  \foreach \r/\v in {1/v1, 2/v2, 3/v3a, 4/v3b, 5/v3c} {
+     \node[fc ver] at ([xshift=2pt, yshift=-0.4pt]r\r a.north west) {\v};
+     \foreach \a/\b in {a/b,b/c,c/d,d/e} \draw[fc arr] (r\r\a) -- (r\r\b);
+  }
+  \fclegendnodes{0,-7.25}
+  \fclegendverdicts{0,-7.65}
+\end{tikzpicture}

@@ -1,0 +1,30 @@
+% MAXI/GSC pipeline (v7c, v8d, v9c) and the version that added each step. Styles: main.tex (fc ...).
+\begin{tikzpicture}[x=1cm, y=1cm,
+  st/.style={fc proc, text width=2.62cm, minimum height=15mm},
+  badge/.style={fc ver, anchor=south west}]
+  % row 1: strict pipeline (v7c2)
+  \node[fc data, text width=2.62cm, minimum height=15mm] (lab) at (1.45,0) {labels frozen first: confirmed BHs, non-pulsing NSs, pulsars};
+  \node[st] (mt)  at (4.62,0)  {MAXI sources matched by Sesame position ($\le0.1^\circ$); blends excluded};
+  \node[fc data, text width=2.62cm, minimum height=15mm] (lc) at (7.79,0) {1-day light curves $L$, $M$, $H$ (2--4, 4--10, 10--20\,keV)};
+  \node[st] (cut) at (10.96,0) {cuts ($\ge\sqrt3\,\sigma$, outliers, $\ge100$ points): 13 BH, 48 NPNS, 39 PSR};
+  \node[st] (ft)  at (14.13,0) {SC, HC, RelInt, $C_4$; sets CCI, C2D, C1D (\cref{eq:maxi})};
+  \foreach \a/\b in {lab/mt,mt/lc,lc/cut,cut/ft} \draw[fc arr] (\a) -- (\b);
+  % row 2: absorption correction (v8d) feeding the same models
+  \node[fc data, text width=2.62cm, minimum height=15mm] (nh) at (4.62,-2.35) {HI4PI Galactic $N_\mathrm{H}$ at each source};
+  \node[st] (tr)  at (7.79,-2.35) {\texttt{tbabs}$\times$power-law transmission $t_L,t_M,t_H$};
+  \node[st] (ftc) at (10.96,-2.35) {corrected fluxes $L/t_L$, \dots: C2D$_{N_\mathrm{H}}$, C1D$_{N_\mathrm{H}}$};
+  \node[fc model, text width=2.62cm, minimum height=15mm] (md) at (14.13,-2.35) {LR, RF, kNN, SVM; LOSO over sources; $\le200$ training points per source};
+  \draw[fc arr] (nh) -- (tr); \draw[fc arr] (tr) -- (ftc); \draw[fc arr] (ftc) -- (md);
+  \draw[fc arr] (ft) -- (md);
+  \draw[fc arr] (lc.south) -- ++(0,-0.5) -| ([xshift=-6mm]ftc.north);
+  % row 3: strata (v9c) and the reproduction (v7c1)
+  \node[st, text width=2.62cm, minimum height=11mm] (ter) at (14.13,-4.45) {points split into tertiles of $C_4$; gain within each};
+  \draw[fc arr] (md) -- (ter);
+  \node[fc data, text width=2.62cm, minimum height=11mm] (db) at (1.45,-4.45) {\citeauthor{deBeurs2022} processed colours, 44 systems};
+  \node[fc model, text width=2.62cm, minimum height=11mm] (dbm) at (4.62,-4.45) {their SVM and kNN settings, 10 subsamples};
+  \node[fc gate, text width=2.62cm, minimum height=11mm] (dbr) at (7.79,-4.45) {reproduction within the pre-set tolerance};
+  \draw[fc arr] (db) -- (dbm); \draw[fc arr] (dbm) -- (dbr);
+  % badges
+  \foreach \n/\v in {lab/v7c2, mt/v7c2, lc/v7c2, cut/v7c2, ft/v7c2, md/v7c2, nh/v8d, tr/v8d, ftc/v8d, ter/v9c, db/v7c1, dbm/v7c1, dbr/v7c1}
+     \node[badge] at ([xshift=2pt, yshift=-0.4pt]\n.north west) {\v};
+\end{tikzpicture}

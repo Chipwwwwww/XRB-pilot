@@ -1,0 +1,23 @@
+% Frozen and prospective protocol (Sec. 5.10, Table 5.3). Styles: main.tex (fc ...).
+\begin{tikzpicture}[x=1cm, y=1cm,
+  st/.style={fc proc, text width=2.62cm, minimum height=16mm},
+  lab/.style={font=\tiny, text=inkgrey, inner sep=1pt}]
+  % row 1: what happens before any test data are read
+  \node[fc, draw=inkgrey, fill=white, text width=2.62cm, minimum height=16mm] (pr) at (1.45,0) {pre-registration written after all earlier results};
+  \node[st] (fz) at (4.62,0) {freeze: pipeline, thresholds, models fitted on reference data, decision rule};
+  \node[fc gate, text width=2.62cm, minimum height=16mm] (cm) at (7.79,0) {committed before the test data are read (\cref{tab:frozen})};
+  \node[fc data, text width=2.62cm, minimum height=16mm] (nw) at (10.96,0) {test data read for the first time};
+  \node[fc model, text width=2.62cm, minimum height=16mm] (os) at (14.13,0) {each source scored by a frozen model that never saw it};
+  \foreach \a/\b in {pr/fz,fz/cm,cm/nw,nw/os} \draw[fc arr] (\a) -- (\b);
+  % row 2: the two kinds of test data and their independence
+  \node[fc data, text width=3.3cm, minimum height=12mm] (ns) at (9.5,-2.3) {new \emph{sources}, never used in training: v6a, v8b};
+  \node[fc data, text width=3.3cm, minimum height=12mm] (no) at (9.5,-3.85) {new \emph{observations} of sources already used: v11, v13};
+  \node[fc, draw=inkgrey, fill=boxgrey, text width=3.3cm, minimum height=12mm] (si) at (13.85,-2.3) {source-level independence, but only 4 and 7 BHs};
+  \node[fc, draw=inkgrey, fill=boxgrey, text width=3.3cm, minimum height=12mm] (oi) at (13.85,-3.85) {observation-level independence only};
+  \draw[semithick, inkgrey] (nw.south) -- ++(0,-0.45) -| (7.3,-3.85);
+  \draw[fc arr] (7.3,-2.3) -- (ns.west); \draw[fc arr] (7.3,-3.85) -- (no.west);
+  \draw[fc arr] (ns) -- (si); \draw[fc arr] (no) -- (oi);
+  \node[fc note, text width=6.4cm, anchor=north west] at (0.15,-1.75)
+     {v13 also froze the choice of the Random Forest; in v12 that choice was made after v9--v11 had been seen.
+      Not reached by any version: \emph{new sources} tested prospectively on new data with a frozen model.};
+\end{tikzpicture}

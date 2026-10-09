@@ -1,0 +1,79 @@
+% Phase 4 (v7--v8, v9c): what each sub-analysis added and what it tested. Styles: main.tex (fc ...).
+% Bands group the themes: data quality | states | timing in the hard state | more BHs | higher frequencies | MAXI.
+\begin{tikzpicture}[x=1cm, y=1cm, cell/.style={text width=2.76cm, minimum height=12mm}]
+  \def\cA{1.46}\def\cB{4.69}\def\cC{7.92}\def\cD{11.15}\def\cE{14.38}
+  \foreach \x/\t in {\cA/{data / sample}, \cB/{processing / features}, \cC/{model / evaluation}, \cD/{pre-declared comparison}, \cE/{verdict}}
+     \node[fc head, text width=2.76cm, anchor=south] at (\x,0.78) {\t};
+  \begin{scope}[on background layer]
+    \fill[boxgrey] (0,0.70) rectangle (15.84,-0.78);      % data quality
+    \fill[boxgrey] (0,-2.33) rectangle (15.84,-5.43);     % timing in the hard state
+    \fill[boxgrey] (0,-6.98) rectangle (15.84,-8.53);     % higher frequencies
+  \end{scope}
+  % ---- data quality
+  \node[fc data, cell]  (r1a) at (\cA,0) {MINBAR DR1, the official burst catalogue};
+  \node[fc proc, cell]  (r1b) at (\cB,0) {58 contaminated S1 obs.; literal, union, replacement sets};
+  \node[fc old, cell]   (r1c) at (\cC,0) {H-LR retrained (LOSO) on the kept obs.};
+  \node[fc prim, cell]  (r1d) at (\cD,0) {\fcP\\ retrained $-$ v2 H-LR};
+  \node[fc no, cell]    (r1e) at (\cE,0) {not detected; all 31 source decisions unchanged};
+  % ---- states
+  \node[fc old, cell]   (r2a) at (\cA,-1.55) {S1 out-of-fold scores of v2, v5, v6};
+  \node[fc proc, cell]  (r2b) at (\cB,-1.55) {variability state from the 0.1--4\,Hz rms};
+  \node[fc model, cell] (r2c) at (\cC,-1.55) {AUC within a state; stratified source bootstrap};
+  \node[fc prim, cell]  (r2d) at (\cD,-1.55) {\fcP\\ H-LR AUC, soft-like $-$ hard-like};
+  \node[fc yes, cell]   (r2e) at (\cE,-1.55) {detected: $+0.309$ [$+0.099$, $+0.510$]};
+  % ---- timing in the hard state
+  \node[fc old, cell]   (r3a) at (\cA,-3.10) {S1 hard-like obs.\ (180)};
+  \node[fc old, cell]   (r3b) at (\cB,-3.10) {v7a states; v5 timing T};
+  \node[fc old, cell]   (r3c) at (\cC,-3.10) {existing LOSO scores, no refit};
+  \node[fc prim, cell]  (r3d) at (\cD,-3.10) {\fcP\\ hard-like AUC: H+T-LR $-$ H-LR};
+  \node[fc yes, cell]   (r3e) at (\cE,-3.10) {detected: $+0.264$ [$+0.048$, $+0.455$]};
+  \node[fc data, cell]  (r4a) at (\cA,-4.65) {X = E + LMC~X-1, GS~1354$-$64, SS~433: 26 sources};
+  \node[fc old, cell]   (r4b) at (\cB,-4.65) {H$_R$, T; frozen v7a state rule};
+  \node[fc old, cell]   (r4c) at (\cC,-4.65) {frozen v6 models};
+  \node[fc prim, cell]  (r4d) at (\cD,-4.65) {\fcP\\ hard-like on X: H$_R$+T $-$ H$_R$};
+  \node[fc no, cell]    (r4e) at (\cE,-4.65) {not detected: $+0.064$ [$-0.185$, $+0.367$]};
+  % ---- more BHs
+  \node[fc data, cell]  (r5a) at (\cA,-6.20) {Cyg X-1, LMC X-1, LMC X-3: 45 obs.};
+  \node[fc old, cell]   (r5b) at (\cB,-6.20) {H, B with the v2 rules};
+  \node[fc model, cell] (r5c) at (\cC,-6.20) {trained on 34 sources, evaluated on the 31};
+  \node[fc prim, cell]  (r5d) at (\cD,-6.20) {\fcP\\ 34-source H-LR $-$ v2 H-LR};
+  \node[fc no, cell]    (r5e) at (\cE,-6.20) {not detected};
+  % ---- higher frequencies
+  \node[fc data, cell]  (r6a) at (\cA,-7.75) {event-mode files of 201 hard-like obs.\ (2.44\,GB)};
+  \node[fc proc, cell]  (r6b) at (\cB,-7.75) {HF1--HF3 (4--1024\,Hz), null band, ratio of means};
+  \node[fc gate, cell]  (r6c) at (\cC,-7.75) {gate IC4: event vs Std-1 rms, $\rho=0.813<0.90$: failed};
+  \node[fc descr, cell] (r6d) at (\cD,-7.75) {\fcX\\ H+HF-LR $-$ H-LR};
+  \node[fc none, cell]  (r6e) at (\cE,-7.75) {$-0.056$ [$-0.154$, $+0.010$]; nothing beyond Std-1 timing};
+  % ---- MAXI
+  \node[fc data, cell]  (r7a) at (\cA,-9.30) {\citeauthor{deBeurs2022} MAXI data: 44 systems};
+  \node[fc proc, cell]  (r7b) at (\cB,-9.30) {their colours CC1--CC3 in 10 subsamples};
+  \node[fc model, cell] (r7c) at (\cC,-9.30) {SVM, kNN with the published settings};
+  \node[fc prim, cell]  (r7d) at (\cD,-9.30) {\fcP\\ reproduction within tolerance};
+  \node[fc yes, cell]   (r7e) at (\cE,-9.30) {reproduced (SVM 36/44, kNN 38/44); BHs about half right};
+  \node[fc data, cell]  (r8a) at (\cA,-10.85) {MAXI/GSC 1-day light curves: 13 BH, 48 NPNS (+39 PSR)};
+  \node[fc proc, cell]  (r8b) at (\cB,-10.85) {SC, HC, RelInt, C4; sets CCI, C2D, C1D};
+  \node[fc model, cell] (r8c) at (\cC,-10.85) {LR, RF, kNN, SVM; LOSO over sources};
+  \node[fc prim, cell]  (r8d) at (\cD,-10.85) {\fcP\\ LR: CCI $-$ C2D; C2D $-$ C1D};
+  \node[fc no, cell]    (r8e) at (\cE,-10.85) {not detected (LR source AUC 0.45--0.59)};
+  \node[fc old, cell]   (r9a) at (\cA,-12.40) {30 sources seen by RXTE and by MAXI};
+  \node[fc old, cell]   (r9b) at (\cB,-12.40) {source scores of H-LR and LR (CCI)};
+  \node[fc old, cell]   (r9c) at (\cC,-12.40) {existing LOSO scores};
+  \node[fc descr, cell] (r9d) at (\cD,-12.40) {\fcD\\ RXTE vs MAXI source scores};
+  \node[fc none, cell]  (r9e) at (\cE,-12.40) {Spearman 0.63, label agreement 0.73};
+  \node[fc data, cell]  (r10a) at (\cA,-13.95) {HI4PI Galactic $N_\mathrm{H}$ of each source};
+  \node[fc proc, cell]  (r10b) at (\cB,-13.95) {\texttt{tbabs} transmission $\to$ $N_\mathrm{H}$-corrected colours};
+  \node[fc old, cell]   (r10c) at (\cC,-13.95) {RF, LR, kNN on MAXI; LOSO};
+  \node[fc prim, cell]  (r10d) at (\cD,-13.95) {\fcP\\ RF: C2D$_{N_\mathrm{H}}$ $-$ C1D$_{N_\mathrm{H}}$, source AUC};
+  \node[fc yes, cell]   (r10e) at (\cE,-13.95) {detected: $+0.377$ [$+0.160$, $+0.595$]};
+  \node[fc old, cell]   (r11a) at (\cA,-15.50) {MAXI main-task points (93,461)};
+  \node[fc proc, cell]  (r11b) at (\cB,-15.50) {tertiles of the $\ge4$\,keV colour C4};
+  \node[fc old, cell]   (r11c) at (\cC,-15.50) {RF; stratified bootstrap};
+  \node[fc descr, cell] (r11d) at (\cD,-15.50) {\fcD\\ C2D $-$ C1D within tertiles};
+  \node[fc none, cell]  (r11e) at (\cE,-15.50) {source level (post hoc): a gain in every tertile};
+  \foreach \r/\v in {1/v7b1, 2/v7a, 3/v8a, 4/v8b, 5/v7b2, 6/v8c, 7/v7c1, 8/v7c2, 9/v7c3, 10/v8d, 11/v9c} {
+     \node[fc ver] at ([xshift=2pt, yshift=-0.4pt]r\r a.north west) {\v};
+     \foreach \a/\b in {a/b,b/c,c/d,d/e} \draw[fc arr] (r\r\a) -- (r\r\b);
+  }
+  \fclegendnodes{0,-16.65}
+  \fclegendverdicts{0,-17.05}
+\end{tikzpicture}

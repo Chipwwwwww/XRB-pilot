@@ -1,0 +1,52 @@
+% Phase 3 (v5--v6): what each sub-analysis added and what it tested. Styles: main.tex (fc ...).
+\begin{tikzpicture}[x=1cm, y=1cm, cell/.style={text width=2.76cm, minimum height=12mm}]
+  \def\cA{1.46}\def\cB{4.69}\def\cC{7.92}\def\cD{11.15}\def\cE{14.38}
+  \foreach \x/\t in {\cA/{data / sample}, \cB/{processing / features}, \cC/{model / evaluation}, \cD/{pre-declared comparison}, \cE/{verdict}}
+     \node[fc head, text width=2.76cm, anchor=south] at (\x,0.78) {\t};
+  \begin{scope}[on background layer]
+    \fill[boxgrey] (0,0.70) rectangle (15.84,-2.33);     % v5
+  \end{scope}
+  % ---- v5
+  \node[fc data, cell]  (r1a) at (\cA,0) {Std-1 light curves (0.125\,s) of the 456 S1 obs.};
+  \node[fc proc, cell]  (r1b) at (\cB,0) {T1--T3 (0.016--4\,Hz) from the A/B cospectrum; gates passed};
+  \node[fc old, cell]   (r1c) at (\cC,0) {LR, RF; LOSO on S1 (the v2 folds)};
+  \node[fc prim, cell]  (r1d) at (\cD,0) {\fcP\\ H+T-LR $-$ H-LR on S1};
+  \node[fc no, cell]    (r1e) at (\cE,0) {not detected: both intervals touch 0};
+  \node[fc old, cell]   (r2a) at (\cA,-1.55) {S2 (46 sources), S3 (7,949 obs.)};
+  \node[fc old, cell]   (r2b) at (\cB,-1.55) {H and T as on S1};
+  \node[fc old, cell]   (r2c) at (\cC,-1.55) {LR, RF; source-equal weights on S3};
+  \node[fc descr, cell] (r2d) at (\cD,-1.55) {\fcD\\ 15 comparisons, 45 intervals};
+  \node[fc none, cell]  (r2e) at (\cE,-1.55) {15 of 45 above 0 (shared sources, not independent)};
+  % ---- v6
+  \node[fc data, cell]  (r3a) at (\cA,-3.10) {external E: 23 sources (4 BH), 341 obs.; 4 slow pulsars};
+  \node[fc old, cell]   (r3b) at (\cB,-3.10) {H$_R$ (v4b2) and T (v5)};
+  \node[fc model, cell] (r3c) at (\cC,-3.10) {fitted once on S1, then frozen; S1 medians fill T};
+  \node[fc prim, cell]  (r3d) at (\cD,-3.10) {\fcP\\ frozen H$_R$+T-LR $-$ H$_R$-LR on E};
+  \node[fc no, cell]    (r3e) at (\cE,-3.10) {not detected: AUC 1.000 for both; BA $+0.105$, lower limit 0};
+  \node[fc old, cell]   (r4a) at (\cA,-4.65) {S1--S3 and E};
+  \node[fc proc, cell]  (r4b) at (\cB,-4.65) {all-pairs T$^*$ and $\nu_c$ (9 log bins); gates passed};
+  \node[fc old, cell]   (r4c) at (\cC,-4.65) {LR; LOSO, or frozen on E};
+  \node[fc descr, cell] (r4d) at (\cD,-4.65) {\fcD\\ split-half reliability; H+T$^*$};
+  \node[fc none, cell]  (r4e) at (\cE,-4.65) {more reliable; missing values 942 $\to$ 341};
+  \node[fc old, cell]   (r5a) at (\cA,-6.20) {S1--S3 and E};
+  \node[fc old, cell]   (r5b) at (\cB,-6.20) {H (H$_R$ on E) and T};
+  \node[fc model, cell] (r5c) at (\cC,-6.20) {CCTLR: a timing likelihood ratio at fixed colour};
+  \node[fc descr, cell] (r5d) at (\cD,-6.20) {\fcD\\ CCTLR vs H-LR and H+T-LR};
+  \node[fc none, cell]  (r5e) at (\cE,-6.20) {does not beat the linear H+T-LR};
+  \node[fc old, cell]   (r6a) at (\cA,-7.75) {S1 (31 sources), E (23 sources)};
+  \node[fc proc, cell]  (r6b) at (\cB,-7.75) {label-free kNN residuals of T$^*$, $\log\nu_c$ on colour};
+  \node[fc model, cell] (r6c) at (\cC,-7.75) {20,000 label permutations among sources; Holm over 4};
+  \node[fc sec, cell]   (r6d) at (\cD,-7.75) {\fcS\\ BH $-$ NS residual at fixed colour};
+  \node[fc part, cell]  (r6e) at (\cE,-7.75) {S1: detected (Holm $p$ 0.0024--0.037); E: not ($p\ge0.64$)};
+  \node[fc old, cell]   (r7a) at (\cA,-9.30) {S1, S3 and E out-of-fold scores};
+  \node[fc proc, cell]  (r7b) at (\cB,-9.30) {nuisance set N (rate, PCUs, background, year); single bands};
+  \node[fc model, cell] (r7c) at (\cC,-9.30) {conformal sets, budget curves, proper scores};
+  \node[fc descr, cell] (r7d) at (\cD,-9.30) {\fcD\\ usable outputs and robustness};
+  \node[fc none, cell]  (r7e) at (\cE,-9.30) {E: log loss $-0.127$ [$-0.217$, $-0.044$]; not a proxy for N};
+  \foreach \r/\v in {1/{v5 \textperiodcentered{} S1}, 2/{v5 \textperiodcentered{} S2, S3}, 3/v6a, 4/v6b, 5/v6c, 6/v6d, 7/{v6e--h}} {
+     \node[fc ver] at ([xshift=2pt, yshift=-0.4pt]r\r a.north west) {\v};
+     \foreach \a/\b in {a/b,b/c,c/d,d/e} \draw[fc arr] (r\r\a) -- (r\r\b);
+  }
+  \fclegendnodes{0,-10.45}
+  \fclegendverdicts{0,-10.85}
+\end{tikzpicture}

@@ -1,0 +1,56 @@
+% The chain of questions v1--v14: what each version asked (white) and what it found (coloured by the verdict of its
+% pre-declared comparisons). Left column v1--v7, right column v8--v14. Styles: main.tex (fc ...).
+\begin{tikzpicture}[x=1cm, y=1cm,
+  q/.style={fc, draw=inkgrey, fill=white, text width=6.8cm, align=flush left, minimum height=7mm, anchor=north,
+            rounded corners=0pt, inner xsep=2mm},
+  r/.style={text width=6.8cm, align=flush left, minimum height=8.5mm, anchor=north, rounded corners=0pt, inner xsep=2mm}]
+  \def\xl{3.9}\def\xr{11.6}
+  % one version = question node (q) + result node (r) directly below; \step = vertical pitch
+  \def\step{2.15}
+  \foreach \k/\x/\row/\v/\Q/\R/\st in {
+     1/\xl/0/v1/{Can one RXTE spectrum classify a source never used in training?}/{Better than chance under LOSO (obs.\ BA 0.69--0.76); a leaky observation split inflates it (0.80--0.89).}/{fc none},
+     2/\xl/1/v2/{With 31 sources: does the shape B beat the intensity A? Two colours H added as a baseline.}/{RF: B beats A in source BA (a threshold effect), not in AUC; H-LR reaches source AUC 0.923.}/{fc part},
+     3/\xl/2/v3/{Is there anything beyond the two colours (full shape, 3--5\,keV)? v3c: BH candidates.}/{Not detected: the usable spectral information is in two count-space colours.}/{fc no},
+     4/\xl/3/v4/{Is that a limit of the models, the data quality, the band or the sample?}/{No primary detected (only a threshold effect on 46 sources); nested selection is worse: the spectrum is saturated.}/{fc no},
+     5/\xl/4/v5/{Does 0.016--4\,Hz variability add information at fixed colour?}/{Every point estimate rises, but both intervals touch 0: not detected.}/{fc no},
+     6/\xl/5/v6/{Does it hold on 23 external sources scored by frozen models?}/{Not detected (AUC saturated at 1.000); log loss improves; permutation test detected on S1, not on E.}/{fc no},
+     7/\xl/6/v7/{Where do the colours fail? States, MINBAR bursts, persistent BHs, MAXI.}/{Detected: AUC 0.954 soft-like vs 0.646 hard-like; bursts, persistent BHs, MAXI LR: not detected.}/{fc part},
+     8/\xr/0/v8/{Does timing help inside the hard state? Higher frequencies? Is the MAXI 2--4\,keV gain absorption?}/{Hard-state gain detected on S1 ($+0.264$), not on external X; event mode exploratory; MAXI 2--4\,keV survives $N_\mathrm{H}$.}/{fc part},
+     9/\xr/1/v9/{Does a second instrument, NICER, reproduce both timing effects?}/{Same direction and size; both not detected ($+0.112$ [$-0.004$, $+0.229$]; $p=0.136$).}/{fc no},
+     10/\xr/2/v10/{What do all usable RXTE and NICER sources say together?}/{Both detected ($+0.145$; $D=-0.368$, $p=0.0012$): overall strength, \textbf{not an independent confirmation}.}/{fc yes},
+     11/\xr/3/v11/{Prospective: frozen pipeline and models on 318 new observations of the same sources.}/{LR gain not detected ($+0.066$); $D=-0.663$ detected ($p=0.023$) but rests on a few faint observations.}/{fc part},
+     12/\xr/4/v12/{Is the $\nu_c$ result a background artefact? 3C50 correction and screening.}/{$D$ not detected ($p=0.073$); RF gain detected ($+0.174$), \textbf{RF chosen post hoc}.}/{fc part},
+     13/\xr/5/v13/{Prospective again: the whole v12 pipeline frozen, \textbf{RF chosen before download}.}/{RF gain detected prospectively ($+0.184$ [$+0.049$, $+0.337$]); $D$ not detected ($p=0.21$).}/{fc part},
+     14/\xr/6/v14/{Continue or stop?}/{Stop: no further confirmed BHs with usable data; a source-level prospective test remains open.}/{fc none}} {
+     \node[q] (q\k) at (\x,-\row*\step) {\colorbox{inkgrey}{\textcolor{white}{\textsf{\tiny\bfseries\v}}}\ \Q};
+     \node[\st, r] (r\k) at (q\k.south) {\R};
+  }
+  \foreach \a/\b in {1/2,2/3,3/4,4/5,5/6,6/7,8/9,9/10,10/11,11/12,12/13,13/14} \draw[fc arr] (r\a.south) -- (q\b.north);
+  \draw[fc arr] (r7.east) -- ++(0.28,0) |- ([yshift=-1.5mm]q8.north west);
+  % phase labels on the outer margins
+  \begin{scope}[every node/.style={fc head, font=\tiny\bfseries, rotate=90, anchor=south}]
+    \node at ([xshift=-1mm]$(q1.north west)!0.5!(r3.south west)$) {Phase 1};
+    \node at ([xshift=-1mm]$(q4.north west)!0.5!(r4.south west)$) {Phase 2};
+    \node at ([xshift=-1mm]$(q5.north west)!0.5!(r6.south west)$) {Phase 3};
+    \node at ([xshift=-1mm]$(q7.north west)!0.5!(r7.south west)$) {Phase 4};
+  \end{scope}
+  \begin{scope}[every node/.style={fc head, font=\tiny\bfseries, rotate=-90, anchor=south}]
+    \node at ([xshift=1mm]$(q8.north east)!0.5!(r8.south east)$) {Phase 4};
+    \node at ([xshift=1mm]$(q9.north east)!0.5!(r10.south east)$) {Phase 5};
+    \node at ([xshift=1mm]$(q11.north east)!0.5!(r13.south east)$) {Phase 6};
+    \node at ([xshift=1mm]$(q14.north east)!0.5!(r14.south east)$) {Ch.~12};
+  \end{scope}
+  % legend
+  \begin{scope}[every node/.append style={font=\tiny}]
+    \node[fc, draw=inkgrey, minimum width=3.2mm, minimum height=2.2mm, inner sep=0pt, anchor=west] (k0) at (0.3,-15.25) {};
+    \node[right=1pt of k0] (t0) {question};
+    \node[fc yes, minimum width=3.2mm, minimum height=2.2mm, inner sep=0pt, right=4mm of t0] (k1) {};
+    \node[right=1pt of k1] (t1) {detected};
+    \node[fc part, minimum width=3.2mm, minimum height=2.2mm, inner sep=0pt, right=4mm of t1] (k2) {};
+    \node[right=1pt of k2] (t2) {partly detected};
+    \node[fc no, minimum width=3.2mm, minimum height=2.2mm, inner sep=0pt, right=4mm of t2] (k3) {};
+    \node[right=1pt of k3] (t3) {no primary detected};
+    \node[fc none, minimum width=3.2mm, minimum height=2.2mm, inner sep=0pt, right=4mm of t3] (k4) {};
+    \node[right=1pt of k4] (t4) {no decision rule};
+  \end{scope}
+\end{tikzpicture}

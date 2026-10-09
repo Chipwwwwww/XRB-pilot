@@ -150,8 +150,37 @@ procedures once. The six phase chapters then report the versions in groups of re
 (\cref{tab:phasemap}); each starts with a ``Phase at a glance'' box and follows the same ten sections. Each result carries
 a tag: \Primary{} (the pre-declared primary comparison of its sub-analysis), \Secondary{} (pre-declared, not primary),
 \Descriptive{} (pre-declared description without a decision rule), \Exploratory{} (pre-declared but downgraded, e.g.\ after
-a failed implementation check) or \PostHoc{} (decided after seeing results). \Cref{ch:synthesis} brings the phases
+a failed implementation check) or \PostHoc{} (decided after seeing results); \cref{fig:tagflow} shows how a comparison
+receives its tag and its verdict. \Cref{ch:synthesis} brings the phases
 together; \cref{ch:limitations,ch:future,ch:questions} discuss limitations, future work and questions for discussion.
+
+\begin{figure}[htbp]
+\centering
+\input{figures/flowcharts/tags.tex}
+\caption[How a result is tagged and judged]{How a comparison receives its status tag and its verdict. Only primary and
+secondary comparisons are judged by the pre-registered rule; descriptive, exploratory and post hoc results are reported but
+never used to claim a difference. ``Not detected'' means that the interval includes 0 under the pre-registered criterion, not
+that the effect is absent. The interval is the paired 95\% class-stratified source-bootstrap interval (\cref{sec:bootstrap}).
+Drawn for this report from the pre-registrations and \cref{sec:ic}.}
+\label{fig:tagflow}
+\end{figure}
+
+\Cref{fig:questionchain} shows how each version followed from the results of the versions before it: the question it asked
+and what it found. The six phase chapters each open with an analysis map of the same kind at the level of sub-analyses
+(\cref{fig:p1flow,fig:p2flow,fig:p3flow,fig:p4flow,fig:p5flow,fig:p6flow}), which shows what every version added -- data,
+features, models, tests -- and what it reused.
+
+\begin{figure}[p]
+\centering
+\input{figures/flowcharts/chain.tex}
+\caption[The chain of questions, v1--v14]{The chain of questions. Each version (white: its question) was designed after the
+results of all earlier versions (coloured: what it found, by the verdict of its pre-declared comparisons). Read down the left
+column (v1--v7), then the right column (v8--v14). The series moved from spectra (Phases 1--2) to timing (Phases 3--4), then to a
+second instrument and pooled evidence (Phase 5) and to prospective tests on new observations of the same sources (Phase 6).
+Detailed maps: \cref{fig:p1flow,fig:p2flow,fig:p3flow,fig:p4flow,fig:p5flow,fig:p6flow}. Drawn for this report from the phase
+chapters.}
+\label{fig:questionchain}
+\end{figure}
 
 \begin{table}[htbp]
 \centering\small

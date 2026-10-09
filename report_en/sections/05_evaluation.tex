@@ -4,7 +4,18 @@
 
 This chapter defines how every number in the result tables is produced: the cross-validation scheme, the source-level
 decision, the metrics, the source bootstrap and its paired differences, the permutation tests, conformal prediction,
-the observation-budget curves and the protocol of the frozen (prospective) tests. \Cref{tab:procedures} is a summary.
+the observation-budget curves and the protocol of the frozen (prospective) tests. \Cref{fig:evalflow} shows how they fit
+together and which version added each of them; \cref{tab:procedures} is a summary.
+
+\begin{figure}[htbp]
+\centering
+\input{figures/flowcharts/evaluation.tex}
+\caption[Evaluation chain]{Evaluation chain, from the design matrix to a verdict, labelled with the version that introduced each
+element. Every inferential procedure in the middle row works on fixed out-of-fold scores or fixed features: nothing is refitted
+inside a resampling or a permutation. Bootstrap and permutation results are judged by the pre-registered rule when the comparison
+was declared primary or secondary (\cref{fig:tagflow}); conformal sets and budget curves are always descriptive. Drawn for this report from \cref{tab:procedures} and the pre-registrations.}
+\label{fig:evalflow}
+\end{figure}
 
 \begin{table}[htbp]
 \centering\small
@@ -252,6 +263,18 @@ present in two instruments is therefore always drawn (or not) in both.
 \section{Colour-conditional source permutation tests}\label{sec:permutation}
 % -----------------------------------------------------------------------------------------------------
 
+\Cref{fig:permflow} shows the test as a flowchart; the formulae follow.
+
+\begin{figure}[htbp]
+\centering
+\input{figures/flowcharts/permutation.tex}
+\caption[Colour-conditional permutation test]{Colour-conditional source permutation test. The colour dependence of the feature is
+removed without labels (neighbours only from other sources), so the class enters only through $D$ and its permutation null; the
+source, not the observation, is relabelled. Drawn for this report from \cref{eq:knnreg,eq:D,eq:permp} and
+\code{v6lib.perm\_test}, \code{v10lib.pooled\_perm}.}
+\label{fig:permflow}
+\end{figure}
+
 \textbf{Question.} At matched colour, does a timing feature $F$ (e.g.\ $\log_{10}\nu_c$) differ between BH and NS sources?
 \textbf{Statistic.} With the source mean residuals $\bar r_k$ of the label-free kNN regression (\cref{eq:knnreg}):
 \begin{equation}
@@ -363,7 +386,18 @@ $\rho_\mathrm{full}=2\rho_{1/2}/(1+\rho_{1/2})$.
 % -----------------------------------------------------------------------------------------------------
 
 Several tests were designed so that nothing about the model could adapt to the test data. \Cref{tab:frozen} lists what
-was frozen and when. Two levels of independence must be distinguished: \emph{source-level} independence (the test
+was frozen and when. \Cref{fig:frozenflow} shows the common protocol.
+
+\begin{figure}[htbp]
+\centering
+\input{figures/flowcharts/frozen.tex}
+\caption[Frozen and prospective protocol]{Frozen and prospective protocol. Everything that could adapt to the test data was fixed
+and committed before the data were read. The two kinds of test data give different levels of independence: new sources
+(v6a, v8b) and new observations of sources already used (v11, v13). Drawn for this report from \cref{tab:frozen} and the
+pre-registrations.}
+\label{fig:frozenflow}
+\end{figure}
+ Two levels of independence must be distinguished: \emph{source-level} independence (the test
 sources were never used in training: v6a, v8b, v11d) and \emph{observation-level} independence (new observations of
 sources already used: v11, v13). Only the second was achievable for NICER BHs, because every dynamically confirmed BH with
 usable RXTE or NICER timing data had already been used.

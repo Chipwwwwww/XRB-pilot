@@ -1,0 +1,55 @@
+% Phase 6 (v11--v13): what each sub-analysis added and what it tested. Styles: main.tex (fc ...).
+\begin{tikzpicture}[x=1cm, y=1cm, cell/.style={text width=2.76cm, minimum height=12mm}]
+  \def\cA{1.46}\def\cB{4.69}\def\cC{7.92}\def\cD{11.15}\def\cE{14.38}
+  \foreach \x/\t in {\cA/{data / sample}, \cB/{processing / features}, \cC/{model / evaluation}, \cD/{pre-declared comparison}, \cE/{verdict}}
+     \node[fc head, text width=2.76cm, anchor=south] at (\x,0.78) {\t};
+  \begin{scope}[on background layer]
+    \fill[boxgrey] (0,0.70) rectangle (15.84,-3.88);     % v11
+    \fill[boxgrey] (0,-6.98) rectangle (15.84,-10.08);   % v13
+  \end{scope}
+  % ---- v11: new observations, frozen v9 pipeline
+  \node[fc data, cell, minimum height=4.30cm] (aA) at (\cA,-1.55) {318 new NICER obs.\ of the same sources, never read before (39.2\,GB streamed)};
+  \node[fc old, cell, minimum height=4.30cm]  (aB) at (\cB,-1.55) {v9 feature pipeline and state thresholds, frozen};
+  \node[fc model, cell] (r1c) at (\cC,0)     {frozen out-of-source models fitted on v10 (LR primary)};
+  \node[fc prim, cell]  (r1d) at (\cD,0)     {\fcP\\ hard-like gain, LR};
+  \node[fc no, cell]    (r1e) at (\cE,0)     {not detected: $+0.066$ [$-0.095$, $+0.180$]};
+  \node[fc old, cell]   (r2c) at (\cC,-1.55) {label-free kNN residuals; permutation};
+  \node[fc prim, cell]  (r2d) at (\cD,-1.55) {\fcP\\ $D(\log_{10}\nu_c)$};
+  \node[fc yes, cell]   (r2e) at (\cE,-1.55) {detected: $D=-0.663$, $p=0.023$; rests on a few faint obs.};
+  \node[fc model, cell] (r3c) at (\cC,-3.10) {Lorentzian fits $\nu_L$; frozen rule $\nu^*=1.3007$\,Hz};
+  \node[fc descr, cell] (r3d) at (\cD,-3.10) {\fcD\\ $\nu_L$; the rule; never-used sources};
+  \node[fc none, cell]  (r3e) at (\cE,-3.10) {$\nu_L$ agrees; rule weak for NSs; RF 11/11 on never-used sources};
+  \draw[fc arr] (aA) -- (aB);
+  \foreach \r in {1,2,3} {\draw[fc arr] (aB.east |- r\r c) -- (r\r c.west);
+                          \foreach \a/\b in {c/d,d/e} \draw[fc arr] (r\r\a) -- (r\r\b);}
+  % ---- v12: 3C50 background of the v10 + v11 observations
+  \node[fc data, cell, minimum height=2.75cm] (bA) at (\cA,-5.425) {3C50 background of the 503 faint v10 + v11 obs.};
+  \node[fc proc, cell, minimum height=2.75cm] (bB) at (\cB,-5.425) {correction by $1/(1-f)$; screening $f\le0.20$: 534 obs.\ kept};
+  \node[fc old, cell]   (r4c) at (\cC,-4.65) {label-free kNN residuals; permutation};
+  \node[fc prim, cell]  (r4d) at (\cD,-4.65) {\fcP\\ $D(\log_{10}\nu_c)$ after correction};
+  \node[fc no, cell]    (r4e) at (\cE,-4.65) {not detected: $D=-0.514$, $p=0.073$};
+  \node[fc model, cell] (r5c) at (\cC,-6.20) {LOSO on the 534 obs.; RF made primary after v9--v11};
+  \node[fc prim, cell]  (r5d) at (\cD,-6.20) {\fcP, \fcH\\ hard-like gain, RF};
+  \node[fc yes, cell]   (r5e) at (\cE,-6.20) {detected: $+0.174$ [$+0.071$, $+0.300$]};
+  \draw[fc arr] (bA) -- (bB);
+  \foreach \r in {4,5} {\draw[fc arr] (bB.east |- r\r c) -- (r\r c.west);
+                        \foreach \a/\b in {c/d,d/e} \draw[fc arr] (r\r\a) -- (r\r\b);}
+  % ---- v13: a third set of new observations, the whole v12 pipeline frozen
+  \node[fc data, cell, minimum height=2.75cm] (cA) at (\cA,-8.525) {238 new obs.; 198 kept after 3C50 and screening};
+  \node[fc old, cell, minimum height=2.75cm]  (cB) at (\cB,-8.525) {the whole v12 pipeline, frozen (3C50, correction, screening)};
+  \node[fc model, cell] (r6c) at (\cC,-7.75) {models fitted on the 534 obs.; RF chosen before download};
+  \node[fc prim, cell]  (r6d) at (\cD,-7.75) {\fcP\\ hard-like gain, RF};
+  \node[fc yes, cell]   (r6e) at (\cE,-7.75) {detected prospectively: $+0.184$ [$+0.049$, $+0.337$]};
+  \node[fc old, cell]   (r7c) at (\cC,-9.30) {label-free kNN residuals; permutation};
+  \node[fc prim, cell]  (r7d) at (\cD,-9.30) {\fcP\\ $D(\log_{10}\nu_c)$};
+  \node[fc no, cell]    (r7e) at (\cE,-9.30) {not detected: $D=-0.427$, $p=0.21$};
+  \draw[fc arr] (cA) -- (cB);
+  \foreach \r in {6,7} {\draw[fc arr] (cB.east |- r\r c) -- (r\r c.west);
+                        \foreach \a/\b in {c/d,d/e} \draw[fc arr] (r\r\a) -- (r\r\b);}
+  % badges
+  \foreach \n/\v in {aA/v11, bA/v12, cA/v13} \node[fc ver] at ([xshift=2pt, yshift=-0.4pt]\n.north west) {\v};
+  \foreach \r/\v in {1/v11a, 2/v11b, 3/{v11c, d}, 4/v12a, 5/v12b, 6/v13a, 7/v13b}
+     \node[fc ver] at ([xshift=2pt, yshift=-0.4pt]r\r c.north west) {\v};
+  \fclegendnodes{0,-10.45}
+  \fclegendverdicts{0,-10.85}
+\end{tikzpicture}

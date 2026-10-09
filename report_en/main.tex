@@ -37,6 +37,72 @@
 \usepackage{algpseudocode}
 \usepackage{tikz}
 \usetikzlibrary{positioning,arrows.meta,fit,calc,shapes.geometric,shapes.misc,backgrounds,decorations.pathreplacing,matrix}
+% ------------------------------------------------------------------ flowchart styles (figures/flowcharts/*.tex)
+% node kinds: data/sample (amber), processing/features (green), model/evaluation (blue), reused from an earlier version
+% (dashed grey), implementation check (chamfered); comparison status: primary/secondary/descriptive; verdicts.
+\tikzset{
+  fc/.style={rounded corners=2pt, align=center, font=\scriptsize, inner sep=2.2pt,
+             execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000\relpenalty=10000\binoppenalty=10000\relax}},
+  fc data/.style={fc, rounded corners=0pt, draw=tagexp, fill=tagexp!9},
+  fc proc/.style={fc, draw=tagsec, fill=tagsec!9},
+  fc model/.style={fc, draw=tagprim, fill=tagprim!8},
+  fc old/.style={fc, draw=inkgrey!55, dashed, fill=white, text=inkgrey},
+  fc gate/.style={fc, chamfered rectangle, chamfered rectangle xsep=1.4mm, draw=inkgrey, fill=boxgrey},
+  fc dec/.style={fc, diamond, aspect=2.4, draw=inkgrey, fill=white, inner sep=0.6pt},
+  fc prim/.style={fc, draw=tagprim, line width=0.9pt, fill=white},
+  fc sec/.style={fc, draw=tagsec, line width=0.6pt, fill=white},
+  fc descr/.style={fc, draw=tagdesc, dashed, fill=white},
+  fc yes/.style={fc, draw=green!40!black, line width=0.6pt, fill=green!14},
+  fc part/.style={fc, draw=green!40!black, line width=0.6pt, fill=white,
+                  path picture={\fill[green!40!black!55] (path picture bounding box.south west) rectangle ([xshift=1.3mm]path picture bounding box.north west);}},
+  fc no/.style={fc, draw=inkgrey, fill=black!7},
+  fc none/.style={fc, draw=tagdesc, dashed, fill=white},
+  fc arr/.style={-{Stealth[length=1.7mm]}, semithick, inkgrey},
+  fc head/.style={font=\scriptsize\bfseries, text=inkgrey, align=center},
+  fc ver/.style={draw=inkgrey, fill=inkgrey, text=white, font=\tiny\bfseries\sffamily, rounded corners=1pt, inner sep=1.1pt,
+                 anchor=south west, minimum height=0pt, text width=, align=left},
+  fc tag/.style={font=\tiny\sffamily},
+  fc note/.style={font=\tiny, text=inkgrey, align=flush left, inner sep=1pt,
+               execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000\relax}},
+}
+% status tags inside flowchart comparison nodes
+\newcommand{\fcP}{\textcolor{tagprim}{\textsf{\tiny\bfseries PRIMARY}}}
+\newcommand{\fcS}{\textcolor{tagsec}{\textsf{\tiny\bfseries SECONDARY}}}
+\newcommand{\fcD}{\textcolor{tagdesc}{\textsf{\tiny\bfseries DESCRIPTIVE}}}
+\newcommand{\fcX}{\textcolor{tagexp}{\textsf{\tiny\bfseries EXPLORATORY}}}
+\newcommand{\fcH}{\textcolor{tagpost}{\textsf{\tiny\bfseries POST HOC}}}
+% one-line legends for the flowcharts; argument = west end of the legend
+\newcommand{\fclegendnodes}[1]{%
+  \begin{scope}[every node/.append style={font=\tiny}]
+  \node[fc data, minimum width=3.2mm, minimum height=2.2mm, inner sep=0pt, anchor=west] (lg1) at (#1) {};
+  \node[right=1pt of lg1] (lt1) {new data};
+  \node[fc proc, minimum width=3.2mm, minimum height=2.2mm, inner sep=0pt, right=2.5mm of lt1] (lg2) {};
+  \node[right=1pt of lg2] (lt2) {new processing or features};
+  \node[fc model, minimum width=3.2mm, minimum height=2.2mm, inner sep=0pt, right=2.5mm of lt2] (lg3) {};
+  \node[right=1pt of lg3] (lt3) {new model or evaluation};
+  \node[fc old, minimum width=3.2mm, minimum height=2.2mm, inner sep=0pt, right=2.5mm of lt3] (lg4) {};
+  \node[right=1pt of lg4] (lt4) {reused};
+  \node[fc gate, minimum width=4mm, minimum height=2.2mm, inner sep=0pt, right=2.5mm of lt4] (lg5) {};
+  \node[right=1pt of lg5] (lt5) {implementation check};
+  \end{scope}}
+\newcommand{\fclegendverdicts}[1]{%
+  \begin{scope}[every node/.append style={font=\tiny}]
+  \node[fc prim, minimum width=3.2mm, minimum height=2.2mm, inner sep=0pt, anchor=west] (lv1) at (#1) {};
+  \node[right=1pt of lv1] (lu1) {primary};
+  \node[fc sec, minimum width=3.2mm, minimum height=2.2mm, inner sep=0pt, right=1.8mm of lu1] (lv2) {};
+  \node[right=1pt of lv2] (lu2) {secondary};
+  \node[fc descr, minimum width=3.2mm, minimum height=2.2mm, inner sep=0pt, right=1.8mm of lu2] (lv3) {};
+  \node[right=1pt of lv3] (lu3) {descriptive/exploratory};
+  \node[fc yes, minimum width=3.2mm, minimum height=2.2mm, inner sep=0pt, right=3.5mm of lu3] (lv4) {};
+  \node[right=1pt of lv4] (lu4) {detected};
+  \node[fc part, minimum width=3.2mm, minimum height=2.2mm, inner sep=0pt, right=1.8mm of lu4] (lv5) {};
+  \node[right=1pt of lv5] (lu5) {partly detected};
+  \node[fc no, minimum width=3.2mm, minimum height=2.2mm, inner sep=0pt, right=1.8mm of lu5] (lv6) {};
+  \node[right=1pt of lv6] (lu6) {not detected};
+  \node[fc none, minimum width=3.2mm, minimum height=2.2mm, inner sep=0pt, right=1.8mm of lu6] (lv7) {};
+  \node[right=1pt of lv7] (lu7) {no decision};
+  \end{scope}}
+
 \usepackage{fancyhdr}
 \usepackage[hidelinks=false,colorlinks=true,linkcolor=blue!50!black,citecolor=green!35!black,urlcolor=blue!60!black,
             bookmarksnumbered=true,hypertexnames=false,pdftitle={XRB-pilot technical report},pdfauthor={TODO}]{hyperref}

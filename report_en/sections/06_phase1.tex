@@ -24,6 +24,19 @@ sigma-clipped source accuracies or observation-wise random splits, and with BH c
 published its processed spectra. Phase 1 rebuilt the data from the HEASARC Standard Products, used only confirmed labels,
 and asked the question in its strict form: how well can an \emph{unseen source} be classified, and is the information more
 than a simple hardness measure?
+\Cref{fig:p1flow} maps the phase: for each version, what it added, what it reused, the pre-declared comparison and the
+verdict.
+
+\begin{figure}[htbp]
+\centering
+\input{figures/flowcharts/p1_flow.tex}
+\caption[Phase 1 analysis map]{Phase 1 analysis map. Each row is one version or sub-analysis, read from left to right: the
+data, the processing or features, the models and evaluation, the pre-declared comparison and its verdict (95\%
+class-stratified source-bootstrap interval). Solid boxes are new in that version; dashed boxes reuse an element of an
+earlier version. Values from \cref{tab:p1paired,tab:p1v3c,tab:p1v3cadd} and \cref{sec:p1results}. Drawn for this
+report.}
+\label{fig:p1flow}
+\end{figure}
 
 % -----------------------------------------------------------------------------------------------------
 \section{Pre-registration}

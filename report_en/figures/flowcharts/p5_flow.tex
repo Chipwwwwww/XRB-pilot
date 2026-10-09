@@ -1,0 +1,50 @@
+% Phase 5 (v9--v10): what each sub-analysis added and what it tested. Styles: main.tex (fc ...).
+\begin{tikzpicture}[x=1cm, y=1cm, cell/.style={text width=2.76cm, minimum height=12mm}]
+  \def\cA{1.46}\def\cB{4.69}\def\cC{7.92}\def\cD{11.15}\def\cE{14.38}
+  \foreach \x/\t in {\cA/{data / sample}, \cB/{processing / features}, \cC/{model / evaluation}, \cD/{pre-declared comparison}, \cE/{verdict}}
+     \node[fc head, text width=2.76cm, anchor=south] at (\x,0.78) {\t};
+  \begin{scope}[on background layer]
+    \fill[boxgrey] (0,0.70) rectangle (15.84,-2.33);     % v9
+  \end{scope}
+  % ---- v9: one NICER sample and feature set, two primaries
+  \node[fc data, cell, minimum height=2.75cm] (vA) at (\cA,-0.775) {NICER/XTI: 63 sources (9 BH, 54 NS), 368 obs.; prefixes of the event files};
+  \node[fc proc, cell, minimum height=2.75cm] (vB) at (\cB,-0.775) {H$_N=(c_1,c_2)$, T$_N$, 0.1--10\,Hz state, $\nu_c$ (octave bins); gates IC1--IC3 passed};
+  \node[fc model, cell] (r1c) at (\cC,0)     {LR, RF; LOSO over the NICER sources};
+  \node[fc prim, cell]  (r1d) at (\cD,0)     {\fcP\\ hard-like AUC: H$_N$+T$_N$ $-$ H$_N$};
+  \node[fc no, cell]    (r1e) at (\cE,0)     {not detected: $+0.112$ [$-0.004$, $+0.229$]};
+  \node[fc model, cell] (r2c) at (\cC,-1.55) {label-free kNN residuals; source permutations};
+  \node[fc prim, cell]  (r2d) at (\cD,-1.55) {\fcP\\ $D(\log_{10}\nu_c)$, hard-like};
+  \node[fc no, cell]    (r2e) at (\cE,-1.55) {not detected: $D=-0.31$, $p=0.136$};
+  \draw[fc arr] (vA) -- (vB);
+  \foreach \r in {1,2} {\draw[fc arr] (vB.east |- r\r c) -- (r\r c.west);
+                        \foreach \a/\b in {c/d,d/e} \draw[fc arr] (r\r\a) -- (r\r\b);}
+  % ---- v10c
+  \node[fc data, cell]  (r3a) at (\cA,-3.10) {the same obs.\ to the end of file; 366 usable};
+  \node[fc proc, cell]  (r3b) at (\cB,-3.10) {same features; background proxy (12--15\,keV ratio)};
+  \node[fc old, cell]   (r3c) at (\cC,-3.10) {v9 pipeline};
+  \node[fc descr, cell] (r3d) at (\cD,-3.10) {\fcD\\ prefix vs full; split halves};
+  \node[fc none, cell]  (r3e) at (\cE,-3.10) {features agree ($\rho$ 0.92--0.97) and are reliable};
+  \foreach \a/\b in {a/b,b/c,c/d,d/e} \draw[fc arr] (r3\a) -- (r3\b);
+  % ---- v10a, v10b: pooled over the source union
+  \node[fc data, cell, minimum height=2.75cm] (wA) at (\cA,-5.425) {union of RXTE and NICER sources: 86 (16 BH), each drawn once};
+  \node[fc old, cell]   (r4b) at (\cB,-4.65) {gains of RXTE v2, RXTE X and NICER full};
+  \node[fc model, cell] (r4c) at (\cC,-4.65) {bootstrap over the union; equal-weight mean};
+  \node[fc prim, cell]  (r4d) at (\cD,-4.65) {\fcP\\ mean of the three gains};
+  \node[fc yes, cell]   (r4e) at (\cE,-4.65) {detected ($+0.145$ [$+0.028$, $+0.257$]), not independent};
+  \node[fc old, cell]   (r5b) at (\cB,-6.20) {$\log_{10}\nu_c$ residuals, RXTE and NICER hard-like};
+  \node[fc model, cell] (r5c) at (\cC,-6.20) {permutation within membership strata};
+  \node[fc prim, cell]  (r5d) at (\cD,-6.20) {\fcP\\ $D(\log_{10}\nu_c)$, mean of RXTE and NICER};
+  \node[fc yes, cell]   (r5e) at (\cE,-6.20) {detected ($D=-0.368$, $p=0.0012$), not independent};
+  \foreach \r in {4,5} {\draw[fc arr] (wA.east |- r\r b) -- (r\r b.west);
+                        \foreach \a/\b in {b/c,c/d,d/e} \draw[fc arr] (r\r\a) -- (r\r\b);}
+  % badges
+  \node[fc ver] at ([xshift=2pt, yshift=-0.4pt]vA.north west) {v9};
+  \node[fc ver] at ([xshift=2pt, yshift=-0.4pt]r1c.north west) {v9a};
+  \node[fc ver] at ([xshift=2pt, yshift=-0.4pt]r2c.north west) {v9b};
+  \node[fc ver] at ([xshift=2pt, yshift=-0.4pt]r3a.north west) {v10c};
+  \node[fc ver] at ([xshift=2pt, yshift=-0.4pt]wA.north west) {v10};
+  \node[fc ver] at ([xshift=2pt, yshift=-0.4pt]r4b.north west) {v10a};
+  \node[fc ver] at ([xshift=2pt, yshift=-0.4pt]r5b.north west) {v10b};
+  \fclegendnodes{0,-7.35}
+  \fclegendverdicts{0,-7.75}
+\end{tikzpicture}

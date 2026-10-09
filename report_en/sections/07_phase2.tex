@@ -34,6 +34,17 @@ power law), or that 31 sources (7 BH) are simply too few. Phase 2 tests each exp
 fixed baseline, H-LR, so that its answer is ``the ceiling is (or is not) a property of the data''. The analyses are
 grouped by theme below: \emph{flexible algorithms} (v4a), \emph{data quality} (burst check), \emph{wider band} (v4b3)
 and \emph{more data} (v4b2: more sources and earlier epochs; v4b1: all observations of the same sources).
+\Cref{fig:p2flow} maps the five sub-analyses: what each added to the v2 analysis and what it tested against H-LR.
+
+\begin{figure}[htbp]
+\centering
+\input{figures/flowcharts/p2_flow.tex}
+\caption[Phase 2 analysis map]{Phase 2 analysis map (reading as in \cref{fig:p1flow}: solid boxes are new in that sub-analysis,
+dashed boxes reuse earlier elements). The three v4a procedures share the v2 sample and representations; the 1a reproduction gate
+had to pass before any v4 result was looked at. Every comparison is paired with H-LR on the same bootstrap resamples. Values from
+\cref{tab:p2primary,tab:p2burst,tab:p2hexteres,tab:p2v4b2diff,tab:p2v4b1} and \cref{fig:p2forest}. Drawn for this report.}
+\label{fig:p2flow}
+\end{figure}
 
 % -----------------------------------------------------------------------------------------------------
 \section{Pre-registration}
@@ -678,6 +689,7 @@ were scored. Both new BHs are called BH by every H and H$_R$ model (XTE J1859+22
 the 13 new NSs, the two LR models call 4U 2129+12 (in M15) and XTE J1710$-$281 BH (scores 0.52--0.54); RF classifies all of
 them correctly.
 
+\FloatBarrier % a pending table must not land on the page where the longtable starts (it would overfill that page)
 {\footnotesize\setlength{\tabcolsep}{3.5pt}
 \begin{longtable}{@{}llrrlcccccc@{}}
 \caption[v4b2 new sources]{v4b2 new sources: eligible pointings over all gain epochs, sampled observations, observations
@@ -710,7 +722,7 @@ for the H and H$_R$ models, $-0.10$ to $-0.12$ for R), NS scores not at all ($|\
 \file{results/v4b2/v4b2\_epoch\_score\_correlation.csv}). Almost all epoch-4 BH observations belong to XTE J1859+226, so this
 reflects source identity, not a response effect (\cref{fig:p2epoch}).
 
-\begin{figure}[htbp]
+\begin{figure}[tp]
 \centering
 \includegraphics[width=0.92\textwidth]{figures/v4b2/v4b2_scores_by_epoch.png}
 \caption[Scores by gain epoch]{LOSO BH scores of the 677 v4b2 observations by PCA gain epoch (diagnostic only; BH blue

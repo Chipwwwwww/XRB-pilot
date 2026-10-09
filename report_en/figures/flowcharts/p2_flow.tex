@@ -1,0 +1,57 @@
+% Phase 2 (v4): what each sub-analysis added and what it tested. Styles: main.tex (fc ...).
+\begin{tikzpicture}[x=1cm, y=1cm, cell/.style={text width=2.76cm, minimum height=12mm}]
+  \def\cA{1.46}\def\cB{4.69}\def\cC{7.92}\def\cD{11.15}\def\cE{14.38}
+  \foreach \x/\t in {\cA/{data / sample}, \cB/{processing / features}, \cC/{model / evaluation}, \cD/{pre-declared comparison}, \cE/{verdict}}
+     \node[fc head, text width=2.76cm, anchor=south] at (\x,0.78) {\t};
+  \begin{scope}[on background layer]
+    \fill[boxgrey] (0,0.70) rectangle (15.84,-3.88);     % v4a
+    \fill[boxgrey] (0,-5.43) rectangle (15.84,-6.98);    % v4b3
+    \fill[boxgrey] (0,-8.53) rectangle (15.84,-10.08);   % v4b1
+  \end{scope}
+  % ---- v4a: one sample and representation set feeds three procedures
+  \node[fc old, cell, minimum height=4.30cm] (aA) at (\cA,-1.55) {v2 sample: 31 sources, 456 obs., the v2 LOSO folds};
+  \node[fc old, cell, minimum height=4.30cm] (aB) at (\cB,-1.55) {representations H, HI, B, A (v2)};
+  \node[fc model, cell] (r1c) at (\cC,0)     {v4 code re-runs the v2 LR and RF};
+  \node[fc gate, cell]  (r1d) at (\cD,0)     {gate 1a: OOF scores reproduced (LR $\le10^{-8}$, RF $\le0.01$)};
+  \node[fc yes, cell]   (r1e) at (\cE,0)     {passed: max.\ difference $1.1\times10^{-16}$, no label changes};
+  \node[fc model, cell] (r2c) at (\cC,-1.55) {6 new algorithms; source-equal weights; nested per algorithm};
+  \node[fc descr, cell] (r2d) at (\cD,-1.55) {\fcD\\ 76 combinations $-$ H-LR};
+  \node[fc none, cell]  (r2e) at (\cE,-1.55) {3 of 76 source-BA intervals above 0 (all QDA)};
+  \node[fc model, cell] (r3c) at (\cC,-3.10) {nested LOSO over 140 configurations and the threshold};
+  \node[fc prim, cell]  (r3d) at (\cD,-3.10) {\fcP\\ nested automatic selection $-$ H-LR};
+  \node[fc no, cell]    (r3e) at (\cE,-3.10) {not detected; worse (BA $-0.062$, AUC $-0.173$)};
+  \draw[fc arr] (aA) -- (aB);
+  \foreach \r in {1,2,3} {\draw[fc arr] (aB.east |- r\r c) -- (r\r c.west);
+                          \foreach \a/\b in {c/d,d/e} \draw[fc arr] (r\r\a) -- (r\r\b);}
+  % ---- burst check
+  \node[fc data, cell]  (r4a) at (\cA,-4.65) {Std-1 1-s light curves of the 456 obs.};
+  \node[fc proc, cell]  (r4b) at (\cB,-4.65) {burst detector and visual check: 61 / 58 obs.\ flagged};
+  \node[fc old, cell]   (r4c) at (\cC,-4.65) {H-LR (and H-RF, B) retrained on the kept obs.};
+  \node[fc sec, cell]   (r4d) at (\cD,-4.65) {\fcS\\ retrained $-$ original, on the kept obs.};
+  \node[fc no, cell]    (r4e) at (\cE,-4.65) {not detected; all 31 source decisions identical};
+  % ---- v4b3
+  \node[fc data, cell]  (r5a) at (\cA,-6.20) {HEXTE cluster B: 396 obs.\ before 2009-12-14};
+  \node[fc proc, cell]  (r5b) at (\cB,-6.20) {X$_1$, X$_2$ (25--60\,keV colours) + missing flags};
+  \node[fc old, cell]   (r5c) at (\cC,-6.20) {LR, RF; LOSO on the HEXTE subset};
+  \node[fc sec, cell]   (r5d) at (\cD,-6.20) {\fcS\\ H+X $-$ H};
+  \node[fc no, cell]    (r5e) at (\cE,-6.20) {not detected; no source decision changes};
+  % ---- v4b2
+  \node[fc data, cell]  (r6a) at (\cA,-7.75) {46 sources (15 new, gain epochs 2--5), 677 obs.};
+  \node[fc proc, cell]  (r6b) at (\cB,-7.75) {R, H$_R$ (power-law normalised); bridge gate passed};
+  \node[fc old, cell]   (r6c) at (\cC,-7.75) {six models (H, H$_R$, R $\times$ LR, RF); LOSO, 46 folds};
+  \node[fc sec, cell]   (r6d) at (\cD,-7.75) {\fcS\\ vs same-sample H-LR; vs v2 H-LR};
+  \node[fc part, cell]  (r6e) at (\cE,-7.75) {RF: BA $+0.068$ detected (threshold); AUC and vs v2: not};
+  % ---- v4b1
+  \node[fc data, cell]  (r7a) at (\cA,-9.30) {all 7,949 epoch-5 obs.\ of the 31 sources};
+  \node[fc old, cell]   (r7b) at (\cB,-9.30) {H, HI, B, A with the v2 rules};
+  \node[fc model, cell] (r7c) at (\cC,-9.30) {source-equal weights on all obs.; 16 combinations};
+  \node[fc sec, cell]   (r7d) at (\cD,-9.30) {\fcS\\ srcw H-LR (all obs.) $-$ v2 H-LR};
+  \node[fc no, cell]    (r7e) at (\cE,-9.30) {not detected; all 31 source decisions identical};
+  \foreach \r in {4,...,7} \foreach \a/\b in {a/b,b/c,c/d,d/e} \draw[fc arr] (r\r\a) -- (r\r\b);
+  % badges
+  \node[fc ver] at ([xshift=2pt, yshift=-0.4pt]aA.north west) {v4a};
+  \foreach \r/\v in {1/1a, 2/{1b--1d}, 3/1e} \node[fc ver] at ([xshift=2pt, yshift=-0.4pt]r\r c.north west) {\v};
+  \foreach \r/\v in {4/burst check, 5/v4b3, 6/v4b2, 7/v4b1} \node[fc ver] at ([xshift=2pt, yshift=-0.4pt]r\r a.north west) {\v};
+  \fclegendnodes{0,-10.45}
+  \fclegendverdicts{0,-10.85}
+\end{tikzpicture}
