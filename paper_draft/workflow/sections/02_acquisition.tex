@@ -1,0 +1,255 @@
+% =====================================================================================================
+\section{External databases and how the data are fetched}\label{sec:acquisition}
+% =====================================================================================================
+
+All inputs come from public services and are obtained by the scripts, with no manual downloads except the NICER CALDB
+archive (\cref{sec:get-nicer}). \Cref{tab:sources} lists every external database, what is taken from it and how.
+\Cref{fig:acq} shows how requests flow from the scripts to local storage and to the download log.
+
+{\small\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{3.2cm}>{\raggedright\arraybackslash}p{4.7cm}>{\raggedright\arraybackslash}p{4.4cm}>{\raggedright\arraybackslash}p{3.6cm}@{}}
+\caption{External databases used by the workflow. ``Records'' and volumes are from \file{logs/downloads.jsonl}
+(\cref{sec:provenance}).}\label{tab:sources}\\
+\toprule
+Database & What is taken & Access & Code \\
+\midrule\endfirsthead
+\toprule Database & What is taken & Access & Code \\ \midrule\endhead
+\bottomrule\endfoot
+\multicolumn{4}{@{}l}{\emph{Labels and positions}}\\
+BlackCAT \citep{CorralSantana2016} & dynamically confirmed BHs (v1--v4); candidate list (v3c, descriptive) & names transcribed into \file{config.py}; candidates checked against the BlackCAT web pages & \file{config.py} (v2, v3c blocks) \\
+\citet{Marcel2026}, Table 1 & 25 dynamically confirmed BHs (v7 onwards) & names transcribed into the scripts & \file{38_v7c2_select.py}, \file{47_v9_select.py} \\
+\citet{Galloway2008} & type-I bursters, appendix A (v1--v3), Table 3 (v4b2) & names transcribed into \file{config.py} & \file{config.py}, \file{20_v4b2_select.py} \\
+MINBAR DR1 \citep{Galloway2020} & burst list, observation list, source table with positions & figshare files 23201936, 24131849, 22851017 (2.5\,MB, 51.9\,MB, 0.7\,MB), MD5 checked & \file{31_v7b1_minbar.py}, \code{v7lib.load_minbar} \\
+Pulsar lists & AMXPs and slow pulsars (Patruno \& Watts 2021); HMXB/LMXB catalogues of Liu et al. & names transcribed; catalogue tables from CDS (8 files) & \file{28_v6_select.py}, \file{38_v7c2_select.py} \\
+CDS Sesame (SIMBAD) & RA/Dec of every named source & \code{GET https://cds.unistra.fr/cgi-bin/nph-sesame/-oI/SNV?<name>}; the \texttt{\%J} line is parsed; results cached in CSV & \code{sesame()} in \file{20}, \file{28}, \file{38} \\
+\multicolumn{4}{@{}l}{\emph{Observation catalogues}}\\
+RXTE MissionLongData & per-source FITS observation list: \code{OBSID}, \code{TIME}, \code{EXPOSURE}, \code{STD1RATE}, \code{RA}, \code{DEC}, \code{NPCU} & directory listing and \file{<name>.fits.gz} under \file{.../xte/data/archive/MissionLongData/} & \file{02}, \file{03}, \file{20}, \file{35}, \file{41} \\
+HEASARC TAP \code{xtemaster} & RXTE pointings near a position (sources without a MissionLongData file) & ADQL cone query, HTTP POST to \file{.../xamin/vo/tap/sync} & \file{41_v8b_select.py} \\
+HEASARC TAP \code{nicermastr} & NICER observations near a position: \code{obsid}, \code{time}, \code{exposure}, \code{num_fpm} & same service; one query per source, cached per source & \file{47_v9_select.py} \\
+\multicolumn{4}{@{}l}{\emph{Data archives}}\\
+HEASARC RXTE archive & Standard-2 Standard Products, Standard-1 light curves, event files, HEXTE products & HTTPS file tree; Python \code{urllib} (event files: \code{curl}); 46\,731 records, 5.2\,GB & \code{common.download}, \code{v8lib.download_curl} \\
+HEASARC NICER (AWS open-data mirror) & cleaned (\code{_cl}) and unfiltered (\code{_ufa}) event files & \code{curl} HTTP range requests; 3\,384 records, 229.5\,GB read & \file{v9lib.py}, \file{v10lib.py}, \file{v11lib.py}, \file{v12_bkg3c50.sh} \\
+MAXI/GSC & source index; 1-day light curves (2--4, 4--10, 10--20\,keV) & 13 category pages \file{http://maxi.riken.jp/top/lc_<cat>.html}; \file{http://maxi.riken.jp/star_data/<J>/<J>_g_lc_1day_all.dat} (143 files) & \file{38_v7c2_select.py} \\
+GitHub (de Beurs et al.) & processed MAXI data and code of \citet{deBeurs2022} & GitHub API for the commit and file tree, then raw files at commit \texttt{488b785}; 487 files & \file{37_v7c1_repro.py} \\
+\multicolumn{4}{@{}l}{\emph{Calibration}}\\
+RXTE responses & \file{xp<obs>.rsp} per observation & with the Standard Products & \code{spectra.read_rsp} \\
+NICER CALDB & 3C50 background libraries & \file{goodfiles_nicer_xti.tar.gz} (112\,180\,364 bytes, SHA256 recorded in the decision log) & \file{v12_bkg3c50.sh} \\
+HI4PI & Galactic $N_\mathrm{H}$ at MAXI source positions & HEASoft \code{nh} with its HI4PI map & \file{v8d_heasoft.sh} \\
+\end{longtable}}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[x=1cm, y=1cm,
+  h/.style={fc data, text width=3.3cm, minimum height=12mm},
+  m/.style={fc proc, text width=4.3cm, minimum height=12mm},
+  s/.style={fc, draw=inkgrey, fill=boxgrey, text width=4.2cm, minimum height=12mm}]
+  \node[fc head] at (1.75,0.9) {service};
+  \node[fc head] at (7.0,0.9) {access method (code)};
+  \node[fc head] at (12.75,0.9) {local result};
+  \node[h] (h1) at (1.75,0)    {HEASARC RXTE file tree};
+  \node[h] (h2) at (1.75,-1.6) {HEASARC TAP (xamin)};
+  \node[h] (h3) at (1.75,-3.2) {NICER AWS mirror};
+  \node[h] (h4) at (1.75,-4.8) {CDS Sesame; MINBAR (figshare); MAXI; GitHub};
+  \node[m] (m1) at (7.0,0)    {\code{common.download}: skip if present, 3 tries, no retry on 404, write \file{.part} then rename};
+  \node[m] (m2) at (7.0,-1.6) {ADQL cone query by POST, 4 tries; VOTable parsed with \code{astropy}};
+  \node[m] (m3) at (7.0,-3.2) {\code{curl} HEAD, then range requests (16 or 64\,MB), 4 tries each; incremental gzip/FITS parser};
+  \node[m] (m4) at (7.0,-4.8) {\code{common.download} or \code{urllib}; Sesame answers cached};
+  \node[s] (s1) at (12.75,0)    {\file{data/raw/...} or \file{XRB_EXTERNAL_RAW/...}};
+  \node[s] (s2) at (12.75,-1.6) {\file{data/raw/catalogs/nicer/nicermastr_<source>.csv}};
+  \node[s] (s3) at (12.75,-3.2) {prefix and tail files (v9, v10) or memory only (v11, v13)};
+  \node[s] (s4) at (12.75,-4.8) {\file{data/raw/minbar/}, \file{data/v7c/}, caches};
+  \foreach \i in {1,2,3,4} {\draw[fc arr] (h\i) -- (m\i); \draw[fc arr] (m\i) -- (s\i);}
+  \node[fc, draw=tagpost, dashed, fill=white, text width=15.2cm, minimum height=7mm, anchor=north west] at (0.1,-5.75)
+    {every downloaded or streamed file: one JSON line in \file{logs/downloads.jsonl} with \code{url}, \code{path}, \code{bytes}, \code{sha256}, \code{utc} (and \code{tool})};
+\end{tikzpicture}
+\caption{Data acquisition. Each service is reached through one access function. Downloads are idempotent: a file that
+already exists is not fetched again, and every new file is logged with its checksum.}\label{fig:acq}
+\end{figure}
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Label lists and positions}\label{sec:get-labels}
+Labels are attached to \emph{sources}, never to observations. The label sources are published tables, and the realised
+source lists are the \file{data/*/sources.csv} files:
+\begin{itemize}
+\item \textbf{BHs, v1--v4:} the dynamically confirmed systems of BlackCAT Table~4, transcribed into the v2 block of
+\file{config.py} with their MissionLongData catalogue names.
+\item \textbf{BHs, v7 onwards:} the 25 systems of \citet{Marcel2026} Table~1, written as a list in the selection scripts.
+\item \textbf{NSs:} type-I bursters of \citet{Galloway2008} (appendix A sections cited per source in \file{config.py}). From
+v7 the MINBAR source table (115 bursters) is used instead; the external RXTE set adds accretion-powered pulsars.
+\item \textbf{BH candidates} (BlackCAT, X-ray evidence only) are never labels. In v3c they were scored as prediction
+targets, after the list had been checked against the BlackCAT web pages and frozen (\file{reports/v3c_candidate_verification.md}).
+\end{itemize}
+
+Positions come from three places, depending on the round:
+\begin{itemize}
+\item \textbf{v1--v3:} the median pointing in the source's RXTE catalogue.
+\item \textbf{v4b2 onwards:} CDS Sesame. The script requests \code{https://cds.unistra.fr/cgi-bin/nph-sesame/-oI/SNV?<name>},
+reads RA and Dec from the line starting with \texttt{\%J}, and caches the answer (\file{data/v7c/sesame_positions.csv},
+\file{data/v4b2/missionlongdata_positions.csv}).
+\item \textbf{NSs from v7:} the MINBAR source table (\file{minbar_sources_v2.7.fits}, columns \code{NAME}, \code{RA_OBJ},
+\code{DEC_OBJ}).
+\end{itemize}
+The MINBAR burst table (\file{minbar.txt}, machine-readable format) supplies burst start times and durations
+(\code{v7lib.load_minbar}). The three MINBAR files are downloaded from figshare; the MD5 sums of the two burst-related files
+are fixed in \code{V7_MINBAR_FILES} in \file{config.py}.
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{RXTE: catalogues and archive files}\label{sec:get-rxte}
+\paragraph{Observation catalogues.}
+The archive root is \file{https://heasarc.gsfc.nasa.gov/FTP/xte/data/archive/}. Its \file{MissionLongData/} directory
+holds one FITS table per catalogued target. \file{02_catalogs.py} and \file{03_select_observations.py} download
+\file{MissionLongData/<name>.fits.gz} and read extension 1 with \code{astropy}. The observation time is
+\code{TIME + MJDREFI + MJDREFF} (MJD), and duplicated \code{OBSID}s are dropped. For v4b2, the whole directory listing
+(291 catalogues) was downloaded and each catalogue's median pointing was matched to Sesame positions within $0.1^\circ$.
+For new BHs without a catalogue file (v8b), the HEASARC TAP service is queried instead:
+\begin{verbatim}
+SELECT obsid, target_name, ra, dec, time, exposure FROM xtemaster
+WHERE CONTAINS(POINT('ICRS',ra,dec),CIRCLE('ICRS',<ra>,<dec>,0.1))=1
+\end{verbatim}
+The query is sent by HTTP POST to \file{https://heasarc.gsfc.nasa.gov/xamin/vo/tap/sync} with \code{REQUEST=doQuery},
+\code{LANG=ADQL}.
+
+\paragraph{Archive layout and file names.} An ObsID \texttt{PPPPP-TT-VV-SS} lives under
+\file{AO<n>/P<PPPPP>/<obsid>/}. The files used are listed below.
+
+\begin{table}[htbp]
+\centering\small
+\caption{RXTE files read per observation (\texttt{o} = ObsID without hyphens).}\label{tab:rxtefiles}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{5.3cm} >{\raggedright\arraybackslash}X l@{}}
+\toprule
+Path below the ObsID directory & Content & Used in \\
+\midrule
+\file{stdprod/xp<o>_s2.pha.gz} & PCA Standard-2 total (source + background) spectrum, 129 channels & v1--v8 \\
+\file{stdprod/xp<o>_b2.pha.gz} & \code{pcabackest} model background spectrum, same PCUs and GTIs & v1--v8 \\
+\file{stdprod/xp<o>.rsp.gz} & response (RMF$\times$ARF) for that PCU combination, with \code{EBOUNDS} & v1--v8 \\
+\file{pca/FS46_*.gz} & Standard-1: 0.125\,s counts per PCU (\code{XeCntPcu0}--\code{4}) and array rates & dead time (v2+), timing (v5+) \\
+\file{pca/SE*.evt.gz} & event-mode files (\code{TIME}, \code{PCUID}) & v8c \\
+\file{stdprod/xh<o>_s1.pha}, \file{_b1.pha} + RMF/ARF & HEXTE cluster-B spectra and responses & v4b3 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{Locating the AO directory.} The AO number is not stored in the catalogue. \file{04_fetch_process.py} guesses
+it from the proposal prefix (\code{5}$\to$AO5, \dots, \code{90}$\to$AO9, \code{91}$\to$AO10, \dots, \code{96}$\to$AO15). If the
+guess returns HTTP 404, it tries AO4--AO16 in turn and caches the AO that worked for the proposal. (The v4b2 copy of the
+script also scans AO1--AO4 for the early gain epochs.) The Standard-1 file names are taken from the HTML index of the
+\file{pca/} directory (regular expression \verb|FS46_[^"]+\.gz|).
+
+\paragraph{Download function.} \code{common.download(url, relative_path)} does the following:
+\begin{enumerate}
+\item returns the local file if it exists (re-runs never re-download);
+\item otherwise fetches the URL with \code{urllib} (45\,s timeout), retrying up to three times with a 2\,s pause, but not
+on HTTP 404;
+\item writes the data to \file{<name>.part} and renames it, so an interrupted run leaves no truncated files;
+\item appends a record with \code{url}, \code{path}, \code{bytes}, \code{sha256} and \code{utc} to
+\file{logs/downloads.jsonl}, under a lock because downloads run in a thread pool (4 workers in
+\file{04_fetch_process.py}).
+\end{enumerate}
+The RXTE event files of v8c (2.4\,GB) were fetched with \code{v8lib.download_curl}, which streams with \code{curl} into a
+\file{.part} file and writes the same log record.
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{NICER: TAP query, mirror and range requests}\label{sec:get-nicer}
+\paragraph{Observation list.} For every source, \file{47_v9_select.py} queries the HEASARC TAP service:
+\begin{verbatim}
+SELECT obsid, name, ra, dec, time, exposure, num_fpm FROM nicermastr
+WHERE CONTAINS(POINT('ICRS',ra,dec),CIRCLE('ICRS',<ra>,<dec>,0.05))=1
+\end{verbatim}
+The query runs with 6 parallel requests and 4 tries each. The VOTable is saved per source as
+\file{data/raw/catalogs/nicer/nicermastr_<source>.csv}. The later rounds (v11, v13) select from these cached tables, so
+all three NICER observation sets come from the same catalogue snapshot.
+
+\paragraph{File location.} Cleaned event files are read from HEASARC's AWS open-data mirror, which is byte-identical to
+the HEASARC site (checked on the first 4\,MB) and about ten times faster from the analysis machine:
+\begin{center}
+\file{https://nasa-heasarc.s3.amazonaws.com/nicer/data/obs/<YYYY_MM>/<obsid>/xti/event_cl/ni<obsid>_0mpu7_cl.evt.gz}
+\end{center}
+\code{YYYY_MM} is the month of the catalogue start time. If the file is not found (HTTP 403 or 404 on the mirror), the
+previous and next months are tried. The unfiltered file \file{..._0mpu7_ufa.evt.gz} is fetched only for the 3C50
+background (\cref{sec:3c50}).
+
+\paragraph{Range requests and the streaming parser.} The files are gzip-compressed FITS tables of up to several GB, so
+they are never downloaded blindly:
+\begin{enumerate}
+\item A HEAD request (\code{curl -I}) checks that the file exists and gives its size.
+\item The file is fetched in HTTP range requests (\code{curl -r a-b}; options \code{--connect-timeout 30},
+\code{--speed-limit 20000}, \code{--speed-time 60}), each with up to 4 tries and a 5\,s pause.
+\item Each piece is passed to an incremental parser (\code{v9lib.PrefixParser}). The parser decompresses the gzip stream
+with \code{zlib}, reads the primary and \code{EVENTS} headers from 2880-byte blocks, and converts complete binary-table
+rows to arrays of \code{TIME}, \code{PI} and \code{DET_ID} using a numpy dtype built from the \code{TFORMn} keywords.
+\end{enumerate}
+No HEASoft is needed to read the events. The three reading modes are listed in \cref{tab:nicermodes}. Parsing was checked
+to agree with \code{astropy} and across the modes (implementation checks of v9--v11).
+
+\begin{table}[htbp]
+\centering\small
+\caption{NICER reading modes.}\label{tab:nicermodes}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{1.9cm} >{\raggedright\arraybackslash}p{3.1cm} >{\raggedright\arraybackslash}p{1.9cm} >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X@{}}
+\toprule
+Round & Function & Request size & Stop rule & Storage \\
+\midrule
+v9 (prefix) & \code{v9lib.stream_prefix} & 16\,MB & $\ge6$ gap-free 128\,s segments, end of file, or 300\,MB & compressed prefix + JSON metadata in \file{XRB_EXTERNAL_RAW/nicer/<obsid>/} \\
+v10 (tail) & \code{v10lib.download_tail} & 64\,MB & end of file or 1\,GB compressed & tail in \file{nicer_tail/<obsid>/}; prefix + tail parsed as one stream \\
+v11, v13 (stream) & \code{v11lib.stream_events} & 64\,MB, 6 in parallel & end of file or 1\,GB & nothing stored (SHA256 of the bytes read is logged); v13 keeps cleaned files of faint observations for one check \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{3C50 inputs and the CALDB.} For the background model, the script \file{v12_bkg3c50.sh} runs inside WSL Ubuntu
+with HEASoft 6.37.1. It:
+\begin{enumerate}
+\item downloads the cleaned and unfiltered event files with \code{curl} (3 tries) and prints their SHA256 and size, which
+the Python driver writes to the download log;
+\item unzips them and runs \code{nibackgen3C50} (\cref{sec:3c50});
+\item keeps only the resulting total and background spectra (\file{tot_<obsid>.pi}, \file{bkg_<obsid>.pi});
+\item deletes the event files.
+\end{enumerate}
+The NICER CALDB (\file{goodfiles_nicer_xti.tar.gz} with \file{caldb.config} and \file{alias_config.fits}) was downloaded
+once before the v12 data and unpacked under \file{~/xrb-pilot-data/caldb}; its size and SHA256 are in the decision log.
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{MAXI, published code and absorption}\label{sec:get-maxi}
+\begin{itemize}
+\item \textbf{MAXI matching.} The label lists are frozen first. The MAXI source index is read from the 13 category pages
+(\file{http://maxi.riken.jp/top/lc_<cat>.html}). MAXI names are resolved with Sesame and matched to the label sources within
+$0.1^\circ$, with a $0.3^\circ$ fallback to the position encoded in the MAXI J-name. MAXI sources whose name contains
+``with'' (blends) are excluded, as are ambiguous matches (\cref{sec:maxi}).
+\item \textbf{MAXI light curves.} The 1-day light curves are downloaded from
+\file{http://maxi.riken.jp/star_data/<J>/<J>_g_lc_1day_all.dat} with \code{common.download}.
+\item \textbf{Published code.} For the reproduction of \citet{deBeurs2022}, \file{37_v7c1_repro.py} asks the GitHub API
+for the current commit and file tree of \file{zdebeurs/3ML_methods_for_XRB_classification}. It then downloads every file
+from \file{raw.githubusercontent.com} at that commit (\texttt{488b785}).
+\item \textbf{Absorption.} For the absorption correction, \file{v8d_heasoft.sh} runs HEASoft \code{nh} (HI4PI, average
+within $0.1^\circ$) at each MAXI source position. It also runs XSPEC to tabulate \code{tbabs}$\times$power-law
+transmissions (\cref{sec:maxi}).
+\end{itemize}
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Provenance log and verification}\label{sec:provenance}
+\file{logs/downloads.jsonl} has one JSON object per downloaded or streamed file. Its fields are \code{url}, \code{path}
+(or a note such as ``deleted after 3C50''), \code{bytes}, \code{sha256} and \code{utc}; the NICER functions add
+\code{tool}, \code{file_bytes}, \code{stop}, \code{rows} and offsets. At commit \texttt{666c2e0} it holds 50\,773 records
+(\cref{tab:dlsummary}). Every input can be verified byte for byte after re-download. This was done once in full: on a
+second machine (macOS), the 2\,689 v1--v2 raw files were re-downloaded from the logged URLs and all SHA256 values matched.
+The rebuilt \file{features.npz} agreed with the original to $\le10^{-16}$.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Download log by host (\file{logs/downloads.jsonl}, commit \texttt{666c2e0}). Streamed NICER records count the
+bytes read, although the bytes were not stored.}\label{tab:dlsummary}
+\begin{tabularx}{\textwidth}{@{}l r r >{\raggedright\arraybackslash}X@{}}
+\toprule
+Host & Records & Volume & Tool(s) \\
+\midrule
+\file{heasarc.gsfc.nasa.gov} & 46\,731 & 5.2\,GB & \code{urllib} (\code{common.download}); \code{curl} for event files \\
+\file{nasa-heasarc.s3.amazonaws.com} & 3\,384 & 229.5\,GB & \code{curl} range requests (prefix, tail, stream); \code{curl} in WSL (3C50) \\
+\file{raw.githubusercontent.com} & 487 & 0.01\,GB & \code{urllib} \\
+\file{maxi.riken.jp} & 156 & 0.06\,GB & \code{urllib} \\
+\file{cdsarc.cds.unistra.fr} & 8 & $<0.01$\,GB & \code{urllib} \\
+\file{arxiv.org} & 4 & $<0.01$\,GB & \code{urllib} \\
+\file{ndownloader.figshare.com} & 3 & 0.06\,GB & \code{urllib} \\
+\midrule
+total & 50\,773 & 234.8\,GB & \\
+\bottomrule
+\end{tabularx}
+\end{table}

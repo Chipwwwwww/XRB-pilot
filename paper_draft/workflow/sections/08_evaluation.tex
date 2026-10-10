@@ -1,0 +1,196 @@
+% =====================================================================================================
+\section{Evaluation and statistical inference}\label{sec:evaluation}
+% =====================================================================================================
+
+This section describes how a table of out-of-fold scores becomes a reported number with an interval, and how a
+difference is judged. \Cref{fig:evalflow} shows the chain and \cref{tab:procedures} summarises the procedures. Every
+procedure works on \emph{fixed} scores or features: nothing is refitted inside a resampling or a permutation.
+
+\begin{figure}[htbp]
+\centering
+\input{flowcharts/evaluation}
+\caption{Evaluation chain from the design matrix to a verdict, with the round that introduced each element. Bootstrap and
+permutation results are judged by the planned rule; conformal sets and budget curves are always descriptive.}\label{fig:evalflow}
+\end{figure}
+
+\begin{table}[htbp]
+\centering\small
+\caption{Inferential procedures. ``Unit'' is what is resampled or permuted.}\label{tab:procedures}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{3.5cm}>{\raggedright\arraybackslash}p{3.4cm}>{\raggedright\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}X@{}}
+\toprule
+Procedure & Statistic & Unit, size & Decision rule; code \\
+\midrule
+Class-stratified source bootstrap & source and observation BA and AUC; Brier, log loss & sources within class; 2000, seed 42 & 95\% percentile interval; a paired difference is detected if its interval excludes 0 (\code{v4lib.paired_bootstrap}) \\
+State-stratified bootstrap & observation AUC within a state & sources of the whole sample; 2000 & as above (\code{v8lib.strat_boot}) \\
+Pooled bootstrap (v10a) & mean of the instruments' AUC gains & union of sources; 2000 & as above (\code{v10lib.pooled_boot}) \\
+Colour-conditional permutation & $D$ = BH $-$ NS mean residual & source labels; 20\,000, seed 42 & two-sided $p<0.05$; Holm across features (\code{v6lib.perm_test}, \code{holm}) \\
+Pooled permutation (v10b) & mean of the instruments' $D$ & labels within membership strata; 20\,000 & $p<0.05$ (\code{v10lib.pooled_perm}) \\
+Mondrian conformal sets (v6e) & per-class $p$-values & calibration sources & set $=\{y:p_y>\varepsilon\}$, $\varepsilon\in\{0.1,0.2\}$ \\
+Observation budget (v6f) & source BA, AUC with $k$ observations per source & observations within a source; 500 draws & median and 2.5--97.5\% range \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Cross-validation and out-of-fold scores}\label{sec:loso}
+Folds come from \code{LeaveOneGroupOut} on $\gv$ (\code{v3lib.run_loso}, \code{v4lib.loso_scores}). The OOF score of
+observation $i$ is $\hat s_i=s(\vect x_i;\hat\theta^{(-g_i)})$, where $\hat\theta^{(-k)}$ is fitted, with every learned step,
+on all rows of the other sources. For comparison only, v1 and v2 also ran a leaky split over observations
+(\code{StratifiedKFold(5, shuffle=True, random_state=42)}), in which a source appears in both training and test; it served
+only to show how optimistic such a split is.
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Metrics}\label{sec:metrics}
+\begin{itemize}
+\item \textbf{Balanced accuracy:} $\BA=\frac12(\mathrm{TPR}+\mathrm{TNR})$. At \emph{source level} it uses the decisions
+$\hat Y_k$; with 7 BH and 24 NS sources, calling everything NS would already get 24 of 31 sources right, so BA, not
+accuracy, is reported. At \emph{observation level} it uses the observation decisions; inside the bootstrap it is computed
+from per-source counts of correct observations.
+\item \textbf{ROC AUC} (Mann--Whitney form, ties counted as one half), for positive scores $a_r$ and negative scores $b_q$:
+\begin{equation}
+\AUC=\frac1{n_1n_0}\sum_{r=1}^{n_1}\sum_{q=1}^{n_0}\Bigl[\indic{a_r>b_q}+\tfrac12\indic{a_r=b_q}\Bigr].\label{eq:auc}
+\end{equation}
+\emph{Source AUC} uses the source scores: it is the probability that a random BH source scores above a random NS source, and
+does not depend on the threshold. \emph{Observation AUC} uses all observations and is used within states.
+\item \textbf{Proper scores (v6g):} class-balanced source-level log loss and Brier score, with source scores clipped to
+$[0.01,0.99]$. Unlike AUC, they cannot saturate at a perfect ranking.
+\end{itemize}
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Class-stratified source bootstrap}\label{sec:bootstrap}
+The source is the unit of generalisation, so uncertainty is estimated by resampling sources while keeping the OOF scores
+fixed. The draws are identical in every round:
+\begin{enumerate}
+\item the BH and NS source names are sorted, and \code{rng = numpy.random.default_rng(42)};
+\item draw $b$ ($b=1,\dots,2000$) takes $S_1$ BH sources and $S_0$ NS sources with replacement,
+\[
+\mathcal D^{(b)}=\bigl(\mathrm{rng.choice}(\mathcal S_\mathrm{BH},S_1),\ \mathrm{rng.choice}(\mathcal S_\mathrm{NS},S_0)\bigr);
+\]
+\item every metric is recomputed on the drawn multiset, where a source drawn twice counts twice and brings all its
+observations;
+\item the 95\% interval is the percentile interval $[Q_{0.025},Q_{0.975}]$ of the 2000 values.
+\end{enumerate}
+\textbf{Paired differences.} Two models evaluated on the same sources use the same draws, so the difference is computed
+draw by draw, $\Delta^{(b)}=M_A^{(b)}-M_B^{(b)}$. The script also stores \code{frac_first_better}, the fraction of draws with
+$\Delta^{(b)}>0$. \textbf{Decision rule} (planned from v4 on): a difference is \emph{detected} only if its 95\% interval
+excludes 0. An interval that touches 0 is not detected. Each metric is judged separately; source BA and source AUC are the
+headline metrics. Code: \file{09_bootstrap_sources.py}, \code{v3lib.bootstrap}, \code{v4lib.paired_bootstrap},
+\code{v7lib.boot_draws}.
+
+\paragraph{What the interval contains.} Models are not refitted inside the bootstrap, so the interval reflects which sources
+happen to be in the sample, not the variability of fitting or selection. With 7 BH sources, one BH source changes the source
+BA by $1/14\approx0.07$, so many interval endpoints sit exactly at 0.
+
+\paragraph{State-stratified variant (\code{v8lib.strat_boot}).} For an observation-level metric within a state, sources are
+drawn from the whole sample (the same draws as above), and the metric is computed on the drawn sources' observations in that
+state. A draw without BH or without NS observations in the state gives NaN and is ignored; the number of valid draws is
+reported. Differences between states and between models are paired by draw.
+
+\paragraph{Pooled variant (v10a, \code{v10lib.pooled_boot}).} RXTE and NICER sources within $0.1^\circ$ of each other are
+mapped to one canonical name (\code{v10lib.canonical_map}). Draws are taken over the union of sources. In each draw each
+component (RXTE development, RXTE external, NICER) computes its own state-stratified gain, and the pooled statistic is their
+equal-weight mean. A source observed by two instruments is therefore drawn, or not, in both at once.
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Colour-conditional source permutation test}\label{sec:permutation}
+The question is: at matched colour, does a timing feature $F$ differ between BH and NS sources? \Cref{fig:permflow} shows
+the procedure.
+
+\begin{figure}[htbp]
+\centering
+\input{flowcharts/permutation}
+\caption{Colour-conditional source permutation test. The colour dependence of the feature is removed without labels, so
+the class enters only through $D$ and its permutation distribution; sources, not observations, are relabelled.}\label{fig:permflow}
+\end{figure}
+
+With the source mean residuals $\bar r_k$ of \cref{eq:knnreg}, the statistic is
+\begin{equation}
+D=\frac1{S_1}\sum_{k\in\mathcal S_\mathrm{BH}}\bar r_k-\frac1{S_0}\sum_{k\in\mathcal S_\mathrm{NS}}\bar r_k.\label{eq:D}
+\end{equation}
+If, given colour, $F$ does not depend on the class, the source labels are exchangeable. The labels are therefore reassigned
+at random $\Pi=20\,000$ times, keeping the number of BH sources fixed (\code{v6lib.perm_test}, seed 42), and
+\begin{equation}
+p=\frac{1+\#\{\pi:|D^{\ast(\pi)}|\ge|D|-10^{-15}\}}{1+\Pi}.\label{eq:permp}
+\end{equation}
+Because sources are permuted as a whole, the correlation between observations of one source is respected. When several
+features are tested together (v6d: $T^\ast_1$, $T^\ast_2$, $T^\ast_3$, $\log_{10}\nu_c$), Holm-adjusted $p$-values are also
+reported (\code{v6lib.holm}). On synthetic data with no effect, 3.3\% of 60 tests gave $p<0.05$.
+
+\paragraph{Pooled across instruments (v10b, v12a).} Each instrument has its own residuals and $D_\iota$; the statistic is
+their mean, and each source keeps one label across instruments. The planned null permuted labels over the union of sources.
+A synthetic test, run before any v10b statistic, showed that this widens the null, so labels are permuted \emph{within strata
+of instrument membership} (RXTE only, NICER only, both), keeping the number of BHs per stratum fixed
+(\code{v10lib.pooled_perm}). On synthetic data this gave 6.5\% of $p<0.05$ under no effect (200 sets) and power 0.98 for a
+1.5\,SD shift.
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Conformal sets and observation budgets (v6e, v6f)}\label{sec:conformal}
+\paragraph{Mondrian conformal sets (\code{v6lib.conformal_sets}).} For a new source with score $s$, class-wise
+$p$-values are computed against calibration sources of each class:
+\[
+p_\mathrm{BH}(s)=\frac{1+\#\{k\in\mathrm{BH}:\bar s_k\le s\}}{1+n_\mathrm{BH}},\qquad
+p_\mathrm{NS}(s)=\frac{1+\#\{k\in\mathrm{NS}:\bar s_k\ge s\}}{1+n_\mathrm{NS}},
+\]
+and the prediction set is $\{y:p_y(s)>\varepsilon\}$ for $\varepsilon\in\{0.1,0.2\}$. The set can be $\{\mathrm{BH}\}$,
+$\{\mathrm{NS}\}$, both (``cannot tell'') or empty. Two versions are used: a LOSO version on S1 (the other sources' OOF
+scores calibrate) and a split version for the external set E (the S1 OOF scores calibrate the frozen-model scores).
+
+\paragraph{Observation budget (\code{v6lib.budget_curves}).} For $k\in\{1,2,3,5,8,13,21\}$ and 500 draws (seed 42), each
+source's score is the mean OOF score of $\min(k,n_k)$ of its observations, drawn without replacement, using the S3 scores
+(up to 1329 observations per source). The curves show source BA and AUC against $k$.
+
+\paragraph{Agreement and reliability.} The agreement between two models is the Spearman correlation of their OOF scores and
+the fraction of identical decisions. The bridge check of v4b2 allowed H$_R$ to replace H only if the paired intervals
+contained 0 and the scores correlated at Spearman $\ge0.90$. For split-half reliability, a feature is computed from odd and
+even rows or segments separately, and the correlation is stepped up with Spearman--Brown, $2\rho/(1+\rho)$.
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Frozen and prospective tests}\label{sec:frozen}
+For the external and new-observation tests, everything that could adapt to the test data was fixed and committed before the
+data were read (\cref{fig:frozenflow,tab:frozen}). Two kinds of independence are distinguished:
+\begin{itemize}
+\item \emph{source-level}: the test sources were never used in training (v6a, v8b);
+\item \emph{observation-level}: new observations of sources already used (v11, v13).
+\end{itemize}
+For NICER BHs only the second was possible, because every dynamically confirmed BH with usable timing data had already been
+used.
+
+\begin{figure}[htbp]
+\centering
+\input{flowcharts/frozen}
+\caption{Frozen and prospective protocol.}\label{fig:frozenflow}
+\end{figure}
+
+\begin{table}[htbp]
+\centering\small
+\caption{What was frozen, and when (commit of the plan).}\label{tab:frozen}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{1.1cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{4.0cm}>{\raggedright\arraybackslash}p{2.9cm}@{}}
+\toprule
+Test & Frozen before the test data were read & How the models are applied & Record \\
+\midrule
+v6a & H$_R$-LR, H$_R$+T-LR and CCTLR(H$_R$) fitted once on S1; imputation medians from S1 & every external source scored by the same S1 models & plan v6 \\
+v8b & the v6 models; the v7a state rule & external set X & plan v8 (\texttt{a481fa0}) \\
+v11 & NICER feature pipeline, state thresholds, models fitted on the v10 data, $\nu^\ast=1.3007$\,Hz & out-of-source for the v9 sources; all-data model for never-used sources & plan \texttt{6fea016}; $\nu^\ast$ \texttt{58ded89} \\
+v13 & v12 pipeline with 3C50 correction and screening, RF as the primary model, models fitted on the 534 v12 observations, $\nu^\ast=1.3361$\,Hz & out-of-source & plan \texttt{42fe1d2} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Implementation checks and how verdicts are labelled}\label{sec:ic}
+From v4 on, every round defines \emph{implementation checks} (IC) that must pass before any result is looked at. Examples:
+\begin{itemize}
+\item earlier OOF predictions are reproduced to $10^{-8}$--$10^{-15}$;
+\item synthetic signals are recovered by the timing estimators within 10\%;
+\item pure-Poisson data give $|z|<3$;
+\item known sources behave as expected (XTE J1118+480 hard-like, Z sources soft-like);
+\item results agree with independent tools (XSPEC, \code{astropy}).
+\end{itemize}
+The unit tests are \file{scripts/test_v4lib.py}--\file{test_v11lib.py}, and their logs are in \file{logs/}. A failed check
+stops the sub-analysis (the scripts exit with code 3) or downgrades it to exploratory.
+
+Each sub-analysis declares one \emph{primary} comparison in its plan; the others are \emph{secondary} or \emph{descriptive}
+and are not used to claim a difference. Comparisons added after results were seen are labelled \emph{post hoc}. No
+family-wise correction is applied across descriptive comparisons; where there are many (v4a: 76 combinations $\times$ 3
+metrics), the reports state how many intervals would exclude 0 by chance and draw no conclusion from them. Within the v6d
+permutation family, Holm adjustment is reported.

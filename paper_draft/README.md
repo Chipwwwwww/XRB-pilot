@@ -33,6 +33,7 @@ figure captions and in `claim_evidence.csv`.
 | `claim_evidence.csv` | Claim–evidence table: 50 automatically checked claims and 18 manual rows. Columns: claim ID, section, claim, values, source file and rows, sample and unit, primary/descriptive/post hoc status, required limitations, verification status. |
 | `report/report.pdf` (`report.tex`, `references_report.bib`) | Report-style version: about 9 pages, key findings first, no formal paper structure. Same figures and numbers as the paper draft; build with `cd paper_draft/report && latexmk -pdf report.tex` |
 | `advisor_questions.md` | Open issues ranked A (must fix), B (analyses that could change the interpretation), C (later), plus decisions for the advisor |
+| `workflow/workflow_report.pdf` (`workflow_report.tex`, `sections/`, `flowcharts/`) | Workflow report, 44 pages: which databases are queried and how files are downloaded, logged and stored; sample construction; RXTE, NICER and MAXI processing and features; the data model; the machine-learning methods and hyperparameters; evaluation and inference; how to run and reproduce everything; file schemas. 15 TikZ flow diagrams (8 adapted from `report_en/figures/flowcharts/`). Describes the code at commit `666c2e0`; no analysis was re-run. Build with `cd paper_draft/workflow && latexmk -pdf workflow_report.tex` |
 
 ## Build
 
@@ -47,7 +48,8 @@ cd paper_draft && latexmk -pdf main.tex && cp main.pdf paper_draft.pdf
 ```
 
 The last build had 0 errors, 0 undefined references or citations, and 0 overfull boxes. The claim check passed 50 of
-50 automatic claims.
+50 automatic claims. The workflow report (`workflow/`) also builds with 0 errors, 0 warnings and 0 overfull boxes; its
+sample sizes, counts and file schemas were re-read from the committed data tables and `logs/downloads.jsonl`.
 
 ## Figures and their sources
 
@@ -124,4 +126,5 @@ arXiv, ADS, publisher, institutional and HEASARC pages. Full texts were not re-r
 ## What was not changed
 
 No file outside `paper_draft/` was modified: analysis code, configs, raw or processed data, result tables,
-`report_en/` and `reports/` are untouched. Nothing was pushed, merged or published.
+`report_en/` and `reports/` are untouched. The branch `claude/clever-bardeen-222k3u` was pushed at the user's request;
+nothing was merged or published.

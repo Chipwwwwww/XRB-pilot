@@ -1,0 +1,130 @@
+% =====================================================================================================
+% XRB-pilot workflow report: data acquisition, processing, analysis methods and machine learning.
+% Describes the code at repository commit 666c2e0 (v1-v13). No analysis was re-run for this report.
+% Compile: latexmk -pdf workflow_report.tex
+% =====================================================================================================
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[margin=2.2cm]{geometry}
+\usepackage{amsmath,amssymb,bm}
+\usepackage{graphicx}
+\usepackage{booktabs,tabularx,longtable,multirow,array}
+\usepackage[table]{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,fit,calc,shapes.geometric,shapes.misc,backgrounds,decorations.pathreplacing,matrix}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage{fancyhdr}
+\usepackage[round,authoryear]{natbib}
+\usepackage[obeyspaces,spaces]{url}
+\usepackage[colorlinks=true,linkcolor=blue!50!black,citecolor=blue!50!black,urlcolor=blue!50!black]{hyperref}
+\usepackage[capitalise,noabbrev]{cleveref}
+\setlist{itemsep=1.5pt,topsep=3pt}
+\setlength{\emergencystretch}{3em}
+\renewcommand{\topfraction}{0.85}\renewcommand{\bottomfraction}{0.7}\renewcommand{\textfraction}{0.1}
+\renewcommand{\floatpagefraction}{0.75}\setcounter{topnumber}{3}\setcounter{bottomnumber}{2}\setcounter{totalnumber}{4}
+\pagestyle{fancy}\fancyhf{}
+\fancyfoot[L]{\footnotesize XRB-pilot workflow report (commit \texttt{666c2e0})}
+\fancyfoot[R]{\footnotesize\thepage}
+\renewcommand{\headrulewidth}{0pt}
+\crefname{algorithm}{Algorithm}{Algorithms}
+
+% ---------------------------------------------------------------- macros
+% \code and \file: typewriter text that may break after / _ . - and at spaces (url package, verbatim-like argument)
+\DeclareUrlCommand\code{\urlstyle{tt}}
+\DeclareUrlCommand\file{\urlstyle{tt}}
+\MakeRobust\code \MakeRobust\file
+\newcommand{\vect}[1]{\bm{#1}}
+\newcommand{\Xm}{\mathbf{X}}
+\newcommand{\yv}{\mathbf{y}}
+\newcommand{\gv}{\mathbf{g}}
+\newcommand{\wv}{\mathbf{w}}
+\newcommand{\indic}[1]{\mathbf{1}\!\left[#1\right]}
+\newcommand{\BA}{\mathrm{BA}}
+\newcommand{\AUC}{\mathrm{AUC}}
+\newcommand{\sgn}{\operatorname{sgn}}
+\newcommand{\median}{\operatorname{median}}
+\newcommand{\sinc}{\operatorname{sinc}}
+
+% ---------------------------------------------------------------- colours and flowchart styles (as report_en/main.tex)
+\definecolor{bhblue}{HTML}{2A78D6}
+\definecolor{nsorange}{HTML}{EB6834}
+\definecolor{inkgrey}{HTML}{52514E}
+\definecolor{boxgrey}{HTML}{F4F3EF}
+\definecolor{tagprim}{HTML}{1F4E9A}
+\definecolor{tagsec}{HTML}{3C6E3C}
+\definecolor{tagexp}{HTML}{8A5A00}
+\definecolor{tagpost}{HTML}{9B2D2D}
+\definecolor{tagdesc}{HTML}{52514E}
+\tikzset{
+  fc/.style={rounded corners=2pt, align=center, font=\scriptsize, inner sep=2.2pt,
+             execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000\relpenalty=10000\binoppenalty=10000\relax}},
+  fc data/.style={fc, rounded corners=0pt, draw=tagexp, fill=tagexp!9},
+  fc proc/.style={fc, draw=tagsec, fill=tagsec!9},
+  fc model/.style={fc, draw=tagprim, fill=tagprim!8},
+  fc old/.style={fc, draw=inkgrey!55, dashed, fill=white, text=inkgrey},
+  fc gate/.style={fc, chamfered rectangle, chamfered rectangle xsep=1.4mm, draw=inkgrey, fill=boxgrey},
+  fc dec/.style={fc, diamond, aspect=2.4, draw=inkgrey, fill=white, inner sep=0.6pt},
+  fc yes/.style={fc, draw=green!40!black, line width=0.6pt, fill=green!14},
+  fc no/.style={fc, draw=inkgrey, fill=black!7},
+  fc descr/.style={fc, draw=tagdesc, dashed, fill=white},
+  fc arr/.style={-{Stealth[length=1.7mm]}, semithick, inkgrey},
+  fc head/.style={font=\scriptsize\bfseries, text=inkgrey, align=center},
+  fc ver/.style={draw=inkgrey, fill=inkgrey, text=white, font=\tiny\bfseries\sffamily, rounded corners=1pt, inner sep=1.1pt,
+                 anchor=south west, minimum height=0pt, text width=, align=left},
+  fc note/.style={font=\tiny, text=inkgrey, align=flush left, inner sep=1pt,
+               execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000\relax}},
+}
+
+\title{\textbf{XRB-pilot workflow report}\\[4pt]
+\large Data acquisition, processing, data-analysis methods and machine learning\\
+for black hole versus neutron star classification with RXTE, NICER and MAXI}
+\author{}
+\date{October 2026 \quad$\cdot$\quad describes repository \texttt{Chipwwwwww/XRB-pilot} at commit \texttt{666c2e0} (analysis rounds v1--v13)}
+
+\begin{document}
+\maketitle
+\thispagestyle{fancy}
+
+\begin{center}
+\begin{minipage}{0.9\textwidth}
+\small
+\textbf{What this document is.} A step-by-step description of how the project works.
+\begin{itemize}
+\item which archives and catalogues are queried, and how files are downloaded and logged;
+\item how observations are selected;
+\item how spectra, light curves and event files are turned into features;
+\item which machine-learning models are trained, and how;
+\item how they are evaluated, and how everything is re-run.
+\end{itemize}
+Every rule, parameter and formula was read from the code (\file{scripts/}, \file{config.py}). Where useful, it was
+cross-checked with the technical report \file{report_en/main.pdf}. The results themselves are covered in the paper draft
+and the summary report; they appear here only as sample sizes.
+\end{minipage}
+\end{center}
+
+\tableofcontents
+\clearpage
+
+\input{sections/01_overview}
+\input{sections/02_acquisition}
+\input{sections/03_samples}
+\input{sections/04_rxte}
+\input{sections/05_nicer_maxi}
+\input{sections/06_datamodel}
+\input{sections/07_ml}
+\input{sections/08_evaluation}
+\input{sections/09_operations}
+
+\appendix
+\input{sections/A_schemas}
+
+\bibliographystyle{plainnat}
+\bibliography{../report/references_report}
+
+\end{document}

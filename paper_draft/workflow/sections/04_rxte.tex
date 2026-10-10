@@ -1,0 +1,361 @@
+% =====================================================================================================
+\section{RXTE processing and feature extraction}\label{sec:rxte}
+% =====================================================================================================
+
+RXTE gives three kinds of input from the Proportional Counter Array (PCA; \citealt{Jahoda2006}): Standard-2 spectra, PCA Standard-1 light curves and, for one test, PCA event files
+(HEXTE spectra are a fourth, minor input). Spectra are read and background-subtracted in Python
+(\file{spectra.py}); HEASoft is used only for an independent check. \Cref{fig:specflow} shows the spectral chain and
+\cref{fig:timingflow} the timing chain.
+
+\begin{figure}[htbp]
+\centering
+\input{flowcharts/spectra}
+\caption{RXTE/PCA spectral pipeline. Top row: processing of every observation; the quality rules decide whether the next
+candidate of the same time group is tried. Middle: the representations built from the accepted spectrum, each with the
+round that added it. Bottom: HEXTE colours (v4b3).}\label{fig:specflow}
+\end{figure}
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Standard-2 Standard Products: what is read}\label{sec:pca}
+For each ObsID three files from \file{stdprod/} are used (\cref{tab:rxtefiles}). They were checked on two observations
+(\file{05_two_source_check.py}, \file{reports/step2_fits_check.md}):
+\begin{itemize}
+\item \file{xp<o>_s2.pha} is the total (source + background) spectrum: \code{HDUCLAS2/3 = TOTAL/COUNT}; column
+\code{COUNTS} in counts with an explicit \code{STAT_ERR} (\code{POISSERR = F}); \code{SYS_ERR = 0};
+\code{BACKSCAL = AREASCAL = 1}; 129 channels. The PCUs summed are listed in the \code{ROWID<n>} keywords.
+\item \file{xp<o>_b2.pha} is the \code{pcabackest} model background for the same PCUs and good time intervals (GTIs). Its
+error is the statistical error of the model counts; the systematic error of the background model is not used anywhere.
+\item \file{xp<o>.rsp} is the combined RMF$\times$ARF for that PCU combination, with \code{EBOUNDS}.
+\item The Standard Products are \emph{not} dead-time corrected.
+\end{itemize}
+\code{spectra.read_pha} returns the counts, errors, exposure, scaling keywords, PCU list, pointing (\code{RA_OBJ},
+\code{DEC_OBJ}), times and the \code{STDGTI} table. \code{spectra.read_rsp} expands the compressed response rows
+(\code{F_CHAN}, \code{N_CHAN}, \code{MATRIX}) into a dense matrix $R(E,c)$.
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Net count-rate spectrum}\label{sec:net}
+For channel $c$ (\code{spectra.net_spectrum}), with source counts $C^s_c\pm\sigma^s_c$ and background counts
+$C^b_c\pm\sigma^b_c$:
+\begin{align}
+t_s &= \mathtt{EXPOSURE}_s\,\mathtt{AREASCAL}_s,\quad t_b = \mathtt{EXPOSURE}_b\,\mathtt{AREASCAL}_b,\quad
+\kappa=\mathtt{BACKSCAL}_s/\mathtt{BACKSCAL}_b,\nonumber\\
+r^s_c &= C^s_c/t_s,\quad r^b_c=\kappa\,C^b_c/t_b,\qquad
+r^\mathrm{net}_c = D\,(r^s_c-r^b_c),\quad e^\mathrm{net}_c = D\sqrt{(\sigma^s_c/t_s)^2+(\kappa\sigma^b_c/t_b)^2},\label{eq:net}
+\end{align}
+in counts per second summed over the PCUs. $D=1/(1-\mathrm{DTF})$ is the dead-time correction (\cref{sec:deadtime}). This is the
+OGIP convention, the same quantity XSPEC uses after \code{data}, \code{backgrnd} and \code{response}. Negative net rates
+(faint sources at high energy) are kept as they are.
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Dead time}\label{sec:deadtime}
+\begin{itemize}
+\item \textbf{v1.} Only the good-xenon term was available: $\mathrm{DTF}=10^{-5}\,\mathrm{s}\times\sum_cC^s_c/(t_sN_\mathrm{PCU})$.
+This is a lower bound.
+\item \textbf{v2 onwards.} The RXTE GOF recipe is applied to the Standard-1 data. \code{spectra.std1_rates} reads every
+\file{FS46_*} file of the ObsID and averages the counts over the 0.125\,s bins whose centres fall inside the spectrum's GTIs.
+This gives the good-xenon rate $\mathrm{Xe}_p$ of each PCU and the array rates Vp (propane), Rem (remaining) and VLE (very
+large events). With $N_\mathrm{on}$ the number of PCUs with $\mathrm{Xe}_p>1$\,c\,s$^{-1}$ (\code{spectra.std1_dtf}):
+\begin{equation}
+\begin{gathered}
+\mathrm{DTF}_p = 10^{-5}\Bigl(\mathrm{Xe}_p+\frac{\mathrm{Vp}+\mathrm{Rem}}{N_\mathrm{on}}\Bigr)+6\times10^{-5}\,\frac{\mathrm{VLE}}{N_\mathrm{on}},\\
+\mathrm{DTF}=\frac{1}{|\mathcal P|}\sum_{p\in\mathcal P}\mathrm{DTF}_p,\qquad D=\frac{1}{1-\mathrm{DTF}},
+\end{gathered}\label{eq:dtf}
+\end{equation}
+where $\mathcal P$ is the set of PCUs in the spectrum. A variant with $1.5\times10^{-4}$\,s per VLE event is stored as
+\code{dtf_std1_vle150us} for sensitivity only.
+\item \textbf{Effect.} In the v2 sample, Standard-1 covers a median 99\% of the spectrum GTIs, and the DTF has median
+1.38\% and maximum 8.8\%. $D$ scales the whole spectrum, so it changes intensities but not colours or shapes.
+\end{itemize}
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Common energy grid and rebinning}\label{sec:grid}
+The channel-to-energy relation drifts with the gain, so every spectrum is moved onto one fixed grid. The grid comes from the
+response of a reference observation (\code{REFERENCE_OBS = 91702-01-66-05}). Its edges are the union of that response's
+\code{EBOUNDS} edges between the edge closest to 5\,keV and the edge closest to 25\,keV: 45 bins from 4.908 to 25.008\,keV,
+0.41--0.86\,keV wide. (In v3b the lower limit is the edge closest to 3\,keV: 50 bins from 2.883\,keV.) For an observation
+with its own channel boundaries $[E^\mathrm{lo}_k,E^\mathrm{hi}_k]$, the overlap matrix (\code{spectra.overlap_matrix})
+\[
+W_{jk}=\frac{\max\bigl(0,\min(E^\mathrm{hi}_k,e_{j+1})-\max(E^\mathrm{lo}_k,e_j)\bigr)}{E^\mathrm{hi}_k-E^\mathrm{lo}_k}
+\]
+is the fraction of channel $k$ in grid bin $j$, assuming counts are spread uniformly within a channel. The rebinned
+rate and error per keV per PCU are
+\begin{equation}
+x_{ij}=\frac{\sum_kW_{jk}\,r^\mathrm{net}_{ik}}{N_{\mathrm{PCU},i}\,\Delta e_j},\qquad
+\sigma_{ij}=\frac{\sqrt{\sum_kW_{jk}^2\,(e^\mathrm{net}_{ik})^2}}{N_{\mathrm{PCU},i}\,\Delta e_j},\qquad\Delta e_j=e_{j+1}-e_j.\label{eq:rebin}
+\end{equation}
+The total and background spectra are rebinned in the same way (\code{srate}, \code{brate}). Within gain epoch 5 the
+channel shift relative to the reference is at most 0.85 channel (median 0.17); it is stored as
+\code{gain_shift_channels}.
+
+\paragraph{Summary quantities.} For each observation \file{04_fetch_process.py} computes
+\begin{equation}
+F_i=\sum_{j=0}^{44}x_{ij}\Delta e_j,\qquad \sigma_{F,i}=\Bigl(\sum_j(\sigma_{ij}\Delta e_j)^2\Bigr)^{1/2},\qquad
+\mathrm{S/N}_i=F_i/\sigma_{F,i},\label{eq:F}
+\end{equation}
+as well as the 5--25\,keV source and background rates, the background fraction, a 10--25/5--10\,keV hardness and the
+number of non-positive bins. These quantities, the header keywords and the dead-time terms all go into
+\file{observations.csv}. The quality rules of \cref{tab:qualityrules} are then applied.
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Response check and the folded power law}\label{sec:pl2}
+A fixed photon spectrum $N(E)=E^{-2}$ is folded through each observation's response (\code{spectra.powerlaw_folded}) and
+rebinned like the data:
+\begin{equation}
+P_{ic}=\sum_\ell R_i(E_\ell,c)\int_{E^\mathrm{lo}_\ell}^{E^\mathrm{hi}_\ell}E^{-2}\,dE,\qquad
+p_{ij}=\frac{\sum_cW_{jc}P_{ic}}{N_{\mathrm{PCU},i}\,\Delta e_j}\quad(\text{key \texttt{pl2}}).\label{eq:pl2}
+\end{equation}
+The spread of $p_{ij}$ across observations measures how much the response alone changes a count spectrum: median 3.7\%,
+up to about 12\%, depending on the PCU combination (\file{06_dataset_checks.py}). From v4b2 on, $p_{ij}$ also defines the
+response-normalised representations R and H$_R$, which can be compared across gain epochs.
+
+\subsection{Independent check with XSPEC}\label{sec:xspec}
+\file{10_xspec_crosscheck.py} runs HEASoft 6.37.1 XSPEC in WSL on 12 randomly chosen v2 observations (seed 42), with
+\code{data}, \code{backgrnd}, \code{response}, \code{ignore **-5.0 25.0-**} and \code{tclout rate}. It compares the
+result with \cref{eq:net} ($D=1$) summed over the same channels. Rates agree to $3\times10^{-10}$ and errors to
+$4\times10^{-10}$ (relative; \file{results/v2/xspec_crosscheck.csv}). The check covers the background subtraction only,
+not the dead time or the rebinning.
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Spectral representations}\label{sec:reps}
+Every representation is computed from one observation's rebinned spectrum alone. Standardisation across observations
+happens later, inside the model (\cref{sec:ml}). Code: \file{07_train_eval.py}, \code{v3lib.v2_representations},
+\file{12_v3b_extended_band.py}, \code{reps_R} in \file{22_v4b2_analysis.py}.
+\begin{itemize}
+\item \textbf{A} (intensity kept): $A_{ij}=\operatorname{asinh}(x_{ij}/a)$ with $a=0.1$\,c\,s$^{-1}$\,keV$^{-1}$\,PCU$^{-1}$
+(\code{ASINH_SCALE}). The transform is log-like for bright bins and still defined for negative bins.
+\item \textbf{B} (shape): $B_{ij}=x_{ij}/F_i$ (keV$^{-1}$), so that $\sum_jB_{ij}\Delta e_j=1$.
+\item \textbf{H} (two colours): band sums $C_{i,m}=\sum_{j\in b_m}x_{ij}\Delta e_j$ over the bands of \cref{tab:bands}, and
+\begin{equation}
+\vect h_i=(h_{i1},h_{i2})=\Bigl(\frac{C_{i,2}}{C_{i,1}},\ \frac{C_{i,4}}{C_{i,3}}\Bigr).\label{eq:H}
+\end{equation}
+The colours are linear ratios. The plan specified $\log_{10}$, but two BH spectra had a slightly negative 16--25\,keV sum,
+so the linear form was adopted before any model was trained (decision log). The denominators are positive for every
+observation, which the code asserts.
+\item \textbf{HI, H+B, HI+A}: $(h_1,h_2,\log_{10}F)$; $(\vect h,B_{i0},\dots,B_{i44})$ (47 columns);
+$(\mathrm{HI},A_{i0},\dots,A_{i44})$ (48 columns).
+\item \textbf{B3, H3} (v3b, 50-bin grid): B normalised over 2.883--25.008\,keV, and three colours
+$(C_0/C_1,\ C_2/C_1,\ C_4/C_3)$ with $C_0$ = 2.883--4.908\,keV.
+\item \textbf{R, H$_R$} (v4b2 onwards): $R_{ij}=x_{ij}/p_{ij}$, and colours of the data divided by the colours of the folded
+power law, $h^R_1=(C_2/P_2)/(C_1/P_1)$ and $h^R_2=(C_4/P_4)/(C_3/P_3)$, with $P_m=\sum_{j\in b_m}p_{ij}\Delta e_j$.
+\end{itemize}
+
+\begin{table}[htbp]
+\centering\small
+\caption{Colour bands: grid bins whose geometric centre $\sqrt{e_je_{j+1}}$ lies in the nominal interval
+(\code{v3lib.band}).}\label{tab:bands}
+\begin{tabular}{@{}l l c c c@{}}
+\toprule
+Band & Nominal interval & Bins $j$ & $n$ & Actual range [keV] \\
+\midrule
+$b_1$ & $[5,7)$ & 0--4 & 5 & 4.908--6.948 \\
+$b_2$ & $[7,10)$ & 5--11 & 7 & 6.948--9.827 \\
+$b_3$ & $[10,16)$ & 12--26 & 15 & 9.827--16.082 \\
+$b_4$ & $[16,25.1)$ & 27--44 & 18 & 16.082--25.008 \\
+$b_0$ (v3b) & $[2.8,5)$ & 5 bins of the 50-bin grid & 5 & 2.883--4.908 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{HEXTE colours (v4b3)}\label{sec:hexte}
+\file{19_v4b3_hexte.py} downloads the cluster-B products \file{xh<o>_s1.pha} and \file{xh<o>_b1.pha}, plus the RMF and ARF
+named in their headers. Only cluster B is used, and only before 2009-12-14 16:10\,UT (MJD 55179.6736), when it stopped
+rocking between source and background; 60 of the 456 v2 observations therefore have no HEXTE data. \code{DEADAPP = T} is
+required. The net spectrum follows \cref{eq:net} with $D=1$, and band rates are computed with the overlap matrix on the RMF
+\code{EBOUNDS}. With $F_\mathrm{PCA}(16\text{--}25)=C_{i,4}$:
+\begin{equation}
+X_1=\frac{F_X(25\text{--}40)}{F_\mathrm{PCA}(16\text{--}25)},\qquad X_2=\frac{F_X(40\text{--}60)}{F_X(25\text{--}40)}.\label{eq:hexte}
+\end{equation}
+A colour is set to missing when its denominator has S/N $<3$ (3 observations for $X_1$, 144 for $X_2$). Inside each
+training fold, missing colours are replaced by the training median, and a 0/1 indicator column is added for each colour
+(\cref{sec:missing}). Output: \file{data/v4b3/processed/hexte_features.csv}.
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Type-I burst screening}\label{sec:bursts}
+Only neutron stars produce type-I bursts, so an observation containing one carries a label shortcut. Three procedures are
+used (\cref{fig:burstflow}).
+
+\begin{figure}[htbp]
+\centering
+\input{flowcharts/bursts}
+\caption{Burst screening: the Standard-1 detector (v4), the MINBAR match (v7b1) and the NICER rule (v9--v13), which removes
+segments rather than observations. Counts refer to the 456 v2 observations.}\label{fig:burstflow}
+\end{figure}
+
+\paragraph{Standard-1 detector (v4, \file{17_v4_burst_detect.py}).} The 1\,s light curve $r(t)$ is the sum of good-xenon
+counts of the spectrum's PCUs over complete 1\,s bins inside the GTIs. With $\mu$ and $s$ the mean and standard deviation of
+all bins, bins with $r>\mu+4s$ are candidates, and candidates closer than 30\,s are merged. For an event with peak
+$r_\mathrm{pk}$ and persistent level $r_0$ (median of the preceding 60\,s), $A=r_\mathrm{pk}-r_0$ and $L_q=r_0+qA$,
+\begin{equation}
+\text{burst}\iff r_\mathrm{pk}\ge1.5\,r_0\ \wedge\ t_\mathrm{rise}\le10\,\mathrm{s}\ \wedge\ 3\le t_{1/2}\le300\,\mathrm{s}\ \wedge\ n_{25}\ge3,\label{eq:burst}
+\end{equation}
+where $t_\mathrm{rise}$ is measured from the last time below $L_{0.25}$ to the peak, $t_{1/2}$ from the peak to the first time
+below $L_{0.5}$, and $n_{25}$ counts the contiguous bins above $L_{0.25}$ (\code{V4_BURST} in \file{config.py}). The burst
+interval runs from the last time before the peak below $L_{0.25}$ to the first time after it below $L_{0.1}$. Every
+candidate was also inspected by eye (\file{results/v4/burst_visual.csv}).
+
+\paragraph{MINBAR match (v7b1, \file{31_v7b1_minbar.py}).} The spectrum GTIs (mission time, TT) are converted to MJD(TT) and
+then to UTC with \code{astropy} (\code{v7lib.gti_utc}). A MINBAR burst occupies $[T,T+\mathrm{dur}]$, with 300\,s when the
+duration is missing. Under the primary rule, an observation is contaminated if a burst interval overlaps a GTI and the burst
+either has the same ObsID or comes from within $1^\circ$ (the PCA field of view) of the source. The literal planned rule
+(any burst from anywhere) is a sensitivity set. \file{32_v7b1_replace.py} builds a further sensitivity sample by replacing
+each contaminated observation with the next MINBAR-clean candidate of the same time group.
+
+\paragraph{How the flags are used.} In the RXTE analyses, flagged observations stay in the main sample and are removed only
+in sensitivity analyses (\file{18_v4_burst_exclusion.py}, \file{33_v7b1_exclusion.py}). The state index (below) is
+different: it drops every Standard-1 row that overlaps a burst interval, starting 20\,s before the burst. For NICER, the
+segments near a detected burst are removed (\cref{sec:nicer}).
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Low-frequency timing from Standard-1 (v5--v10)}\label{sec:std1timing}
+\Cref{fig:timingflow} shows the timing chain. It is shared, with different constants, by RXTE event mode and NICER.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[x=1cm, y=1cm,
+  st/.style={fc proc, text width=2.62cm, minimum height=16mm},
+  badge/.style={fc ver, anchor=south west}]
+  \node[fc data, text width=2.62cm, minimum height=16mm] (fs) at (1.45,0) {Std-1 \file{FS46_*}: 128-s rows, 1024 bins of 0.125\,s per PCU};
+  \node[st] (rw) at (4.62,0) {rows fully inside a spectrum GTI; PCU on if all eight 16-s blocks have counts};
+  \node[st] (bk) at (7.79,0) {mean source counts per bin $s=\bar c-n_\mathrm{det}\,b\,\Delta t$ (Std-2 background)};
+  \node[st] (ft) at (10.96,0) {DFT per PCU; powers divided by $\sinc^2(j/N)$};
+  \node[st] (cs) at (14.13,0) {cospectrum: two groups (v5) or all PCU pairs (v6, Eq.~\ref{eq:allpairs})};
+  \foreach \a/\b in {fs/rw,rw/bk,bk/ft,ft/cs} \draw[fc arr] (\a) -- (\b);
+  \node[st] (fb) at (14.13,-2.45) {fractional variance $f_\mathcal{B}$ per row and band (Table~\ref{tab:timingbands})};
+  \node[st] (md) at (10.96,-2.45) {median over valid rows ($\ge3$ rows, else missing)};
+  \node[st] (tk) at (7.79,-2.45) {$T_k=\sgn(f)\sqrt{|f|}$, $k=1,2,3$; $T_\mathrm{tot}$};
+  \node[st] (nu) at (4.62,-2.45) {$\nu_c$: $\nu P_\nu$ centroid over 9 log bins (Eq.~\ref{eq:nuc})};
+  \node[fc, draw=inkgrey, fill=boxgrey, text width=2.62cm, minimum height=16mm] (out) at (1.45,-2.45) {\file{timing_features.csv} (v5), \file{timing_v6.csv} (v6)};
+  \draw[fc arr] (cs) -- (fb); \foreach \a/\b in {fb/md,md/tk,tk/nu,nu/out} \draw[fc arr] (\a) -- (\b);
+  \node[st, text width=4.2cm, minimum height=12mm] (sti) at (10.96,-4.6) {state index: 0.1--4\,Hz rms from pair rows only, burst rows removed (Eq.~\ref{eq:state})};
+  \node[fc, draw=inkgrey, fill=boxgrey, text width=2.62cm, minimum height=12mm] (so) at (7.0,-4.6) {\file{results/v7a/states.csv}};
+  \draw[fc arr] (fb.south) |- (sti.east); \draw[fc arr] (sti) -- (so);
+  \foreach \n/\v in {fs/v5, rw/v5, bk/v5, ft/v5, cs/{v5, v6}, fb/v5, md/v5, tk/v5, nu/v6, sti/v7a}
+     \node[badge] at ([xshift=2pt, yshift=-0.4pt]\n.north west) {\v};
+\end{tikzpicture}
+\caption{Standard-1 timing chain (\file{v5lib.py}, \file{v6lib.py}, \file{v7lib.py}; scripts \file{26}, \file{29},
+\file{34}, \file{42}, \file{53}). No new download is needed: the Standard-1 files were already fetched for the dead time.}
+\label{fig:timingflow}
+\end{figure}
+
+\paragraph{Rows, detectors and background.} A Standard-1 row holds $N=1024$ bins of $\Delta t=0.125$\,s (128\,s) per PCU.
+Only rows lying completely inside a spectrum GTI are used, with a 1\,ms tolerance (\code{v5lib.std1_rows}). A PCU is
+\emph{on} in a row if each of the eight 128-bin blocks has at least one count (\code{v5lib.pcus_on}). The background rate per
+PCU is taken from the Standard-2 background spectrum, $b=\sum_cC^b_c/(t_bN_{\mathrm{PCU},b})$, and assumed equal for all
+PCUs. For counts $c_n$ summed over $n_\mathrm{det}$ detectors, the mean source counts per bin is
+$s=\bar c-n_\mathrm{det}\,b\,\Delta t$; a row with any $s\le0$ is invalid.
+
+\paragraph{Fourier conventions.} $X_j=\sum_nc_ne^{-2\pi ijn/N}$ for $j=0,\dots,N/2$ (\code{numpy.fft.rfft}), with
+$\nu_j=j/(N\Delta t)$, i.e.\ $j/128$\,Hz. By Parseval's relation, $\frac{2}{N^2}\sum_{j\in\mathcal B}|X_j|^2$ is the variance
+contributed by band $\mathcal B$. Binning multiplies the Fourier amplitude by $\sinc(j/N)=\sin(\pi j/N)/(\pi j/N)$, so every
+power is divided by $\sinc^2(j/N)$.
+
+\paragraph{Cospectra instead of power spectra.} Counting noise in different detectors is uncorrelated, so the
+\emph{cross} spectrum between detectors has zero expected value without source variability. The Poisson and dead-time
+noise level therefore never has to be modelled.
+\begin{itemize}
+\item \textbf{v5 (two groups, \code{v5lib.row_features}).} The PCUs that are on are sorted; those in even positions form
+group A and those in odd positions group B (at least 2 PCUs). With summed counts $x,y$, transforms $X,Y$ and source means
+$s_x,s_y$: $f_\mathcal B=\frac{2}{N^2}\sum_{j\in\mathcal B}\Re(X_jY_j^*)/\sinc^2(j/N)\big/(s_xs_y)$.
+\item \textbf{v6 (all pairs, \code{v6lib.allpairs_row}).} Every pair of the $n$ PCUs that are on is used, through the closed
+form
+\begin{equation}
+f_\mathcal B=\frac{\frac{2}{N^2}\sum_{j\in\mathcal B}\frac{|\sum_pX_{p,j}|^2-\sum_p|X_{p,j}|^2}{2\sinc^2(j/N)}}{\frac{(\sum_ps_p)^2-\sum_ps_p^2}{2}}.\label{eq:allpairs}
+\end{equation}
+Rows with one PCU on use the auto-power with a Poisson level, $\bigl(|X_j|^2-N\bar c\bigr)/\sinc^2(j/N)$ divided by $s^2$,
+but only below 500\,c\,s$^{-1}$; brighter single-PCU rows are invalid. In synthetic tests the noise variance falls by
+31--41\% for 3--5 PCUs, without bias.
+\end{itemize}
+
+\paragraph{From rows to features.} For each observation, the median over valid rows is taken in each band; with fewer than 3
+valid rows the features are missing. The features are signed square roots (fractional rms, slightly negative when the
+signal is below the noise):
+\begin{equation}
+\begin{gathered}
+T_k=\sgn\bigl(\median_rf_{k,r}\bigr)\sqrt{\bigl|\median_rf_{k,r}\bigr|}\quad(k=1,2,3),\\
+T_\mathrm{tot}=\sgn(F)\sqrt{|F|},\qquad F=\textstyle\sum_k\median_rf_{k,r}.
+\end{gathered}\label{eq:signedsqrt}
+\end{equation}
+The bands are listed in \cref{tab:timingbands}. As a check, the v5 cospectral $T_2$ agrees with the conventional auto-power
+estimate at Spearman 0.970 (276 observations with 20--500 source c\,s$^{-1}$\,PCU$^{-1}$).
+
+\paragraph{Characteristic frequency $\nu_c$ (v6, \code{v6lib.nu_centroid}).} Nine logarithmic Fourier-index bins
+$[1,1],[2,3],[4,7],\dots,[256,511]$ are formed. $P_b$ is the median over rows of the fractional variance in bin $b$; the bin
+centre is $\nu_b=\sqrt{j_\mathrm{lo}j_\mathrm{hi}}/128$\,Hz and its width in $\ln\nu$ is
+$\Delta_b=\ln\bigl((j_\mathrm{hi}+0.5)/(j_\mathrm{lo}-0.5)\bigr)$. Then
+\begin{equation}
+\ln\nu_c=\frac{\sum_bw_b\ln\nu_b}{\sum_bw_b},\qquad w_b=\frac{\max(P_b,0)}{\Delta_b},\label{eq:nuc}
+\end{equation}
+missing if $T^\ast_\mathrm{tot}<0.05$ or $\sum_bw_b\le0$. $\nu_c$ is the frequency around which most variability power per
+logarithmic frequency interval lies: a model-free stand-in for a break frequency. (NICER uses 13 octave bins and does not
+divide by $\Delta_b$; \cref{sec:nicer}.)
+
+\paragraph{State index (v7a, \code{v7lib.state_rms}).} The 0.1--4\,Hz fractional rms ($j=13$--511) is computed with
+\cref{eq:allpairs} from rows with at least two PCUs only, after removing every row that overlaps a burst interval
+$[t_\mathrm{start}-20\,\mathrm{s},\ t_\mathrm{end}]$ (MINBAR field-of-view rule and the v4 detector). With
+$\rho=\sgn(\median_rf)\sqrt{|\median_rf|}$,
+\begin{equation}
+\text{state}=\begin{cases}\text{hard-like}&\rho>0.10\\\text{soft-like}&\rho<0.075\\\text{intermediate}&\text{otherwise}\end{cases}
+\qquad(\text{unknown with fewer than 3 rows}).\label{eq:state}
+\end{equation}
+The thresholds are those of \citet[Table~2]{RemillardMcClintock2006}, which are defined for 0.1--10\,Hz. The 4\,Hz Nyquist
+limit of Standard-1 makes $\rho$ slightly low, so ``hard-like'' is conservative. A sanity gate must pass before the states are
+used: at least two thirds of the XTE J1118+480 observations must be hard-like, and two thirds of the Z-source observations
+(Cyg X-2, GX 17+2) soft-like.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Timing bands (Fourier index $j$; $\nu_j=j/128$\,Hz for Standard-1 and NICER, $j/16$\,Hz for event mode).}\label{tab:timingbands}
+\begin{tabular}{@{}l l l l l@{}}
+\toprule
+Band & $j$ & Frequency [Hz] & Data & Setting \\
+\midrule
+$T_1$ & 2--12 & 0.016--0.094 & Std-1, NICER & \code{V5_BANDS_J}, \code{V9_T_BANDS_J} \\
+$T_2$ & 13--128 & 0.10--1.0 & Std-1, NICER & \\
+$T_3$ & 129--511 & 1.0--4.0 & Std-1, NICER & \\
+state (v7a) & 13--511 & 0.10--4.0 & Std-1 & \code{V7_RMS_J} \\
+state (v9+) & 13--1280 & 0.10--10 & NICER & \code{V9_STATE_J} \\
+white-noise monitor & 12288--16383 & 96--128 & NICER & \code{V9_WHITE_J} \\
+LC & 16--63 & 1--4 & event mode & \code{V8_HF_BANDS_J} \\
+HF1 & 64--1023 & 4--64 & event mode & \\
+HF2 & 1024--8191 & 64--512 & event mode & \\
+HF3 & 8192--16383 & 512--1024 & event mode & \\
+NULL & 24576--32767 & 1536--2048 & event mode & \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{High-frequency timing from event mode (v8c)}\label{sec:eventmode}
+\file{43_v8c_events.py} first surveys the \file{SE*.evt.gz} files in each \file{pca/} directory, reading only their headers
+with an HTTP range request. A file qualifies if \code{DATAMODE} matches \verb|^E_\d+us_\d+M_0_\d+s$|, \code{TDDES2} contains
+all six anode chains, \code{TIMEDEL}~$\le2^{-12}$\,s and a \code{PCUID} column exists (\code{v8lib.mode_qualifies}). If
+several modes qualify, the one with the largest total size is downloaded (2.4\,GB in total). Events are binned at
+$2^{-12}$\,s (Nyquist 2048\,Hz) into 16\,s segments ($N=65536$) that lie inside both the spectrum GTIs and the event-file GTIs
+and do not overlap a burst. A PCU is on if each 1\,s sub-interval has an event, and $\ge2$ PCUs are required.
+
+Per segment $r$, the band numerator is $\mathrm{num}_{\mathcal B,r}=\frac{2}{N^2}\sum_{j\in\mathcal B}$(all-pairs cross
+power) and the denominator $\mathrm{den}_r=\sum_{p<q}s_ps_q$. Single 16\,s segments of faint sources gave unstable ratios,
+so the observation value is the ratio of means (\code{v8lib.hf_summary}):
+\begin{equation}
+\hat R_\mathcal B=\frac{\sum_r\mathrm{num}_{\mathcal B,r}}{\sum_r\mathrm{den}_r},\qquad
+\widehat{\mathrm{SE}}=\frac{1}{\sum_r\mathrm{den}_r}\sqrt{\frac{n}{n-1}\sum_r\bigl(\mathrm{num}_{\mathcal B,r}-\hat R_\mathcal B\,\mathrm{den}_r\bigr)^2}.\label{eq:ratioofmeans}
+\end{equation}
+This replaced the planned mean of per-segment ratios after an implementation check, before any model. The features are
+$\sgn(\hat R)\sqrt{|\hat R|}$ for LC, HF1, HF2 and HF3. Quality requires at least 10 segments and
+$|\hat R_\mathrm{NULL}/\widehat{\mathrm{SE}}|\le5$ in the empty 1536--2048\,Hz band. After results were seen, a correlated
+white component was found; a post hoc correction subtracts the null-band power scaled by bandwidth. Output:
+\file{data/v8c/processed/hf_features.csv}.
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Outputs of the RXTE chain}\label{sec:rxteoutputs}
+\begin{itemize}
+\item \file{data/<v>/processed/features.npz}: rebinned spectra and errors of the accepted observations (\cref{sec:datamodel}).
+\item \file{data/<v>/observations.csv}: every tried candidate, with status, reason, header values, dead-time terms and
+summary rates.
+\item \file{data/<v>/processed/feature_definitions.csv}: grid edges and the definitions of A and B.
+\item Timing: \file{data/v5/processed/timing_features.csv}, \file{data/v6/processed/timing_v6.csv},
+\file{data/v8b/processed/external_states_timing.csv}, \file{data/v10/processed/rxte_timing_table.csv}.
+\item Bursts and states: \file{results/v4/burst_flags.csv}, \file{results/v7b1/minbar_flags.csv},
+\file{results/v7a/states.csv}.
+\end{itemize}

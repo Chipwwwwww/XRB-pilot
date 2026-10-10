@@ -1,0 +1,164 @@
+% =====================================================================================================
+\section{Running, logging and reproducing the workflow}\label{sec:operations}
+% =====================================================================================================
+
+\subsection{Software environment}\label{sec:env}
+\begin{itemize}
+\item \textbf{Python.} Python 3.12.10 in a virtual environment on Windows (\file{logs/environment.txt}); the re-checks used
+macOS with Python 3.12.14. Packages are pinned in \file{requirements-lock.txt}, among them numpy 2.4.4, pandas 2.3.3,
+scipy 1.17.1, scikit-learn 1.8.0, astropy 7.2.0, matplotlib 3.10.9, joblib 1.6.0 and requests 2.33.1.
+\item \textbf{HEASoft.} HEASoft 6.37.1 runs in WSL Ubuntu 22.04, in a conda environment \code{henv} created by
+\file{scripts/install_heasoft_wsl.sh} (Miniforge, then \code{mamba create -n henv heasoft} from the HEASARC conda channel).
+It is called from Python with \code{wsl -d Ubuntu-22.04 -u root -- bash <script>} in three places only: the XSPEC
+cross-check (v2), \code{nh} and XSPEC \code{tbabs} (v8d), and \code{nibackgen3C50} with the NICER CALDB (v12, v13). On Linux
+the two shell scripts can be run directly.
+\item \textbf{Other tools.} \code{curl} for range requests (NICER, RXTE event files) and for downloads inside WSL.
+\end{itemize}
+
+\subsection{Environment variables}\label{sec:envvars}
+\begin{center}\small
+\begin{tabularx}{\textwidth}{@{}l >{\raggedright\arraybackslash}X@{}}
+\toprule
+Variable & Effect \\
+\midrule
+\code{XRB_VERSION} & selects the \file{config.py} block and the output folders (\code{v1} if unset); most scripts set it themselves \\
+\code{XRB_PY} & Python interpreter used by the run scripts (default \file{~/venvs/xrb-pilot/bin/python}) \\
+\code{XRB_EXTERNAL_RAW} & folder for large raw data outside the repository (default \file{~/xrb-pilot-data/raw}) \\
+\code{V4_JOBS} & parallel jobs of the v4a search (default 16) \\
+\code{V7C_SMOKE}, \code{V9_SMOKE} & quick test runs on a few sources or groups (outputs written to \file{*_smoke.csv}) \\
+\code{V9_THREADS} & parallel (source, group) pairs in the v9 NICER fetch (default 8) \\
+\code{V8_SKIP_HF} & skip the event-mode part of \file{44_v8_analysis.py} \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+\subsection{Run scripts and order}\label{sec:runorder}
+Each round has a Bash and a PowerShell driver in the repository root. They run the unit tests first, then the scripts in
+order, writing one log per script to \file{logs/<v>/}. \Cref{tab:runs} gives the order. Rounds build on each other, so they
+must be run in sequence; downloads are cached, so a re-run fetches only what is missing.
+
+{\small\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{2.5cm}>{\raggedright\arraybackslash}p{9.0cm}>{\raggedright\arraybackslash}p{4.1cm}@{}}
+\caption{Run scripts (\file{.sh}; the \file{.ps1} versions are equivalent) and the scripts they call, in order.}\label{tab:runs}\\
+\toprule
+Driver & Scripts called & Notes \\
+\midrule\endfirsthead
+\toprule Driver & Scripts called & Notes \\ \midrule\endhead
+\bottomrule\endfoot
+\file{run_all.sh} & 03, 04, 05 (v1 only), 06, 07, 08, 09; 10 with \code{--xspec} & \code{--v2} switches to v2 \\
+\file{run_v3.sh a b c} & a: 11; b: 12; c: 13, then 03/04/06 with \code{XRB_VERSION=v3c}, then 14 & verify the candidate list first \\
+\file{run_v4.sh test a burst b3 b2 b1} & test\_v4lib; a: 16; burst: 17, 18; b3: 19; b2: 20, 21, 22; b1: 23, 24, 25 & b1 downloads about 2\,GB \\
+\file{run_v5.sh} & test\_v5lib, 26, 27 & 26 stops if a check fails \\
+\file{run_v6.sh} & test\_v6lib, 28, 21 (\code{XRB_VERSION=v6}), 29, 30 & \\
+\file{run_v7.sh} & test\_v7lib, 31, 32, 33, 34, 35, 04 (\code{v7b2}), 31 \code{--sample v7b2}, 36, 37, 38, 39, 40 & 39 takes about 2\,h \\
+\file{run_v8.sh} & test\_v8lib, 41, 21 (\code{v8b}), 42, 43, 44, 45, 46 & 45 needs HEASoft (WSL) \\
+\file{run_v9.sh} & test\_v9lib, 47, 48, 49, 50, 51 & prefixes about 14\,GB \\
+\file{run_v10.sh} & test\_v10lib, 52, 53, 54 & tails about 24\,GB \\
+\file{run_v11.sh} & test\_v11lib, 55, 56, 57 & streams about 40\,GB, not stored \\
+\file{run_v12.sh} & 58, 59 & 3C50 through WSL \\
+\file{run_v13.sh} & 60, 61, 62, 63 & \\
+\end{longtable}}
+
+\paragraph{Stops.} A script exits with code 3 when a planned check fails: implementation checks (26, 43, 44, 45), the
+Z-source and XTE J1118+480 sanity gates (34, 49, 59, 63), the reproduction tolerance (37) and the overlap checks of the
+NICER selections (55, 60). The drivers stop at that point, except after 43: the recorded v8c run failed its check, so v8c is
+exploratory and the driver continues.
+
+\subsection{Logs and checkpoints}\label{sec:logs}
+\begin{itemize}
+\item \file{logs/<v>/<script>.log}: the standard output of each script, with counts, statuses and timings.
+\item \file{logs/progress.jsonl} and \file{reports/progress.json}: one entry per completed stage (\code{common.progress}).
+\item \file{logs/downloads.jsonl}: the download log of \cref{sec:provenance}. It has 50\,777 lines: 50\,773 JSON records,
+three fragments of interrupted concurrent writes and one empty line.
+\item \file{logs/04_errors.log}: tracebacks of RXTE candidates that could not be fetched or read.
+\item \file{data/v11/observations_partial.jsonl}, \file{data/v13/observations_partial.jsonl},
+\file{data/v12/bkg3c50_partial.jsonl}, \file{data/v13/bkg3c50_partial.jsonl}: checkpoints of the long NICER steps; an
+interrupted run resumes from them.
+\item \file{logs/v11/nu_star_frozen.txt}, \file{logs/v13/nu_star_frozen.txt}: the frozen $\nu^\ast$ values.
+\end{itemize}
+
+\subsection{Plans, decision log and branches}\label{sec:plans}
+\begin{itemize}
+\item \textbf{Plans.} \file{reports/preregistration.md} (v1) and \file{reports/preregistration_v2.md} to \file{_v13.md}.
+Each is a time-stamped, internally pre-specified analysis plan, written after all earlier results and before the round's data
+were downloaded. It fixes the samples, features, models, primary comparison and decision rule. The matching block of
+\file{config.py} is committed with it.
+\item \textbf{Decision log.} \file{reports/decision_log.md} records every deviation, bug fix and added comparison, with the
+time and whether it was made after the round's results were seen.
+\item \textbf{Branches.} From v3 on, each round was developed on a branch \file{vN-analysis} and merged into
+\file{master} through a pull request (v3 to v13, then a v14 wrap-up). The commit SHAs of the frozen plans are cited in
+\cref{tab:frozen}.
+\item \textbf{Reports.} Each round has a report \file{reports/report_vN_zh-TW.md}, ending with a ``re-run'' section that
+lists the exact order, durations and download volumes.
+\end{itemize}
+
+\subsection{Data locations}\label{sec:locations}
+\begin{itemize}
+\item \textbf{In git:} source tables; candidate tables; every tried observation with its status and reason
+(\file{data/*/observations.csv}); processed features (\file{features.npz}, \file{*_features.csv}); out-of-fold predictions;
+result tables (\file{results/}); figures; logs.
+\item \textbf{Not in git} (\file{.gitignore}): raw RXTE products of v1--v3 and the v8 event files in \file{data/raw/}; under
+\code{XRB_EXTERNAL_RAW}, the v4b1 files, the NICER prefixes (v9), tails (v10) and the v13 cleaned files of faint
+observations; the 3C50 spectra in \file{~/xrb-pilot-data/nicer_bkg_spectra/}; the NICER CALDB in
+\file{~/xrb-pilot-data/caldb/}. Everything can be fetched again with the scripts.
+\end{itemize}
+
+\subsection{How to reproduce a result}\label{sec:reproduce}
+\begin{enumerate}
+\item Clone the repository, create a Python 3.12 virtual environment and run \code{pip install -r requirements-lock.txt}.
+\item For v2 (XSPEC), v8d, v12 and v13, install HEASoft in WSL with \file{scripts/install_heasoft_wsl.sh}, and for v12--v13
+unpack the NICER CALDB into \file{~/xrb-pilot-data/caldb}.
+\item Run the drivers in order (\cref{tab:runs}). Each script re-downloads only missing files, re-applies the frozen rules
+and rewrites its outputs.
+\item Compare: re-downloaded files can be checked against the SHA256 values in \file{logs/downloads.jsonl}, and the
+regenerated tables against the committed ones (\code{git diff}).
+\end{enumerate}
+This was done once in full for v1--v2 on a second machine (macOS). All 2\,689 raw files matched their SHA256 values.
+\file{features.npz} agreed to $\le10^{-16}$, LR scores were identical, single RF scores differed by at most 0.006 (source means
+by at most 0.001), and all predicted labels and accuracies were identical.
+
+\subsection{Script index}\label{sec:scripts}
+{\footnotesize\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}p{5.6cm}>{\raggedright\arraybackslash}p{6.4cm}@{}}
+\caption{Analysis scripts (\file{scripts/}), what they do and their main outputs.}\label{tab:scriptmap}\\
+\toprule
+Script & Purpose & Main outputs \\
+\midrule\endfirsthead
+\toprule Script & Purpose & Main outputs \\ \midrule\endhead
+\bottomrule\endfoot
+\file{01}, \file{02} & inspect the archive; download MissionLongData catalogues & \file{data/cache/}, \file{data/raw/catalogs/} (not in git) \\
+\file{03_select_observations.py} & source table and time-stratified candidates & \file{sources.csv}, \file{observation_candidates.csv}, \file{attrition_catalog.csv} \\
+\file{04_fetch_process.py} & download Standard Products, dead time, quality rules, rebinning & \file{features.npz}, \file{observations.csv}, \file{attrition_download.csv} \\
+\file{05}, \file{06} & two-source data-flow check; dataset checks & \file{reports/step2_fits_check.md}, \file{results/data_checks.md} \\
+\file{07}, \file{08}, \file{09} & LOSO (Dummy, LR, RF) and leaky split; error analysis; source bootstrap & \file{oof_predictions_loso.csv}, \file{folds_loso.csv}, \file{bootstrap_source_level.csv} \\
+\file{10_xspec_crosscheck.py} & XSPEC check of the background subtraction (WSL) & \file{results/v2/xspec_crosscheck.csv} \\
+\file{11}, \file{12} & v3a increments; v3b 3--25\,keV & \file{results/v3/} \\
+\file{13}, \file{14} & v3c candidate catalogues and scores & \file{data/v3c/}, \file{results/v3c/} \\
+\file{15} & colour--colour summary figure & \file{figures/final/} \\
+\file{16_v4a_algorithms.py} & eight-algorithm search, nested selection & \file{results/v4/v4a_*} \\
+\file{17}, \file{18} & burst detection; burst exclusion & \file{results/v4/burst_*} \\
+\file{19_v4b3_hexte.py} & HEXTE colours & \file{data/v4b3/processed/hexte_features.csv} \\
+\file{20}--\file{22} & v4b2: position-matched sources, download, analysis & \file{data/v4b2/}, \file{results/v4b2/} \\
+\file{23}--\file{25} & v4b1: all epoch-5 pointings & \file{data/v4b1/}, \file{results/v4b1/} \\
+\file{26}, \file{27} & Standard-1 timing features; v5 analysis & \file{data/v5/processed/timing_features.csv}, \file{results/v5/} \\
+\file{28}--\file{30} & external sources; all-pairs timing and $\nu_c$; v6a--h & \file{data/v6/}, \file{results/v6/} \\
+\file{31}--\file{33} & MINBAR matching, replacement, exclusion & \file{results/v7b1/}, \file{data/v7b1/} \\
+\file{34_v7a_states.py} & variability states & \file{results/v7a/states.csv} \\
+\file{35}, \file{36} & persistent BHs & \file{data/v7b2/}, \file{results/v7b2/} \\
+\file{37_v7c1_repro.py} & reproduction of de Beurs et al. & \file{results/v7c/v7c1_*} \\
+\file{38}, \file{39} & MAXI selection, cuts and models & \file{data/v7c/}, \file{results/v7c/v7c2_*} \\
+\file{41}, \file{42} & new BHs; states and timing of the external set & \file{data/v8b/} \\
+\file{43_v8c_events.py} & event-mode features & \file{data/v8c/processed/hf_features.csv} \\
+\file{44}, \file{45} & v8a--c analysis; $N_\mathrm{H}$ correction (WSL) & \file{results/v8*/}, \file{data/v8d/} \\
+\file{47}--\file{49} & NICER selection, prefix features, analysis & \file{data/v9/}, \file{results/v9a/}, \file{results/v9b/} \\
+\file{50} & MAXI colour strata & \file{results/v9c/} \\
+\file{52}--\file{54} & NICER full files; RXTE $\nu_c$ table; pooled tests & \file{data/v10/}, \file{results/v10a/}--\file{v10c/} \\
+\file{55}--\file{57} & new NICER observations; frozen tests & \file{data/v11/}, \file{results/v11/} \\
+\file{58}, \file{59} & 3C50 (WSL); corrected analysis & \file{data/v12/}, \file{results/v12/} \\
+\file{60}--\file{63} & third NICER set; frozen v12 pipeline & \file{data/v13/}, \file{results/v13/} \\
+\file{40}, \file{46}, \file{51}, \file{64} & summary figures & \file{figures/v7/}, \file{figures/v8/}, \file{figures/v9/}, \file{figures/final/} \\
+\file{common.py}, \file{spectra.py}, \file{config.py}, \file{plotstyle.py} & download and progress log; Standard-2 reader; settings; plot style & -- \\
+\file{v3lib.py}--\file{v11lib.py} & round libraries (representations, models, bootstrap, timing, NICER) & -- \\
+\file{test_v4lib.py}--\file{test_v11lib.py} & implementation checks on synthetic data & \file{logs/v*/test_*.log} \\
+\file{v12_bkg3c50.sh}, \file{v8d_heasoft.sh}, \file{install_heasoft_wsl.sh} & HEASoft steps in WSL & -- \\
+\end{longtable}}

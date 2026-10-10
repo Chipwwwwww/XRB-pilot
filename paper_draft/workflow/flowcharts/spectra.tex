@@ -1,0 +1,38 @@
+% RXTE/PCA Standard-2 spectral pipeline and the representations added by each version. Copied from report_en/figures/flowcharts (styles in workflow_report.tex).
+\begin{tikzpicture}[x=1cm, y=1cm,
+  st/.style={fc proc, text width=2.62cm, minimum height=15mm},
+  rep/.style={fc model, text width=2.2cm, minimum height=15mm},
+  badge/.style={fc ver, anchor=south west}]
+  % row 1: from the archive files to the rebinned spectrum
+  \node[fc data, text width=2.62cm, minimum height=15mm] (f) at (1.45,0) {Std-2 Standard Products: total, background, response (Sec.~\ref{sec:pca})};
+  \node[st] (net) at (4.62,0)  {net rate $D\,(r^s-r^b)$ per channel (Eq.~\ref{eq:net})};
+  \node[st] (dtf) at (7.79,0)  {deadtime factor $D$: v1 good xenon; v2+ Std-1 rates (Eq.~\ref{eq:dtf})};
+  \node[st] (reb) at (10.96,0) {rebin to the 45-bin 5--25\,keV grid, per PCU (Eq.~\ref{eq:rebin})};
+  \node[fc gate, text width=2.62cm, minimum height=15mm] (qual) at (14.13,0) {quality rules: exposure, S/N $\ge10$, DTF $\le0.10$, position};
+  \foreach \a/\b in {f/net,net/dtf,dtf/reb,reb/qual} \draw[fc arr] (\a) -- (\b);
+  \node[badge] at ([xshift=2pt, yshift=-0.4pt]dtf.north west) {v1 / v2};
+  % the accepted spectrum that every representation starts from
+  \node[fc, draw=inkgrey, fill=boxgrey, text width=2.62cm, minimum height=10mm] (x) at (14.13,-1.95) {accepted spectrum $x_{ij}$ and $F_i$ (Eq.~\ref{eq:F})};
+  \draw[fc arr] (qual) -- (x);
+  % representations, each with the version that added it, fed by one bus line
+  \node[rep] (A)  at (1.25,-4.15)  {A: asinh$(x_{ij}/a)$, intensity kept};
+  \node[rep] (B)  at (3.85,-4.15)  {B: shape $x_{ij}/F_i$};
+  \node[rep] (H)  at (6.45,-4.15)  {H: two colours $h_1,h_2$; HI adds $\log_{10}F$};
+  \node[rep] (HB) at (9.05,-4.15)  {H+B, HI+A: concatenations};
+  \node[rep] (B3) at (11.65,-4.15) {B3, H3: 50-bin grid from 2.88\,keV (3--5\,keV colour)};
+  \node[rep] (R)  at (14.25,-4.15) {R $=x_{ij}/p_{ij}$, H$_R$: relative to a folded $\Gamma=2$ power law};
+  \foreach \n/\v in {A/v1, B/v1, H/v2, HB/v3a, B3/v3b, R/v4b2} \node[badge] at ([xshift=2pt, yshift=-0.4pt]\n.north west) {\v};
+  \coordinate (bus) at (0,-3.0);
+  \draw[semithick, inkgrey] (x.south) -- (x.south |- bus);
+  \draw[semithick, inkgrey] (A.north |- bus) -- (R.north |- bus);
+  \foreach \n in {A,B,H,HB,B3,R} \draw[fc arr] (\n.north |- bus) -- (\n.north);
+  % HEXTE branch (v4b3)
+  \node[fc data, text width=2.62cm, minimum height=12mm] (hx) at (1.45,-6.35) {HEXTE cluster-B spectra before 2009-12-14};
+  \node[fc proc, text width=4.3cm, minimum height=12mm] (hxc) at (5.62,-6.35) {X$_1$ = HEXTE 25--40 / PCA 16--25\,keV; X$_2$ = HEXTE 40--60 / 25--40\,keV (Eq.~\ref{eq:hexte})};
+  \node[rep, text width=3.0cm, minimum height=12mm] (HX) at (10.0,-6.35) {H+X: colours + X$_1$, X$_2$ + missing flags};
+  \draw[fc arr] (hx) -- (hxc); \draw[fc arr] (hxc) -- (HX);
+  \draw[fc arr] (H.south) -- ++(0,-0.45) -| (HX.north);
+  \node[badge] at ([xshift=2pt, yshift=-0.4pt]HX.north west) {v4b3};
+  \node[fc note, text width=3.2cm, anchor=west] at (12.0,-6.35)
+     {Checks: XSPEC reproduces the net rates (v2, Sec.~\ref{sec:xspec}); the response check uses $p_{ij}$ from v1 (the response check of Sec.~\ref{sec:pl2}).};
+\end{tikzpicture}

@@ -1,0 +1,36 @@
+% Evaluation and inference: the chain from the design matrix to a verdict, with the version that added each tool.
+% Copied from report_en/figures/flowcharts (styles in workflow_report.tex).
+\begin{tikzpicture}[x=1cm, y=1cm,
+  st/.style={fc model, text width=2.62cm, minimum height=15mm},
+  inf/.style={fc model, text width=2.62cm, minimum height=14mm},
+  badge/.style={fc ver, anchor=south west}]
+  % row 1: from the design matrix to the metrics
+  \node[fc data, text width=2.62cm, minimum height=15mm] (X) at (1.45,0) {design matrix $(\Xm,\yv,\gv)$ (Sec.~\ref{sec:datamodel})};
+  \node[st] (lo) at (4.62,0) {LOSO: one fold per source; nested inside the training sources if anything is selected};
+  \node[st] (oof) at (7.79,0) {out-of-fold scores: no observation scored by a model that saw its source};
+  \node[st] (src) at (10.96,0) {source score = mean OOF score; threshold 0.5};
+  \node[st] (met) at (14.13,0) {source BA, source AUC, obs.\ BA; Brier, log loss};
+  \foreach \a/\b in {X/lo,lo/oof,oof/src,src/met} \draw[fc arr] (\a) -- (\b);
+  % row 2: inference on fixed scores (no refitting)
+  \node[inf] (bs) at (1.45,-2.6)  {paired class-stratified source bootstrap, 2000};
+  \node[inf] (sb) at (4.62,-2.6)  {state-stratified bootstrap (AUC within a state)};
+  \node[inf] (pb) at (7.79,-2.6)  {pooled bootstrap over the union of sources};
+  \node[inf] (pt) at (10.96,-2.6) {colour-conditional source permutation};
+  \node[inf] (cf) at (14.13,-2.6) {conformal sets; observation-budget curves};
+  \coordinate (bus) at (0,-1.45);
+  \draw[semithick, inkgrey] (met.south) -- (met.south |- bus);
+  \draw[semithick, inkgrey] (bs.north |- bus) -- (cf.north |- bus);
+  \foreach \n in {bs,sb,pb,pt,cf} \draw[fc arr] (\n.north |- bus) -- (\n.north);
+  % row 3: decision and outputs
+  \node[fc gate, text width=2.62cm, minimum height=13mm] (ic) at (1.45,-4.75) {implementation checks passed before any result is seen};
+  \node[fc dec, text width=2.1cm, aspect=2.1] (dec) at (6.2,-4.75) {interval excludes 0, or $p<0.05$?};
+  \node[fc, draw=inkgrey, fill=boxgrey, text width=2.62cm, minimum height=13mm] (vd) at (10.0,-4.75) {verdict with its status tag};
+  \node[fc descr, text width=2.62cm, minimum height=13mm] (uo) at (14.13,-4.75) {usable outputs, descriptive};
+  \draw[fc arr] (ic) -- (dec);
+  \foreach \n in {bs,sb,pb,pt} \draw[fc arr] (\n.south) -- ++(0,-0.35) -| (dec.north);
+  \draw[fc arr] (dec) -- (vd);
+  \draw[fc arr] (cf) -- (uo);
+  % badges: the version that introduced each element
+  \foreach \n/\v in {lo/{v1; nested v4a}, oof/v1, src/v1, met/{v1; Brier, log loss v6g}, bs/{v2 (paired)}, sb/{v7a, v8a}, pb/v10a, pt/{v6d; pooled v10b}, cf/{v6e, v6f}, ic/{v4 on}}
+     \node[badge] at ([xshift=2pt, yshift=-0.4pt]\n.north west) {\v};
+\end{tikzpicture}

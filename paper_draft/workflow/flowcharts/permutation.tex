@@ -1,0 +1,25 @@
+% Colour-conditional source permutation test (Sec. 5.6, Algorithm 3). Copied from report_en/figures/flowcharts (styles in workflow_report.tex).
+\begin{tikzpicture}[x=1cm, y=1cm,
+  st/.style={fc proc, text width=2.62cm, minimum height=15mm},
+  lab/.style={font=\tiny, text=inkgrey, inner sep=1pt}]
+  % row 1: label-free residualisation and the statistic
+  \node[fc data, text width=2.62cm, minimum height=15mm] (in) at (1.45,0) {per observation: colours $\vect h$, feature $F$ (e.g.\ $\log_{10}\nu_c$), source};
+  \node[st] (kn) at (4.62,0) {kNN regression of $F$ on standardised colours, $K=25$, other sources only};
+  \node[st] (rs) at (7.79,0) {residual $r_i=F_i-\hat F_i$ (Eq.~\ref{eq:knnreg})};
+  \node[st] (sm) at (10.96,0) {source mean residual $\bar r_k$};
+  \node[fc model, text width=2.62cm, minimum height=15mm] (D) at (14.13,0) {$D$ = mean over BH sources $-$ mean over NS sources (Eq.~\ref{eq:D})};
+  \foreach \a/\b in {in/kn,kn/rs,rs/sm,sm/D} \draw[fc arr] (\a) -- (\b);
+  \draw[decorate, decoration={brace, amplitude=4pt}, inkgrey] ([yshift=2.5mm]kn.north west) -- node[lab, above=4pt] {labels not used} ([yshift=2.5mm]sm.north east);
+  % row 2 (right to left): null distribution, p-value, decision
+  \node[fc model, text width=2.62cm, minimum height=15mm] (nl) at (14.13,-2.45) {$\Pi=20{,}000$ random relabellings of the sources, number of BHs fixed: $D^{\ast}$};
+  \node[st] (pv) at (10.96,-2.45) {two-sided $p$: share of the $|D^\ast|$ that reach $|D|$ (Eq.~\ref{eq:permp})};
+  \node[fc dec, text width=1.35cm, aspect=1.6] (dc) at (7.79,-2.45) {$p<0.05$?};
+  \node[fc yes, text width=2.1cm, minimum height=9mm] (y) at (4.62,-1.85) {detected};
+  \node[fc no, text width=2.1cm, minimum height=9mm] (n) at (4.62,-3.05) {not detected};
+  \draw[fc arr] (D) -- (nl); \draw[fc arr] (nl) -- (pv); \draw[fc arr] (pv) -- (dc);
+  \draw[fc arr] (dc.west) -- ++(-0.3,0) |- node[lab, pos=0.75, above] {yes} (y.east);
+  \draw[fc arr] (dc.west) -- ++(-0.3,0) |- node[lab, pos=0.75, below] {no} (n.east);
+  % where the test was used
+  \node[fc note, text width=3.0cm, anchor=north west] at (0.0,-1.55)
+     {Used in v6d (4 features, Holm adjustment), v9b, v10b, v11b, v12a, v13b. Pooled versions (v10b): $D$ = mean of the instruments' $D$; relabelling within strata of instrument membership.};
+\end{tikzpicture}

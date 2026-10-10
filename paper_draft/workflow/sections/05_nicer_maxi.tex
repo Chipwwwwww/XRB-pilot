@@ -1,0 +1,217 @@
+% =====================================================================================================
+\section{NICER and MAXI processing}\label{sec:nicermaxi}
+% =====================================================================================================
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{NICER/XTI: from event files to features (v9--v13)}\label{sec:nicer}
+The NICER chain (\cref{fig:nicerflow}) works on cleaned event files without HEASoft. It uses the same cospectral idea
+as Standard-1, with the seven NICER measurement/power units (MPUs) as detectors. HEASoft enters only for the 3C50
+background (\cref{sec:3c50}). Library code: \file{v9lib.py} (parser, segments, features), \file{v10lib.py} (tail and
+background proxy), \file{v11lib.py} (streaming, Lorentzians).
+
+\begin{figure}[htbp]
+\centering
+\input{flowcharts/nicer}
+\caption{NICER/XTI feature pipeline: top row left to right, then bottom row right to left. The v9 steps were frozen before
+the observations of v11 were read, and the whole chain, including 3C50, before those of v13.}\label{fig:nicerflow}
+\end{figure}
+
+\paragraph{Step 1: read the events.} \code{v9lib.PrefixParser} turns the compressed byte stream into event arrays
+(\cref{sec:get-nicer}):
+\begin{enumerate}
+\item \code{zlib} (gzip mode) decompresses each new piece into a buffer;
+\item once the buffer holds them, the primary and \code{EVENTS} headers are parsed from 2880-byte blocks;
+\item \code{row_dtype} builds a big-endian numpy record type from \code{TFIELDS}, \code{TTYPEn} and \code{TFORMn}, checking
+that the row length equals \code{NAXIS1};
+\item complete rows are converted and only \code{TIME}, \code{PI} and \code{DET_ID} are kept;
+\item the parse is \emph{complete} when \code{NAXIS2} rows have been read.
+\end{enumerate}
+Events are expected in time order; if they are not, they are sorted (and flagged).
+
+\paragraph{Step 2: good intervals and segments.} A good interval is a maximal stretch with no gap longer than 1\,s between
+consecutive events of any energy (\code{v9lib.good_intervals}). Each interval $[a,b]$ is cut into consecutive 128\,s
+segments starting at $a$. Only 2--10\,keV events (PI 200--999; PI is in units of 10\,eV) are used for timing. The detector
+of an event is its MPU, $m=\lfloor\mathtt{DET\_ID}/10\rfloor\in\{0,\dots,6\}$. Events are binned at $1/256$\,s ($N=32768$,
+Nyquist 128\,Hz). An MPU is on in a segment if each of the eight 16\,s blocks contains a 2--10\,keV event. A segment needs at
+least 2 MPUs on.
+
+\paragraph{Step 3: bursts.} The 1\,s 2--10\,keV light curve inside the good intervals (\code{v9lib.lc_1s}) is searched with
+the RXTE burst rule (\cref{eq:burst}, \code{v9lib.burst_events}). Every segment that overlaps
+$[t_\mathrm{start}-20\,\mathrm{s},\ t_\mathrm{end}+200\,\mathrm{s}]$ of a detected burst is skipped; the number skipped is
+stored as \code{n_seg_burst_removed}.
+
+\paragraph{Step 4: per-segment statistics (\code{v9lib.segment_stats}).} For the $n$ MPUs that are on, with mean counts per
+bin $s_m$ (no background subtraction) and transforms $X_{m,j}$, the all-pairs cross power is
+$\mathrm{cross}_j=\bigl(|\sum_mX_{m,j}|^2-\sum_m|X_{m,j}|^2\bigr)/(2\sinc^2(j/N))$ (\cref{eq:allpairs}). Each segment
+stores a numerator $\mathrm{num}_{\mathcal B,r}=\frac{2}{N^2}\sum_{j\in\mathcal B}\mathrm{cross}_j$ for every band and for each
+of the 13 octave bins, and the denominator $\mathrm{den}_r=\sum_{m<m'}s_ms_{m'}$.
+
+\paragraph{Step 5: observation features (\code{v9lib.obs_features}).}
+\begin{itemize}
+\item \textbf{Timing.} Each band is combined over segments by the ratio of means with its delta-method error
+(\cref{eq:ratioofmeans}), and converted to a signed square root. The bands are $T_1$, $T_2$, $T_3$, the state band
+0.1--10\,Hz and the 96--128\,Hz white-noise monitor (\cref{tab:timingbands}).
+\item \textbf{Colours.} \emph{All} events of all detectors inside the accepted segment windows are counted in PI 200--399
+($A$, 2--4\,keV), 400--599 ($B$, 4--6\,keV) and 600--999 ($C$, 6--10\,keV); $c_1=B/A$ and $c_2=C/B$. The colours therefore
+come from exactly the time windows used for timing.
+\item \textbf{Count rate.} \code{rate_2_10} is the mean over segments of the 2--10\,keV counts of the MPUs that are on,
+divided by 128\,s.
+\item \textbf{$\nu_c$.} The 13 octave bins $k=0,\dots,12$ cover $j\in[2^k,2^{k+1}-1]$ (1/128--64\,Hz). With
+$\ell_k=\sum_r\mathrm{num}_{k,r}/\sum_r\mathrm{den}_r$, $w_k=\max(\ell_k,0)$ and $\nu_k=2^{k+0.5}/128$\,Hz,
+$\nu_c=\exp\bigl(\sum_kw_k\ln\nu_k/\sum_kw_k\bigr)$. It is missing if $\sqrt{\max(\sum_k\ell_k,0)}<0.05$. Unlike the RXTE
+version (\cref{eq:nuc}), the weights are not divided by the bin width; for octave bins this matters only for the lowest bin.
+\item \textbf{State.} \Cref{eq:state} is applied to the 0.1--10\,Hz rms, the full band of \citet{RemillardMcClintock2006}.
+\item \textbf{Status.} \code{ok} needs at least 3 valid segments and \code{rate_2_10}~$\ge20$\,c\,s$^{-1}$; otherwise
+\code{missing} or \code{excluded} (\cref{tab:qualityrules}).
+\end{itemize}
+
+\paragraph{Background proxy (v10, \code{v10lib.bkg_ratio}).} $\beta=N(\mathrm{PI}\,1200\text{--}1499)/N(\mathrm{PI}\,200\text{--}999)$
+over the whole file, the ratio of 12--15\,keV to 2--10\,keV events. Above 12\,keV the source contributes little, so a high
+$\beta$ indicates background. The threshold, frozen at 0.2687, is the 99th percentile of $\beta$ among observations brighter
+than 500\,c\,s$^{-1}$, where the background is negligible. It was used only for sensitivity analyses in v10 and v11.
+
+\paragraph{Per-bin errors and Lorentzian fits (v11c, \code{v11lib}).}\label{sec:lorentz} \code{lb_se} gives a delta-method
+error for each octave-bin variance $\ell_k$. \code{fit_lorentz} fits one or two zero-centred Lorentzians whose integrated
+variance in bin $[\nu^\mathrm{lo}_k,\nu^\mathrm{hi}_k]$ (edges $(j\mp0.5)/128$\,Hz) is
+\begin{equation}
+L_k(r^2,\Delta)=r^2\,\frac{2}{\pi}\Bigl[\arctan\frac{\nu^\mathrm{hi}_k}{\Delta}-\arctan\frac{\nu^\mathrm{lo}_k}{\Delta}\Bigr],\qquad\Delta\in[1/128,\,128]\ \mathrm{Hz}.\label{eq:lorentz}
+\end{equation}
+The fit is weighted least squares in log-parameters (\code{scipy.optimize.least_squares}), with four starting points per
+model; at least 6 usable bins are required. With $\mathrm{BIC}=\chi^2+k\ln n$, two components are chosen if
+$\mathrm{BIC}_1-\mathrm{BIC}_2>6$. The width of the lowest-frequency component is $\nu_L$.
+
+\paragraph{Reading modes and storage.} v9 parsed only a prefix of each file, stopping at 6 segments (\cref{tab:nicermodes}).
+v10 appended the tail up to 1\,GB and re-parsed prefix and tail as one stream (\code{v10lib.read_full}); 366 of the 368 N1
+observations remained \code{ok}. v11 and v13 streamed whole files into the frozen \code{obs_features} without storing them
+(\code{v11lib.obs_features_stream}), with 64\,MB requests in windows of 6 concurrent requests consumed in order. The fetch
+scripts keep a checkpoint (\file{observations_partial.jsonl}), so an interrupted run resumes without re-reading finished
+observations.
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{NICER background: 3C50 correction and screening (v12, v13)}\label{sec:3c50}
+\Cref{fig:3c50flow} shows the background step. It is applied only to observations fainter than 500\,c\,s$^{-1}$ in
+2--10\,keV; for brighter ones the background is treated as negligible ($f=0$).
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[x=1cm, y=1cm,
+  st/.style={fc proc, text width=2.62cm, minimum height=16mm},
+  badge/.style={fc ver, anchor=south west}]
+  \node[fc data, text width=2.62cm, minimum height=16mm] (in) at (1.45,0) {accepted NICER obs.\ (\code{ok}) with rate $<500$\,c\,s$^{-1}$};
+  \node[st] (dl) at (4.62,0) {WSL: \code{curl} \code{_cl} and \code{_ufa} files (3 tries); SHA256 to the log};
+  \node[st] (bg) at (7.79,0) {\code{nibackgen3C50}, CALDB library, \code{gainepoch=AUTO}};
+  \node[st] (sp) at (10.96,0) {keep \file{tot_<o>.pi}, \file{bkg_<o>.pi}; delete event files};
+  \node[st] (fr) at (14.13,0) {band fractions $f_\mathcal{X}=\sum B/\sum T$ for $\mathcal X$ = A, B, C, T};
+  \foreach \a/\b in {in/dl,dl/bg,bg/sp,sp/fr} \draw[fc arr] (\a) -- (\b);
+  \node[fc dec, text width=1.9cm, aspect=1.9] (q) at (14.13,-2.55) {3C50 ok and $f_\mathrm{T}\le0.20$?};
+  \node[st] (co) at (10.2,-2.55) {correct rms by $1/(1-f_\mathrm{T})$, colours band by band (Eq.~\ref{eq:3c50}); new state};
+  \node[fc no, text width=2.62cm, minimum height=10mm] (ex) at (14.13,-4.5) {excluded: 3C50 failed or $f_\mathrm{T}>0.20$};
+  \node[fc, draw=inkgrey, fill=boxgrey, text width=3.1cm, minimum height=16mm] (out) at (6.3,-2.55) {\file{nicer_corrected_screened.csv} (v12); v13 test table};
+  \node[fc data, text width=2.62cm, minimum height=12mm] (br) at (1.45,-2.55) {bright obs.: $f=0$, kept unchanged};
+  \draw[fc arr] (fr) -- (q); \draw[fc arr] (q) -- node[fc note, above] {yes} (co); \draw[fc arr] (q) -- node[fc note, right] {no} (ex);
+  \draw[fc arr] (co) -- (out); \draw[fc arr] (br) -- (out);
+  \foreach \n/\v in {in/v12, dl/v12, bg/v12, sp/v12, fr/v12, co/{v12, frozen in v13}}
+     \node[badge] at ([xshift=2pt, yshift=-0.4pt]\n.north west) {\v};
+\end{tikzpicture}
+\caption{3C50 background step (\file{58_v12_bkg.py}, \file{62_v13_bkg.py}, \file{v12_bkg3c50.sh}; correction in
+\code{corrected} of \file{59_v12_analysis.py}, copied unchanged into \file{63_v13_analysis.py}).}\label{fig:3c50flow}
+\end{figure}
+
+\paragraph{Running 3C50.} The 3C50 model \citep{Remillard2022} estimates the background spectrum of an observation from a
+library of blank-sky observations, selected by background-sensitive count rates measured in the observation itself (hence
+the unfiltered \code{_ufa} file). For each faint observation the Python driver calls, through \code{wsl -d Ubuntu-22.04}, the shell
+script \file{v12_bkg3c50.sh} with the ObsID, the cleaned and unfiltered URLs, an output folder and the CALDB folder. The
+script activates the HEASoft conda environment and points \code{CALDB}, \code{CALDBCONFIG} and \code{CALDBALIAS} at the
+unpacked library. It downloads the two files into \file{/tmp/bkg3c50/<obsid>/xti/event_cl/} and unzips them. It then runs
+\begin{verbatim}
+nibackgen3C50 rootdir=/tmp/bkg3c50 obsid=<obsid>
+              bkgidxdir=CALDB bkglibdir=CALDB gainepoch=AUTO clobber=yes chatter=1
+              totspec=tot_<obsid> bkgspec=bkg_<obsid>
+\end{verbatim}
+copies the two spectra out and deletes the working folder. The driver reads the spectra (\code{RATE}, or \code{COUNTS}
+divided by \code{EXPOSURE}) and sums them in the PI bands A, B, C and T (200--999). It records the band rates $T_\mathcal X$
+and $B_\mathcal X$, the fractions $f_\mathcal X=B_\mathcal X/T_\mathcal X$ and the 3C50 exposure in
+\file{data/v12/processed/bkg3c50.csv}. Six workers run in parallel, and a checkpoint file makes the step resumable.
+
+\paragraph{Failures.} In v12, 362 of the 503 faint observations gave spectra; 141 failed, mostly because the tool rejects
+data processed with the oldest gain calibration. In v13, 109 of 148 succeeded. Failed observations are excluded from the
+corrected analyses.
+
+\paragraph{Correction and screening.} An observation is kept if it is bright, or if 3C50 succeeded with
+$f_\mathrm{T}\le0.20$; thresholds 0.10 and 0.30 are sensitivity variants. For kept faint observations,
+\begin{equation}
+T_k'=\frac{T_k}{1-f_\mathrm{T}}\quad(k=1,2,3,\text{state}),\qquad c_1'=\frac{B(1-f_B)}{A(1-f_A)},\qquad c_2'=\frac{C(1-f_C)}{B(1-f_B)},\label{eq:3c50}
+\end{equation}
+and the state is re-classified with the corrected state rms. A fractional rms is normalised to the total mean count rate;
+renormalising it to the source mean $S=(1-f)(S+B)$ multiplies it by $1/(1-f)$, assuming a constant background. $\nu_c$ is
+not changed, because it depends only on the shape of the power spectrum. A check requires the 3C50 total 2--10\,keV rate to
+be within 0.7--1.3 of the pipeline rate for at least 90\% of observations.
+
+\paragraph{GTI-restricted variant (v13, descriptive).} For the faint v13 observations, the cleaned event files were kept
+(\code{V13_KEEP_CL}). Their features were recomputed using only events inside the GTIs of the 3C50 total spectrum
+(\code{gti_restricted} in \file{63_v13_analysis.py}), to check that the two time selections give the same picture.
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{MAXI/GSC: daily light curves (v7c, v8d, v9c)}\label{sec:maxi}
+MAXI points are days, not pointed observations. \Cref{fig:maxiflow} shows the chain.
+
+\begin{figure}[htbp]
+\centering
+\input{flowcharts/maxi}
+\caption{MAXI/GSC pipeline: the strict pipeline (v7c2), the absorption correction (v8d), the colour strata (v9c) and the
+reproduction of \citet{deBeurs2022} (v7c1), which uses their processed colours instead of this pipeline.}\label{fig:maxiflow}
+\end{figure}
+
+\paragraph{Source matching (\file{38_v7c2_select.py}).}
+\begin{enumerate}
+\item The label lists are frozen first: 25 BHs \citep{Marcel2026}, the 115 MINBAR bursters and the pulsar lists. Sources
+with a pulse period in the Liu et al.\ HMXB or LMXB catalogues (CDS J/A+A/455/1165 and J/A+A/469/807) or in Patruno \&
+Watts form the separate pulsar class. MINBAR bursters without a pulse period are the ``non-pulsing'' NSs (NPNS).
+\item The MAXI source index is scraped from the 13 category pages \file{http://maxi.riken.jp/top/lc_<cat>.html}. Each entry
+gives a name and a J-identifier, whose digits encode an approximate position (RA hhmm, Dec $\pm$dd.d).
+\item Entries whose name contains ``with'' are blends of two sources and are removed. The remaining MAXI names are resolved
+with Sesame. A label source matches a MAXI source within $0.1^\circ$ of the Sesame position, or within $0.3^\circ$ of the
+J-name position if Sesame fails.
+\item A MAXI source matched by label sources of different classes, or by several label sources that are not aliases of one
+object, is excluded as ambiguous (\file{data/v7c/c2_sources_ambiguous.csv}).
+\end{enumerate}
+
+\paragraph{Light curves and cuts.} For every matched source the 1-day light curve
+\file{<J>_g_lc_1day_all.dat} is downloaded (columns MJD, total flux and error, then $L$, $M$, $H$ with errors for 2--4,
+4--10 and 10--20\,keV). The cuts of \citet{deBeurs2022} are then applied:
+\begin{itemize}
+\item every band must have flux/error $\ge\sqrt3$ and a positive error;
+\item points with $L+M+H\ge$ mean $+\,10$\,sd of the source are dropped;
+\item the source needs at least 100 remaining points.
+\end{itemize}
+Result: \file{data/v7c/maxi_points.csv} with 132\,057 points of 13 BH, 48 NPNS and 39 pulsar sources.
+
+\paragraph{Features (\file{39_v7c2_analysis.py}).} Per point,
+\begin{equation}
+\mathrm{SC}=\frac{M-L}{M+L},\qquad\mathrm{HC}=\frac{H-L}{H+L},\qquad C_4=\frac{H-M}{H+M},\qquad
+\mathrm{RelInt}=\frac{L+M+H}{Q_{99.99}(L+M+H)},\label{eq:maxi}
+\end{equation}
+where $Q_{99.99}$ is the 99.99th percentile over that source's points. The feature sets are CCI = (SC, HC, RelInt),
+C2D = (SC, HC) and C1D = ($C_4$), the only colour without the 2--4\,keV band.
+
+\paragraph{Absorption correction (v8d, \file{45_v8d_nh.py}, \file{v8d_heasoft.sh}).}
+\begin{enumerate}
+\item HEASoft \code{nh} gives the HI4PI column at each source position (\code{disio=0.1}; the weighted average
+\code{avwnh} is used).
+\item XSPEC computes photon fluxes of \code{tbabs*powerlaw} ($\Gamma=2$; \code{abund wilm}, \code{xsect vern}; a dummy
+response from 0.5 to 30\,keV) in the three MAXI bands. The grid is $N_\mathrm{H}=0$ plus 200 logarithmic steps from
+$10^{19}$ to $10^{23.5}$\,cm$^{-2}$.
+\item The transmission is $t_\mathcal X(N_\mathrm H)=\Phi_\mathcal X(N_\mathrm H)/\Phi_\mathcal X(0)$, interpolated linearly
+in $\log N_\mathrm H$.
+\item The corrected fluxes $L/t_L$, $M/t_M$, $H/t_H$ give SC$'$, HC$'$, $C_4'$ and RelInt$'$ through \cref{eq:maxi} (sets
+C2D$_{N_\mathrm H}$, C1D$_{N_\mathrm H}$, CCI$_{N_\mathrm H}$).
+\end{enumerate}
+
+\paragraph{Colour strata (v9c, \file{50_v9c_maxi_strata.py}).} The points are split into tertiles of $C_4$, and the
+models are compared within each tertile.
+
+\paragraph{Reproduction of de Beurs et al.\ (v7c1, \file{37_v7c1_repro.py}).} Their processed colours of 44 systems and
+their ten 20\% subsamples are used with their three-class settings (BH, NPNS, pulsar): kNN with $k=24$ and SVM with $C=0.655$,
+$\gamma=0.585$. The reproduction counts as successful if, for each algorithm, the number of correctly classified systems
+is within 2 of the published number (kNN 37, SVM 36) and the number of correct BHs within 1 (6 and 5)
+(\code{V7_REPRO_TOL_SOURCES}, \code{V7_REPRO_TOL_BH}). Otherwise the script stops.

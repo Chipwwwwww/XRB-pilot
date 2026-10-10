@@ -1,0 +1,201 @@
+% =====================================================================================================
+\section{Sample construction: sources and observations}\label{sec:samples}
+% =====================================================================================================
+
+Sample construction runs in two stages. First, \emph{sources} are chosen and labelled from published tables. Second, for each
+source, \emph{observations} are chosen from the archive catalogue by a rule that uses only times, exposures, count rates and
+positions, never the spectrum or the light curve. Data are downloaded and processed only after both lists are written. The
+processing can reject an observation (quality rules); the next candidate of the same time group then takes its place.
+\Cref{fig:selectflow} summarises the procedure.
+
+\begin{figure}[htbp]
+\centering
+\input{flowcharts/selection}
+\caption{Selection of sources and observations. Apart from the quality rules, the choice of an observation depends only on
+the label list, the catalogue position, the eligibility rules, the time order and a seeded random order.}\label{fig:selectflow}
+\end{figure}
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Source labels}\label{sec:labels}
+The label is a property of the source: $y=1$ for a black hole and $y=0$ for a neutron star. A BH needs a dynamical mass
+function, and an NS needs type-I X-ray bursts or coherent accretion-powered pulsations. BH candidates (X-ray evidence only)
+are never labels. \Cref{tab:labelrules} lists the rule of each round. The realised source lists, with the evidence and a
+reference URL for every source, are \file{data/<v>/sources.csv}.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Labelling and eligibility rules by round. ``Pointing'' is the largest separation allowed between an observation's
+pointing and the source position. Every round also requires a catalogue exposure $\ge1000$\,s (RXTE: and
+\code{STD1RATE}~$\ge5$\,c\,s$^{-1}$\,PCU$^{-1}$).}\label{tab:labelrules}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{1.35cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{3.9cm}@{}}
+\toprule
+Round & BH rule & NS rule & Pointing; time window; minimum eligible \\
+\midrule
+v1 & 4 BlackCAT dynamical BHs & 4 Galloway+2008 bursters & $0.1^\circ$ from the catalogue median; gain epoch 5 to MJD 54094; 30 \\
+v2, v3 & every BlackCAT Table~4 BH with a MissionLongData catalogue & every Galloway+2008 appendix-A burster with a catalogue & $0.1^\circ$; gain epoch 5 (MJD 51677--55931); 10 \\
+v3c & 16 BlackCAT candidates (prediction targets only) & -- & as v2 \\
+v4b2 & BlackCAT BHs found by position & Galloway+2008 Table~3 bursters found by position & $0.1^\circ$ from Sesame; all gain epochs; 10 \\
+v6 & HMXB BHs (Cyg X-1, LMC X-3) & accreting millisecond pulsars; 4 slow pulsars as a stress set & as v4b2 \\
+v7b2 & Cyg X-1, LMC X-1, LMC X-3 \citep{Marcel2026} & -- & $0.1^\circ$ from Sesame; gain epoch 5; 10 \\
+v7c (MAXI) & \citet{Marcel2026} Table~1 & MINBAR bursters without pulsations; pulsars as a separate class & MAXI source within $0.1^\circ$ ($0.3^\circ$ fallback); $\ge100$ daily points \\
+v8b & Marcel+2026 BHs not used before (GS 1354$-$64, SS 433) & -- & $0.1^\circ$ from Sesame; all gain epochs; 3 \\
+v9--v13 (NICER) & Marcel+2026 Table~1, Sesame positions & MINBAR bursters; entries with another MINBAR entry within $0.05^\circ$ removed & target within $0.05^\circ$; mission; 5 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{Confused fields.} NICER does not image, so a MINBAR source with another MINBAR source within $0.05^\circ$ is
+flagged \code{excluded_confused} and not used. Nine of the 115 MINBAR sources are removed this way in \file{47_v9_select.py}.
+For RXTE, the $0.1^\circ$ pointing rule plays the same role; \file{config.py} notes, for example, that 4U 1907+097 lies
+about $0.4^\circ$ from the candidate XTE J1908+094.
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Catalogue-level eligibility}\label{sec:eligibility}
+For RXTE (\file{03_select_observations.py} and its copies), each source's MissionLongData catalogue goes through the steps
+below. The number of rows left after each step is written to \file{results/<v>/attrition_catalog.csv}:
+\begin{enumerate}
+\item drop duplicated \code{OBSID}s;
+\item keep the time window of the round: gain epoch 5 (MJD 51677 to 54094 in v1, to 55931 from v2), or all gain epochs
+(v4b2, v6, v8b);
+\item keep \code{EXPOSURE}~$\ge1000$\,s;
+\item keep \code{STD1RATE}~$\ge5$\,c\,s$^{-1}$\,PCU$^{-1}$;
+\item keep pointings within $0.1^\circ$ of the source position (great-circle distance);
+\item drop the source if fewer than the minimum number of pointings remain (\cref{tab:labelrules}). The source stays in
+\file{sources.csv} with \code{included = False}.
+\end{enumerate}
+For NICER (\file{47_v9_select.py}), the TAP query already restricts the target position to $0.05^\circ$. The remaining
+steps are: drop rows without a time, drop duplicated ObsIDs, keep \code{exposure}~$\ge1000$\,s, and require at least 5
+eligible observations and a non-confused field.
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Time-stratified ranking}\label{sec:ranking}
+The eligible observations of a source are sorted by time and split into $K$ consecutive groups of nearly equal size
+(\code{numpy.array_split}): $K=15$ for RXTE, 8 for NICER. A seeded generator puts the observations of each group in a
+random order (\cref{alg:sampling}). The seed is \code{SEED} plus an offset plus the 1-based position of the source in the
+source list (\cref{tab:seeds}). The result is \file{data/<v>/observation_candidates.csv}, with one row per eligible
+observation, its group (\code{time_bin}) and its rank in the group (\code{rank_in_bin}). This file is written before any
+data file is downloaded.
+
+The stratification spreads each source's sample over its history, across outbursts and states. Because the order is
+random within a group, the choice does not depend on the data. If a source has fewer eligible observations than groups,
+some groups are empty and every observation is a candidate.
+
+\begin{algorithm}[htbp]
+\caption{Time-stratified ranking and acceptance. RXTE: \file{03_select_observations.py} with
+\file{04_fetch_process.py}; NICER: \file{47}/\file{55}/\file{60} with \file{48}/\file{52}/\file{56}/\file{61}.}\label{alg:sampling}
+\begin{algorithmic}[1]
+\Require eligible observations $\{(o_i,t_i)\}$ of one source; number of groups $K$; seed $\sigma$; tries per group $M$
+\State sort by $t_i$ and split the index list into $K$ consecutive groups $G_1,\dots,G_K$
+\State $\mathrm{rng}\gets\mathrm{default\_rng}(\sigma)$
+\For{$b=1,\dots,K$}
+  \State $\pi\gets\mathrm{rng.permutation}(G_b)$ \Comment{rank within the group; written to the candidate table}
+\EndFor
+\Statex \textit{--- later, in the fetch script, for each group independently ---}
+\For{$r=1,\dots,\min(M,|G_b|)$}
+  \State download and process $o_{\pi_r}$; record status and reason
+  \If{every quality rule passes} accept $o_{\pi_r}$; \textbf{break} \EndIf
+\EndFor
+\end{algorithmic}
+\end{algorithm}
+
+\begin{table}[htbp]
+\centering\small
+\caption{Sampling parameters. ``Position'' is the 1-based position of the source in the list processed by the script
+(for NICER, \file{data/v9/sources.csv}, counting excluded sources too). \code{SEED = 42}.}\label{tab:seeds}
+\begin{tabular}{@{}l l l l@{}}
+\toprule
+Sample & Groups $K$ & Seed $\sigma$ & Tries per group $M$ \\
+\midrule
+RXTE v1, v2, v3c, v7b2, v8b & 15 & \code{SEED + position} & 6 \\
+RXTE v4b2 (new sources) & 15 & \code{SEED + 100 + i} & 6 \\
+RXTE v4b1 & all eligible & -- & 1 \\
+NICER v9 (N1) & 8 & \code{SEED + position} & 3 \\
+NICER v11 (N2) & 8 & \code{SEED + 1000 + position} & 3 \\
+NICER v13 (N3) & 8 & \code{SEED + 2000 + position} & 3 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Acceptance loop and quality rules}\label{sec:quality}
+The fetch scripts work through the (source, group) pairs in parallel: 4 threads for RXTE; for NICER, 8 threads in v9 and
+2 in v11 and v13. Within a pair the candidates are tried in rank order. Every tried candidate becomes one row of
+\file{data/<v>/observations.csv}, with its status, its reason, the download URL and the quality quantities. Rejected
+observations are therefore documented, not lost.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Post-download quality rules. An observation is accepted only if no rule fires. ``Reason'' is the string written
+to \file{observations.csv}.}\label{tab:qualityrules}
+\begin{tabularx}{\textwidth}{@{}l l >{\raggedright\arraybackslash}X@{}}
+\toprule
+Data & Reason & Rule \\
+\midrule
+RXTE PCA & \code{fetch_or_read_error} & a file is missing in every AO directory, or cannot be read \\
+ & \code{nonfinite} & a rebinned rate or error is not finite \\
+ & \code{short_exposure} & Standard-2 \code{EXPOSURE}~$<1000$\,s \\
+ & \code{low_snr} & net 5--25\,keV rate / its error $<10$ (\cref{eq:F}) \\
+ & \code{high_deadtime} & dead-time fraction $>0.10$ (\cref{eq:dtf}) \\
+ & \code{coord_mismatch} & header pointing $>0.1^\circ$ from the source position \\
+ & \code{nonstandard_channels} & spectrum or response does not have 129 channels \\
+ & \code{ebounds_coverage} & the response's energy range does not cover the common grid \\
+\midrule
+NICER XTI & \code{error: ...} & download or parsing error (after retries) \\
+ & \code{missing (event file not found)} & no file in the catalogue month or the months before and after \\
+ & \code{missing (< 3 valid segments)} & fewer than 3 usable 128\,s segments (\cref{sec:nicer}) \\
+ & \code{excluded (2-10 keV rate x < 20.0)} & mean 2--10\,keV rate in the valid segments $<20$\,c\,s$^{-1}$ \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Two further screens act after acceptance and do not trigger a replacement. Type-I bursts are flagged, or the affected
+segments removed (\cref{sec:bursts}). From v12, NICER observations are screened on their 3C50 background fraction
+(\cref{sec:3c50}).
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Disjoint NICER observation sets}\label{sec:disjoint}
+NICER was used three times, each time with observations that had never been tried before:
+\begin{itemize}
+\item \textbf{N1} (v9, re-read in full in v10): the first time-stratified sample of the v9 sources.
+\item \textbf{N2} (v11): for each included v9 source, the eligible observations \emph{not} among the 792 v9 tries, ranked
+with \code{SEED + 1000 + position}. Sources not included in v9 but with 1--4 eligible observations and a non-confused field
+contribute every eligible observation, one per group.
+\item \textbf{N3} (v13): eligible observations of the included v9 sources that are among neither the 792 v9 tries nor the
+588 v11 tries, ranked with \code{SEED + 2000 + position}.
+\end{itemize}
+The selection scripts compute the overlap with the earlier tries and stop with exit code 3 if it is not empty (check IC3 in
+v11). All three sets come from the same cached \code{nicermastr} tables, so no new catalogue query can change the
+candidates.
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Resulting samples}\label{sec:samplesizes}
+\Cref{tab:samples} lists the samples that enter models or tests. Counts are recomputed from the committed
+\file{observations.csv} and processed tables.
+
+{\small\setlength{\tabcolsep}{3.5pt}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{2.9cm} >{\raggedright\arraybackslash}p{2.8cm} r r >{\raggedright\arraybackslash}p{2.1cm} >{\raggedright\arraybackslash}p{4.3cm}@{}}
+\caption{Samples. ``Tried'' counts every downloaded candidate; ``Obs.'' counts the accepted (or kept) observations;
+``Sources'' gives the total and the BH/NS split.}\label{tab:samples}\\
+\toprule
+Sample & Round, instrument & Tried & Obs. & Sources & Use \\
+\midrule\endfirsthead
+\toprule Sample & Round, instrument & Tried & Obs. & Sources & Use \\ \midrule\endhead
+\bottomrule\endfoot
+pilot & v1, PCA & 120 & 120 & 8 (4/4) & pipeline test \\
+S1 (development) & v2, PCA, epoch 5 & 462 & 456 & 31 (7/24) & training and LOSO in v2--v8, v10 \\
+BH candidates & v3c, PCA & 210 & 210 & 14 (14/0) & prediction only \\
+S3 (all pointings) & v4b1, PCA, epoch 5 & 7\,975 & 7\,949 & 31 (7/24) & observation-budget checks \\
+v4b2 sources & v4b2, PCA, all epochs & 221 & 221 & 15 (2/13) & S2 = S1 $\cup$ v4b2 (46 sources, 677 obs.) \\
+E\textsubscript{new} + stress & v6, PCA, all epochs & 180 & 180 & 12 (2/10) & 8 new sources (120 obs.); 4 slow pulsars (60 obs.) \\
+E (external) & v6 & -- & 341 & 23 (4/19) & frozen-model test \\
+persistent BHs & v7b2, PCA, epoch 5 & 45 & 45 & 3 (3/0) & Cyg X-1, LMC X-1, LMC X-3 \\
+new BHs & v8b, PCA, all epochs & 26 & 23 & 2 (2/0) & GS 1354$-$64, SS 433 \\
+X (external) & v8b & -- & 379 & 26 (7/19) & frozen-model test; 99 hard-like obs.\ (5/15 sources) \\
+MAXI & v7c2, GSC & -- & 132\,057 & 100: 13 BH, 48 NPNS, 39 PSR & daily points (not observations); point-level classifiers \\
+N1 & v9 (prefix), XTI & 792 & 368 & 63 (9/54) & first NICER sample \\
+N1 full files & v10, XTI & 368 & 366 & 63 (9/54) & N1 re-read to 1\,GB \\
+N2 & v11, XTI & 588 & 318 & 60 (9/51) & unseen observations \\
+N1+N2, 3C50 & v12, XTI & -- & 534 & 58 (9/49) & corrected and screened; frozen training set for v13 \\
+N3 & v13, XTI & 412 & 238 & 37 (8/29) & unseen observations \\
+N3, 3C50 & v13, XTI & -- & 198 & 35 (8/27) & corrected and screened test set \\
+\end{longtable}}

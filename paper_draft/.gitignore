@@ -7,3 +7,6 @@
 *.blg
 *.synctex.gz
 main.pdf
+*.toc
+*.lof
+*.lot
