@@ -31,6 +31,7 @@ figure captions and in `claim_evidence.csv`.
 | `scripts/make_figures.py` | Redraws Figs. 2–5 and C.1 from committed CSVs |
 | `scripts/build_claim_evidence.py` | Builds `claim_evidence.csv`. It re-reads each number from the committed source row, compares it with the value stated in the paper, and checks that the number appears in `main.tex`. |
 | `claim_evidence.csv` | Claim–evidence table: 50 automatically checked claims and 18 manual rows. Columns: claim ID, section, claim, values, source file and rows, sample and unit, primary/descriptive/post hoc status, required limitations, verification status. |
+| `report/report.pdf` (`report.tex`, `references_report.bib`) | Report-style version: about 9 pages, key findings first, no formal paper structure. Same figures and numbers as the paper draft; build with `cd paper_draft/report && latexmk -pdf report.tex` |
 | `advisor_questions.md` | Open issues ranked A (must fix), B (analyses that could change the interpretation), C (later), plus decisions for the advisor |
 
 ## Build
