@@ -1,0 +1,238 @@
+% =====================================================================================================
+\section{Machine-learning methods}\label{sec:ml}
+% =====================================================================================================
+
+\subsection{Problem formulation and software}\label{sec:mlsetup}
+Each model is a binary classifier on observations: it maps a feature vector $\vect x_i$ to a BH score
+$s(\vect x_i)\in[0,1]$. The question is about \emph{sources}, so every score is produced out of fold (no model sees the
+source it scores), and observation scores are averaged per source (\cref{eq:sourcescore}). All models are scikit-learn
+1.8.0 estimators \citep{Pedregosa2011} (\file{requirements-lock.txt}) with the settings in \file{config.py}. They are wrapped in the pipelines of
+\file{07_train_eval.py} and \file{v3lib.py}, in \code{V4Model} (\file{v4lib.py}, the eight-algorithm search) and in
+\code{C2Model} (\file{v7lib.py}, MAXI). \Cref{tab:models} lists them.
+
+\begin{table}[htbp]
+\centering\small
+\caption{Models and their roles. P = model of a planned primary comparison; B = baseline; D/E = descriptive or exploratory.}\label{tab:models}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}p{3.3cm}>{\raggedright\arraybackslash}X c@{}}
+\toprule
+Model & Rounds & Code & Role \\
+\midrule
+Logistic regression (LR) & v1--v13 & \file{07}, \code{v3lib.MODELS}, \code{V4Model}, \code{C2Model} & P, B \\
+Random forest (RF) & v1--v13 & as LR & P (v8d, v12b, v13a), D \\
+Dummy (class prior) & v1, v2 & \file{07_train_eval.py} & B \\
+ExtraTrees, HistGB, QDA, MLP & v4a & \code{V4Model} & E \\
+RBF SVM & v4a, v7c2; v7c1 & \code{V4Model}, \code{C2Model}, \file{37} & E, reproduction \\
+kNN classifier & v4a, v7c2, v8d; v7c1 & \code{V4Model}, \code{C2Model}, \file{37} & E, reproduction \\
+Nested automatic selection & v4a & \code{v4lib.nested_fold} & P (v4) \\
+CCTLR & v6c & \code{v6lib.CCTLR} & D \\
+kNN regression (residualisation) & v6d, v9b--v13b & \code{v6lib.source_residuals} & inside the permutation tests \\
+Frozen $\nu^\ast$ rule & v11, v13 & \file{57}, \file{63} & D \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Shared components}\label{sec:shared}
+\paragraph{Standardisation.} Scale-sensitive models (LR, SVM, kNN, QDA, MLP, the colour part of CCTLR, the kNN regression)
+standardise each feature with the training rows $\mathcal T$ of the current fit:
+\begin{equation}
+z_{i\ell}=\frac{x_{i\ell}-\mu_\ell}{\sigma_\ell},\qquad\mu_\ell=\frac1{|\mathcal T|}\sum_{i\in\mathcal T}x_{i\ell},\qquad
+\sigma_\ell^2=\frac1{|\mathcal T|}\sum_{i\in\mathcal T}(x_{i\ell}-\mu_\ell)^2\quad(\sigma_\ell=0\Rightarrow1),\label{eq:scaler}
+\end{equation}
+and apply the same $(\mu_\ell,\sigma_\ell)$ to the test rows (\code{StandardScaler} inside the pipeline). Tree models use
+the raw features.
+
+\paragraph{Class-balanced weights.}\label{sec:weights} The main sample has 7 BH and 24 NS sources. With $n$ training rows,
+$n_c$ of them in class $c$, \code{class_weight='balanced'} gives each row
+\begin{equation}
+w^\mathrm{bal}_i=\frac{n}{2\,n_{y_i}},\qquad\sum_{i:y_i=c}w^\mathrm{bal}_i=\frac n2.\label{eq:balanced}
+\end{equation}
+QDA takes no weights and uses equal priors instead. kNN corrects its output to equal priors (\cref{eq:knnprior}), and the MLP
+receives $w^\mathrm{bal}$ as sample weights.
+
+\paragraph{Source-equal weights (v4a, v4b1, v5 S3, v6 S3).} When sources contribute very different numbers of observations
+(6 to 1329 per source in v4b1), balanced weights let the most-observed sources dominate. With $S_c$ training sources in
+class $c$ and $n_k$ rows of source $k$ (\code{v4lib.source_equal_weights}):
+\begin{equation}
+w^\mathrm{src}_i=\frac{n}{2\,S_{y_i}\,n_{g_i}},\qquad\sum_{i:g_i=k}w^\mathrm{src}_i=\frac{n}{2S_c}\ (k\in c),\qquad\sum_{i:y_i=c}w^\mathrm{src}_i=\frac n2.\label{eq:sourceequal}
+\end{equation}
+Every source of a class then has the same total weight, and both classes sum to $n/2$, the scale of the balanced weights.
+\code{class_weight} is set to \code{None} when these weights are passed. The first implementation normalised each class to 1
+instead of $n/2$, which acted as a much stronger LR penalty. It was fixed after the v4a results and the affected parts were
+re-run; no conclusion changed (decision log).
+
+\paragraph{Scores.} \code{predict_proba[:,1]} for LR, RF, ExtraTrees, HistGB and QDA; the prior-corrected vote fraction for
+kNN; the mean over seeds for the MLP; the logistic function of the decision value for SVM and CCTLR. Scores rank observations
+and are thresholded at 0.5; they are not calibrated probabilities.
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Logistic regression}\label{sec:lr}
+LR is the main model: H-LR (two colours) is the reference that every later model is compared against, and H+T-LR is the
+primary model of v5, v6a, v8a/b, v9a, v10a and v11a. On standardised inputs, $s(\vect x)=\sigma(\vect w^\top\vect z+b)$
+with $\sigma(u)=1/(1+e^{-u})$, and
+\begin{equation}
+(\hat{\vect w},\hat b)=\arg\min_{\vect w,b}\ \frac12\|\vect w\|_2^2+C\sum_{i\in\mathcal T}\omega_i\bigl[-y_i\log s(\vect x_i)-(1-y_i)\log(1-s(\vect x_i))\bigr],\label{eq:lrobj}
+\end{equation}
+with $C=1$, L-BFGS, at most 5000 iterations, an unpenalised intercept and $\omega_i=w^\mathrm{bal}_i$ (or $w^\mathrm{src}_i$).
+With a few hundred rows and 2--6 features the penalty is weak. LR assumes log-odds that are linear in the standardised
+features, so a timing feature has one slope everywhere in the colour plane. This is the motivation for CCTLR
+(\cref{sec:cctlr}).
+
+\subsection{Random forest}\label{sec:rf}
+RF is the second reference model in every round, and the primary model of v8d (MAXI), v12b and v13a. It averages $B=500$
+trees: $s(\vect x)=\frac1B\sum_b\hat p_b(\vect x)$, where $\hat p_b$ is the weighted BH fraction in the leaf of tree $b$. Each
+tree is grown on a bootstrap sample (row weights $\omega_i$ times the bootstrap counts) with CART splits that maximise the
+weighted decrease of the Gini impurity $G=1-\sum_c\pi_c^2$. At each node $m=\lfloor\sqrt p\rfloor$ features are candidates,
+so with the two colours of H every split uses one randomly chosen colour, and with $p=6$ two. Trees grow until nodes are
+pure or a child would have fewer than 2 rows (\code{min_samples_leaf=2}). Balanced class weights are computed once per fold,
+and \code{random_state=42}. RF can follow non-monotone class regions, which matters for MAXI and for timing--colour
+interactions. With fewer than 10 BH sources, however, a leaf can memorise one source.
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Further algorithms of the v4a search}\label{sec:otheralgs}
+\begin{itemize}
+\item \textbf{Dummy} (\code{strategy='prior'}): returns the training BH fraction and predicts the majority class. Under LOSO
+the majority depends on the held-out source. In v1 (4+4 sources), holding out a BH leaves an NS majority and vice versa, so
+the Dummy balanced accuracy is 0, not 0.5.
+\item \textbf{ExtraTrees}: like RF but without bootstrap, and with one random threshold per candidate feature at each node.
+\item \textbf{HistGradientBoosting}: an additive model on the log-odds scale; each of 200 trees is fitted to the weighted
+gradients and Hessians of the log loss, with features pre-binned into at most 255 quantile bins. Learning rate 0.1, 15
+leaves, at least 20 rows per leaf, no L2 term and no early stopping.
+\item \textbf{RBF SVM}: \code{SVC} with balanced class weights and $K(\vect z,\vect z')=e^{-\gamma\|\vect z-\vect z'\|^2}$.
+\code{gamma='scale'} gives $\gamma=1/(p\operatorname{Var}\vect Z)$; the v4a grid multiplies it by $\kappa\in\{0.3,1,3\}$.
+The score is $\sigma(f(\vect z))$ of the decision value $f$. Platt scaling is not used, because it runs an internal random
+cross-validation.
+\item \textbf{kNN classifier}: the BH fraction $\hat p$ among the $k$ nearest standardised training rows (Euclidean,
+uniform weights), corrected to equal priors with the training BH fraction $\pi$:
+\begin{equation}
+s(\vect x)=\frac{\hat p/\pi}{\hat p/\pi+(1-\hat p)/(1-\pi)}.\label{eq:knnprior}
+\end{equation}
+\item \textbf{QDA}: Gaussian classes with regularised covariances $\hat\Sigma_c=(1-r)S_c+rI$ ($r=0.1$) and equal priors.
+\item \textbf{MLP}: one hidden layer of 32 ReLU units, Adam, $\alpha=10^{-3}$, balanced sample weights. Early stopping
+holds out a stratified 20\% validation split and restores the best weights. Because a small MLP is unstable, the score is the
+mean over seeds $\{0,\dots,4\}$ (outer fits) or $\{0,1,2\}$ (inner fits).
+\end{itemize}
+A planned 1D convolutional network on representation B was skipped, as declared in the plan, because \code{torch} was not
+installed. Principal component analysis was never used: ``PCA'' in the code always means the Proportional Counter Array.
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Hyperparameters}\label{sec:hyper}
+Except in the nested selection (\cref{sec:nested}) and the MAXI kNN and SVM, all hyperparameters are fixed in advance.
+\Cref{tab:hyper} collects them.
+
+{\small\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{2.7cm}>{\raggedright\arraybackslash}p{6.3cm}>{\raggedright\arraybackslash}p{6.6cm}@{}}
+\caption{Hyperparameters (\file{config.py}: \code{LR_PARAMS}, \code{RF_PARAMS}, \code{V4_FIXED}, \code{V4_GRID},
+\code{V7_C2_*}, \code{V7_DEBEURS_*}).}\label{tab:hyper}\\
+\toprule
+Model & Fixed setting & Grid (where tuned) \\
+\midrule\endfirsthead
+\toprule Model & Fixed setting & Grid (where tuned) \\ \midrule\endhead
+\bottomrule\endfoot
+LR & $C=1$, L2, lbfgs, 5000 iterations, balanced & v4a: $C\in\{0.01,0.1,1,10\}$ \\
+RF & 500 trees, \code{max_features='sqrt'}, leaf $\ge2$, balanced, seed 42 & v4a: leaf $\in\{1,2,5,10\}$; 200 trees inner, 500 outer \\
+ExtraTrees & as RF & v4a: leaf $\in\{1,2,5,10\}$ \\
+HistGB & learning rate 0.1, 200 iterations, 15 leaves, leaf $\ge20$, $\lambda=0$, no early stop, balanced, seed 42 & v4a: rate $\in\{0.05,0.1\}\times$ leaves $\in\{7,15\}$ \\
+SVM (RBF) & $C=1$, $\gamma$ = \code{'scale'}, balanced & v4a: $C\in\{0.1,1,10\}\times\kappa\in\{0.3,1,3\}$; v7c2: $C\in\{0.1,1,10\}\times\gamma\in\{0.1,0.585,3\}$ \\
+kNN & $k=15$, uniform, prior-corrected & v4a: $\{5,15,31\}$; v7c2, v8d: $\{5,15,24,35\}$ \\
+QDA & $r=0.1$, priors $(0.5,0.5)$ & v4a: $r\in\{0.01,0.1,0.5\}$ \\
+MLP & $(32,)$, $\alpha=10^{-3}$, early stopping (20\%), 500 epochs, seeds 0--4 & v4a: $\{(16,),(32,16)\}\times\alpha\in\{10^{-4},10^{-2}\}$ \\
+CCTLR & Student $t$ with 4 d.o.f., scale floor 0.01, ridge $10^{-9}$ & none \\
+kNN regression & $K=25$, uniform, neighbours from other sources & none \\
+de Beurs reproduction & kNN $k=24$ on raw colours; SVM $C=0.655298$, $\gamma=0.585144$, Platt, one-vs-one, 3 classes & none (taken from the paper) \\
+\end{longtable}}
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Model selection by nested leave-one-source-out}\label{sec:nested}
+When anything is selected (algorithm, representation, hyperparameter or threshold), the selection runs inside each outer
+training set, by an inner LOSO over its sources. The outer test source plays no part (\cref{fig:nested}).
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[x=1cm, y=1cm,
+  st/.style={fc model, text width=3.2cm, minimum height=15mm}]
+  \node[fc data, text width=3.2cm, minimum height=15mm] (o) at (1.8,0) {outer fold $k$: 30 training sources; source $k$ held out};
+  \node[st] (i) at (6.0,0) {for every candidate $c$: inner LOSO over the 30 sources $\Rightarrow$ inner source AUC$_c$, BA$_c$, threshold $t_c$};
+  \node[st] (s) at (10.2,0) {choose $c^\ast$: highest inner AUC; ties by inner BA, then fixed order};
+  \node[st, draw=red!70!black, fill=yellow!15] (f) at (14.4,0) {refit $c^\ast$ on the 30 sources (500 trees); score source $k$; store $\hat s-t^\ast+0.5$};
+  \foreach \a/\b in {o/i,i/s,s/f} \draw[fc arr] (\a) -- (\b);
+  \draw[fc arr, red!70!black] (o.south) -- ++(0,-0.55) -| node[fc note, pos=0.25, below] {the held-out source enters only here} (f.south);
+\end{tikzpicture}
+\caption{Nested LOSO (v4a). Every candidate is judged only on the outer training sources, so the cost of choosing the best
+of many is included in the outer estimate.}\label{fig:nested}
+\end{figure}
+
+\paragraph{v4a (\code{v4lib.nested_fold}, \file{16_v4a_algorithms.py}).} Four representations (H, HI, B, A) are crossed with
+eight algorithms and their grids (35 settings), giving 140 configurations. In part 1d, nesting runs per algorithm and
+representation; in part 1e, over all 140 configurations. The inner stage uses 200 trees and MLP seeds $\{0,1,2\}$, the outer
+refit 500 trees and seeds $\{0,\dots,4\}$.
+
+\paragraph{Threshold choice (\code{v4lib.choose_threshold}).} With $u_1<\dots<u_q$ the distinct inner source scores, the
+candidates are $u_1-10^{-9}$, the midpoints $(u_r+u_{r+1})/2$ and $u_q+10^{-9}$. Among those maximising the inner source
+balanced accuracy, the one closest to 0.5 is taken:
+\begin{equation}
+t^\ast=\arg\min_{t\in\mathcal C^\ast}|t-0.5|,\qquad\mathcal C^\ast=\{t:\BA_\mathrm{src}(t)=\max_{t'}\BA_\mathrm{src}(t')\}.\label{eq:choosethreshold}
+\end{equation}
+The outer scores are stored shifted, $\hat s-t^\ast+0.5$, so that the common 0.5 rule applies.
+
+\paragraph{MAXI (v7c2, v8d; \code{v7lib.c2_outer}).} kNN's $k$ is chosen by inner LOSO source AUC, and the SVM's $(C,\gamma)$
+by inner \code{GroupKFold(5)} over sources (a pre-run change to save computing time). The first configuration with a strictly
+higher AUC wins. Each training source contributes at most 200 randomly chosen days (seed 42), and the test source is scored
+on all its days.
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Colour-conditional timing likelihood ratio (CCTLR, v6c)}\label{sec:cctlr}
+In LR a timing feature has one slope everywhere, although timing is expected to help only where the colours overlap.
+CCTLR adds to the H-LR logit a log-likelihood ratio of the timing features \emph{given} the colours (\code{v6lib.CCTLR}):
+\begin{equation}
+\ell(\vect x)=\vect w^\top\vect h+b+\sum_{k=1}^3\Bigl[\log t_4\bigl(T_k;\mu_{1k}(\vect h),\tau_{1k}\bigr)-\log t_4\bigl(T_k;\mu_{0k}(\vect h),\tau_{0k}\bigr)\Bigr],\qquad s=\sigma(\ell),\label{eq:cctlr}
+\end{equation}
+where $t_4$ is the Student-$t$ density with 4 degrees of freedom (robust to outliers such as bursts or dips) and
+$\mu_{ck}(\vect h)=\beta_{ck0}+\beta_{ck1}h_1+\beta_{ck2}h_2$. For each class and timing band, $\vect\beta_{ck}$ is a weighted
+least-squares fit on that class's rows with finite timing. The weights are $v_i=1/(S_cn_{g_i})$, so every source counts
+equally, and a ridge of $10^{-9}$ is added. The scale $\tau_{ck}$ is the weighted residual standard deviation, floored at
+0.01. If any timing value of a row is missing, the timing term is zero and the score equals the H-LR score. CCTLR has no
+tunable parameter.
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{kNN regression for colour residualisation}\label{sec:knnreg}
+Inside every permutation test (\cref{sec:permutation}), the part of a timing feature $F$ (e.g.\ $\log_{10}\nu_c$) that is
+predictable from colour is removed \emph{without labels} (\code{v6lib.source_residuals}). With standardised colours,
+\begin{equation}
+\hat F_i=\frac1K\sum_{j\in\mathcal N_K(\vect h_i;\ g_j\ne g_i)}F_j,\qquad r_i=F_i-\hat F_i,\qquad
+\bar r_k=\frac1{n_k}\sum_{i:g_i=k}r_i,\label{eq:knnreg}
+\end{equation}
+with $K=25$ (capped at the number of available rows). The neighbours of an observation come only from \emph{other} sources,
+so a source cannot explain itself. Rows with missing $F$ are skipped. If BHs cluster in one colour region, part of the class
+difference is absorbed into $\hat F$, which makes the test conservative.
+
+\subsection{Frozen characteristic-frequency rule (v11, v13)}\label{sec:nurule}
+A simple rule frozen before the new data were read: a hard-like observation is called BH if $\nu_c<\nu^\ast$, and a source is
+called BH if at least half of its new hard-like observations are. The threshold is the geometric mean of the class medians
+in the previous data,
+\begin{equation}
+\nu^\ast=\sqrt{\median_\mathrm{BH}\nu_c\cdot\median_\mathrm{NS}\nu_c},\label{eq:nustar}
+\end{equation}
+giving 1.3007\,Hz from the v10 data (used in v11) and 1.3361\,Hz from the corrected v12 data (used in v13).
+The values were written to \file{logs/v11/nu_star_frozen.txt} and \file{logs/v13/nu_star_frozen.txt} before the new
+observations were read.
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Training designs}\label{sec:designs}
+The same models are trained in five ways, depending on the question (\cref{tab:designs}).
+
+\begin{table}[htbp]
+\centering\small
+\caption{Training designs. ``Out-of-source'': each source is scored by a model fitted on the reference data without that source.}\label{tab:designs}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{3.2cm}>{\raggedright\arraybackslash}X>{\raggedright\arraybackslash}p{4.2cm}@{}}
+\toprule
+Design & What is fitted and what is scored & Used in \\
+\midrule
+LOSO & one fit per source on all other sources; the held-out source is scored (\cref{alg:buildX}) & every development analysis (v1--v12) \\
+Nested LOSO & as LOSO, plus inner LOSO selection within each training set (\cref{sec:nested}) & v4a, v7c2, v8d \\
+Frozen external & one fit on S1; all external sources scored by the same model, with S1 imputation medians & v6a (set E), v8b (set X) \\
+Frozen out-of-source & models fitted on the previous NICER data before the new data are read; each source's new observations are scored by the fit without that source & v11 (reference v10), v13 (reference v12) \\
+All-data model & one fit on all reference data, for sources never used before & v11 (never-used sources) \\
+\bottomrule
+\end{tabularx}
+\end{table}

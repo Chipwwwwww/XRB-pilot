@@ -1,0 +1,92 @@
+% =====================================================================================================
+\section{File schemas}\label{app:schemas}
+% =====================================================================================================
+
+The columns below were read from the committed files at commit \texttt{666c2e0}. ``Rows'' is the row count of the example
+file named. Files of other rounds with the same name have the same columns, unless noted.
+
+{\small\setlength{\tabcolsep}{3pt}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{4.4cm}>{\raggedright\arraybackslash}p{11.2cm}@{}}
+\caption{Schemas of the main tables and arrays.}\label{tab:schemas}\\
+\toprule
+File (example; rows) & Columns and meaning \\
+\midrule\endfirsthead
+\toprule File (example; rows) & Columns and meaning \\ \midrule\endhead
+\bottomrule\endfoot
+\multicolumn{2}{@{}l}{\emph{RXTE}}\\
+\file{data/v2/sources.csv} (33) & \code{source_id, name, aliases, ra_deg, dec_deg, label, evidence, reference_url, status,
+coord_origin, n_eligible, included}. \code{label} is BH or NS; \code{evidence} and \code{reference_url} give the labelling
+evidence; \code{included} is False if fewer than the minimum number of eligible pointings remain. \\
+\file{results/v2/attrition_catalog.csv} (33) & \code{source_id, catalog_rows, after_dedup, after_epoch5_window,
+after_exposure, after_std1rate, after_pointing}: rows left after each eligibility step. \\
+\file{data/v2/observation_candidates.csv} (7\,975) & \code{obs_id, source_id, label, time_bin, rank_in_bin, mjd,
+cat_exposure, cat_npcu, cat_std1rate, pointing_sep_deg}: every eligible pointing with its time group and rank. \\
+\file{data/v2/observations.csv} (462) & \emph{Candidate:} \code{obs_id, source_id, label, time_bin, rank_in_bin, mjd,
+cat_exposure, cat_npcu, cat_std1rate}. \emph{Files:} \code{url_base, path_src, path_bkg, path_rsp}. \emph{Header:}
+\code{date_obs, obs_mjd_start, exposure_s, bkg_exposure_s, pcus, npcu, n_gti, object_hdr, hdr_sep_deg, src_unit,
+src_class, bkg_class, poisserr, sys_err, backscal_ratio, rsp_detnam, gain_shift_channels}. \emph{Dead time:} \code{dtf,
+dcor, dtf_xe, dtf_std1, dtf_std1_vle150us, std1_npcu_on, std1_covered_s, std1_vle_rate_per_pcu, deadtime_method}.
+\emph{Summary:} \code{net_rate_5_25, net_rate_err, net_snr, src_rate_5_25, bkg_rate_5_25, bkg_fraction,
+hardness_10_25_over_5_10, n_nonpositive_bins}. \emph{Decision:} \code{status} (accepted or excluded), \code{reason},
+\code{in_dataset}. \\
+\file{results/v2/attrition_download.csv} (31) & \code{source_id, candidates_tried, accepted, bins_empty}. \\
+\file{data/v2/processed/features.npz} (456) & \code{rate, err, srate, brate, pl2}: $456\times45$ float64 in
+c\,s$^{-1}$\,keV$^{-1}$\,PCU$^{-1}$ (net rate, its error, total rate, background rate, folded $\Gamma=2$ power law);
+\code{edges}: 46 grid edges in keV; \code{obs_id}, \code{source_id}: strings; \code{y}: int64 (1 = BH); \code{F}: net
+5--25\,keV rate per PCU. Rows are in the order of the accepted observations. \\
+\file{data/v5/processed/timing_features.csv} (8\,170) & \code{obs_id, source_id, label, bkg_rate_per_pcu, n_rows_in_gti,
+n_std1_files, n_rows_valid, f_T1..f_T3} (fractional variances), \code{fauto_T1..fauto_T3} (auto-power check), \code{n_on,
+src_rate_per_pcu, tot_rate_per_pcu, T1, T2, T3, T_total} (signed rms), \code{T1_auto..T3_auto, status, in_v2, in_v4b2,
+in_v4b1}. \\
+\file{data/v6/processed/timing_v6.csv} (8\,350) & \code{obs_id, source_id, label, n_rows_in_gti, n_rows_valid,
+n_rows_pairs, n_rows_single, T1s, T2s, T3s, Ts_total, nu_c, lb0..lb8} (log-bin variances), odd/even halves
+\code{T1s_odd..T3_v5_even}, \code{status, in_v2, in_v4b2, in_v4b1, in_v6}. \\
+\file{results/v7a/states.csv} (456) & \code{obs_id, source_id, label, n_rows_in_gti, n_rows_burst_removed, n_rows_used, rms,
+state, c1, c2}. \\
+\file{data/v4b3/processed/hexte_features.csv} (456) & \code{obs_id, source_id, label, mjd, status, reason, respfile,
+ancrfile, deadapp, exposure_src, exposure_bkg, X_25_40, X_25_40_err, X_40_60, X_40_60_err, nchan, F_PCA_16_25,
+F_PCA_16_25_err, X1, X2, X1_den_snr, X2_den_snr}. \\
+\file{data/v8c/processed/hf_features.csv} (311) & \code{obs_id, source_id, label, sample, role, bkg_rate_per_pcu,
+n_event_files, n_events, n_seg}; for each band LC, HF1, HF2, HF3, NULL: \code{<band>_var, <band>_se, <band>} and the
+mean-of-ratios variants; \code{NULL_z, HF1_z..HF3_z, mean_n_on, src_rate_per_pcu, tot_rate_per_pcu, exposure_s, status,
+n_burst_intervals}. \\
+\multicolumn{2}{@{}l}{\emph{NICER}}\\
+\file{data/v9/sources.csv} (140) & \code{name, label, ra, dec, evidence, pos_origin, excluded_confused, eligible,
+included}. \\
+\file{data/v9/observation_candidates.csv} (3\,848) & \code{obsid, source, label, time_bin, rank_in_bin, mjd, exposure,
+num_fpm, ym, url} (\code{ym} is the archive month folder). v11 and v13 add \code{group}. \\
+\file{data/v11/observations.csv} (588) & \emph{Candidate:} \code{obsid, source, label, group, time_bin, rank_in_bin, mjd,
+exposure_cat}. \emph{Reading:} \code{n_events, bytes, file_bytes, read_complete, sha256, url}. \emph{Segments:}
+\code{n_bursts, n_seg, n_seg_burst_removed, good_time_s, rate_2_10, mean_n_mpu}. \emph{Colours:} \code{cA, cB, cC, c1,
+c2}. \emph{Timing:} \code{T1_var, T1_se, T1} and the same for \code{T2, T3, STATE, WHITE}; \code{rms_nuc_band, nu_c,
+lb0..lb12, lb0_se..lb12_se}. \emph{Decision:} \code{state, status} (ok, missing or excluded with reason),
+\code{bkg_ratio_12_15}. The v9 file has \code{url, bytes, file_bytes, stop, rows_read} instead of the streaming
+fields, and no \code{group}, \code{bkg_ratio_12_15} or \code{lb*_se}. \\
+\file{data/v12/processed/bkg3c50.csv} (503) & \code{obsid, source, label, sample, rate_2_10, rc} (exit code),
+\code{T_A, T_B, T_C, T_T} (total band rates), \code{B_A, B_B, B_C, B_T} (background band rates), \code{f_A, f_B, f_C, f_T}
+(fractions), \code{exposure_3c50, status}. \\
+\file{data/v12/processed/nicer_corrected_screened.csv} (534) & \code{obsid, source, label, c1, c2, cA, cB, cC, T1, T2, T3,
+STATE, nu_c, rate_2_10, state} (after correction), \code{sample} (v10 or v11), \code{bkg_status, T_T, f_A, f_B, f_C, f_T,
+f_used}. \\
+\multicolumn{2}{@{}l}{\emph{MAXI}}\\
+\file{data/v7c/c2_sources.csv} (134) & \code{name, cls} (BH, NPNS, PSR), \code{maxi_id, maxi_name, n_points_raw,
+n_points_cut, included, evidence, match_sep_deg}. \\
+\file{data/v7c/maxi_points.csv} (132\,057) & \code{mjd, f, e} (total), \code{L, eL, M, eM, H, eH} (2--4, 4--10,
+10--20\,keV and errors), \code{source} (MAXI J-identifier), \code{name, cls}. \\
+\file{data/v8d/nh_hi4pi.csv} (100); \file{tbabs_transmission.csv} (201) & \code{name, ra, dec, avnh, avwnh, map};
+\code{nh_1e22, L, M, H} (photon flux per band for each $N_\mathrm{H}$ of the grid). \\
+\multicolumn{2}{@{}l}{\emph{Model outputs}}\\
+\file{results/v2/oof_predictions_loso.csv} (5\,472) & \code{representation, model, fold, source_id, obs_id, true_label,
+BH_score, predicted_label}: one row per observation and model. \\
+\file{results/v13/v13_frozen_predictions.csv} (792) & as the OOF table plus \code{raw_score, threshold, name, state, nu_c,
+f_used}. \\
+\file{results/v13/v13a_gain.csv} (21) & \code{analysis, comparison, point, ci2_5, ci97_5, n_valid_draws, role}
+(PRIMARY or descriptive), \code{verdict, name, metric, frac_first_better}. Other bootstrap tables use the same pattern. \\
+\multicolumn{2}{@{}l}{\emph{Logs}}\\
+\file{logs/downloads.jsonl} (50\,773 records) & Five record types: \code{url, path, bytes, sha256, utc} (47\,073,
+\code{common.download}); the same plus \code{tool} (1\,707: \code{curl} downloads and 3C50 inputs, whose \code{path} says
+they were deleted); prefix records with \code{file_bytes, rows, naxis2, stop} (799, v9); tail records with \code{offset,
+file_bytes, complete} (192, v10); streamed records without \code{path} but with \code{file_bytes, rows, complete} (1\,002,
+v11, v13). \\
+\file{logs/progress.jsonl} & \code{utc, stage, details}: one line per completed stage. \\
+\end{longtable}}

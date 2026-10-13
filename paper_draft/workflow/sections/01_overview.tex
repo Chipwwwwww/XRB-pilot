@@ -1,0 +1,168 @@
+% =====================================================================================================
+\section{Overview of the workflow}\label{sec:overview}
+% =====================================================================================================
+
+\subsection{The task}
+Each X-ray binary in the project is labelled from external evidence:
+\begin{itemize}
+\item \emph{black hole} (BH): a dynamical mass measurement;
+\item \emph{neutron star} (NS): type-I X-ray bursts or pulsations.
+\end{itemize}
+The workflow turns single X-ray observations of these sources into feature vectors, using:
+\begin{itemize}
+\item RXTE/PCA spectra and light curves;
+\item NICER/XTI event files;
+\item MAXI/GSC daily light curves.
+\end{itemize}
+Classifiers are trained on the feature vectors. Their scores are always computed for sources that the model did not see
+in training, and they are evaluated with statistics that treat the \emph{source}, not the observation, as the independent
+unit. Everything is driven by Python scripts. HEASoft is used only where no Python equivalent exists: the XSPEC
+cross-check, the HI4PI $N_\mathrm{H}$ look-up and the NICER 3C50 background.
+
+\subsection{The workflow at a glance}
+\Cref{fig:workflow} shows the whole chain, and \cref{tab:stages} lists the stages with their scripts and outputs. The
+chain has five parts, each described in later sections:
+\begin{enumerate}
+\item \emph{External databases} (\cref{sec:acquisition}): source catalogues, observation catalogues and data archives.
+\item \emph{Sample construction} (\cref{sec:samples}): which sources, and which of their observations.
+\item \emph{Processing and feature extraction} (\cref{sec:rxte,sec:nicer}).
+\item \emph{Data model} (\cref{sec:datamodel}): stored tables and the matrices given to the models.
+\item \emph{Modelling and evaluation} (\cref{sec:ml,sec:evaluation}).
+\end{enumerate}
+\Cref{sec:operations} covers running, logging and reproduction.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[x=1cm, y=1cm,
+  db/.style={fc data, text width=2.75cm, minimum height=17mm},
+  st/.style={fc proc, text width=2.75cm, minimum height=17mm},
+  md/.style={fc model, text width=2.75cm, minimum height=17mm},
+  outb/.style={fc, draw=inkgrey, fill=boxgrey, text width=2.75cm, minimum height=17mm},
+  lane/.style={font=\scriptsize\bfseries, text=inkgrey, anchor=east}]
+  % row 1: external databases
+  \node[db] (lab) at (1.55,0)  {\textbf{label catalogues}\\ BlackCAT, Marcel+2026, Galloway+2008, MINBAR, pulsar lists};
+  \node[db] (pos) at (4.75,0)  {\textbf{positions}\\ CDS Sesame (SIMBAD); MINBAR source table};
+  \node[db] (cat) at (7.95,0)  {\textbf{observation catalogues}\\ RXTE MissionLongData; TAP \texttt{xtemaster}, \texttt{nicermastr}};
+  \node[db] (arc) at (11.15,0) {\textbf{data archives}\\ HEASARC RXTE tree; NICER AWS mirror; MAXI; GitHub};
+  \node[db] (cal) at (14.35,0) {\textbf{calibration}\\ RXTE responses; NICER CALDB (3C50); HI4PI};
+  % row 2: selection, retrieval, processing
+  \node[st] (sel) at (1.55,-2.55)  {\textbf{select sources}\\ label rule, position match, minimum number of eligible observations};
+  \node[st] (rank) at (4.75,-2.55) {\textbf{rank observations}\\ time-stratified groups, seeded order (Alg.~\ref{alg:sampling})};
+  \node[st] (get) at (7.95,-2.55)  {\textbf{retrieve}\\ HTTPS download, range requests or streaming; SHA256 log};
+  \node[st] (proc) at (11.15,-2.55) {\textbf{process}\\ net spectra, cospectra, colours, rms, $\nu_c$; background; bursts};
+  \node[fc gate, text width=2.75cm, minimum height=17mm] (qual) at (14.35,-2.55) {\textbf{quality rules}\\ fail: try next candidate in the group};
+  % row 3: data model, models, evaluation
+  \node[outb] (tab) at (1.55,-5.1)  {\textbf{feature tables}\\ \file{features.npz}, \file{*_features.csv}, \file{observations.csv}};
+  \node[md] (mat) at (4.75,-5.1)  {\textbf{design matrices}\\ $(\Xm,\yv,\gv)$; joins by ObsID; missing values};
+  \node[md] (fit) at (7.95,-5.1)  {\textbf{models}\\ LR, RF (+ 6 others in the search); LOSO, nested or frozen};
+  \node[md] (ev) at (11.15,-5.1)  {\textbf{evaluation}\\ AUC, balanced accuracy; source bootstrap; permutation tests};
+  \node[outb] (res) at (14.35,-5.1) {\textbf{outputs}\\ \file{results/}, \file{figures/}, reports, decision log};
+  \foreach \a/\b in {sel/rank, rank/get, get/proc, proc/qual, tab/mat, mat/fit, fit/ev, ev/res} \draw[fc arr] (\a) -- (\b);
+  \draw[fc arr] (lab) -- (sel); \draw[fc arr] (pos.south) -- ++(0,-0.4) -| ([xshift=4mm]sel.north);
+  \draw[fc arr] (cat) -- (rank); \draw[fc arr] (arc) -- (get); \draw[fc arr] (cal) -- (proc);
+  \draw[fc arr] (qual.south) -- ++(0,-0.45) -| (tab.north);
+  % side bar: configuration and provenance
+  \node[fc, draw=tagprim, dashed, fill=white, text width=15.5cm, minimum height=8mm, anchor=north west] (cfg) at (0.18,-6.25)
+    {\textbf{configuration and provenance (all stages):} \file{scripts/config.py} blocks selected by \code{XRB_VERSION};
+     time-stamped plan \file{reports/preregistration_vN.md} before data; \file{logs/downloads.jsonl} (URL, bytes, SHA256);
+     \file{reports/decision_log.md} (every change, with whether it was made after results); run scripts \file{run_vN.sh}.};
+\end{tikzpicture}
+\caption{End-to-end workflow. Amber: external databases; green: selection, retrieval and processing; blue: data model,
+models and evaluation; grey: stored outputs; chamfered: a gate that can reject an observation. An observation that fails
+the quality rules is replaced by the next ranked candidate of the same time group, so the sample is defined before any
+spectrum or light curve is examined.}\label{fig:workflow}
+\end{figure}
+
+{\small\setlength{\tabcolsep}{3.5pt}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{2.6cm}>{\raggedright\arraybackslash}p{6.2cm}>{\raggedright\arraybackslash}p{3.6cm}>{\raggedright\arraybackslash}p{3.4cm}@{}}
+\caption{Workflow stages, the scripts that implement them and their main outputs. Script numbers are those in
+\file{scripts/}; RXTE and NICER have parallel chains.}\label{tab:stages}\\
+\toprule
+Stage & What happens & Scripts & Main outputs \\
+\midrule\endfirsthead
+\toprule Stage & What happens & Scripts & Main outputs \\ \midrule\endhead
+\bottomrule\endfoot
+Archive inspection & check the RXTE archive layout and file formats on two spectra & \file{01}, \file{05} & \file{reports/step2_fits_check.md} \\
+Source tables & label lists to positions; match to observation catalogues & \file{03}, \file{13}, \file{20}, \file{28}, \file{35}, \file{38}, \file{41}, \file{47} & \file{data/*/sources.csv} \\
+Candidate ranking & eligible observations, time-stratified groups, seeded order & \file{03}, \file{23}, \file{41}, \file{47}, \file{55}, \file{60} & \file{data/*/observation_candidates.csv} \\
+Retrieval + processing (RXTE) & Standard Products, Standard-1, HEXTE, event mode; quality rules & \file{04}, \file{21}, \file{24}, \file{19}, \file{26}, \file{29}, \file{42}, \file{43} & \file{data/*/processed/features.npz}, timing tables \\
+Retrieval + processing (NICER) & TAP, prefix/tail/streamed event files, features, 3C50 & \file{48}, \file{52}, \file{56}, \file{58}, \file{61}, \file{62} & \file{data/v9}--\file{v13/processed/*.csv} \\
+Retrieval + processing (MAXI) & label freeze, Sesame matching, 1-day light curves, cuts; $N_\mathrm{H}$ & \file{37}, \file{38}, \file{45} & \file{data/v7c/maxi_points.csv}, \file{data/v8d/} \\
+Bursts and states & Standard-1 burst detector, MINBAR match, rms state classes & \file{17}, \file{31}--\file{34}, \file{42} & \file{results/v4/burst_*}, \file{results/v7a/states.csv} \\
+Data checks & integrity, response variation, XSPEC cross-check & \file{06}, \file{10} & \file{results/data_checks.md} \\
+Modelling & LOSO, nested selection, frozen models & \file{07}, \file{11}, \file{16}, \file{27}, \file{30}, \file{44}, \file{49}, \file{54}, \file{57}, \file{59}, \file{63} & OOF prediction tables \\
+Inference & source bootstrap, permutation tests, conformal sets & \file{09} and analysis scripts; \file{v4lib}--\file{v10lib} & \file{results/*/*bootstrap*.csv}, \file{*_nuc.csv} \\
+Summaries & cross-round figures and tables & \file{15}, \file{40}, \file{46}, \file{51}, \file{64} & \file{figures/final/}, \file{results/final_*} \\
+\end{longtable}}
+
+\subsection{Analysis rounds and how a round runs}\label{sec:rounds}
+The project grew in numbered rounds (v1--v14). \Cref{tab:rounds} lists them briefly. Every round from v2 on follows the
+same procedure (\cref{fig:lifecycle}).
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[x=1cm, y=1cm,
+  st/.style={fc proc, text width=2.75cm, minimum height=15mm},
+  gt/.style={fc gate, text width=2.75cm, minimum height=15mm}]
+  \node[fc, draw=inkgrey, fill=white, text width=2.75cm, minimum height=15mm] (pl) at (1.55,0) {\textbf{plan}: \file{preregistration_vN.md}, written after all earlier results};
+  \node[st] (cf) at (4.75,0) {\textbf{config block} in \file{config.py}, active only for \code{XRB_VERSION=vN}};
+  \node[gt] (ck) at (7.95,0) {\textbf{earlier settings unchanged} (all earlier versions' values compared)};
+  \node[gt] (ut) at (11.15,0) {\textbf{unit tests} \file{test_vNlib.py} on synthetic data (gates)};
+  \node[fc data, text width=2.75cm, minimum height=15mm] (dl) at (14.35,0) {\textbf{selection and download} (logged)};
+  \node[st] (fe) at (14.35,-2.45) {\textbf{features} with the frozen code of the round};
+  \node[gt] (ic) at (11.15,-2.45) {\textbf{implementation checks} (IC): stop and report if one fails};
+  \node[fc model, text width=2.75cm, minimum height=15mm] (an) at (7.95,-2.45) {\textbf{models and statistics} as pre-specified (primary, descriptive)};
+  \node[fc, draw=inkgrey, fill=boxgrey, text width=2.75cm, minimum height=15mm] (rp) at (4.75,-2.45) {\textbf{results} CSV, figures, \file{report_vN_zh-TW.md}};
+  \node[fc, draw=inkgrey, fill=boxgrey, text width=2.75cm, minimum height=15mm] (mg) at (1.55,-2.45) {\textbf{branch} \file{vN-analysis} merged to master (pull request)};
+  \foreach \a/\b in {pl/cf, cf/ck, ck/ut, ut/dl, dl/fe, fe/ic, ic/an, an/rp, rp/mg} \draw[fc arr] (\a) -- (\b);
+  \node[fc, draw=tagpost, dashed, fill=white, text width=15.4cm, minimum height=7mm, anchor=north west] at (0.17,-3.65)
+    {\textbf{decision log} (\file{reports/decision_log.md}): every deviation, bug fix, added comparison or choice is recorded with
+     the time and whether it was made after the round's results were seen; post hoc additions are labelled as such in reports.};
+\end{tikzpicture}
+\caption{Life cycle of one analysis round. The plan and the configuration are committed before the round's data are
+downloaded. The implementation checks and unit tests are written before real results exist; if a check fails, the round
+stops and the failure is reported rather than the rule being changed.}\label{fig:lifecycle}
+\end{figure}
+
+\begin{table}[htbp]
+\centering\footnotesize
+\caption{Analysis rounds (repository versions). ``Data'' is what the round added; plans are
+\file{reports/preregistration_vN.md}.}\label{tab:rounds}
+\begin{tabularx}{\textwidth}{@{}l >{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}X@{}}
+\toprule
+Round & Data added & Main method added \\
+\midrule
+v1 & RXTE Standard-2 spectra, 8 sources & pipeline, LOSO, LR/RF on representations A and B \\
+v2 & 31 sources, 456 observations; Standard-1 dead time & two-colour baseline H, source bootstrap, XSPEC check \\
+v3 & 3--25\,keV grid; 14 BH candidates & nested increment tests (H+B vs H), source-level AUC \\
+v4 & HEXTE; earlier gain epochs (v4b2); all 7949 epoch-5 pointings (v4b1) & 8-algorithm nested search, burst detector, source-equal weights \\
+v5--v6 & Standard-1 timing features; 23 external sources & cospectral rms $T_1$--$T_3$; all-pairs estimator; $\nu_c$; permutation test; CCTLR; conformal sets \\
+v7 & MINBAR; Cyg X-1, LMC X-1, LMC X-3; MAXI & rms state classes; burst matching; MAXI pipeline and reproduction of de Beurs et al. \\
+v8 & GS 1354$-$64, SS 433; RXTE event mode; HI4PI & state-stratified bootstrap; high-frequency cospectra; $N_\mathrm{H}$ correction \\
+v9--v10 & NICER N1 (prefix, then full files) & NICER streaming parser and features; pooled RXTE+NICER tests \\
+v11 & NICER N2 (unseen observations) & frozen out-of-source prediction; Lorentzian fits \\
+v12 & 3C50 background for N1+N2 & background correction and screening \\
+v13 & NICER N3 (unseen observations) & everything frozen before download \\
+v14 & -- & cross-round summary only \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Repository layout and conventions}\label{sec:layout}
+\begin{itemize}
+\item \textbf{Version switch.} Every script sets or reads the environment variable \code{XRB_VERSION}, and
+\file{scripts/config.py} activates the corresponding parameter block. Later versions extend earlier blocks, and each new
+block is checked not to change the values of earlier versions. \file{scripts/common.py} maps the version to the output
+folders: \file{data/<v>/}, \file{results/<v>/}, \file{figures/<v>/} and \file{logs/<v>/} (v1 uses the top-level folders).
+\item \textbf{Raw data.} Raw data stay out of git. RXTE products of v1--v3 and the v8 event files are in
+\file{data/raw/}. Large sets live under \code{XRB_EXTERNAL_RAW} (default \file{~/xrb-pilot-data/raw}): v4b1, the NICER
+prefixes and tails, the v13 cleaned files and the 3C50 spectra (\file{~/xrb-pilot-data/nicer_bkg_spectra}). The NICER
+CALDB is under \file{~/xrb-pilot-data/caldb}.
+\item \textbf{In git.} Everything derived is committed: source and candidate tables, every tried observation with its
+status and exclusion reason, feature tables, out-of-fold predictions, result tables, figures and logs.
+\item \textbf{Randomness.} The global seed is \code{SEED = 42}. Sampling seeds are offsets of it (\cref{tab:seeds}); the
+bootstrap, permutations and models use it directly.
+\item \textbf{Shared modules.} \file{common.py} (download and progress log), \file{spectra.py} (Standard-2 reader without
+HEASoft), \file{config.py} (settings) and the version libraries \file{v3lib.py}--\file{v11lib.py}. Each version library
+is tested by a \file{test_vNlib.py}.
+\end{itemize}

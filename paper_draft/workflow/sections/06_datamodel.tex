@@ -1,0 +1,158 @@
+% =====================================================================================================
+\section{Data model: from stored tables to design matrices}\label{sec:datamodel}
+% =====================================================================================================
+
+Every model in the project sees the same three objects: a design matrix, a label vector and a source vector. This section
+defines them, shows how they are assembled from the stored files, and lists the controls that keep information about a
+test source out of its own prediction.
+
+\subsection{Notation}\label{sec:notation}
+An analysis uses $n$ observations of $S$ sources.
+\begin{itemize}
+\item $\Xm\in\mathbb R^{n\times p}$, the \textbf{design matrix}. Row $i$ is one observation: an RXTE ObsID, a NICER ObsID or
+one MAXI day. Column $\ell$ is one feature.
+\item $\yv\in\{0,1\}^n$, the labels, $y_i=1$ for a BH. Every observation inherits the label of its source.
+\item $\gv\in\{1,\dots,S\}^n$, the source (group) of each row; $n_k$ is the number of rows of source $k$, and $S_1$ and $S_0$
+are the numbers of BH and NS sources.
+\item $\wv$, the sample weights used in a fit (\cref{sec:weights}).
+\item $\hat s_i\in[0,1]$, the \textbf{out-of-fold (OOF) score} (``BH score''), always produced by a model fitted without any
+observation of source $g_i$. Scores are model outputs, not calibrated probabilities.
+\item \textbf{Source score and decisions:}
+\begin{equation}
+\bar s_k=\frac1{n_k}\sum_{i:g_i=k}\hat s_i,\qquad\hat Y_k=\indic{\bar s_k\ge t},\qquad\hat y_i=\indic{\hat s_i\ge t},\qquad t=0.5.\label{eq:sourcescore}
+\end{equation}
+The only exception is the nested procedure of v4a, which selects a threshold inside the training sources
+(\cref{sec:nested}). Observations of one source are never multiplied together as independent evidence.
+\end{itemize}
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Assembling a design matrix}\label{sec:buildX}
+\Cref{alg:buildX} is the recipe that every analysis script follows. Two rules matter most:
+\begin{itemize}
+\item anything that uses more than one observation (standardisation, imputation, residualisation, thresholds,
+hyperparameters) is computed inside the training part of a fold;
+\item tables are joined by observation ID, never by row position, unless the code asserts that the orders are identical.
+\end{itemize}
+
+\begin{algorithm}[htbp]
+\caption{Building $(\Xm,\yv,\gv)$ and the out-of-fold scores for one analysis.}\label{alg:buildX}
+\begin{algorithmic}[1]
+\Require \file{data/<v>/processed/features.npz}; optional feature tables keyed by \code{obs_id} (NICER: \code{obsid})
+\State load \code{rate}, \code{edges}, \code{F}, \code{pl2}, \code{y}, \code{source_id}, \code{obs_id} (one row per accepted observation)
+\State compute the representation of each row (A, B, H, HI, R, H$_R$; \cref{sec:reps}) \Comment{uses that row only}
+\State to combine samples (e.g.\ v2 and v4b2), stack the rows and assert identical \code{edges}
+\State join timing, HEXTE and state columns with \code{table.reindex(obs_id)}; non-finite values become NaN
+\State $\Xm\gets$ column-stack of the chosen blocks; $\yv\gets$ \code{y}; $\gv\gets$ \code{source_id}
+\State folds $\gets$ \code{LeaveOneGroupOut().split}$(\Xm,\yv,\gv)$; assert one test source per fold, disjoint sources and
+both classes in training
+\For{each fold $(\mathcal T,\mathcal V)$}
+  \State fill missing values with medians of $\Xm_\mathcal T$ and add indicators (\cref{eq:fillmissing})
+  \State fit the model on $\mathcal T$ (scaler inside the model; weights from $\yv_\mathcal T,\gv_\mathcal T$) and score $\Xm_\mathcal V$
+\EndFor
+\State write the OOF table: representation, model, fold, \code{source_id}, \code{obs_id}, true label, \code{BH_score}, predicted label
+\end{algorithmic}
+\end{algorithm}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[x=1cm, y=1cm, font=\scriptsize]
+  \def\W{6.2}
+  \foreach \yo/\h/\nm/\cl/\tst/\yy/\gg in {0/1.0/{source 1 (BH)}/bhblue/0/1/1, -1.0/0.7/{source 2 (BH)}/bhblue/0/1/2,
+      -1.7/1.2/{source $k$ (BH): held out}/bhblue/1/1/k, -2.9/0.9/{source $k{+}1$ (NS)}/nsorange/0/0/{k{+}1}, -3.8/1.3/{source $S$ (NS)}/nsorange/0/0/S} {
+     \ifnum\tst=1
+        \fill[yellow!25] (0,\yo) rectangle (\W,\yo-\h); \draw[thick, red!70!black] (0,\yo) rectangle (\W,\yo-\h);
+        \coordinate (testE) at (\W+1.35,\yo-\h/2);
+     \else
+        \fill[boxgrey] (0,\yo) rectangle (\W,\yo-\h); \draw[inkgrey] (0,\yo) rectangle (\W,\yo-\h);
+     \fi
+     \node[anchor=west, text=inkgrey] at (0.15,\yo-\h/2) {\nm};
+     \fill[\cl] (\W+0.25,\yo) rectangle (\W+0.65,\yo-\h);
+     \fill[inkgrey!35] (\W+0.85,\yo) rectangle (\W+1.25,\yo-\h);
+     \node[white, font=\tiny\bfseries] at (\W+0.45,\yo-\h/2) {\yy};
+     \node[font=\tiny] at (\W+1.05,\yo-\h/2) {$\gg$};
+  }
+  \node at (\W+0.45,0.25) {$\yv$}; \node at (\W+1.05,0.25) {$\gv$};
+  \node[anchor=south west] at (0,0.05) {$\Xm$: rows = observations, grouped by source};
+  \node[fc model, text width=4.4cm, minimum height=13mm] (fit) at (3.1,-6.1)
+     {\textbf{fit on the grey rows only}: scaler, imputation medians, weights, hyperparameters, threshold, model};
+  \node[fc, draw=red!70!black, fill=yellow!20, text width=3.6cm, minimum height=13mm] (pred) at (9.4,-6.1)
+     {\textbf{score the held-out rows}: OOF scores $\hat s_i$; source score $\bar s_k$};
+  \draw[fc arr] (3.1,-5.1) -- (fit.north);
+  \draw[fc arr] (fit) -- node[fc note, above] {fitted model} (pred);
+  \draw[fc arr, red!70!black] (testE) -| (pred.north);
+  \node[fc note, text width=3.6cm, anchor=west] at (\W+1.6,-1.0) {repeat for $k=1,\dots,S$: every row is scored exactly once, by a model that never saw its source};
+\end{tikzpicture}
+\caption{One leave-one-source-out fold. The held-out block holds all observations of one source; every learned quantity
+comes from the other sources.}\label{fig:loso}
+\end{figure}
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Missing values}\label{sec:missing}
+Spectral features are never missing: an observation that fails the quality rules is not in the sample. Timing features
+can be missing, for example with fewer than 3 valid rows. For a block $T$ with training rows $\mathcal T$
+(\code{v5lib.fill_missing}):
+\begin{equation}
+\begin{gathered}
+m_\ell=\median_{i\in\mathcal T,\,T_{i\ell}\ \mathrm{finite}}T_{i\ell}\ \ (0\text{ if none}),\qquad
+\tilde T_{i\ell}=\begin{cases}T_{i\ell}&\text{finite}\\m_\ell&\text{otherwise,}\end{cases}\\
+\mu_i=\indic{\exists\ell:\ T_{i\ell}\ \text{not finite}}.
+\end{gathered}\label{eq:fillmissing}
+\end{equation}
+$[\tilde T,\mu]$, with one indicator column, replaces $T$ in training and test rows. HEXTE colours use the same rule with one
+indicator per colour. The CCTLR classifier needs no imputation: its timing term is set to zero for a row with a missing
+value (\cref{sec:cctlr}). NICER features are never imputed, because observations that fail the NICER rules are excluded.
+For the frozen external tests (v6a, v8b), the medians come from the S1 training set and are applied unchanged.
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Design matrices used by the analyses}\label{sec:matrices}
+\Cref{tab:matrices} lists the main design matrices. The columns are the features defined in
+\cref{sec:rxte,sec:nicermaxi}, and $m$ is a missing-value indicator.
+
+{\small\setlength{\tabcolsep}{3.5pt}
+\begin{longtable}{@{}>{\raggedright\arraybackslash}p{1.25cm} >{\raggedright\arraybackslash}p{3.6cm} >{\raggedright\arraybackslash}p{3.4cm} >{\raggedright\arraybackslash}p{7.0cm}@{}}
+\caption{Main design matrices (shape $n\times p$) and their columns.}\label{tab:matrices}\\
+\toprule
+Round & Matrix & Shape & Columns; source of the rows \\
+\midrule\endfirsthead
+\toprule Round & Matrix & Shape & Columns; source of the rows \\ \midrule\endhead
+\bottomrule\endfoot
+v1 & $\Xm_A$, $\Xm_B$ & $120\times45$ & $A_{ij}$ or $B_{ij}$, $j=0..44$; \file{data/processed/features.npz} \\
+v2 & $\Xm_A$, $\Xm_B$ & $456\times45$ & as v1; \file{data/v2/processed/features.npz} \\
+ & $\Xm_H$, $\Xm_{HI}$ & $456\times2$, $456\times3$ & $h_1,h_2$ (+ $\log_{10}F$) \\
+v3a & $\Xm_{H+B}$, $\Xm_{HI+A}$ & $456\times47$, $456\times48$ & colours with the full shape or intensity spectrum \\
+v3b & $\Xm_{B3}$, $\Xm_{H3}$ & $456\times50$, $456\times3$ & 50-bin grid from 2.883\,keV; \file{features_3_25.npz} \\
+v4b2 & $\Xm_H$, $\Xm_{H_R}$, $\Xm_R$ & $677\times\{2,2,45\}$ & S1 + v4b2 rows; R uses \code{pl2} \\
+v4b1 & $\Xm_H$ \dots\ $\Xm_A$ & $7949\times\{2,3,45,45\}$ & all epoch-5 pointings; \file{data/v4b1/processed/features.npz} \\
+v4b3 & $\Xm_{H+X}$ & $396\times6$ & $h_1,h_2,X_1,X_2$ + one indicator per HEXTE colour \\
+v5 & $\Xm_{H+T}$, $\Xm_T$ & $456\times6$, $456\times4$ & $h_1,h_2,T_1,T_2,T_3,m$; joined from \file{timing_features.csv} \\
+v6a & $\Xm_{H_R}$, $\Xm_{H_R+T}$ & train $456\times\{2,6\}$, test $341\times\{2,6\}$ & external set E; S1 medians for missing $T$ \\
+v7c2, v8d & $\Xm_\mathrm{CCI}$, $\Xm_\mathrm{C2D}$, $\Xm_\mathrm{C1D}$ & $93\,461\times\{3,2,1\}$ & one row per MAXI day (BH vs NPNS, 61 sources) \\
+v8b & $\Xm_{H_R}$, $\Xm_{H_R+T}$ & $379\times\{2,6\}$ & external set X, frozen S1 models; 99 hard-like rows \\
+v8c & $\Xm_{H+HF}$ & $148\times5$ & $h_1,h_2,\mathrm{HF}_1,\mathrm{HF}_2,\mathrm{HF}_3$ \\
+v9a & $\Xm_{H_N}$, $\Xm_{H_N+T_N}$ & $368\times\{2,5\}$ & $c_1,c_2$ (+ $T_1,T_2,T_3$); no missing values \\
+v10a & as v9a & $366\times\{2,5\}$ & full files \\
+v11 & as v9a & test $318\times\{2,5\}$ & new observations, frozen out-of-source models \\
+v12 & as v9a & $534\times\{2,5\}$ & corrected and screened N1+N2 \\
+v13 & as v9a & test $198\times\{2,5\}$ & corrected and screened N3; 74 hard-like rows \\
+$\nu_c$ tests & $(\vect h,\log_{10}\nu_c)$ per hard-like obs. & -- & input of the permutation test (\cref{sec:permutation}), not a classifier \\
+\end{longtable}}
+
+% -----------------------------------------------------------------------------------------------------
+\subsection{Leakage controls in the code}\label{sec:leakage}
+\begin{enumerate}
+\item \textbf{Folds by source.} \code{LeaveOneGroupOut} on $\gv$. The scripts assert that each test fold holds exactly one
+source, that training and test sources are disjoint and that both classes are in training; the folds are saved
+(\file{results/v2/fold_checks.csv}, \file{results/v2/folds_loso.csv}).
+\item \textbf{The same folds across rounds.} The v2 folds are reused and asserted identical in v3a, v4a and v5, so paired
+comparisons use the same test sets.
+\item \textbf{Training-only preprocessing.} \code{StandardScaler} is part of the model object (\code{make_pipeline} or
+\code{V4Model.fit}). Imputation medians and source-equal weights are computed from training rows only.
+\item \textbf{Nested selection.} Anything that is selected (hyperparameters, representations, thresholds) is chosen by an
+inner LOSO over the training sources, never on the test source (\cref{sec:nested}).
+\item \textbf{Label-free residualisation.} The permutation tests regress timing on colour with a kNN that never sees labels,
+leaving the source out (\cref{sec:permutation}).
+\item \textbf{Frozen models.} External and new-observation tests use models, medians and rules fixed before the test data
+were read. In same-source tests, each source is scored by the model fitted without it (\cref{sec:frozen}).
+\item \textbf{Joins.} Feature tables are joined by observation ID. Where arrays are concatenated by position, the code
+asserts that the ID orders agree.
+\end{enumerate}

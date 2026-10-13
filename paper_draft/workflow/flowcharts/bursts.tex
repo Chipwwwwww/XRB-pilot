@@ -1,0 +1,31 @@
+% Type-I burst screening: three procedures, added in v4, v7b1 and v9. Copied from report_en/figures/flowcharts (styles in workflow_report.tex).
+\begin{tikzpicture}[x=1cm, y=1cm,
+  st/.style={fc proc, text width=2.62cm, minimum height=13mm},
+  res/.style={fc, draw=inkgrey, fill=boxgrey, text width=3.3cm, minimum height=10mm},
+  badge/.style={fc ver, anchor=south west}]
+  % lane 1: Standard-1 detector (v4)
+  \node[fc data, text width=2.62cm, minimum height=13mm] (a1) at (1.45,0) {RXTE Std-1: 1-s good-xenon light curve in the GTIs};
+  \node[st] (a2) at (4.62,0)  {candidates: bins $>\mu+4s$, merged within 30\,s};
+  \node[fc dec, text width=2.0cm, aspect=2.0] (a3) at (7.95,0) {burst shape (Eq.~\ref{eq:burst})?};
+  \node[res] (a5) at (12.2,0) {automatic set: 61 obs.\ flagged (main exclusion)};
+  \node[st, minimum height=9mm] (a4) at (7.95,-1.35) {inspection of every candidate by eye};
+  \node[res] (a6) at (12.2,-1.35) {visual set: 58 obs., all NS (sensitivity analysis)};
+  \draw[fc arr] (a1) -- (a2); \draw[fc arr] (a2) -- (a3);
+  \draw[fc arr] (a3) -- node[font=\tiny, above] {yes} (a5);
+  \draw[fc arr] (a2.south) |- (a4.west); \draw[fc arr] (a4) -- (a6);
+  % lane 2: MINBAR (v7b1)
+  \node[fc data, text width=2.62cm, minimum height=13mm] (b1) at (1.45,-3.1) {MINBAR DR1: burst start and duration};
+  \node[st, text width=2.9cm] (b2) at (4.75,-3.1) {GTIs to UTC; a burst overlaps a GTI, same ObsID or within $1^\circ$};
+  \node[fc dec, text width=2.0cm, aspect=2.0] (b3) at (7.95,-3.1) {primary rule met?};
+  \node[res] (b5) at (12.2,-3.1) {contaminated: 58 obs., all NS};
+  \draw[fc arr] (b1) -- (b2); \draw[fc arr] (b2) -- (b3);
+  \draw[fc arr] (b3) -- node[font=\tiny, above] {yes} (b5);
+  % lane 3: NICER (v9--v13)
+  \node[fc data, text width=2.62cm, minimum height=13mm] (c1) at (1.45,-5.15) {NICER: 1-s 2--10\,keV light curve in the good intervals};
+  \node[st] (c2) at (4.62,-5.15) {same candidates and shape rule (Eq.~\ref{eq:burst})};
+  \node[st] (c3) at (7.95,-5.15) {interval from 20\,s before to 200\,s after each burst};
+  \node[res] (c4) at (12.2,-5.15) {128-s segments in the interval removed};
+  \draw[fc arr] (c1) -- (c2); \draw[fc arr] (c2) -- (c3); \draw[fc arr] (c3) -- (c4);
+  % badges
+  \foreach \n/\v in {a1/v4, b1/v7b1, c1/{v9--v13}} \node[badge] at ([xshift=2pt, yshift=-0.4pt]\n.north west) {\v};
+\end{tikzpicture}
