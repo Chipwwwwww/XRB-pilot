@@ -10,13 +10,13 @@ Conventions proposed for the whole report
 - Status tags on every result: **[Primary]**, **[Secondary]**, **[Exploratory]**, **[Post hoc]** (macros, colour-coded).
 - Verdict wording follows the repo rule: "detected (95% CI excludes 0)" / "not detected under the pre-registered criterion".
 - Common methods are defined once in Ch. 2–5; phase chapters only `\cref` them and state differences.
-- Author/advisor were not filled in → `\author{TODO: author}`, `TODO: advisor`.
+- The author was not filled in → `\author{TODO: author}`.
 
 ---------------------------------------------------------------------------------------------------------------------
 
 ## 1. Full outline
 
-**Front matter**: title page (title, TODO author/advisor, date, repo URL + commit hash) · Abstract · Executive summary
+**Front matter**: title page (title, TODO author, date, repo URL + commit hash) · Abstract · Executive summary
 (1–2 pp.: three tiers of conclusions + Table ES1 cross-phase summary) · Notation (symbol table) · Contents / List of figures / List of tables.
 
 **Ch. 1 Introduction**
@@ -79,7 +79,7 @@ Conventions proposed for the whole report
 - **Ch. 11 Phase 6 (v11–v13): prospective tests on new NICER observations and 3C50** — v11a–d, v12a–b, v13a–b (explicit: same sources; v12 RF post hoc, v13 RF pre-specified)
 
 **Ch. 12 Synthesis across phases (v14)**: all primaries v1–v13 in one table; timing-gain table and ν_c table from `results/final_*.csv`; `figures/final/summary_across_versions.png`; the three evidence tiers; independence ladder (what is and is not independent).
-**Ch. 13 Limitations** · **Ch. 14 Future work** · **Ch. 15 Open questions for discussion** (5 questions, see §4 below)
+**Ch. 13 Limitations** · **Ch. 14 Future work**
 **References** (`references.bib`, natbib author–year; uncertain bibliographic fields get `note = {TODO: verify}`)
 **Appendices**: A hyper-parameters (every model, every version) · B reproduction (run scripts, script→output map, data locations, `downloads.jsonl` SHA256 records: 50,773 lines, environment: Python 3.12, numpy 2.4.4, pandas 2.3.3, scipy 1.17.1, scikit-learn 1.8.0, astropy 7.2.0, matplotlib 3.10.9, HEASoft 6.37.1) · C pre-registration summary table (v1–v13: written when, after which results, approval, primary, verdict) · D decision-log summary (post hoc flags) · E glossary (zh-TW → EN terms as specified)
 
@@ -205,14 +205,7 @@ Conventions proposed for the whole report
 
 ---------------------------------------------------------------------------------------------------------------------
 
-## 4. Proposed "Open questions for discussion" (Ch. 15)
-1. Is an observation-level prospective confirmation on the same 16 BHs enough to claim the timing gain, and what minimum source-level test (new transients) would the advisor accept?
-2. Should the ν_c result be framed as mass scaling, given no Eddington-ratio/distance control — and is collecting distances for ~60 sources worth it?
-3. Is the label-free kNN residualisation too conservative when BHs cluster in colour (v9 observation), and would a pre-registered alternative (e.g. colour-window or matched design) be preferable?
-4. RF vs LR: the timing gain is stable only for RF — report RF as the headline model despite RF being chosen post hoc in v12?
-5. Which external data (Insight-HXMT, AstroSat, future NICER/XRISM transients) are realistic for a source-level test?
-
-## 5. Discrepancies already found (will be marked `% CHECK:` in the LaTeX; CSV/code take precedence)
+## 4. Discrepancies already found (will be marked `% CHECK:` in the LaTeX; CSV/code take precedence)
 1. v2 report says the v1 good-xenon deadtime median was 0.15 %; `data/observations.csv` (v1) gives 0.31 % (matches the v1 report); 0.146 % is the median of `dtf_xe` in the **v2** sample.
 2. LMC X-1 eligible pointings under the catalogue-median rule: pre-registration v7 says 419, report v7 says 450; `results/v7b2/attrition_catalog.csv` records 450 before the pointing cut (the catalogue-median count itself is not stored).
 3. v9b post hoc colour-window Mann–Whitney p = 0.013, AUC 0.81: no committed script produces these numbers (only per-source values in `results/v9b/v9b_nuc_colour_window_post_hoc.csv`).

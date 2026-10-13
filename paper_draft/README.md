@@ -16,7 +16,7 @@ figure captions and in `claim_evidence.csv`.
 |---|---|
 | Repository | `Chipwwwwww/XRB-pilot` |
 | Commit used | `666c2e0ad6c490a5014d4290f3becc571e07132d` (HEAD of `master` and of `claude/clever-bardeen-222k3u` when the draft was started) |
-| Technical report used for context | `report_en/main.pdf`: 205 pages, PDF creation date 2026-10-09 11:31 UTC; last changed in commit `666c2e0` ("report_en: flowcharts …") |
+| Technical report used for context | `report_en/main.pdf` as of commit `666c2e0` ("report_en: flowcharts …"): 205 pages, PDF creation date 2026-10-09 11:31 UTC |
 | Main evidence | `results/**.csv`, `data/v*/processed/*.csv`, `scripts/config.py`, `scripts/v*lib.py`, analysis scripts 34, 44, 49, 57, 59, 63, `reports/preregistration_v*.md`, `reports/decision_log.md` |
 | Draft date | 2026-10-09 |
 
