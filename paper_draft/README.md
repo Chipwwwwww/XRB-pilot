@@ -1,4 +1,4 @@
-# paper_draft — first research-paper draft (for advisor discussion)
+# paper_draft — first research-paper draft
 
 An English research-paper draft that integrates the XRB-pilot analyses around one question. For black hole versus
 neutron star classification of sources excluded from training: what do X-ray colours capture, and does low-frequency
@@ -32,7 +32,6 @@ figure captions and in `claim_evidence.csv`.
 | `scripts/build_claim_evidence.py` | Builds `claim_evidence.csv`. It re-reads each number from the committed source row, compares it with the value stated in the paper, and checks that the number appears in `main.tex`. |
 | `claim_evidence.csv` | Claim–evidence table: 50 automatically checked claims and 18 manual rows. Columns: claim ID, section, claim, values, source file and rows, sample and unit, primary/descriptive/post hoc status, required limitations, verification status. |
 | `report/report.pdf` (`report.tex`, `references_report.bib`) | Report-style version: about 9 pages, key findings first, no formal paper structure. Same figures and numbers as the paper draft; build with `cd paper_draft/report && latexmk -pdf report.tex` |
-| `advisor_questions.md` | Open issues ranked A (must fix), B (analyses that could change the interpretation), C (later), plus decisions for the advisor |
 | `workflow/workflow_report.pdf` (`workflow_report.tex`, `sections/`, `flowcharts/`) | Workflow report, 44 pages: which databases are queried and how files are downloaded, logged and stored; sample construction; RXTE, NICER and MAXI processing and features; the data model; the machine-learning methods and hyperparameters; evaluation and inference; how to run and reproduce everything; file schemas. 15 TikZ flow diagrams (8 adapted from `report_en/figures/flowcharts/`). Describes the code at commit `666c2e0`; no analysis was re-run. Build with `cd paper_draft/workflow && latexmk -pdf workflow_report.tex` |
 
 ## Build
@@ -104,14 +103,14 @@ arXiv, ADS, publisher, institutional and HEASARC pages. Full texts were not re-r
    paper now uses 0.361.
 2. **Pooled versus stand-alone RXTE interval.** The v10a pooled test recomputes the RXTE component on draws over the
    union of sources, giving [+0.044, +0.469] against v8a's [+0.048, +0.455]. The paper uses v8a for the RXTE row and
-   v10a only for the pooled row (A8 in `advisor_questions.md`).
+   v10a only for the pooled row.
 3. **ν_c definitions differ** between RXTE (v6: weights divided by the log bin width) and NICER (v9: not divided).
    This is a technical-report `CHECK`, and it is stated in App. C.
 4. **Development-sample source rule.** Thirteen eligible bursters were missed (decision log, v4b2). This is disclosed
    in §2.2 and not corrected.
 5. **Literature claims.** The technical report and the Chinese reports state Garg's 80:20 observation split and that
    Pattnaik labelled candidates as BHs. These could not be re-verified against the full texts here, so they are flagged
-   in the paper (App. D, †) and in A1.
+   in the paper (App. D, †).
 6. **Unchanged report CHECKs.** The technical report's other `% CHECK` items (LMC X-1 eligible count, v9b post hoc
    Mann–Whitney without a committed script, v7c2 docstring, v7b2 file label, MAXI J1820+070 classification) concern
    numbers the paper does not use. They were left unchanged.
