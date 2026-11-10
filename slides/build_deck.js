@@ -500,6 +500,37 @@ const chartBase = () => Object.assign({
   ], { x: 0.85, y: 5.8, w: 11.6, h: 0.8, fontSize: 14, valign: "middle" });
   s.addNotes("Big direction with Albert and Saha, small direction with AI. The XRB pilot already kept a decision log (reports/decision_log.md); the new part is recording who made each decision. In the XRB paper draft several literature claims supplied by AI could not be re-verified, which is why AI-supplied papers and numbers start as 'to verify'.");
 
+  // =============== Idea-to-result workflow ===============
+  s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "How I plan to work" });
+  s.addText("From idea to result: seven stages, each with a check", { placeholder: "title" });
+  const wfHdr = (t, fill) => ({ text: t, options: { bold: true, color: "FFFFFF", fill: { color: fill }, fontFace: "Arial" } });
+  const wf = [
+    ["1  Idea", "Suggests ideas and related work", ["", "Propose ideas; choose one worth testing"], "A one-paragraph question"],
+    ["2  Feasibility", "Searches papers, data and existing code", ["Double check: ", "read the key papers myself"], "Feasible? If not, revise or drop"],
+    ["3  Plan", "Challenges the plan, offers options", ["", "Set scope, test set and success criteria"], "Plan agreed with Albert and Saha"],
+    ["4  Method", "Proposes a method and alternatives", ["", "Be able to explain why this method"], "Method fixed before coding"],
+    ["5  Code", "Writes it step by step (mode 2)", ["Double check: ", "explain, test, modify it"], "Known-answer test passes"],
+    ["6  Run", "Helps run and debug", ["", "Run with the pipeline frozen; log it"], "Results saved with code version"],
+    ["7  Interpret", "Challenges my reading, suggests checks", ["", "Interpret first, in my own words"], "Discussed with Albert and Saha"],
+  ];
+  const wfRows = [[wfHdr("Stage", HEX.dk1), wfHdr("AI", HEX.accent3), wfHdr("Me", HEX.accent2), wfHdr("Before moving on", HEX.accent1)]];
+  wf.forEach((r, i) => {
+    const f = i % 2 ? { fill: { color: HEX.lt2 } } : {};
+    wfRows.push([
+      { text: r[0], options: Object.assign({ bold: true, fontFace: "Arial" }, f) },
+      { text: r[1], options: f },
+      { text: [{ text: r[2][0], options: { bold: true, color: HEX.accent2 } }, { text: r[2][1], options: {} }], options: f },
+      { text: r[3], options: f },
+    ]);
+  });
+  s.addTable(wfRows, { x: 0.6, y: 1.55, w: 12.1, colW: [1.9, 3.5, 3.7, 3.0], rowH: 0.5, fontSize: 14, color: C.text1, valign: "middle", border: { type: "solid", pt: 0.75, color: "D5DCE6" }, objectName: "workflow table" });
+  card(s, 0.6, 5.75, 12.1, 0.95, "FDF0E3", "XRB example panel");
+  txt(s, [
+    { text: "Stage 2 in the XRB pilot: ", options: { bold: true, color: C.accent1 } },
+    { text: "the AI's list of 16 black-hole candidates was logged as \"not verified\". Each one was checked against the BlackCAT catalogue, with sources recorded, before any data were downloaded.", options: {} },
+  ], { x: 0.85, y: 5.83, w: 11.6, h: 0.8, fontSize: 14, valign: "middle" });
+  s.addNotes("Ideas come from me and from AI. AI checks feasibility in the literature and I double-check by reading the key papers myself. If it is feasible, I make a plan with AI and agree it with Albert and Saha. Then the method, then the code (AI writes, I double-check), then run and interpret. Each stage has a condition before moving on, and each decision goes in the decision log with who made it. The XRB example is in reports/decision_log.md (v3c) and reports/v3c_candidate_verification.md: 16 candidates checked, all kept, frozen before any v3c data were downloaded.");
+
   // =============== 14. Three coding modes ===============
   s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "How I plan to work" });
   s.addText("Three ways to write the code — I prefer mode 2", { placeholder: "title" });
