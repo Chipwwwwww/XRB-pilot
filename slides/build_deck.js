@@ -376,6 +376,77 @@ const chartBase = () => Object.assign({
   }
   s.addNotes("This is a quick literature scan, not a full review; I still need to check 2025-2026 work (e.g. O4 follow-up papers and any LVK use of ML localization in low latency). The DINGO-BNS 30% figure is the authors' own comparison.");
 
+  // =============== Pipeline: train on simulations, apply to real events ===============
+  s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Next: GW sky localization" });
+  s.addText("Pipeline: train on simulations, apply to real events", { placeholder: "title" });
+  const lanes = [
+    ["Training · simulated signals, done once, slow", 1.5, [
+      ["Draw parameters", "Masses, spins, RA, Dec, distance. These are the answer"],
+      ["Simulate signal", "Waveform model, then projection onto each detector"],
+      ["Add noise", "Gaussian noise from the PSD first, then real noise segments"],
+      ["Preprocess", "Whiten and crop around the merger: strain or SNR time series"],
+      ["Train network", "Embedding + normalizing flow. Loss = −log q(true | data)"]]],
+    ["Use · a real event, about a second", 3.6, [
+      ["Event detected", "A search pipeline finds the event and its merger time"],
+      ["Get data", "Strain around the trigger from each detector"],
+      ["Preprocess", "Exactly the same steps as in training"],
+      ["Trained network", "Draw thousands of (RA, Dec, distance) samples"],
+      ["Skymap", "HEALPix map and 90% region, sent to telescopes"]]],
+  ];
+  lanes.forEach((lane, li) => {
+    txt(s, lane[0], { x: 0.6, y: lane[1], w: 12.1, h: 0.35, fontSize: 15, bold: true, color: li === 0 ? C.accent2 : C.accent4, valign: "middle" });
+    lane[2].forEach((b, i) => {
+      const x = 0.6 + i * 2.475, y = lane[1] + 0.45;
+      const isNet = b[0].includes("network");
+      card(s, x, y, 2.2, 1.45, isNet ? "FDF0E3" : HEX.lt2, "lane " + (li + 1) + " box " + (i + 1));
+      txt(s, [{ text: (i + 1) + "  ", options: { color: li === 0 ? C.accent2 : C.accent4 } }, { text: b[0], options: {} }], { x: x + 0.15, y: y + 0.12, w: 1.95, h: 0.35, fontSize: 14, bold: true, fontFace: "Arial", valign: "middle" });
+      txt(s, b[1], { x: x + 0.15, y: y + 0.52, w: 1.9, h: 0.85, fontSize: 13, color: C.text2 });
+      if (i < 4) s.addShape(pres.shapes.CHEVRON, { x: x + 2.26, y: y + 0.57, w: 0.15, h: 0.3, fill: { color: C.accent5 }, line: { color: C.accent5 }, objectName: "lane " + (li + 1) + " arrow " + (i + 1) });
+    });
+  });
+  card(s, 0.6, 5.7, 12.1, 1.0, HEX.lt2, "sky information panel");
+  txt(s, [
+    { text: "Where the sky information comes from: ", options: { bold: true } },
+    { text: "differences in arrival time (up to ~10 ms between Hanford and Livingston), amplitude and phase between detectors. Two detectors give a ring on the sky; a third shrinks it.", options: { color: C.text2 } },
+  ], { x: 0.85, y: 5.8, w: 11.6, h: 0.8, fontSize: 14, valign: "middle" });
+  s.addNotes("Two lines. Training uses only simulated signals, so every example has a known answer: the parameters I drew in step 1. Minimising -log q(true | data) over many simulations makes the network's distribution approach the Bayesian posterior (neural posterior estimation); no Bilby runs are needed for training. Use: the same preprocessing and the same network (the two highlighted boxes) on a real event. Open choices to ask Saha: whitened strain or matched-filter SNR time series as input, and whether to practise on BBH (signals of a few seconds) before BNS (about 160 s from 20 Hz). Paper-specific details here are from memory and need checking.");
+
+  // =============== Ground truth and checks ===============
+  s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Next: GW sky localization" });
+  s.addText("Where the answer comes from, and how we check it", { placeholder: "title" });
+  txt(s, "The answer comes from the simulation", { x: 0.6, y: 1.5, w: 5.9, h: 0.4, fontSize: 17, bold: true, fontFace: "Arial", valign: "middle" });
+  txt(s, "Four checks", { x: 6.9, y: 1.5, w: 5.8, h: 0.4, fontSize: 17, bold: true, fontFace: "Arial", valign: "middle" });
+  const roles = [
+    [fa.FaQuestion, C.text2, "Question", "Detector data with a signal in it", "Simulated signal + noise"],
+    [fa.FaKey, C.accent1, "Answer", "The parameters I chose when injecting", "e.g. RA = 197°, Dec = −23°"],
+    [fa.FaPencilAlt, C.accent2, "Solver", "A method that infers position from data", "BAYESTAR, Bilby, the ML model"],
+  ];
+  for (let i = 0; i < 3; i++) {
+    const y = 2.0 + i * 1.25;
+    card(s, 0.6, y, 5.9, 1.1, i === 1 ? "FDF0E3" : HEX.lt2, "role card " + roles[i][2]);
+    await iconCircle(s, roles[i][0], 0.8, y + 0.2, 0.7, roles[i][1], roles[i][2]);
+    txt(s, roles[i][2], { x: 1.75, y: y + 0.1, w: 4.6, h: 0.3, fontSize: 15, bold: true, color: roles[i][1], valign: "middle" });
+    txt(s, roles[i][3], { x: 1.75, y: y + 0.4, w: 4.6, h: 0.3, fontSize: 14, valign: "middle" });
+    txt(s, roles[i][4], { x: 1.75, y: y + 0.7, w: 4.6, h: 0.3, fontSize: 13, italic: true, color: C.text2, valign: "middle" });
+  }
+  const checks = [
+    [fa.FaBullseye, "Calibration (P–P plot)", "Thousands of injections: does the 90% region contain the true position about 90% of the time?"],
+    [fa.FaRulerCombined, "Precision", "90% area and searched area on the same injections, against BAYESTAR and Bilby"],
+    [fa.FaRandom, "Real noise", "Injections into real noise segments never used in training"],
+    [fa.FaStar, "Real events", "Compare with LVK skymaps; for GW170817, is NGC 4993 inside?"],
+  ];
+  for (let i = 0; i < 4; i++) {
+    const y = 2.0 + i * 0.92;
+    await iconCircle(s, checks[i][0], 6.9, y + 0.05, 0.6, C.accent4, checks[i][1]);
+    txt(s, checks[i][1], { x: 7.7, y, w: 5.0, h: 0.3, fontSize: 15, bold: true, valign: "middle" });
+    txt(s, checks[i][2], { x: 7.7, y: y + 0.32, w: 5.0, h: 0.5, fontSize: 13, color: C.text2 });
+  }
+  txt(s, [
+    { text: "Past GW data is used in two ways: ", options: { bold: true, color: C.accent6 } },
+    { text: "signal-free segments as realistic noise, and real events as the final test. Real events cannot be the training set: there are too few, and only GW170817 has a confirmed position.", options: {} },
+  ], { x: 0.6, y: 5.95, w: 12.1, h: 0.75, fontSize: 14, valign: "middle" });
+  s.addNotes("BAYESTAR and Bilby are solvers, not the answer: all three methods are marked against the injected parameters. Bilby has two roles: it can also be the tool that makes the injections. On real events there is no answer, so agreement with the LVK analysis only shows consistency with the reference method. That only GW170817 has a confirmed electromagnetic counterpart is my current understanding; to confirm with Saha for O4.");
+
   // =============== 12. Proposal ===============
   s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Next: GW sky localization" });
   s.addText("Proposal: a calibrated neural sky localizer", { placeholder: "title" });
