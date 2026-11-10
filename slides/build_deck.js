@@ -164,7 +164,7 @@ const chartBase = () => Object.assign({
   }], Object.assign(chartBase(), {
     x: 5.0, y: 1.5, w: 7.75, h: 5.1, barDir: "bar", catAxisOrientation: "maxMin",
     valAxisMinVal: -0.2, valAxisMaxVal: 0.05, valAxisMajorUnit: 0.05, valAxisLabelFormatCode: "0.00",
-    chartColors: [HEX.accent5], showValue: true, dataLabelPosition: "outEnd", dataLabelFormatCode: "+0.000;−0.000;0.000",
+    chartColors: [HEX.accent5], showValue: true, dataLabelPosition: "outEnd", dataLabelFormatCode: "+0.000;-0.000;0.000",
     showTitle: true, title: "Change in source-level AUC vs two colours (LR) — none detected", showLegend: false, barGapWidthPct: 60,
     catAxisLabelPos: "low", objectName: "ablation chart",
   }));
