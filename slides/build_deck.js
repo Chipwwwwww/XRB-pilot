@@ -355,7 +355,116 @@ const chartBase = () => Object.assign({
   txt(s, "Hold out by event and noise period (like holding out sources)  ·  Commit the plan and freeze the pipeline before each test  ·  Report coverage with event-bootstrap intervals, not just median area  ·  Beat BAYESTAR before adding complexity", { x: 0.85, y: 5.9, w: 11.6, h: 0.7, fontSize: 14 });
   s.addNotes("Scope is deliberately narrow: sky position (and distance) for EM-bright systems, where localization matters most for follow-up. The key deliverable is not a faster number but a calibration study: when do neural skymaps under-cover on real noise, and can that be fixed (e.g. by training on real-noise segments or recalibrating)?");
 
-  // =============== 13. Discussion ===============
+  // =============== 13. Who decides what ===============
+  pres.addSection({ title: "How I plan to work" });
+  const chip = (slide, text, x, y, w, fill, name) => {
+    slide.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w, h: 0.32, rectRadius: 0.08, fill: { color: fill }, line: { color: fill }, objectName: name + " chip" });
+    txt(slide, text, { x, y, w, h: 0.32, fontSize: 12, bold: true, color: C.background1, align: "center", valign: "middle" });
+  };
+  s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "How I plan to work" });
+  s.addText("How I plan to work: who decides what", { placeholder: "title" });
+  const layers = [
+    [fa.FaUserTie, C.accent1, "Albert & Saha", "Big direction · every ~2 weeks", [
+      "Science question and scope", "What counts as success", "Priorities, and when to stop",
+      "I bring one page: decided, done, stuck, decisions needed"]],
+    [fa.FaRobot, C.accent3, "AI assistant", "Small direction · daily", [
+      "Technical choices inside the agreed scope", "Libraries, priors, architecture, debugging",
+      "Papers and numbers from AI are marked \"to verify\""]],
+    [fa.FaUserGraduate, C.accent2, "Me", "Every step", [
+      "Understand each step well enough to explain it to Saha", "Write the evaluation code myself",
+      "Check AI claims against papers and data"]],
+  ];
+  for (let i = 0; i < 3; i++) {
+    const [Ic, col, name, cadence, items] = layers[i];
+    const x = 0.6 + i * 4.1;
+    card(s, x, 1.55, 3.9, 3.95, HEX.lt2, "layer card " + (i + 1));
+    await iconCircle(s, Ic, x + 0.3, 1.85, 0.75, col, name);
+    txt(s, name, { x: x + 1.25, y: 1.85, w: 2.45, h: 0.4, fontSize: 19, bold: true, fontFace: "Arial", valign: "middle" });
+    txt(s, cadence, { x: x + 1.25, y: 2.27, w: 2.45, h: 0.35, fontSize: 13, bold: true, color: col, valign: "middle" });
+    txt(s, items.map((b, j) => ({ text: b, options: { bullet: true, breakLine: j < items.length - 1 } })), { x: x + 0.3, y: 2.95, w: 3.35, h: 2.4, fontSize: 14, color: C.text2, paraSpaceAfter: 8 });
+  }
+  card(s, 0.6, 5.7, 12.1, 1.0, "FDF0E3", "decision log panel");
+  txt(s, [
+    { text: "Decision log: ", options: { bold: true, color: C.accent1 } },
+    { text: "every choice is recorded with who made it (Albert, Saha, me, or an AI suggestion). Anything that changes the science question, the test set or the success criteria goes to the meeting, not to the AI.", options: {} },
+  ], { x: 0.85, y: 5.8, w: 11.6, h: 0.8, fontSize: 14, valign: "middle" });
+  s.addNotes("Big direction with Albert and Saha, small direction with AI. The XRB pilot already kept a decision log (reports/decision_log.md); the new part is recording who made each decision. In the XRB paper draft several literature claims supplied by AI could not be re-verified, which is why AI-supplied papers and numbers start as 'to verify'.");
+
+  // =============== 14. Three coding modes ===============
+  s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "How I plan to work" });
+  s.addText("Three ways to write the code — I prefer mode 2", { placeholder: "title" });
+  [["Mode", 1.75], ["Trade-off", 5.0], ["Where I would use it", 8.9]].forEach((h) => txt(s, h[0], { x: h[1], y: 1.5, w: 3.6, h: 0.3, fontSize: 12, bold: true, color: C.accent5 }));
+  const modes = [
+    ["1", "AI writes everything", "Black box: I only check the output", "Fastest, but I cannot explain or defend the code.", "Plots, downloads, format conversion, boilerplate: errors are obvious and do not change conclusions.", false],
+    ["2", "AI writes step by step", "I explain, test and modify each step before moving on", "Slower, but I can explain every number.", "Data processing, signal injection, the model, the training loop.", true],
+    ["3", "I write it by hand", "AI only reviews", "Slowest, deepest understanding.", "Evaluation metrics (90% area, P–P coverage), the test-set split, and learning the basics.", false],
+  ];
+  modes.forEach((m, i) => {
+    const y = 1.85 + i * 1.35;
+    card(s, 0.6, y, 12.1, 1.2, m[5] ? "FDF0E3" : HEX.lt2, "mode band " + m[0]);
+    s.addShape(pres.shapes.OVAL, { x: 0.85, y: y + 0.27, w: 0.65, h: 0.65, fill: { color: m[5] ? C.accent1 : C.text2 }, line: { color: m[5] ? C.accent1 : C.text2 }, objectName: "mode number " + m[0] });
+    txt(s, m[0], { x: 0.85, y: y + 0.27, w: 0.65, h: 0.65, fontSize: 22, bold: true, color: C.background1, align: "center", valign: "middle" });
+    txt(s, m[1], { x: 1.75, y: y + 0.15, w: 3.0, h: 0.4, fontSize: 16, bold: true, fontFace: "Arial", valign: "middle" });
+    txt(s, m[2], { x: 1.75, y: y + 0.57, w: 3.0, h: 0.55, fontSize: 13, color: C.text2 });
+    txt(s, m[3], { x: 5.0, y: y + 0.15, w: 3.6, h: 0.9, fontSize: 14, valign: "middle" });
+    txt(s, m[4], { x: 8.9, y: y + 0.15, w: 3.6, h: 0.9, fontSize: 14, color: C.text2, valign: "middle" });
+  });
+  txt(s, [
+    { text: "Rule for choosing: ", options: { bold: true, color: C.accent6 } },
+    { text: "if this code were wrong, would the conclusion be wrong? The more it would, the more of it I write and check myself. A wrong metric usually looks like a good result.", options: {} },
+  ], { x: 0.6, y: 5.95, w: 12.1, h: 0.75, fontSize: 14, valign: "middle" });
+  s.addNotes("Mode 2 is the main mode. The XRB pilot was closer to mode 1: the reports are complete, but I could not explain every part on the spot. This time the goal is that I can explain every number. Evaluation metrics go in mode 3 because an error there is the hardest to notice.");
+
+  // =============== 15. Mode 2 loop ===============
+  s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "How I plan to work" });
+  s.addText("Mode 2 in practice: one small step at a time", { placeholder: "title" });
+  const loop = [
+    ["1", "I say it first", "Me", "I write down the input, the output and how to check it. AI challenges the plan."],
+    ["2", "AI writes one step", "AI", "About 50–150 lines or one function, with a short explanation and a sanity check."],
+    ["3", "I explain it back", "Me", "Array shapes, assumptions, where it could break. AI corrects me."],
+    ["4", "Verify", "Both", "Test on a case with a known answer, such as a signal injected at a known sky position."],
+    ["5", "I modify it", "Me", "A parameter, a plot or a condition. If I can modify it, I understand it."],
+    ["6", "Commit and log", "Me", "My own commit message, plus what I learned and what to ask Saha."],
+  ];
+  const who = { Me: C.accent2, AI: C.accent3, Both: C.accent4 };
+  loop.forEach((st, i) => {
+    const x = 0.6 + (i % 3) * 4.1, y = 1.55 + Math.floor(i / 3) * 2.05;
+    card(s, x, y, 3.9, 1.85, HEX.lt2, "loop step " + st[0]);
+    s.addShape(pres.shapes.OVAL, { x: x + 0.25, y: y + 0.22, w: 0.55, h: 0.55, fill: { color: C.accent1 }, line: { color: C.accent1 }, objectName: "loop number " + st[0] });
+    txt(s, st[0], { x: x + 0.25, y: y + 0.22, w: 0.55, h: 0.55, fontSize: 18, bold: true, color: C.background1, align: "center", valign: "middle" });
+    txt(s, st[1], { x: x + 0.95, y: y + 0.22, w: 1.95, h: 0.55, fontSize: 16, bold: true, fontFace: "Arial", valign: "middle" });
+    chip(s, st[2], x + 2.95, y + 0.33, 0.7, who[st[2]], "step " + st[0] + " owner");
+    txt(s, st[3], { x: x + 0.25, y: y + 0.92, w: 3.4, h: 0.85, fontSize: 14, color: C.text2 });
+  });
+  card(s, 0.6, 5.7, 12.1, 1.0, "FBEAE8", "gate panel");
+  txt(s, [
+    { text: "Gate: ", options: { bold: true, color: C.accent6 } },
+    { text: "if I cannot explain the step (3) or the known-answer test fails (4), we do not move to the next step.", options: {} },
+  ], { x: 0.85, y: 5.8, w: 11.6, h: 0.8, fontSize: 15, valign: "middle" });
+  s.addNotes("Each step is one small testable unit. Steps 3 and 5 are what make this different from mode 1: I have to explain the code back and change it myself. The log entry from step 6 feeds the one-page update for the meeting.");
+
+  // =============== 16. Order of work ===============
+  s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "How I plan to work" });
+  s.addText("Order of work: evaluation before model", { placeholder: "title" });
+  const phases = [
+    ["A", "Foundations", "Mode 3 · by hand", C.accent2, ["GW150914 / GW170817 strain: PSD, whitening", "Project a waveform onto each detector; see how time delays localize", "Run BAYESTAR; read a skymap; compute the 90% area"]],
+    ["B", "Evaluation tools", "Mode 3 · by hand", C.accent2, ["Injection set, metrics, P–P plot", "Freeze the test set before any model exists"]],
+    ["C", "Model", "Mode 2 · step by step", C.accent1, ["2D toy flow", "Sky position only, Gaussian noise", "Then real noise", "Simple library first (e.g. sbi), DINGO as reference"]],
+    ["D", "Stress tests", "Mode 2 · step by step", C.accent1, ["Plan written before each test", "Held-out real-noise periods, glitches, PSD drift", "Public O4 events vs LVK skymaps"]],
+  ];
+  s.addShape(pres.shapes.LINE, { x: 0.9 + 0.3, y: 1.9, w: 3 * 3.06, h: 0, line: { color: HEX.accent5, width: 1.5 }, objectName: "timeline" });
+  phases.forEach((p, i) => {
+    const x = 0.6 + i * 3.06;
+    s.addShape(pres.shapes.OVAL, { x: x + 0.3, y: 1.6, w: 0.6, h: 0.6, fill: { color: C.text1 }, line: { color: C.text1 }, objectName: "phase node " + p[0] });
+    txt(s, p[0], { x: x + 0.3, y: 1.6, w: 0.6, h: 0.6, fontSize: 18, bold: true, color: C.background1, align: "center", valign: "middle" });
+    card(s, x, 2.45, 2.9, 4.25, HEX.lt2, "phase card " + p[0]);
+    txt(s, p[1], { x: x + 0.2, y: 2.6, w: 2.5, h: 0.4, fontSize: 17, bold: true, fontFace: "Arial", valign: "middle" });
+    chip(s, p[2], x + 0.2, 3.08, 2.0, p[3], "phase " + p[0] + " mode");
+    txt(s, p[4].map((b, j) => ({ text: b, options: { bullet: true, breakLine: j < p[4].length - 1 } })), { x: x + 0.2, y: 3.6, w: 2.55, h: 3.0, fontSize: 14, color: C.text2, paraSpaceAfter: 8 });
+  });
+  s.addNotes("A and B come before any model so that the test set and metrics are fixed first, the same 'freeze before you look' rule as in the XRB pilot. Phase A follows the public GWOSC tutorials. Phase C starts with a toy problem with a known answer before touching GW data. The library names are suggestions to check with Saha.");
+
+  // =============== 17. Discussion ===============
   pres.addSection({ title: "Discussion" });
   s = pres.addSlide({ masterName: "SECTION_DARK", sectionTitle: "Discussion" });
   s.addText("For discussion", { placeholder: "title" });
@@ -363,10 +472,11 @@ const chartBase = () => Object.assign({
     { text: "Scope: BNS / NSBH only, or all CBCs? Include pre-merger?", options: { bullet: true, breakLine: true } },
     { text: "Science hook: link to the X-ray / optical follow-up our group does?", options: { bullet: true, breakLine: true } },
     { text: "Compute: GPU access for training normalizing flows", options: { bullet: true, breakLine: true } },
-    { text: "Roles: who guides the GW data-analysis side; first milestone for next meeting", options: { bullet: true } },
-  ], { x: 0.8, y: 4.1, w: 11.7, h: 2.6, fontSize: 20, color: "DCE3F0", paraSpaceAfter: 10 });
+    { text: "Working with AI: is this workflow acceptable, and how should a paper disclose it?", options: { bullet: true, breakLine: true } },
+    { text: "Cadence and roles: a regular meeting; could Saha advise on GW data analysis (~30 min a week)?", options: { bullet: true } },
+  ], { x: 0.8, y: 4.1, w: 11.7, h: 2.6, fontSize: 18, color: "DCE3F0", paraSpaceAfter: 9 });
   await iconCircle(s, fa.FaComments, 0.8, 0.8, 0.9, C.accent1, "Discussion");
-  s.addNotes("Also worth asking: should the XRB paper draft be finished first (new BH transients would be the decisive test), or run in parallel?");
+  s.addNotes("Also worth asking: should the XRB paper draft be finished first (new BH transients would be the decisive test), or run in parallel? The AI-assistance disclosure in the XRB paper draft is still a placeholder. First milestone to agree for the next meeting.");
 
   await pres.writeFile({ fileName: OUT });
   await applyTheme(OUT, THEME);
