@@ -80,6 +80,10 @@ function card(slide, x, y, w, h, fill, name) {
   slide.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w, h, rectRadius: 0.08, fill: { color: fill }, line: { color: fill }, objectName: name });
 }
 const txt = (slide, text, opts) => slide.addText(text, Object.assign({ isTextBox: true, margin: 0, valign: "top", color: C.text1 }, opts));
+const chip = (slide, text, x, y, w, fill, name) => {
+  slide.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w, h: 0.32, rectRadius: 0.08, fill: { color: fill }, line: { color: fill }, objectName: name + " chip" });
+  txt(slide, text, { x, y, w, h: 0.32, fontSize: 12, bold: true, color: C.background1, align: "center", valign: "middle" });
+};
 const CHART_FONT = { catAxisLabelFontFace: "+mn-lt", valAxisLabelFontFace: "+mn-lt", dataLabelFontFace: "+mn-lt", titleFontFace: "+mn-lt", legendFontFace: "+mn-lt" };
 const chartBase = () => Object.assign({
   catAxisLabelColor: HEX.dk2, valAxisLabelColor: HEX.dk2, catAxisLabelFontSize: 12, valAxisLabelFontSize: 11,
@@ -272,6 +276,45 @@ const chartBase = () => Object.assign({
   s.addText("Where should telescopes point within seconds of a merger — and how far can we trust the map?", { placeholder: "body" });
   await iconCircle(s, fa.FaCrosshairs, 0.8, 0.8, 0.9, C.accent1, "Localization");
 
+  // =============== Bridge: practice -> project ===============
+  s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Next: GW sky localization" });
+  s.addText("From practice to project: XRB → GW", { placeholder: "title" });
+  const bridge = [
+    [0.6, HEX.lt2, fa.FaTools, C.text2, "XRB pilot: practice", "Done", C.accent5, [
+      "Purpose: get familiar with an end-to-end ML workflow",
+      "Data → features → model → held-out evaluation → report",
+      "What I keep: the evaluation habits, not the topic"]],
+    [7.1, "FDF0E3", fa.FaGraduationCap, C.accent1, "GW sky localization: the project", "Next", C.accent1, [
+      "I want to treat this as my postgraduate research project",
+      "I need to understand and be able to defend every step",
+      "Big direction from Albert and Saha"]],
+  ];
+  for (const b of bridge) {
+    card(s, b[0], 1.55, 5.6, 3.15, b[1], b[4] + " card");
+    await iconCircle(s, b[2], b[0] + 0.3, 1.85, 0.75, b[3], b[4]);
+    txt(s, b[4], { x: b[0] + 1.25, y: 1.85, w: 3.1, h: 0.75, fontSize: 19, bold: true, fontFace: "Arial", valign: "middle" });
+    chip(s, b[5], b[0] + 4.5, 2.06, 0.85, b[6], b[4]);
+    txt(s, b[7].map((t, j) => ({ text: t, options: { bullet: true, breakLine: j < 2 } })), { x: b[0] + 0.3, y: 2.9, w: 5.05, h: 1.7, fontSize: 15, color: C.text2, paraSpaceAfter: 8 });
+  }
+  s.addShape(pres.shapes.CHEVRON, { x: 6.45, y: 2.85, w: 0.4, h: 0.55, fill: { color: C.accent5 }, line: { color: C.accent5 }, objectName: "bridge arrow" });
+  txt(s, [
+    { text: "Step 0, before I start: ", options: { bold: true, color: C.accent1 } },
+    { text: "review the GW Open Data Workshop (GWODW) material — I have forgotten parts of it", options: { bold: true } },
+  ], { x: 0.6, y: 5.0, w: 12.1, h: 0.4, fontSize: 17, fontFace: "Arial", valign: "middle" });
+  const odw = [
+    [fa.FaDatabase, "Open data", "GWOSC strain and event catalogues"],
+    [fa.FaWaveSquare, "Signal processing", "PSD, whitening, time–frequency maps"],
+    [fa.FaFilter, "Matched filtering", "Waveforms, SNR, detection"],
+    [fa.FaMapMarkedAlt, "Parameter estimation", "Posteriors and skymaps"],
+  ];
+  for (let i = 0; i < 4; i++) {
+    const x = 0.6 + i * 3.06;
+    await iconCircle(s, odw[i][0], x, 5.65, 0.6, C.accent2, odw[i][1]);
+    txt(s, odw[i][1], { x: x + 0.75, y: 5.6, w: 2.2, h: 0.35, fontSize: 15, bold: true });
+    txt(s, odw[i][2], { x: x + 0.75, y: 5.97, w: 2.2, h: 0.7, fontSize: 13, color: C.text2 });
+  }
+  s.addNotes("The XRB work was mainly a way to get familiar with an ML workflow from data to report. GW sky localization is what I want to treat as my postgraduate research project. Before starting, I will go back through the GW Open Data Workshop (GWODW) material, because I have forgotten parts of it. The four topics listed are the usual workshop blocks; I will adjust them to the edition I attended.");
+
   // =============== 10. Why ===============
   s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Next: GW sky localization" });
   s.addText("Why: follow-up needs fast and trustworthy skymaps", { placeholder: "title" });
@@ -357,10 +400,6 @@ const chartBase = () => Object.assign({
 
   // =============== 13. Who decides what ===============
   pres.addSection({ title: "How I plan to work" });
-  const chip = (slide, text, x, y, w, fill, name) => {
-    slide.addShape(pres.shapes.ROUNDED_RECTANGLE, { x, y, w, h: 0.32, rectRadius: 0.08, fill: { color: fill }, line: { color: fill }, objectName: name + " chip" });
-    txt(slide, text, { x, y, w, h: 0.32, fontSize: 12, bold: true, color: C.background1, align: "center", valign: "middle" });
-  };
   s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "How I plan to work" });
   s.addText("How I plan to work: who decides what", { placeholder: "title" });
   const layers = [
@@ -447,7 +486,7 @@ const chartBase = () => Object.assign({
   s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "How I plan to work" });
   s.addText("Order of work: evaluation before model", { placeholder: "title" });
   const phases = [
-    ["A", "Foundations", "Mode 3 · by hand", C.accent2, ["GW150914 / GW170817 strain: PSD, whitening", "Project a waveform onto each detector; see how time delays localize", "Run BAYESTAR; read a skymap; compute the 90% area"]],
+    ["A", "Foundations", "Mode 3 · by hand", C.accent2, ["Step 0: review the GWODW material", "GW150914 / GW170817 strain: PSD, whitening", "Project a waveform onto each detector; see how time delays localize", "Run BAYESTAR; read a skymap; compute the 90% area"]],
     ["B", "Evaluation tools", "Mode 3 · by hand", C.accent2, ["Injection set, metrics, P–P plot", "Freeze the test set before any model exists"]],
     ["C", "Model", "Mode 2 · step by step", C.accent1, ["2D toy flow", "Sky position only, Gaussian noise", "Then real noise", "Simple library first (e.g. sbi), DINGO as reference"]],
     ["D", "Stress tests", "Mode 2 · step by step", C.accent1, ["Plan written before each test", "Held-out real-noise periods, glitches, PSD drift", "Public O4 events vs LVK skymaps"]],
@@ -462,7 +501,7 @@ const chartBase = () => Object.assign({
     chip(s, p[2], x + 0.2, 3.08, 2.0, p[3], "phase " + p[0] + " mode");
     txt(s, p[4].map((b, j) => ({ text: b, options: { bullet: true, breakLine: j < p[4].length - 1 } })), { x: x + 0.2, y: 3.6, w: 2.55, h: 3.0, fontSize: 14, color: C.text2, paraSpaceAfter: 8 });
   });
-  s.addNotes("A and B come before any model so that the test set and metrics are fixed first, the same 'freeze before you look' rule as in the XRB pilot. Phase A follows the public GWOSC tutorials. Phase C starts with a toy problem with a known answer before touching GW data. The library names are suggestions to check with Saha.");
+  s.addNotes("A and B come before any model so that the test set and metrics are fixed first, the same 'freeze before you look' rule as in the XRB pilot. Phase A starts by reviewing the GWODW material and then repeats the basics by hand. Phase C starts with a toy problem with a known answer before touching GW data. The library names are suggestions to check with Saha.");
 
   // =============== 17. Discussion ===============
   pres.addSection({ title: "Discussion" });
