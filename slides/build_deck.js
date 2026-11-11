@@ -345,6 +345,43 @@ const chartBase = () => Object.assign({
   }
   s.addNotes("Context: GW170817 had a ~28 deg^2 90% region and the optical counterpart was found ~11 h after merger. O4 ended 18 Nov 2025. Per the LVK observing-plan page (April 2026), a ~6-month Intermediate Run (IR1) was planned to start late Oct / mid-Nov 2026, with O5 timing under reassessment — to be checked before relying on dates.");
 
+  // =============== Why ML: the DINGO-BNS argument ===============
+  s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Next: GW sky localization" });
+  s.addText("Why ML is needed: the DINGO-BNS argument", { placeholder: "title" });
+  const dingo = [
+    ["Speed is essential", [{ text: "The GW signal arrives before the light, so fast analysis decides whether telescopes catch the earliest emission.", options: {} }]],
+    ["Standard Bayesian inference is too slow", [
+      { text: "“A BNS lasts for hundreds of seconds for the LVK and will reach hours for next-generation detectors.”", options: { italic: true } },
+      { text: " State of the art: localization in 6 min, full inference in 2 h.", options: {} }]],
+    ["Fast methods trade accuracy for speed", [{ text: "BAYESTAR localizes in seconds, but from the SNR time series rather than the complete strain data.", options: {} }]],
+    ["ML moves the cost into training", [{ text: "“Trained networks then enable extremely fast analysis for new datasets.”", options: { italic: true } }]],
+  ];
+  dingo.forEach((d, i) => {
+    const y = 1.55 + i * 0.95;
+    s.addShape(pres.shapes.OVAL, { x: 0.6, y: y + 0.05, w: 0.55, h: 0.55, fill: { color: C.accent1 }, line: { color: C.accent1 }, objectName: "argument number " + (i + 1) });
+    txt(s, String(i + 1), { x: 0.6, y: y + 0.05, w: 0.55, h: 0.55, fontSize: 18, bold: true, color: C.background1, align: "center", valign: "middle" });
+    txt(s, d[0], { x: 1.35, y, w: 6.5, h: 0.32, fontSize: 16, bold: true, fontFace: "Arial", valign: "middle" });
+    txt(s, d[1], { x: 1.35, y: y + 0.34, w: 6.5, h: 0.55, fontSize: 13, color: C.text2 });
+  });
+  const dstats = [
+    ["1 s", "full inference of all 17 BNS parameters, without those approximations"],
+    ["30%", "smaller median 90% sky area than BAYESTAR"],
+    ["~1000×", "faster than existing methods on GW170817, reproducing the LVK result"],
+  ];
+  dstats.forEach((d, i) => {
+    const y = 1.55 + i * 1.3;
+    card(s, 8.3, y, 4.4, 1.15, HEX.lt2, "DINGO stat " + (i + 1));
+    txt(s, d[0], { x: 8.5, y: y + 0.1, w: 1.75, h: 0.95, fontSize: 28, bold: true, color: C.accent2, fontFace: "Arial", valign: "middle" });
+    txt(s, d[1], { x: 10.3, y: y + 0.1, w: 2.25, h: 0.95, fontSize: 13, color: C.text2, valign: "middle" });
+  });
+  txt(s, "Dax et al. 2025, Nature 639, 49–53, doi:10.1038/s41586-025-08593-z", { x: 0.6, y: 5.4, w: 12.1, h: 0.3, fontSize: 12, italic: true, color: C.accent5, valign: "middle" });
+  card(s, 0.6, 5.8, 12.1, 0.92, "FDF0E3", "reading panel");
+  txt(s, [
+    { text: "Read carefully: ", options: { bold: true, color: C.accent1 } },
+    { text: "BAYESTAR already works in seconds, so the case for ML is the same speed with the complete data, all parameters and smaller areas. The figures are the authors' own, and the paper notes that long signals are more exposed to non-stationary, non-Gaussian noise.", options: {} },
+  ], { x: 0.85, y: 5.86, w: 11.6, h: 0.8, fontSize: 14, valign: "middle" });
+  s.addNotes("Source: Dax, Green, Gair, Gupte, Puerrer, Raymond, Wildberger, Macke, Buonanno, Schoelkopf (2025), Real-time inference for binary neutron star mergers using machine learning, Nature 639, 49-53. The argument has four steps: speed matters for follow-up; standard Bayesian inference is too slow because BNS signals are long; the existing fast method (BAYESTAR) uses the SNR time series instead of the full strain; a trained network gives fast inference for every new event. Reported results: about 1 s for all 17 parameters, median 90% sky area 30% smaller than BAYESTAR, and GW170817 reproduced three orders of magnitude faster than existing methods. The two quoted sentences were checked against the PMC full text; the numbers are the authors' own comparisons. The paper's remark on non-stationary and non-Gaussian noise in long signals is the link to my proposal: testing calibration on real noise.");
+
   // =============== 11. Landscape ===============
   s = pres.addSlide({ masterName: "CONTENT", sectionTitle: "Next: GW sky localization" });
   s.addText("Prior work: fast already, trust is the open question", { placeholder: "title" });
